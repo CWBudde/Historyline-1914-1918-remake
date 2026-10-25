@@ -22,11 +22,15 @@ import (
 	"testing"
 )
 
-// quaySeasons are the pier paintings and the suffix of the IDs exported from
-// each.
-var quaySeasons = []struct{ master, suffix string }{
-	{"quay-pier-shared-v1.png", ""},
-	{"quay-pier-winter-v1.png", "_w"},
+// quaySeasons are the pier paintings, the suffix of the IDs exported from
+// each and the finish the export gives the strip (quayWinterFinish: the
+// winter deck's tone and the ice collar).
+var quaySeasons = []struct {
+	master, suffix string
+	finish         func(quayStrip) quayStrip
+}{
+	{"quay-pier-shared-v1.png", "", nil},
+	{"quay-pier-winter-v1.png", "_w", quayWinterFinish},
 }
 
 func TestGenerateQuayTiles(t *testing.T) {
@@ -64,6 +68,9 @@ func TestGenerateQuayTiles(t *testing.T) {
 		strip, err := newQuayStrip(im)
 		if err != nil {
 			t.Fatal(err)
+		}
+		if season.finish != nil {
+			strip = season.finish(strip)
 		}
 		for _, axis := range []string{"quay14", "quay25", "quay36"} {
 			tiles, err := quayTiles(strip, axis)

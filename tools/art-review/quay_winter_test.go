@@ -13,9 +13,10 @@ import (
 )
 
 // The winter quays (tile/quay*_w) are the summer quays under snow: the same
-// outline, a packed-snow deck in the winter road's colour with the two cart
-// tracks kept as darker ruts, no summer green and no paint-white crown, and
-// chains that join without a seam. They are judged at 4x as the pack grades
+// outline, a packed-snow deck in the winter road's colour and lightness with
+// the two cart tracks kept as darker ruts, a pale ice collar along both
+// waterlines, no summer green and no paint-white crown, and chains that join
+// without a seam. They are judged at 4x as the pack grades
 // them (terraingrade), over the graded winter water.
 
 // quayDeck is the half-width of the sett deck between the kerbs, and of the
@@ -183,18 +184,27 @@ func TestQuayWinterTiles(t *testing.T) {
 			summer := loadQuayAsset(t, fmt.Sprintf("terrain/quay/%s-4x.png", id))
 			winter := loadQuayAsset(t, fmt.Sprintf("terrain/quay/%s_w-4x.png", id))
 
-			// The outline is the summer quay's.
-			var and, or int
-			for i := 3; i < len(summer.Pix); i += 4 {
-				s, w := summer.Pix[i] > 128, winter.Pix[i] > 128
-				if s && w {
-					and++
-				}
-				if s || w {
-					or++
+			// The outline is the summer quay's, but for the ice collar on the
+			// water within 2.5 world px outside it along the sides.
+			var and, or, collar int
+			for y := range summer.Rect.Dy() {
+				for x := range summer.Rect.Dx() {
+					i := summer.PixOffset(x, y) + 3
+					s, w := summer.Pix[i] > 128, winter.Pix[i] > 128
+					if w && !s && math.Abs(quayAcross(id, x, y)) > quayWidth/2-.5 && math.Abs(quayAcross(id, x, y)) <= quayWidth/2+2.5 {
+						collar++
+						continue
+					}
+					if s && w {
+						and++
+					}
+					if s || w {
+						or++
+					}
 				}
 			}
 			iou := float64(and) / float64(or)
+			raw := float64(and) / float64(or+collar)
 
 			ws := over(terraingrade.Grade(winter, "tile/"+id+"_w", "terrain/quay", nil), water)
 			ss := over(terraingrade.Grade(summer, "tile/"+id, "terrain/quay", nil), water)
@@ -230,17 +240,35 @@ func TestQuayWinterTiles(t *testing.T) {
 				}
 			}
 
+			// An ice collar runs along the waterline: on the outer 2 world px
+			// of the pier on both water sides most samples are pale grey ice.
+			var band, ice int
+			for y := range ws.Rect.Dy() {
+				for x := range ws.Rect.Dx() {
+					if winter.NRGBAAt(x, y).A <= 128 || math.Abs(quayAcross(id, x, y)) < quayWidth/2-2 {
+						continue
+					}
+					band++
+					if l, a, b := winterLab(ws.NRGBAAt(x, y)); l >= 70 && math.Hypot(a, b) <= 12 {
+						ice++
+					}
+				}
+			}
+
 			seam, inner := quaySeam(id, winter)
 			sseam, sinner := quaySeam(id, summer)
 
-			t.Logf("IoU %.4f; deck L*a*b* %.1f,%.1f,%.1f vs road %.1f,%.1f,%.1f: dE %.1f; ruts %v depth %.1f/%.1f (summer %v depth %.1f/%.1f); green %.2f%%; white %d of %d; seam %.2f inner %.2f (summer %.2f, %.2f)",
-				iou, dl, da, db, rl, ra, rb, dE, wpos, wdepth[0], wdepth[1], spos, sdepth[0], sdepth[1],
+			t.Logf("IoU %.4f (with the collar %.4f); deck L*a*b* %.1f,%.1f,%.1f vs road %.1f,%.1f,%.1f: dL %+.1f dE %.1f; ice collar %.1f%% of %d; ruts %v depth %.1f/%.1f (summer %v depth %.1f/%.1f); green %.2f%%; white %d of %d; seam %.2f inner %.2f (summer %.2f, %.2f)",
+				iou, raw, dl, da, db, rl, ra, rb, dl-rl, dE, 100*float64(ice)/float64(band), band, wpos, wdepth[0], wdepth[1], spos, sdepth[0], sdepth[1],
 				100*float64(green)/float64(opaque), white, middle, seam, inner, sseam, sinner)
 			if iou < .98 {
 				t.Errorf("alpha IoU %.4f, want >= 0.98", iou)
 			}
-			if dE > 8 {
-				t.Errorf("deck dE %.1f from the winter road, want <= 8", dE)
+			if dE > 8 || math.Abs(dl-rl) > 3 {
+				t.Errorf("deck dE %.1f, dL* %+.1f from the winter road, want <= 8 and within 3", dE, dl-rl)
+			}
+			if band == 0 || float64(ice) < .6*float64(band) {
+				t.Errorf("ice collar %d of %d px on the water side, want >= 60 %%", ice, band)
 			}
 			for i := range wpos {
 				if math.Abs(float64(wpos[i]-spos[i])) > 2 || wdepth[i] < 2 {
@@ -260,16 +288,20 @@ func TestQuayWinterTiles(t *testing.T) {
 	}
 }
 
-// The selected winter pier is a strip the export can make periodic, like the
-// summer one.
+// The selected winter pier, with its export finish, is a strip the export can
+// make periodic, like the summer one.
 func TestQuayWinterStripIsPeriodic(t *testing.T) {
 	im, err := loadPNG(filepath.Join("..", "..", "art", "terrain", "quay", "quay-pier-winter-v1.png"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	s, err := newQuayStrip(im)
+	painted, err := newQuayStrip(im)
 	if err != nil {
 		t.Fatal(err)
+	}
+	s := quayWinterFinish(painted)
+	if s.centre != painted.centre || s.k != painted.k || s.im == painted.im {
+		t.Fatalf("the finish moved the strip or painted into the master")
 	}
 	for id, step := range quayAxes {
 		if _, err := quayTiles(s, id); err != nil {

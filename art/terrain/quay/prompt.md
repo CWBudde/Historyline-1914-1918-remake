@@ -25,13 +25,18 @@ worn cart tracks; alpha zero outside the pier, no water.
 | quay36 | quay36, quay36_w | The strip turned to the vertical N/S axis. |
 
 The winter IDs (`_w`) come the same way from `quay-pier-winter-v1.png`, a seasonal edit of the summer pier
-with the same outline and cart tracks.
+with the same outline and cart tracks, which the export finishes (`quayWinterFinish` in
+`tools/art-review/quay_winter.go`): the deck between the kerbs goes 6.9 L* darker as the pack grade shows
+it, to the graded winter road, with the ruts keeping their graded depth; and a pale ice collar runs along
+both waterlines, 1.2–2.5 world px wide in all: over the timber fender up to a thin dark line before the
+kerb (bollard caps kept clear) and on as a shelf with a broken, feathered edge 0.2–1 world px out onto the
+water.
 
 ## Edges & joins
 One horizontal painting serves all three axes. The export makes the strip periodic over the distance
-between two hex centres on the axis, so a chain of quay hexes joins without a seam, scales it to 26 world
-px overall (22 kerb to kerb, the road's width at the ports), turns it, adds a soft shadow toward the lower
-right and clips it to the hex.
+between two hex centres on the axis, so a chain of quay hexes joins without a seam, scales it to 36 world
+px overall, fenders included (a road, 25, leaves stone either side), turns it, adds a soft shadow toward
+the lower right and clips it to the hex.
 
 ## Post
 
@@ -41,9 +46,11 @@ right and clips it to the hex.
 484–512 and 549–579); packed grey snow on the setts with the two cart tracks as darker slush ruts, snow on
 the kerb tops and bollard heads, dark wet fenders; solid 28.9 %, haze 1.4 %, mean RGB 146,143,143. Exported
 tiles (graded, 4x): alpha IoU against the summer tiles 0.998–0.9996, deck ΔE 6.9 from the winter road's
-carriageway, ruts within 1 px of the summer tracks. Faults: no visible ice collar at the fenders; the deck
-is a little lighter than the road (L* 67.6 against 60.7 graded). Selected: the export turns it to quay14_w,
-quay25_w and quay36_w. Attachment: image 1 `art/terrain/quay/quay-pier-shared-v1.png`. The prompt was:
+carriageway, ruts within 1 px of the summer tracks. Faults as painted: no visible ice collar at the
+fenders; the deck a little lighter than the road (L* 67.6 against 60.7 graded); the export's winter finish
+(2026-10-25) mends both: deck L* 60.4, ice on 66–68 % of the outer 2 world px. Selected: the export turns
+it to quay14_w, quay25_w and quay36_w. Attachment: image 1 `art/terrain/quay/quay-pier-shared-v1.png`.
+The prompt was:
 
 ```text
 Use case: precise-object-edit. Image 1 is the selected summer stone quay pier: a transparent RGBA 1536x1024 LANDSCAPE cut-out, strict nadir, one straight horizontal pier from the left edge to the right edge, opaque only from y=381 to y=682, alpha zero above and below. Preserve the exact canvas size, the pier's outline, position and width, every kerb block, bollard, fender bolt and sett exactly where it is, and the flat lighting; change only the season to winter, overcast cold light:
