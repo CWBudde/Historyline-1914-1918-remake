@@ -8,8 +8,8 @@ masters: path-earth-shared-v2.png, path-earth-shared-v1.png, path-track-winter-v
 ---
 
 ## Look
-Narrow earth track. In the reference it is a pale tan dirt track with two faint wheel ruts and a thin
-darker edge, meadow growing right up to it.
+Earth cart track as wide as the road. In the reference it is a pale tan dirt track with two faint wheel
+ruts and a thin darker edge, meadow growing right up to it.
 
 ## Base prompt
 Opaque square material canvas, filled edge to edge with warm muted tan compacted fine earth: tiny sandy
@@ -37,9 +37,10 @@ grass or objects: the renderer cuts the track.
 | winter | path125_w, path13_w, path135_w, path136_w, path14_w, path15_w, path24_w, path25_w, path26_w, path346_w, path35_w, path356_w, path36_w, path46_w | The same courses in winter: a grey trodden track of packed snow and slush with two narrow cart ruts, its verge under snow. |
 
 ## Edges & joins
-The path is 7 world pixels wide with a 0.75-pixel earth border, centred on the shared port centres and
-continuing through each port. The winter forms keep the geometry; the renderer draws two cart ruts 1.6
-world pixels either side of the centre line.
+The path is 22 world pixels wide with a 2-pixel earth border, as wide as the road, centred on the shared
+port centres and continuing straight through each port. The renderer draws two faint earth wheel ruts 5
+world pixels either side of the centre line; the winter forms keep the geometry and draw two cart ruts of
+slush there instead.
 
 ## Post
 
@@ -72,19 +73,24 @@ Corrections from the measured previous edit: its left and right edges did not ma
 Attached references: image 1 is the summer cart-track strip to edit; copy none of its colours, keep all of its layout.
 ```
 
-`art-review -connected art/pipeline/connected-paths-v2.json` cuts the earth material to each port set over
+`art-review -connected art/pipeline/connected-paths-v3.json` cuts the earth material to each port set over
 meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
-The selected built-in imagegen master is native 1254×1254 RGB, with irregular fine grains and subdued
-wear. The former earth source remains a retained draft. The path footprint and ports are unchanged.
+Its `markings: ruts` wear two faint cart ruts (offset 5, full within 0.5, fading over 1.2 world px) 0.45
+toward the earth border, which keeps its plain earth. The verge wear, warp and junction union of the
+7-pixel path (`connected-paths-v1`/`v2`) scale with width/7. `TestTracksAsWideAsTheRoad` measures every
+installed port, summer and winter: core 21.97–22.06, outer 25.97–26.0 world px, as road36.
 
-`connected-paths-winter-v1.json` renders the `_w` forms from the winter road material
+The selected built-in imagegen master is native 1254×1254 RGB, with irregular fine grains and subdued
+wear. The former earth source remains a retained draft.
+
+`connected-paths-winter-v2.json` renders the `_w` forms from the winter road material
 `art/terrain/road/road-snow-winter-v1.png` with `markings: ruts` and `verge: snow`: two narrow cart ruts,
 and the earth verge blended 0.9 toward the winter ground (`grass-winter-v1.png`). The winter maps draw them
 in place of the summer paths. The tagged generator `TestGenerateWinterPathsAndRails` (`campaigngfx`)
 installs them with the winter rails, crossings and footbridge tiles; `TestWinterPathsAndRailsMeetCriterion`
-measures them over the winter ground: verge ΔE 4.3–5.2 from the ground beside it, no summer green,
-surface L\* 49–51 within ΔE 1.1–3.5 of the `road36_w` surface. The unpromoted strip `path-track-winter-v1.png`
+measures them over the winter ground: verge ΔE 3.5–4.6 from the ground beside it, no summer green,
+surface L\* 53–55 within ΔE 0.3–3.0 of the `road36_w` surface. The unpromoted strip `path-track-winter-v1.png`
 is not used.
 
 ## Avoid

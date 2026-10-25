@@ -3,11 +3,11 @@
 package main
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWinterPathsAndRails -count=1 -v
-// Renders the winter paths (tile/path*_w, connected-paths-winter-v1) into
+// Renders the winter paths (tile/path*_w, connected-paths-winter-v2) into
 // assets/terrain/path/, the winter rails (tile/rail*_w,
-// connected-rail-winter-v1) into assets/terrain/rail/, and the winter
+// connected-rail-winter-v2) into assets/terrain/rail/, and the winter
 // footbridge tiles and level crossings (tile/bridge25_w, bridge36_w,
-// cross1_w..cross4_w, connected-mixed-winter-v1: the summer mixed tiles with
+// cross1_w..cross4_w, connected-mixed-winter-v2: the summer mixed tiles with
 // winter path, road and rail components) into assets/terrain/bridge/ and
 // assets/terrain/cross/, replacing earlier winter exports, and lists them in
 // assets/index.json; run `go run ./cmd/hlart index` afterwards. This generator
@@ -29,7 +29,7 @@ import (
 
 func TestGenerateWinterPathsAndRails(t *testing.T) {
 	root := filepath.Join("..", "..")
-	mixed, err := loadWinterMixedInputs(filepath.Join(root, "art/pipeline/connected-mixed-winter-v1.json"))
+	mixed, err := loadWinterMixedInputs(filepath.Join(root, "art/pipeline/connected-mixed-winter-v2.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -70,7 +70,7 @@ func TestGenerateWinterPathsAndRails(t *testing.T) {
 			entries = append(entries, raw)
 		}
 	}
-	for _, name := range []string{"connected-paths-winter-v1.json", "connected-rail-winter-v1.json"} {
+	for _, name := range []string{"connected-paths-winter-v2.json", "connected-rail-winter-v2.json"} {
 		in, err := loadConnectionInputs(filepath.Join(root, "art/pipeline", name))
 		if err != nil {
 			t.Fatal(err)

@@ -314,7 +314,7 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 			return in, errors.New("profile requires width 2..28, border 0..6, outer radius <=20")
 		}
 		if f.ID == "rail" && f.Width < 8 {
-			return in, errors.New("rail profile requires core width >=8 world px for fixed-gauge rails and sleepers")
+			return in, errors.New("rail profile requires core width >=8 world px for its rails and sleepers")
 		}
 		if f.ID == "trench" && (f.Width < 4 || f.Width > 10 || f.Border < 1.5 || f.Border > 5) {
 			return in, errors.New("trench profile requires width 4..10 and border 1.5..5 world px")
@@ -386,8 +386,12 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 			report.Method += fmt.Sprintf(" Road markings=ruts replace the dashes and edge lines: two slush ruts %.1f world px either side of every course's centre line blend the surface toward RGB(%d,%d,%d) at weight %.2f, full within %.1f world px and fading by smoothstep over a further %.1f.", connectionRutOffset, connectionRutColor.R, connectionRutColor.G, connectionRutColor.B, connectionRutStrength, connectionRutCore, connectionRutFade)
 		}
 		switch {
+		case f.ID == "path" && f.Markings == "ruts" && f.Verge == "":
+			offset, core, fade := connectionPathRutProfile(f.Width)
+			report.Method += fmt.Sprintf(" Path markings=ruts: two faint cart ruts %.1f world px either side of the centre line (full within %.1f, fading over %.1f) blend the surface toward the earth border material at weight %.2f; the earth verge is unchanged.", offset, core, fade, connectionPathSummerRutStrength)
 		case f.Verge == "snow" && f.ID == "path":
-			report.Method += fmt.Sprintf(" Path markings=ruts, verge=snow: two cart ruts %.1f world px either side of the centre line (full within %.1f, fading over %.1f) and the earth border blended toward the sampled grass (winter ground) material at weight %.2f.", connectionPathRutOffset, connectionPathRutCore, connectionPathRutFade, connectionSnowVergeMix)
+			offset, core, fade := connectionPathRutProfile(f.Width)
+			report.Method += fmt.Sprintf(" Path markings=ruts, verge=snow: two cart ruts %.1f world px either side of the centre line (full within %.1f, fading over %.1f) and the earth border blended toward the sampled grass (winter ground) material at weight %.2f.", offset, core, fade, connectionSnowVergeMix)
 		case f.Verge == "snow" && f.ID == "rail":
 			report.Method += fmt.Sprintf(" Rail verge=snow: the ballast blends toward the sampled grass (winter ground) material at weight %.2f between the sleepers, rising by smoothstep to %.2f on the shoulders beyond the sleeper ends and on the earth border; sleepers blend toward it at %.2f; steel darkens toward RGB(%d,%d,%d) at weight %.2f.", connectionRailSnowBetween, connectionSnowVergeMix, connectionRailSnowDust, connectionRailWinterSteel.R, connectionRailWinterSteel.G, connectionRailWinterSteel.B, connectionRailWinterSteelMix)
 		case f.Verge == "snow":
@@ -432,8 +436,14 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		if mat == nil {
 			continue
 		}
+		width := 0.
+		for _, f := range in.manifest.Families {
+			if f.ID == id {
+				width = f.Width
+			}
+		}
 		if id == "rail" {
-			profile := fixedConnectionRailProfile()
+			profile := connectionRailProfileFor(width)
 			report.RailProfile = &profile
 		}
 		if id == "trench" {
@@ -442,6 +452,9 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		}
 		if id == "path" {
 			report.PathInterior = "Path-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(0.55*sin(A),0.55*sin(B)), displacement length <=0.55*sqrt(2)*E world px. Wear=0.2*sin(5*A+2*B+0.7)*sin(3*B-A); core radius=width/2+E*(0.4*sin(A+0.4)*cos(B)+wear). For 3+-port junctions smoothly union core SDF with a central disc of radius 0.65*width at warped coordinates: h=max(1.5-abs(core-disc),0)/1.5, merged=min(core,disc)-1.5*h*h/4, core=core+E*(merged-core). Border=border*(1-0.45*E+0.25*E*sin(B+0.7)). Pocket=S((sin(2*A+0.3)*cos(3*B-0.4)+0.15)/0.9); bank opacity=1-0.75*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). The 8-world-pixel edge zone is unchanged; full variation begins at 16 px. Cores stay opaque; irregular translucent earth verges reveal underlying terrain without baked-in grass. Road and stream arithmetic is unchanged."
+			if k := connectionPathScale(width); k != 1 {
+				report.PathInterior += fmt.Sprintf(" This path is %g world px wide: the warp, radius and wear amplitudes and the junction union span are those above scaled by width/%g = %.3g, and its cart ruts lie %.3g world px either side of the centre line.", width, connectionPathBaseWidth, k, connectionPathRutOffset*k)
+			}
 		}
 		name := id + "-material-source.png"
 		artifacts = append(artifacts, connectionArtifact{name, in.sources[id]})

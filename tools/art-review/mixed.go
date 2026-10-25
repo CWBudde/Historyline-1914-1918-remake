@@ -109,8 +109,12 @@ func decodeMixedManifest(b []byte) (mixedManifest, error) {
 }
 
 // mixedProfileCompatible reports whether a component family keeps the width
-// and border the bridges and crossings are built for.
+// and border the bridges and crossings are built for. Paths and rails come
+// narrow (7/0.75, 11/1) or as wide as the marked road (22/2).
 func mixedProfileCompatible(f connectionFamily) bool {
+	if (f.ID == "path" || f.ID == "rail") && f.Width == 22 && f.Border == 2 {
+		return true
+	}
 	expected := map[string][2]float64{"road": {14, 2}, "stream": {18, 2.5}, "path": {7, .75}, "rail": {11, 1}}
 	profile, ok := expected[f.ID]
 	if f.ID == "road" && (f.Markings == "dashed" || f.Markings == "ruts") {

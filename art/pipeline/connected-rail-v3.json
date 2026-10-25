@@ -1,0 +1,213 @@
+{
+  "families": [
+    {
+      "border": 2,
+      "border_material": "earth",
+      "id": "rail",
+      "material": "rail",
+      "variants": [
+        {
+          "id": "rail13",
+          "ports": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "rail14",
+          "ports": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "rail15",
+          "ports": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "rail236",
+          "ports": [
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "id": "rail24",
+          "ports": [
+            2,
+            4
+          ]
+        },
+        {
+          "id": "rail25",
+          "ports": [
+            2,
+            5
+          ]
+        },
+        {
+          "id": "rail26",
+          "ports": [
+            2,
+            6
+          ]
+        },
+        {
+          "id": "rail346",
+          "ports": [
+            3,
+            4,
+            6
+          ]
+        },
+        {
+          "id": "rail35",
+          "ports": [
+            3,
+            5
+          ]
+        },
+        {
+          "id": "rail356",
+          "ports": [
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "id": "rail36",
+          "ports": [
+            3,
+            6
+          ]
+        },
+        {
+          "id": "rail46",
+          "ports": [
+            4,
+            6
+          ]
+        }
+      ],
+      "width": 22
+    }
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "materials": {
+    "earth": {
+      "source": "art/terrain/ground/ground-earth-bank-shared-v2.png",
+      "source_sha256": "8399070818d73a849b7bf40fa3059311122e6b8ff3fd2ce1773a271ff664023e"
+    },
+    "grass": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "rail": {
+      "source": "art/terrain/rail/rail-ballast-shared-v2.png",
+      "source_sha256": "2c86080514ffdb06553c119e6d628d6a0ba6d491314a3f3e1c01b9ba15bdd0dd"
+    },
+    "road": {
+      "source": "art/terrain/road/road-asphalt-shared-v2.png",
+      "source_sha256": "d7cb7df3725dbbb6c874bd53ded8525809718aed4f76945f4d0878dca73a1df6"
+    },
+    "steel": {
+      "source": "art/terrain/rail/rail-steel-shared-v2.png",
+      "source_sha256": "53c691a6fd802397bc79177ba1c060d4123460dd2efc50aad207cd429876acbb"
+    },
+    "timber": {
+      "source": "art/terrain/trench/trench-timber-shared-v2.png",
+      "source_sha256": "30af1ff162eef34687ef60d2034daa176421b84fdd6f7bbf5c1a8e6c4dcd603b"
+    },
+    "water": {
+      "source": "art/terrain/water/water-shared-v3.png",
+      "source_sha256": "69f7526af3efea9ef6c5f8542ed4170e25a46e032b93e4d3160c403831cff9cf"
+    }
+  },
+  "schema_version": 1
+}

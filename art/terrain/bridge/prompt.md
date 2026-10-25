@@ -28,9 +28,11 @@ approach path, letters, flags or other objects.
 ## Edges & joins
 The finite timber deck is registered to 48 logical pixels along its port axis and 12 pixels across,
 centred on `(48,40)` within a 96x80 canvas. Thin rails, posts and stone abutments extend beyond the deck.
-The path continues beyond each deck end and the stream passes underneath.
-The winter tiles `bridge25_w` and `bridge36_w` carry the winter path approaches (`path25_w`, `path36_w`)
-outside the deck; `connected-mixed-winter-v1.json` derives them and the tagged generator
+The path, 22 world pixels wide with a 2-pixel border like the road, continues beyond each deck end and
+the stream passes underneath; the tiles `bridge25` and `bridge36` carry these approaches outside the deck
+(`connected-mixed-v3.json`, which draws a procedural deck as wide as the path when no standing artwork is
+set). The winter tiles `bridge25_w` and `bridge36_w` carry the winter path approaches (`path25_w`,
+`path36_w`); `connected-mixed-winter-v2.json` derives them and the tagged generator
 `TestGenerateWinterPathsAndRails` installs them.
 
 ## Post

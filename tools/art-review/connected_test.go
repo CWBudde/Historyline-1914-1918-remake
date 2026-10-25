@@ -507,7 +507,14 @@ func TestConnectedRollsBackFailedOutputAndRejectsDuplicateJSON(t *testing.T) {
 
 // Exercise decoded PNGs with the runtime's ordinary source-over composition.
 // Polygon-edge AA in individual exports used to leave alpha 191/255 here.
+// The narrow path and the road-wide one both assemble without gaps.
 func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
+	for _, profile := range [][2]float64{{7, .75}, {22, 2}} {
+		t.Run(fmt.Sprint(profile[0]), func(t *testing.T) { testConnectedPNGAssembly(t, profile) })
+	}
+}
+
+func testConnectedPNGAssembly(t *testing.T, pathProfile [2]float64) {
 	dir, m := connectedFixture(t)
 	colors := map[string]color.NRGBA{"grass": {40, 80, 30, 255}, "road": {160, 130, 90, 255}, "earth": {90, 60, 35, 255}, "water": {40, 90, 130, 255}, "path": {210, 175, 115, 255}}
 	for id, c := range colors {
@@ -530,7 +537,9 @@ func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
 	}
 	families := m["families"].([]any)
 	families = append(families, map[string]any{"id": "stream", "width": 18, "border": 2.5, "material": "water", "border_material": "earth", "variants": []any{map[string]any{"id": "stream14", "ports": []int{1, 4}}, map[string]any{"id": "stream25", "ports": []int{2, 5}}, map[string]any{"id": "stream36", "ports": []int{3, 6}}}})
-	families = append(families, connectedPathFamily())
+	pathFamily := connectedPathFamily()
+	pathFamily["width"], pathFamily["border"] = pathProfile[0], pathProfile[1]
+	families = append(families, pathFamily)
 	m["families"] = families
 	out := filepath.Join(dir, "out")
 	path := writeConnectedManifest(t, dir, m)
@@ -569,7 +578,7 @@ func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
 		id            string
 		width, border float64
 		core          color.NRGBA
-	}{{"road", 14, 2, colors["road"]}, {"stream", 18, 2.5, colors["water"]}, {"path", 7, .75, colors["path"]}} {
+	}{{"road", 14, 2, colors["road"]}, {"stream", 18, 2.5, colors["water"]}, {"path", pathProfile[0], pathProfile[1], colors["path"]}} {
 		for _, scale := range []int{2, 4} {
 			for parity := 0; parity < 2; parity++ {
 				for port := 1; port <= 6; port++ {
@@ -758,9 +767,17 @@ func connectedSolidInputs(t *testing.T) connectionInputs {
 // Catches an organic path effect leaking into reciprocal guards, leaving
 // mathematically uniform interiors, or punching holes through the route core.
 func TestConnectedOrganicPathWearsInteriorAndProtectsPorts(t *testing.T) {
+	for _, profile := range [][2]float64{{7, .75}, {22, 2}} {
+		t.Run(fmt.Sprint(profile[0]), func(t *testing.T) { testConnectedOrganicPath(t, profile[0], profile[1]) })
+	}
+}
+
+// testConnectedOrganicPath checks the organic path wear on a path of the
+// given profile; a wider path wears in proportion.
+func testConnectedOrganicPath(t *testing.T, width, border float64) {
 	in := connectedSolidInputs(t)
 	g := in.manifest.Geometry
-	f := connectionFamily{ID: "path", Width: 7, Border: .75, Material: "path", BorderMaterial: "earth"}
+	f := connectionFamily{ID: "path", Width: width, Border: border, Material: "path", BorderMaterial: "earth"}
 	baseline := f
 	baseline.ID = "road"
 	v := connectionVariant{Ports: []int{1, 3, 5}}
@@ -785,7 +802,7 @@ func TestConnectedOrganicPathWearsInteriorAndProtectsPorts(t *testing.T) {
 			p := connectionPoint{float64(x) + .125, float64(y) + .375}
 			got := connectionFeature(in, f, route, p, p, .25)
 			want := connectionFeature(in, baseline, route, p, p, .25)
-			if p.sub(connectionPoint{48, 40}).length() < 6 && got == (color.NRGBA{210, 175, 115, 255}) && want != got {
+			if p.sub(connectionPoint{48, 40}).length() < .85*f.Width && got == (color.NRGBA{210, 175, 115, 255}) && want != got {
 				rounded++
 			}
 			if p.sub(connectionPoint{48, 40}).length() > 8 && want.A == 255 && got.A < 200 {

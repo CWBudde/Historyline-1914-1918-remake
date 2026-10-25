@@ -82,6 +82,12 @@ func TestMixedRawComposesBeforeFilteringAndFiniteBridge(t *testing.T) {
 
 func mixedFixture(t *testing.T) (string, mixedManifest) {
 	t.Helper()
+	return mixedFixtureTracks(t, [2]float64{7, .75}, [2]float64{11, 1})
+}
+
+// mixedFixtureTracks is mixedFixture with the given path and rail profiles.
+func mixedFixtureTracks(t *testing.T, pathProfile, railProfile [2]float64) (string, mixedManifest) {
+	t.Helper()
 	dir := t.TempDir()
 	mats := map[string]connectionMaterial{}
 	colors := map[string]color.NRGBA{"grass": {30, 100, 40, 255}, "earth": {90, 55, 30, 255}, "water": {30, 80, 170, 255}, "road": {170, 160, 140, 255}, "path": {205, 175, 90, 255}, "rail": {100, 110, 120, 255}, "timber": {100, 45, 15, 255}, "steel": {220, 230, 240, 255}}
@@ -119,10 +125,10 @@ func mixedFixture(t *testing.T) (string, mixedManifest) {
 				width, border, material = 18, 2.5, "water"
 			}
 			if id == "path" {
-				width, border = 7, .75
+				width, border = pathProfile[0], pathProfile[1]
 			}
 			if id == "rail" {
-				width, border = 11, 1
+				width, border = railProfile[0], railProfile[1]
 			}
 			f := connectionFamily{ID: id, Width: width, Border: border, Material: material, BorderMaterial: "earth"}
 			for _, axis := range []string{"14", "25", "36"} {

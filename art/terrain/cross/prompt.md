@@ -27,16 +27,18 @@ markings.
 | winter | cross1_w, cross2_w, cross3_w, cross4_w | The same crossings built from the winter path, road and rail (`path14_w`, `road14_w`, `road25_w`, `path36_w` over `rail36_w`, `rail14_w`); snow trodden into the plank infill. |
 
 ## Edges & joins
-Both ways keep their family widths and centre lines through the ports, so they join ordinary road,
-path and rail tiles exactly.
+Road, path and rail are each 22 world pixels wide with a 2-pixel border and keep their centre lines
+through the ports, so they join ordinary road, path and rail tiles exactly. The flush plank infill
+covers the intersection only: the way's width plus 1 world pixel either side, and 9 world pixels either
+side of the track's centre line (4.5 scaled with the rail family); the steel runs unbroken over it.
 
 ## Post
-Derived only: `art-review -mixed art/pipeline/connected-mixed-v1.json` layers the path or road variant over
-the rail variant. `connected-mixed-winter-v1.json` derives the winter crossings from
-`connected-mixed-v2.json`, swapping every layer for its `_w` form from `connected-road-winter-v1.json`,
-`connected-paths-winter-v1.json` and `connected-rail-winter-v1.json`; the plank infill blends 0.85 toward the winter surface of the
-crossing way, then 0.15 toward the rut slush, so the boards read as snowed over (infill within ΔE 3.8–6.3
-of that surface, C\* ≤ 3.8, in `TestWinterPathsAndRailsMeetCriterion`). The tagged generator `TestGenerateWinterPathsAndRails` owns all winter crossings
+Derived only: `art-review -mixed art/pipeline/connected-mixed-v3.json` layers the rail variant over the
+path or road variant. `connected-mixed-winter-v2.json` derives the winter crossings from
+`connected-mixed-v3.json`, swapping every layer for its `_w` form of the same profile from
+`connected-road-winter-v1.json`, `connected-paths-winter-v2.json` and `connected-rail-winter-v2.json`; the plank infill blends 0.85 toward the winter surface of the
+crossing way, then 0.15 toward the rut slush, so the boards read as snowed over (infill within ΔE 3.7–4.3
+of that surface, C\* ≤ 3.7, in `TestWinterPathsAndRailsMeetCriterion`). The tagged generator `TestGenerateWinterPathsAndRails` owns all winter crossings
 (`TestGenerateWinterRoads` only the winter roads): rerun it after changing a winter road, path or rail. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid

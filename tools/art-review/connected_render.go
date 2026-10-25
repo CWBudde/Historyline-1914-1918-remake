@@ -173,6 +173,12 @@ func connectionStreamProfile(g connectionGeometry, f connectionFamily, route con
 	return coreDistance, coreDistance - border, 1 - .65*envelope*pocket
 }
 
+// connectionPathBaseWidth is the path width the organic wear amplitudes and
+// the cart ruts are given for; connectionPathScale scales them to a family.
+const connectionPathBaseWidth = 7.
+
+func connectionPathScale(width float64) float64 { return width / connectionPathBaseWidth }
+
 // Paths keep straight, constant-width ports but wear down their interior verges.
 // The world-space phases repeat under every runtime lattice translation.
 func connectionPathProfile(g connectionGeometry, f connectionFamily, route connectionRoute, local, world connectionPoint) (float64, float64, float64) {
@@ -185,14 +191,17 @@ func connectionPathProfile(g connectionGeometry, f connectionFamily, route conne
 	envelope := connectionSmoothStep((edgeDistance - 8) / 8)
 	phaseA := 2 * math.Pi * (world[0]/142 + world[1]/80)
 	phaseB := 2 * math.Pi * (world[0]/142 - world[1]/80)
-	warped := local.add(connectionPoint{.55 * envelope * math.Sin(phaseA), .55 * envelope * math.Sin(phaseB)})
-	wear := .2 * math.Sin(5*phaseA+2*phaseB+.7) * math.Sin(3*phaseB-phaseA)
-	radius := f.Width/2 + envelope*(.4*math.Sin(phaseA+.4)*math.Cos(phaseB)+wear)
+	// A wider path wears its verges in proportion.
+	k := connectionPathScale(f.Width)
+	warped := local.add(connectionPoint{.55 * k * envelope * math.Sin(phaseA), .55 * k * envelope * math.Sin(phaseB)})
+	wear := .2 * k * math.Sin(5*phaseA+2*phaseB+.7) * math.Sin(3*phaseB-phaseA)
+	radius := f.Width/2 + envelope*(.4*k*math.Sin(phaseA+.4)*math.Cos(phaseB)+wear)
 	coreDistance := connectionRouteDistance(route, warped) - radius
 	if route.junction && envelope > 0 {
 		disc := warped.sub(connectionPoint{48, 40}).length() - .65*f.Width
-		h := math.Max(1.5-math.Abs(coreDistance-disc), 0) / 1.5
-		merged := math.Min(coreDistance, disc) - 1.5*h*h/4
+		union := 1.5 * k
+		h := math.Max(union-math.Abs(coreDistance-disc), 0) / union
+		merged := math.Min(coreDistance, disc) - union*h*h/4
 		coreDistance += envelope * (merged - coreDistance)
 	}
 	border := f.Border * (1 - .45*envelope + .25*envelope*math.Sin(phaseB+.7))
@@ -238,11 +247,14 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 		// A narrow dusty gravel shoulder borders the grey pavement; in winter
 		// it is dirty snow. A winter path's verge is the snow it is trodden
 		// into.
-		if route.road.cart && route.road.snow {
+		switch {
+		case route.road.cart && route.road.snow:
 			bank = connectionBlend(bank, sampleGrassMaterial(in.materials["grass"], world), connectionSnowVergeMix)
-		} else if route.road.snow {
+		case route.road.cart:
+			// A summer path keeps its earth verge.
+		case route.road.snow:
 			bank = connectionBlend(bank, connectionSnowShoulder, connectionSnowShoulderMix)
-		} else {
+		default:
 			bank = connectionBlend(bank, connectionDustyShoulder, .35)
 		}
 	}
@@ -256,7 +268,11 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 		}
 	}
 	if route.road != nil && core > 0 {
-		if route.road.ruts {
+		if route.road.ruts && route.road.cart && !route.road.snow {
+			// Summer cart ruts: the track worn toward its darker earth.
+			earth := sampleConnectionMaterial(in.materials[f.BorderMaterial], world)
+			bank = connectionBlend(bank, earth, core*connectionRoadRutAt(*route.road, local))
+		} else if route.road.ruts {
 			bank = connectionBlend(bank, connectionRutColor, core*connectionRoadRutAt(*route.road, local))
 		} else {
 			paint := connectionRoadPaintAt(*route.road, local, aa)

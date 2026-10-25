@@ -1,0 +1,22 @@
+{
+  "base": {
+    "source": "art/pipeline/connected-mixed-v3.json",
+    "source_sha256": "70adf73f1ba183be09c25d76a0c6301ed37d82a88ed9a5fdbef52c648ee35664"
+  },
+  "manifests": [
+    {
+      "source": "art/pipeline/connected-road-winter-v1.json",
+      "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
+    },
+    {
+      "source": "art/pipeline/connected-paths-winter-v2.json",
+      "source_sha256": "501cd5ffd945e6dadd5dc0e035093fd47a92bbeabd9e3bb1a5c2d0e12cd5d530"
+    },
+    {
+      "source": "art/pipeline/connected-rail-winter-v2.json",
+      "source_sha256": "1bb0ddcc61b66de12c6c419dd5f7221b9428e8d583079f4ae4d2056b99068a6c"
+    }
+  ],
+  "schema_version": 1,
+  "variants": ["bridge25", "bridge36", "cross1", "cross2", "cross3", "cross4"]
+}

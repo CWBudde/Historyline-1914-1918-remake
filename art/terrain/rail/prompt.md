@@ -8,8 +8,8 @@ masters: rail-ballast-shared-v2.png, rail-steel-shared-v2.png, rail-ballast-shar
 ---
 
 ## Look
-Single-track railway: a narrow grey ballast bed with dark timber sleepers and two thin steel rails,
-in the same muted palette and scale as the road.
+Single-track railway: a grey ballast bed as wide as the road with dark timber sleepers and two thin
+steel rails, in the same muted palette and scale as the road.
 
 ## Base prompt
 Opaque 6:5 material canvas filled edge to edge with compacted railway ballast: small angular weathered
@@ -34,9 +34,10 @@ neutral grey-brown, quiet contrast. No rails, sleepers, grass, verges or track l
 | winter | rail13_w, rail14_w, rail15_w, rail236_w, rail24_w, rail25_w, rail26_w, rail346_w, rail35_w, rail356_w, rail36_w, rail46_w | The same track in winter: snow deep on the ballast shoulders and verge, thinner between the sleepers, sleepers lightly dusted, rails dark cold steel. |
 
 ## Edges & joins
-The ballast bed is 11 world pixels wide with a 1-pixel earth border, centred on the shared port centres
-and continuing through each port; rails and sleepers run on the same centre line, so track joins
-exactly and crossings line up.
+The ballast bed is 22 world pixels wide with a 2-pixel earth border, as wide as the road, centred on
+the shared port centres and continuing straight through each port; rails (gauge 9, steel 1.4) and
+sleepers (15 × 2.1 at an 8-pixel pitch) run on the same centre line, so track joins exactly and
+crossings line up.
 
 ## Post
 
@@ -78,22 +79,27 @@ Corrections to a previous attempt: the rails must stay dark rust-brown steel (RG
 Attached references: image 1 (the summer rail strip to edit); copy none of their layout.
 ```
 
-`art-review -connected art/pipeline/connected-rail-v2.json` cuts the ballast, lays timber sleepers (trench
+`art-review -connected art/pipeline/connected-rail-v3.json` cuts the ballast, lays timber sleepers (trench
 timber material) and steel rails (steel material) along each port set. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+The track follows the family width: the 11-pixel track of `connected-rail-v1`/`v2` (gauge 4.5, steel 0.8,
+sleepers 7.5 × 1.05 at pitch 4) scaled by width/11, the steel widening only 0.6 per unit of scale so the
+rails stay thin lines. Port guards (8 world px) and centre lines do not change with the width.
+`TestTracksAsWideAsTheRoad` measures every installed port, summer and winter: core 21.8–22.1, outer
+25.97–26.0, gauge 8.9–9.0 world px; road36 22.0/26.0.
 
 Selected built-in imagegen masters: ballast is native 1536×1024 RGB; steel is native 1254×1254 RGB.
 The steel prompt specifies matte weathered dark grey steel, fine scratches, slight oxide and diffuse
 highlights; no chrome, rail silhouettes or objects. The former material sources remain retained drafts.
-The ballast footprint, rails and registered ports are unchanged.
 
-`connected-rail-winter-v1.json` renders the `_w` forms from the same materials with `verge: snow`: the
+`connected-rail-winter-v2.json` renders the `_w` forms from the same materials with `verge: snow`: the
 ballast blends toward the winter ground (`grass-winter-v1.png`) at 0.55 between the sleepers and 0.9 on the
 shoulders and earth border, the sleepers at 0.12, and the steel darkens 0.5 toward RGB 42,42,46. The winter
 maps draw them in place of the summer rails. The tagged generator `TestGenerateWinterPathsAndRails`
 (`campaigngfx`) installs them; `TestWinterPathsAndRailsMeetCriterion` measures them over the winter ground:
-verge ΔE 4.4–5.1 from the ground beside it, no summer green, rail centre lines L\* ≤ 40 along 99.4–99.8 %
-(summer steel 77–80 %), sleeper autocorrelation peak at the 4-world-pixel pitch (r 0.80–0.82). The
-unpromoted strip `rail-track-winter-v1.png` is not used.
+verge ΔE 4.6–5.0 from the ground beside it, no summer green, rail centre lines L\* ≤ 40 along 99.5–100 %,
+sleeper autocorrelation peak at the 8-world-pixel pitch (r 0.74–0.75). The unpromoted strip
+`rail-track-winter-v1.png` is not used.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

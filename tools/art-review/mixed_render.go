@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"math"
+	"strings"
 )
 
 type mixedProfile struct {
@@ -13,6 +15,41 @@ type mixedProfile struct {
 	GuardOuter float64 `json:"road_bridge_support_outer_halfwidth_world_px"`
 	Protected  float64 `json:"protected_port_zone_world_px"`
 	Method     string  `json:"method"`
+}
+
+// mixedFootbridgeHalf is the half-width of the procedural footbridge deck over
+// a path of the given width: 6 world px over the 7-pixel path, as wide as the
+// path itself over a wider one. Its side curbs run 1.5 world px beyond it.
+func mixedFootbridgeHalf(pathWidth float64) float64 {
+	if pathWidth <= connectionPathBaseWidth {
+		return 6
+	}
+	return pathWidth / 2
+}
+
+// mixedRailHalf is the half-width of a crossing's plank infill across the
+// track: 4.5 world px for the 11-pixel rail, scaled with the rail family.
+func mixedRailHalf(rail connectionFamily) float64 {
+	return 4.5 * connectionRailDimsFor(rail.Width).scale
+}
+
+// mixedPathApproach names the width of the footbridge's path approaches.
+func mixedPathApproach(pathWidth float64) string {
+	if pathWidth == connectionPathBaseWidth {
+		return "seven-pixel"
+	}
+	return fmt.Sprintf("%g-pixel", pathWidth)
+}
+
+// mixedProfileFor is the mixed profile with the footbridge built for the path
+// family of the given width.
+func mixedProfileFor(pathWidth float64) mixedProfile {
+	p := fixedMixedProfile()
+	if half := mixedFootbridgeHalf(pathWidth); half != 6 {
+		p.FootWidth = 2 * half
+		p.Method = strings.Replace(p.Method, "Footbridge 48x12 timber deck, side curbs at transverse 6..7.5, path-width 7 approaches retained", fmt.Sprintf("Footbridge 48x%g timber deck, side curbs at transverse %g..%g, path-width %g approaches retained", 2*half, half, half+1.5, pathWidth), 1)
+	}
+	return p
 }
 
 func fixedMixedProfile() mixedProfile {
@@ -75,6 +112,8 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 	var rail connectionRailGeometry
 	var roadRoute connectionRoute
 	var roadFamily connectionFamily
+	var railHalf float64
+	footHalf := 6.
 	switch v.Kind {
 	case "crossing":
 		road, track := in.components[v.Layers[0]], in.components[v.Layers[1]]
@@ -88,10 +127,12 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 		rail = connectionRailRoutes(g, track.family, track.variant)
 		roadRoute = connectionRoutes(g, road.family, road.variant)
 		roadFamily = road.family
+		railHalf = mixedRailHalf(track.family)
 	case "footbridge":
 		id := "path" + string(rune('0'+v.Ports[0])) + string(rune('0'+v.Ports[1]))
 		c := in.components[id]
 		base = renderConnectionRaw(c.input, &c.family, &c.variant)
+		footHalf = mixedFootbridgeHalf(c.family.Width)
 	default:
 		base = image.NewNRGBA(image.Rect(0, 0, 416, 352))
 	}
@@ -125,7 +166,7 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 				// (gauge, sleeper phase and ballast) unchanged near every boundary.
 				dRoad := connectionRouteDistance(roadRoute, p)
 				dRail := connectionRouteDistance(rail.ballast, p)
-				if mixedEdgeDistance(g, p) > 12 && dRoad < roadFamily.Width/2+1+.25 && dRail < 4.5+.25 {
+				if mixedEdgeDistance(g, p) > 12 && dRoad < roadFamily.Width/2+1+.25 && dRail < railHalf+.25 {
 					track := in.components[v.Layers[1]]
 					tangent := connectionRailUnit(g.Neighbors[track.variant.Ports[0]-1])
 					q := p.sub(connectionPoint{48, 40})
@@ -140,13 +181,13 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 					}
 					// Rounded approach/track intersection produces fitted flush
 					// boards without bridge curbs, posts, or raised shadows.
-					rx, ry := dRoad-roadFamily.Width/2-1+.6, dRail-4.5+.6
+					rx, ry := dRoad-roadFamily.Width/2-1+.6, dRail-railHalf+.6
 					rounded := math.Hypot(math.Max(rx, 0), math.Max(ry, 0)) + math.Min(math.Max(rx, ry), 0) - .6
 					a := connectionRamp(-rounded, .25)
 					infill.A = uint8(math.Floor(255*a + .5))
 					c = mixedOver(c, infill)
 					steel := connectionRailSteel(track.input, track.family, p)
-					steel.A = uint8(math.Floor(255*connectionRamp(connectionRailWidth/2-connectionRouteDistance(rail.rails, p), .25) + .5))
+					steel.A = uint8(math.Floor(255*connectionRamp(rail.dims.steel/2-connectionRouteDistance(rail.rails, p), .25) + .5))
 					c = mixedOver(c, steel)
 				}
 			} else {
@@ -156,7 +197,7 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 				along, across := q[0]*t[0]+q[1]*t[1], q[0]*n[0]+q[1]*n[1]
 				half := 11.
 				if v.Kind == "footbridge" {
-					half = 6
+					half = footHalf
 				}
 				// Abutments use opaque earth only within the finite span ends.
 				ramp := connectionRamp(-mixedBoxSDF(along, across, 28, half-.5, 1.5), .25)
@@ -177,7 +218,7 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 				}
 				inner, outer := 10., 12.5
 				if v.Kind == "footbridge" {
-					inner, outer = 6., 7.5
+					inner, outer = footHalf, footHalf+1.5
 				}
 				beam := connectionRamp(24-math.Abs(along), .25) * connectionRamp(math.Abs(across)-inner, .25) * connectionRamp(outer-math.Abs(across), .25)
 				if beam > 0 {

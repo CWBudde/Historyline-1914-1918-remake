@@ -21,7 +21,7 @@ func validateConnectionRoadFields(data []byte) error {
 			var id, s string
 			switch {
 			case strings.EqualFold(key, "markings"):
-				// Roads take dashed or ruts; winter paths take ruts.
+				// Roads take dashed or ruts; paths take ruts (cart ruts).
 				allowed := map[string][]string{"road": {"dashed", "ruts"}, "path": {"ruts"}}
 				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "markings" || !slices.Contains(allowed[id], s) {
 					return errors.New("markings requires the canonical value dashed or ruts on a road, or ruts on a path")
@@ -55,6 +55,9 @@ const (
 	connectionPathRutOffset = 1.6
 	connectionPathRutCore   = .3
 	connectionPathRutFade   = .7
+	// connectionPathSummerRutStrength is how far a summer path's cart ruts
+	// (markings ruts without the snow verge) wear toward its earth border.
+	connectionPathSummerRutStrength = .45
 	// connectionSnowVergeMix blends the earth border of winter paths and rails
 	// toward the winter ground they lie on.
 	connectionSnowVergeMix = .9
@@ -66,13 +69,21 @@ var (
 	connectionSnowShoulder  = color.NRGBA{214, 217, 222, 255}
 )
 
+// connectionPathRutProfile is the offset, core and fade of the cart ruts on a
+// path of the given width: the offset in proportion to the width, the ruts
+// themselves widening only with its square root, so they stay narrow.
+func connectionPathRutProfile(width float64) (offset, core, fade float64) {
+	k := connectionPathScale(width)
+	return connectionPathRutOffset * k, connectionPathRutCore * math.Sqrt(k), connectionPathRutFade * math.Sqrt(k)
+}
+
 // connectionRoadRutAt is the weight of the slush ruts at p: two tracks along
-// every course, connectionRutOffset (connectionPathRutOffset on a path) either
+// every course, connectionRutOffset (connectionPathRutProfile on a path) either
 // side of its centre line.
 func connectionRoadRutAt(paint connectionRoadPaint, p connectionPoint) float64 {
 	offset, core, fade := connectionRutOffset, connectionRutCore, connectionRutFade
 	if paint.cart {
-		offset, core, fade = connectionPathRutOffset, connectionPathRutCore, connectionPathRutFade
+		offset, core, fade = connectionPathRutProfile(paint.halfWidth * 2)
 	}
 	best := math.Inf(1)
 	for _, c := range paint.courses {
@@ -90,7 +101,11 @@ func connectionRoadRutAt(paint connectionRoadPaint, p connectionPoint) float64 {
 		}
 	}
 	off := math.Abs(math.Sqrt(best) - offset)
-	return connectionRutStrength * (1 - connectionSmoothStep((off-core)/fade))
+	strength := connectionRutStrength
+	if paint.cart && !paint.snow {
+		strength = connectionPathSummerRutStrength
+	}
+	return strength * (1 - connectionSmoothStep((off-core)/fade))
 }
 
 type connectionRoadCourse struct {
@@ -104,7 +119,7 @@ type connectionRoadPaint struct {
 	halfWidth float64
 	ruts      bool // slush ruts instead of the dashed centre and edge lines
 	snow      bool // dirty snow shoulders instead of dusty gravel
-	cart      bool // a winter path: narrow cart ruts, verges of winter ground
+	cart      bool // a path: narrow cart ruts; in winter (snow) verges of winter ground
 }
 
 // Markings follow the same curves as the surface. A fixed phase at each port

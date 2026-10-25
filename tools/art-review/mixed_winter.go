@@ -119,7 +119,7 @@ func loadWinterMixedInputs(path string) (winterMixedInputs, error) {
 			if !ok {
 				return w, fmt.Errorf("%s: no winter component %s_w", id, cid)
 			}
-			if c.family.ID != summer.family.ID || !reflect.DeepEqual(c.variant.Ports, summer.variant.Ports) || !mixedProfileCompatible(c.family) {
+			if c.family.ID != summer.family.ID || !reflect.DeepEqual(c.variant.Ports, summer.variant.Ports) || !mixedProfileCompatible(c.family) || c.family.Width != summer.family.Width || c.family.Border != summer.family.Border {
 				return w, fmt.Errorf("%s: winter component %s_w differs from %s in family, ports or profile", id, cid, cid)
 			}
 			w.winter[cid] = c

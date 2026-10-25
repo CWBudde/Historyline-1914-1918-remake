@@ -7,7 +7,7 @@ package main
 // assets/terrain/road/, replacing earlier winter exports, and lists them in
 // assets/index.json; run `go run ./cmd/hlart index` afterwards. The winter
 // level crossings, cross2_w and cross3_w included, belong to
-// TestGenerateWinterPathsAndRails (connected-mixed-winter-v1): rerun it after
+// TestGenerateWinterPathsAndRails (connected-mixed-winter-v2): rerun it after
 // changing the winter road.
 import (
 	"bytes"

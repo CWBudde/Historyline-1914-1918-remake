@@ -15,146 +15,201 @@ import (
 )
 
 // Winter paths: two narrow cart ruts on the snow-packed surface and snow
-// instead of the earth verge, at the summer path width.
+// instead of the earth verge, at the summer path width (7/0.75 and the road's
+// 22/2, whose ruts lie 5 world px out).
 func TestConnectedWinterPathActualPNG(t *testing.T) {
-	dir, m := connectedFixture(t)
-	f := connectedPathFamily()
-	f["markings"], f["verge"] = "ruts", "snow"
-	f["variants"] = []any{map[string]any{"id": "path36_w", "ports": []int{3, 6}}}
-	m["families"] = []any{f}
-	solid := func(name string, c color.NRGBA) connectionMaterial {
-		im := image.NewNRGBA(image.Rect(0, 0, 384, 320))
-		draw.Draw(im, im.Bounds(), image.NewUniform(c), image.Point{}, draw.Src)
-		return unitTestPNG(t, filepath.Join(dir, name), im)
-	}
-	mats := m["materials"].(map[string]any)
-	mats["path"] = solid("snow-track.png", color.NRGBA{140, 138, 140, 255})
-	mats["grass"] = solid("snow-ground.png", color.NRGBA{218, 221, 225, 255})
-	mats["earth"] = solid("earth.png", color.NRGBA{90, 60, 35, 255})
-	in, err := loadConnectionInputs(writeConnectedManifest(t, dir, m))
-	if err != nil {
-		t.Fatal(err)
-	}
-	tiles, err := exportConnectionTiles(in, &in.manifest.Families[0], &in.manifest.Families[0].Variants[0])
-	if err != nil {
-		t.Fatal(err)
-	}
-	im := tiles[4]
-	// Near the port the path keeps its fixed profile: core 3.5, verge .75.
-	y := 2 * 4
-	at := func(x float64) color.NRGBA { return im.NRGBAAt(int(x*4), y) }
-	centre := at(48)
-	for _, x := range []float64{48 - connectionPathRutOffset, 48 + connectionPathRutOffset} {
-		if rut := at(x); int(rut.R)+15 > int(centre.R) || rut.A != 255 {
-			t.Fatalf("rut at %v not darker than the centre: %v vs %v", x, rut, centre)
-		}
-	}
-	for _, x := range []float64{48 - 3.95, 48 + 3.95} {
-		if verge := at(x); verge.A < 128 || verge.R < 190 {
-			t.Fatalf("verge at %v is not snow: %v", x, verge)
-		}
-	}
-	for _, x := range []float64{48 - 5, 48 + 5} {
-		if outside := at(x); outside.A > 0 {
-			t.Fatalf("winter path wider than 7+.75: %v at %v", outside, x)
-		}
+	for _, profile := range []struct{ width, border, verge, outside, rut float64 }{{7, .75, 3.95, 5, 1.6}, {22, 2, 12, 14.5, 5.03}} {
+		t.Run(fmt.Sprint(profile.width), func(t *testing.T) {
+			dir, m := connectedFixture(t)
+			f := connectedPathFamily()
+			f["width"], f["border"] = profile.width, profile.border
+			f["markings"], f["verge"] = "ruts", "snow"
+			f["variants"] = []any{map[string]any{"id": "path36_w", "ports": []int{3, 6}}}
+			m["families"] = []any{f}
+			solid := func(name string, c color.NRGBA) connectionMaterial {
+				im := image.NewNRGBA(image.Rect(0, 0, 384, 320))
+				draw.Draw(im, im.Bounds(), image.NewUniform(c), image.Point{}, draw.Src)
+				return unitTestPNG(t, filepath.Join(dir, name), im)
+			}
+			mats := m["materials"].(map[string]any)
+			mats["path"] = solid("snow-track.png", color.NRGBA{140, 138, 140, 255})
+			mats["grass"] = solid("snow-ground.png", color.NRGBA{218, 221, 225, 255})
+			mats["earth"] = solid("earth.png", color.NRGBA{90, 60, 35, 255})
+			in, err := loadConnectionInputs(writeConnectedManifest(t, dir, m))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if offset, _, _ := connectionPathRutProfile(profile.width); math.Abs(offset-profile.rut) > .01 {
+				t.Fatalf("ruts %.2f world px out, want %.2f", offset, profile.rut)
+			}
+			tiles, err := exportConnectionTiles(in, &in.manifest.Families[0], &in.manifest.Families[0].Variants[0])
+			if err != nil {
+				t.Fatal(err)
+			}
+			im := tiles[4]
+			// Near the port the path keeps its fixed profile.
+			y := 2 * 4
+			at := func(x float64) color.NRGBA { return im.NRGBAAt(int(x*4), y) }
+			centre := at(48)
+			for _, x := range []float64{48 - profile.rut, 48 + profile.rut} {
+				if rut := at(x); int(rut.R)+15 > int(centre.R) || rut.A != 255 {
+					t.Fatalf("rut at %v not darker than the centre: %v vs %v", x, rut, centre)
+				}
+			}
+			for _, x := range []float64{48 - profile.verge, 48 + profile.verge} {
+				if verge := at(x); verge.A < 128 || verge.R < 190 {
+					t.Fatalf("verge at %v is not snow: %v", x, verge)
+				}
+			}
+			for _, x := range []float64{48 - profile.outside, 48 + profile.outside} {
+				if outside := at(x); outside.A > 0 {
+					t.Fatalf("winter path wider than %v+%v: %v at %v", profile.width, profile.border, outside, x)
+				}
+			}
+		})
 	}
 }
 
 // Winter rails: snow on the ballast shoulders and the earth border, a lighter
 // dusting between the sleepers, the sleepers still darker than the ballast
-// between them and the steel unchanged.
+// between them and the steel unchanged; on the 11-pixel track and on the
+// road-wide 22-pixel one, whose snow lines scale with the track.
 func TestConnectedWinterRailActualPNG(t *testing.T) {
-	dir, m := railTestFixture(t)
-	m["families"].([]any)[0].(map[string]any)["verge"] = "snow"
-	snow := color.NRGBA{220, 222, 226, 255}
-	ground := image.NewNRGBA(image.Rect(0, 0, 384, 320))
-	draw.Draw(ground, ground.Bounds(), image.NewUniform(snow), image.Point{}, draw.Src)
-	m["materials"].(map[string]any)["grass"] = unitTestPNG(t, filepath.Join(dir, "snow.png"), ground)
-	in, err := loadConnectionInputs(writeConnectedManifest(t, dir, m))
-	if err != nil {
-		t.Fatal(err)
-	}
-	f := in.manifest.Families[0]
-	var v connectionVariant
-	for _, c := range f.Variants {
-		if c.ID == "rail36" {
-			v = c
-		}
-	}
-	tiles, err := exportConnectionTiles(in, &f, &v)
-	if err != nil {
-		t.Fatal(err)
-	}
-	im := tiles[4]
-	at := func(x, y float64) color.NRGBA { return im.NRGBAAt(int(x*4), int(y*4)) }
-	ballast := railTestColors["rail"]
-	for _, x := range []float64{48 - 4.6, 48 + 4.6} {
-		if s := at(x, 18); s.R < 200 {
-			t.Fatalf("shoulder at %v not snowy: %v", x, s)
-		}
-	}
-	for _, x := range []float64{48 - 6, 48 + 6} {
-		if s := at(x, 18); s.A < 128 || s.R < 195 {
-			t.Fatalf("border at %v not snowy: %v", x, s)
-		}
-	}
-	between, sleeper := at(48, 18), at(48, 20)
-	if between.R <= ballast.R+20 || between.R > snow.R-20 {
-		t.Fatalf("ballast between sleepers not partly snowed: %v", between)
-	}
-	if int(sleeper.R)+30 > int(between.R) {
-		t.Fatalf("sleeper %v not darker than the snowed ballast %v", sleeper, between)
-	}
-	if sleeper.R <= railTestColors["timber"].R {
-		t.Fatalf("sleeper not dusted: %v", sleeper)
-	}
-	cold := connectionBlend(railTestColors["steel"], connectionRailWinterSteel, connectionRailWinterSteelMix)
-	for _, x := range []float64{48 - connectionRailGauge/2, 48 + connectionRailGauge/2} {
-		if s := at(x, 18); s != cold || s.R >= railTestColors["steel"].R {
-			t.Fatalf("steel at %v is %v, want the darker cold steel %v", x, s, cold)
-		}
-	}
-	if s := at(48+7.5, 18); s.A != 0 {
-		t.Fatalf("winter rail wider than 11+1: %v", s)
+	for _, profile := range [][2]float64{{11, 1}, {22, 2}} {
+		t.Run(fmt.Sprint(profile[0]), func(t *testing.T) {
+			dir, m := railTestFixture(t)
+			family := m["families"].([]any)[0].(map[string]any)
+			family["verge"], family["width"], family["border"] = "snow", profile[0], profile[1]
+			snow := color.NRGBA{220, 222, 226, 255}
+			ground := image.NewNRGBA(image.Rect(0, 0, 384, 320))
+			draw.Draw(ground, ground.Bounds(), image.NewUniform(snow), image.Point{}, draw.Src)
+			m["materials"].(map[string]any)["grass"] = unitTestPNG(t, filepath.Join(dir, "snow.png"), ground)
+			in, err := loadConnectionInputs(writeConnectedManifest(t, dir, m))
+			if err != nil {
+				t.Fatal(err)
+			}
+			f := in.manifest.Families[0]
+			var v connectionVariant
+			for _, c := range f.Variants {
+				if c.ID == "rail36" {
+					v = c
+				}
+			}
+			tiles, err := exportConnectionTiles(in, &f, &v)
+			if err != nil {
+				t.Fatal(err)
+			}
+			d := connectionRailDimsFor(f.Width)
+			s := d.scale
+			im := tiles[4]
+			at := func(x, y float64) color.NRGBA { return im.NRGBAAt(int(x*4), int(y*4)) }
+			// The straight interior sleepers lie at 16 + n pitches.
+			gap, tie := 16+d.pitch/2, 16+d.pitch
+			ballast := railTestColors["rail"]
+			for _, x := range []float64{48 - 4.6*s, 48 + 4.6*s} {
+				if c := at(x, gap); c.R < 200 {
+					t.Fatalf("shoulder at %v not snowy: %v", x, c)
+				}
+			}
+			for _, x := range []float64{48 - 6*s, 48 + 6*s} {
+				if c := at(x, gap); c.A < 128 || c.R < 195 {
+					t.Fatalf("border at %v not snowy: %v", x, c)
+				}
+			}
+			between, sleeper := at(48, gap), at(48, tie)
+			if between.R <= ballast.R+20 || between.R > snow.R-20 {
+				t.Fatalf("ballast between sleepers not partly snowed: %v", between)
+			}
+			if int(sleeper.R)+30 > int(between.R) {
+				t.Fatalf("sleeper %v not darker than the snowed ballast %v", sleeper, between)
+			}
+			if sleeper.R <= railTestColors["timber"].R {
+				t.Fatalf("sleeper not dusted: %v", sleeper)
+			}
+			cold := connectionBlend(railTestColors["steel"], connectionRailWinterSteel, connectionRailWinterSteelMix)
+			for _, x := range []float64{48 - d.gauge/2, 48 + d.gauge/2} {
+				if c := at(x, gap); c != cold || c.R >= railTestColors["steel"].R {
+					t.Fatalf("steel at %v is %v, want the darker cold steel %v", x, c, cold)
+				}
+			}
+			if c := at(48+7.5*s, gap); c.A != 0 {
+				t.Fatalf("winter rail wider than %v+%v: %v", profile[0], profile[1], c)
+			}
+		})
 	}
 }
 
-// The winter mixed manifest derives the winter footbridges and crossings from
-// the summer mixed tiles with every component swapped for its _w form.
+// The winter mixed manifests (v1 narrow, v2 as wide as the road) derive the
+// winter footbridges and crossings from the summer mixed tiles with every
+// component swapped for its _w form of the same profile.
 func TestWinterMixedManifestSwapsEveryComponent(t *testing.T) {
 	root := filepath.Join("..", "..")
-	w, err := loadWinterMixedInputs(filepath.Join(root, "art/pipeline/connected-mixed-winter-v1.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	var ids []string
-	for _, v := range w.variants {
-		ids = append(ids, v.RuntimeID)
-	}
-	if want := []string{"bridge25", "bridge36", "cross1", "cross2", "cross3", "cross4"}; !slices.Equal(ids, want) {
-		t.Fatalf("winter mixed variants %v, want %v", ids, want)
-	}
-	in := w.inputs()
-	for _, v := range w.variants {
-		for _, id := range winterMixedComponentIDs(v) {
-			c := in.components[id]
-			if c.variant.ID != id+"_w" || !mixedProfileCompatible(c.family) {
-				t.Fatalf("%s: component %s is %s (%s %v/%v)", v.ID, id, c.variant.ID, c.family.ID, c.family.Width, c.family.Border)
-			}
-			if c.family.Verge != "snow" {
-				t.Fatalf("%s: component %s has no snow verge", v.ID, id)
+	for manifest, width := range map[string]float64{"connected-mixed-winter-v1.json": 0, "connected-mixed-winter-v2.json": 22} {
+		w, err := loadWinterMixedInputs(filepath.Join(root, "art/pipeline", manifest))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var ids []string
+		for _, v := range w.variants {
+			ids = append(ids, v.RuntimeID)
+		}
+		if want := []string{"bridge25", "bridge36", "cross1", "cross2", "cross3", "cross4"}; !slices.Equal(ids, want) {
+			t.Fatalf("%s: winter mixed variants %v, want %v", manifest, ids, want)
+		}
+		in := w.inputs()
+		for _, v := range w.variants {
+			for _, id := range winterMixedComponentIDs(v) {
+				c, summer := in.components[id], w.base.components[id]
+				if c.variant.ID != id+"_w" || !mixedProfileCompatible(c.family) || c.family.Width != summer.family.Width || c.family.Border != summer.family.Border {
+					t.Fatalf("%s %s: component %s is %s (%s %v/%v)", manifest, v.ID, id, c.variant.ID, c.family.ID, c.family.Width, c.family.Border)
+				}
+				if c.family.Verge != "snow" {
+					t.Fatalf("%s %s: component %s has no snow verge", manifest, v.ID, id)
+				}
+				if width > 0 && c.family.Width != width {
+					t.Fatalf("%s %s: component %s is %v wide, want %v", manifest, v.ID, id, c.family.Width, width)
+				}
 			}
 		}
 	}
-	if _, err := os.Stat(filepath.Join(root, "art/pipeline/connected-mixed-winter-v1.json")); err != nil {
+}
+
+// A winter component of another profile than its summer form is refused.
+func TestWinterMixedManifestRejectsProfileMix(t *testing.T) {
+	root := filepath.Join("..", "..")
+	b, err := os.ReadFile(filepath.Join(root, "art/pipeline/connected-mixed-winter-v2.json"))
+	if err != nil {
 		t.Fatal(err)
+	}
+	var m map[string]any
+	if err := json.Unmarshal(b, &m); err != nil {
+		t.Fatal(err)
+	}
+	// The narrow v2 summer base under the wide winter components.
+	m["base"] = map[string]any{"source": "art/pipeline/connected-mixed-v2.json", "source_sha256": "71a4e6db42b6e1d1d9305ad3fb4c0edfab74639f8fe2b4a52136ba39eda44d1b"}
+	out, err := json.Marshal(m)
+	if err != nil {
+		t.Fatal(err)
+	}
+	abs, err := filepath.Abs(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	old := sourceRoot
+	sourceRoot = abs
+	defer func() { sourceRoot = old }()
+	p := filepath.Join(t.TempDir(), "winter-mixed.json")
+	if err := os.WriteFile(p, out, 0644); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := loadWinterMixedInputs(p); err == nil || !strings.Contains(err.Error(), "profile") {
+		t.Fatalf("narrow summer base with wide winter components accepted: %v", err)
 	}
 }
 
 func TestWinterMixedManifestRejectsDrift(t *testing.T) {
 	root := filepath.Join("..", "..")
-	b, err := os.ReadFile(filepath.Join(root, "art/pipeline/connected-mixed-winter-v1.json"))
+	b, err := os.ReadFile(filepath.Join(root, "art/pipeline/connected-mixed-winter-v2.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -270,7 +325,7 @@ func newWinterTrackScene(t *testing.T) winterTrackScene {
 			s.ground.SetNRGBA(x, y, sampleGrassMaterial(grass, connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}))
 		}
 	}
-	for _, name := range []string{"connected-paths-winter-v1.json", "connected-rail-winter-v1.json"} {
+	for _, name := range []string{"connected-paths-winter-v2.json", "connected-rail-winter-v2.json"} {
 		b, err := os.ReadFile(filepath.Join(root, "art/pipeline", name))
 		if err != nil {
 			t.Fatal(err)
@@ -379,8 +434,10 @@ func railCentrelineDark(im *image.NRGBA, f connectionFamily, v connectionVariant
 
 // railSleeperPeriod autocorrelates L* along a straight track, one sample per
 // 4x pixel, each the mean across the gauge between the rails, and returns the
-// best lag within 2..6 world px and the correlation at the summer pitch.
-func railSleeperPeriod(im *image.NRGBA, v connectionVariant) (int, float64) {
+// best lag within 2 world px and 1.5 sleeper pitches and the correlation at
+// the pitch.
+func railSleeperPeriod(im *image.NRGBA, f connectionFamily, v connectionVariant) (int, float64) {
+	pitch := connectionRailDimsFor(f.Width).pitch
 	g := sharedConnectionGeometry()
 	a, b := g.Ports[v.Ports[0]-1], g.Ports[v.Ports[1]-1]
 	d := b.sub(a)
@@ -412,12 +469,12 @@ func railSleeperPeriod(im *image.NRGBA, v connectionVariant) (int, float64) {
 		return num / den
 	}
 	best, lag := math.Inf(-1), 0
-	for k := 8; k <= 24; k++ {
+	for k := 8; k <= int(pitch*6); k++ {
 		if c := corr(k); c > best {
 			best, lag = c, k
 		}
 	}
-	return lag, corr(int(connectionSleeperPitch * 4))
+	return lag, corr(int(pitch * 4))
 }
 
 // winterCrossingInfill collects the plank infill of a crossing: where the
@@ -425,7 +482,7 @@ func railSleeperPeriod(im *image.NRGBA, v connectionVariant) (int, float64) {
 // the hex edge, the rounded corners and the steel.
 func winterCrossingInfill(im *image.NRGBA, rail connectionFamily, track connectionVariant, way string) winterLabMean {
 	g := sharedConnectionGeometry()
-	f := connectionFamily{ID: "path", Width: 7, Border: .75}
+	f := connectionFamily{ID: "path", Width: 22, Border: 2}
 	if strings.HasPrefix(way, "road") {
 		f = connectionFamily{ID: "road", Width: 22, Border: 2, Markings: "ruts"}
 	}
@@ -439,7 +496,7 @@ func winterCrossingInfill(im *image.NRGBA, rail connectionFamily, track connecti
 	for y := range 320 {
 		for x := range 384 {
 			p := connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}
-			if mixedEdgeDistance(g, p) > 12.5 && connectionRouteDistance(route, p) < f.Width/2+.5 && connectionRouteDistance(r.ballast, p) < 4 && connectionRouteDistance(r.rails, p) > connectionRailWidth/2+.5 {
+			if mixedEdgeDistance(g, p) > 12.5 && connectionRouteDistance(route, p) < f.Width/2+.5 && connectionRouteDistance(r.ballast, p) < mixedRailHalf(rail)-.5 && connectionRouteDistance(r.rails, p) > r.dims.steel/2+.5 {
 				m.add(trackLab(im.NRGBAAt(x, y)))
 			}
 		}
@@ -462,8 +519,8 @@ func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 		}
 	}) {
 		f, v := s.families[id], s.variants[id]
-		if f.ID == "path" && (f.Width != 7 || f.Border != .75) || f.ID == "rail" && (f.Width != 11 || f.Border != 1) {
-			t.Fatalf("%s: profile %v/%v changed", id, f.Width, f.Border)
+		if f.Width != 22 || f.Border != 2 {
+			t.Fatalf("%s: profile %v/%v, want the road's 22/2", id, f.Width, f.Border)
 		}
 		im := s.composite(t, f.ID, id)
 		verge, beside, surface := s.bands(im, f, v)
@@ -490,10 +547,12 @@ func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 				t.Errorf("%s: rail centre lines L* <= 40 along %.1f%% (want >= 90%%)", id, 100*dark)
 			}
 			if len(v.Ports) == 2 && (v.Ports[1]-v.Ports[0] == 3) {
-				lag, c := railSleeperPeriod(im, v)
+				lag, c := railSleeperPeriod(im, f, v)
 				line += fmt.Sprintf("  sleeper lag %d r %.2f", lag, c)
-				if lag != int(connectionSleeperPitch*4) || c < .3 {
-					t.Errorf("%s: sleeper autocorrelation peak at lag %d (r %.2f at the summer period), want lag %d with r >= .3", id, lag, c, int(connectionSleeperPitch*4))
+				// The interior pitch is fitted to the arc length, so on a diagonal
+				// it may run a quarter world pixel long.
+				if pitch := int(connectionRailDimsFor(f.Width).pitch * 4); lag < pitch || lag > pitch+1 || c < .3 {
+					t.Errorf("%s: sleeper autocorrelation peak at lag %d (r %.2f at the summer period), want lag %d (+1) with r >= .3", id, lag, c, pitch)
 				}
 			}
 		}
