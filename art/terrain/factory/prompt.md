@@ -4,7 +4,7 @@ title: Factory
 kind: terrain
 status: approved
 runtime_ids: factoryE, factoryN, factoryS, factoryW, factoryE_w, factoryN_w, factoryS_w, factoryW_w
-masters: factory-summer-v3.png, factory-winter-v5.png, factory-summer-v2.png, factory-winter-v4.png, factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png
+masters: factory-summer-v4.png, factory-winter-v6.png, factory-summer-v3.png, factory-winter-v5.png, factory-summer-v2.png, factory-winter-v4.png, factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png
 ---
 
 ## Look
@@ -37,8 +37,9 @@ Sliced into four hex crops with shared placements; the east street meets the reg
 its port.
 
 ## Post
-Selected sources are `factory-winter-v5.png` and `factory-summer-v3.png` (1536x1024, true alpha):
-`factory-winter-v4.png` and `factory-summer-v2.png` with the north-west hall moved inside the hex edge
+Selected sources are `factory-winter-v6.png` and `factory-summer-v4.png` (1536x1024, true alpha):
+`factory-winter-v4.png` and `factory-summer-v2.png` with the north-west hall moved and the two east
+sheds of the top row shortened inside the hex edge
 (below), whose east entry street is straightened in Go (below). `factory-winter-v3.png` is `factory-winter-v2.png` with
 every street (the east entry street, the cross street and the north-south street) replaced by packed snow
 with wheel ruts and no lane paint, so the entry continues the winter road tile and the yard streets match
@@ -48,8 +49,8 @@ masonry, piping, turquoise tanks, basin and patchy snow with the material precis
 `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal meadow. Summer runtime IDs
 use the same four-cell diamond, east road port and reference framing.
 
-`art-review -compound art/pipeline/compound-factory-v5.json` places the scene on winter meadow and slices
-the four winter cells. `compound-factory-summer-v3.json` exports the four matching summer cells. The scene
+`art-review -compound art/pipeline/compound-factory-v6.json` places the scene on winter meadow and slices
+the four winter cells. `compound-factory-summer-v4.json` exports the four matching summer cells. The scene
 fills the 238x160 box and crops the excess. Both manifests enlarge the scene by `zoom` 1.035 and `shift` it (2.5, 0.7) world px, which puts the
 painted east street within 1 world px of the road through the E cell's NE port, 10–18 world px inside it and, with the v4/v2 street, 29–37 world px inside it
 (`TestCompoundEntryStreetMeetsTheRoad`); the outer buildings stay inside the diamond. The first
@@ -99,16 +100,17 @@ and stays within 1 world px at 10–18; only the E cells change.
 
 ### Soft outer edge (2026-10-24)
 
-`compound-factory-v5.json` and `compound-factory-summer-v3.json` set `edge_feather` 9: where the snow or
+`compound-factory-v6.json` and `compound-factory-summer-v4.json` set `edge_feather` 9: where the snow or
 shrub apron reaches the outer boundary it fades out over 2.5–7.75 world px along an irregular line (two
 octaves of value noise in world coordinates, the same in both seasons) instead of a straight cut along
 the hex edges; the entry corridor stays open to the port. `edge_keep` polygons (world px of the scene
 box) keep the buildings near the top edges exactly: the north-west hall (through (52, 46.7), (60, 46.7),
-(60, 43.7), (100, 43.7), (100, 64.4), (52, 64.4)), the row of east sheds with their pipe (138–206, 36–52)
-and the north end of the gantry over the entry street (a quadrilateral through (208.2, 35.3),
+(60, 43.7), (100, 43.7), (100, 64.4), (52, 64.4)), the row of east sheds with their pipes (the west
+shed from 36, the shortened ones from their eaves at 44: through (138, 36), (159.5, 36), (159.5, 44),
+(206, 44), (206, 52), (138, 52)) and the north end of the gantry over the entry street (a quadrilateral through (208.2, 35.3),
 (218, 52.8), (211.9, 56.2), (202.1, 38.8)). 2 world px outside a polygon the feather is back. In both
 seasons no ground pixel within 2 world px of the boundary keeps alpha above 1 at 2x
-(`TestCompoundFeatherIntactScenes`). The east sheds still reach 2.5 world px over the top edge.
+(`TestCompoundFeatherIntactScenes`).
 
 ### North-west hall inside the hex edge (2026-10-24)
 
@@ -124,6 +126,25 @@ cell where the feather takes it), the pipe runs on with its own body. Both seaso
 every other pixel equals the previous master (`TestCompoundShedMasters`). In the 2x scenes no pixel of the
 old keep polygon (50–102, 38–60) within 2 world px of the boundary keeps alpha above 4, the 50 % contour
 lies 2.5–6 world px inside it (`TestCompoundShedsInsideHexEdge`).
+
+### East sheds shortened (2026-10-25)
+
+`factory-winter-v6.png` and `factory-summer-v4.png` are `factory-winter-v5.png` and `factory-summer-v3.png`
+with the middle and east sheds of the top row shortened by 36 master px (5.8 world px), so their north
+eaves (row 243, now 279) clear the E cell's top edge by 3 world px. Go edit `compoundShedFactoryEast`
+(`compound_feather_shed_test.go`, written by `TestGenerateCompoundShedMasters`): 10 rows of the north
+slope (251–260 and 252–261) and the band of the south slope with the skylight and its shadow (279–304
+and 280–305) drop out, the north part slides south, the south eave and wall stay; the planks run
+east-west, so the cuts leave no seam, the shortened sheds read as low gabled sheds without skylights.
+The west shed, in the N cell 5 world px inside the boundary, stays as it is. The strip the eaves leave
+and the gaps beside the sheds (with the upper pipe and the beam between the pipes; the lower pipe stays
+and now meets the sheds at mid-height) fill with the dense trees west of the north-west hall
+(columns 220–329, rows 230–273, mirrored across), so the hedge reaches down to the eaves and the feather
+fades it out. Both seasons are edited identically: 4398 px per master equal the previous master under the
+slide, every pixel outside the edit is unchanged (`TestCompoundShedMasters`). In the 2x scenes no pixel of
+the old keep polygon (138–206, 36–52) within 2 world px of the boundary keeps alpha above 1 (before: 323
+of 323 above 64, max 253/255), the 50 % contour lies 3.00–5.75 world px inside it (before 0.00, a hard
+cut).
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

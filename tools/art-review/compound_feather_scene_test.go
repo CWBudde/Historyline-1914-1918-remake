@@ -14,7 +14,7 @@ import (
 // corridor stays open.
 func TestCompoundFeatherIntactScenes(t *testing.T) {
 	var pooled []float64
-	for _, name := range []string{"compound-hq-v4.json", "compound-depot-v5.json", "compound-factory-v5.json", "compound-factory-summer-v3.json"} {
+	for _, name := range []string{"compound-hq-v4.json", "compound-depot-v6.json", "compound-factory-v6.json", "compound-factory-summer-v4.json"} {
 		in, err := loadCompoundInputs(filepath.Join("..", "..", "art", "pipeline", name))
 		if err != nil {
 			t.Fatal(err)

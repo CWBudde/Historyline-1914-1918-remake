@@ -107,7 +107,7 @@ var compoundEntryDeepBands = map[string]struct {
 // px off) and deep inside, where a street a few degrees off the road's
 // direction has drifted apart (the factory's v3 street: 1.5 world px, straightened in v4).
 func TestCompoundEntryStreetMeetsTheRoad(t *testing.T) {
-	for _, name := range []string{"compound-hq-v4.json", "compound-depot-v5.json", "compound-factory-v5.json", "compound-factory-summer-v3.json", "compound-ruin-v2.json"} {
+	for _, name := range []string{"compound-hq-v4.json", "compound-depot-v6.json", "compound-factory-v6.json", "compound-factory-summer-v4.json", "compound-ruin-v2.json"} {
 		in, err := loadCompoundInputs(filepath.Join("..", "..", "art", "pipeline", name))
 		if err != nil {
 			t.Fatal(err)

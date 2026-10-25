@@ -1,0 +1,45 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/cmp/cmp-summer-v4.png",
+        "source_sha256": "22b4e86303dca43fa4857f09ba54e4665711d4aa56fa7b8dc99fe6eb69cbd1d0"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-terrain-v2.json",
+        "source_sha256": "6a101776aa908e0450ad3c602d21b639696526706244cc3bad58b63db312917d"
+      },
+      "edge_feather": 9,
+      "edge_keep": [[[55, 44], [81, 44], [81, 62], [55, 62]], [[70, 32], [106, 32], [106, 40], [70, 40]], [[132, 32], [168, 32], [168, 40], [132, 40]], [[148, 42], [182, 42], [182, 38], [195, 38], [195, 62], [148, 62]], [[57, 93.8], [75.6, 93.8], [75.6, 116], [57, 116]], [[53.2, 105.2], [57, 105.2], [57, 113], [53.2, 113]], [[76, 105.2], [83.3, 105.2], [83.3, 114.3], [81.7, 114.3], [81.7, 119.7], [76, 119.7]]],
+      "framing": "reference-layout",
+      "id": "depot-summer",
+      "inset": 1
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/cmp/cmp-winter-v5.png",
+        "source_sha256": "703a9a505c06d11a92848956b165dcd6b35dff40cb5302fc09e463eba941f54f"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-road-winter-v1.json",
+        "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
+      },
+      "edge_feather": 9,
+      "edge_keep": [[[55, 44], [81, 44], [81, 62], [55, 62]], [[70, 32], [106, 32], [106, 40], [70, 40]], [[132, 32], [168, 32], [168, 40], [132, 40]], [[148, 42], [182, 42], [182, 38], [195, 38], [195, 62], [148, 62]], [[57, 93.8], [75.6, 93.8], [75.6, 116], [57, 116]], [[53.2, 105.2], [57, 105.2], [57, 113], [53.2, 113]], [[76, 105.2], [83.3, 105.2], [83.3, 114.3], [81.7, 114.3], [81.7, 119.7], [76, 119.7]]],
+      "framing": "reference-layout",
+      "id": "depot-winter",
+      "inset": 1
+    }
+  ],
+  "schema_version": 1
+}

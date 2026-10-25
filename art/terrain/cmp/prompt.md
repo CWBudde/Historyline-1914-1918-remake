@@ -4,7 +4,7 @@ title: Depot
 kind: terrain
 status: approved
 runtime_ids: cmpE, cmpE_w, cmpN, cmpN_w, cmpS, cmpS_w, cmpW, cmpW_w
-masters: cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png
+masters: cmp-summer-v4.png, cmp-winter-v5.png, cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png
 ---
 
 ## Look
@@ -35,8 +35,9 @@ The scene is sliced into four hex crops with shared placements; the entrance roa
 road tile at the north port.
 
 ## Post
-Selected sources are `cmp-summer-v3.png` and `cmp-winter-v4.png` (1536x1024, true alpha):
-`cmp-summer-v2.png` and `cmp-winter-v3.png` with the south-west shed moved inside the hex edge (below).
+Selected sources are `cmp-summer-v4.png` and `cmp-winter-v5.png` (1536x1024, true alpha):
+`cmp-summer-v2.png` and `cmp-winter-v3.png` with the south-west shed moved and the north-west shed
+shortened inside the hex edge (below).
 The summer master `cmp-summer-v2.png` is native built-in imagegen: the prompt requests fine timber, corrugated roof, canvas, stone and
 crate detail, a north barrier road, olive sheds and two red period supply trucks west, three white
 tents east and the south hall. PULSE supplies the layout/style; `ground-crater-summer-v1.png` supplies the
@@ -45,7 +46,7 @@ preserves the summer arrangement and transparent gaps. `cmp-winter-v3.png` is `c
 the entry street (top edge to the hall roof, without the barrier pole) replaced by packed snow with two
 wheel ruts and no centre line, so the gate continues the winter road tile.
 
-`art-review -compound art/pipeline/compound-depot-v5.json` places both seasons on the seasonal meadow and
+`art-review -compound art/pipeline/compound-depot-v6.json` places both seasons on the seasonal meadow and
 slices the four cells. Reference-layout framing scales the scene to fill the 238x160 box and crops the
 excess, so the north street reaches the hex edge on the port; its first 10 world px blend into the season's
 road tile (`entry_road`: `connected-terrain-v2.json`, `connected-road-winter-v1.json`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
@@ -72,17 +73,17 @@ Image 1 is the installed winter depot: edit only its street surface, preserve ev
 
 ### Soft outer edge (2026-10-24)
 
-`compound-depot-v5.json` cuts the masters with `edge_feather` 9: the ground apron fades out over the
+`compound-depot-v6.json` cuts the masters with `edge_feather` 9: the ground apron fades out over the
 outer 2.5–7.75 world px along an irregular line (two octaves of value noise in world coordinates, the
 same in both seasons) instead of a straight cut along the hex edges, as on the ruined depot; the entry
 corridor stays open to the port. `edge_keep` polygons (world px of the scene box) keep what reaches or
-nears the boundary exactly: the north-west shed (55–81, 38–62), the fence rails left and right of the
+nears the boundary exactly: the north-west shed from its shortened eave (55–81, 44–62), the fence rails left and right of the
 gate (70–106 and 132–168, 32–40), the north-east tent with its crates and the end of the east fence
 (148–195, 38–62), the south-west shed (57–75.6, 93.8–116), the crates west of it (53.2–57, 105.2–113)
 and the crates and barrels east of it (through (76, 105.2), (83.3, 105.2), (83.3, 114.3),
 (81.7, 114.3), (81.7, 119.7), (76, 119.7)); 2 world px outside a polygon the feather is back. In both
 seasons no ground pixel within 2 world px of the boundary keeps alpha above 1 at 2x
-(`TestCompoundFeatherIntactScenes`). The north-west shed's roof still touches the W cell's top edge.
+(`TestCompoundFeatherIntactScenes`).
 
 ### South-west shed inside the hex edge (2026-10-24)
 
@@ -99,6 +100,24 @@ feather takes it. Both seasons are edited identically; every other pixel equals 
 (`TestCompoundShedMasters`). In the 2x scenes no pixel of the old keep polygon (51–83, 106–131) within
 2 world px of the boundary keeps alpha above 0, the 50 % contour lies 3.25–7.25 world px inside it
 (`TestCompoundShedsInsideHexEdge`).
+
+### North-west shed shortened (2026-10-25)
+
+`cmp-summer-v4.png` and `cmp-winter-v5.png` are `cmp-summer-v3.png` and `cmp-winter-v4.png` with the
+north-west shed shortened by 19 master px (3 world px), so its north eave (row 257, now 276) clears the
+W cell's top edge by 3.1 world px; the crates beside it stay. Go edit `compoundShedDepotNorth`
+(`compound_feather_shed_test.go`, written by `TestGenerateCompoundShedMasters`): over the gable the 19
+corrugation rows below the eave drop out (the corrugation runs north-south, so the cut leaves no seam);
+over the hip the corrugation north of the hip line slides with it and the hip's east face is pulled
+affinely towards its fixed ridge end (452, 295) and south-east corner (510, 360), so the hip line runs
+straight to the new north-east corner; ridge, south slope and wall stay. The ground strip between fence
+and roof (rows 245–256, mirrored) fills the 19 rows the eave leaves, mostly under the feather. Both
+seasons are edited identically: 9126 px per master equal the previous master under the slide or in
+place, 3086 px of the east face are resampled, every pixel outside the edit is unchanged
+(`TestCompoundShedMasters`). `compound-depot-v6.json` holds the shed only from 44 world px down (keep
+polygon 55–81, 44–62). In the 2x scenes no pixel of the old keep polygon (55–81, 38–62) within 2 world
+px of the boundary keeps alpha above 1 (before: 107 of 107 above 64, max 253/254), and the 50 %
+contour lies 3.00 world px inside it (before 0.00, a hard cut).
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

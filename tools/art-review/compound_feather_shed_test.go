@@ -58,15 +58,62 @@ type compoundShedPiece struct {
 	Ellipse bool
 }
 
+// compoundShedWarp rebuilds Rect (master px) from the patched base column by
+// column: Map gives the source row of a destination pixel (a fractional row
+// blends the two rows around it), ok false leaves the pixel to the fills.
+type compoundShedWarp struct {
+	Name string
+	Rect image.Rectangle
+	Map  func(x, y int) (float64, bool)
+}
+
 // compoundShedEdit makes a new master from Base: Patches repaint the base
 // (an object in front of a moved wall) for the pieces and the fills, Fills
 // refill the ground the pieces leave in order (each reading the image as the
-// fills before left it), then Pieces are pasted from the patched base.
+// fills before left it), then Pieces are pasted from the patched base and
+// Warps rebuilt from it.
 type compoundShedEdit struct {
 	Base, Out string
 	Patches   []compoundShedFill
 	Fills     []compoundShedFill
 	Pieces    []compoundShedPiece
+	Warps     []compoundShedWarp
+}
+
+// compoundShedCut shortens a building standing in columns [x0, x1): the rows
+// cuts (half-open, top to bottom, inside [top, bottom)) drop out and the rows
+// north of them slide south, so the rows from bottom on stay where they are;
+// the strip the building's top leaves is the fills'.
+func compoundShedCut(name string, x0, x1, top, bottom int, cuts ...[2]int) compoundShedWarp {
+	var kept []int
+	for y := top; y < bottom; y++ {
+		cut := false
+		for _, c := range cuts {
+			cut = cut || (y >= c[0] && y < c[1])
+		}
+		if !cut {
+			kept = append(kept, y)
+		}
+	}
+	newTop := bottom - len(kept)
+	return compoundShedWarp{Name: name, Rect: image.Rect(x0, newTop, x1, bottom), Map: func(x, y int) (float64, bool) {
+		if y < newTop || y >= bottom {
+			return 0, false
+		}
+		return float64(kept[y-newTop]), true
+	}}
+}
+
+// compoundShedSample reads column x of m at the fractional row y.
+func compoundShedSample(m *image.NRGBA, x int, y float64) color.NRGBA {
+	y0 := math.Floor(y)
+	at := func(r int) color.NRGBA {
+		return m.NRGBAAt(x, min(max(r, m.Rect.Min.Y), m.Rect.Max.Y-1))
+	}
+	if f := y - y0; f > 1e-9 {
+		return compoundShedMix(at(int(y0)), at(int(y0)+1), f)
+	}
+	return at(int(y0))
 }
 
 func (f compoundShedFill) weight(x, y int) float64 {
@@ -163,6 +210,16 @@ func compoundShedApply(base *image.NRGBA, e compoundShedEdit) *image.NRGBA {
 			}
 		}
 	}
+	for _, w := range e.Warps {
+		r := w.Rect.Intersect(out.Bounds())
+		for y := r.Min.Y; y < r.Max.Y; y++ {
+			for x := r.Min.X; x < r.Max.X; x++ {
+				if sy, ok := w.Map(x, y); ok {
+					out.SetNRGBA(x, y, compoundShedSample(src, x, sy))
+				}
+			}
+		}
+	}
 	return out
 }
 
@@ -213,7 +270,91 @@ var compoundShedFactory = compoundShedEdit{
 	},
 }
 
-// compoundShedEdits lists the four new masters.
+// The depot's north-west shed (on cmp-summer-v3 / cmp-winter-v4) is shortened
+// so its north eave moves 19 master px (3 world px) south, off the W cell's
+// top edge. Over the gable the 19 corrugation rows below the eave drop out
+// (the corrugation runs north-south, so the cut leaves no seam); over the hip
+// the corrugation north of the hip line slides with the hip line, and the hip's
+// east face is pulled affinely towards its fixed ridge end and south-east
+// corner, so the hip line still runs straight from the ridge end to the new
+// north-east corner. The ground strip north of the shed (rows 245-256,
+// mirrored) fills what the eave leaves.
+const (
+	depotShedTop, depotShedSlide = 257, 19
+	depotShedTrim                = 4          // eave rows sliding whole
+	depotShedRidgeX              = 452        // ridge end: the hip starts
+	depotShedRidgeY, depotShedX  = 295., 510  // ridge row, east eave column
+	depotShedNE, depotShedSE     = 257., 360. // hip corners on the east eave
+	depotShedLeft, depotShedEnd  = 372, 514   // the shed's columns with outline
+	depotShedBottom              = 362        // rows from here on stay
+)
+
+func compoundShedDepotNorthMap(x, y int) (float64, bool) {
+	top := depotShedTop + depotShedSlide
+	if y < top || y >= depotShedBottom || x < depotShedLeft || x >= depotShedEnd {
+		return 0, false
+	}
+	trim := y < top+depotShedTrim
+	if x < depotShedRidgeX {
+		if trim {
+			return float64(y - depotShedSlide), true
+		}
+		return float64(y), true
+	}
+	// Hip lines (master rows) at column xc: north before and after, south.
+	xc := float64(min(x, depotShedX))
+	run := xc - depotShedRidgeX
+	span := float64(depotShedX - depotShedRidgeX)
+	north := depotShedRidgeY - run*(depotShedRidgeY-depotShedNE)/span
+	newNorth := depotShedRidgeY - run*(depotShedRidgeY-depotShedNE-depotShedSlide)/span
+	south := depotShedRidgeY + run*(depotShedSE-depotShedRidgeY)/span
+	fy := float64(y)
+	switch {
+	case fy < newNorth && trim:
+		return fy - depotShedSlide, true
+	case fy < newNorth:
+		return fy + north - newNorth, true
+	case fy < south:
+		// The east face: an affine map fixing the ridge end and the
+		// south-east corner, taking the new north-east corner to the old.
+		b := (depotShedSE - depotShedNE) / (depotShedSE - depotShedNE - depotShedSlide)
+		a := (depotShedSE - depotShedRidgeY - b*(depotShedSE-depotShedRidgeY)) / span
+		return depotShedRidgeY + a*run + b*(fy-depotShedRidgeY), true
+	}
+	return fy, true
+}
+
+var compoundShedDepotNorth = compoundShedEdit{
+	Fills: []compoundShedFill{
+		{Dst: image.Rect(depotShedLeft, depotShedTop, depotShedEnd, depotShedTop+depotShedSlide), Y: compoundShedAxis{Lo: 245, Hi: depotShedTop}, Soft: [4]int{5, 0, 5, 0}},
+	},
+	Warps: []compoundShedWarp{
+		{Name: "north-west shed", Rect: image.Rect(depotShedLeft, depotShedTop+depotShedSlide, depotShedEnd, depotShedBottom), Map: compoundShedDepotNorthMap},
+	},
+}
+
+// The factory's two east sheds in the top row (on factory-summer-v3 /
+// factory-winter-v5) are shortened by 36 master px (5.8 world px), so their
+// north eaves lie 3 world px inside the E cell's top edge: 10 rows of the
+// north slope and the band of the south slope with the skylight and its
+// shadow drop out, the north part slides south, the south eave and wall stay.
+// The strip they leave and the gaps beside them (taking the upper pipe and the
+// beam there; the lower pipe stays) fill with the dense trees west of the
+// north-west hall (columns 220-329, rows 230-273, mirrored across), so the
+// hedge north of the row reaches down to the new eaves and the hex edge fades
+// it out like the rest.
+var compoundShedFactoryEast = compoundShedEdit{
+	Fills: []compoundShedFill{
+		{Dst: image.Rect(1002, 238, 1272, 282), X: compoundShedAxis{Lo: 220, Hi: 330}, Y: compoundShedAxis{Off: 230 - 238}, Soft: [4]int{0, 4, 0, 3}},
+	},
+	Warps: []compoundShedWarp{
+		compoundShedCut("middle shed", 1033, 1117, 243, 305, [2]int{251, 261}, [2]int{279, 305}),
+		compoundShedCut("east shed", 1190, 1272, 243, 306, [2]int{252, 262}, [2]int{280, 306}),
+	},
+}
+
+// compoundShedEdits lists the new masters, in the order they build on each
+// other.
 func compoundShedEdits() []compoundShedEdit {
 	with := func(e compoundShedEdit, base, out string) compoundShedEdit {
 		e.Base, e.Out = base, out
@@ -224,19 +365,39 @@ func compoundShedEdits() []compoundShedEdit {
 		with(compoundShedDepot, "art/terrain/cmp/cmp-winter-v3.png", "art/terrain/cmp/cmp-winter-v4.png"),
 		with(compoundShedFactory, "art/terrain/factory/factory-summer-v2.png", "art/terrain/factory/factory-summer-v3.png"),
 		with(compoundShedFactory, "art/terrain/factory/factory-winter-v4.png", "art/terrain/factory/factory-winter-v5.png"),
+		with(compoundShedDepotNorth, "art/terrain/cmp/cmp-summer-v3.png", "art/terrain/cmp/cmp-summer-v4.png"),
+		with(compoundShedDepotNorth, "art/terrain/cmp/cmp-winter-v4.png", "art/terrain/cmp/cmp-winter-v5.png"),
+		with(compoundShedFactoryEast, "art/terrain/factory/factory-summer-v3.png", "art/terrain/factory/factory-summer-v4.png"),
+		with(compoundShedFactoryEast, "art/terrain/factory/factory-winter-v5.png", "art/terrain/factory/factory-winter-v6.png"),
 	}
 }
 
-// compoundShedRegions are the keep polygons (world px) that held the cut
-// buildings before the move: the depot's south-west shed with its crates and
-// barrels, the factory's north-west hall.
-var compoundShedRegions = map[string][]connectionPoint{
-	"depot":   {{51, 106}, {83, 106}, {83, 131}, {51, 131}},
-	"factory": {{50, 38}, {102, 38}, {102, 60}, {50, 60}},
+// compoundShedRegion is a keep polygon (world px) that held a building cut by
+// the outer boundary before an edit. In Unkept regions (the shortened sheds)
+// no keep polygon of the region's own reaches the 2 world px band at the
+// boundary any more: a shrunk one may hold the sheds from 4 world px inside.
+type compoundShedRegion struct {
+	Name    string
+	Polygon []connectionPoint
+	Unkept  bool
 }
 
-// compoundShedManifests are the manifests cutting the moved masters.
-var compoundShedManifests = []string{"compound-depot-v5.json", "compound-factory-v5.json", "compound-factory-summer-v3.json"}
+// compoundShedRegions: the depot's south-west shed with its crates and
+// barrels (moved) and its north-west shed (shortened), the factory's
+// north-west hall (moved) and the two east sheds of its top row (shortened).
+var compoundShedRegions = map[string][]compoundShedRegion{
+	"depot": {
+		{Name: "south-west shed", Polygon: []connectionPoint{{51, 106}, {83, 106}, {83, 131}, {51, 131}}},
+		{Name: "north-west shed", Polygon: []connectionPoint{{55, 38}, {81, 38}, {81, 62}, {55, 62}}, Unkept: true},
+	},
+	"factory": {
+		{Name: "north-west hall", Polygon: []connectionPoint{{50, 38}, {102, 38}, {102, 60}, {50, 60}}},
+		{Name: "east sheds", Polygon: []connectionPoint{{138, 36}, {206, 36}, {206, 52}, {138, 52}}, Unkept: true},
+	},
+}
+
+// compoundShedManifests are the manifests cutting the edited masters.
+var compoundShedManifests = []string{"compound-depot-v6.json", "compound-factory-v6.json", "compound-factory-summer-v4.json"}
 
 // TestCompoundShedMasters: in each new master the moved pieces equal the base
 // master under their translation (except a repainted patch), and every pixel
@@ -293,6 +454,32 @@ func TestCompoundShedMasters(t *testing.T) {
 					t.Errorf("%s: moved pixels differ from the base (MAD %.5f over %d px)", p.Name, mad(n, sum), n)
 				}
 			}
+			// A warp keeps the pixels it maps to whole source rows: they equal
+			// the base under the slide; it resamples the others (a hip's east
+			// face), which only count as rebuilt.
+			for _, w := range e.Warps {
+				n, slid, rebuilt, sum := 0, 0, 0, 0.
+				for y := w.Rect.Min.Y; y < w.Rect.Max.Y; y++ {
+					for x := w.Rect.Min.X; x < w.Rect.Max.X; x++ {
+						sy, ok := w.Map(x, y)
+						switch {
+						case !ok:
+							continue
+						case sy != math.Floor(sy):
+							rebuilt++
+							continue
+						case int(sy) != y:
+							slid++
+						}
+						n++
+						sum += diff(got.NRGBAAt(x, y), base.NRGBAAt(x, int(sy)))
+					}
+				}
+				t.Logf("%s: %d px kept (%d slid south), %d px resampled, MAD %.5f", w.Name, n, slid, rebuilt, mad(n, sum))
+				if slid < 100 || mad(n, sum) >= 1./255 {
+					t.Errorf("%s: kept pixels differ from the base under the slide (MAD %.5f over %d px, %d slid)", w.Name, mad(n, sum), n, slid)
+				}
+			}
 			edited := func(pt image.Point) bool {
 				for _, f := range append(e.Patches[:len(e.Patches):len(e.Patches)], e.Fills...) {
 					if pt.In(f.outer()) {
@@ -301,6 +488,11 @@ func TestCompoundShedMasters(t *testing.T) {
 				}
 				for _, p := range e.Pieces {
 					if pt.In(p.Src.Add(p.D)) {
+						return true
+					}
+				}
+				for _, w := range e.Warps {
+					if pt.In(w.Rect) {
 						return true
 					}
 				}
@@ -329,9 +521,12 @@ func TestCompoundShedMasters(t *testing.T) {
 }
 
 // TestCompoundShedsInsideHexEdge: in the 2x scene artwork no building of the
-// moved regions reaches the outer boundary any more. Inside each region every
+// edited regions reaches the outer boundary any more. Inside each region every
 // pixel within 2 world px of the boundary keeps alpha 64 at most, and the 50 %
-// contour of the feather runs along the boundary there like elsewhere.
+// contour of the feather runs along the boundary there like elsewhere (2.5 to
+// 8 world px deep). Pixels held by a keep polygon of another feature (a fence,
+// a road reaching into the region) do not count. No keep polygon holds the
+// shortened sheds at the boundary any more.
 func TestCompoundShedsInsideHexEdge(t *testing.T) {
 	for _, name := range compoundShedManifests {
 		in, err := loadCompoundInputs(filepath.Join("..", "..", "art", "pipeline", name))
@@ -339,75 +534,101 @@ func TestCompoundShedsInsideHexEdge(t *testing.T) {
 			t.Fatal(err)
 		}
 		for _, s := range in.Manifest.Scenes {
-			t.Run(s.ID, func(t *testing.T) {
-				l, err := compoundLayoutFor(s.ID)
-				if err != nil {
-					t.Fatal(err)
-				}
-				region := [][]connectionPoint{compoundShedRegions[l.Layout]}
-				framed, art4, _, _, err := compoundSceneArtwork(in, s, l)
-				if err != nil {
-					t.Fatal(err)
-				}
-				art2, err := resizeLanczos(art4, l.Width*2, l.Height*2)
-				if err != nil {
-					t.Fatal(err)
-				}
-				before2, err := resizeLanczos(framed, l.Width*2, l.Height*2)
-				if err != nil {
-					t.Fatal(err)
-				}
-				edges := compoundBoundary(l)
-				band, opaque, worst := 0, 0, uint8(0)
-				for y := range l.Height * 2 {
-					for x := range l.Width * 2 {
-						p := connectionPoint{(float64(x) + .5) / 2, (float64(y) + .5) / 2}
-						if d := compoundSignedDistance(l, edges, p); d < 0 || d > 2 || compoundKeepDistance(region, p) > 0 {
-							continue
+			l, err := compoundLayoutFor(s.ID)
+			if err != nil {
+				t.Fatal(err)
+			}
+			framed, art4, _, _, err := compoundSceneArtwork(in, s, l)
+			if err != nil {
+				t.Fatal(err)
+			}
+			art2, err := resizeLanczos(art4, l.Width*2, l.Height*2)
+			if err != nil {
+				t.Fatal(err)
+			}
+			before2, err := resizeLanczos(framed, l.Width*2, l.Height*2)
+			if err != nil {
+				t.Fatal(err)
+			}
+			f, _, err := compoundEntryRoad(in.EntryRoads[s.ID], l)
+			if err != nil {
+				t.Fatal(err)
+			}
+			corridor := f.Width/2 + f.Border + 2
+			edges := compoundBoundary(l)
+			for _, r := range compoundShedRegions[l.Layout] {
+				t.Run(s.ID+"/"+r.Name, func(t *testing.T) {
+					region := [][]connectionPoint{r.Polygon}
+					// Keep polygons of other features: their bounding box
+					// centre lies outside the region.
+					var foreign, own [][]connectionPoint
+					for _, k := range s.EdgeKeep {
+						lo, hi := k[0], k[0]
+						for _, p := range k {
+							lo = connectionPoint{min(lo[0], p[0]), min(lo[1], p[1])}
+							hi = connectionPoint{max(hi[0], p[0]), max(hi[1], p[1])}
 						}
-						band++
-						a := art2.NRGBAAt(x, y).A
-						if a > 64 {
-							opaque++
+						if compoundKeepDistance(region, lo.add(hi).mul(.5)) > 0 {
+							foreign = append(foreign, k)
+						} else {
+							own = append(own, k)
 						}
-						worst = max(worst, a)
 					}
-				}
-				f, _, err := compoundEntryRoad(in.EntryRoads[s.ID], l)
-				if err != nil {
-					t.Fatal(err)
-				}
-				corridor := f.Width/2 + f.Border + 2
-				// Along the region's boundary the march may run into a moved
-				// building's keep polygon: wherever the artwork was opaque at
-				// the boundary, the 50 % contour lies inside the feather band
-				// (the faded ground or the building beyond it), not on the
-				// boundary as a cut.
-				open := func(p connectionPoint) bool {
-					lat, depth := compoundEntryLateral(t, l, p)
-					return !(lat <= corridor+1.5 && depth < s.EdgeFeather+2)
-				}
-				samples := compoundFeatherContourSamples(l, s.EdgeFeather, before2, art2, open)
-				var depths []float64
-				for _, c := range samples {
-					if compoundKeepDistance(region, c.at) == 0 {
-						depths = append(depths, c.depth)
+					held := func(p connectionPoint) bool {
+						return len(foreign) > 0 && compoundKeepDistance(foreign, p) < compoundKeepRamp
 					}
-				}
-				mean, sd, lo, hi := compoundContourStats(t, depths)
-				t.Logf("%s: %d 2x px of the region within 2 world px of the boundary, %d above alpha 64, max alpha %d; 50 %% contour over %d samples there: mean %.2f, sd %.2f, range %.2f..%.2f world px", name, band, opaque, worst, len(depths), mean, sd, lo, hi)
-				if band < 40 {
-					t.Fatalf("too few boundary pixels in the region: %d", band)
-				}
-				if worst > 64 {
-					t.Errorf("%d px of the region within 2 world px of the boundary keep alpha above 64 (max %d)", opaque, worst)
-				}
-				if len(depths) < 8 {
-					t.Errorf("the 50 %% contour covers only %d samples of the region's boundary", len(depths))
-				} else if lo < 2 || hi > s.EdgeFeather+1 {
-					t.Errorf("50 %% contour outside the band in the region: %.2f..%.2f", lo, hi)
-				}
-			})
+					band, opaque, worst, kept := 0, 0, uint8(0), 0
+					for y := range l.Height * 2 {
+						for x := range l.Width * 2 {
+							p := connectionPoint{(float64(x) + .5) / 2, (float64(y) + .5) / 2}
+							if d := compoundSignedDistance(l, edges, p); d < 0 || d > 2 || compoundKeepDistance(region, p) > 0 || held(p) {
+								continue
+							}
+							band++
+							if len(own) > 0 && compoundKeepDistance(own, p) < compoundKeepRamp {
+								kept++
+							}
+							a := art2.NRGBAAt(x, y).A
+							if a > 64 {
+								opaque++
+							}
+							worst = max(worst, a)
+						}
+					}
+					// Along the region's boundary the march may run into a
+					// building's keep polygon: wherever the artwork was opaque at
+					// the boundary, the 50 % contour lies inside the feather band
+					// (the faded ground or the building beyond it), not on the
+					// boundary as a cut.
+					open := func(p connectionPoint) bool {
+						lat, depth := compoundEntryLateral(t, l, p)
+						return !(lat <= corridor+1.5 && depth < s.EdgeFeather+2)
+					}
+					samples := compoundFeatherContourSamples(l, s.EdgeFeather, before2, art2, open)
+					var depths []float64
+					for _, c := range samples {
+						if compoundKeepDistance(region, c.at) == 0 && !held(c.at) {
+							depths = append(depths, c.depth)
+						}
+					}
+					mean, sd, lo, hi := compoundContourStats(t, depths)
+					t.Logf("%s: %d 2x px of the region within 2 world px of the boundary, %d above alpha 64, max alpha %d; 50 %% contour over %d samples there: mean %.2f, sd %.2f, range %.2f..%.2f world px", name, band, opaque, worst, len(depths), mean, sd, lo, hi)
+					if band < 40 {
+						t.Fatalf("too few boundary pixels in the region: %d", band)
+					}
+					if worst > 64 {
+						t.Errorf("%d px of the region within 2 world px of the boundary keep alpha above 64 (max %d)", opaque, worst)
+					}
+					if r.Unkept && kept > 0 {
+						t.Errorf("a keep polygon of the region still holds %d px within 2 world px of the boundary", kept)
+					}
+					if len(depths) < 8 {
+						t.Errorf("the 50 %% contour covers only %d samples of the region's boundary", len(depths))
+					} else if lo < 2.5-1e-9 || hi > 8+1e-9 {
+						t.Errorf("50 %% contour outside 2.5..8 world px in the region: %.2f..%.2f", lo, hi)
+					}
+				})
+			}
 		}
 	}
 }
