@@ -36,12 +36,16 @@ const (
 	backdropPad = 8
 	// backdropAspect is how far the picture's aspect may stray from the world's.
 	backdropAspect = 0.01
+	// backdropThumb is the picture pixels per side the minimap colours average
+	// in one step.
+	backdropThumb = 8
 )
 
 // backdropImage is a loaded backdrop picture, split into textures.
 type backdropImage struct {
 	w, h  int // the picture in pixels
 	tiles []backdropTile
+	thumb *image.RGBA // the picture reduced by backdropThumb, for the hexes' minimap colours
 }
 
 // backdropTile is one texture of a backdrop: the pixels it owns (core) and
@@ -54,8 +58,9 @@ type backdropTile struct {
 // backdrop is a backdrop picture placed on a level's world.
 type backdrop struct {
 	*backdropImage
-	scale  float64 // picture pixels per world pixel
-	ww, wh float64 // the world it covers
+	scale  float64                      // picture pixels per world pixel
+	ww, wh float64                      // the world it covers
+	tint   map[hexgrid.Coord]color.RGBA // each hex's mean colour in the picture
 }
 
 // backdropScale is the picture pixels per world pixel of a w×h picture
@@ -140,7 +145,7 @@ func newBackdropImage(pic image.Image) (*backdropImage, error) {
 		return nil, fmt.Errorf("backdrop: cannot split a %T", pic)
 	}
 	r := pic.Bounds()
-	bi := &backdropImage{w: r.Dx(), h: r.Dy(), tiles: backdropTiles(r.Dx(), r.Dy(), backdropTileSize, backdropPad)}
+	bi := &backdropImage{w: r.Dx(), h: r.Dy(), tiles: backdropTiles(r.Dx(), r.Dy(), backdropTileSize, backdropPad), thumb: reduce(pic, backdropThumb)}
 	for i := range bi.tiles {
 		t := &bi.tiles[i]
 		t.img = ebiten.NewImageFromImage(sub.SubImage(t.src.Add(r.Min)))
@@ -155,7 +160,54 @@ func (bi *backdropImage) on(grid hexgrid.Grid) (*backdrop, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &backdrop{backdropImage: bi, scale: s, ww: float64(ww), wh: float64(wh)}, nil
+	return &backdrop{backdropImage: bi, scale: s, ww: float64(ww), wh: float64(wh), tint: hexTints(bi.thumb, s/backdropThumb, grid)}, nil
+}
+
+// reduce is pic shrunk by n: each pixel the mean of an n×n block, sampled on
+// every other row and column.
+func reduce(pic image.Image, n int) *image.RGBA {
+	r := pic.Bounds()
+	out := image.NewRGBA(image.Rect(0, 0, (r.Dx()+n-1)/n, (r.Dy()+n-1)/n))
+	for ty := range out.Rect.Dy() {
+		for tx := range out.Rect.Dx() {
+			var sr, sg, sb, k uint32
+			for y := r.Min.Y + ty*n; y < min(r.Min.Y+ty*n+n, r.Max.Y); y += 2 {
+				for x := r.Min.X + tx*n; x < min(r.Min.X+tx*n+n, r.Max.X); x += 2 {
+					pr, pg, pb, _ := pic.At(x, y).RGBA()
+					sr, sg, sb, k = sr+pr>>8, sg+pg>>8, sb+pb>>8, k+1
+				}
+			}
+			out.SetRGBA(tx, ty, color.RGBA{uint8(sr / k), uint8(sg / k), uint8(sb / k), 255})
+		}
+	}
+	return out
+}
+
+// hexTints is the mean colour of each hex of grid in thumb, a picture with
+// scale pixels per world pixel.
+func hexTints(thumb *image.RGBA, scale float64, grid hexgrid.Grid) map[hexgrid.Coord]color.RGBA {
+	type sum struct{ r, g, b, n int }
+	sums := map[hexgrid.Coord]*sum{}
+	for y := range thumb.Rect.Dy() {
+		for x := range thumb.Rect.Dx() {
+			c, ok := grid.PixelToHex((float64(x)+0.5)/scale, (float64(y)+0.5)/scale)
+			if !ok {
+				continue
+			}
+			s := sums[c]
+			if s == nil {
+				s = &sum{}
+				sums[c] = s
+			}
+			p := thumb.RGBAAt(x, y)
+			s.r, s.g, s.b, s.n = s.r+int(p.R), s.g+int(p.G), s.b+int(p.B), s.n+1
+		}
+	}
+	tint := make(map[hexgrid.Coord]color.RGBA, len(sums))
+	for c, s := range sums {
+		tint[c] = color.RGBA{uint8(s.r / s.n), uint8(s.g / s.n), uint8(s.b / s.n), 255}
+	}
+	return tint
 }
 
 // mapGround is the screen around the map.

@@ -53,9 +53,15 @@ func dimShade(s minimap.Shade) minimap.Shade {
 	return minimap.Shade{Lit: dim(s.Lit), Mid: dim(s.Mid), Dark: dim(s.Dark)}
 }
 
-// hexColour is the minimap colour of c's terrain: the average colour of its
+// hexColour is the minimap colour of c's terrain: its mean colour in the
+// backdrop unless the sappers changed it, else the average colour of its
 // terrain tile when terrain art is loaded, else the placeholder fill.
 func (g *game) hexColour(c hexgrid.Coord) color.RGBA {
+	if b := g.backdrop; b != nil && !g.reworkedHex[c] {
+		if col, ok := b.tint[c]; ok {
+			return col
+		}
+	}
 	if g.terrain != nil {
 		if bg := g.terrain.scene.Cells[c.Line][c.Col].Background; bg != "" {
 			if col, ok := g.tileColour(bg); ok {
