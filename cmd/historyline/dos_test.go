@@ -160,7 +160,7 @@ func finish(t *testing.T, d *dosControl) []played {
 }
 
 func TestDosSelectMoveConfirm(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
 	d.Tick()
 	if !d.s.Ready(1) || d.s.Ready(0) {
 		t.Fatalf("after the first frame: ready %v %v", d.s.Ready(0), d.s.Ready(1))
@@ -237,7 +237,7 @@ func TestDosSelectMoveConfirm(t *testing.T) {
 }
 
 func TestDosConfirmAndReopen(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
 	d.EndTurn()
 	d.EndTurn()
 	d.EndTurn()
@@ -316,7 +316,7 @@ func TestDosBattles(t *testing.T) {
 }
 
 func TestDosExitThroughContents(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
 	d.Tick()
 	// Enter an own building, then leave it in the next movement phase.
 	var building hexgrid.Coord
@@ -375,7 +375,7 @@ func TestDosExitThroughContents(t *testing.T) {
 }
 
 func TestDosInfoAndStatus(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
 	lvl := d.s.Level
 	g := newMapGame(lvl, false)
 	g.dos = d
@@ -442,7 +442,7 @@ func (approachPlanner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, erro
 // The other side's moves are not played again at the phase change: no walk
 // plays, and as soon as the views unfreeze its units stand where they went.
 func TestDosRevealedAtOnce(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08-pulse:cp", approachPlanner{})
+	d := newDosTest(t, "monthly/1914-08:cp", approachPlanner{})
 	d.Tick()
 	finish(t, d) // the computer has planned its movement phase now
 	if d.s.Phase(1) != dosrules.PhaseMovement || !d.s.Ready(1) {

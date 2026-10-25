@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1914-10",
 	"name": "Civil",
+	"backdrop": "1914-10.jpg",
 	"map": {
 		"line1": [["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["grass_w", "rail26"], ["grass_w", "stream25"], ["forest_w", ""], ["grass_w", "path24"], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""]],
 		"line2": [["forest_w", ""], ["forest_w", ""], ["grass_w", "road24"], ["grass_w", "rail25"], ["grass_w", "stream25"], ["grass_w", "path13"], ["grass_w", "path25"], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""]],

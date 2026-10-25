@@ -3,7 +3,7 @@
 	"version": 1,
 	"month": "1914-08",
 	"name": "Pulse",
-	"backdrop": "1914-08-pulse.jpg",
+	"backdrop": "1914-08.jpg",
 	"map": {
 		"line1": [["hills", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["forest", ""]],
 		"line2": [["grass", "road236"], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["house", ""], ["hills", ""]],

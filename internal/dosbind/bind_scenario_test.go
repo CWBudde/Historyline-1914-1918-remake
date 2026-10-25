@@ -54,7 +54,7 @@ func TestBindScenarioCredits(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lv, err := scenario.LoadLevel("../../levels/monthly/1914-08-pulse.json", scenario.CP)
+	lv, err := scenario.LoadLevel("../../levels/monthly/1914-08.json", scenario.CP)
 	if err != nil {
 		t.Fatal(err)
 	}

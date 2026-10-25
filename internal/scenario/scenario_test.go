@@ -54,7 +54,7 @@ func TestShippedRoundTrip(t *testing.T) {
 				t.Error("encoding differs from the file")
 			}
 			name := strings.TrimSuffix(filepath.Base(path), ".json")
-			if f.Month != "" && !strings.HasPrefix(name, f.Month+"-") {
+			if f.Month != "" && name != f.Month {
 				t.Errorf("month %s, file %s", f.Month, name)
 			}
 			if f.Backdrop != "" {

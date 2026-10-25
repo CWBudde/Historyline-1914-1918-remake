@@ -34,7 +34,7 @@ type Extra struct {
 	Builds  []string              // the unit ids factories build
 	// Backdrop is the painting of the map's ground drawn in place of the
 	// terrain tiles, a picture file named relative to the scenario file's
-	// directory ("1914-08-pulse.jpg"); "" for none.
+	// directory ("1914-08.jpg"); "" for none.
 	Backdrop string
 }
 

@@ -44,8 +44,8 @@ const (
 // mapLevel is a map of the menu: a setup of a monthly level
 // (levels/monthly), opened by its code word.
 type mapLevel struct {
-	name       string // -level name: "monthly/1914-08-pulse:cp"
-	file       string // the scenario file: "monthly/1914-08-pulse"
+	name       string // -level name: "monthly/1914-08:cp"
+	file       string // the scenario file: "monthly/1914-08"
 	mode       scenario.Mode
 	lvl        *level.Level
 	next       int    // the map a victory leads to, -1 for none

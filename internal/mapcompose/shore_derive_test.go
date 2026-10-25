@@ -73,7 +73,7 @@ func TestShoreShapes(t *testing.T) {
 // The spots of the original map 03 ("VENOM", campaign level 4) that met the
 // grass along a straight hex edge.
 func TestVenomCoastHasShores(t *testing.T) {
-	l, err := campaignLevelErr("monthly/1915-02-venom:cp")
+	l, err := campaignLevelErr("monthly/1915-02:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -185,7 +185,7 @@ func TestWinterCoastsTakeWinterShores(t *testing.T) {
 		t.Errorf("shore %s, gap %+v", got, gap)
 	}
 	// Level 10 (map 09) lies in winter: its coast is snow.
-	l, err := campaignLevelErr("monthly/1916-02-parts:cp")
+	l, err := campaignLevelErr("monthly/1916-02:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -268,7 +268,7 @@ func TestStonesDrawRocksOverTheirShore(t *testing.T) {
 			}
 		})
 	}
-	l, err := campaignLevelErr("monthly/1915-08-orkan:cp")
+	l, err := campaignLevelErr("monthly/1915-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

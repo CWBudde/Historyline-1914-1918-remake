@@ -232,7 +232,7 @@ func TestPlannerGivesOneActionPerUnit(t *testing.T) {
 
 func TestPlaysShippedLevels(t *testing.T) {
 	set := loadSet(t)
-	for _, name := range []string{"monthly/1914-08-pulse", "monthly/1914-10-civil", "monthly/1914-12-mouse"} {
+	for _, name := range []string{"monthly/1914-08", "monthly/1914-10", "monthly/1914-12"} {
 		for _, side := range []game.Player{game.CentralPowers, game.Entente} {
 			t.Run(fmt.Sprintf("%s/%v", name, side), func(t *testing.T) {
 				lv, err := scenario.ShippedLevel(name, scenario.CP)

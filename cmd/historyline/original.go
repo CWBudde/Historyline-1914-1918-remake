@@ -63,7 +63,7 @@ func loadScenario(dir string, emb embed.FS, name string) (*level.Level, error) {
 }
 
 // scenarioLevel is the level of setup m of the scenario file f, which is
-// file ("monthly/1914-08-pulse") below the levels directory; its backdrop
+// file ("monthly/1914-08") below the levels directory; its backdrop
 // becomes a path below the levels directory too (levelBackdrop).
 func scenarioLevel(f *scenario.File, file string, m scenario.Mode) (*level.Level, error) {
 	lvl, err := f.Level(m)

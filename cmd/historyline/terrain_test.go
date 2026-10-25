@@ -24,7 +24,7 @@ import (
 
 func testLevel(t *testing.T) *level.Level {
 	t.Helper()
-	l, err := loadLevel("levels-not-here", "monthly/1914-08-pulse:cp")
+	l, err := loadLevel("levels-not-here", "monthly/1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

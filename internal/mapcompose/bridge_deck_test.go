@@ -70,7 +70,7 @@ func window(l *level.Level, c hexgrid.Coord, lines, cols int) (*level.Level, hex
 	return w, hexgrid.Coord{Line: c.Line - l0, Col: c.Col - c0}
 }
 
-// campaignLevel is a setup of a shipped scenario, "monthly/1915-02-venom:cp".
+// campaignLevel is a setup of a shipped scenario, "monthly/1915-02:cp".
 func campaignLevel(t *testing.T, name string) *level.Level {
 	t.Helper()
 	file, mode, _ := strings.Cut(name, ":")
@@ -146,9 +146,9 @@ func TestStandingRailDeck(t *testing.T) {
 		level string
 		at    hexgrid.Coord
 	}{
-		{"monthly/1917-10-atlas:cp", hexgrid.Coord{Line: 46, Col: 9}},
-		{"monthly/1917-10-atlas:cp", hexgrid.Coord{Line: 48, Col: 9}},
-		{"monthly/1914-10-civil:cp", hexgrid.Coord{Line: 10, Col: 4}},
+		{"monthly/1917-10:cp", hexgrid.Coord{Line: 46, Col: 9}},
+		{"monthly/1917-10:cp", hexgrid.Coord{Line: 48, Col: 9}},
+		{"monthly/1914-10:cp", hexgrid.Coord{Line: 10, Col: 4}},
 		{"skirmish/13-grand:2p", hexgrid.Coord{Line: 31, Col: 24}}, // summer
 	} {
 		w, c := window(campaignLevel(t, site.level), site.at, 7, 5)

@@ -36,7 +36,7 @@ func pulse(root, out string) error {
 }
 
 // renderLevel uses the same runtime compositor for PULSE and other shipped maps:
-// a level file, or a scenario setup "levels/monthly/1914-08-pulse.json:cp".
+// a level file, or a scenario setup "levels/monthly/1914-08.json:cp".
 // The optional detail is a centred crop of the ground image, without resampling.
 func renderLevel(root, out, levelPath, prefix string, detail bool) error {
 	var lvl *level.Level

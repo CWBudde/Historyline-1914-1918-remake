@@ -586,7 +586,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       nearest, 14 without a match within 4 hexes left their content out (among them neutral
       factories with units on PARTS, HILLS and RHEIN). The 24 two-player maps are
       `levels/skirmish` (setup `2p`, `cp`/`ec` from it). September 1914: Marne
-      (`1914-09-marne.json`, `ec` MARNE: an easy Entente counterattack, three rival designs
+      (`1914-09.json`, `ec` MARNE: an easy Entente counterattack, three rival designs
       played out AI-vs-AI, Meaux won; `cp` KLUCK and `2p` the same units). Evidence:
       `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 25),
       `TestVictorySelectsTheNextMap`, `TestCountryPicksTheSidesSetup`, `TestMonthlyMarne`; the
@@ -597,9 +597,11 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       has no hot-seat mode yet.
 - [ ] 5.10 Painted backdrops: a scenario file may name a painting of its whole ground (`backdrop`), drawn
       in place of the terrain tiles (`-backdrop off` draws the tiles). PULSE ships one
-      (`1914-08-pulse.jpg`), painted from the Python remake's PULSE: 31 hexes of the month's map differ
-      (stone, mountains, trenches) until it is repainted. Open: paintings for the other maps, a render
-      mode switch between tiles and painting in the game.
+      (`1914-08.jpg`), painted from the Python remake's PULSE: 31 hexes of the month's map differ
+      (stone, mountains, trenches) until it is repainted. CIVIL (`1914-10.jpg`, a wet late October) was
+      painted from the Python remake's map 2 and touched up to the month's map (stones, an
+      emplacement under each `cp` bunker on its crater hex); trenches in 9 hexes and one rough hex still follow the old map.
+      Open: paintings for the other maps, a render mode switch between tiles and painting in the game.
 - [ ] 5.11 Terrain art for the original maps: `hlasset terrain-gaps` over every shipped map finds every
       context, but crater and boulder clusters without an installed stamp of their own (the stamps
       were made for the Python maps), PULSE, CIVIL and MOUSE included.

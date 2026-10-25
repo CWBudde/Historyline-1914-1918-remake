@@ -247,7 +247,7 @@ their layouts leave the unit foot point clear. Rebuild with the pinned
 ### Painted backdrop
 
 A level can draw one painting of its whole ground in place of the terrain tiles: a scenario file names it
-as `backdrop`, a PNG or JPEG next to the file (`levels/monthly/1914-08-pulse.jpg`, embedded with the
+as `backdrop`, a PNG or JPEG next to the file (`levels/monthly/1914-08.jpg`, embedded with the
 scenarios), and every battle on that map draws it. `-backdrop <file>` puts one painting under every level
 instead (a path, or a URL in a directory with `files.txt`, read like a catalog); `-backdrop off` draws the
 tiles where a level has a painting. The painting covers the world rectangle as `maprender` draws it

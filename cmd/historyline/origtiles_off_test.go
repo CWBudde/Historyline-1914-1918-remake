@@ -12,7 +12,7 @@ import (
 // TestOrigTilesOff: a build without -tags origtiles answers F8 with how to
 // get the original art and keeps drawing the remake's terrain and units.
 func TestOrigTilesOff(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	if msg := g.toggleOrigArt(); !strings.Contains(msg, "-tags origtiles") {

@@ -52,7 +52,7 @@ func shipped(t *testing.T) []testLevel {
 		var y, m, k int
 		switch {
 		case dir == "monthly" && mode == "cp":
-			if _, err := fmt.Sscanf(name, "%4d-%2d-", &y, &m); err != nil {
+			if _, err := fmt.Sscanf(name, "%4d-%2d", &y, &m); err != nil {
 				t.Fatalf("%s: %v", n.Name, err)
 			}
 			if months := 12*(y-1914) + m - 8; months%2 == 0 {

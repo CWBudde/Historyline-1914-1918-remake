@@ -14,7 +14,7 @@ import (
 // map of the PULSE reference design (art/reference/pulse).
 const pythonPulse = "../level/testdata/pulse"
 
-// loadLevel is a setup of a shipped scenario ("monthly/1914-08-pulse:cp"), or
+// loadLevel is a setup of a shipped scenario ("monthly/1914-08:cp"), or
 // a level file of the legacy format (pythonPulse), as a grid and its hexes.
 func loadLevel(t *testing.T, name string) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
 	t.Helper()
@@ -159,7 +159,7 @@ func TestDestroyedDepotDrawsRuin(t *testing.T) {
 // The destroyed depot of level 10 (PARTS) at line59[11]: its entrance has no
 // content, the held depot beside it has.
 func TestLevelDestroyedDepot(t *testing.T) {
-	l, err := campaignLevelErr("monthly/1916-02-parts:cp")
+	l, err := campaignLevelErr("monthly/1916-02:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -204,10 +204,10 @@ func TestShippedLevelGaps(t *testing.T) {
 		}
 	}
 	want := map[string]string{
-		pythonPulse:                "forest/selected:81 ground/selected:24 hills/selected:51",
-		"monthly/1914-08-pulse:cp": "forest/selected:76 ground/selected:29 hills/selected:53 shore/missing:3 trench/missing:3",
-		"monthly/1914-10-civil:cp": "forest/selected:168 ground/selected:64 trench/missing:9",
-		"monthly/1914-12-mouse:cp": "forest/selected:97 ground/selected:86 trench/missing:3",
+		pythonPulse:          "forest/selected:81 ground/selected:24 hills/selected:51",
+		"monthly/1914-08:cp": "forest/selected:76 ground/selected:29 hills/selected:53 shore/missing:3 trench/missing:3",
+		"monthly/1914-10:cp": "forest/selected:168 ground/selected:64 trench/missing:9",
+		"monthly/1914-12:cp": "forest/selected:97 ground/selected:86 trench/missing:3",
 	}
 	for name := range want {
 		g, at := loadLevel(t, name)
@@ -267,14 +267,14 @@ func TestComposeWinterRoads(t *testing.T) {
 			return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
 		}
 	}
-	g, at := load("monthly/1916-02-parts:cp")
+	g, at := load("monthly/1916-02:cp")
 	if summer, winter := roads(Compose(g, at, winterTiles)); summer != 0 || winter == 0 {
 		t.Errorf("winter map with winter roads: %d summer, %d winter road overlays", summer, winter)
 	}
 	if summer, winter := roads(Compose(g, at, func(string) bool { return false })); summer == 0 || winter != 0 {
 		t.Errorf("winter map without winter roads: %d summer, %d winter road overlays", summer, winter)
 	}
-	g, at = load("monthly/1914-08-pulse:cp")
+	g, at = load("monthly/1914-08:cp")
 	if summer, winter := roads(Compose(g, at, winterTiles)); summer == 0 || winter != 0 {
 		t.Errorf("summer map: %d summer, %d winter road overlays", summer, winter)
 	}

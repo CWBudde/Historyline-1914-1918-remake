@@ -109,15 +109,15 @@ func TestKeepsBackdrops(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if kept["1914-08-pulse.json"] != "1914-08-pulse.jpg" {
+	if kept["1914-08.json"] != "1914-08.jpg" {
 		t.Fatalf("backdrops %v", kept)
 	}
 	out, err := generate(originalMaps(t), set, kept)
 	if err != nil {
 		t.Fatal(err)
 	}
-	f, err := scenario.Parse(out.monthly["1914-08-pulse.json"])
-	if err != nil || f.Backdrop != "1914-08-pulse.jpg" {
+	f, err := scenario.Parse(out.monthly["1914-08.json"])
+	if err != nil || f.Backdrop != "1914-08.jpg" {
 		t.Errorf("PULSE backdrop %q, %v", f.Backdrop, err)
 	}
 }

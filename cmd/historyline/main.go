@@ -734,7 +734,7 @@ func (g *game) Layout(outsideW, outsideH int) (int, int) {
 }
 
 // loadLevel loads name: a setup of a scenario file below dir
-// ("monthly/1914-08-pulse:ec", see loadScenario), or a level file of the
+// ("monthly/1914-08:ec", see loadScenario), or a level file of the
 // legacy format by its path ("art/reference/pulse/level.json").
 func loadLevel(dir, name string) (*level.Level, error) {
 	for prefix, emb := range scenarioDirs {
@@ -856,7 +856,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "monthly/1914-08-pulse:cp", "a scenario setup (monthly/1914-08-pulse:ec, skirmish/01-track:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
+	name := flag.String("level", "monthly/1914-08:cp", "a scenario setup (monthly/1914-08:ec, skirmish/01-track:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")

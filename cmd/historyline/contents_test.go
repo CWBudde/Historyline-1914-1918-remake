@@ -21,7 +21,7 @@ import (
 // human panel looking at its factory, and the factory's entrance.
 func newContentsTest(t *testing.T) (*game, *dosControl, hexgrid.Coord) {
 	t.Helper()
-	d := newDosTest(t, "monthly/1914-10-civil:cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-10:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	g.applyLayout(1920, 1080, 1)

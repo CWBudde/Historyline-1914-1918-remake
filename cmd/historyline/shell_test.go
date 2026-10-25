@@ -50,7 +50,7 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 		codes[25] != "BATLE" || codes[26] != "MARNE" || codes[27] != "GOOSE" || codes[49] != "SODOM" {
 		t.Fatalf("codes %v", codes)
 	}
-	if s.maps[0].name != "monthly/1914-08-pulse:cp" || s.maps[25].name != "monthly/1914-08-pulse:ec" {
+	if s.maps[0].name != "monthly/1914-08:cp" || s.maps[25].name != "monthly/1914-08:ec" {
 		t.Fatalf("names %s, %s", s.maps[0].name, s.maps[25].name)
 	}
 	for i, m := range s.maps {
@@ -297,8 +297,8 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 	for _, c := range []struct {
 		from int
 		next string
-	}{{1, "monthly/1914-10-civil:cp"}, {23, "monthly/1918-06-stern:cp"}, {24, ""},
-		{25, "monthly/1914-09-marne:ec"}, {26, "monthly/1914-10-civil:ec"}, {49, ""}} {
+	}{{1, "monthly/1914-10:cp"}, {23, "monthly/1918-06:cp"}, {24, ""},
+		{25, "monthly/1914-09:ec"}, {26, "monthly/1914-10:ec"}, {49, ""}} {
 		s.code = c.from
 		s.finish(outcome{won: true})
 		want, shown := s.maps[c.from].name, ""
@@ -365,16 +365,16 @@ func TestCodeEntryPasswords(t *testing.T) {
 		t.Fatalf("map 30's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
 	}
 	enter("GOOSE")
-	if s.maps[s.code].name != "monthly/1914-10-civil:ec" {
+	if s.maps[s.code].name != "monthly/1914-10:ec" {
 		t.Fatalf("GOOSE selected %s", s.maps[s.code].name)
 	}
 	enter("MOUSE")
-	if s.maps[s.code].name != "monthly/1914-12-mouse:cp" {
+	if s.maps[s.code].name != "monthly/1914-12:cp" {
 		t.Fatalf("MOUSE selected %s", s.maps[s.code].name)
 	}
 	// A victory shows the next map's password.
 	s.finish(outcome{won: true})
-	if s.maps[s.code].name != "monthly/1915-02-venom:cp" || s.result.next != "VENOM" {
+	if s.maps[s.code].name != "monthly/1915-02:cp" || s.result.next != "VENOM" {
 		t.Fatalf("after MOUSE: %s, shown %q", s.maps[s.code].name, s.result.next)
 	}
 }
@@ -407,7 +407,7 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 	s.code = 2 // CIVIL, the Central Powers' October 1914
 	s.open(pageCountry)
 	s.activate(0) // France
-	if s.maps[s.code].name != "monthly/1914-10-civil:ec" || s.side != state.Entente {
+	if s.maps[s.code].name != "monthly/1914-10:ec" || s.side != state.Entente {
 		t.Fatalf("France on CIVIL: %s, side %v", s.maps[s.code].name, s.side)
 	}
 	c := s.config(matchConfig{})
@@ -424,7 +424,7 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 	}
 	s.open(pageCountry)
 	s.activate(1) // Germany
-	if s.maps[s.code].name != "monthly/1914-10-civil:cp" {
+	if s.maps[s.code].name != "monthly/1914-10:cp" {
 		t.Fatalf("Germany on GOOSE: %s, want CIVIL", s.maps[s.code].name)
 	}
 }
@@ -432,7 +432,7 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 func TestMonthlyMarne(t *testing.T) {
 	s := testShell(t)
 	m := s.maps[26]
-	if m.code() != "MARNE" || m.name != "monthly/1914-09-marne:ec" || m.month != "1914-09" || m.next != 27 {
+	if m.code() != "MARNE" || m.name != "monthly/1914-09:ec" || m.month != "1914-09" || m.next != 27 {
 		t.Fatalf("monthly map %+v", m)
 	}
 	if k := s.maps[1]; k.code() != "KLUCK" || k.file != m.file || k.mode.Human() != state.CentralPowers {

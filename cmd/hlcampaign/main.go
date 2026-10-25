@@ -4,7 +4,7 @@
 //
 //   - levels/monthly: campaign map k (00–23 with its Entente version
 //     24–47) becomes the level of month k*2 after August 1914, named by
-//     its Central Powers code word ("1914-08-pulse.json"). The map is the
+//     the month ("1914-08.json"). The map is the
 //     Central Powers version's; setup cp is that version, ec the Entente
 //     version on the same map, 2p the Central Powers side of the first and
 //     the Entente side of the second.
@@ -123,7 +123,7 @@ func Month(k int) string {
 }
 
 // keptBackdrops are the backdrops of the scenario files in the directories,
-// by file name ("1914-08-pulse.json"); a missing directory has none.
+// by file name ("1914-08.json"); a missing directory has none.
 func keptBackdrops(dirs ...string) (map[string]string, error) {
 	out := map[string]string{}
 	for _, dir := range dirs {
@@ -164,7 +164,7 @@ func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (
 			return nil, fmt.Errorf("map %02d: %w", k, err)
 		}
 		f.Month = Month(k)
-		name := f.Month + "-" + strings.ToLower(maps[k].Mission.Code) + ".json"
+		name := f.Month + ".json"
 		f.Backdrop = backdrops[name]
 		for _, r := range report {
 			out.report = append(out.report, name+": "+r)

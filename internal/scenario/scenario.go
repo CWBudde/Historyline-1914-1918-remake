@@ -8,7 +8,7 @@
 //		"version": 1,
 //		"month": "1914-08",
 //		"name": "Pulse",
-//		"backdrop": "1914-08-pulse.jpg",
+//		"backdrop": "1914-08.jpg",
 //		"map": {
 //			"line1": [["hills", ""], ["grass", "road236"], …],
 //			…
@@ -88,7 +88,7 @@ type File struct {
 	Name  string // "Pulse"
 	// Backdrop is the painting of the map's ground drawn in place of the
 	// terrain tiles: a PNG or JPEG file next to the scenario file
-	// ("1914-08-pulse.jpg") covering the map's world rectangle as
+	// ("1914-08.jpg") covering the map's world rectangle as
 	// maprender draws it; "" for none.
 	Backdrop string
 	Map      [][]level.Hex // Map[line][col]: terrain and infrastructure only

@@ -13,7 +13,7 @@ import (
 
 // Named is a setup of a shipped scenario file as a level.
 type Named struct {
-	Name  string // "monthly/1914-08-pulse:cp"
+	Name  string // "monthly/1914-08:cp"
 	Level *level.Level
 }
 
@@ -59,7 +59,7 @@ func Shipped(modes ...Mode) ([]Named, error) {
 }
 
 // ShippedLevel is the level of setup m of the shipped scenario file name
-// ("monthly/1916-02-parts", "skirmish/11-uboot").
+// ("monthly/1916-02", "skirmish/11-uboot").
 func ShippedLevel(name string, m Mode) (*level.Level, error) {
 	for _, d := range shippedDirs {
 		if strings.HasPrefix(name, d.dir+"/") {

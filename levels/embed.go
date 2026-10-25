@@ -5,7 +5,7 @@ package levels
 import "embed"
 
 // Monthly holds the campaign's scenario files (internal/scenario), one per
-// month, named like "monthly/1914-08-pulse.json", and their backdrops.
+// month, named like "monthly/1914-08.json", and their backdrops.
 //
 //go:embed monthly
 var Monthly embed.FS

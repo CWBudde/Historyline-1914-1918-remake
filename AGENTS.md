@@ -62,15 +62,15 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   `internal/origview` draws it (a look per terrain record, `looks.json`); `-level original/NN` plays it
   exactly.
 - `internal/scenario`: the level format of `levels/monthly/` (the campaign, one level per month,
-  `1914-08-pulse.json`) and `levels/skirmish/` (the original's two-player maps): one map shared by every
+  `1914-08.json`) and `levels/skirmish/` (the original's two-player maps): one map shared by every
   mode and a setup per mode (`cp`, `ec`, `2p`) with units, building owners, credits, builds and the code
   word, and an optional backdrop, a painting of the whole ground next to the file
-  (`1914-08-pulse.jpg`) that the game draws in place of the terrain tiles; `File.Level` turns a setup into
+  (`1914-08.jpg`) that the game draws in place of the terrain tiles; `File.Level` turns a setup into
   a `level.Level`. The original campaign maps take the first month of each two-month period, their CP
   version's terrain; `just levels-campaign` (`cmd/hlcampaign`) writes those months and the skirmish set
   from the local original maps and overwrites hand edits there (backdrops stay), the other months (newly
   authored levels such as Marne) stay. The menu campaign is a chain per side through the months;
-  `-level monthly/1914-08-pulse:ec` plays one setup.
+  `-level monthly/1914-08:ec` plays one setup.
 - `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);
   `art/style.md`, bundle manifests in `art/pipeline/`, the PULSE reference in `art/reference/pulse/`.
   Art guide: `art/README.md`. `assets/<kind>/<family>/`: runtime art only, every file listed in

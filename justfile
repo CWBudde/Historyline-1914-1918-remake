@@ -141,11 +141,11 @@ artbook: _build-dir
     go run ./tools/art-review -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
     go run ./cmd/hlart pulse -out build/artbook/pulse
     go run ./tools/reference-design -look-out build/artbook/look
-    go run ./cmd/hlart map -level levels/monthly/1914-10-civil.json:cp -out build/artbook/winter
-    go run ./cmd/hlart map -level levels/monthly/1914-12-mouse.json:cp -out build/artbook/winter3
-    go run ./cmd/hlart map -level levels/monthly/1914-08-pulse.json:cp -out build/artbook/campaign/summer
-    go run ./cmd/hlart map -level levels/monthly/1916-10-balon.json:cp -out build/artbook/campaign/winter
-    go run ./cmd/hlart map -level levels/monthly/1916-06-flame.json:ec -out build/artbook/campaign/sea
+    go run ./cmd/hlart map -level levels/monthly/1914-10.json:cp -out build/artbook/winter
+    go run ./cmd/hlart map -level levels/monthly/1914-12.json:cp -out build/artbook/winter3
+    go run ./cmd/hlart map -level levels/monthly/1914-08.json:cp -out build/artbook/campaign/summer
+    go run ./cmd/hlart map -level levels/monthly/1916-10.json:cp -out build/artbook/campaign/winter
+    go run ./cmd/hlart map -level levels/monthly/1916-06.json:ec -out build/artbook/campaign/sea
     go run ./cmd/hlart map -level levels/skirmish/11-uboot.json:2p -out build/artbook/campaign/harbour
     go run ./tools/reference-design -compare build/artbook/compare -compare-format png
     compare=""

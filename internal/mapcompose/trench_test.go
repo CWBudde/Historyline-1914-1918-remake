@@ -91,7 +91,7 @@ func TestComposeDrawsDerivedTrenches(t *testing.T) {
 // The pieces of the original map 03 ("VENOM", campaign level 4) that stood
 // apart: a junction, a dug-in position and a run, each leading into the next.
 func TestVenomTrenchesJoin(t *testing.T) {
-	l, err := campaignLevelErr("monthly/1915-02-venom:cp")
+	l, err := campaignLevelErr("monthly/1915-02:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

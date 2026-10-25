@@ -75,9 +75,9 @@ func TestScenarioLevel(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, c := range []struct{ name, mapName, player string }{
-		{"monthly/1914-08-pulse:ec", "BATLE", state.Entente.String()},
-		{"monthly/1914-08-pulse", "PULSE", state.CentralPowers.String()},
-		{"monthly/1914-09-marne", "KLUCK", state.CentralPowers.String()},
+		{"monthly/1914-08:ec", "BATLE", state.Entente.String()},
+		{"monthly/1914-08", "PULSE", state.CentralPowers.String()},
+		{"monthly/1914-09", "KLUCK", state.CentralPowers.String()},
 		{"skirmish/01-track:2p", "TRACK", state.CentralPowers.String()},
 	} {
 		lvl, b, err := loadMap(t.TempDir(), c.name, set)
@@ -88,7 +88,7 @@ func TestScenarioLevel(t *testing.T) {
 			t.Errorf("%s: %s as %s, board %v", c.name, lvl.MapName, lvl.Player, b != nil)
 		}
 	}
-	if _, _, err := loadMap(t.TempDir(), "monthly/1914-08-pulse:xx", set); err == nil {
+	if _, _, err := loadMap(t.TempDir(), "monthly/1914-08:xx", set); err == nil {
 		t.Error("an unknown setup loaded")
 	}
 }
