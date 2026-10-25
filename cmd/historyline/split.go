@@ -180,6 +180,7 @@ func (g *game) layoutSplit() {
 		g.split = &split{track: newTracker(), zoom: dosscreen.DefaultZoom}
 	}
 	s := g.split
+	s.frame.Slim = g.backdrop != nil // a painted map shows edge to edge in the slim frame
 	s.screen = dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI)).Zoomed(s.zoom)
 	s.track.Threshold = gestureThreshold(s.screen.CellScale)
 	for side := range 2 {
@@ -301,16 +302,40 @@ func (g *game) followSplit() {
 	}
 }
 
+// panelShows reports whether side's panel shows c to the cursor and the
+// pointer: an opening of the plate frame, or in the slim frame any playable
+// hex whose centre lies in the panel's opening.
+func (g *game) panelShows(side int, c hexgrid.Coord) bool {
+	v := g.splitView(side)
+	if !g.split.frame.Slim {
+		return viewShows(v, g.playGrid(), c)
+	}
+	x, y := v.WorldToScreen(hexgrid.Center(c))
+	return g.playGrid().Contains(c) && inRect(g.split.screen.SlimOpening(side), x, y)
+}
+
+// inRect reports whether the point (x, y) lies in r.
+func inRect(r dosscreen.Rect, x, y float64) bool {
+	return x >= float64(r.X) && y >= float64(r.Y) && x < float64(r.Right()) && y < float64(r.Bottom())
+}
+
+// panelOpening is where side's panel shows its map: the whole panel in the
+// plate frame (whose steel covers the rest), the opening of the slim frame.
+func (g *game) panelOpening(side int) dosscreen.Rect {
+	if g.split.frame.Slim {
+		return g.split.screen.SlimOpening(side)
+	}
+	return g.split.screen.Panels[side]
+}
+
 // pickSplit is the hex under device pixel (mx, my): only on the human side's
-// panel, and only through an opening of its frame.
+// panel, and only on a hex it shows (panelShows).
 func (g *game) pickSplit(mx, my int) (hexgrid.Coord, bool) {
-	v := g.splitView(g.dos.side)
-	p := v.Panel
-	if mx < p.X || my < p.Y || mx >= p.Right() || my >= p.Bottom() {
+	if !inRect(g.panelOpening(g.dos.side), float64(mx), float64(my)) {
 		return hexgrid.Coord{}, false
 	}
 	c, ok := g.playGrid().PixelToHex(g.cam.ScreenToWorld(float64(mx), float64(my)))
-	return c, ok && viewShows(v, g.playGrid(), c)
+	return c, ok && g.panelShows(g.dos.side, c)
 }
 
 // drawSplit draws both panels' maps (or strategic maps), each through its own
@@ -380,6 +405,16 @@ func (g *game) drawPanel(dst *ebiten.Image, side int, p dosscreen.Rect, dx, dy f
 	g.cam.Origin.Y -= dy / e
 	r := image.Rect(p.X, p.Y, p.Right(), p.Bottom()).Add(image.Pt(int(dx), int(dy)))
 	g.drawMapLayer(dst.SubImage(r).(*ebiten.Image), x0, y0, x1-x0, y1-y0, side == g.dos.side)
+	if g.split.frame.Slim && g.backdrop != nil {
+		// Past the map's ends the panel shows the slim frame's gunmetal.
+		sx0, sy0 := g.cam.WorldToScreen(0, 0)
+		sx1, sy1 := g.cam.WorldToScreen(g.backdrop.ww, g.backdrop.wh)
+		ix0, iy0 := int(math.Round(sx0)), int(math.Round(sy0))
+		world := dosscreen.Rect{X: ix0, Y: iy0, W: int(math.Round(sx1)) - ix0, H: int(math.Round(sy1)) - iy0}
+		o := g.split.screen.SlimOpening(side)
+		o.X, o.Y = o.X+int(dx), o.Y+int(dy)
+		g.split.frame.DrawBeyond(dst, o, world, g.split.screen.UI)
+	}
 	if mode == panelGameInfo {
 		g.drawOverlay(dst, side, g.panelRect(side))
 	}

@@ -18,10 +18,17 @@ const maxCached = 6
 // pattern does not change with the origin, so scrolling repaints only when a view
 // reaches the map edge, and zooming repaints the panel frames but not the chrome. The
 // zero Frame is ready to use.
+//
+// With Slim set it draws the slim frame of a painted map instead (slim.go): no
+// panel frames, only its chrome, cached per window size and UI scale.
 type Frame struct {
+	Slim bool
+
 	screen  Screen // the chrome's key
 	art     int    // the frame art's generation the chrome was painted with
+	slim    bool   // the chrome is the slim frame's
 	chrome  *ebiten.Image
+	metal   *ebiten.Image // the slim frame's gunmetal tile (DrawBeyond)
 	panels  []cachedPanel // least recently used first
 	painted int           // images painted so far, for tests
 }
@@ -40,16 +47,25 @@ type panelKey struct {
 }
 
 // Draw draws the frame of s with the panels' views on dst, over the maps already
-// drawn there through each view's WorldToScreen.
+// drawn there through each view's WorldToScreen. The slim frame draws only its
+// chrome: views and g do not shape it.
 func (f *Frame) Draw(dst *ebiten.Image, s Screen, views [2]View, g hexgrid.Grid) {
 	_, art := currentArt()
-	if key := s.chromeKey(); f.chrome == nil || f.screen != key || f.art != art {
+	if key := s.chromeKey(); f.chrome == nil || f.screen != key || f.art != art || f.slim != f.Slim {
 		if f.chrome != nil {
 			f.chrome.Deallocate()
 		}
-		f.chrome = ebiten.NewImageFromImage(PaintChrome(s))
-		f.screen, f.art = key, art
+		if f.Slim {
+			f.chrome = ebiten.NewImageFromImage(PaintSlimChrome(s))
+		} else {
+			f.chrome = ebiten.NewImageFromImage(PaintChrome(s))
+		}
+		f.screen, f.art, f.slim = key, art, f.Slim
 		f.painted++
+	}
+	if f.Slim {
+		dst.DrawImage(f.chrome, nil)
+		return
 	}
 	for _, v := range views {
 		op := &ebiten.DrawImageOptions{}
@@ -64,6 +80,10 @@ func (f *Frame) Release() {
 	if f.chrome != nil {
 		f.chrome.Deallocate()
 		f.chrome = nil
+	}
+	if f.metal != nil {
+		f.metal.Deallocate()
+		f.metal = nil
 	}
 	for _, p := range f.panels {
 		p.img.Deallocate()

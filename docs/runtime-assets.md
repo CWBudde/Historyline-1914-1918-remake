@@ -246,9 +246,12 @@ in place of the terrain tiles. It covers the world rectangle as `maprender` draw
 another aspect is refused. The picture is split into textures of at most 2048 pixels a side, each holding
 8 pixels of its neighbours so filtering and mipmaps meet without seams. Over it go the hexes the sappers
 changed (from the `-terrain` catalog when given), the fog per hex (an unseen hex black, a seen one in the
-remembered grey) and the screen colour beyond the outer hexes. No grid outlines the hexes: only the
-cursor, selection, move and attack overlays, fog, owner marks and units draw over it, in both battle
-views. The file is read like a catalog: a path, or a URL in a directory with `files.txt`.
+remembered grey) and, in the single-map view, the screen colour beyond the outer hexes. No grid outlines
+the hexes: only the cursor, selection, move and attack overlays, fog, owner marks and units draw over it,
+in both battle views. On the split screen the painting shows edge to edge, the corners beyond the outer
+hexes included, in the slim gunmetal-and-brass frame instead of the steel plates (`docs/dos-screen.md`);
+past the world rectangle a panel shows the frame's gunmetal. The file is read like a catalog: a path, or a
+URL in a directory with `files.txt`.
 
 ```sh
 just play -level level1_cp -backdrop build/review/painted-pulse/pulse-painted.png

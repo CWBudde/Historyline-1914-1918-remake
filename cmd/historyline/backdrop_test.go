@@ -107,3 +107,70 @@ func TestBackdropOnLevel(t *testing.T) {
 		}
 	}
 }
+
+// In the slim frame of a backdrop the human panel picks every playable hex
+// whose centre lies in its opening, also those the plate frame's teeth cover,
+// and nothing on the frame.
+func TestSlimPick(t *testing.T) {
+	uncovered := 0 // picked hexes the plate frame covers, over all windows
+	for _, tc := range []struct {
+		name string
+		w, h int
+	}{
+		{"1800x1000", 1800, 1000},
+		{"1024x768", 1024, 768},
+		{"1920x1080", 1920, 1080},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			g, d := newSplitTest(t, passPlanner{}, tc.w, tc.h)
+			g.split.frame.Slim = true
+			// A view inside the map, with hexes beyond the block on every side.
+			s := g.split
+			pair, row := clampView(g.playGrid(), s.screen.Cols, s.screen.Rows, 2, 3)
+			s.cams[d.side].moveTo(pair, row, true)
+			g.syncSplitCam()
+			v := g.splitView(d.side)
+			o := g.split.screen.SlimOpening(d.side)
+			play := g.playGrid()
+			for line := v.Row*2 - 2; line < (v.Row+v.Rows)*2+3; line++ {
+				for col := v.Pair - 1; col < v.Pair+(v.Cols+1)/2+2; col++ {
+					c := hexgrid.Coord{Line: line, Col: col}
+					sx, sy := v.WorldToScreen(hexgrid.Center(c))
+					want := play.Contains(c) && inRect(o, sx, sy)
+					if got := g.panelShows(d.side, c); got != want {
+						t.Fatalf("%v at %.0f,%.0f: shown %v, want %v", c, sx, sy, got, want)
+					}
+					if !want {
+						continue
+					}
+					if got, ok := g.pickSplit(int(sx), int(sy)); !ok || got != c {
+						t.Fatalf("pick at the centre of %v: %v %v", c, got, ok)
+					}
+					if !viewShows(v, play, c) {
+						uncovered++
+					}
+				}
+			}
+			// The frame and the status strip pick nothing.
+			st := g.split.screen.Status[d.side]
+			for _, p := range [][2]int{{o.X - 1, o.Y + o.H/2}, {o.X + o.W/2, o.Y - 1}, {o.Right(), o.Y + o.H/2}, {st.X + st.W/2, st.Y + st.H/2}} {
+				if c, ok := g.pickSplit(p[0], p[1]); ok {
+					t.Errorf("frame pixel %v picks %v", p, c)
+				}
+			}
+			// The plate frame keeps picking through its openings only.
+			g.split.frame.Slim = false
+			for line := v.Row * 2; line < (v.Row+v.Rows)*2; line++ {
+				for col := v.Pair; col < v.Pair+(v.Cols+1)/2; col++ {
+					c := hexgrid.Coord{Line: line, Col: col}
+					if g.panelShows(d.side, c) != viewShows(v, play, c) {
+						t.Fatalf("plate frame: %v shown %v", c, g.panelShows(d.side, c))
+					}
+				}
+			}
+		})
+	}
+	if uncovered == 0 {
+		t.Error("no window picks a hex the plate frame covers")
+	}
+}

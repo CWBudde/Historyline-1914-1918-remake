@@ -527,8 +527,13 @@ func (g *game) drawCursor(dst *ebiten.Image) {
 		gesture.DrawRingMenu(dst, r, t.RingHover())
 		return
 	}
-	if !g.hoverOnMap || !viewShows(g.splitView(d.side), g.playGrid(), g.hover) {
+	if !g.hoverOnMap || !g.panelShows(d.side, g.hover) {
 		return
+	}
+	if s.frame.Slim {
+		// No steel covers the panel's edge: the cursor stays inside the opening.
+		o := s.screen.SlimOpening(d.side)
+		dst = dst.SubImage(image.Rect(o.X, o.Y, o.Right(), o.Bottom())).(*ebiten.Image)
 	}
 	cam := g.splitCamera(d.side)
 	x, y := cam.WorldToScreen(hexgrid.Center(g.hover))

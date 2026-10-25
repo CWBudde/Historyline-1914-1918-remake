@@ -203,7 +203,17 @@ func (g *game) drawBackdrop(dst *ebiten.Image, vx, vy, vw, vh float64, inView []
 		}
 		colorm.DrawTriangles(dst, vs, is, target, remembered, &colorm.DrawTrianglesOptions{})
 	}
-	// The picture beyond the outer hexes stays empty, as the terrain tiles leave it.
+	g.drawReworked(dst, inView)
+	if len(unseen) > 0 {
+		var p vector.Path
+		g.hexPath(&p, unseen)
+		vector.FillPath(dst, &p, nil, pathOptions(fogShade(state.Unseen, color.RGBA{})))
+	}
+	if g.split != nil && g.split.frame.Slim {
+		return // the slim frame shows the whole picture, edge to edge
+	}
+	// Elsewhere the picture beyond the outer hexes stays empty, as the terrain
+	// tiles leave it.
 	var edge vector.Path
 	x0, y0 := g.cam.WorldToScreen(0, 0)
 	x1, y1 := g.cam.WorldToScreen(b.ww, b.wh)
@@ -223,12 +233,6 @@ func (g *game) drawBackdrop(dst *ebiten.Image, vx, vy, vw, vh float64, inView []
 	}
 	g.hexPath(&edge, all)
 	vector.FillPath(dst, &edge, &vector.FillOptions{FillRule: vector.FillRuleEvenOdd}, pathOptions(mapGround))
-	g.drawReworked(dst, inView)
-	if len(unseen) > 0 {
-		var p vector.Path
-		g.hexPath(&p, unseen)
-		vector.FillPath(dst, &p, nil, pathOptions(fogShade(state.Unseen, color.RGBA{})))
-	}
 }
 
 // hexPath adds the outline of each of cells on screen to p.

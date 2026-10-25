@@ -79,7 +79,11 @@ The package docs hold the details; this is the map of where each part lives.
   bolt and status wells as fixed pieces. Cached per window size, zoom and on-map cell pattern; cells beyond
   the playable area stay steel, so the frame closes in at its end. The playable area is the map without its
   border row and column (`dosbind.Board.Playable`): cameras, cursor, frame, map drawing and the strategic
-  map never show the border.
+  map never show the border. With a painted backdrop (`-backdrop`) the frame is slim instead
+  (`Frame.Slim`, `slim.go`): plain rectangular openings edge to edge, a thin gunmetal border with a brass
+  hairline facing the map, gunmetal status strips, a brass knob at the divider's foot; past the map's ends
+  a panel shows gunmetal (`Frame.DrawBeyond`), and every playable hex whose centre lies in the opening
+  takes the cursor and the pointer.
 - **Cameras** (`cmd/historyline/split.go`): one per panel, snapping to whole column pairs so the teeth keep
   their phase; each follows its side's cursor and that side's revealed moves. The pointer on the human
   panel's outer half cells steps the camera (edge scroll, `cursor.go`).
