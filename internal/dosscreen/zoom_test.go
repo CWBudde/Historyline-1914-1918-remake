@@ -86,20 +86,21 @@ func TestZoomLevelExamples(t *testing.T) {
 	tests := []struct {
 		w, h   int
 		ui     float64
-		levels []int
+		lo, hi float64 // the factors of the outermost and closest levels
 	}{
-		{1280, 720, 1, []int{0, 1, 2, 3, 4}},
-		{1280, 720, 1.5, []int{2, 3, 4}},
-		{1280, 720, 2, []int{2, 3, 4}},
-		{1920, 1080, 1, []int{0, 1, 2, 3, 4}},
-		{1920, 1080, 2, []int{1, 2, 3, 4}},
-		{3840, 2160, 1, []int{0, 1, 2, 3, 4}},
-		{3840, 2160, 2, []int{0, 1, 2, 3, 4}},
-		{640, 400, 1, []int{2, 3, 4}},
+		{1280, 720, 1, 0.5, 1.81},
+		{1280, 720, 1.5, 0.82, 1.81},
+		{1280, 720, 2, 1, 1.64},
+		{1920, 1080, 1, 0.5, 1.81},
+		{1920, 1080, 2, 0.74, 1.81},
+		{3840, 2160, 1, 0.5, 1.81},
+		{3840, 2160, 2, 0.5, 1.81},
+		{640, 400, 1, 1, 1.81},
 	}
 	for _, tc := range tests {
-		if got := Layout(tc.w, tc.h, tc.ui).ZoomLevels(); !slices.Equal(got, tc.levels) {
-			t.Errorf("%dx%d@%v: levels %v, want %v", tc.w, tc.h, tc.ui, got, tc.levels)
+		got := Layout(tc.w, tc.h, tc.ui).ZoomLevels()
+		if lo, hi := Zooms[got[0]], Zooms[got[len(got)-1]]; lo != tc.lo || hi != tc.hi {
+			t.Errorf("%dx%d@%v: levels %v (%v..%v), want %v..%v", tc.w, tc.h, tc.ui, got, lo, hi, tc.lo, tc.hi)
 		}
 	}
 }

@@ -73,7 +73,7 @@ The package docs hold the details; this is the map of where each part lives.
   column, 8½ rows with the half-cell shift, fit; extra width shows more columns (no letterboxing). The
   smallest window keeps `MinCols` × `MinRows` (7×6) cells per panel. The fixed pieces (divider, wells, bolt)
   are reference pixels at 2 logical pixels each, times the UI scale.
-- **Zoom** (`dosscreen.Zooms`): ½, ¾, 1, 1¼, 1½ and 2× the fitted scale with the mouse wheel over the human
+- **Zoom** (`dosscreen.Zooms`): ½ to 2× the fitted scale in steps of about a tenth (seven per doubling) with the mouse wheel over the human
   panel, shared by both panels, keeping the hover cell in view; at least 4×4 cells stay visible. In the
   slim frame zooming out stops where the map would no longer fill the openings (`Screen.FillZoom`).
 - **Frame** (`dosscreen.Frame`): drawn at runtime, not one painting: steel masked by the union of the

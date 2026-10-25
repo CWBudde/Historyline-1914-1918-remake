@@ -1,11 +1,12 @@
 package dosscreen
 
 // Zooms are the zoom levels as factors on the fitted cell scale, from far out to
-// close in. Zooms[DefaultZoom] is 1, the scale Layout fits to the panel.
-var Zooms = [...]float64{0.5, 0.75, 1, 1.25, 1.5, 2}
+// close in, about a tenth apart (seven steps per doubling) so one wheel step
+// zooms gently. Zooms[DefaultZoom] is 1, the scale Layout fits to the panel.
+var Zooms = [...]float64{0.5, 0.55, 0.61, 0.67, 0.74, 0.82, 0.91, 1, 1.1, 1.22, 1.35, 1.49, 1.64, 1.81, 2}
 
 // DefaultZoom is the index in Zooms of the fitted scale.
-const DefaultZoom = 2
+const DefaultZoom = 7
 
 // ZoomCols and ZoomRows are the fewest columns and cells per column a panel
 // shows when zoomed in, fewer than the smallest window keeps (MinCols ×

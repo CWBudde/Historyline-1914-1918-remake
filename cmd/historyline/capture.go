@@ -101,8 +101,8 @@ func splitFramePlan() []reviewFrame {
 // stageCapture sets the human side's panel up for a split capture view: the
 // cursor ring on an own unit (split-cursor), its move aimed with fire held on
 // a destination over the darkened range (split-move), the ring of actions on
-// it (split-ring), the strategic map (split-strategic), the view two zoom
-// levels out or in (split-zoom-out, split-zoom-in), the unit info of that
+// it (split-ring), the strategic map (split-strategic), the view zoomed out
+// fully or in to about 1½ (split-zoom-out, split-zoom-in), the unit info of that
 // unit (split-unitinfo), the game info (split-gameinfo) or the contents of
 // an own container (split-contents); any other view is the opening with the
 // cursor on the HQ.
@@ -130,9 +130,9 @@ func (g *game) stageCapture(view string) {
 	case view == "split-strategic":
 		g.openStrategic(d.side)
 	case view == "split-zoom-out":
-		g.zoomSplit(-2)
+		g.zoomSplit(-len(dosscreen.Zooms))
 	case view == "split-zoom-in":
-		g.zoomSplit(2)
+		g.zoomSplit(slices.Index(dosscreen.Zooms[:], 1.49) - dosscreen.DefaultZoom)
 	case view == "split-gameinfo":
 		g.openInfo(g.startHex(d.side))
 	case view == "split-contents":
