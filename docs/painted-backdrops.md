@@ -5,10 +5,12 @@ whole level's ground that the game draws in place of the terrain tiles (`-backdr
 It must match the level's world aspect; any resolution works. Shipped: PULSE (`1914-08.jpg`, 1536×2706),
 CIVIL (`1914-10.jpg`, 2336×2706) and Marne (`1914-09.jpg`, 3137×1578, six sections in a 3×2 grid),
 all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 2852×3302) uses about
-1.72 image px per world px, with settled winter snow and cold overcast daylight.
+1.72 image px per world px, with settled winter snow and cold overcast daylight. VENOM/BIMBO
+(`1915-02.jpg`, 2852×4403) uses the same density, with patchy late-winter snow and clear frosty light.
 
-Imagegen paints at most 1536×1024, far less than a whole map. A backdrop is therefore painted in
-overlapping sections, each registered to a render of the level, and stitched.
+Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
+backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
+stitched.
 
 ## 1. Layout guide
 
@@ -34,7 +36,12 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 MOUSE/SPORT uses nine 728×727 world-pixel sections: three columns at x 0, 465, 930 and three rows at
 y 0, 596, 1193. The smaller sections provide its higher image density.
 
-Crop each section from the 4x guide and scale it to 1536×1024.
+VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
+(116 world px of row overlap). The northwest shore includes a small cove within the transport's water
+hex; the northeast seam retains the harbour basin's open channel into the lake.
+
+Crop each section from the 4x guide and scale it to the section canvas: 1536×1024 for PULSE/CIVIL,
+1252×1250 for MOUSE/VENOM.
 
 ## 3. Painting a section
 

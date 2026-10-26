@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1915-02",
 	"name": "Venom",
+	"backdrop": "1915-02.jpg",
 	"map": {
 		"line1": [["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ["rBridge36", "road36"]], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["grass", "path346"], ["hills", ""], ["mountain", ""], ["forest", ""]],
