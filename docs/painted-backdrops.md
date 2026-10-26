@@ -9,6 +9,9 @@ all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 285
 (`1915-02.jpg`, 2852×4403) uses the same density, with patchy late-winter snow and clear frosty light.
 NOISE/TEMPO (`1915-04.jpg`, 3657×4206) uses about 1.64 image px per world px, with budding spring
 trees, damp grass and puddled lanes after a shower.
+RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
+warm sunshine and saturated clay, deep ruts and dirty puddles around the trenches. Its southern
+mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -35,7 +38,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
 
-MOUSE/SPORT uses nine 728×727 world-pixel sections: three columns at x 0, 465, 930 and three rows at
+MOUSE/SPORT and RIGHT/BARON use nine 728×727 world-pixel sections: columns at x 0, 465, 930 and rows at
 y 0, 596, 1193. The smaller sections provide its higher image density.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
@@ -46,7 +49,7 @@ NOISE/TEMPO uses sixteen 762×762 world-pixel sections: columns at x 0, 488, 976
 y 0, 599, 1199, 1798, with at least 162 world px of overlap between rows.
 
 Crop each section from the 4x guide and scale it to the section canvas: 1536×1024 for PULSE/CIVIL,
-1252×1250 for MOUSE/VENOM, and 1252×1252 for NOISE.
+1252×1250 for MOUSE/VENOM/RIGHT, and 1252×1252 for NOISE.
 
 ## 3. Painting a section
 
