@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1915-12",
 	"name": "Ratio",
+	"backdrop": "1915-12.jpg",
 	"map": {
 		"line1": [["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["rough_w", ""], ["grass_w", ""], ["grass_w", ""], ["grass_w", ""], ["grass_w", ""], ["grass_w", ""]],
 		"line2": [["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["rough_w", ""], ["grass_w", ""], ["grass_w", ""], ["grass_w", ""], ["grass_w", ""], ["stoney_w", ""]],
