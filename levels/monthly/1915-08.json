@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1915-08",
 	"name": "Orkan",
+	"backdrop": "1915-08.jpg",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road24"], ["hills", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["grass", ""], ["hills", ""], ["grass", "road24"], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road14"], ["grass", "road25"], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", "road13"], ["grass", "road25"], ["forest", ""]],

@@ -12,6 +12,8 @@ trees, damp grass and puddled lanes after a shower.
 RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
 warm sunshine and saturated clay, deep ruts and dirty puddles around the trenches. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
+ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
+light and a wind-ruffled sea. Its landing piers and coves leave room for the linked ships' full hulls.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -50,6 +52,9 @@ y 0, 599, 1199, 1798, with at least 162 world px of overlap between rows.
 
 Crop each section from the 4x guide and scale it to the section canvas: 1536×1024 for PULSE/CIVIL,
 1252×1250 for MOUSE/VENOM/RIGHT, and 1252×1252 for NOISE.
+
+ORKAN/BUMMM uses thirty 728×727 world-pixel sections on 1252×1250 canvases: columns at x 0, 517,
+1033, 1550, 2066 and rows at y 0, 495, 989, 1484, 1978, 2473.
 
 ## 3. Painting a section
 
@@ -91,6 +96,8 @@ along y. Check the joins at full resolution and with a hex-grid overlay for regi
   never rotate or transpose them.
 - Save as JPEG next to the scenario file and set `backdrop`; check it in the game with units on top at
   normal and close zoom.
+- Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
+  unit overlays can hide hull collisions with shores and piers.
 
 A painting follows the map it was painted from: when a month's map changes, the changed hexes (stones,
 trenches, mountains) still show the old ground until they are repainted or patched.
