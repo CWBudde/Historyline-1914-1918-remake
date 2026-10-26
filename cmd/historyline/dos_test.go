@@ -236,6 +236,42 @@ func TestDosSelectMoveConfirm(t *testing.T) {
 	}
 }
 
+// TestDosSurrender: F2 asks first and goes back on a click; asked twice
+// it gives the battle up, the surrender ends it for the other side, and
+// without its paintings the end is the banner (the test control has no
+// screen catalog, so no scene plays).
+func TestDosSurrender(t *testing.T) {
+	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
+	d.Surrender()
+	if !d.giveUp || d.s.Ended() != nil {
+		t.Fatalf("first F2: giveUp %v, end %+v; want the prompt only", d.giveUp, d.s.Ended())
+	}
+	d.Click(ownUnits(d)[0])
+	if d.giveUp || d.s.Ended() != nil {
+		t.Fatalf("a click in the prompt: giveUp %v, end %+v; want back to the orders", d.giveUp, d.s.Ended())
+	}
+	d.Surrender()
+	if !d.giveUp {
+		t.Fatal("the second ask did not open the prompt again")
+	}
+	d.Surrender()
+	e := d.s.Ended()
+	if e == nil || e.Winner != 1 || e.Won[1] != dosrules.EndSurrender {
+		t.Fatalf("end %+v, want side 1 winning by surrender", e)
+	}
+	if d.giveUp || d.stage != stageNone || !d.over {
+		t.Errorf("after the surrender: giveUp %v, stage %v, over %v; want the banner end", d.giveUp, d.stage, d.over)
+	}
+	if got := d.endReason(); !strings.Contains(got, "accepted the surrender") {
+		t.Errorf("end reason %q, want the surrender named", got)
+	}
+	// Once over, F2 only tells the end again.
+	d.Surrender()
+	if d.Message != d.endText() {
+		t.Errorf("F2 after the end: %q, want %q", d.Message, d.endText())
+	}
+}
+
 func TestDosConfirmAndReopen(t *testing.T) {
 	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
 	d.EndTurn()

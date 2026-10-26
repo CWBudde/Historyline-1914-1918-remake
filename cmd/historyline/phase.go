@@ -34,12 +34,13 @@ import (
 type stage int
 
 const (
-	stageNone     stage = iota
-	stageBlack          // both panels black, the cursor plates on them
-	stageBattle         // a fought attack order
-	stageNewMode        // the new mode of each side on the grey maps
-	stageCaptured       // a building taken (taking.go)
-	stageFinale         // the HQ taken: the finale over the whole screen (taking.go)
+	stageNone      stage = iota
+	stageBlack           // both panels black, the cursor plates on them
+	stageBattle          // a fought attack order
+	stageNewMode         // the new mode of each side on the grey maps
+	stageCaptured        // a building taken (taking.go)
+	stageFinale          // the HQ taken: the finale over the whole screen (taking.go)
+	stageSurrender       // the other side gave up: the surrender scene over the whole screen (taking.go)
 )
 
 // panelLook is how a panel is drawn.
@@ -136,7 +137,7 @@ func (d *dosControl) sequence() bool { return d.stage != stageNone }
 
 // locked reports whether the human side's map takes no input: in the prompt
 // and while a stage plays.
-func (d *dosControl) locked() bool { return d.prompt || d.sequence() }
+func (d *dosControl) locked() bool { return d.prompt || d.giveUp || d.sequence() }
 
 // startStage starts st for n frames.
 func (d *dosControl) startStage(st stage, n int) { d.stage, d.stageAt, d.stageLen = st, 0, n }
@@ -274,7 +275,7 @@ func (d *dosControl) land(lost [2]int, gained [2]bool) {
 
 // scene reports whether a scene plays: a battle, a capture or the finale.
 func (d *dosControl) scene() bool {
-	return d.stage == stageBattle || d.stage == stageCaptured || d.stage == stageFinale
+	return d.stage == stageBattle || d.stage == stageCaptured || d.stage == stageFinale || d.stage == stageSurrender
 }
 
 // SkipScene ends the scene playing at once (a click or a key).
@@ -323,9 +324,9 @@ func (d *dosControl) panelLooks() [2]panelLook {
 			out[1-d.side] = lookCaptured
 		}
 		return out
-	case stageNone, stageFinale:
+	case stageNone, stageFinale, stageSurrender:
 	}
-	if d.prompt {
+	if d.prompt || d.giveUp {
 		return [2]panelLook{lookGrey, lookGrey}
 	}
 	return [2]panelLook{}
@@ -349,11 +350,16 @@ func (g *game) stageWell(side int) (w well, ok bool) {
 		if side == d.side {
 			w.text = "F1: END THE PHASE"
 		}
+	case d.giveUp:
+		w.text = "FIRE: BACK TO THE ORDERS"
+		if side == d.side {
+			w.text = "F2: GIVE UP THE BATTLE"
+		}
 	case d.stage == stageBattle && side == d.side:
 		w.text = g.casualties(side, d.fight.ev.Battle)
 	case d.stage == stageCaptured && side == d.side:
 		w.text = strings.ToUpper(strings.TrimSuffix(d.taking.text, "."))
-	case d.stage == stageFinale:
+	case d.stage == stageFinale || d.stage == stageSurrender:
 		w.text = strings.ToUpper(d.endText())
 	case d.stage == stageNewMode:
 		w.text = fmt.Sprintf("ROUND %d: %s PHASE", d.newMode.Turn+1, modeWord(d.newMode.Phase[side]))

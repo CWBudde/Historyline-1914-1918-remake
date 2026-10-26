@@ -136,7 +136,10 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 }
 
 // fullCaptures are the capture paintings scaled to the full screen.
-var fullCaptures = map[string]bool{"capture/hq": true, "capture/hq-open": true}
+var fullCaptures = map[string]bool{
+	"capture/hq": true, "capture/hq-open": true,
+	"capture/surrender": true, "capture/surrender-offer": true, "capture/surrender-accepted": true,
+}
 
 // surfaceTile is the width of a surface at 1x.
 const surfaceTile = 512

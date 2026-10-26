@@ -18,12 +18,14 @@ import (
 // changes hands on the map as the pin goes in. A battle won by taking the HQ
 // closes on the finale over the panels and the frame: the headquarters'
 // doors open on its surrendering defenders and the winner's flag goes up; it
-// holds, the wells telling the end, until the outcome. Without their
-// paintings, or with the scenes off (F9), a capture shows the site and a
-// banner and the end its banner.
+// holds, the wells telling the end, until the outcome. A battle the other
+// side gives up (F2, twice) closes on the surrender scene instead: the two
+// rival commanders, the sword offered and taken, crossfaded between its
+// three paintings. Without their paintings, or with the scenes off (F9), a
+// capture shows the site and a banner and the end its banner.
 
 // sceneArt reports which scene paintings the screen catalog has.
-type sceneArt struct{ capture, finale bool }
+type sceneArt struct{ capture, finale, surrender bool }
 
 // taking is the capture of stageCaptured.
 type taking struct {
@@ -111,6 +113,26 @@ func (d *dosControl) finaleTick() int {
 	return dospanel.FinaleTicks(d.reduced)
 }
 
+// startSurrender plays the surrender scene of battle end ev when the
+// other side gave up and the scene can play; it reports whether it does.
+func (d *dosControl) startSurrender(ev dosplay.Event) bool {
+	if ev.End == nil || ev.Side != 0 && ev.Side != 1 || ev.End.Won[ev.Side] != dosrules.EndSurrender || d.noScenes || !d.art().surrender {
+		return false
+	}
+	d.ending = &ev
+	d.startStage(stageSurrender, dospanel.SurrenderTicks(d.reduced))
+	return true
+}
+
+// surrenderTick is the frame of the surrender scene shown: its end once
+// it has played.
+func (d *dosControl) surrenderTick() int {
+	if d.stage == stageSurrender {
+		return d.stageAt
+	}
+	return dospanel.SurrenderTicks(d.reduced)
+}
+
 // art is the scene paintings the front end has; none without one.
 func (d *dosControl) art() sceneArt {
 	if d.sceneArt == nil {
@@ -122,7 +144,7 @@ func (d *dosControl) art() sceneArt {
 // sceneArt reports which scene paintings the screen catalog has.
 func (g *game) sceneArt() sceneArt {
 	a := g.captureArt()
-	return sceneArt{capture: a.Depot != nil && a.Factory != nil, finale: g.finaleArt() != nil}
+	return sceneArt{capture: a.Depot != nil && a.Factory != nil, finale: g.finaleArt() != nil, surrender: g.surrenderArt() != nil}
 }
 
 // captureArt is the capture scene's paintings, each nil when missing.
@@ -146,6 +168,21 @@ func (g *game) finaleArt() *dospanel.FinaleArt {
 	return g.finale.art
 }
 
+// surrenderArt is the surrender scene's art, taken once per screen
+// catalog; nil without its three paintings.
+func (g *game) surrenderArt() *dospanel.SurrenderArt {
+	if g.screens == nil {
+		return nil
+	}
+	if g.surrender.from != g.screens {
+		g.surrender.from = g.screens
+		g.surrender.art = dospanel.NewSurrenderArt([3]image.Image{
+			g.screens.decoded("capture/surrender"), g.screens.decoded("capture/surrender-offer"), g.screens.decoded("capture/surrender-accepted"),
+		})
+	}
+	return g.surrender.art
+}
+
 // drawCapture draws the capture scene playing into side's panel r.
 func (g *game) drawCapture(dst *ebiten.Image, r image.Rectangle) {
 	t := g.dos.taking
@@ -161,7 +198,7 @@ func (g *game) drawCapture(dst *ebiten.Image, r image.Rectangle) {
 // how to go on.
 func (g *game) drawFinale(dst *ebiten.Image) {
 	d := g.dos
-	if d == nil || d.ending == nil {
+	if d == nil || d.ending == nil || d.ending.End == nil || d.ending.End.Won[d.ending.Side] != dosrules.EndHQ {
 		return
 	}
 	f := dospanel.Finale{Flag: flagImage(d.s.Faction(d.ending.Side))}
@@ -170,4 +207,19 @@ func (g *game) drawFinale(dst *ebiten.Image) {
 		r.Max.Y = min(r.Max.Y, g.split.screen.Status[0].Y)
 	}
 	dospanel.DrawFinale(dst, r, f, d.finaleTick(), d.reduced, g.finaleArt())
+}
+
+// drawSurrender draws the surrender scene over the panels and the frame
+// while it plays and, after it, until the outcome; the wells below stay,
+// with the end and how to go on.
+func (g *game) drawSurrender(dst *ebiten.Image) {
+	d := g.dos
+	if d == nil || d.ending == nil || d.ending.End == nil || d.ending.End.Won[d.ending.Side] != dosrules.EndSurrender {
+		return
+	}
+	r := dst.Bounds()
+	if g.split != nil {
+		r.Max.Y = min(r.Max.Y, g.split.screen.Status[0].Y)
+	}
+	dospanel.DrawSurrender(dst, r, d.surrenderTick(), d.reduced, g.surrenderArt())
 }

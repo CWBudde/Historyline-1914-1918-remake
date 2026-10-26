@@ -517,6 +517,19 @@ func (s *Session) Confirm(side int) []Event {
 	return s.events(s.Game.Confirm(side))
 }
 
+// Surrender gives the battle up for side: the other side wins by
+// surrender and the battle is over. It returns the end event, or nil
+// once the battle has ended.
+func (s *Session) Surrender(side int) []Event {
+	raw := s.Game.Surrender(side)
+	if len(raw) == 0 {
+		return nil
+	}
+	s.version++
+	s.log = append(s.log, dosrules.Command{Kind: CmdSurrender, Side: side})
+	return s.events(raw)
+}
+
 // Unconfirm lets side give orders again.
 func (s *Session) Unconfirm(side int) []Event {
 	raw := s.Game.Unconfirm(side)

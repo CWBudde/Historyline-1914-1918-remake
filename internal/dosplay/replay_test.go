@@ -145,6 +145,36 @@ func TestReplayRefused(t *testing.T) {
 	}
 }
 
+// A surrender ends the session at once for the other side, is logged,
+// and replays onto a fresh session with the same events and state.
+func TestSurrender(t *testing.T) {
+	lv := shipped(t)[0]
+	a := session(t, lv, Options{})
+	evs := a.Surrender(1)
+	if len(evs) != 1 || evs[0].Kind != Ended || evs[0].End == nil || evs[0].Side != 0 ||
+		evs[0].End.Winner != 0 || evs[0].End.Won[0] != dosrules.EndSurrender {
+		t.Fatalf("surrender events %+v", evs)
+	}
+	if a.Ended() == nil || *a.Ended() != *evs[0].End {
+		t.Errorf("session end %+v, event %+v", a.Ended(), evs[0].End)
+	}
+	cmds := a.CommandsSince(0)
+	if len(cmds) != 1 || cmds[0].Kind != CmdSurrender || cmds[0].Side != 1 {
+		t.Fatalf("log %+v, want one surrender by side 1", cmds)
+	}
+	b := session(t, lv, Options{})
+	got, err := b.Replay(cmds)
+	if err != nil {
+		t.Fatalf("Replay: %v", err)
+	}
+	if !reflect.DeepEqual(got, evs) || string(must(b.Save())) != string(must(a.Save())) {
+		t.Errorf("the replay of a surrender left another state or events")
+	}
+	if again := a.Surrender(0); again != nil || len(a.CommandsSince(0)) != 1 {
+		t.Errorf("a second surrender %+v was logged", again)
+	}
+}
+
 // A clone saves, sees and plays on like its original; changing it leaves
 // the original as it was.
 func TestClone(t *testing.T) {

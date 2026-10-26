@@ -230,6 +230,49 @@ func TestVictoryHQOverAnnihilation(t *testing.T) {
 	}
 }
 
+// TestVictorySurrender: a side gives up; the other wins by surrender at
+// the current score, without the annihilation bonus, and the ended battle
+// takes no further command or resolution.
+func TestVictorySurrender(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			g := hqCycle(t, p, map[int]Placement{
+				0: {Type: cInfantry, Owner: 0, Cell: 40}, 1: {Type: cPanzer, Owner: 1, Cell: 41},
+			})
+			g.Limit, g.Concealed = 8, true
+			evs := g.Surrender(1)
+			if len(evs) != 1 {
+				t.Fatalf("surrender events %+v", evs)
+			}
+			r := endOf(t, evs)
+			if !r.Over || r.Winner != 0 || r.Won != [2]EndReason{EndSurrender, ""} {
+				t.Errorf("result %+v, want side 0 winning by surrender", r)
+			}
+			if want := (armour(g) + 100) * 3; r.Score != want {
+				t.Errorf("score %d, want %d (no annihilation bonus)", r.Score, want)
+			}
+			if g.Ended != r {
+				t.Errorf("game end %+v, event %+v", g.Ended, r)
+			}
+			if again := g.Surrender(0); again != nil || g.Ended != r {
+				t.Errorf("a second surrender %+v changed the end to %+v", again, g.Ended)
+			}
+			if h := reload(t, g); h.Ended == nil || *h.Ended != *r {
+				t.Errorf("an ended battle reloads as %+v", h.Ended)
+			}
+			var ref *Refusal
+			if err := g.Check(Command{Kind: CmdMove, Side: 0, Unit: 0, Cell: 0}); !errors.As(err, &ref) {
+				t.Errorf("a command after the surrender: %v", err)
+			}
+			g.Confirm(0)
+			g.Confirm(1)
+			if _, err := g.Resolve(); !errors.Is(err, ErrOver) {
+				t.Errorf("a resolution after the surrender: %v", err)
+			}
+		})
+	}
+}
+
 func TestFinalScore(t *testing.T) {
 	for _, c := range []struct {
 		score        int

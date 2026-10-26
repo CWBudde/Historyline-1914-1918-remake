@@ -90,7 +90,7 @@ func splitFramePlan() []reviewFrame {
 		"split-cursor", "split-move", "split-ring", "split-strategic", "split-zoom-out", "split-zoom-in",
 		"split-prompt", "split-black", "split-battle-grey", "split-battle", "split-battle-loss", "split-battle-destroyed",
 		"split-battle-hold", "split-taken-grey", "split-taken", "split-taken-plant", "split-taken-hold", "split-finale-doors",
-		"split-finale", "split-newmode",
+		"split-finale", "split-surrender-offer", "split-surrender", "split-newmode",
 		"split-unitinfo", "split-gameinfo", "split-contents",
 	} {
 		frames = append(frames, reviewFrame{1920, 1080, view, false, 0})
@@ -116,7 +116,7 @@ func (g *game) stageCapture(view string) {
 	d.unfreeze()
 	d.ending = nil
 	d.fx.Dismiss()
-	d.prompt, d.fx.marks = false, nil
+	d.prompt, d.giveUp, d.fx.marks = false, false, nil
 	s.mode, s.dir = [2]panelMode{}, gesture.Centre
 	g.zoomSplit(dosscreen.DefaultZoom - s.screen.Zoom)
 	for side := range 2 {
@@ -277,18 +277,31 @@ func (g *game) stageBattle(at hexgrid.Coord, step string) {
 
 // The capture views and how far each plays: the site in grey, the hand
 // reaching in, the pin just in, the capture scene's end held; the finale's
-// doors half open and its end.
+// doors half open and its end; the surrender's offer held and its end.
 var takenViews = map[string]string{
 	"split-taken-grey": "grey", "split-taken": "reach", "split-taken-plant": "plant", "split-taken-hold": "hold",
 	"split-finale-doors": "doors", "split-finale": "finale",
+	"split-surrender-offer": "offer", "split-surrender": "surrender",
 }
 
 // stageTaken stages the capture of the enemy (or neutral) depot or factory
 // nearest the human side's HQ on frozen views, as the phase change does,
 // played as far as step (takenViews) asks; the finale steps play the end of a
-// battle won by the human side taking the HQ.
+// battle won by the human side taking the HQ, the surrender steps the end of
+// a battle the other side gave up.
 func (g *game) stageTaken(step string) {
 	d := g.dos
+	if step == "offer" || step == "surrender" {
+		end := dosrules.End{Over: true, Winner: d.side}
+		end.Won[d.side] = dosrules.EndSurrender
+		if !d.startSurrender(dosplay.Event{Kind: dosplay.Ended, Side: d.side, End: &end}) {
+			return
+		}
+		for d.stage == stageSurrender && (step == "surrender" || dospanel.SurrenderAt(d.stageAt, d.reduced).Next != -1 || dospanel.SurrenderAt(d.stageAt, d.reduced).Frame == 0) {
+			d.tickStage()
+		}
+		return
+	}
 	if step == "doors" || step == "finale" {
 		end := dosrules.End{Over: true, Winner: d.side}
 		end.Won[d.side] = dosrules.EndHQ

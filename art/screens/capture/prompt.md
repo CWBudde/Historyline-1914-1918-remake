@@ -4,7 +4,7 @@ title: Capture scenes
 kind: screen
 status: candidate
 runtime_ids:
-masters: depot.png, factory.png, hand.png, hq.png, hq-open.png
+masters: depot.png, factory.png, hand.png, hq.png, hq-open.png, surrender.png, surrender-offer.png, surrender-accepted.png
 ---
 
 ## Look
@@ -14,6 +14,9 @@ pin with the capturer's flag on the model's roof, then withdraws. A battle won b
 closes on a low view up at the enemy headquarters: its doors swing open on defenders who surrender,
 and the winner's flag goes up the bare pole on the gable. Warm sepia for the map room, a muted dusk
 palette for the headquarters. The pin, the flags and all motion are drawn in code.
+A battle the other side gives up closes on the surrender: two rival commanders at dawn on a muddy
+lane, the loser's sword point-down, then flat on his open palms, then taken by the winner while a
+plain white cloth opens behind him. Three full paintings; the motion is a crossfade in code.
 
 ## Base prompt
 ```text
@@ -35,6 +38,9 @@ The edits attach the master they change and keep everything outside the changed 
 | hand | | `ch-01` (exec-d45fc2fd), 1254x1254 RGBA: the prompt below. |
 | hq | | `hq-01` (exec-48a6cf80), 1586x992 opaque: the prompt below. |
 | hq-open | | `hq-02` (exec-6ff83a72), 1584x993 opaque: an edit of `hq.png`, the prompt below. |
+| surrender | | `surr-01` (exec-02ef6fd9), 1586x992 opaque: the prompt below. |
+| surrender-offer | | `surr-02` (exec-f07f3a01), 1586x992 opaque: an edit of `surrender.png`, the prompt below. |
+| surrender-accepted | | `surr-03` (exec-a45a505e), 1586x992 opaque: an edit of `surrender-offer.png`, the prompt below. |
 
 depot:
 
@@ -159,10 +165,44 @@ the doorway's height, lit from behind by the warm hall light so they read partly
 Same painterly style, palette and dusk light as image 1. No text, no flags, no insignia.
 ```
 
+surrender:
+
+```text
+Newly authored artwork for a turn-based World War I strategy game set in rural Europe, 1914-1918.
+Continuous hand-painted digital illustration with fine, believable material detail: wool, leather,
+steel, stone, timber, mud. No text, letters, numbers, labels, logos, watermarks, national flags,
+national insignia, badges or emblems. Do not copy or trace any existing game's graphics.
+
+Frame 1 of the full-screen closing scene when the enemy army surrenders: a voluntary, dignified
+capitulation between two rival commanders, no weapon aimed at anyone. ONE opaque LANDSCAPE
+painting, aspect 16:10, ideally 1536x960. First light of a misty dawn on a muddy village lane.
+Centre frame, two commanding officers in near profile, full figures about 55 percent of the canvas
+height: the winner at 40 percent of the width, upright, facing right, plain drab greatcoat and
+peaked cap, hands empty; the defeated rival at 60 percent, facing left, gaze lowered, his sword
+pointing down at the mud in his lowered right hand. Behind him at 74 percent an orderly holds a
+pole with a plain white surrender cloth hanging furled and low; behind the winner at 26 percent
+two staff officers watch, hands empty. Sandbags, a cart, a stone farmhouse gable and bare trees in
+mist; muted slate, olive and mud palette, pale cool gold breaking low in the gap between the
+rivals. Attachments: the headquarters painting and an intermission painting, style only.
+```
+
+surrender-offer: an edit of `surrender.png` — everything held; only the defeated commander bows
+deeper and holds his sword laid flat and horizontal on both open upturned palms at waist height,
+hilt toward the winner, blade catching a line of dawn light; the white cloth hangs a little more
+open. A locally made character study of the offering pose was attached for the palms and grip.
+surrender-accepted: an edit of `surrender-offer.png` — everything held; the winner takes the sword
+(hilt in one hand, the flat of the blade supported from below), the defeated commander's empty
+palms lower and his head bows deeper, and the white cloth hangs fully open, the brightest shape
+at the right.
+
 ## Post
 Masters are used unchanged. `hlasset build-screens` scales them into the screen catalog's `capture`
 family: `capture/depot`, `capture/factory` and `capture/hand` 512 px wide at 1x and 1024 at 2x,
-`capture/hq` and `capture/hq-open` to the full screen, 640x400 at 1x and 1280x800 at 2x.
+`capture/hq` and `capture/hq-open` to the full screen, 640x400 at 1x and 1280x800 at 2x, and the
+three surrender paintings likewise to the full screen (`capture/surrender`,
+`capture/surrender-offer`, `capture/surrender-accepted`). `internal/dospanel` plays the surrender
+as held frames with crossfades (fade in, offer, acceptance, hold); under reduced motion it shows
+the acceptance at once.
 `internal/dospanel` places the code-drawn parts by points measured on the masters, as fractions of
 their size: the pin goes into the depot's roof ridge at 0.624, 0.303 and the factory's at 0.526,
 0.300; the hand pinches at 0.184, 0.218; the HQ's flagpole stands at 0.500 from 0.199 (foot) to
@@ -175,3 +215,4 @@ is drawn at the scene's light, the hand toned to sepia; the leaves of `hq.png` s
 - flags, pins, hands or people in the map room's paintings
 - a flag on the HQ's pole, insignia or a recognisable nation on the defenders
 - writing on the staff map
+- a national flag or insignia in the surrender paintings; the white cloth stays plain, and no weapon is aimed at anyone there

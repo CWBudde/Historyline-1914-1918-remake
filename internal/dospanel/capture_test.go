@@ -125,6 +125,9 @@ func TestDrawScenesAnySize(t *testing.T) {
 				}
 				DrawFinale(dst, c.panel, Finale{Flag: flag}, tick*2, reduced, finale)
 				DrawFinale(dst, c.panel, Finale{}, tick, reduced, nil)
+				surrender := NewSurrenderArt([3]image.Image{hq, hq, hq})
+				DrawSurrender(dst, c.panel, tick*2, reduced, surrender)
+				DrawSurrender(dst, c.panel, tick, reduced, nil)
 			}
 		}
 		dst.Deallocate()

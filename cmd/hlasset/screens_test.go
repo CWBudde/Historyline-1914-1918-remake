@@ -39,7 +39,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"rank":           {"rank/01", "rank/10"},
 			"effect":         {"effect/explosion-00", "effect/explosion-08", "effect/hit"},
 			"surface":        {"surface/steel", "surface/ground", "surface/rivets", "surface/plate", "surface/plate-4"},
-			"capture":        {"capture/depot", "capture/factory", "capture/hand", "capture/hq", "capture/hq-open"},
+			"capture":        {"capture/depot", "capture/factory", "capture/hand", "capture/hq", "capture/hq-open", "capture/surrender", "capture/surrender-offer", "capture/surrender-accepted"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
 			if err != nil {

@@ -4987,9 +4987,27 @@
           "sha256": "12f62e1b112dfeabfb1715d666606b9b7ded9392df6c951e5633bdcf0303f85d",
           "width": 1584,
           "height": 993
+        },
+        {
+          "path": "art/screens/capture/surrender.png",
+          "sha256": "da903d8a98c5da002585e1e3769ece043d04b41587e3e442c41ebb1b137b37b6",
+          "width": 1586,
+          "height": 992
+        },
+        {
+          "path": "art/screens/capture/surrender-offer.png",
+          "sha256": "6881c8600ba89304161c95c865c49a6a1cf76fa2ace0442769458edd905661da",
+          "width": 1586,
+          "height": 992
+        },
+        {
+          "path": "art/screens/capture/surrender-accepted.png",
+          "sha256": "7e59f4a9398e9ba518b999666e9778e6771b2e61d3668acb953c5d9ff523a7ce",
+          "width": 1586,
+          "height": 992
         }
       ],
-      "look": "The scenes of a captured building, after the original's: in the capturer's panel a dark map room\nlights up over a wooden scale model of the building on the staff map, a hand reaches in and plants a\npin with the capturer's flag on the model's roof, then withdraws. A battle won by taking the HQ\ncloses on a low view up at the enemy headquarters: its doors swing open on defenders who surrender,\nand the winner's flag goes up the bare pole on the gable. Warm sepia for the map room, a muted dusk\npalette for the headquarters. The pin, the flags and all motion are drawn in code.",
+      "look": "The scenes of a captured building, after the original's: in the capturer's panel a dark map room\nlights up over a wooden scale model of the building on the staff map, a hand reaches in and plants a\npin with the capturer's flag on the model's roof, then withdraws. A battle won by taking the HQ\ncloses on a low view up at the enemy headquarters: its doors swing open on defenders who surrender,\nand the winner's flag goes up the bare pole on the gable. Warm sepia for the map room, a muted dusk\npalette for the headquarters. The pin, the flags and all motion are drawn in code.\nA battle the other side gives up closes on the surrender: two rival commanders at dawn on a muddy\nlane, the loser's sword point-down, then flat on his open palms, then taken by the winner while a\nplain white cloth opens behind him. Three full paintings; the motion is a crossfade in code.",
       "base_prompt": "```text\nNewly authored artwork for a turn-based World War I strategy game set in rural Europe, 1914-1918.\nContinuous hand-painted digital illustration with fine, believable material detail. Not pixel art,\nnot a pixel enlargement, not a flat vector, not a cartoon, not a photograph or 3D render. No text,\nletters, numbers, labels, logos, watermarks, flags, national insignia, frames or borders. Do not copy\nor trace any existing game's graphics.\n```\n\nEach variant's prompt below opens with this text (the material list varies), then gives the scene.\nThe edits attach the master they change and keep everything outside the changed area.",
       "variants": [
         {
@@ -5016,14 +5034,30 @@
           "variant": "hq-open",
           "runtime_ids": [],
           "delta": "`hq-02` (exec-6ff83a72), 1584x993 opaque: an edit of `hq.png`, the prompt below."
+        },
+        {
+          "variant": "surrender",
+          "runtime_ids": [],
+          "delta": "`surr-01` (exec-02ef6fd9), 1586x992 opaque: the prompt below."
+        },
+        {
+          "variant": "surrender-offer",
+          "runtime_ids": [],
+          "delta": "`surr-02` (exec-f07f3a01), 1586x992 opaque: an edit of `surrender.png`, the prompt below."
+        },
+        {
+          "variant": "surrender-accepted",
+          "runtime_ids": [],
+          "delta": "`surr-03` (exec-a45a505e), 1586x992 opaque: an edit of `surrender-offer.png`, the prompt below."
         }
       ],
       "edges": "",
-      "post": "Masters are used unchanged. `hlasset build-screens` scales them into the screen catalog's `capture`\nfamily: `capture/depot`, `capture/factory` and `capture/hand` 512 px wide at 1x and 1024 at 2x,\n`capture/hq` and `capture/hq-open` to the full screen, 640x400 at 1x and 1280x800 at 2x.\n`internal/dospanel` places the code-drawn parts by points measured on the masters, as fractions of\ntheir size: the pin goes into the depot's roof ridge at 0.624, 0.303 and the factory's at 0.526,\n0.300; the hand pinches at 0.184, 0.218; the HQ's flagpole stands at 0.500 from 0.199 (foot) to\n0.050 (head); the door leaves fill the arch from 0.413 to 0.586 wide, from 0.474 (crown) and 0.544\n(springing) down to 0.832. A new master must keep these points or change them in code. The map room\nis drawn at the scene's light, the hand toned to sepia; the leaves of `hq.png` swing open over\n`hq-open.png`.",
+      "post": "Masters are used unchanged. `hlasset build-screens` scales them into the screen catalog's `capture`\nfamily: `capture/depot`, `capture/factory` and `capture/hand` 512 px wide at 1x and 1024 at 2x,\n`capture/hq` and `capture/hq-open` to the full screen, 640x400 at 1x and 1280x800 at 2x, and the\nthree surrender paintings likewise to the full screen (`capture/surrender`,\n`capture/surrender-offer`, `capture/surrender-accepted`). `internal/dospanel` plays the surrender\nas held frames with crossfades (fade in, offer, acceptance, hold); under reduced motion it shows\nthe acceptance at once.\n`internal/dospanel` places the code-drawn parts by points measured on the masters, as fractions of\ntheir size: the pin goes into the depot's roof ridge at 0.624, 0.303 and the factory's at 0.526,\n0.300; the hand pinches at 0.184, 0.218; the HQ's flagpole stands at 0.500 from 0.199 (foot) to\n0.050 (head); the door leaves fill the arch from 0.413 to 0.586 wide, from 0.474 (crown) and 0.544\n(springing) down to 0.832. A new master must keep these points or change them in code. The map room\nis drawn at the scene's light, the hand toned to sepia; the leaves of `hq.png` swing open over\n`hq-open.png`.",
       "avoid": [
         "flags, pins, hands or people in the map room's paintings",
         "a flag on the HQ's pole, insignia or a recognisable nation on the defenders",
-        "writing on the staff map"
+        "writing on the staff map",
+        "a national flag or insignia in the surrender paintings; the white cloth stays plain, and no weapon is aimed at anyone there"
       ],
       "runtime": {
         "count": 0,

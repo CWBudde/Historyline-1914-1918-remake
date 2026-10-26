@@ -1,7 +1,8 @@
 package dosrules
 
 // The end of a battle and its score. A side wins by capturing the other
-// side's HQ (capture.go) or by destroying all of its units; the capture
+// side's HQ (capture.go), by destroying all of its units, or when the
+// other side surrenders (Surrender); the capture
 // wins over an annihilation in the same resolution (0661:3d03); the score starts as
 // the defence values of all units and falls as units disappear. The winner's
 // final score adds 500 for annihilation and 100 for concealed inventories,
@@ -25,6 +26,7 @@ type EndReason string
 const (
 	EndHQ           EndReason = "hq"
 	EndAnnihilation EndReason = "annihilation"
+	EndSurrender    EndReason = "surrender"
 )
 
 // End is the state of a battle's end: whether it is over, the winner (-1
@@ -72,6 +74,22 @@ func (g *Game) end(hq int) End {
 		r.Score = finalScore(g.Score(), r.Won[r.Winner] == EndAnnihilation, g.Concealed, g.Limit)
 	}
 	return r
+}
+
+// Surrender ends the battle at once: side gives up and the other side
+// wins by surrender at the current score, without the annihilation bonus.
+// It returns the end event, or nil while the battle is already over or
+// the side is not one of the two.
+func (g *Game) Surrender(side int) []Event {
+	if g.Ended != nil || side != 0 && side != 1 {
+		return nil
+	}
+	e := End{Winner: 1 - side}
+	e.Won[e.Winner] = EndSurrender
+	e.Over = true
+	e.Score = finalScore(g.Score(), false, g.Concealed, g.Limit)
+	g.Ended = &e
+	return []Event{{Kind: EvEnd, Side: e.Winner, End: &e, Phase: [2]int{g.Players[0].Phase, g.Players[1].Phase}, Turn: g.Turn}}
 }
 
 // annihilated reports whether side has no unit left.

@@ -20,6 +20,7 @@ const (
 	CmdConfirm   dosrules.CommandKind = "confirm"   // Confirm(Side)
 	CmdUnconfirm dosrules.CommandKind = "unconfirm" // Unconfirm(Side), logged when it withdrew a confirmation
 	CmdResolve   dosrules.CommandKind = "resolve"   // Resolve()
+	CmdSurrender dosrules.CommandKind = "surrender" // Surrender(Side)
 )
 
 // Clone is an independent copy of the session: the same state, profile,
@@ -93,6 +94,8 @@ func (s *Session) replay(c dosrules.Command) ([]Event, error) {
 		return s.Confirm(c.Side), nil
 	case CmdUnconfirm:
 		return s.Unconfirm(c.Side), nil
+	case CmdSurrender:
+		return s.Surrender(c.Side), nil
 	}
 	to, ok := s.Board.Coord(c.Cell)
 	if !ok {

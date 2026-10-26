@@ -19,6 +19,7 @@ const (
 	actToggleMotion        // new: reduced-motion toggle
 	actFullscreen          // new: F11 toggles fullscreen
 	actScenes              // new: F9 turns the battle scenes of -rules dos off or on
+	actSurrender           // new: F2 (twice) gives up the battle of -rules dos
 	actOrigTiles           // new: F8 swaps in the original tiles and units (origtiles.go; -tags origtiles only)
 )
 
@@ -41,6 +42,7 @@ var keyBindings = []keyBinding{
 	{ebiten.KeyM, actToggleMotion},
 	{ebiten.KeyF11, actFullscreen},
 	{ebiten.KeyF9, actScenes},
+	{ebiten.KeyF2, actSurrender},
 	{ebiten.KeyF8, actOrigTiles},
 }
 
@@ -94,6 +96,10 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 	case actScenes:
 		if g.dos != nil {
 			g.dos.ToggleScenes()
+		}
+	case actSurrender:
+		if g.dos != nil {
+			g.dos.Surrender()
 		}
 	case actOrigTiles:
 		ui.Message = g.toggleOrigArt()

@@ -75,6 +75,10 @@ type game struct {
 		from *screenArt
 		art  *dospanel.FinaleArt
 	}
+	surrender struct { // the surrender scene's art and its catalog (taking.go)
+		from *screenArt
+		art  *dospanel.SurrenderArt
+	}
 	scores       *scores.Store          // the best scores; nil keeps none
 	artErr       string                 // last sprite failure, shown in the status line
 	terrain      *terrainArt            // composed terrain tiles (-terrain); nil draws coloured hexes
@@ -467,6 +471,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 		g.drawSplit(screen)
 		g.drawWells(screen)
 		g.drawFinale(screen)
+		g.drawSurrender(screen)
 	} else {
 		g.drawMapLayer(screen, vx, vy, vw, vh, true)
 	}

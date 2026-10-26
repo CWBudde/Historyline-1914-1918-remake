@@ -580,7 +580,7 @@ func TestBattlePanelRemakeUnaffected(t *testing.T) {
 
 func TestPhaseSequenceCaptureViews(t *testing.T) {
 	g, d := newSplitTest(t, passPlanner{}, 1920, 1080)
-	d.sceneArt = func() sceneArt { return sceneArt{capture: true, finale: true} }
+	d.sceneArt = func() sceneArt { return sceneArt{capture: true, finale: true, surrender: true} }
 	want := map[string][2]panelLook{
 		"split-prompt":           {lookGrey, lookGrey},
 		"split-black":            {lookBlack, lookBlack},
@@ -595,6 +595,8 @@ func TestPhaseSequenceCaptureViews(t *testing.T) {
 		"split-taken-hold":       {lookMap, lookCaptured},
 		"split-finale-doors":     {lookMap, lookMap},
 		"split-finale":           {lookMap, lookMap},
+		"split-surrender-offer":  {lookMap, lookMap},
+		"split-surrender":        {lookMap, lookMap},
 		"split-newmode":          {lookGrey, lookGrey},
 		"split":                  {lookMap, lookMap},
 	}
@@ -636,6 +638,14 @@ func TestPhaseSequenceCaptureViews(t *testing.T) {
 	g.stageCapture("split-finale")
 	if d.ending == nil || d.sequence() {
 		t.Errorf("finale: ending %v, stage %v", d.ending, d.stage)
+	}
+	g.stageCapture("split-surrender-offer")
+	if d.ending == nil || !d.sequence() || d.surrenderTick() <= 0 {
+		t.Errorf("surrender offer: ending %v, stage %v at %d", d.ending, d.stage, d.stageAt)
+	}
+	g.stageCapture("split-surrender")
+	if d.ending == nil || d.sequence() {
+		t.Errorf("surrender: ending %v, stage %v", d.ending, d.stage)
 	}
 	g.stageCapture("split")
 	if d.frozen != nil || d.otherFrozen != nil {

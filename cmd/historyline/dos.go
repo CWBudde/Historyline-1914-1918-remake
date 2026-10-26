@@ -59,6 +59,7 @@ type dosControl struct {
 	rework      bool            // a sapper's work played: the map's terrain changed (trench.go)
 
 	prompt   bool            // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
+	giveUp   bool            // F2 asked to give up the battle: F2 surrenders, fire goes back (taking.go)
 	stage    stage           // the stage of the phase change playing, stageNone otherwise
 	stageAt  int             // its frames played
 	stageLen int             // its length in frames
@@ -118,6 +119,9 @@ func (d *dosControl) Cancel() {
 	case d.SkipWalk():
 	case d.prompt:
 		d.closePrompt()
+	case d.giveUp:
+		d.giveUp = false
+		d.Message = "back to the orders"
 	case d.scene():
 		d.SkipScene()
 	default:
@@ -209,6 +213,10 @@ func (d *dosControl) Click(at hexgrid.Coord) {
 		return
 	case d.prompt:
 		d.closePrompt()
+		return
+	case d.giveUp:
+		d.giveUp = false
+		d.Message = "back to the orders"
 		return
 	case d.scene():
 		d.SkipScene()
@@ -415,10 +423,41 @@ func (d *dosControl) attack(to hexgrid.Coord) {
 	}
 }
 
+// Surrender (F2) asks to give up the battle and, asked again, gives it
+// up: the other side wins by surrender and its scene plays. Fire or Esc
+// in between goes back to the orders.
+func (d *dosControl) Surrender() {
+	d.clear()
+	switch {
+	case d.over:
+		d.Message = d.endText()
+	case d.busy():
+		d.Message = "the orders are being carried out"
+	case !d.giveUp:
+		d.prompt = false
+		d.giveUp = true
+		d.Message = "F2 again gives up the battle, fire goes back"
+	default:
+		d.giveUp = false
+		for _, ev := range d.s.Surrender(d.side) {
+			if ev.Kind != dosplay.Ended {
+				continue
+			}
+			if d.startSurrender(ev) {
+				return
+			}
+			d.over = true
+			d.Message = d.endText()
+			d.fx.Show(d.endText(), victoryFrames)
+		}
+	}
+}
+
 // EndTurn (F1) asks to end the phase, confirms the side's orders in that
 // prompt, or opens them again while the other side has not confirmed yet.
 func (d *dosControl) EndTurn() {
 	d.clear()
+	d.giveUp = false
 	switch {
 	case d.over:
 		d.Message = d.endText()
@@ -538,6 +577,9 @@ func (d *dosControl) step() {
 		if d.startFinale(ev) {
 			return
 		}
+		if d.startSurrender(ev) {
+			return
+		}
 		d.over = true
 		d.Message = d.endText()
 		d.fx.Show(d.endText(), victoryFrames)
@@ -646,8 +688,11 @@ func (d *dosControl) endReason() string {
 		return ""
 	}
 	how := "destroyed every enemy unit"
-	if e.Won[e.Winner] == dosrules.EndHQ {
+	switch e.Won[e.Winner] {
+	case dosrules.EndHQ:
 		how = "hold the enemy HQ"
+	case dosrules.EndSurrender:
+		how = "accepted the surrender"
 	}
 	return fmt.Sprintf("%v %s", d.s.Faction(e.Winner), how)
 }
