@@ -18,6 +18,9 @@ FRONT/LEVEL (`1915-10.jpg`, 3829×3302) uses the same density, with copper autum
 after prolonged rain and a broad belt of saturated clay, dirty puddles and timber-lined trenches.
 RATIO/TOXIN (`1915-12.jpg`, 2852×3302) has fresh wet snow, pale winter light, slushy lanes and
 snow-covered rocky passes, at the same density.
+PARTS/PRINC (`1916-02.jpg`, 3829×4403) has wind-scoured snow, cold diffuse daylight after a February
+squall and a gusty sea, at the same density. Rocky inlets clear the full linked hulls; capped landings
+give the coastal roads visible ends. The EC harbour car starts one hex south on its road bend.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -61,6 +64,8 @@ ORKAN/BUMMM uses thirty 728×727 world-pixel sections on 1252×1250 canvases: co
 1033, 1550, 2066 and rows at y 0, 495, 989, 1484, 1978, 2473.
 
 FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
+
+PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
 
 ## 3. Painting a section
 
