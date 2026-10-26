@@ -14,6 +14,8 @@ warm sunshine and saturated clay, deep ruts and dirty puddles around the trenche
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
 ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
 light and a wind-ruffled sea. Its landing piers and coves leave room for the linked ships' full hulls.
+FRONT/LEVEL (`1915-10.jpg`, 3829×3302) uses the same density, with copper autumn foliage, cool light
+after prolonged rain and a broad belt of saturated clay, dirty puddles and timber-lined trenches.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -55,6 +57,8 @@ Crop each section from the 4x guide and scale it to the section canvas: 1536×10
 
 ORKAN/BUMMM uses thirty 728×727 world-pixel sections on 1252×1250 canvases: columns at x 0, 517,
 1033, 1550, 2066 and rows at y 0, 495, 989, 1484, 1978, 2473.
+
+FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
 ## 3. Painting a section
 

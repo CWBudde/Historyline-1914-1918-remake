@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1915-10",
 	"name": "Front",
+	"backdrop": "1915-10.jpg",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["mountain", ""], ["mountain", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "rail236"], ["forest", ""], ["mountain", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
