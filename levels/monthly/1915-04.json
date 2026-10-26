@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1915-04",
 	"name": "Noise",
+	"backdrop": "1915-04.jpg",
 	"map": {
 		"line1": [["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["lakeside23", ""], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["lakeside3456", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""]],
 		"line2": [["water", ""], ["waterStones", ""], ["lakeside23", ""], ["lakeside23", ""], ["lakeside23", ""], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", "path36"], ["hills", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""]],

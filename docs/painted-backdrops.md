@@ -7,6 +7,8 @@ CIVIL (`1914-10.jpg`, 2336×2706) and Marne (`1914-09.jpg`, 3137×1578, six sect
 all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 2852×3302) uses about
 1.72 image px per world px, with settled winter snow and cold overcast daylight. VENOM/BIMBO
 (`1915-02.jpg`, 2852×4403) uses the same density, with patchy late-winter snow and clear frosty light.
+NOISE/TEMPO (`1915-04.jpg`, 3657×4206) uses about 1.64 image px per world px, with budding spring
+trees, damp grass and puddled lanes after a shower.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -40,8 +42,11 @@ VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water
 hex; the northeast seam retains the harbour basin's open channel into the lake.
 
+NOISE/TEMPO uses sixteen 762×762 world-pixel sections: columns at x 0, 488, 976, 1464 and rows at
+y 0, 599, 1199, 1798, with at least 162 world px of overlap between rows.
+
 Crop each section from the 4x guide and scale it to the section canvas: 1536×1024 for PULSE/CIVIL,
-1252×1250 for MOUSE/VENOM.
+1252×1250 for MOUSE/VENOM, and 1252×1252 for NOISE.
 
 ## 3. Painting a section
 
