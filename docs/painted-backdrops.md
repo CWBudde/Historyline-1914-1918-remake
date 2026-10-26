@@ -3,7 +3,9 @@
 A scenario file may name a backdrop (`"backdrop": "1914-08.jpg"` next to the file): one painting of the
 whole level's ground that the game draws in place of the terrain tiles (`-backdrop off` draws the tiles).
 It must match the level's world aspect; any resolution works. Shipped: PULSE (`1914-08.jpg`, 1536×2706)
-and CIVIL (`1914-10.jpg`, 2336×2706), both at 1536/1090 ≈ 1.41 image px per world px.
+and CIVIL (`1914-10.jpg`, 2336×2706), both at 1536/1090 ≈ 1.41 image px per world px;
+MOUSE/SPORT (`1914-12.jpg`, 2852×3302) uses about 1.72 image px per world px, with settled winter snow
+and cold overcast daylight.
 
 Imagegen paints at most 1536×1024, far less than a whole map. A backdrop is therefore painted in
 overlapping sections, each registered to a render of the level, and stitched.
@@ -28,6 +30,9 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | -------------------- | --------- | -------------------------------------------- |
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
+
+MOUSE/SPORT uses nine 728×727 world-pixel sections: three columns at x 0, 465, 930 and three rows at
+y 0, 596, 1193. The smaller sections provide its higher image density.
 
 Crop each section from the 4x guide and scale it to 1536×1024.
 
