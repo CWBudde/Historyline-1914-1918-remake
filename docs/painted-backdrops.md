@@ -28,6 +28,10 @@ Charron and an AA crew clear of shores, trees and a house.
 FLAME/XENON (`1916-06.jpg`, 2852×3302) has full summer greenery, damp meadow and gravel under humid
 overcast light after a June shower. Both airstrips and their hangars remain open; small grass
 clearings support the starting units. Its coastal coves retain their original shape.
+GOTHA/SIGNS (`1916-08.jpg`, 4806×4403) has dry late-summer grass and dusty gravel in warm, hazy
+afternoon light. Five bridges cross its inland waterways; factory rail entries stay open and the
+northern rail spur ends at a timber buffer. Nearby starting-position shifts clear banks and bridge
+parapets; small meadow clearings support feet, wheels and a bunker base.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -70,6 +74,8 @@ Crop each section from the 4x guide and scale it to the section canvas: 1536×10
 ORKAN/BUMMM uses thirty 728×727 world-pixel sections on 1252×1250 canvases: columns at x 0, 517,
 1033, 1550, 2066 and rows at y 0, 495, 989, 1484, 1978, 2473.
 PLANE/CLEAN uses the same thirty-section layout.
+
+GOTHA/SIGNS uses twenty-five sections: the same columns and rows at y 0, 458, 917, 1375, 1833.
 
 FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
