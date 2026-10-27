@@ -32,6 +32,11 @@ GOTHA/SIGNS (`1916-08.jpg`, 4806×4403) has dry late-summer grass and dusty grav
 afternoon light. Five bridges cross its inland waterways; factory rail entries stay open and the
 northern rail spur ends at a timber buffer. Nearby starting-position shifts clear banks and bridge
 parapets; small meadow clearings support feet, wheels and a bunker base.
+BALON/HOUSE (`1916-10.jpg`, 2852×3302) has thin wet snow after an October cold snap, copper leaves,
+slushy lanes and cool overcast light. Small woodland clearings and rocky shelves support the starting
+units. Railheads have timber buffers; the short southern track continues across the map edge. Three
+setup records move infantry off house roofs onto nearby ground. The northern AA position has a partly
+backfilled crater for firm footing.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -58,8 +63,8 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
 
-MOUSE/SPORT, RIGHT/BARON, RATIO/TOXIN and FLAME/XENON use nine 728×727 world-pixel sections: columns
-at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
+MOUSE/SPORT, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON and BALON/HOUSE use nine 728×727 world-pixel sections:
+columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water
