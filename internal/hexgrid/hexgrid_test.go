@@ -10,8 +10,8 @@ import (
 	"testing"
 )
 
-// golden is testdata/adjacent.json, written by testdata/gen_adjacent.py from the
-// Python adjacentHexes in hlrData.py.
+// golden is testdata/adjacent.json, a frozen golden of the Python remake's
+// adjacentHexes in hlrData.py.
 type golden map[string]struct {
 	Width int `json:"width"`
 	Lines int `json:"lines"`

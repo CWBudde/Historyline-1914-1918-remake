@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// The checked-in sample is a real DOS level; it is skipped when absent.
+// testdata/00.FIN is a local original level (never committed); skipped when absent.
 func TestLocalFIN(t *testing.T) {
 	b, err := os.ReadFile("testdata/00.FIN")
 	if err != nil {

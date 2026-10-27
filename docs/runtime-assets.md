@@ -3,7 +3,7 @@
 `internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `cmd/hlasset` builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
-`build/packs/` until art is approved; only approved art will be embedded (`assets/assets.go`).
+`build/packs/` until art is approved.
 
 ```sh
 go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
@@ -129,7 +129,7 @@ standing items of the terrain and overlays that the catalog has. Ground material
 context tile whose key is the SHA-256 of a descriptor (season, centre, neighbours NE SE S SW NW N, plus tile
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
-(`missing` or `undefined`). The three shipped levels and every scenario map (`levels/monthly`, `levels/skirmish`) have no gaps.
+(`missing` or `undefined`). Every scenario map (`levels/monthly`, `levels/skirmish`) have no gaps.
 The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`mud` and
 `shelled_w`, the shell-hole fields, `rough_w`, the winter hills, and `stoney_w`, winter stony ground) are
 sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
