@@ -41,6 +41,10 @@ PAUSE/SIGMA (`1916-12.jpg`, 7737×3302) has dry wind-packed December snow and pa
 a coastal gale. Its streams meet the sea through open mouths; snowy gravel joins the roads and building
 approaches. Small level pockets support the starting units, and the southern forest road fades beneath
 snow and canopy. One EC setup infantry group starts beside its house instead of on the roof.
+ELITE/SEVEN (`1917-02.jpg`, 2852×3302) has a February thaw under low raincloud, wet dormant grass,
+bare trees and scattered old snow. Both airstrips stay open; the southern stream fragments form
+continuous channels. Small clearings and a level rocky shelf support the starting units. One EC
+anti-tank crew starts on the adjacent bank path, clear of the diagonal road bridge's stream.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -67,7 +71,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
 
-MOUSE/SPORT, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON and BALON/HOUSE use nine 728×727 world-pixel sections:
+MOUSE/SPORT, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
