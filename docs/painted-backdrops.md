@@ -25,6 +25,9 @@ PLANE/CLEAN (`1916-04.jpg`, 4806×5504) uses the same density, with fresh green 
 and clear early-April light after overnight frost. Forest clearings leave firm ground beneath the
 starting units; river railheads have timber buffers. Small starting-position shifts keep ships, a
 Charron and an AA crew clear of shores, trees and a house.
+FLAME/XENON (`1916-06.jpg`, 2852×3302) has full summer greenery, damp meadow and gravel under humid
+overcast light after a June shower. Both airstrips and their hangars remain open; small grass
+clearings support the starting units. Its coastal coves retain their original shape.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -51,8 +54,8 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
 
-MOUSE/SPORT, RIGHT/BARON and RATIO/TOXIN use nine 728×727 world-pixel sections: columns at x 0, 465,
-930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
+MOUSE/SPORT, RIGHT/BARON, RATIO/TOXIN and FLAME/XENON use nine 728×727 world-pixel sections: columns
+at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water

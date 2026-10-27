@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1916-06",
 	"name": "Flame",
+	"backdrop": "1916-06.jpg",
 	"map": {
 		"line1": [["hills", ""], ["hills", ""], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["water", ""], ["water", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""]],
 		"line2": [["grass", ["road36", "runway36"]], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["stone", ""], ["lakeside3456", ""], ["water", ""], ["waterDeep", ""], ["waterSea", ""], ["waterSea", ""]],
