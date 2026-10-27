@@ -5,11 +5,15 @@ import (
 	"strings"
 	"testing"
 
+	"errors"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
 
-// An imported original map loads from the embedded files with its campaign
+// An original map loads from the local original files with its campaign
 // level, plays its exact board under both rule sets, and names every unit, a
 // ship's rear by its ship.
 func TestOriginalMap(t *testing.T) {
@@ -17,10 +21,7 @@ func TestOriginalMap(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lvl, b, err := loadMap(t.TempDir(), "original/06", set)
-	if err != nil {
-		t.Fatal(err)
-	}
+	lvl, b := originalMap(t, "original/06", set)
 	if b == nil || lvl.MapName != "06" || b.Width != 2*len(lvl.Lines[0]) || len(lvl.Lines) != 2*b.Height-1 {
 		t.Fatalf("map %s: board %v, %d lines of %d", lvl.MapName, b != nil, len(lvl.Lines), len(lvl.Lines[0]))
 	}
@@ -91,4 +92,18 @@ func TestScenarioLevel(t *testing.T) {
 	if _, _, err := loadMap(t.TempDir(), "monthly/1914-08:xx", set); err == nil {
 		t.Error("an unknown setup loaded")
 	}
+}
+
+// originalMap loads a map of the local original files; the test is skipped
+// without them.
+func originalMap(t *testing.T, name string, set *data.Set) (*level.Level, *dosbind.Board) {
+	t.Helper()
+	lvl, b, err := loadMap(t.TempDir(), name, set)
+	if errors.Is(err, origmaps.ErrNotFound) {
+		t.Skip("no local original files")
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	return lvl, b
 }

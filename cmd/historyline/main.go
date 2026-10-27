@@ -116,9 +116,19 @@ func (g *game) applyLayout(outW, outH int, dpi float64) {
 	g.layoutSplit()
 }
 
-// fogOf is what the shown side knows about c. The session has no fog: every
-// hex is visible.
-func (g *game) fogOf(hexgrid.Coord) state.Fog { return state.Visible }
+// fogOf is what the shown panel knows about c: without fog (classic, or
+// -reveal) every hex is visible; under fog a hex out of its eyes' sight is
+// remembered terrain.
+func (g *game) fogOf(c hexgrid.Coord) state.Fog {
+	if g.reveal {
+		return state.Visible
+	}
+	sight := g.dos.sightOf(g.dos.eyes(g.shownSide()))
+	if sight == nil || sight[c] {
+		return state.Visible
+	}
+	return state.Seen
+}
 
 // fogShade applies what the player knows to a terrain colour. Unseen hexes show
 // nothing of the terrain and remembered ones are dimmed and grey.
@@ -425,7 +435,7 @@ func rulesOptions(rules string, o dosplay.Options) dosplay.Options {
 	switch rules {
 	case rulesClassic: // the original rules profile as it is
 	case rulesModern:
-		// modern: fog of war (dosplay.Options.Fog)
+		o.Fog = true
 	}
 	return o
 }

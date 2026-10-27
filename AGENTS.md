@@ -45,8 +45,9 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   numbers-only `records.json`, units, container records, building energy); checked against the local
   original maps.
 - `internal/dosplay`: a `dosrules` game session on a level for the front end and the computer side: each
-  side's view of its own map (no line of sight), destinations, routes, targets, the commands, and events
-  in hexes (moves with routes, battles, captures, reveals, phase change, end).
+  side's view of its own map (with `Options.Fog`, `modern`'s fog of war, only the opposing units in its
+  units' sight, `fog.go`), destinations, routes, targets, the commands, and events in hexes
+  (moves with routes, battles, captures, reveals, phase change, end).
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
   costs towards the enemy HQ and units, takes buildings on its way and queues the attacks the exact battle
   outcome favours; `PlayOut`.

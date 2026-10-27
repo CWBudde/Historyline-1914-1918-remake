@@ -49,7 +49,7 @@ v1 is one-player: two human players are not in v1. Maps 48-71 are two-player map
 here you play one side against the computer or a passive opponent.
 
 `-rules` picks the rule set (pass it after `just run` or `just play`): `classic` (default), the original
-rules, or `modern`, the same order cycle with extensions; the menu's game values switch it too. Both sides
+rules, or `modern`, the same order cycle with fog of war (opposing units show only within your units' sight, the computer's panel shows what you see); the menu's game values switch it too. Both sides
 give their orders at the same time: in the movement phase click an own unit and a blue hex, in the action
 phase an own unit and a red hex (a queued attack), click an own building for its contents, F1 confirms
 (again: reopens); once both sides have confirmed the resolution plays back and the phases swap. `-player central|entente` picks the side,

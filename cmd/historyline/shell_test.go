@@ -8,6 +8,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 )
@@ -489,5 +490,65 @@ func TestMonthlyMarne(t *testing.T) {
 	set := testSet(t)
 	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestModernPlaysUnderFog(t *testing.T) {
+	s := testShell(t)
+	set := testSet(t)
+	for _, rules := range []string{rulesClassic, rulesModern} {
+		s.rules = rules
+		c := s.config(matchConfig{set: set, opponent: "ai"})
+		c.player = s.levelSide()
+		gm, err := newMatch(c, nil)
+		if err != nil {
+			t.Fatalf("%s: %v", rules, err)
+		}
+		d := gm.dos
+		if d.s.Fog() != (rules == rulesModern) {
+			t.Fatalf("%s: fog %v", rules, d.s.Fog())
+		}
+		human, computer := d.side, 1-d.side
+		if rules == rulesClassic {
+			if d.sightOf(human) != nil || d.eyes(computer) != computer {
+				t.Errorf("classic: sight or eyes changed")
+			}
+			continue
+		}
+		// The computer's panel shows what the human side sees.
+		if d.eyes(computer) != human || d.eyes(human) != human {
+			t.Fatalf("modern: eyes %d, %d", d.eyes(computer), d.eyes(human))
+		}
+		sight := d.sightOf(human)
+		seen, hidden := 0, 0
+		g := gm.playGrid()
+		for i := range g.Lines * g.Width {
+			c := hexgrid.Coord{Line: i / g.Width, Col: i % g.Width}
+			if !g.Contains(c) {
+				continue
+			}
+			gm.drawing, gm.drawSide = true, computer
+			f := gm.fogOf(c)
+			gm.drawing = false
+			if f == state.Visible != sight[c] {
+				t.Fatalf("modern: %v fog %v, in sight %v", c, f, sight[c])
+			}
+			if sight[c] {
+				seen++
+			} else {
+				hidden++
+			}
+		}
+		if seen == 0 || hidden == 0 {
+			t.Errorf("modern: %d hexes in sight, %d out of it", seen, hidden)
+		}
+		for at, u := range d.unitsOf(computer, false) {
+			if u.Side != human && !sight[at] {
+				t.Errorf("modern: the computer's panel shows %s at %v out of sight", u.Name, at)
+			}
+		}
+		if len(d.unitsOf(computer, true)) <= len(d.unitsOf(computer, false)) {
+			t.Errorf("modern: fog hides no unit of the computer's panel")
+		}
 	}
 }

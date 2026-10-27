@@ -213,7 +213,7 @@ func (d *dosControl) actStep() {
 			d.planFailed(a.side, err)
 			return
 		}
-		for _, ev := range evs {
+		for _, ev := range d.shownEvents(evs) {
 			if ev.Kind != dosplay.Moved {
 				continue
 			}

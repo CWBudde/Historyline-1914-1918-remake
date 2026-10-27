@@ -616,6 +616,13 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 
 ### Beyond the original
 
+Extensions belong to `modern` (`rulesOptions`, `dosplay.Options`); `classic` stays the original.
+
+- [x] Fog of war: a side sees opposing units only within its units' sight (`dosplay/fog.go`); the
+      computer side plans on the fogged view, and its panel shows what the human side sees. Evidence:
+      `TestFogView`, `TestFogTargets`, `TestFogReveal`, `TestFogSaveLoad`, `TestPlayOutFog`,
+      `TestModernPlaysUnderFog`.
+- [ ] Fog memory: remembered last-seen units and building owners; terrain sight hindrance.
 - [ ] Artillery can destroy infrastructure.
 - [ ] Dedicated ammo and fuel supply units.
 - [ ] Engineer units that build infrastructure.

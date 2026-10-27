@@ -489,10 +489,7 @@ func TestSplitStopsAtTheEdge(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lvl, b, err := loadMap(t.TempDir(), "original/09", set)
-	if err != nil {
-		t.Fatal(err)
-	}
+	lvl, b := originalMap(t, "original/09", set)
 	player, err := state.PlayerByName(lvl.Player)
 	if err != nil {
 		t.Fatal(err)

@@ -86,6 +86,10 @@ type sideCache struct {
 	ver     int
 	shown   map[hexgrid.Coord]dosplay.UnitView
 	shownAt shownKey
+	// sight are the hexes the side sees under fog at sightAt, nil for all.
+	sight   map[hexgrid.Coord]bool
+	sightAt int
+	sightOK bool
 }
 
 type shownKey struct {
@@ -138,6 +142,25 @@ func (d *dosControl) viewOf(side int) *dosplay.View {
 		c.view, c.ver = &v, d.s.Version()
 	}
 	return c.view
+}
+
+// sightOf are the hexes side sees, nil for every hex (no fog). While a
+// resolution plays it stays the sight of before.
+func (d *dosControl) sightOf(side int) map[hexgrid.Coord]bool {
+	c := &d.views[side]
+	if !c.sightOK || (c.sightAt != d.s.Version() && d.frozenOf(side) == nil) {
+		c.sight, c.sightAt, c.sightOK = d.s.Sight(side), d.s.Version(), true
+	}
+	return c.sight
+}
+
+// eyes is the side whose knowledge side's panel shows. Under fog a computer
+// side's panel shows what the human side sees, so it gives nothing away.
+func (d *dosControl) eyes(side int) int {
+	if d.s.Fog() && !d.reveal && side != d.side && d.s.Game.Players[side].Computer {
+		return d.side
+	}
+	return side
 }
 
 // frozenOf is side's frozen view while a resolution plays, else nil.
@@ -497,12 +520,21 @@ func (d *dosControl) plan(side int) {
 	if err != nil {
 		d.Message = "computer side: " + err.Error()
 	}
-	if c, ok := planFocus(evs); ok {
+	if c, ok := planFocus(d.shownEvents(evs)); ok {
 		d.lookAt(side, c)
 	}
 	if !d.s.Ready(side) {
 		d.s.Confirm(side)
 	}
+}
+
+// shownEvents are the events of evs the human side may see: under fog only
+// what happens in its sight (dosplay.Session.EventsFor), all with -reveal.
+func (d *dosControl) shownEvents(evs []dosplay.Event) []dosplay.Event {
+	if d.reveal {
+		return evs
+	}
+	return d.s.EventsFor(d.side, evs)
 }
 
 // resolve freezes both sides' views and resolves the orders; the events wait
@@ -518,6 +550,7 @@ func (d *dosControl) resolve() {
 	if err != nil {
 		d.Message = "resolution: " + err.Error()
 	}
+	evs = d.shownEvents(evs)
 	d.frozen, d.otherFrozen, d.queue = &v, &o, evs
 	d.startStage(stageBlack, d.frames(blackFrames, blackFramesReduced))
 }
@@ -698,6 +731,9 @@ func (d *dosControl) units(reveal bool) map[hexgrid.Coord]dosplay.UnitView {
 // unitsOf are the units drawn on side's panel, by hex: its frozen view while
 // a resolution plays, else its view (the true view with reveal).
 func (d *dosControl) unitsOf(side int, reveal bool) map[hexgrid.Coord]dosplay.UnitView {
+	if !reveal {
+		side = d.eyes(side)
+	}
 	if f := d.frozenOf(side); f != nil {
 		return f.Units
 	}
