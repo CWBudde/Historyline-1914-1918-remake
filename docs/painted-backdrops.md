@@ -21,6 +21,10 @@ snow-covered rocky passes, at the same density.
 PARTS/PRINC (`1916-02.jpg`, 3829×4403) has wind-scoured snow, cold diffuse daylight after a February
 squall and a gusty sea, at the same density. Rocky inlets clear the full linked hulls; capped landings
 give the coastal roads visible ends. The EC harbour car starts one hex south on its road bend.
+PLANE/CLEAN (`1916-04.jpg`, 4806×5504) uses the same density, with fresh green meadow, budding trees
+and clear early-April light after overnight frost. Forest clearings leave firm ground beneath the
+starting units; river railheads have timber buffers. Small starting-position shifts keep ships, a
+Charron and an AA crew clear of shores, trees and a house.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -62,6 +66,7 @@ Crop each section from the 4x guide and scale it to the section canvas: 1536×10
 
 ORKAN/BUMMM uses thirty 728×727 world-pixel sections on 1252×1250 canvases: columns at x 0, 517,
 1033, 1550, 2066 and rows at y 0, 495, 989, 1484, 1978, 2473.
+PLANE/CLEAN uses the same thirty-section layout.
 
 FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
