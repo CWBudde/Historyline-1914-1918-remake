@@ -260,7 +260,7 @@ func TestLevelBackdrop(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, off := range []bool{false, true} {
-		gm, err := newMatch(matchConfig{lvl: lvl, set: set, player: state.CentralPowers, rules: "dos", opponent: "pass", noBackdrop: off}, &meter{})
+		gm, err := newMatch(matchConfig{lvl: lvl, set: set, player: state.CentralPowers, rules: rulesClassic, opponent: "pass", noBackdrop: off}, &meter{})
 		if err != nil {
 			t.Fatal(err)
 		}

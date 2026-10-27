@@ -45,9 +45,6 @@ func terrainDensity(eff float64) int {
 	return min(assetDensity(eff), terrainDensities[len(terrainDensities)-1])
 }
 
-// unitSpent reports whether u has acted this turn and is drawn greyscale.
-func unitSpent(u *state.Unit) bool { return u.Moved || u.Attacked }
-
 // unitSprite picks the sprite of a unit of type typ owned by owner. The palette
 // follows the owner, so captured units change colour; remembered units use the
 // greyscale spent sprite.

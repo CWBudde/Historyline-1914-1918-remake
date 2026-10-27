@@ -11,15 +11,7 @@ const (
 	uiBaseW = 900
 	uiBaseH = 560
 
-	hudMargin      = 8   // gap between HUD elements and the screen edge
-	menuRowHeight  = 18  // one action-menu row (the 16px debug font plus padding)
-	menuMaxWidth   = 340 // widest action menu
-	reportMaxW     = 360 // battle panel
-	reportHeight   = 70
-	reportTop      = 4
-	minimapCap     = 280 // largest minimap edge
-	minimapMin     = 80  // smallest minimap edge
-	minimapMargin  = 12
+	hudMargin      = 8 // gap between HUD elements and the screen edge
 	bannerHeight   = 48
 	glyphW         = 6  // ebitenutil debug font advance
 	infoTop        = 20 // info box, below the dev indicator line
@@ -101,24 +93,14 @@ type rect struct{ X, Y, W, H int }
 
 // hudLayout holds the screen rectangles of the HUD for one logical screen size.
 type hudLayout struct {
-	MenuX, MenuW int // action menu column; rows grow upwards from the bottom
-	MenuBottom   int // y just below the last menu row
-	Report       rect
-	MinimapMax   int // longest minimap edge
-	Banner       rect
-	DevRight     int // right edge for the dev indicator text
+	Banner   rect
+	DevRight int // right edge for the dev indicator text
 }
 
 // layoutHUD places the HUD for a w x h logical screen. Everything shrinks to fit
 // narrow screens instead of using fixed positions.
 func layoutHUD(w, h int) hudLayout {
 	var l hudLayout
-	l.MenuX = hudMargin
-	l.MenuW = max(min(menuMaxWidth, w-2*hudMargin), 1)
-	l.MenuBottom = h - hudMargin
-	rw := max(min(reportMaxW, w-2*reportTop), 1)
-	l.Report = rect{(w - rw) / 2, reportTop, rw, reportHeight}
-	l.MinimapMax = max(min(minimapCap, min(w, h)*3/10), minimapMin)
 	l.Banner = rect{0, (h - bannerHeight) / 2, w, bannerHeight}
 	l.DevRight = w - hudMargin
 	return l
@@ -129,11 +111,6 @@ func layoutHUD(w, h int) hudLayout {
 func (l hudLayout) infoRect(w, n int) rect {
 	w = max(min(w+2*infoPad, l.DevRight-hudMargin), 1)
 	return rect{l.DevRight - w, infoTop, w, n*infoLineHeight + infoPad}
-}
-
-// menuRowRect is the rectangle of row i of n.
-func (l hudLayout) menuRowRect(i, n int) rect {
-	return rect{l.MenuX, l.MenuBottom - (n-i)*menuRowHeight, l.MenuW, menuRowHeight}
 }
 
 // textWidth is the pixel width of s in the debug font.

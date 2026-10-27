@@ -31,16 +31,16 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 ## Architecture
 
 - `cmd/historyline`: the Ebitengine front end; `shell.go` holds the menus around a battle, `app.go` runs
-  and draws them.
-- `internal/game`: rules engine with **no rendering**; UI and AI drive it through commands
-  (`commands.go`). A single rule set (the former `Standard`); the Classic (Python) set was removed.
+  and draws them. Two rule sets (`-rules`), both a `dosplay` session on the split screen: `classic`
+  (default, the original profile) and `modern` (the same engine with extensions, set in `rulesOptions`).
+- `internal/game`: shared game types with no rules and no rendering: players, fog states and a level's
+  starting position (`game.New`: hexes, units, containers).
 - `internal/data`: embedded JSON tables (terrain, weapons, units). Unit stats and per-slot attacks follow
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
   phase change, the command cycle `Game` with save/resume, building capture, sapper trenches, victory
-  and score, energy, repair and production), pinned by fixtures under `testdata/`; not wired into `game`
-  yet.
+  and score, energy, repair and production), pinned by fixtures under `testdata/`.
 - `internal/dosbind`: binds a shipped level to `dosrules` records (cells, terrain records from the
   numbers-only `records.json`, units, container records, building energy); checked against the local
   original maps.
@@ -50,8 +50,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
   costs towards the enemy HQ and units, takes buildings on its way and queues the attacks the exact battle
   outcome favours; `PlayOut`.
-- `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen under
-  `-rules dos` (layout, steel frame, panel views, cursor gestures); see `docs/dos-screen.md`.
+- `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen
+  (layout, steel frame, panel views, cursor gestures); see `docs/dos-screen.md`.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: the legacy level format read/write, what a scenario setup becomes; as files only the
   PULSE reference map (`art/reference/pulse/level.json`) and test fixtures. `internal/tpwm`: Turbo Packer

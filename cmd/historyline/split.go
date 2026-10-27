@@ -15,7 +15,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-// The split battle screen of -rules dos: one map panel per side (left side 0,
+// The split battle screen: one map panel per side (left side 0,
 // right side 1), each with its own camera that rests on whole column pairs and
 // rows, inside the steel frame of internal/dosscreen, with a status well under
 // each panel. Only the human side's panel takes the mouse.
@@ -495,7 +495,7 @@ func (g *game) drawSplitHexNumbers(dst *ebiten.Image) {
 	}
 }
 
-// splitErrors are the art failures, shown at the top left under -rules dos.
+// splitErrors are the art failures, shown at the top left.
 func (g *game) splitErrors() string {
 	var out []string
 	if g.artErr != "" {

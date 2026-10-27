@@ -18,8 +18,8 @@ const (
 	actQuit                // Python: Q
 	actToggleMotion        // new: reduced-motion toggle
 	actFullscreen          // new: F11 toggles fullscreen
-	actScenes              // new: F9 turns the battle scenes of -rules dos off or on
-	actSurrender           // new: F2 (twice) gives up the battle of -rules dos
+	actScenes              // new: F9 turns the battle scenes off or on
+	actSurrender           // new: F2 (twice) gives up the battle
 	actOrigTiles           // new: F8 swaps in the original tiles and units (origtiles.go; -tags origtiles only)
 )
 
@@ -57,14 +57,9 @@ func actionsFor(pressed func(ebiten.Key) bool) (out []action) {
 }
 
 // applyAction performs a on the game. It reports false when the game should quit.
-// While the weapon menu is open only end turn, cancel and quit apply.
 func (g *game) applyAction(a action) (keepRunning bool) {
-	d := g.drv()
-	ui := d.ui()
-	if ui.MenuOpen() && (a == actSelectHex || a == actViewTop || a == actViewBottom) {
-		return true
-	}
-	if g.split != nil && (a == actCancel || a == actSelectHex) && g.closeGestures() {
+	d := g.dos
+	if (a == actCancel || a == actSelectHex) && g.closeGestures() {
 		return true // Esc or Enter closed the strategic map, the ring or a hold
 	}
 	switch a {
@@ -77,32 +72,20 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 			d.Click(g.hover)
 		}
 	case actViewTop:
-		if g.split != nil {
-			g.stepView(g.dos.side, 0, -g.grid.Lines)
-		} else {
-			g.cam.CenterOn(g.cam.World.W/2, 0)
-		}
+		g.stepView(d.side, 0, -g.grid.Lines)
 	case actViewBottom:
-		if g.split != nil {
-			g.stepView(g.dos.side, 0, g.grid.Lines)
-		} else {
-			g.cam.CenterOn(g.cam.World.W/2, g.cam.World.H)
-		}
+		g.stepView(d.side, 0, g.grid.Lines)
 	case actToggleMotion:
-		d.SetReducedMotion(!ui.reduced)
-		ui.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[ui.reduced]
+		d.SetReducedMotion(!d.reduced)
+		d.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[d.reduced]
 	case actFullscreen:
 		ebiten.SetFullscreen(!ebiten.IsFullscreen())
 	case actScenes:
-		if g.dos != nil {
-			g.dos.ToggleScenes()
-		}
+		d.ToggleScenes()
 	case actSurrender:
-		if g.dos != nil {
-			g.dos.Surrender()
-		}
+		d.Surrender()
 	case actOrigTiles:
-		ui.Message = g.toggleOrigArt()
+		d.Message = g.toggleOrigArt()
 	case actNone:
 	case actQuit:
 		return false

@@ -223,7 +223,7 @@ func TestLevelHex(t *testing.T) {
 }
 
 func TestDrawnDensity(t *testing.T) {
-	g := newGame(testLevel(t), newTestControl(t).st, state.CentralPowers, false)
+	g := newMapGame(testLevel(t), false)
 	g.cam.Zoom = 1
 	if d := g.drawnDensity(); d != assetDensity(g.cam.Effective()) {
 		t.Errorf("without packs: %dx", d)

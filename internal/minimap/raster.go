@@ -1,11 +1,12 @@
+// Package minimap holds the strategic map: a cell-exact raster of the hex map
+// (Raster) and the strategic-map panel (Strategic). It draws into plain images
+// only; uploading them is up to the caller.
 package minimap
 
 import (
 	"image"
 	"image/color"
-	"math"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -32,34 +33,6 @@ type Raster struct {
 // cellH is at least 2 and rounded up to an even number.
 func Cells(g hexgrid.Grid, cellW, cellH int) Raster {
 	return Raster{Grid: g, CellW: max(cellW, 1), CellH: max(cellH+cellH&1, 2)}
-}
-
-// aspectCellW is the block width that keeps a cellH-high block in the world's
-// proportions (71 wide per 80 high).
-func aspectCellW(cellH int) int {
-	return max(1, int(math.Round(float64(cellH)*blockWorldW/blockWorldH)))
-}
-
-// FitCells returns the raster of g with the largest blocks in the world's
-// proportions whose whole raster fits in fit. The smallest blocks are 2×2, even if
-// they overflow.
-func FitCells(g hexgrid.Grid, fit image.Point) Raster {
-	for ch := max(fit.Y, 2) &^ 1; ch > 2; ch -= 2 {
-		r := Cells(g, aspectCellW(ch), ch)
-		if s := r.Size(); s.X <= fit.X && s.Y <= fit.Y {
-			return r
-		}
-	}
-	return Cells(g, 2, 2)
-}
-
-// FitGrid returns the cell-exact minimap of g that fits in fit, anchored to the
-// bottom-right corner of a view of the given size with margin, and its raster.
-// Draw the raster's image 1:1 at the minimap's Pos.
-func FitGrid(g hexgrid.Grid, fit, view camera.Size, margin float64) (Minimap, Raster) {
-	r := FitCells(g, image.Pt(int(fit.W), int(fit.H)))
-	s := r.Size()
-	return r.Minimap(camera.Point{X: view.W - margin - float64(s.X), Y: view.H - margin - float64(s.Y)}), r
 }
 
 // Size returns the raster size in pixels.
@@ -103,19 +76,6 @@ func (r Raster) ToWorld(px, py float64) (wx, wy float64) {
 // FromWorld converts a world position to a raster position.
 func (r Raster) FromWorld(wx, wy float64) (px, py float64) {
 	return (wx - rasterInset) * float64(r.CellW) / blockWorldW, wy * float64(r.CellH) / blockWorldH
-}
-
-// Minimap returns the screen mapping of the raster drawn 1:1 at pos, so clicks and
-// the camera rectangle line up with the blocks.
-func (r Raster) Minimap(pos camera.Point) Minimap {
-	w, h := r.Grid.Bounds()
-	return Minimap{
-		World:  camera.Size{W: w, H: h},
-		Pos:    pos,
-		Scale:  float64(r.CellW) / blockWorldW,
-		ScaleY: float64(r.CellH) / blockWorldH,
-		Inset:  camera.Point{X: rasterInset},
-	}
 }
 
 // Render returns the raster with each block filled by fill; pixels off the map stay

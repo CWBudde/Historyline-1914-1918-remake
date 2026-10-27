@@ -5,7 +5,6 @@ import (
 	"image/color"
 	"maps"
 	"math"
-	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -319,7 +318,6 @@ func TestSplitFollowsTheComputer(t *testing.T) {
 		if !d.walk.Done() {
 			t.Fatalf("the computer's move %v walks again on the human panel", d.walk.path)
 		}
-		d.DismissReport()
 		d.Tick()
 	}
 	if d.otherFrozen != nil || d.frozen != nil {
@@ -336,7 +334,7 @@ func TestSplitOtherPanelUnits(t *testing.T) {
 	// side's map is the one shown.
 	g.drawing, g.drawSide = true, 1
 	for c := range d.s.View(1).Units {
-		if shown, _ := g.unitShown(c); !shown {
+		if !g.unitShown(c) {
 			t.Errorf("unit on %v not drawn on the other panel", c)
 		}
 	}
@@ -376,36 +374,14 @@ func TestWorldBounds(t *testing.T) {
 	}
 }
 
-func TestMinimapScene(t *testing.T) {
-	c := newTestControl(t)
-	g := newGame(testLevel(t), c.st, c.player, true)
-	fills, units := g.minimapScene()
-	n := 0
-	for _, line := range g.lvl.Lines {
-		n += len(line)
-	}
-	if len(fills) != n {
-		t.Fatalf("%d fills for %d hexes", len(fills), n)
-	}
-	sides := map[minimap.Shade]int{}
-	for _, u := range units {
-		sides[u.Shade]++
-	}
-	if sides[minimap.Blue] == 0 || sides[minimap.Yellow] == 0 || len(sides) != 2 {
-		t.Errorf("unit shades %v", sides)
-	}
-	if sideShade(c.player) != minimap.Blue {
-		t.Error("the Central Powers are not blue")
-	}
-	if d := dimShade(minimap.Blue); d.Lit.R >= minimap.Blue.Lit.R {
-		t.Error("remembered units are not dimmed")
+func TestSideShades(t *testing.T) {
+	if sideShade(state.CentralPowers) != minimap.Blue || sideShade(state.Entente) != minimap.Yellow || sideShade(state.None) != minimap.Neutral {
+		t.Error("side shades")
 	}
 	// A unit that has acted turns greyish, still a little in its side colour.
-	c.st.Units(c.player)[0].Moved = true
-	_, units = g.minimapScene()
 	spent := spentShade(minimap.Blue)
-	if !slices.ContainsFunc(units, func(u minimap.Unit) bool { return u.Shade == spent }) {
-		t.Error("no greyish dot for the unit that moved")
+	if unitShade(state.CentralPowers, true) != spent || unitShade(state.CentralPowers, false) != minimap.Blue {
+		t.Error("unit shades")
 	}
 	spread := func(c color.RGBA) int { return int(max(c.R, c.G, c.B)) - int(min(c.R, c.G, c.B)) }
 	if s, b := spread(spent.Lit), spread(minimap.Blue.Lit); s == 0 || 3*s > b {
@@ -521,7 +497,7 @@ func TestSplitStopsAtTheEdge(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}, nil)
+	g, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: rulesClassic, opponent: "pass"}, nil)
 	if err != nil || g.dos == nil {
 		t.Fatalf("dos match: %v", err)
 	}

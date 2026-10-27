@@ -1,6 +1,6 @@
 // Package camera maps between world pixels (the hexgrid layout) and screen pixels.
 // It has no rendering dependency, so the same transforms serve drawing, picking and
-// the minimap, and are testable without a window.
+// the strategic map, and are testable without a window.
 package camera
 
 import "math"
@@ -88,14 +88,14 @@ func (c *Camera) SetScale(scale float64) {
 	c.CenterOn(cx, cy)
 }
 
-// CenterOn puts world point (wx, wy) in the middle of the view (minimap jumps).
+// CenterOn puts world point (wx, wy) in the middle of the view (the strategic map jumps).
 func (c *Camera) CenterOn(wx, wy float64) {
 	e := c.Effective()
 	c.Origin = Point{wx - c.View.W/2/e, wy - c.View.H/2/e}
 	c.clamp()
 }
 
-// Visible returns the world rectangle shown (for the minimap rectangle and culling).
+// Visible returns the world rectangle shown (for the strategic map rectangle and culling).
 func (c *Camera) Visible() (x, y, w, h float64) {
 	e := c.Effective()
 	return c.Origin.X, c.Origin.Y, c.View.W / e, c.View.H / e

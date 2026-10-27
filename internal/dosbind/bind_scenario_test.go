@@ -13,7 +13,7 @@ import (
 )
 
 // Every setup of the shipped scenarios (levels/monthly, levels/skirmish)
-// must bind for -rules dos.
+// must bind for a session.
 func TestBindScenarios(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {

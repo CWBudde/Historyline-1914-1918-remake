@@ -6,7 +6,6 @@ import (
 	"math"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -152,83 +151,6 @@ func TestRasterWorldRoundTrip(t *testing.T) {
 	px, py := r.FromWorld(w-12.5, h)
 	if size := r.Size(); px != float64(size.X) || py != float64(size.Y) {
 		t.Errorf("world corner at %v,%v, raster %v", px, py, size)
-	}
-}
-
-// Raster.Minimap places the raster on screen with the same mapping, so a hex centre
-// lands on its block centre and the minimap is exactly as large as the raster.
-func TestRasterMinimapAgrees(t *testing.T) {
-	r := Cells(hexgrid.Grid{Width: 8, Lines: 47}, 4, 4)
-	m := r.Minimap(camera.Point{X: 100, Y: 50})
-	if s := m.Size(); s.W != 60 || s.H != 96 {
-		t.Fatalf("size = %v", s)
-	}
-	for _, at := range hexes(r.Grid) {
-		b := r.Block(at)
-		sx, sy := m.FromWorld(hexgrid.Center(at))
-		if math.Abs(sx-(100+float64(b.Min.X)+2)) > 1e-9 || math.Abs(sy-(50+float64(b.Min.Y)+2)) > 1e-9 {
-			t.Fatalf("hex %v at %v,%v, block %v", at, sx, sy, b)
-		}
-		wx, wy := m.ToWorld(sx, sy)
-		if got, _ := r.Grid.PixelToHex(wx, wy); got != at {
-			t.Fatalf("click on block %v picks %v", at, got)
-		}
-	}
-	if !m.Contains(100, 50) || m.Contains(160, 50) || m.Contains(100, 146) {
-		t.Error("Contains boundaries wrong")
-	}
-}
-
-// The view rectangle's edges meet block edges when the camera stands on a cell edge.
-func TestViewRectLinesUpWithCells(t *testing.T) {
-	g := hexgrid.Grid{Width: 16, Lines: 63}
-	r := Cells(g, 4, 4)
-	m := r.Minimap(camera.Point{})
-	w, h := g.Bounds()
-	cam := camera.New(camera.Size{W: w, H: h}, camera.Size{W: 710, H: 400})
-	cam.Origin = camera.Point{X: 12.5 + 3*71, Y: 5 * 40}
-	x, y, vw, vh := m.ViewRect(cam)
-	for i, p := range [][2]float64{{x, 12}, {y, 10}, {vw, 40}, {vh, 20}} {
-		if math.Abs(p[0]-p[1]) > 1e-9 {
-			t.Fatalf("rect value %d = %v, want %v", i, p[0], p[1])
-		}
-	}
-	// At the map's left edge the rectangle is clipped to the raster.
-	cam.Origin = camera.Point{}
-	if x, y, _, _ := m.ViewRect(cam); x != 0 || y != 0 {
-		t.Fatalf("rect at the origin starts at %v,%v", x, y)
-	}
-}
-
-func TestFitGrid(t *testing.T) {
-	view := camera.Size{W: 1000, H: 700}
-	for _, tc := range []struct {
-		grid   hexgrid.Grid
-		max    float64
-		cw, ch int
-	}{
-		{hexgrid.Grid{Width: 8, Lines: 47}, 280, 9, 10},  // 135×240
-		{hexgrid.Grid{Width: 16, Lines: 63}, 280, 7, 8},  // 217×256
-		{hexgrid.Grid{Width: 16, Lines: 63}, 80, 2, 2},   // 62×64
-		{hexgrid.Grid{Width: 50, Lines: 120}, 280, 2, 2}, // 198×121
-		{hexgrid.Grid{Width: 3, Lines: 3}, 80, 16, 18},   // 80×36
-		{hexgrid.Grid{Width: 50, Lines: 300}, 80, 2, 2},  // the smallest cells overflow
-	} {
-		m, r := FitGrid(tc.grid, camera.Size{W: tc.max, H: tc.max}, view, 12)
-		if r.CellW != tc.cw || r.CellH != tc.ch {
-			t.Errorf("%v in %v: cells %dx%d, want %dx%d", tc.grid, tc.max, r.CellW, r.CellH, tc.cw, tc.ch)
-		}
-		size := r.Size()
-		if s := m.Size(); s.W != float64(size.X) || s.H != float64(size.Y) {
-			t.Errorf("%v: minimap %v, raster %v", tc.grid, s, size)
-		}
-		if m.Pos.X+float64(size.X) != 988 || m.Pos.Y+float64(size.Y) != 688 {
-			t.Errorf("%v: bottom-right at %v + %v", tc.grid, m.Pos, size)
-		}
-		// The cells keep the world's proportions: 71 px per block column, 80 per cell.
-		if ratio := float64(r.CellW) / float64(r.CellH); math.Abs(ratio-71.0/80) > 0.12 {
-			t.Errorf("%v: cell ratio %v", tc.grid, ratio)
-		}
 	}
 }
 

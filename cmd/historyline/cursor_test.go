@@ -12,7 +12,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 )
 
-// The tests below drive the cursor of -rules dos as the player does: frames of
+// The tests below drive the cursor as the player does: frames of
 // mouse and key set A through the gesture tracker into the session.
 
 // newCursorTest is the split game of PULSE against a passing side, with
@@ -60,7 +60,7 @@ func dragFrom(g *game, c hexgrid.Coord, dx, dy float64) []gesture.Input {
 // feed plays frames through the human side's tracker.
 func feed(g *game, ins []gesture.Input) {
 	for _, in := range ins {
-		g.feedGesture(in, false)
+		g.feedGesture(in)
 	}
 }
 
@@ -276,17 +276,6 @@ func TestDosGestures(t *testing.T) {
 				t.Error("still aiming")
 			}
 		}},
-		{"keys wait while a menu is open", func(g *game, d *dosControl, at hexgrid.Coord) []gesture.Input {
-			g.setCursor(at)
-			d.menu = []WeaponOption{{Label: "row"}}
-			g.feedGesture(held(gesture.Keys{Fire: true}), true)
-			d.menu = nil
-			return []gesture.Input{held(gesture.Keys{Fire: true}), held(gesture.Keys{})}
-		}, func(t *testing.T, _ *game, d *dosControl, _ hexgrid.Coord) {
-			if d.selected {
-				t.Error("the fire that chose a menu row also clicked the map")
-			}
-		}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -435,31 +424,18 @@ func TestHidePointer(t *testing.T) {
 		{"over the other panel", nil, float64(other.X + other.W/2), float64(other.Y + other.H/2), false, false},
 		{"over the status bar", nil, float64(st.X + st.W/2), float64(st.Y + st.H/2), false, false},
 		{"over the strategic map", func() { g.openStrategic(d.side) }, x, y, false, false},
-		{"over a menu row", func() {
-			d.menu = []WeaponOption{{Label: "row", Usable: true}}
-			d.menuKind = menuContents
-		}, 0, 0, false, false},
 		{"after the battle", func() { d.over = true }, x, y, false, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g.split.mode, d.menu, d.over = [2]panelMode{}, nil, false
+			g.split.mode, d.over = [2]panelMode{}, false
 			if tt.setup != nil {
 				tt.setup()
 			}
-			px, py := tt.x, tt.y
-			if d.menu != nil {
-				rx, ry, _, _ := g.menuRow(0)
-				px, py = float64(rx*g.view.UI+2), float64(ry*g.view.UI+2)
-			}
-			if got := g.hidePointer(int(px), int(py), tt.down); got != tt.want {
+			if got := g.hidePointer(int(tt.x), int(tt.y), tt.down); got != tt.want {
 				t.Errorf("hidden %v, want %v", got, tt.want)
 			}
 		})
-	}
-	remake := newMapGame(g.lvl, false)
-	if remake.hidePointer(int(x), int(y), false) {
-		t.Error("the remake rules hide the pointer")
 	}
 }
 

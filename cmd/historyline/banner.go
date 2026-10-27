@@ -15,7 +15,6 @@ import (
 const (
 	hitFrames     = 24
 	deathFrames   = explosionFrames * explosionMS * tps / 1000 // the explosion once
-	roundFrames   = 120
 	victoryFrames = 300
 	captureFrames = 120
 
@@ -85,7 +84,7 @@ type banner struct {
 }
 
 // effects holds the transient combat and turn presentation. It never reads or
-// changes game state; control feeds it from engine results. The zero value is
+// changes game state; the controller feeds it from session events. The zero value is
 // ready to use and every method accepts a nil receiver.
 type effects struct {
 	marks  []mark
@@ -111,15 +110,6 @@ func (e *effects) Show(text string, frames int) {
 	e.banner = &banner{Text: text, Frames: e.frames(frames)}
 }
 
-// Capture shows the capture-in-progress banner for a depot entered by a unit.
-func (e *effects) Capture(unit string) { e.Show("CAPTURING DEPOT - "+unit, captureFrames) }
-
-// AddBattle marks the defender and, when it fired back or died, the attacker,
-// from the engine's Battle result.
-func (e *effects) AddBattle(from, to hexgrid.Coord, b state.Battle) {
-	e.AddHits(from, to, b.Damage > 0, b.DefenderDestroyed, b.CounterDamage > 0, b.AttackerDestroyed)
-}
-
 // Mark marks the hex at with a hit, or with an explosion when its unit was
 // destroyed.
 func (e *effects) Mark(at hexgrid.Coord, destroyed bool) {
@@ -131,30 +121,6 @@ func (e *effects) Mark(at hexgrid.Coord, destroyed bool) {
 		k, n = markDeath, e.frames(deathFrames)
 	}
 	e.marks = append(e.marks, mark{At: at, Kind: k, Frames: n, Total: n})
-}
-
-// AddHits marks the defender at to when it was hit or destroyed, and the
-// attacker at from when the reply hit or destroyed it.
-func (e *effects) AddHits(from, to hexgrid.Coord, defHit, defDead, atkHit, atkDead bool) {
-	if defHit || defDead {
-		e.Mark(to, defDead)
-	}
-	if atkHit || atkDead {
-		e.Mark(from, atkDead)
-	}
-}
-
-// Round shows the round banner after a turn ended.
-func (e *effects) Round(round int, turn state.Player) {
-	e.Show(fmt.Sprintf("ROUND %d - %v to move", round, turn), roundFrames)
-}
-
-// Victory shows the HQ-capture banner; it replaces a round banner.
-func (e *effects) Victory(winner state.Player) {
-	if winner == state.None {
-		return
-	}
-	e.Show(fmt.Sprintf("%v captured the HQ and wins", winner), victoryFrames)
 }
 
 // Tick counts every effect down and drops finished ones.
@@ -201,7 +167,7 @@ func (e *effects) Marks() []mark {
 
 // drawMarks paints hit and death marks over their hexes (map layer, device pixels).
 func (g *game) drawMarks(dst *ebiten.Image) {
-	fx := &g.drv().ui().fx
+	fx := &g.dos.fx
 	for _, m := range fx.Marks() {
 		if g.fogOf(m.At) != state.Visible {
 			continue // no hint of what the player cannot see
@@ -267,7 +233,7 @@ func (g *game) drawEffect(dst *ebiten.Image, m mark, reduced bool, sx, sy, alpha
 
 // drawBanner paints the active banner across the HUD.
 func (g *game) drawBanner(dst *ebiten.Image) {
-	if b := g.drv().ui().fx.Banner(); b != nil {
+	if b := g.dos.fx.Banner(); b != nil {
 		h := g.hud.Banner.H
 		y := float32(g.hud.Banner.Y)
 		vector.FillRect(dst, 0, y, float32(g.hud.Banner.W), float32(h), color.RGBA{20, 20, 40, 220}, false)

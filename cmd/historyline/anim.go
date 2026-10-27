@@ -15,10 +15,6 @@ type walk struct {
 	tail []hexgrid.Coord
 }
 
-func newWalk(path []hexgrid.Coord) *walk {
-	return newWalkMotion(path, nil, false)
-}
-
 // newWalkMotion is the walk of u along path; with reduced set the unit is
 // placed at once (nil walk).
 func newWalkMotion(path []hexgrid.Coord, u any, reduced bool) *walk {

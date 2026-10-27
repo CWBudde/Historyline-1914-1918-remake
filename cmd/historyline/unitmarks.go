@@ -13,7 +13,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// Unit markers (-rules dos): every unit on the map carries its experience
+// Unit markers: every unit on the map carries its experience
 // badge above the sprite and its group size at the lower right of its hex,
 // for both sides. The original shows both only in the status line; the map
 // markers make them readable at a glance.
@@ -31,7 +31,7 @@ const (
 )
 
 // badgeRanks is the rank art of each experience level 1–6 (the art has 11
-// ranks for the remake rules: four stars, then the laurel rings).
+// ranks: four stars, then the laurel rings).
 var badgeRanks = [...]string{"", "rank/01", "rank/02", "rank/03", "rank/04", "rank/05", "rank/10"}
 
 // badgeImage is the rank art of experience exp, nil at 0 or without the

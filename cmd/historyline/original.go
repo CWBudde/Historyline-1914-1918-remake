@@ -25,8 +25,7 @@ const originalPrefix = "original/"
 // loadMap loads -level name (loadLevel), or a map of the local original
 // files with its board bound exactly to the original records (nil
 // otherwise). An original map's level is its remake level
-// (origview.Campaign), which the original rules draw and the remake rules
-// play.
+// (origview.Campaign), which the battle draws and plays.
 func loadMap(dir, name string, set *data.Set) (*level.Level, *dosbind.Board, error) {
 	if stem, ok := strings.CutPrefix(name, originalPrefix); ok {
 		_, lvl, b, err := loadOriginal(stem, set)

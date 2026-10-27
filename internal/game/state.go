@@ -1,5 +1,6 @@
-// Package game is the rules engine: map, units, containers and players. It has
-// no rendering code; the UI and the AI drive it through commands.
+// Package game holds the shared game types: players, the fog states and a
+// level's starting position of hexes, units and containers. It has no rules
+// (internal/dosrules has them) and no rendering code.
 package game
 
 import (
@@ -99,23 +100,8 @@ type Container struct {
 	Slots    [2][9]*Unit
 }
 
-// Used returns the total weight of the contained units.
-func (c *Container) Used() int {
-	w := 0
-	for _, u := range c.Units() {
-		w += u.Def.Weight
-	}
-	return w
-}
-
-// Fits reports whether u can be added without exceeding the capacity.
-func (c *Container) Fits(u *Unit) bool {
-	return u.Def.Weight+c.Used() <= c.Capacity
-}
-
 // Add puts u into the first free slot in the order of Content.addUnit: column
-// by column, row 0 before row 1. It does not check the weight;
-// callers check Fits.
+// by column, row 0 before row 1. It does not check the weight.
 func (c *Container) Add(u *Unit) error {
 	for col := range 9 {
 		for row := range 2 {
@@ -126,19 +112,6 @@ func (c *Container) Add(u *Unit) error {
 		}
 	}
 	return errors.New("container is full")
-}
-
-// Remove frees the slot of u and reports whether u was contained.
-func (c *Container) Remove(u *Unit) bool {
-	for row := range 2 {
-		for col := range 9 {
-			if c.Slots[row][col] == u {
-				c.Slots[row][col] = nil
-				return true
-			}
-		}
-	}
-	return false
 }
 
 // Units returns the contained units, row 0 before row 1, as getAllUnits lists them.
@@ -177,18 +150,14 @@ type Hex struct {
 	Container *Container // non-nil for an HQ, depot or factory
 }
 
-// State is a game in progress.
+// State is the starting position of a level: its hexes with their units and
+// buildings.
 type State struct {
-	Name   string
-	No     int
-	Grid   hexgrid.Grid
-	Hexes  [][]Hex // Hexes[line][col]
-	Human  Player  // the side named by the level, which moves first
-	Turn   Player  // side to move
-	Round  int
-	Winner Player // side that captured an HQ; None while the game runs
-
-	vision [3]vision // fog of war, indexed by Player
+	Name  string
+	No    int
+	Grid  hexgrid.Grid
+	Hexes [][]Hex // Hexes[line][col]
+	Human Player  // the side named by the level, which moves first
 }
 
 // At returns the hex at c, or nil when c is off the map.
@@ -253,7 +222,7 @@ func New(lv *level.Level, set *data.Set) (*State, error) {
 		return nil, err
 	}
 	s := &State{
-		Name: lv.MapName, No: lv.MapNo, Grid: lv.Grid(), Human: human, Turn: human, Round: 1,
+		Name: lv.MapName, No: lv.MapNo, Grid: lv.Grid(), Human: human,
 		Hexes: make([][]Hex, len(lv.Lines)),
 	}
 	for i, line := range lv.Lines {
@@ -266,7 +235,6 @@ func New(lv *level.Level, set *data.Set) (*State, error) {
 			s.Hexes[i][col] = h
 		}
 	}
-	s.updateVision()
 	return s, nil
 }
 

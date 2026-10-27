@@ -18,7 +18,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The contents of -rules dos: the open gesture (or a click) on an own building
+// The contents: the open gesture (or a click) on an own building
 // or carrier opens its contents in the human side's panel: the container's
 // plate with its energy, the side's seven slots and a cursor on them. The
 // arrows, a drag or the mouse move the cursor. Holding fire shows the plate of
@@ -551,4 +551,12 @@ func (g *game) drawContentsPlate(dst *ebiten.Image) {
 	act, st, _ := cursorPlate(gesture.Cancel, false, held, s.dir == gesture.Centre, a, ok)
 	cx, cy := float64(r.Min.X+r.Max.X)/2, float64(r.Min.Y+r.Max.Y)/2
 	gesture.DrawPlate(dst, cx, cy, float64(r.Dx())/hexgrid.HexWidth, act, st)
+}
+
+// count is "n thing(s)".
+func count(n int, thing string) string {
+	if n == 1 {
+		return "1 " + thing
+	}
+	return fmt.Sprintf("%d %ss", n, thing)
 }

@@ -19,7 +19,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// The info plates of -rules dos (internal/dospanel): the info gesture on an
+// The info plates (internal/dospanel): the info gesture on an
 // own unit opens the unit info of its type in the human side's panel, on a
 // cell without a unit (the own HQ too) the game info; enemy units give no
 // information. Fire, the cancel direction or Esc closes the plate; the other

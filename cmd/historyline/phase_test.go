@@ -17,7 +17,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// The tests below drive the phase change of -rules dos: the prompt, then
+// The tests below drive the phase change: the prompt, then
 // black, the battles, the new mode, the revealed moves and the computer's
 // planning.
 
@@ -280,7 +280,7 @@ func TestPhaseSequenceOrder(t *testing.T) {
 		}
 	}
 	if d.fx.Banner() != nil {
-		t.Errorf("a round banner under -rules dos: %+v", d.fx.Banner())
+		t.Errorf("a round banner: %+v", d.fx.Banner())
 	}
 }
 
@@ -364,9 +364,6 @@ func TestBattlePanelStages(t *testing.T) {
 	if a, x := f.battle.Attacker, f.battle.Defender; a.Before != b.Attacker.Before || a.After != b.Attacker.After ||
 		x.Before != b.Defender.Before || x.After != b.Defender.After || x.Destroyed != b.Defender.Destroyed {
 		t.Errorf("scene %+v / %+v for the battle %+v", a, x, b)
-	}
-	if d.report.Active() {
-		t.Error("the HUD battle report shows under -rules dos")
 	}
 	// The site panel looks at the fight.
 	if c, ok := d.takeFollow(d.side); !ok || c != f.at {
@@ -566,15 +563,6 @@ func TestPhaseSequenceDraw(t *testing.T) {
 	p := g.split.screen.Panels[d.side]
 	if g.split.grey[d.side] == nil || g.split.grey[d.side].Bounds().Size() != image.Pt(p.W, p.H) {
 		t.Error("no offscreen panel of the panel's size")
-	}
-}
-
-func TestBattlePanelRemakeUnaffected(t *testing.T) {
-	c := newTestControl(t)
-	g := newGame(testLevel(t), c.st, c.player, true)
-	g.applyAction(actScenes)
-	if c.Message != "" || g.dos != nil {
-		t.Errorf("F9 under the remake rules: %q", c.Message)
 	}
 }
 

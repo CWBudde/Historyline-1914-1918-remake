@@ -79,10 +79,10 @@ func newApp(base matchConfig, maps []mapLevel, art *screenArt) *app {
 	return a
 }
 
-// saveCurrentBattle saves the running dos battle into the single slot.
+// saveCurrentBattle saves the running battle into the single slot.
 func (a *app) saveCurrentBattle() error {
 	if a.battle == nil || a.battle.dos == nil || a.battle.dos.s == nil {
-		return errors.New("only a -rules dos battle can be saved")
+		return errors.New("no battle to save")
 	}
 	if a.base.saves == nil {
 		return errors.New("no place to keep the saved battle")
@@ -131,7 +131,7 @@ func (a *app) Update() error {
 		return ebiten.Termination
 	}
 	if s.page != pageBattle {
-		showPointer(true) // the battle hides it over its map (-rules dos)
+		showPointer(true) // the battle hides it over its map
 	}
 	switch s.page {
 	case pageLoading:
@@ -179,7 +179,7 @@ func (a *app) Update() error {
 	return nil
 }
 
-// checkEnd announces the end of an original-rules battle and opens the
+// checkEnd announces the end of a battle and opens the
 // outcome page on Enter, Space or a click once it has played.
 func (a *app) checkEnd() {
 	d := a.battle.dos
@@ -204,7 +204,7 @@ func (a *app) checkEnd() {
 	a.shell.finish(o)
 }
 
-// recordScore keeps the score of a won original-rules battle as its level's
+// recordScore keeps the score of a won battle as its level's
 // best; a failed write is shown in the well.
 func (a *app) recordScore() {
 	g := a.battle

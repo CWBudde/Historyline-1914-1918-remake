@@ -14,7 +14,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The status wells under the panels (-rules dos): one line of capitals per
+// The status wells under the panels: one line of capitals per
 // side in the panel's colour, numbers in amber. With the cursor on an own unit
 // the human side's well shows the unit line (group size, experience badge,
 // name, the owner's flag); otherwise each well says what its side is doing,

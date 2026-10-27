@@ -86,8 +86,8 @@ func TestCampaign(t *testing.T) {
 	}
 }
 
-// Every numbered original map makes a campaign level that the remake rules
-// load under both rule sets with all of the map's units and building
+// Every numbered original map makes a campaign level that loads as a starting
+// position with all of the map's units and building
 // contents.
 func TestOriginalCampaign(t *testing.T) {
 	set := loadSet(t)

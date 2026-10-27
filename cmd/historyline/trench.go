@@ -8,7 +8,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
-// Sappers dig and fill trenches during a battle (-rules dos). The session's
+// Sappers dig and fill trenches during a battle. The session's
 // level stays as loaded; the map draws a copy with the hexes the work
 // changed (dosplay.Session.Reworked), composed again when a work plays back.
 

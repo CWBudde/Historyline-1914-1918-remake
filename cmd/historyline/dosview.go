@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
@@ -83,12 +82,7 @@ func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 // sprite was drawn.
 func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) bool {
 	switch u := w.unit.(type) {
-	case *state.Unit:
-		return u != nil && g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Owner, unitSpent(u), false, face)
 	case int:
-		if g.dos == nil {
-			return false
-		}
 		v := g.dos.s.Unit(u)
 		if g.drawOrigUnit(dst, v, sx, sy, face, false) {
 			return true
@@ -155,6 +149,15 @@ func dosUnitInfo(u dosplay.UnitView, own bool) []string {
 	return out
 }
 
+// infoLines is the dev info box, shown with the hex numbers only: the battle
+// screen has its plates and wells instead.
+func (g *game) infoLines() []string {
+	if !g.hexNumbers {
+		return nil
+	}
+	return g.dosInfoLines()
+}
+
 // dosInfoLines is the dev info box of the order cycle (with the hex numbers):
 // the selected unit, the hovered hex with its building and the unit on it.
 func (g *game) dosInfoLines() []string {
@@ -193,4 +196,22 @@ func (g *game) dosInfoLines() []string {
 		out = append(out, dosUnitInfo(u, u.Side == d.side)...)
 	}
 	return out
+}
+
+// drawInfo draws the dev info box (with the hex numbers) at the top right,
+// below the dev indicators.
+func (g *game) drawInfo(dst *ebiten.Image) {
+	lines := g.infoLines()
+	if len(lines) == 0 {
+		return
+	}
+	w := 0
+	for _, l := range lines {
+		w = max(w, textWidth(l))
+	}
+	r := g.hud.infoRect(w, len(lines))
+	vector.FillRect(dst, float32(r.X), float32(r.Y), float32(r.W), float32(r.H), color.RGBA{20, 20, 40, 220}, false)
+	for i, l := range lines {
+		ebitenutil.DebugPrintAt(dst, l, r.X+infoPad, r.Y+infoPad/2+i*infoLineHeight)
+	}
 }

@@ -77,7 +77,7 @@ func reviewFramePlan(look bool) []reviewFrame {
 	return frames
 }
 
-// splitFramePlan is the capture of the split screen of -rules dos at its fixed
+// splitFramePlan is the capture of the split screen at its fixed
 // cell scale: the opening position, each side's own view and the true view, at
 // 4:3 and the 720p/1080p/4K sizes, and at 1080p the cursor states staged by
 // stageCapture.
@@ -153,9 +153,9 @@ func (g *game) stageCapture(view string) {
 	case view == "split-ring":
 		x, y := g.cam.WorldToScreen(hexgrid.Center(at))
 		p := gesture.Pointer{X: x, Y: y, Active: true}
-		g.feedGesture(gesture.Input{Pointer: p}, false)
+		g.feedGesture(gesture.Input{Pointer: p})
 		p.RightPressed = true
-		g.feedGesture(gesture.Input{Pointer: p}, false)
+		g.feedGesture(gesture.Input{Pointer: p})
 	case view == "split-prompt":
 		g.setCursor(at)
 		d.openPrompt()
@@ -390,20 +390,14 @@ func (c *captureGame) Draw(screen *ebiten.Image) {
 	g := c.game
 	g.applyLayout(w, h, 1)
 	g.reveal = frame.reveal
-	if g.split != nil {
-		g.stageCapture(frame.view)
-	} else {
-		g.cam.Zoom = frame.cameraZoom(g.cam.World, g.view.UI)
-		cx, cy := g.cam.World.W/2, g.cam.World.H/2
-		if frame.view != "overview" {
-			// Same HQ/unit neighbourhood at each resolution and effective zoom.
-			cx, cy = g.cam.World.W*.42, g.cam.World.H*.22
-		}
-		g.cam.CenterOn(cx, cy)
-	}
 	target := ebiten.NewImage(w, h)
 	defer target.Deallocate()
-	g.Draw(target)
+	if strings.HasPrefix(frame.view, "split") {
+		g.stageCapture(frame.view)
+		g.Draw(target)
+	} else {
+		g.drawWholeMap(target, frame)
+	}
 	if g.artErr != "" || g.terrainErr != "" {
 		c.err = fmt.Errorf("capture rendering: %s %s", g.artErr, g.terrainErr)
 		return
@@ -437,17 +431,34 @@ func (c *captureGame) Draw(screen *ebiten.Image) {
 	screen.DrawImage(target, &op)
 }
 
-func writeReviewFrames(g *game, out string, look bool) error {
+// drawWholeMap draws the human side's map on dst through one camera at the
+// frame's zoom, without the battle screen: the art review frames.
+func (g *game) drawWholeMap(dst *ebiten.Image, frame reviewFrame) {
+	*g.cam = *camera.New(g.cam.World, camera.Size{W: float64(frame.width), H: float64(frame.height)})
+	g.cam.SetScale(float64(g.view.UI))
+	g.cam.Zoom = frame.cameraZoom(g.cam.World, g.view.UI)
+	cx, cy := g.cam.World.W/2, g.cam.World.H/2
+	if frame.view != "overview" {
+		// Same HQ/unit neighbourhood at each resolution and effective zoom.
+		cx, cy = g.cam.World.W*.42, g.cam.World.H*.22
+	}
+	g.cam.CenterOn(cx, cy)
+	dst.Fill(mapGround)
+	g.drawing, g.drawSide = true, g.dos.side
+	vx, vy, vw, vh := g.cam.Visible()
+	g.drawMapLayer(dst, vx, vy, vw, vh, false)
+	g.drawing = false
+}
+
+// writeReviewFrames renders frames of g to out: the split screen
+// (splitFramePlan) or the whole map (reviewFramePlan).
+func writeReviewFrames(g *game, out string, frames []reviewFrame) error {
 	clean := filepath.ToSlash(filepath.Clean(out))
 	if !strings.HasPrefix(clean, "build/") || strings.Contains(clean, "..") {
 		return fmt.Errorf("capture output must be under ignored build/")
 	}
 	if err := os.MkdirAll(out, 0o755); err != nil {
 		return err
-	}
-	frames := reviewFramePlan(look)
-	if g.split != nil {
-		frames = splitFramePlan() // the panels keep the layout's scale
 	}
 	c := &captureGame{game: g, out: out, frames: frames}
 	if err := ebiten.RunGame(c); err != nil {
@@ -475,4 +486,17 @@ func writeReviewFrames(g *game, out string, look bool) error {
 		return err
 	}
 	return os.WriteFile(filepath.Join(out, "captures.json"), b, 0o644)
+}
+
+// drawnDensity is the asset density the map is drawn with: the terrain density
+// once terrain packs are loaded, else the sprite density once unit packs are
+// (no 1x unit art exists), the requested density otherwise.
+func (g *game) drawnDensity() int {
+	if g.terrain != nil {
+		return terrainDensity(g.cam.Effective())
+	}
+	if g.art != nil {
+		return spriteDensity(g.cam.Effective())
+	}
+	return assetDensity(g.cam.Effective())
 }

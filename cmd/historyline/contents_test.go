@@ -110,10 +110,6 @@ func TestContentsCursorOpen(t *testing.T) {
 	if hq := ownHQ(t, d); len(d.own().Buildings[hq].Units) == 0 && d.can(gesture.Open, hq) {
 		t.Error("an empty HQ opens")
 	}
-	// The map's HUD menu stays closed.
-	if d.MenuOpen() {
-		t.Error("the contents opened the HUD menu")
-	}
 }
 
 func TestContentsCursorMoves(t *testing.T) {

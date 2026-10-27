@@ -1,5 +1,5 @@
-// Package gesture is the cursor and order input of the original's battle screen
-// (`-rules dos`): the action placed on each gesture direction, a per-frame
+// Package gesture is the cursor and order input of the original's battle
+// screen: the action placed on each gesture direction, a per-frame
 // recognizer for the mouse and a key set, the remake's right-click ring and
 // placeholder drawing of the cursor ring and the action plates.
 //

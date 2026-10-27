@@ -13,7 +13,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-// The original order cycle (-rules dos): both sides give their orders at the
+// The original order cycle: both sides give their orders at the
 // same time. The side in the movement phase moves its units (each move runs
 // at once on its own map), the side in the action phase queues attack orders;
 // both confirm (F1). The resolution fights the action side's orders, brings
@@ -92,8 +92,6 @@ type shownKey struct {
 	version int
 	reveal  bool
 }
-
-var _ driver = (*dosControl)(nil)
 
 func newDosControl(s *dosplay.Session, side int, planner dosPlanner, reveal bool) *dosControl {
 	if planner == nil {
@@ -235,7 +233,6 @@ func (d *dosControl) Click(at hexgrid.Coord) {
 		d.Message = "orders confirmed: F1 opens them again"
 		return
 	}
-	d.menu = nil
 	if d.selected {
 		at = d.aimAt(at)
 	}
@@ -311,10 +308,6 @@ func (d *dosControl) cannotLeave(hold int, u dosplay.UnitView) string {
 	}
 	return ""
 }
-
-// ChooseMenu does nothing: the order cycle has no HUD menus, its contents
-// open in the panel (contents.go).
-func (d *dosControl) ChooseMenu(int) {}
 
 // aimExit aims the exit of the held unit u from container record hold on at:
 // its destinations light up.

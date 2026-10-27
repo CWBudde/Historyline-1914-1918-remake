@@ -71,7 +71,7 @@ func TestSapperWorkRedrawsTerrain(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	gm, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}, nil)
+	gm, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: rulesClassic, opponent: "pass"}, nil)
 	if err != nil {
 		t.Fatal(err)
 	}

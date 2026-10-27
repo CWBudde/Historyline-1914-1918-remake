@@ -9,7 +9,7 @@ import (
 
 // origArt is the original game's map art: the terrain tiles, summer and
 // winter, by terrain record, and the unit sprites. F8 draws them in place of
-// the remake's art under -rules dos, for comparison on a local machine: only
+// the remake's art, for comparison on a local machine: only
 // builds with -tags origtiles (just play-original) can load them, from the
 // git-ignored original/ folder; other builds answer F8 with a message.
 type origArt struct {
@@ -36,7 +36,7 @@ const (
 // and tells the player.
 func (g *game) toggleOrigArt() string {
 	if g.dos == nil {
-		return "original art: only under -rules dos"
+		return "original art: no battle"
 	}
 	if g.orig == nil {
 		g.orig = &origArt{}

@@ -10,8 +10,8 @@ import (
 )
 
 // An imported original map loads from the embedded files with its campaign
-// level, plays its exact board on the original rules and its campaign level on
-// the remake rules, and names every unit, a ship's rear by its ship.
+// level, plays its exact board under both rule sets, and names every unit, a
+// ship's rear by its ship.
 func TestOriginalMap(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -28,7 +28,7 @@ func TestOriginalMap(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c := matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}
+	c := matchConfig{lvl: lvl, board: b, set: set, player: player, rules: rulesClassic, opponent: "pass"}
 	gm, err := newMatch(c, nil)
 	if err != nil || gm.dos == nil {
 		t.Fatalf("dos match: %v", err)
@@ -54,13 +54,13 @@ func TestOriginalMap(t *testing.T) {
 	if rears == 0 {
 		t.Error("map 06 has no ship")
 	}
-	c.rules = "standard"
+	c.rules = rulesModern
 	gm, err = newMatch(c, nil)
 	if err != nil {
-		t.Fatalf("standard: %v", err)
+		t.Fatalf("modern: %v", err)
 	}
-	if gm.state == nil || gm.state.Name != "06" {
-		t.Error("standard: not the campaign level of map 06")
+	if gm.dos == nil || gm.dos.s.Level != c.lvl {
+		t.Error("modern: not a session on map 06")
 	}
 	if _, _, err := loadMap(t.TempDir(), "original/99", set); err == nil {
 		t.Error("original/99 loaded")

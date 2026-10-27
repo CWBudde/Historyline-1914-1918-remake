@@ -55,21 +55,6 @@ func TestUnitSpriteFollowsOwnerStateAndFacing(t *testing.T) {
 	}
 }
 
-func TestUnitSpentAfterActing(t *testing.T) {
-	u := &state.Unit{}
-	if unitSpent(u) {
-		t.Fatal("fresh unit spent")
-	}
-	u.Moved = true
-	if !unitSpent(u) {
-		t.Fatal("moved unit not spent")
-	}
-	u.Moved, u.Attacked = false, true
-	if !unitSpent(u) {
-		t.Fatal("attacking unit not spent")
-	}
-}
-
 // testCatalog is a complete unit catalog of transparent sprites in the layout of
 // hlasset build-units, optionally without one family or one sprite ID.
 func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
@@ -178,7 +163,7 @@ func TestOpenUnitArtRefusesCandidatesAndGaps(t *testing.T) {
 
 func TestWalkHeading(t *testing.T) {
 	path := []hexgrid.Coord{{Line: 4, Col: 4}, {Line: 3, Col: 4}, {Line: 1, Col: 4}}
-	w := newWalk(path)
+	w := newWalkMotion(path, nil, false)
 	if f, _ := unitsprite.Toward(w.Heading()); f != unitsprite.NE {
 		t.Errorf("first step faces %v, want ne", f)
 	}
@@ -194,74 +179,6 @@ func TestWalkHeading(t *testing.T) {
 	if f, _ := unitsprite.Toward(w.Heading()); f != unitsprite.N {
 		t.Errorf("after the walk faces %v, want the last step n", f)
 	}
-}
-
-func TestMoveTurnsUnitAlongLastStep(t *testing.T) {
-	c := newTestControl(t)
-	from := ownMovers(c)[0]
-	u := c.st.At(from).Unit
-	if c.Facing(u) != unitsprite.N {
-		t.Fatal("units start facing north")
-	}
-	c.Click(from)
-	var to hexgrid.Coord
-	for at, r := range c.moves {
-		if len(r.Path) >= 2 && c.st.At(at).Container == nil && c.st.At(at).Unit == nil {
-			to = at
-			break
-		}
-	}
-	c.Click(to)
-	if c.st.At(to).Unit != u {
-		t.Fatalf("unit did not arrive: %q", c.Message)
-	}
-	w := c.walk
-	if w == nil {
-		t.Fatal("no walk")
-	}
-	for !w.Done() {
-		w.Tick()
-	}
-	want, _ := unitsprite.Toward(w.Heading())
-	if got := c.Facing(u); got != want {
-		t.Errorf("after the move faces %v, want %v", got, want)
-	}
-}
-
-func TestAttackTurnsBothSides(t *testing.T) {
-	c := newTestControl(t)
-	for l, line := range c.st.Hexes {
-		for col := range line {
-			at := hexgrid.Coord{Line: l, Col: col}
-			u := c.st.At(at).Unit
-			if u == nil || u.Owner != c.player {
-				continue
-			}
-			c.Select(at)
-			for tgt := range c.targets {
-				def := c.st.At(tgt).Unit
-				c.OpenWeaponMenu(tgt)
-				for i, o := range c.menu {
-					if !o.Usable {
-						continue
-					}
-					c.ChooseWeapon(i)
-					ax, ay := hexgrid.Center(at)
-					tx, ty := hexgrid.Center(tgt)
-					want, _ := unitsprite.Toward(tx-ax, ty-ay)
-					if got := c.Facing(u); got != want {
-						t.Errorf("attacker faces %v, want %v", got, want)
-					}
-					back, _ := unitsprite.Toward(ax-tx, ay-ty)
-					if c.st.At(tgt).Unit == def && c.Facing(def) != back {
-						t.Errorf("defender faces %v, want %v", c.Facing(def), back)
-					}
-					return
-				}
-			}
-		}
-	}
-	t.Skip("PULSE has no unit with a target at the start")
 }
 
 // A unit in forest or on water gets the pale rim; on a forest road, on open

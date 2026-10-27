@@ -189,6 +189,6 @@ func (c *collector) pulseCaptures(s *pulseStudy, dir string, lvl *level.Level) e
 		f.Picture = p
 		s.Captures = append(s.Captures, f)
 	}
-	s.CaptureNote = "Actual Go Draw framebuffers, captured " + manifest.Generated + ". Initial game state; overview/detail reveal the map for art review, fog uses the player's real starting vision. Current debug HUD is part of the capture; screen designs remain separate fixtures."
+	s.CaptureNote = "Actual Go map framebuffers (-capture-map), captured " + manifest.Generated + ". Initial game state, the whole map without the battle screen; overview/detail reveal every unit for art review, fog shows the player's own map. Screen designs remain separate fixtures."
 	return nil
 }

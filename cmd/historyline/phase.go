@@ -19,7 +19,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The phase change of -rules dos. F1 (or the mode-change gesture) opens a
+// The phase change. F1 (or the mode-change gesture) opens a
 // prompt over both panels in grey: F1 again confirms, fire or Esc goes back to
 // the orders. Once both sides have confirmed the panels go black with only the
 // cursor plates left; each fought attack order then shows the battle site in

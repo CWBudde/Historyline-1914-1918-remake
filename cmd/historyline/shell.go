@@ -191,14 +191,13 @@ var scrollSpeeds = []struct {
 var moveLimits = []int{0, 5, 10, 15, 20}
 
 // ruleModes are the rule sets of the game values menu, in cycle order:
-// the original (DOS) rules are the default product mode; New (Standard)
-// is the alternative remake engine.
+// classic (the original rules) is the default; modern extends it.
 var ruleModes = []struct {
 	token string
 	label string
 }{
-	{"dos", "RULES  ORIGINAL (DOS)"},
-	{"standard", "RULES  NEW (STANDARD)"},
+	{rulesClassic, "RULES  CLASSIC"},
+	{rulesModern, "RULES  MODERN"},
 }
 
 // outcome is how the last battle ended, from the human side.
@@ -243,7 +242,7 @@ type shell struct {
 func newShell(maps []mapLevel, c matchConfig) *shell {
 	rules := c.rules
 	if rules == "" {
-		rules = "dos"
+		rules = rulesClassic
 	}
 	return &shell{maps: maps, fights: !c.reduced, computer: c.opponent != "pass", rules: rules, scores: c.scores, saves: c.saves}
 }
@@ -263,7 +262,7 @@ func (s *shell) config(base matchConfig) matchConfig {
 	c.scroll = scrollSpeeds[s.scroll].speed
 	c.rules = s.rules
 	if c.rules == "" {
-		c.rules = "dos"
+		c.rules = rulesClassic
 	}
 	if s.pendingSave != nil {
 		c.saved, c.player = s.pendingSave, dosbind.Factions[s.pendingSide]
@@ -289,7 +288,7 @@ func (s *shell) ruleLabel() string {
 	return ruleModes[0].label
 }
 
-// cycleRules advances to the next rule set: dos -> standard -> dos.
+// cycleRules advances to the next rule set: classic -> modern -> classic.
 func (s *shell) cycleRules() {
 	for i, m := range ruleModes {
 		if m.token == s.rules {
@@ -361,7 +360,7 @@ func (s *shell) buttons() []button {
 		if n := moveLimits[s.limit]; n > 0 {
 			limit = fmt.Sprintf("MOVES  %d A PHASE", n)
 		}
-		rulesHelp := [2]string{"Original (DOS) is the default mode.", "New: the alternative remake rules."}
+		rulesHelp := [2]string{"Classic: the original rules.", "Modern: the original rules extended."}
 		return []button{
 			{
 				r: valueRow(0), label: s.ruleLabel(), left: true, help: rulesHelp,
@@ -405,10 +404,7 @@ func (s *shell) buttons() []button {
 		}
 	case pageExtras:
 		loadOff, loadHelp := false, [2]string{"Continue a saved battle (one slot).", "Started from the leave menu: SAVE AND LEAVE."}
-		switch {
-		case s.rules != "dos":
-			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "Saved battles need -rules dos."}
-		case s.saves == nil || !s.saves.Has():
+		if s.saves == nil || !s.saves.Has() {
 			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "No saved battle yet."}
 		}
 		return []button{
@@ -452,10 +448,10 @@ func (s *shell) buttons() []button {
 	case pageOutcome:
 		return []button{{r: footerRect, label: "CONTINUE", help: [2]string{"Back to the main menu."}, do: func(s *shell) { s.open(pageMain) }}}
 	case pageLeave:
-		saveOff := s.saveBattle == nil || s.rules != "dos" || s.saves == nil
+		saveOff := s.saveBattle == nil || s.saves == nil
 		return []button{
 			{r: stayRect, label: "STAY", help: [2]string{"Go on with the battle."}, do: func(s *shell) { s.open(pageBattle) }},
-			{r: saveRect, label: "SAVE AND LEAVE", off: saveOff, help: [2]string{"Save this dos battle (one slot)", "and return to the main menu."}, do: func(s *shell) {
+			{r: saveRect, label: "SAVE AND LEAVE", off: saveOff, help: [2]string{"Save this battle (one slot)", "and return to the main menu."}, do: func(s *shell) {
 				if s.saveBattle != nil {
 					if err := s.saveBattle(); err == nil {
 						s.open(pageMain)

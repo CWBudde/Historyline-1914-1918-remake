@@ -124,19 +124,19 @@ func TestSaveLoadWiring(t *testing.T) {
 	if s.page != pageLoading {
 		t.Fatalf("load page %d", s.page)
 	}
-	c := s.config(matchConfig{rules: "dos", set: set})
+	c := s.config(matchConfig{rules: rulesClassic, set: set})
 	if c.saved == nil || c.lvl != s.maps[0].lvl {
 		t.Fatalf("loaded config saved %v lvl %v", c.saved != nil, c.lvl)
 	}
 	if _, err := dosplay.Load(c.lvl, set, c.saved); err != nil {
 		t.Fatal(err)
 	}
-	if s.config(matchConfig{rules: "dos"}).saved != nil {
+	if s.config(matchConfig{rules: rulesClassic}).saved != nil {
 		t.Fatal("pending save was not consumed")
 	}
 	// An app with a battle saves through saveCurrentBattle.
 	gm := newDosGame(s.maps[0].lvl, sess, 0, passPlanner{}, false)
-	a := &app{shell: s, base: matchConfig{saves: store, rules: "dos"}, battle: gm, press: -1}
+	a := &app{shell: s, base: matchConfig{saves: store, rules: rulesClassic}, battle: gm, press: -1}
 	if err := a.saveCurrentBattle(); err != nil {
 		t.Fatal(err)
 	}
@@ -214,18 +214,18 @@ func TestCodeEntry(t *testing.T) {
 func TestGameValuesMakeTheMatch(t *testing.T) {
 	s := testShell(t)
 	s.activate(2)
-	// The rules row cycles dos (default) -> standard -> dos,
+	// The rules row cycles classic (default) -> modern -> classic,
 	// and config carries the choice while the base says otherwise.
-	if got := s.buttons()[0].label; got != "RULES  ORIGINAL (DOS)" {
+	if got := s.buttons()[0].label; got != "RULES  CLASSIC" {
 		t.Fatalf("rules row %q", got)
 	}
-	for _, want := range []string{"standard", "dos"} {
+	for _, want := range []string{rulesModern, rulesClassic} {
 		s.activate(0)
-		if c := s.config(matchConfig{rules: "standard"}); c.rules != want {
+		if c := s.config(matchConfig{rules: rulesModern}); c.rules != want {
 			t.Fatalf("cycled rules %q, want %q", c.rules, want)
 		}
 	}
-	if got := s.buttons()[0].label; got != "RULES  ORIGINAL (DOS)" {
+	if got := s.buttons()[0].label; got != "RULES  CLASSIC" {
 		t.Fatalf("rules row after cycle %q", got)
 	}
 	s.activate(1) // battles short
@@ -249,20 +249,23 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 		t.Fatalf("page %d", s.page)
 	}
 	// France takes the month's Entente setup.
-	c := s.config(matchConfig{rules: "dos"})
+	c := s.config(matchConfig{rules: rulesClassic})
 	if c.lvl != s.maps[25].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
-		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != "dos" {
+		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != rulesClassic {
 		t.Fatalf("config %+v", c)
 	}
 }
 
-func TestRulesChoiceStartsBothEngines(t *testing.T) {
+func TestRulesChoiceStartsBothRuleSets(t *testing.T) {
 	s := testShell(t)
 	set := testSet(t)
 	s.open(pageValues)
-	for _, want := range []string{"dos", "standard"} {
+	for _, want := range []string{rulesClassic, rulesModern} {
 		for s.rules != want {
 			s.cycleRules()
+		}
+		if got := s.buttons()[0].label; got != "RULES  "+strings.ToUpper(want) {
+			t.Errorf("%s: rules row %q", want, got)
 		}
 		c := s.config(matchConfig{set: set, opponent: "pass"})
 		c.player = s.levelSide()
@@ -270,16 +273,15 @@ func TestRulesChoiceStartsBothEngines(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%s: %v", want, err)
 		}
-		if want == "dos" && gm.dos == nil {
-			t.Fatalf("%s: no dos session", want)
-		}
-		if want != "dos" && gm.state == nil {
-			t.Fatalf("%s: no remake state", want)
+		if gm.dos == nil || gm.split == nil {
+			t.Fatalf("%s: no session on the split screen", want)
 		}
 	}
-	// The removed Classic (Python) mode stays rejected.
-	if _, err := newMatch(matchConfig{set: set, rules: "classic"}, nil); err == nil {
-		t.Error("classic rules accepted")
+	// The retired rule set names stay rejected.
+	for _, old := range []string{"dos", "standard"} {
+		if _, err := newMatch(matchConfig{set: set, rules: old}, nil); err == nil {
+			t.Errorf("rules %q accepted", old)
+		}
 	}
 }
 
@@ -483,12 +485,9 @@ func TestMonthlyMarne(t *testing.T) {
 	if ec <= cp {
 		t.Fatalf("field units: Entente %d, Central Powers %d", ec, cp)
 	}
-	// Both engines start a battle on it.
+	// A session starts on it.
 	set := testSet(t)
 	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
-		t.Fatalf("dos: %v", err)
-	}
-	if _, err := state.New(m.lvl, set); err != nil {
-		t.Fatalf("standard: %v", err)
+		t.Fatal(err)
 	}
 }

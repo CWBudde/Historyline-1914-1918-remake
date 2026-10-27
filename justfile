@@ -185,7 +185,7 @@ gfx-study *args: packs
     set -eu
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
-    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
+    go run ./cmd/historyline -level art/reference/pulse/level.json -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture-map -capture "$study_dir/captures"
     go run ./cmd/hlgallery -captures "$study_dir/captures" "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"

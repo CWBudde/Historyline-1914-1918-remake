@@ -318,7 +318,7 @@ func TestDosBattles(t *testing.T) {
 			}
 			battles++
 			b := p.ev.Battle
-			if p.fight == nil || p.fight.ev.Battle != b || p.fight.battle.Defender.After != b.Defender.After || d.report.Active() {
+			if p.fight == nil || p.fight.ev.Battle != b || p.fight.battle.Defender.After != b.Defender.After {
 				t.Fatalf("battle stage %+v for %+v", p.fight, b)
 			}
 			for _, f := range []dosplay.Fighter{b.Attacker, b.Defender} {
@@ -397,7 +397,7 @@ func TestDosExitThroughContents(t *testing.T) {
 		t.Fatalf("the unit cannot leave: %q", d.boxDetails())
 	}
 	d.runBox(gesture.MoveOut)
-	if !d.selected || d.hold < 0 || len(d.moves) == 0 || d.box != nil || d.MenuOpen() {
+	if !d.selected || d.hold < 0 || len(d.moves) == 0 || d.box != nil {
 		t.Fatalf("exit choice: selected %v hold %d, %d blue hexes, %q", d.selected, d.hold, len(d.moves), d.Message)
 	}
 	to := dosplay.Coords(d.moves)[0]
@@ -432,14 +432,11 @@ func TestDosInfoAndStatus(t *testing.T) {
 		}
 		break
 	}
-	if g.artErr = "broken"; !strings.Contains(g.statusText(), "unit sprites: broken") {
-		t.Errorf("art failure not shown: %q", g.statusText())
+	if g.artErr = "broken"; !strings.Contains(g.splitErrors(), "unit sprites: broken") {
+		t.Errorf("art failure not shown: %q", g.splitErrors())
 	}
-	if shown, remembered := g.unitShown(at); !shown || remembered || g.fogOf(at) != state.Visible {
-		t.Errorf("unit on %v: shown %v remembered %v", at, shown, remembered)
-	}
-	if g.drv() != driver(d) {
-		t.Error("the game does not drive the session")
+	if !g.unitShown(at) || g.fogOf(at) != state.Visible {
+		t.Errorf("unit on %v not shown", at)
 	}
 }
 

@@ -116,8 +116,8 @@ func TestNewShippedLevels(t *testing.T) {
 			if units == 0 || containers == 0 {
 				t.Errorf("level has %d units and %d containers", units, containers)
 			}
-			if s.Human != PlayerByNameMust(t, lv.Player) || s.Turn != s.Human || s.Round != 1 {
-				t.Errorf("Human %v Turn %v Round %d", s.Human, s.Turn, s.Round)
+			if s.Human != PlayerByNameMust(t, lv.Player) {
+				t.Errorf("Human %v", s.Human)
 			}
 		})
 	}
@@ -189,7 +189,7 @@ func TestUnitDefaults(t *testing.T) {
 	}
 }
 
-func TestContainerOrderAndWeight(t *testing.T) {
+func TestContainerOrder(t *testing.T) {
 	set := loadSet(t)
 	unit := func(id string) *Unit {
 		u, err := NewUnit(set, id)
@@ -208,21 +208,11 @@ func TestContainerOrderAndWeight(t *testing.T) {
 	if c.Slots[0][0] != a || c.Slots[1][0] != b || c.Slots[0][1] != d {
 		t.Fatalf("fill order: %v", c.Slots)
 	}
-	if c.Used() != 4 || c.Fits(unit("CP_infantry")) {
-		t.Errorf("Used = %d, Fits(infantry) at capacity", c.Used())
-	}
-	if !c.Remove(b) || c.Slots[1][0] != nil || c.Remove(b) {
-		t.Fatal("Remove did not free the slot exactly once")
-	}
-	if c.Used() != 2 || !c.Fits(b) || c.Fits(unit("CP_lArtillery")) {
-		t.Errorf("after Remove: Used = %d", c.Used())
-	}
-	e := unit("CP_infantry")
-	if err := c.Add(e); err != nil || c.Slots[1][0] != e {
-		t.Fatalf("Add after Remove did not reuse the slot: %v", err)
-	}
-	if got := ids(c.Units()); !reflect.DeepEqual(got, []string{"CP_infantry", "CP_eliteInf", "CP_infantry"}) {
+	if got := ids(c.Units()); !reflect.DeepEqual(got, []string{"CP_infantry", "CP_eliteInf", "CP_cavalry"}) {
 		t.Errorf("Units() = %v", got)
+	}
+	if got := ids(c.FillOrder()); !reflect.DeepEqual(got, []string{"CP_infantry", "CP_cavalry", "CP_eliteInf"}) {
+		t.Errorf("FillOrder() = %v", got)
 	}
 
 	full := &Container{Capacity: 100}
@@ -277,8 +267,8 @@ func TestUnitsOrder(t *testing.T) {
 	if got := ids(s.Units(CentralPowers)); !reflect.DeepEqual(got, []string{"CP_supplyCar"}) {
 		t.Errorf("Units(CP) = %v", got)
 	}
-	if s.Human != Entente || s.Turn != Entente {
-		t.Errorf("Human %v Turn %v", s.Human, s.Turn)
+	if s.Human != Entente {
+		t.Errorf("Human %v", s.Human)
 	}
 }
 

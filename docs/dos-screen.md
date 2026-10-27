@@ -1,10 +1,10 @@
-# The split battle screen (`-rules dos`)
+# The split battle screen
 
-Under `-rules dos` the battle screen follows the original's layout. Two map panels sit side by side, one per
+The battle screen follows the original's layout under both rule sets. Two map panels sit side by side, one per
 side, inside a riveted steel frame whose inner edge follows the outline of the visible hex cells, with a
 status bar under each panel. Info, unit, contents, strategic-map and battle views open inside a panel within
-the same frame. `-rules standard` keeps the single-map HUD. The look is newly authored (painted steel,
-the remake's terrain and units); only layout, proportions, information and behaviour follow the original.
+the same frame. The look is newly authored (painted steel, the remake's terrain and units); only layout,
+proportions, information and behaviour follow the original.
 
 ## Reference
 

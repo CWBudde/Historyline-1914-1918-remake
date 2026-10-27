@@ -17,7 +17,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The cursor of -rules dos: the human side's cursor cell (g.hover), moved by
+// The cursor: the human side's cursor cell (g.hover), moved by
 // the mouse and by the arrows of key set A, and the gestures of
 // internal/gesture on it. Holding fire (left button, Space) shows the cancel
 // plate; a drag of a cell or an arrow picks the action placed there and
@@ -206,7 +206,6 @@ func (d *dosControl) order(a gesture.Action, c hexgrid.Coord) {
 	}
 	d.Message = ""
 	d.fx.Dismiss()
-	d.menu = nil
 	switch a {
 	case gesture.Move, gesture.Attack:
 		d.selectAt(c)
@@ -254,8 +253,8 @@ func (g *game) gestureInput() gesture.Input {
 }
 
 // pointerActive reports whether the tracker takes the mouse at (mx, my): over
-// the human side's panel away from a menu row, anywhere while a gesture is
-// held or the ring or a view other than the map is open.
+// the human side's panel, anywhere while a gesture is held or the ring or a
+// view other than the map is open.
 func (g *game) pointerActive(mx, my int) bool {
 	s := g.split
 	if _, ok := s.track.Ring(); ok || s.mode[g.dos.side] != panelMap {
@@ -265,25 +264,14 @@ func (g *game) pointerActive(mx, my int) bool {
 		return true
 	}
 	p := s.screen.Panels[g.dos.side]
-	return mx >= p.X && my >= p.Y && mx < p.Right() && my < p.Bottom() && !g.overMenu(mx, my)
+	return mx >= p.X && my >= p.Y && mx < p.Right() && my < p.Bottom()
 }
 
-// overMenu reports whether device pixel (mx, my) is on a row of the open menu.
-func (g *game) overMenu(mx, my int) bool {
-	ui := g.drv().ui()
-	if !ui.MenuOpen() {
-		return false
-	}
-	hx, hy := g.view.toHUD(mx, my)
-	return menuHit(hx, hy, len(ui.menu), g.menuRow) != menuNone
-}
-
-// hidePointer reports whether the OS pointer is hidden at (mx, my): only under
-// -rules dos while the battle runs, over a cell of the human side's map (not
-// on a menu row, the ring or another view) or while the mouse holds a
-// gesture.
+// hidePointer reports whether the OS pointer is hidden at (mx, my): only while
+// the battle runs, over a cell of the human side's map (not on the ring or
+// another view) or while the mouse holds a gesture.
 func (g *game) hidePointer(mx, my int, down bool) bool {
-	if g.split == nil || g.dos == nil || g.dos.over {
+	if g.dos.over {
 		return false
 	}
 	s := g.split
@@ -297,7 +285,7 @@ func (g *game) hidePointer(mx, my int, down bool) bool {
 		return true
 	}
 	_, onCell := g.pickSplit(mx, my)
-	return onCell && !g.overMenu(mx, my)
+	return onCell
 }
 
 // pointerHidden is the OS pointer mode set last.
@@ -316,31 +304,19 @@ func showPointer(visible bool) {
 	}
 }
 
-// updateCursor runs one frame of the human side's input; menu tells that a
-// menu took the keys this frame (it was open before or is open now).
-func (g *game) updateCursor(menu bool) {
-	g.feedGesture(g.gestureInput(), menu)
+// updateCursor runs one frame of the human side's input.
+func (g *game) updateCursor() {
+	g.feedGesture(g.gestureInput())
 	mx, my := ebiten.CursorPosition()
-	g.edgeScroll(mx, my, g.edgeActive(menu))
+	g.edgeScroll(mx, my, g.edgeActive())
 	showPointer(!g.hidePointer(mx, my, ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft)))
 }
 
 // feedGesture feeds one frame to the tracker and runs what it recognized.
-// While a menu has the keys the arrows are withheld and a fire press is
-// dropped, so the Space that chose a row does not click the map.
-func (g *game) feedGesture(in gesture.Input, menu bool) {
+func (g *game) feedGesture(in gesture.Input) {
 	t := g.split.track
-	if menu {
-		in.Keys = gesture.Keys{Fire: in.Keys.Fire}
-	}
 	t.Placement = g.panelPlacement()
 	for _, ev := range t.Update(in) {
-		if menu && !ev.Mouse {
-			if ev.Kind == gesture.Press {
-				t.Reset()
-			}
-			continue
-		}
 		g.onGesture(ev)
 		g.syncContents()
 		t.Placement = g.panelPlacement()
@@ -825,7 +801,7 @@ func (g *game) edgeZone(mx, my int) bool {
 
 // edgeScroll runs one frame of the edge scroll for a pointer at (mx, my);
 // active tells that the pointer may scroll now (focused window, map mode, no
-// menu, ring or held gesture).
+// ring or held gesture).
 func (g *game) edgeScroll(mx, my int, active bool) {
 	s, side := g.split, g.dos.side
 	dp, dr := 0, 0
@@ -855,9 +831,9 @@ func (g *game) edgeScroll(mx, my int, active bool) {
 }
 
 // edgeActive reports whether the pointer may edge-scroll the human panel now.
-func (g *game) edgeActive(menu bool) bool {
+func (g *game) edgeActive() bool {
 	s := g.split
-	if menu || g.dos.over || g.dos.locked() || !ebiten.IsFocused() || s.mode[g.dos.side] != panelMap {
+	if g.dos.over || g.dos.locked() || !ebiten.IsFocused() || s.mode[g.dos.side] != panelMap {
 		return false
 	}
 	if _, ok := s.track.Ring(); ok {

@@ -346,7 +346,7 @@ func (g *game) hexPath(p *vector.Path, cells []hexgrid.Coord) {
 	}
 }
 
-// drawReworked draws the hexes in view the sappers changed (-rules dos), which
+// drawReworked draws the hexes in view the sappers changed, which
 // the picture cannot show: their ground and overlays from the terrain catalog,
 // or a coloured hex without one.
 func (g *game) drawReworked(dst *ebiten.Image, inView []hexgrid.Coord) {
