@@ -8,9 +8,10 @@
 // the side's map as the earlier orders leave it) gains most.
 //
 // It reads only what the side may know: its view (the other side's units
-// where they stood at the last phase change), its battlefield, and the
-// session's queries for its own units. It draws no random numbers and sorts
-// every list, so equal sessions give equal plans.
+// where they stood at the last phase change, under fog only those in its
+// sight), its battlefield, and the session's queries for its own units. It
+// draws no random numbers and sorts every list, so equal sessions give equal
+// plans.
 package dosai
 
 import (

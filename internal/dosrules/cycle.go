@@ -50,7 +50,9 @@ type Player struct {
 // 1653:253c: 4, 8 or 16 orders per side and phase; 0 none), the option
 // "with concealed inventories", which counts for the score, the battle's end
 // once a resolution has decided it (nil while it is open), each side's energy
-// account and the scenario's buildings by container record (Energy).
+// account and the scenario's buildings by container record (Energy). Fog is
+// a remake option the rules do not read: internal/dosplay hides the other
+// side's units out of its units' sight; a save keeps it.
 type Game struct {
 	Profile   Profile
 	Width     int
@@ -65,6 +67,7 @@ type Game struct {
 	Ended     *End
 	Energy    [2]int
 	Buildings map[int]Building
+	Fog       bool
 }
 
 // Placement is a unit as a scenario places it: its type, owner (0 or 1, 2

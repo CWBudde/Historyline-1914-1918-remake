@@ -57,7 +57,7 @@ func session(t *testing.T, lv *level.Level, o Options) *Session {
 
 // checkBound is the invariant every command keeps: each side's map shows
 // live units on the level's hexes only, its View round-trips to those
-// cells, and every held unit sits in a container on a hex of the level.
+// cells (under fog to some of them), and every held unit sits in a container on a hex of the level.
 func checkBound(t *testing.T, s *Session) {
 	t.Helper()
 	g := s.Game
@@ -78,7 +78,7 @@ func checkBound(t *testing.T, s *Session) {
 			}
 		}
 		v := s.View(k)
-		if len(v.Units) != n {
+		if len(v.Units) > n || len(v.Units) < n && !s.Fog() {
 			t.Fatalf("%s: View(%d) shows %d units, the map %d", s.Level.MapName, k, len(v.Units), n)
 		}
 		for p, u := range v.Units {

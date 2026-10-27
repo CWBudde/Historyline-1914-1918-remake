@@ -170,14 +170,19 @@ func (s *Session) Unit(idx int) UnitView {
 }
 
 // View is what side sees: the units its map shows on the level's hexes, and
-// the buildings with the units its slots list.
+// the buildings with the units its slots list. Under fog it leaves out the
+// other units out of sight (fog.go).
 func (s *Session) View(side int) View {
 	v := View{Side: side, Units: map[hexgrid.Coord]UnitView{}, Buildings: s.buildings(side)}
 	m := s.Game.Maps[side]
+	var eyes []eye
+	if s.fogged(side) {
+		eyes = s.eyes(side)
+	}
 	for c := range s.Game.Width * s.Game.Height {
 		occ := m[2*c+1]
 		p, ok := s.Board.Coord(c)
-		if _, live := s.Game.Units[occ]; occ > dosrules.SlotFree || !live || !ok {
+		if _, live := s.Game.Units[occ]; occ > dosrules.SlotFree || !live || !ok || s.hidden(side, occ, c, eyes) {
 			continue
 		}
 		u := s.unitView(occ, side)

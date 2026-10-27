@@ -8,7 +8,8 @@
 // (dosrules.Game.Maps): the other side's units stand where they stood at the
 // last phase change, a move changes only the mover's map, and the phase
 // change makes both maps alike. So every hex of the level is visible, and a
-// side's view is the occupants of its map.
+// side's view is the occupants of its map. Options.Fog adds a line of sight
+// on top of that (fog.go).
 //
 // Every command and the resolution change the state at once and return the
 // events in the order they happened; a front end that animates them keeps
@@ -35,11 +36,14 @@ import (
 // Options are the game options of a session: the move limit (4, 8 or 16
 // orders per side and phase, 0 none), which sides the computer plays (the
 // limit holds for human sides only) and the rules profile (nil:
-// dosrules.Full; the board applies the level's season).
+// dosrules.Full; the board applies the level's season). Fog is the modern
+// rules' fog of war (fog.go); off, the session plays the original rules
+// exactly.
 type Options struct {
 	Limit    int
 	Computer [2]bool
 	Profile  *dosrules.Profile
+	Fog      bool
 }
 
 // Session is a battle on the original rules. Game and Board are exposed for
@@ -83,7 +87,7 @@ func NewBoard(b *dosbind.Board, lvl *level.Level, set *data.Set, o Options) (*Se
 	if err != nil {
 		return nil, fmt.Errorf("dosplay: %w", err)
 	}
-	g.Limit = o.Limit
+	g.Limit, g.Fog = o.Limit, o.Fog
 	for k := range 2 {
 		g.Players[k].Computer = o.Computer[k]
 	}
@@ -400,7 +404,8 @@ func (s *Session) canExit(side, hold, slot int) error {
 }
 
 // Targets are the hexes of side's map unit may attack now; for a sapper,
-// the hexes it may dig or fill, with a unit on them or not.
+// the hexes it may dig or fill, with a unit on them or not. Under fog a
+// hidden unit is no target.
 func (s *Session) Targets(side, unit int) map[hexgrid.Coord]bool {
 	out := map[hexgrid.Coord]bool{}
 	if side != 0 && side != 1 || s.Phase(side) != dosrules.PhaseAction || s.CanOrder(side, unit) != nil {
@@ -408,8 +413,12 @@ func (s *Session) Targets(side, unit int) map[hexgrid.Coord]bool {
 	}
 	m := s.Game.Maps[side]
 	sapper := s.Sapper(unit)
+	var eyes []eye
+	if s.fogged(side) && !sapper {
+		eyes = s.eyes(side)
+	}
 	for c := range s.Game.Width * s.Game.Height {
-		if !sapper && m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
+		if !sapper && (m[2*c+1] > dosrules.SlotFree || s.hiddenAt(side, c, eyes)) || !s.bound(c) {
 			continue
 		}
 		if s.Game.Check(dosrules.Command{Kind: dosrules.CmdAttack, Side: side, Unit: unit, Cell: c}) == nil {
@@ -491,11 +500,15 @@ func (s *Session) Exit(side, hold, slot int, to hexgrid.Coord) ([]Event, error) 
 
 // Attack gives unit of side the attack order on a hex; it waits in the
 // side's order list until the resolution. A sapper's order (Tasked) stays
-// off the list; its work follows the battles (Dug).
+// off the list; its work follows the battles (Dug). Under fog a hidden
+// unit is no target.
 func (s *Session) Attack(side, unit int, target hexgrid.Coord) ([]Event, error) {
 	cell, err := s.cell(target)
 	if err != nil {
 		return nil, err
+	}
+	if s.fogged(side) && !s.Sapper(unit) && s.hiddenAt(side, cell, s.eyes(side)) {
+		return nil, wrap(&dosrules.Refusal{Code: dosrules.MsgNoTarget, Reason: "no target there"})
 	}
 	return s.apply(dosrules.Command{Kind: dosrules.CmdAttack, Side: side, Unit: unit, Cell: cell}, -1)
 }
@@ -553,7 +566,7 @@ func (s *Session) events(raw []dosrules.Event) []Event {
 // side's map as it stood before; each Battle event carries the fighters as
 // they were then. After the PhaseChanged event a Revealed event follows for
 // every move the movement side made this phase whose unit survived, in the
-// order made.
+// order made; under fog only those whose goal the action side sees then.
 func (s *Session) Resolve() ([]Event, error) {
 	a, err := s.Game.Action()
 	if err != nil {
@@ -578,8 +591,12 @@ func (s *Session) Resolve() ([]Event, error) {
 		if r.Kind != dosrules.EvPhase {
 			continue
 		}
+		var eyes []eye
+		if s.fogged(a) {
+			eyes = s.eyes(a)
+		}
 		for _, mv := range s.routes[1-a] {
-			if s.Game.Units[mv.Unit].Destroyed() {
+			if s.Game.Units[mv.Unit].Destroyed() || s.fogged(a) && !sees(eyes, mv.Path[len(mv.Path)-1]) {
 				continue
 			}
 			mv.Kind, mv.Text = Revealed, ""

@@ -11,7 +11,7 @@ const SaveSchema = 3
 
 // A saved game is the whole state of the cycle as JSON: the profile by its
 // tables' build and the season, both maps, the live and container records, each side's
-// phase, confirmation and order list, the turn, the game options, the energy
+// phase, confirmation and order list, the turn, the game options (the remake's fog too), the energy
 // accounts and the buildings. Orders given but not confirmed and confirmed
 // orders waiting for the other side are both part of that state (the order
 // lists, the units' moved flags and targets), so a loaded game resolves
@@ -32,6 +32,7 @@ type savedGame struct {
 	Ended     *End              `json:"ended,omitempty"`
 	Energy    [2]int            `json:"energy"`
 	Buildings map[int]Building  `json:"buildings,omitempty"`
+	Fog       bool              `json:"fog,omitempty"`
 }
 
 type savedPlayer struct {
@@ -65,7 +66,7 @@ func (g *Game) Save() ([]byte, error) {
 	s := savedGame{
 		Schema: SaveSchema, Build: g.Profile.Tables.Build, Winter: g.Profile.Winter(), Width: g.Width, Height: g.Height,
 		Maps: g.Maps, Units: map[int]savedUnit{}, Holds: g.Holds, Turn: g.Turn, Limit: g.Limit, Concealed: g.Concealed, Ended: g.Ended,
-		Energy: g.Energy, Buildings: g.Buildings,
+		Energy: g.Energy, Buildings: g.Buildings, Fog: g.Fog,
 	}
 	for i, u := range g.Units {
 		s.Units[i] = savedUnit(u)
@@ -103,7 +104,7 @@ func LoadGame(data []byte) (*Game, error) {
 	g := &Game{
 		Profile: p, Width: s.Width, Height: s.Height, Maps: s.Maps, Units: map[int]Live{},
 		Holds: map[int]Hold{}, Turn: s.Turn, Limit: s.Limit, Concealed: s.Concealed, Ended: s.Ended,
-		Energy: s.Energy, Buildings: s.Buildings,
+		Energy: s.Energy, Buildings: s.Buildings, Fog: s.Fog,
 	}
 	if s.Width < 1 || s.Height < 1 {
 		return nil, fmt.Errorf("dosrules: load: %d×%d map", s.Width, s.Height)

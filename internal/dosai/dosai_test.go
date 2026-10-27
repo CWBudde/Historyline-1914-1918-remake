@@ -466,3 +466,22 @@ func TestPlayOutCaptures(t *testing.T) {
 		}
 	}
 }
+
+// TestPlayOutFog plays CIVIL and MOUSE with fog of war computer against
+// computer: the planner sees only the units in its side's sight and still
+// plays each battle to its end without a refused order.
+func TestPlayOutFog(t *testing.T) {
+	for _, lv := range shipped(t)[1:] {
+		s, err := dosplay.New(lv, dataSet(t), dosplay.Options{Computer: [2]bool{true, true}, Fog: true})
+		if err != nil {
+			t.Fatalf("%s: %v", lv.MapName, err)
+		}
+		end, evs := play(t, s, [2]*Planner{{}, {}})
+		if end == nil || !end.Over {
+			t.Errorf("%s: open after %d resolutions under fog", lv.MapName, maxTurns)
+			continue
+		}
+		t.Logf("%s: winner %d (%v), turn %d; %d moves, %d battles", lv.MapName, end.Winner, end.Won, s.Turn(),
+			count(evs, dosplay.Moved), count(evs, dosplay.Battle))
+	}
+}
