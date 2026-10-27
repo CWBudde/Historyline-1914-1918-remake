@@ -37,6 +37,10 @@ slushy lanes and cool overcast light. Small woodland clearings and rocky shelves
 units. Railheads have timber buffers; the short southern track continues across the map edge. Three
 setup records move infantry off house roofs onto nearby ground. The northern AA position has a partly
 backfilled crater for firm footing.
+PAUSE/SIGMA (`1916-12.jpg`, 7737×3302) has dry wind-packed December snow and pale morning light after
+a coastal gale. Its streams meet the sea through open mouths; snowy gravel joins the roads and building
+approaches. Small level pockets support the starting units, and the southern forest road fades beneath
+snow and canopy. One EC setup infantry group starts beside its house instead of on the roof.
 
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
@@ -85,6 +89,9 @@ GOTHA/SIGNS uses twenty-five sections: the same columns and rows at y 0, 458, 91
 FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
 PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
+
+PAUSE/SIGMA uses twenty-four of those sections: columns at x 0, 538, 1077, 1615, 2154, 2692, 3231,
+3770 and rows at y 0, 596, 1193.
 
 ## 3. Painting a section
 

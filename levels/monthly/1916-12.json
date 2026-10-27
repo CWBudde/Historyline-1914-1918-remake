@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1916-12",
 	"name": "Pause",
+	"backdrop": "1916-12.jpg",
 	"map": {
 		"line1": [["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""]],
 		"line2": [["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""]],
@@ -184,8 +185,8 @@
 				[22, 14, "CP_infantry"],
 				[22, 18, "EC_charron"],
 				[23, 9, "CP_cavalry"],
-				[23, 15, "CP_infantry"],
 				[24, 14, "CP_infantry"],
+				[24, 15, "CP_infantry"],
 				[24, 18, "EC_eliteInf"],
 				[25, 11, "CP_bunker"],
 				[25, 12, "CP_cavalry"],
