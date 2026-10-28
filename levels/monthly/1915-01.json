@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1915-01",
 	"name": "Crouy",
+	"backdrop": "1915-01.jpg",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", "road36"], ["grass", ""], ["grass", ""], ["grass", "road346"], ["grass", "rail36"], ["grass", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", "road14"], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""]],

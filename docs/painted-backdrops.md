@@ -9,6 +9,9 @@ all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 285
 (`1915-02.jpg`, 2852×4403) uses the same density, with patchy late-winter snow and clear frosty light.
 NOISE/TEMPO (`1915-04.jpg`, 3657×4206) uses about 1.64 image px per world px, with budding spring
 trees, damp grass and puddled lanes after a shower.
+CROUY/AISNE (`1915-01.jpg`, 2852×3302) uses MOUSE's density, with a rainy January thaw: wet dormant
+olive meadow with standing water, bare woods with a few conifers, brown clay mud fields with shell holes
+and a swollen grey-brown Aisne under flat raincloud light.
 RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
 warm sunshine and saturated clay, deep ruts and dirty puddles around the trenches. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
@@ -91,7 +94,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
 
-MOUSE/SPORT, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
+MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
