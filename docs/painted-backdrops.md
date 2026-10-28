@@ -55,6 +55,11 @@ HILLS/MOVES (`1917-06.jpg`, 3829×4403) has full June greenery and mostly dry gr
 high cloud, after several dry days. Small clearings and level shelves support the starting units;
 all three airstrips and seven hangars stay open. Fourteen timber bridges span continuous streams,
 with short footbridge approaches fading into worn grass.
+COBRA/BLADE (`1917-08.jpg`, 3829×4403) has mature August greenery, damp gravel and wind-ruffled
+water under brightening overcast light after a shower. Both rail networks share one continuous track
+design; three open railheads have timber buffers and the southern compound entries stay open.
+Four long timber bridges span the waterways. Small clearings and a grassy shelf support the starting
+units; three patrol boats and two infantry groups start on adjacent hexes clear of banks and bridge edges.
 
 Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
@@ -111,7 +116,7 @@ FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and ro
 
 PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
 
-HILLS/MOVES uses twenty sections: columns at x 0, 499, 998, 1498 and rows at y 0, 458, 916, 1374,
+HILLS/MOVES and COBRA/BLADE use twenty sections: columns at x 0, 499, 998, 1498 and rows at y 0, 458, 916, 1374,
 1833.
 
 PAUSE/SIGMA uses twenty-four of those sections: columns at x 0, 538, 1077, 1615, 2154, 2692, 3231,
