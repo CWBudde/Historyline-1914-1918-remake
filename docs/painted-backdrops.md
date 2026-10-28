@@ -47,8 +47,10 @@ continuous channels. Small clearings and a level rocky shelf support the startin
 anti-tank crew starts on the adjacent bank path, clear of the diagonal road bridge's stream.
 INFRA/ZOMBI (`1917-04.jpg`, 4806×5504) has wet spring meadow, budding trees and wind-ruffled inland
 lakes under bright overcast light between April showers. Small woodland clearings and level shelves
-support the starting units. Its railheads have timber buffers; the southern factory rail entry stays
-open, and narrow gravel and dirt approaches join the building yards.
+support the starting units. A connected rocky massif surrounds the southeastern HQ; the southwestern
+mud forms one field around the ruined depot. Both rail routes share one registered track design, with
+timber buffers at their ends and the southern factory entry left open. Gravel and dirt approaches join
+the building yards.
 
 Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
