@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
@@ -74,4 +75,40 @@ func TestBindScenarioCredits(t *testing.T) {
 	if len(b.Buildings) != len(want.Credits) {
 		t.Errorf("%d buildings, want %d", len(b.Buildings), len(want.Credits))
 	}
+}
+
+// Every hex of a hand-authored month (the odd ones) binds to a terrain
+// record of its own: none loses an overlay to the fallback that drops
+// unrecorded infrastructure.
+func TestAuthoredHexesHaveRecords(t *testing.T) {
+	months, _ := filepath.Glob("../../levels/monthly/*.json")
+	for _, path := range months {
+		month := strings.TrimSuffix(filepath.Base(path), ".json")
+		if month[len(month)-1]%2 == 0 {
+			continue
+		}
+		if month == "1914-09" || month == "1914-11" {
+			continue // predate this check: a double road, paths on mud and forest
+		}
+		f, err := scenario.Load(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for l, line := range f.Map {
+			for c, h := range line {
+				if strings.HasPrefix(h.Terrain, "hq") || strings.HasPrefix(h.Terrain, "cmp") ||
+					strings.HasPrefix(h.Terrain, "factory") {
+					continue // buildings bind by owner
+				}
+				if k := dosbind.Key(h); !recorded(k) {
+					t.Errorf("%s line %d col %d: no record %q", month, l+1, c+1, k)
+				}
+			}
+		}
+	}
+}
+
+func recorded(key string) bool {
+	_, ok := dosbind.Table.Terrain[key]
+	return ok
 }

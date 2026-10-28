@@ -45,18 +45,19 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 	}
 	// The Central Powers' chain through the months, then the Entente's:
 	// the original maps on every second month from August 1914, Marne in
-	// September and Ypres in November 1914 on both.
-	if len(codes) != 52 || codes[0] != "PULSE" || codes[1] != "KLUCK" || codes[2] != "CIVIL" || codes[3] != "POLYG" ||
-		codes[25] != "STERN" || codes[26] != "BATLE" || codes[27] != "MARNE" || codes[28] != "GOOSE" ||
-		codes[29] != "NONNE" || codes[51] != "SODOM" {
+	// September, Ypres in November 1914 and Crouy in January 1915 on both.
+	if len(codes) != 54 || codes[0] != "PULSE" || codes[1] != "KLUCK" || codes[2] != "CIVIL" || codes[3] != "POLYG" ||
+		codes[4] != "MOUSE" || codes[5] != "CROUY" || codes[26] != "STERN" || codes[27] != "BATLE" ||
+		codes[28] != "MARNE" || codes[29] != "GOOSE" || codes[30] != "NONNE" || codes[31] != "SPORT" ||
+		codes[32] != "AISNE" || codes[53] != "SODOM" {
 		t.Fatalf("codes %v", codes)
 	}
-	if s.maps[0].name != "monthly/1914-08:cp" || s.maps[26].name != "monthly/1914-08:ec" {
-		t.Fatalf("names %s, %s", s.maps[0].name, s.maps[26].name)
+	if s.maps[0].name != "monthly/1914-08:cp" || s.maps[27].name != "monthly/1914-08:ec" {
+		t.Fatalf("names %s, %s", s.maps[0].name, s.maps[27].name)
 	}
 	for i, m := range s.maps {
 		want := state.CentralPowers
-		if i >= 26 {
+		if i >= 27 {
 			want = state.Entente
 		}
 		if s.code = i; s.levelSide() != want || m.mode.Human() != want {
@@ -72,7 +73,7 @@ func TestCampaignBriefingsAndPlayers(t *testing.T) {
 			t.Errorf("map %d %s: briefing %q, players %d %v", i, m.name, m.briefing, m.players, m.humanSides)
 		}
 	}
-	if s.maps[25].next != -1 || s.maps[51].next != -1 {
+	if s.maps[26].next != -1 || s.maps[53].next != -1 {
 		t.Error("campaign ends should have no next")
 	}
 	if !s.maps[2].winter || s.maps[0].winter || !strings.Contains(s.maps[2].briefing, "winter") {
@@ -251,7 +252,7 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 	}
 	// France takes the month's Entente setup.
 	c := s.config(matchConfig{rules: "dos"})
-	if c.lvl != s.maps[26].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
+	if c.lvl != s.maps[27].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
 		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != "dos" {
 		t.Fatalf("config %+v", c)
 	}
@@ -302,13 +303,17 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 		{1, "monthly/1914-10:cp"},
 		{2, "monthly/1914-11:cp"},
 		{3, "monthly/1914-12:cp"},
-		{24, "monthly/1918-06:cp"},
-		{25, ""},
-		{26, "monthly/1914-09:ec"},
-		{27, "monthly/1914-10:ec"},
-		{28, "monthly/1914-11:ec"},
-		{29, "monthly/1914-12:ec"},
-		{51, ""},
+		{4, "monthly/1915-01:cp"},
+		{5, "monthly/1915-02:cp"},
+		{25, "monthly/1918-06:cp"},
+		{26, ""},
+		{27, "monthly/1914-09:ec"},
+		{28, "monthly/1914-10:ec"},
+		{29, "monthly/1914-11:ec"},
+		{30, "monthly/1914-12:ec"},
+		{31, "monthly/1915-01:ec"},
+		{32, "monthly/1915-02:ec"},
+		{53, ""},
 	} {
 		s.code = c.from
 		s.finish(outcome{won: true})
@@ -371,9 +376,9 @@ func TestCodeEntryPasswords(t *testing.T) {
 		}
 		s.key(keyEnter)
 	}
-	enter(strings.ToLower(s.maps[32].password))
-	if s.code != 32 || s.buttons()[1].label != "CODE  "+s.maps[32].password {
-		t.Fatalf("map 32's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
+	enter(strings.ToLower(s.maps[33].password))
+	if s.code != 33 || s.buttons()[1].label != "CODE  "+s.maps[33].password {
+		t.Fatalf("map 33's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
 	}
 	enter("GOOSE")
 	if s.maps[s.code].name != "monthly/1914-10:ec" {
@@ -385,7 +390,7 @@ func TestCodeEntryPasswords(t *testing.T) {
 	}
 	// A victory shows the next map's password.
 	s.finish(outcome{won: true})
-	if s.maps[s.code].name != "monthly/1915-02:cp" || s.result.next != "VENOM" {
+	if s.maps[s.code].name != "monthly/1915-01:cp" || s.result.next != "CROUY" {
 		t.Fatalf("after MOUSE: %s, shown %q", s.maps[s.code].name, s.result.next)
 	}
 }
@@ -395,8 +400,8 @@ func TestCampaignPeriodsAndNews(t *testing.T) {
 	// The original maps show their period's news, Marne its own month's.
 	for idx, want := range map[int]string{
 		0: "August – September 1914", 1: "September 1914", 2: "October – November 1914",
-		3: "November 1914", 25: "June – July 1918", 26: "August – September 1914", 27: "September 1914",
-		29: "November 1914",
+		3: "November 1914", 5: "January 1915", 26: "June – July 1918", 27: "August – September 1914",
+		28: "September 1914", 30: "November 1914", 32: "January 1915",
 	} {
 		if p, ok := s.maps[idx].news(); !ok || p.Label != want {
 			t.Errorf("maps[%d] (%s) news %q, want %q", idx, s.maps[idx].month, p.Label, want)
@@ -445,8 +450,8 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 
 func TestMonthlyMarne(t *testing.T) {
 	s := testShell(t)
-	m := s.maps[27]
-	if m.code() != "MARNE" || m.name != "monthly/1914-09:ec" || m.month != "1914-09" || m.next != 28 {
+	m := s.maps[28]
+	if m.code() != "MARNE" || m.name != "monthly/1914-09:ec" || m.month != "1914-09" || m.next != 29 {
 		t.Fatalf("monthly map %+v", m)
 	}
 	if k := s.maps[1]; k.code() != "KLUCK" || k.file != m.file || k.mode.Human() != state.CentralPowers {
@@ -455,7 +460,7 @@ func TestMonthlyMarne(t *testing.T) {
 	// The code word selects it.
 	s.typing, s.typed = true, "MARNE"
 	s.key(keyEnter)
-	if s.code != 27 {
+	if s.code != 28 {
 		t.Fatalf("code MARNE selected map %d", s.code)
 	}
 	if s.levelSide() != state.Entente || !strings.Contains(m.briefing, "The Entente") {
@@ -501,8 +506,8 @@ func TestMonthlyMarne(t *testing.T) {
 
 func TestMonthlyYpres(t *testing.T) {
 	s := testShell(t)
-	m := s.maps[29]
-	if m.code() != "NONNE" || m.name != "monthly/1914-11:ec" || m.month != "1914-11" || m.next != 30 {
+	m := s.maps[30]
+	if m.code() != "NONNE" || m.name != "monthly/1914-11:ec" || m.month != "1914-11" || m.next != 31 {
 		t.Fatalf("monthly map %+v", m)
 	}
 	if k := s.maps[3]; k.code() != "POLYG" || k.file != m.file || k.mode.Human() != state.CentralPowers || k.next != 4 {
@@ -533,5 +538,49 @@ func TestMonthlyYpres(t *testing.T) {
 	}
 	if _, err := state.New(m.lvl, set); err != nil {
 		t.Fatalf("standard: %v", err)
+	}
+}
+
+func TestMonthlyCrouy(t *testing.T) {
+	s := testShell(t)
+	cp, ec := s.maps[5], s.maps[32]
+	if cp.code() != "CROUY" || cp.name != "monthly/1915-01:cp" || cp.month != "1915-01" || cp.next != 6 {
+		t.Fatalf("German setup %+v", cp)
+	}
+	if ec.code() != "AISNE" || ec.name != "monthly/1915-01:ec" || ec.file != cp.file || ec.next != 33 {
+		t.Fatalf("French setup %+v", ec)
+	}
+	if p, ok := cp.news(); !ok || p.Label != "January 1915" {
+		t.Fatalf("news %+v ok %v", p, ok)
+	}
+	// Rain and mud, not snow.
+	if cp.winter {
+		t.Error("Crouy is a winter map")
+	}
+	// Easy by design: in each setup the human side's field force is the
+	// larger one.
+	for _, m := range []mapLevel{cp, ec} {
+		n := map[string]int{}
+		for _, line := range m.lvl.Lines {
+			for _, h := range line {
+				if len(h.Unit) > 3 {
+					n[h.Unit[:3]]++
+				}
+			}
+		}
+		human, computer := "CP_", "EC_"
+		if m.mode.Human() == state.Entente {
+			human, computer = computer, human
+		}
+		if n[human] <= n[computer] {
+			t.Errorf("%s: field units %v", m.name, n)
+		}
+		set := testSet(t)
+		if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
+			t.Fatalf("%s dos: %v", m.name, err)
+		}
+		if _, err := state.New(m.lvl, set); err != nil {
+			t.Fatalf("%s standard: %v", m.name, err)
+		}
 	}
 }

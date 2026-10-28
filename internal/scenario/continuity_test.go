@@ -31,9 +31,9 @@ func authored(t *testing.T) []string {
 	return out
 }
 
-// Roads, paths and streams are continuous: every port of a hex meets the
-// opposite port of the same kind on its neighbour, or leaves the map, or runs
-// into a building.
+// Roads, paths, rails and streams are continuous: every port of a hex meets
+// the opposite port of the same kind on its neighbour, or leaves the map, or
+// runs into a building.
 func TestAuthoredLinesAreContinuous(t *testing.T) {
 	for _, path := range authored(t) {
 		t.Run(filepath.Base(path), func(t *testing.T) {
@@ -50,25 +50,25 @@ func TestAuthoredLinesAreContinuous(t *testing.T) {
 				for col, h := range line {
 					c := hexgrid.Coord{Line: l, Col: col}
 					for _, id := range h.Infra.IDs {
-						kind, ports, ok := linear(id)
-						if !ok {
-							continue
-						}
-						for _, p := range ports {
-							n := hexgrid.Around(c)[p-1]
-							if !g.Contains(n) || building(f.Map[n.Line][n.Col].Terrain) {
-								continue
-							}
-							want := (p+2)%6 + 1
-							found := false
-							for _, nid := range at(n) {
-								if k, nps, ok := linear(nid); ok && k == kind && slices.Contains(nps, want) {
-									found = true
+						for _, s := range strands(id) {
+							for _, p := range s.ports {
+								n := hexgrid.Around(c)[p-1]
+								if !g.Contains(n) || building(f.Map[n.Line][n.Col].Terrain) {
+									continue
 								}
-							}
-							if !found {
-								t.Errorf("%s at line %d col %d: port %d has no %s port %d at line %d col %d",
-									id, l+1, col+1, p, kind, want, n.Line+1, n.Col+1)
+								want := (p+2)%6 + 1
+								found := false
+								for _, nid := range at(n) {
+									for _, ns := range strands(nid) {
+										if ns.kind == s.kind && slices.Contains(ns.ports, want) {
+											found = true
+										}
+									}
+								}
+								if !found {
+									t.Errorf("%s at line %d col %d: port %d has no %s port %d at line %d col %d",
+										id, l+1, col+1, p, s.kind, want, n.Line+1, n.Col+1)
+								}
 							}
 						}
 					}
@@ -78,17 +78,36 @@ func TestAuthoredLinesAreContinuous(t *testing.T) {
 	}
 }
 
-// linear splits a road, path or stream id into its kind and ports.
-func linear(id string) (kind string, ports []int, ok bool) {
-	for _, k := range []string{"road", "path", "stream"} {
+// strand is one road, path, rail or stream through a hex.
+type strand struct {
+	kind  string
+	ports []int
+}
+
+// crossings are the level crossings' strands (art/terrain/cross/prompt.md).
+var crossings = map[string][]strand{
+	"cross1": {{"path", []int{1, 4}}, {"rail", []int{3, 6}}},
+	"cross2": {{"road", []int{1, 4}}, {"rail", []int{3, 6}}},
+	"cross3": {{"road", []int{2, 5}}, {"rail", []int{3, 6}}},
+	"cross4": {{"path", []int{3, 6}}, {"rail", []int{1, 4}}},
+}
+
+// strands are the roads, paths, rails and streams an infrastructure id
+// carries: a level crossing carries a rail and a road or path.
+func strands(id string) []strand {
+	if c, ok := crossings[id]; ok {
+		return c
+	}
+	for _, k := range []string{"road", "path", "rail", "stream"} {
 		if rest, found := strings.CutPrefix(id, k); found && rest != "" {
+			var ports []int
 			for _, r := range rest {
 				ports = append(ports, int(r-'0'))
 			}
-			return k, ports, true
+			return []strand{{k, ports}}
 		}
 	}
-	return "", nil, false
+	return nil
 }
 
 // Every building of a hand-authored month can be reached on foot from every

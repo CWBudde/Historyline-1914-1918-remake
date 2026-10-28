@@ -177,6 +177,12 @@ var Months = map[string]Period{
 		"The woods change hands, the gun line is",
 		"threatened, and then the line holds.",
 	}},
+	"1915-01": {"January 1915", "The Flood at Crouy", []string{
+		"North of Soissons the French storm Spur",
+		"132. Rain swells the Aisne behind them",
+		"and sweeps the bridges away; Lochow's",
+		"counter-stroke drives them into the flood.",
+	}},
 }
 
 // News is the news page of a month ("1914-08"): its own page, else its

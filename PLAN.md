@@ -596,8 +596,17 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       stream by a bridge, the only three crossings; `ec` NONNE defends, `cp` POLYG attacks; computer
       against computer ends in 24–26 turns). Evidence: `TestMonthlyYpres`,
       `TestAuthoredLinesAreContinuous` (roads, paths and streams meet their neighbours),
-      `TestAuthoredBuildingsConnect`. Remaining: the 22 free months (1915-01, … 1918-07), a balance
-      pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`, and month news pages.
+      `TestAuthoredBuildingsConnect`. January 1915: Crouy (`1915-01.json`, 47 lines of 12, rain and
+      mud on summer terrain: the French bridgehead north of Soissons between Spur 132 and the Vregny
+      plateau, the flooded Aisne behind it with four crossings, the Soissons–Laon railway down the
+      valley; seven buildings, every gate on its road; `cp` CROUY Germans attack, `ec` AISNE French
+      hold, `2p` its own; computer against computer the human side wins `cp` in 12 turns and `ec` in 8,
+      `2p` goes to the French in 26 with 3 units left, and two or three units fewer on the favoured
+      side turn `cp` and `ec` around). Evidence: `TestMonthlyCrouy`, `TestAuthoredLinesAreContinuous`
+      (now rails and level crossings too), `TestAuthoredHexesHaveRecords` (every hex binds to its own
+      record). Remaining: the 21 free months (1915-03, … 1918-07), a balance pass on the merged `ec`
+      and `2p` setups and on Marne's and Ypres' `cp`, Marne's and Ypres' overlays that the original
+      rules drop (a double road, paths on mud and forest), and month news pages.
 - [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month, the skirmish maps) exist, the menu
       has no hot-seat mode yet.
 - [ ] 5.10 Painted backdrops: a scenario file may name a painting of its whole ground (`backdrop`), drawn
