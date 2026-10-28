@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1917-06",
 	"name": "Hills",
+	"backdrop": "1917-06.jpg",
 	"map": {
 		"line1": [["mountain", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["mountain", ""], ["mountain", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mountain", ""], ["mountN", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["mountN", ""], ["mountW", ""], ["mountE", ""], ["forest", ""], ["forest", ""], ["grass", ["stream36", "bridge25"]], ["grass", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["hills", ""], ["mountain", ""], ["mountW", ""], ["mountE", ""], ["mountN", ""]],

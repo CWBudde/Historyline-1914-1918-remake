@@ -51,6 +51,10 @@ support the starting units. A connected rocky massif surrounds the southeastern 
 mud forms one field around the ruined depot. Both rail routes share one registered track design, with
 timber buffers at their ends and the southern factory entry left open. Gravel and dirt approaches join
 the building yards.
+HILLS/MOVES (`1917-06.jpg`, 3829×4403) has full June greenery and mostly dry gravel beneath thin
+high cloud, after several dry days. Small clearings and level shelves support the starting units;
+all three airstrips and seven hangars stay open. Fourteen timber bridges span continuous streams,
+with short footbridge approaches fading into worn grass.
 
 Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
@@ -106,6 +110,9 @@ GOTHA/SIGNS uses twenty-five sections: the same columns and rows at y 0, 458, 91
 FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
 PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
+
+HILLS/MOVES uses twenty sections: columns at x 0, 499, 998, 1498 and rows at y 0, 458, 916, 1374,
+1833.
 
 PAUSE/SIGMA uses twenty-four of those sections: columns at x 0, 538, 1077, 1615, 2154, 2692, 3231,
 3770 and rows at y 0, 596, 1193.
