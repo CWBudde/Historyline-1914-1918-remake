@@ -171,6 +171,12 @@ var Months = map[string]Period{
 		"from Paris, gives way, and the invaders",
 		"fall back to the Aisne to dig in.",
 	}},
+	"1914-11": {"November 1914", "The Wood at Nonne Bosschen", []string{
+		"At Ypres the Prussian Guard storms out of",
+		"Polygon Wood against a thin British line.",
+		"The woods change hands, the gun line is",
+		"threatened, and then the line holds.",
+	}},
 }
 
 // News is the news page of a month ("1914-08"): its own page, else its

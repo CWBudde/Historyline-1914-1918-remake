@@ -588,11 +588,16 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `levels/skirmish` (setup `2p`, `cp`/`ec` from it). September 1914: Marne
       (`1914-09.json`, `ec` MARNE: an easy Entente counterattack, three rival designs
       played out AI-vs-AI, Meaux won; `cp` KLUCK and `2p` the same units). Evidence:
-      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 25),
+      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 26),
       `TestVictorySelectsTheNextMap`, `TestCountryPicksTheSidesSetup`, `TestMonthlyMarne`; the
       migration check matched every `cp` and skirmish `2p` setup hex for hex with the former
-      `levels/campaign` files. Remaining: the 23 free months (1914-11, 1915-01, … 1918-07),
-      a balance pass on the merged `ec` and `2p` setups and on Marne's `cp`, and month news pages.
+      `levels/campaign` files. November 1914: Ypres (`1914-11.json`, 25 lines of 16: the Prussian
+      Guard storms Nonne Bosschen; the Menin Road, a forest ride and a southern path each cross the
+      stream by a bridge, the only three crossings; `ec` NONNE defends, `cp` POLYG attacks; computer
+      against computer ends in 24–26 turns). Evidence: `TestMonthlyYpres`,
+      `TestAuthoredLinesAreContinuous` (roads, paths and streams meet their neighbours),
+      `TestAuthoredBuildingsConnect`. Remaining: the 22 free months (1915-01, … 1918-07), a balance
+      pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`, and month news pages.
 - [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month, the skirmish maps) exist, the menu
       has no hot-seat mode yet.
 - [ ] 5.10 Painted backdrops: a scenario file may name a painting of its whole ground (`backdrop`), drawn

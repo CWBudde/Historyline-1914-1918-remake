@@ -45,17 +45,18 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 	}
 	// The Central Powers' chain through the months, then the Entente's:
 	// the original maps on every second month from August 1914, Marne in
-	// September 1914 on both.
-	if len(codes) != 50 || codes[0] != "PULSE" || codes[1] != "KLUCK" || codes[2] != "CIVIL" || codes[24] != "STERN" ||
-		codes[25] != "BATLE" || codes[26] != "MARNE" || codes[27] != "GOOSE" || codes[49] != "SODOM" {
+	// September and Ypres in November 1914 on both.
+	if len(codes) != 52 || codes[0] != "PULSE" || codes[1] != "KLUCK" || codes[2] != "CIVIL" || codes[3] != "POLYG" ||
+		codes[25] != "STERN" || codes[26] != "BATLE" || codes[27] != "MARNE" || codes[28] != "GOOSE" ||
+		codes[29] != "NONNE" || codes[51] != "SODOM" {
 		t.Fatalf("codes %v", codes)
 	}
-	if s.maps[0].name != "monthly/1914-08:cp" || s.maps[25].name != "monthly/1914-08:ec" {
-		t.Fatalf("names %s, %s", s.maps[0].name, s.maps[25].name)
+	if s.maps[0].name != "monthly/1914-08:cp" || s.maps[26].name != "monthly/1914-08:ec" {
+		t.Fatalf("names %s, %s", s.maps[0].name, s.maps[26].name)
 	}
 	for i, m := range s.maps {
 		want := state.CentralPowers
-		if i >= 25 {
+		if i >= 26 {
 			want = state.Entente
 		}
 		if s.code = i; s.levelSide() != want || m.mode.Human() != want {
@@ -71,7 +72,7 @@ func TestCampaignBriefingsAndPlayers(t *testing.T) {
 			t.Errorf("map %d %s: briefing %q, players %d %v", i, m.name, m.briefing, m.players, m.humanSides)
 		}
 	}
-	if s.maps[24].next != -1 || s.maps[49].next != -1 {
+	if s.maps[25].next != -1 || s.maps[51].next != -1 {
 		t.Error("campaign ends should have no next")
 	}
 	if !s.maps[2].winter || s.maps[0].winter || !strings.Contains(s.maps[2].briefing, "winter") {
@@ -191,7 +192,7 @@ func TestCodeEntry(t *testing.T) {
 		t.Fatalf("typed %q", s.typed)
 	}
 	s.key(keyEnter)
-	if s.typing || s.code != 3 {
+	if s.typing || s.code != 4 {
 		t.Fatalf("typing %v, code %d", s.typing, s.code)
 	}
 	s.activate(1)
@@ -200,7 +201,7 @@ func TestCodeEntry(t *testing.T) {
 	}
 	s.key(keyErase)
 	s.key(keyEnter)
-	if s.code != 3 || s.help()[0] != "Unknown code NOWHER." {
+	if s.code != 4 || s.help()[0] != "Unknown code NOWHER." {
 		t.Fatalf("code %d, help %q", s.code, s.help())
 	}
 	s.activate(1)
@@ -250,7 +251,7 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 	}
 	// France takes the month's Entente setup.
 	c := s.config(matchConfig{rules: "dos"})
-	if c.lvl != s.maps[25].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
+	if c.lvl != s.maps[26].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
 		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != "dos" {
 		t.Fatalf("config %+v", c)
 	}
@@ -299,11 +300,15 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 		next string
 	}{
 		{1, "monthly/1914-10:cp"},
-		{23, "monthly/1918-06:cp"},
-		{24, ""},
-		{25, "monthly/1914-09:ec"},
-		{26, "monthly/1914-10:ec"},
-		{49, ""},
+		{2, "monthly/1914-11:cp"},
+		{3, "monthly/1914-12:cp"},
+		{24, "monthly/1918-06:cp"},
+		{25, ""},
+		{26, "monthly/1914-09:ec"},
+		{27, "monthly/1914-10:ec"},
+		{28, "monthly/1914-11:ec"},
+		{29, "monthly/1914-12:ec"},
+		{51, ""},
 	} {
 		s.code = c.from
 		s.finish(outcome{won: true})
@@ -366,9 +371,9 @@ func TestCodeEntryPasswords(t *testing.T) {
 		}
 		s.key(keyEnter)
 	}
-	enter(strings.ToLower(s.maps[30].password))
-	if s.code != 30 || s.buttons()[1].label != "CODE  "+s.maps[30].password {
-		t.Fatalf("map 30's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
+	enter(strings.ToLower(s.maps[32].password))
+	if s.code != 32 || s.buttons()[1].label != "CODE  "+s.maps[32].password {
+		t.Fatalf("map 32's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
 	}
 	enter("GOOSE")
 	if s.maps[s.code].name != "monthly/1914-10:ec" {
@@ -390,7 +395,8 @@ func TestCampaignPeriodsAndNews(t *testing.T) {
 	// The original maps show their period's news, Marne its own month's.
 	for idx, want := range map[int]string{
 		0: "August – September 1914", 1: "September 1914", 2: "October – November 1914",
-		24: "June – July 1918", 25: "August – September 1914", 26: "September 1914",
+		3: "November 1914", 25: "June – July 1918", 26: "August – September 1914", 27: "September 1914",
+		29: "November 1914",
 	} {
 		if p, ok := s.maps[idx].news(); !ok || p.Label != want {
 			t.Errorf("maps[%d] (%s) news %q, want %q", idx, s.maps[idx].month, p.Label, want)
@@ -439,8 +445,8 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 
 func TestMonthlyMarne(t *testing.T) {
 	s := testShell(t)
-	m := s.maps[26]
-	if m.code() != "MARNE" || m.name != "monthly/1914-09:ec" || m.month != "1914-09" || m.next != 27 {
+	m := s.maps[27]
+	if m.code() != "MARNE" || m.name != "monthly/1914-09:ec" || m.month != "1914-09" || m.next != 28 {
 		t.Fatalf("monthly map %+v", m)
 	}
 	if k := s.maps[1]; k.code() != "KLUCK" || k.file != m.file || k.mode.Human() != state.CentralPowers {
@@ -449,7 +455,7 @@ func TestMonthlyMarne(t *testing.T) {
 	// The code word selects it.
 	s.typing, s.typed = true, "MARNE"
 	s.key(keyEnter)
-	if s.code != 26 {
+	if s.code != 27 {
 		t.Fatalf("code MARNE selected map %d", s.code)
 	}
 	if s.levelSide() != state.Entente || !strings.Contains(m.briefing, "The Entente") {
@@ -484,6 +490,43 @@ func TestMonthlyMarne(t *testing.T) {
 		t.Fatalf("field units: Entente %d, Central Powers %d", ec, cp)
 	}
 	// Both engines start a battle on it.
+	set := testSet(t)
+	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
+		t.Fatalf("dos: %v", err)
+	}
+	if _, err := state.New(m.lvl, set); err != nil {
+		t.Fatalf("standard: %v", err)
+	}
+}
+
+func TestMonthlyYpres(t *testing.T) {
+	s := testShell(t)
+	m := s.maps[29]
+	if m.code() != "NONNE" || m.name != "monthly/1914-11:ec" || m.month != "1914-11" || m.next != 30 {
+		t.Fatalf("monthly map %+v", m)
+	}
+	if k := s.maps[3]; k.code() != "POLYG" || k.file != m.file || k.mode.Human() != state.CentralPowers || k.next != 4 {
+		t.Fatalf("Ypres' German setup %+v", k)
+	}
+	if p, ok := m.news(); !ok || p.Label != "November 1914" {
+		t.Fatalf("news %+v ok %v", p, ok)
+	}
+	// The defenders hold a wood, a bunker and three bridges: the Entente
+	// field force is not outnumbered.
+	var ec, cp int
+	for _, line := range m.lvl.Lines {
+		for _, h := range line {
+			switch {
+			case strings.HasPrefix(h.Unit, "EC_"):
+				ec++
+			case strings.HasPrefix(h.Unit, "CP_"):
+				cp++
+			}
+		}
+	}
+	if ec < cp {
+		t.Fatalf("field units: Entente %d, Central Powers %d", ec, cp)
+	}
 	set := testSet(t)
 	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
 		t.Fatalf("dos: %v", err)
