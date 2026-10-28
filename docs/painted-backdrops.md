@@ -46,6 +46,11 @@ bare trees and scattered old snow. Both airstrips stay open; the southern stream
 continuous channels. Small clearings and a level rocky shelf support the starting units. One EC
 anti-tank crew starts on the adjacent bank path, clear of the diagonal road bridge's stream.
 
+Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
+November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
+middle stays plain; the map edges, where no units start, carry the invention: ploughland, hedgerows,
+pollard willows, drainage ditches, a flooded meadow, a ruined farmstead and an orchard.
+
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
 stitched.

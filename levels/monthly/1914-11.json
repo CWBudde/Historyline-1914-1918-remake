@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1914-11",
 	"name": "Ypres",
+	"backdrop": "1914-11.jpg",
 	"map": {
 		"line1": [["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""]],
 		"line2": [["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", "stream36"], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""]],
