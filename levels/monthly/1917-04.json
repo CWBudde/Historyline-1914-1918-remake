@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1917-04",
 	"name": "Infra",
+	"backdrop": "1917-04.jpg",
 	"map": {
 		"line1": [["mountain", ""], ["mountain", ""], ["forest", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["lakeside3456", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["lakeside16", ""], ["forest", ""], ["mountain", ""], ["mountain", ""], ["mountW", ""], ["mountE", ""], ["mountain", ""], ["mountain", ""]],
 		"line2": [["mountN", ""], ["mountain", ""], ["forest", ""], ["mountW", ""], ["mountE", ""], ["mountain", ""], ["lakeside34", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["lakeside16", ""], ["forest", ""], ["mountN", ""], ["forest", ""], ["mountS", ""], ["forest", ""], ["mountN", ""]],

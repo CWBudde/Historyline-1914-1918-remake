@@ -45,6 +45,10 @@ ELITE/SEVEN (`1917-02.jpg`, 2852×3302) has a February thaw under low raincloud,
 bare trees and scattered old snow. Both airstrips stay open; the southern stream fragments form
 continuous channels. Small clearings and a level rocky shelf support the starting units. One EC
 anti-tank crew starts on the adjacent bank path, clear of the diagonal road bridge's stream.
+INFRA/ZOMBI (`1917-04.jpg`, 4806×5504) has wet spring meadow, budding trees and wind-ruffled inland
+lakes under bright overcast light between April showers. Small woodland clearings and level shelves
+support the starting units. Its railheads have timber buffers; the southern factory rail entry stays
+open, and narrow gravel and dirt approaches join the building yards.
 
 Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
@@ -92,6 +96,8 @@ Crop each section from the 4x guide and scale it to the section canvas: 1536×10
 ORKAN/BUMMM uses thirty 728×727 world-pixel sections on 1252×1250 canvases: columns at x 0, 517,
 1033, 1550, 2066 and rows at y 0, 495, 989, 1484, 1978, 2473.
 PLANE/CLEAN uses the same thirty-section layout.
+INFRA/ZOMBI uses thirty sections with rounded origins at x 0, 516, 1033, 1549, 2066 and y 0, 494,
+989, 1483, 1978, 2473.
 
 GOTHA/SIGNS uses twenty-five sections: the same columns and rows at y 0, 458, 917, 1375, 1833.
 
