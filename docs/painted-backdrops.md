@@ -10,8 +10,9 @@ all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 285
 NOISE/TEMPO (`1915-04.jpg`, 3657×4206) uses about 1.64 image px per world px, with budding spring
 trees, damp grass and puddled lanes after a shower.
 CROUY/AISNE (`1915-01.jpg`, 2852×3302) uses MOUSE's density, with a rainy January thaw: wet dormant
-olive meadow with standing water, bare woods with a few conifers, brown clay mud fields with shell holes
-and a swollen grey-brown Aisne under flat raincloud light.
+olive meadow with standing water, bare woods with a few conifers, rutted clay mud fields with
+water-filled shell holes and a swollen grey-brown Aisne under flat raincloud light. Every house is an
+individual farmstead, cottage, mill or ruin.
 RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
 warm sunshine and saturated clay, deep ruts and dirty puddles around the trenches. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
