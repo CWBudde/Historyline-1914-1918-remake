@@ -33,7 +33,8 @@ func authored(t *testing.T) []string {
 
 // Roads, paths, rails and streams are continuous: every port of a hex meets
 // the opposite port of the same kind on its neighbour, or leaves the map, or
-// runs into a building.
+// runs into a building. A path may end on a road's port, as the original maps
+// join them.
 func TestAuthoredLinesAreContinuous(t *testing.T) {
 	for _, path := range authored(t) {
 		t.Run(filepath.Base(path), func(t *testing.T) {
@@ -60,7 +61,7 @@ func TestAuthoredLinesAreContinuous(t *testing.T) {
 								found := false
 								for _, nid := range at(n) {
 									for _, ns := range strands(nid) {
-										if ns.kind == s.kind && slices.Contains(ns.ports, want) {
+										if joins(s.kind, ns.kind) && slices.Contains(ns.ports, want) {
 											found = true
 										}
 									}
@@ -76,6 +77,12 @@ func TestAuthoredLinesAreContinuous(t *testing.T) {
 			}
 		})
 	}
+}
+
+// joins reports whether a strand of kind a continues into one of kind b: the
+// same kind, or a path and a road.
+func joins(a, b string) bool {
+	return a == b || a == "path" && b == "road" || a == "road" && b == "path"
 }
 
 // strand is one road, path, rail or stream through a hex.
