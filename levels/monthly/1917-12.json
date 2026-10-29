@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1917-12",
 	"name": "Amper",
+	"backdrop": "1917-12.jpg",
 	"map": {
 		"line1": [["mountain_w", ""], ["mountain_w", ""], ["mountN_w", ""], ["forest_w", ""], ["forest_w", ""], ["mountN_w", ""], ["mountain_w", ""], ["grass_w", ["road36", "runway36"]], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""]],
 		"line2": [["mountain_w", ""], ["mountW_w", ""], ["mountE_w", ""], ["forest_w", ""], ["mountW_w", ""], ["mountE_w", ""], ["house_w", ""], ["stoney_w", ""], ["rough_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""], ["forest_w", ""]],
