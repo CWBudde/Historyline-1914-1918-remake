@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1918-02",
 	"name": "Rhein",
+	"backdrop": "1918-02.jpg",
 	"map": {
 		"line1": [["lakeside3456", ""], ["waterDeep", ""], ["waterDeep", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", "road36"], ["lakeside156", ""], ["waterDeep", ""], ["waterSea", ""]],
 		"line2": [["lakeside34", ""], ["waterDeep", ""], ["lakeside123", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["forest", ""], ["grass", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["lakeside56", ""], ["waterDeep", ""], ["waterSea", ""]],
@@ -353,7 +354,7 @@
 				[8, 13, "EC_markIV"],
 				[8, 16, "EC_antiTank"],
 				[8, 27, "EC_patrolBoat"],
-				[8, 31, "EC_transShip"],
+				[9, 32, "EC_transShip"],
 				[11, 1, "CP_bunker"],
 				[11, 2, "CP_bunker"],
 				[15, 10, "CP_transTrain"],

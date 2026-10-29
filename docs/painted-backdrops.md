@@ -74,6 +74,10 @@ AMPER/STONE (`1917-12.jpg`, 3829×4403) has settled December snow and diffuse co
 under thick overcast. One long road bridge crosses its inland lake; all three airstrips and seven
 hangars stay open. Six level rocky ledges support the starting crews, and a small snowy hoof margin
 retains the southern stony field. All starting positions remain unchanged.
+RHEIN/MOSEL (`1918-02.jpg`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
+sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
+at its closed ends; capped piers and worn bank approaches finish the coastal roads. Small clearings
+support the starting units. One two-player transport starts on the adjacent water hex, clear of its pier.
 
 Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
@@ -134,8 +138,8 @@ PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 61
 HILLS/MOVES, COBRA/BLADE and AMPER/STONE use twenty sections at x 0, 499, 998, 1498 and y 0, 458,
 916, 1374, 1833.
 
-PAUSE/SIGMA uses twenty-four of those sections: columns at x 0, 538, 1077, 1615, 2154, 2692, 3231,
-3770 and rows at y 0, 596, 1193.
+PAUSE/SIGMA and RHEIN/MOSEL use twenty-four of those sections: columns at x 0, 538, 1077, 1615,
+2154, 2692, 3231, 3770 and rows at y 0, 596, 1193.
 
 ## 3. Painting a section
 
