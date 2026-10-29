@@ -12,7 +12,8 @@ trees, damp grass and puddled lanes after a shower.
 CROUY/AISNE (`1915-01.jpg`, 2852×3302) uses MOUSE's density, with a rainy January thaw: wet dormant
 olive meadow with standing water, bare woods with a few conifers, rutted clay mud fields with
 water-filled shell holes and a swollen grey-brown Aisne under flat raincloud light. Every house is an
-individual farmstead, cottage, mill or ruin.
+individual farmstead, cottage, mill or ruin. The German HQ has four arrowhead bastions
+around a parade square, the French HQ four square red-roofed towers around a château.
 RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
 warm sunshine and saturated clay, deep ruts and dirty puddles around the trenches. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
