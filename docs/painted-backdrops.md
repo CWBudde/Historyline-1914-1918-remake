@@ -65,6 +65,11 @@ water under brightening overcast light after a shower. Both rail networks share 
 design; three open railheads have timber buffers and the southern compound entries stay open.
 Four long timber bridges span the waterways. Small clearings and a grassy shelf support the starting
 units; three patrol boats and two infantry groups start on adjacent hexes clear of banks and bridge edges.
+ATLAS/ZORRO (`1917-10.jpg`, 4806×4403) has shallow fresh October snow, copper leaves and pale
+clear morning light. Small woodland clearings and level rocky shelves support the starting units;
+both airstrips and four hangars stay open. Eight bridges cross continuous rivers and streams.
+One continuous winter railway runs from the factory approach to the southern map edge. One patrol
+boat and one infantry group start on adjacent hexes clear of a bank and a house.
 
 Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
@@ -116,6 +121,7 @@ INFRA/ZOMBI uses thirty sections with rounded origins at x 0, 516, 1033, 1549, 2
 989, 1483, 1978, 2473.
 
 GOTHA/SIGNS uses twenty-five sections: the same columns and rows at y 0, 458, 917, 1375, 1833.
+ATLAS/ZORRO uses twenty-five sections at x 0, 516, 1033, 1549, 2066 and y 0, 458, 916, 1374, 1833.
 
 FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
