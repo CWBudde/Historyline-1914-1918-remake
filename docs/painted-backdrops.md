@@ -24,7 +24,12 @@ spires, a round keep in the courtyard, a stepped-gable hall and a barbican. Ever
 building is an individual design: a cotton spinning mill, a steam sawmill, a sandstone works and a
 field supply depot.
 ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
-light and a wind-ruffled sea. Its landing piers and coves leave room for the linked ships' full hulls.
+light and a wind-ruffled sea on the Courland coast. Its landing piers and coves leave room for the linked
+ships' full hulls. Its HQs are two castles: one of red Baltic brick with a square main tower, a
+stepped-gable wing and a reedy wet ditch, one whitewashed with green iron roofs, a gate tower, birches
+and an earthen rampart. Every other building is an individual design: a brickworks with a ring kiln, a
+fish smokery, a steam sawmill, a manor distillery, a flax mill with a thatched drying barn, and forage,
+ammunition, engineer, coal and ration depots. Zigzag trenches run in from the west map edge.
 FRONT/LEVEL (`1915-10.jpg`, 3829×3302) uses the same density, with copper autumn foliage, cool light
 after prolonged rain and a broad belt of saturated clay, dirty puddles and timber-lined trenches.
 RATIO/TOXIN (`1915-12.jpg`, 2852×3302) has fresh wet snow, pale winter light, slushy lanes and
