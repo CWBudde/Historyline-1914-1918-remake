@@ -35,6 +35,8 @@ anchor and framing inset, splits the magenta into a tint mask and recolours it t
 sprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);
 `unit/medium-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/medium-artillery/` and re-index.
 
+The atlas is imagegen output `exec-8fd94b2d` (2026-10-30), each cell scaled to 0.85 about (256,261) so the three artillery classes keep a size ladder (light slim and small, medium mid, heavy bulky) inside the framing guard.
+
 ## Avoid
 - rotated or mirrored copies of one view
 - ground, shadows, haze or backdrop

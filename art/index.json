@@ -13954,7 +13954,7 @@
       "masters": [
         {
           "path": "art/units/heavy-artillery/atlas.png",
-          "sha256": "dde6bb721671370a676d5f98e843da84267aa8b7437c59967ef2a1b853ccff32",
+          "sha256": "ed073201ce3bfcb9042311d0cca6f63ce24eabbc596a3584771840aeda6509a6",
           "width": 1024,
           "height": 1536
         }
@@ -14195,7 +14195,7 @@
       "masters": [
         {
           "path": "art/units/light-artillery/atlas.png",
-          "sha256": "cba8e50b828abcba68e26d05f544721d5c6d164bb84e003eeba2a4ca48a7d127",
+          "sha256": "55c6cabeb000b6a0dbf650360146a03f2267cd6b8a4bd5679059b601627bf9e9",
           "width": 1024,
           "height": 1536
         }
@@ -14433,7 +14433,7 @@
       "masters": [
         {
           "path": "art/units/medium-artillery/atlas.png",
-          "sha256": "16c5ed54199545002fffa7b533a9347ef87f708c026cb281b0dd1e1b799de251",
+          "sha256": "e83ad29d0f9d8565d37a45eff6e7d7f444e4fd8d26dbcfae96c218720f7a6b6c",
           "width": 1024,
           "height": 1536
         }

@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/medium-artillery/atlas.png",
-    "source_sha256": "16c5ed54199545002fffa7b533a9347ef87f708c026cb281b0dd1e1b799de251"
+    "source_sha256": "e83ad29d0f9d8565d37a45eff6e7d7f444e4fd8d26dbcfae96c218720f7a6b6c"
   },
   "family": "mediumArtillery",
   "grounds": {
