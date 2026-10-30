@@ -84,7 +84,9 @@ airfields differ: the northern one has rolled snow, a braced timber lookout towe
 timber and a canvas hangar; the southern one a swept earth strip, a brick watch office with a windsock
 mast, a workshop hut and four different hangars (buff and olive canvas, timber, corrugated iron); the
 south-eastern forward ground an open ladder tower and a sagging tent hangar. Their seven hangars stay
-on their hexes, and the strips fade out into trodden snow at their open ends. Six level rocky ledges support the starting crews, and a small
+on their hexes, and the strips fade out into trodden snow at their open ends. The shelled ground in
+the west is one field of frozen mud with ice-filled shell holes and splintered stumps, its two trenches
+linked into one V-shaped line. Six level rocky ledges support the starting crews, and a small
 snowy hoof margin retains the southern stony field. All starting positions remain unchanged.
 RHEIN/MOSEL (`1918-02.jpg`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
 sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
