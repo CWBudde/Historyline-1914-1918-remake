@@ -12,12 +12,17 @@ import (
 // boards a building or a carrier.
 func flies(u *Unit) bool { return u.Def.MovementType == data.MoveAir }
 
-// stepCost is what entering h costs a unit of the given movement type, and
-// whether it may enter at all. Buildings are handled by the caller. A road,
-// rail or water hex costs the minimum of 1, and so does every hex in the air.
-func stepCost(h *Hex, moveType int) (cost int, ok bool) {
+// stepCost is what entering h costs the unit m, and whether it may enter
+// at all. Buildings are handled by the caller. A road, rail or water hex
+// costs the minimum of 1, and so does every hex in the air. A light bridge
+// (data.LightBridge) refuses ground units too heavy for it.
+func stepCost(h *Hex, m *Unit) (cost int, ok bool) {
+	moveType := m.Def.MovementType
 	if moveType == data.MoveAir {
 		return 1, true
+	}
+	if moveType == data.MoveNormal && h.Mods.LightBridge && !m.Def.CrossesLightBridge() {
+		return 0, false
 	}
 	if moveType != data.MoveNormal {
 		if !slices.Contains(h.Mods.MovementAllowed, moveType) {
@@ -106,7 +111,7 @@ func (s *State) movablePoints(from hexgrid.Coord, m *Unit) map[hexgrid.Coord]Rou
 				continue
 			case h.Container == nil:
 				var ok bool
-				if cost, ok = stepCost(h, m.Def.MovementType); !ok {
+				if cost, ok = stepCost(h, m); !ok {
 					continue
 				}
 			}

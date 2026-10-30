@@ -156,6 +156,41 @@ func TestPointsRoadBridge(t *testing.T) {
 	}
 }
 
+// A light bridge (a path deck over a stream, as on NONNE) carries foot
+// units and light towed guns up to the light artillery, but no armoured
+// vehicles, tanks or heavier guns. A road bridge carries them all.
+func TestLightBridge(t *testing.T) {
+	light := terrain("grass", "stream36", "rBridge25", "path25")
+	for _, tc := range []struct {
+		unit string
+		want bool
+	}{
+		{"CP_infantry", true},
+		{"CP_eliteInf", true},
+		{"CP_sappers", true},
+		{"CP_antiTank", true},
+		{"CP_staticAA", true},
+		{"CP_cavalry", true},
+		{"CP_lArtillery", true},
+		{"CP_ft17", false},
+		{"CP_armCar", false},
+		{"CP_markI", false},
+		{"CP_mArtillery", false},
+		{"CP_supplyCar", false},
+		{"CP_construction", false},
+	} {
+		_, r := routes(t, map[hexgrid.Coord]level.Hex{at(1, 2): light}, tc.unit)
+		if _, ok := r[at(1, 2)]; ok != tc.want {
+			t.Errorf("%s on the light bridge = %v, want %v", tc.unit, ok, tc.want)
+		}
+	}
+
+	road := terrain("grass", "stream36", "rBridge25", "road25")
+	if _, r := routes(t, map[hexgrid.Coord]level.Hex{at(1, 2): road}, "CP_ft17"); r[at(1, 2)].Cost == 0 {
+		t.Error("the tank cannot cross the road bridge")
+	}
+}
+
 func TestOwnStatsOnExit(t *testing.T) {
 	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("CP_supplyCar")})
 	inf := s.At(at(4, 2)).Unit

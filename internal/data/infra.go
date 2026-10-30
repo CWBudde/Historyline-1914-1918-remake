@@ -6,6 +6,32 @@ import "strings"
 type Hex struct {
 	Movement, Battle, Sight *int
 	MovementAllowed         []int // movement types that may enter, in Python order
+	// LightBridge is a bridge only light units may cross (see LightBridge);
+	// it restricts MoveNormal units, water and air movement is unchanged.
+	LightBridge bool
+}
+
+// LightBridge reports whether infra crosses water on a light bridge: a
+// bridge (bridge* or rBridge*) over a stream or lake whose deck is a path
+// or the plain bridge, not a road or a railway. Such a bridge carries foot
+// units and light towed guns (Unit.CrossesLightBridge), not vehicles or
+// heavier guns; a road or rail bridge carries everything its deck does.
+func LightBridge(infra []string) bool {
+	var water, bridge, deck, full bool
+	for _, id := range infra {
+		switch {
+		case strings.HasPrefix(id, "stream"), strings.HasPrefix(id, "lake"):
+			water = true
+		case strings.HasPrefix(id, "road"), strings.HasPrefix(id, "rail"):
+			full = true
+		case strings.HasPrefix(id, "path"), strings.HasPrefix(id, "bridge"):
+			deck = true
+		}
+		if strings.HasPrefix(id, "rBridge") || strings.HasPrefix(id, "bridge") {
+			bridge = true
+		}
+	}
+	return water && bridge && deck && !full
 }
 
 // Modifiers ports the infrastructure loop of HexSquare.__init__ in hlrData.py.
@@ -28,6 +54,7 @@ func modifiers(t Terrain, infra []string, roadBridges bool) Hex {
 		Battle:          clone(t.Battle),
 		Sight:           clone(t.Sight),
 		MovementAllowed: []int{MoveNormal},
+		LightBridge:     LightBridge(infra),
 	}
 	for _, i := range infra {
 		switch {

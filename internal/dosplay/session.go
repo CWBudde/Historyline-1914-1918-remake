@@ -57,6 +57,11 @@ type Session struct {
 	ids    map[int]string // unit ids of built units
 	// log are the commands that changed the state, in order (Replay).
 	log []dosrules.Command
+	// the light bridge cells of the level and the record of the water
+	// under them, computed once (lightbridge.go).
+	light      []int
+	lightWater int
+	lightDone  bool
 }
 
 // New binds a level and starts a battle on it: side 0 (the Central Powers)
@@ -288,7 +293,7 @@ func (s *Session) Destinations(side, unit int) (map[hexgrid.Coord]bool, error) {
 	if err := s.canMove(side, unit); err != nil {
 		return nil, err
 	}
-	cells, err := s.Game.Profile.Destinations(s.Game.Movement(side, unit))
+	cells, err := s.Game.Profile.Destinations(s.movement(side, unit))
 	if err != nil {
 		return nil, err
 	}
@@ -327,7 +332,7 @@ func (s *Session) Route(side, unit int, to hexgrid.Coord) ([]hexgrid.Coord, erro
 	if err != nil {
 		return nil, err
 	}
-	cells, err := s.Game.Profile.Route(s.Game.Movement(side, unit), cell)
+	cells, err := s.Game.Profile.Route(s.movement(side, unit), cell)
 	if err != nil || cells == nil {
 		return nil, err
 	}
@@ -354,7 +359,7 @@ func (s *Session) Costs(side, unit int) (map[hexgrid.Coord]int, error) {
 	if t == nil {
 		return nil, dosrules.ErrNoMovement
 	}
-	m := s.Game.Movement(side, unit)
+	m := s.movement(side, unit)
 	p := m.PieceAt(unit)
 	m.Units = map[int]dosrules.Piece{}
 	if u.Flags4&0x4000 == 0 {
@@ -382,6 +387,9 @@ func (s *Session) ExitDestinations(side, hold, slot int) (map[hexgrid.Coord]bool
 	m, err := s.Game.ExitMovement(side, hold, slot)
 	if err != nil {
 		return nil, wrap(err)
+	}
+	if u := s.Game.Holds[hold].Slots[7*side+slot]; u <= dosrules.SlotFree {
+		s.patchLight(m, u)
 	}
 	cells, err := s.Game.Profile.Destinations(m)
 	if err != nil {
@@ -463,7 +471,9 @@ func (s *Session) Move(side, unit int, to hexgrid.Coord) ([]Event, error) {
 	if s.Game.Units[unit].Flags4&0xC0 == 0xC0 {
 		rear = s.Game.Units[unit+1].Cell(side)
 	}
+	restore := s.blockLight(unit)
 	evs, err := s.apply(dosrules.Command{Kind: dosrules.CmdMove, Side: side, Unit: unit, Cell: cell}, s.Game.Units[unit].Cell(side))
+	restore()
 	for i, ev := range evs {
 		if rear >= 0 && ev.Kind == Moved && ev.Unit == unit {
 			evs[i].Rear = append([]hexgrid.Coord{s.coord(rear)}, ev.Path[:len(ev.Path)-1]...)
@@ -486,7 +496,13 @@ func (s *Session) Exit(side, hold, slot int, to hexgrid.Coord) ([]Event, error) 
 	if cell == startCell(h) {
 		return nil, refusal("the unit must leave the container")
 	}
-	return s.apply(dosrules.Command{Kind: dosrules.CmdExit, Side: side, Hold: hold, Slot: slot, Cell: cell}, startCell(h))
+	restore := func() {}
+	if u := h.Slots[7*side+slot]; u <= dosrules.SlotFree {
+		restore = s.blockLight(u)
+	}
+	evs, err := s.apply(dosrules.Command{Kind: dosrules.CmdExit, Side: side, Hold: hold, Slot: slot, Cell: cell}, startCell(h))
+	restore()
+	return evs, err
 }
 
 // Attack gives unit of side the attack order on a hex; it waits in the

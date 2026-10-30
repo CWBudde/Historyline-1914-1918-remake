@@ -53,6 +53,15 @@ type Unit struct {
 	Weapons      [4]*Slot `json:"weapons"` // nil for an empty slot
 }
 
+// CrossesLightBridge reports whether the unit may cross a light bridge
+// (LightBridge): at most a light artillery piece's weight (3), and not an
+// armoured vehicle — the armoured cars and tanks carry armour over 25,
+// foot units, cavalry and the light towed guns (infantry, sappers,
+// anti-tank and anti-aircraft guns, light artillery) stay at or under it.
+func (u Unit) CrossesLightBridge() bool {
+	return u.Weight <= 3 && u.Armour <= 25
+}
+
 // Slot is a weapon slot of a unit type: a catalogue weapon for name, art and
 // ammo, and the original attack that replaces the catalogue's power, ranges and
 // target classes. Slots without an attack (sidearms) keep the catalogue values.

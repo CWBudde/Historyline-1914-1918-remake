@@ -20,7 +20,7 @@ const (
 	actFullscreen          // new: F11 toggles fullscreen
 	actScenes              // new: F9 turns the battle scenes of -rules dos off or on
 	actSurrender           // new: F2 (twice) gives up the battle of -rules dos
-	actOrigTiles           // new: F8 swaps in the original tiles and units (origtiles.go; -tags origtiles only)
+	actOrigTiles           // new: F8 cycles the map designs: backdrop, terrain tiles, original tiles (design.go)
 )
 
 type keyBinding struct {
@@ -102,7 +102,7 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 			g.dos.Surrender()
 		}
 	case actOrigTiles:
-		ui.Message = g.toggleOrigArt()
+		ui.Message = g.cycleDesign()
 	case actNone:
 	case actQuit:
 		return false

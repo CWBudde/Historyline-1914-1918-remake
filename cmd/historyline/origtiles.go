@@ -8,10 +8,11 @@ import (
 )
 
 // origArt is the original game's map art: the terrain tiles, summer and
-// winter, by terrain record, and the unit sprites. F8 draws them in place of
-// the remake's art under -rules dos, for comparison on a local machine: only
-// builds with -tags origtiles (just play-original) can load them, from the
-// git-ignored original/ folder; other builds answer F8 with a message.
+// winter, by terrain record, and the unit sprites. One of the map designs F8
+// cycles through (design.go), drawn in place of the remake's art under
+// -rules dos, for comparison on a local machine: only builds with
+// -tags origtiles (just play-original) can load them, from the git-ignored
+// original/ folder; other builds skip this design and say why.
 type origArt struct {
 	tiles [2][]*ebiten.Image // summer, winter
 	// units are the unit frames by side (0, 1, 2 neutral) and moved (0, 1):
@@ -33,21 +34,11 @@ const (
 )
 
 // toggleOrigArt turns the original art on or off, loading it on first use,
-// and tells the player.
+// and tells the player. F8 cycles the map designs instead (design.go); this
+// stays the original design's own switch.
 func (g *game) toggleOrigArt() string {
-	if g.dos == nil {
-		return "original art: only under -rules dos"
-	}
-	if g.orig == nil {
-		g.orig = &origArt{}
-		if a, err := loadOrigArt(); err != nil { //nolint:staticcheck // The !origtiles stub always errors; the origtiles loader can succeed.
-			g.orig.err = err.Error()
-		} else {
-			g.orig.tiles, g.orig.units = a.tiles, a.units
-		}
-	}
-	if g.orig.err != "" {
-		return "original art: " + g.orig.err
+	if err := g.origAvailable(); err != "" {
+		return "original art: " + err
 	}
 	g.orig.on = !g.orig.on
 	return "original tiles and units " + map[bool]string{true: "on", false: "off"}[g.orig.on]

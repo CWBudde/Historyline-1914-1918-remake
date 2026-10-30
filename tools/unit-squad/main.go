@@ -16,6 +16,7 @@ import (
 	"flag"
 	"fmt"
 	"image"
+	"image/color"
 	"image/draw"
 	"image/png"
 	"math"
@@ -237,6 +238,7 @@ func main() {
 	n := flag.Int("n", 6, "men per cell, 1..6; 0 scales the source cells as they are")
 	out := flag.String("out", "", "atlas to write")
 	scale := flag.Float64("scale", .52, "size of a man relative to the source")
+	lone := flag.Bool("gunner", false, "first drop the loader of a two-man team (use with -n 0)")
 	flag.Parse()
 	if *src == "" || *out == "" {
 		flag.Usage()
@@ -255,6 +257,12 @@ func main() {
 	}
 	nrgba := image.NewNRGBA(im.Bounds())
 	draw.Draw(nrgba, nrgba.Bounds(), im, im.Bounds().Min, draw.Src)
+	if *lone {
+		if nrgba, err = gunners(nrgba); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+	}
 	res, err := atlas(nrgba, *n, *scale)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -277,4 +285,102 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+}
+
+// gunner drops the second man of a two-man team cell: the coats (the magenta
+// pixels, two blobs) are found, every other pixel goes to the nearest coat, and
+// the coat with the smaller share (the loader, whose share is his box and belt)
+// is erased with its pixels. The gun stays with the gunner.
+func gunner(cell *image.NRGBA) (*image.NRGBA, error) {
+	b := cell.Bounds()
+	w, h := b.Dx(), b.Dy()
+	coat := func(p color.NRGBA) bool { return p.A >= 128 && int(p.R)-int(p.G) > 90 && int(p.B)-int(p.G) > 40 }
+	label := make([]int, w*h)
+	var blobs [][]int
+	for i := range label {
+		if label[i] != 0 || !coat(cell.NRGBAAt(i%w, i/w)) {
+			continue
+		}
+		id := len(blobs) + 1
+		stack, blob := []int{i}, []int(nil)
+		label[i] = id
+		for len(stack) > 0 {
+			p := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			blob = append(blob, p)
+			for dy := -1; dy <= 1; dy++ {
+				for dx := -1; dx <= 1; dx++ {
+					x, y := p%w+dx, p/w+dy
+					if x >= 0 && y >= 0 && x < w && y < h && label[y*w+x] == 0 && coat(cell.NRGBAAt(x, y)) {
+						label[y*w+x] = id
+						stack = append(stack, y*w+x)
+					}
+				}
+			}
+		}
+		blobs = append(blobs, blob)
+	}
+	slices.SortFunc(blobs, func(a, b []int) int { return len(b) - len(a) })
+	blobs = slices.DeleteFunc(blobs, func(g []int) bool { return len(g) < minArea })
+	if len(blobs) < 2 {
+		return nil, fmt.Errorf("cell has %d coats, want 2", len(blobs))
+	}
+	blobs = blobs[:2]
+	centre := func(g []int) (float64, float64) {
+		var sx, sy float64
+		for _, p := range g {
+			sx, sy = sx+float64(p%w), sy+float64(p/w)
+		}
+		return sx / float64(len(g)), sy / float64(len(g))
+	}
+	var cx, cy [2]float64
+	for i := range 2 {
+		cx[i], cy[i] = centre(blobs[i])
+	}
+	nearest := func(x, y int) int {
+		d0 := math.Hypot(float64(x)-cx[0], float64(y)-cy[0])
+		d1 := math.Hypot(float64(x)-cx[1], float64(y)-cy[1])
+		if d1 < d0 {
+			return 1
+		}
+		return 0
+	}
+	var share [2]int
+	for y := range h {
+		for x := range w {
+			if cell.NRGBAAt(x, y).A >= 128 {
+				share[nearest(x, y)]++
+			}
+		}
+	}
+	keep := 0
+	if share[1] > share[0] {
+		keep = 1
+	}
+	out := image.NewNRGBA(b)
+	for y := range h {
+		for x := range w {
+			if nearest(x, y) == keep {
+				out.SetNRGBA(x, y, cell.NRGBAAt(x, y))
+			}
+		}
+	}
+	return out, nil
+}
+
+// gunners applies gunner to every cell of the atlas src.
+func gunners(src *image.NRGBA) (*image.NRGBA, error) {
+	size := src.Bounds().Dx() / 2
+	out := image.NewNRGBA(src.Bounds())
+	for f := range cells {
+		rect := image.Rect(f%2*size, f/2*size, (f%2+1)*size, (f/2+1)*size)
+		cell := image.NewNRGBA(image.Rect(0, 0, size, size))
+		draw.Draw(cell, cell.Bounds(), src, rect.Min, draw.Src)
+		g, err := gunner(cell)
+		if err != nil {
+			return nil, fmt.Errorf("cell %d: %w", f, err)
+		}
+		draw.Draw(out, rect, g, image.Point{}, draw.Src)
+	}
+	return out, nil
 }

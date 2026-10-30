@@ -79,17 +79,18 @@ type game struct {
 		from *screenArt
 		art  *dospanel.SurrenderArt
 	}
-	scores       *scores.Store          // the best scores; nil keeps none
-	artErr       string                 // last sprite failure, shown in the status line
-	terrain      *terrainArt            // composed terrain tiles (-terrain); nil draws coloured hexes
-	terrainErr   string                 // last terrain tile failure, shown in the status line
-	hdUnits      <-chan *artPacks       // full-quality unit art while it loads (-units-hd, without the menus)
-	hdTerrain    <-chan *terrainArt     // full-quality terrain while it loads (-terrain-hd)
-	records      []int                  // the terrain records as the sappers' work played left them, nil before (trench.go)
-	backdrop     *backdrop              // the painted ground drawn in place of the terrain (-backdrop); nil draws the terrain
-	backdropView *ebiten.Image          // the view of the backdrop the seen hexes are greyed from
-	reworkedHex  map[hexgrid.Coord]bool // the hexes the sappers changed (trench.go)
-	scroll       float64                // map scroll speed, screen pixels per frame
+	scores         *scores.Store          // the best scores; nil keeps none
+	artErr         string                 // last sprite failure, shown in the status line
+	terrain        *terrainArt            // composed terrain tiles (-terrain); nil draws coloured hexes
+	terrainErr     string                 // last terrain tile failure, shown in the status line
+	hdUnits        <-chan *artPacks       // full-quality unit art while it loads (-units-hd, without the menus)
+	hdTerrain      <-chan *terrainArt     // full-quality terrain while it loads (-terrain-hd)
+	records        []int                  // the terrain records as the sappers' work played left them, nil before (trench.go)
+	backdrop       *backdrop              // the painted ground drawn in place of the terrain (-backdrop); nil draws the terrain
+	backdropHidden *backdrop              // the backdrop while F8 shows another map design (design.go); nil when it is shown or there is none
+	backdropView   *ebiten.Image          // the view of the backdrop the seen hexes are greyed from
+	reworkedHex    map[hexgrid.Coord]bool // the hexes the sappers changed (trench.go)
+	scroll         float64                // map scroll speed, screen pixels per frame
 
 	split    *split // the split screen of -rules dos, nil otherwise
 	drawing  bool   // a dos panel is being drawn: drawSide's map
@@ -600,7 +601,7 @@ func (g *game) statusText() string {
 	if g.dos != nil {
 		return g.splitErrors()
 	}
-	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit for its menu or click a blue/red hex (1-9 picks menu row; click own building for contents; click skips a walk), F1 end turn, F11 fullscreen, Esc/right-click cancel",
+	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit for its menu or click a blue/red hex (1-9 picks menu row; click own building for contents; click skips a walk), F1 end turn, F8 map design, F11 fullscreen, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
