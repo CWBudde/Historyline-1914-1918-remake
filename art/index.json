@@ -12938,7 +12938,7 @@
       "masters": [
         {
           "path": "art/units/cavalry/atlas.png",
-          "sha256": "b6132f86f8c8182f0710747fd2a6592a03b6351f923c72f930915206d60caba0",
+          "sha256": "c1c2d04d019525e3e1f3a66644f5507bb1c93ba541db79683d3e23502bb9f2f4",
           "width": 1024,
           "height": 1536
         }
@@ -13019,7 +13019,7 @@
       "masters": [
         {
           "path": "art/units/charron/atlas.png",
-          "sha256": "89bcfb34223f67dcb6532c422ba5395065c8fd83369879cb17c5d372726eed6f",
+          "sha256": "06ffe92e2f66ff928d379c70d0f0891a8ab945f5d31d75b72f4e7626f42cfcdf",
           "width": 1024,
           "height": 1536
         }
@@ -13101,7 +13101,7 @@
       "masters": [
         {
           "path": "art/units/construction-unit/atlas.png",
-          "sha256": "fd3e21f94399249155f742cddc3b3681f68d0527cc7599331674a8ab150990f2",
+          "sha256": "ee7b5e42a8e4c8ac186d42dff45b033d2c6d0ce1ca35d772acceadf10a1b260a",
           "width": 1024,
           "height": 1536
         }
@@ -14905,7 +14905,7 @@
       "masters": [
         {
           "path": "art/units/sappers/atlas.png",
-          "sha256": "4e75aaadc068036b8374d0e03fb33748b8492ba321ce6dba04277f78509ee9b4",
+          "sha256": "a271107ad0226fe6f1e407879fb1d27df9191a1e64eb1b9709b675ca00eda7b8",
           "width": 1024,
           "height": 1536
         }

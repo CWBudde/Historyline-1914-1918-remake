@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/construction-unit/atlas.png",
-    "source_sha256": "fd3e21f94399249155f742cddc3b3681f68d0527cc7599331674a8ab150990f2"
+    "source_sha256": "ee7b5e42a8e4c8ac186d42dff45b033d2c6d0ce1ca35d772acceadf10a1b260a"
   },
   "family": "construction-unit",
   "framing_inset": 0.8,

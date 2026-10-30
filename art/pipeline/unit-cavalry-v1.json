@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/cavalry/atlas.png",
-    "source_sha256": "b6132f86f8c8182f0710747fd2a6592a03b6351f923c72f930915206d60caba0"
+    "source_sha256": "c1c2d04d019525e3e1f3a66644f5507bb1c93ba541db79683d3e23502bb9f2f4"
   },
   "family": "cavalry",
   "grounds": {

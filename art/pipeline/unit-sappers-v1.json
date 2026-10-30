@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/sappers/atlas.png",
-    "source_sha256": "4e75aaadc068036b8374d0e03fb33748b8492ba321ce6dba04277f78509ee9b4"
+    "source_sha256": "a271107ad0226fe6f1e407879fb1d27df9191a1e64eb1b9709b675ca00eda7b8"
   },
   "family": "sappers",
   "grounds": {
