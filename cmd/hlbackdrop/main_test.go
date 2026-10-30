@@ -29,7 +29,7 @@ func TestQuality(t *testing.T) {
 }
 
 // TestCheck walks a levels directory through a missing source, a written
-// JPEG, a stale JPEG and a source no scenario names.
+// JPEG, a stale JPEG, a new backdrop and a source outside a level folder.
 func TestCheck(t *testing.T) {
 	levels := t.TempDir()
 	write := func(name string, data []byte) {
@@ -67,19 +67,19 @@ func TestCheck(t *testing.T) {
 		}
 	}
 
-	write("monthly/1914-08.json", []byte(`{"month": "1914-08", "backdrop": "1914-08.jpg"}`))
-	write("monthly/1914-09.json", []byte(`{"month": "1914-09"}`))
-	write("skirmish/01-track.json", []byte(`{"name": "track"}`))
+	write("1914-08/map.json", []byte(`{}`))
+	write("1914-09/map.json", []byte(`{}`))
+	write("extra/01-track/map.json", []byte(`{}`))
 	var buf bytes.Buffer
 	if err := jpeg.Encode(&buf, image.NewRGBA(image.Rect(0, 0, 24, 16)), &jpeg.Options{Quality: 90}); err != nil {
 		t.Fatal(err)
 	}
-	write("monthly/1914-08.jpg", buf.Bytes())
+	write("1914-08/backdrop.jpg", buf.Bytes())
 	expect("no source")
 
-	source("backdrops/monthly/1914-08.png", 40)
+	source("1914-08/backdrop.png", 40)
 	expect("is not")
-	b, err := find(levels, "monthly/1914-08")
+	b, err := find(levels, "1914-08")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -88,16 +88,26 @@ func TestCheck(t *testing.T) {
 	}
 	expect()
 
-	source("backdrops/monthly/1914-08.png", 80)
+	source("1914-08/backdrop.png", 80)
 	expect("is not")
 	if _, _, err := writeJPEG(b, 0); err != nil {
 		t.Fatal(err)
 	}
-	source("backdrops/monthly/1914-09.png", 80)
-	expect("no scenario names")
+	source("1914-09/backdrop.png", 80)
+	expect("no JPEG")
+	b, err = find(levels, "1914-09")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, q, err := writeJPEG(b, 0); err != nil || q != defaultQuality {
+		t.Fatalf("writeJPEG = quality %d, %v; want %d for a new backdrop", q, err, defaultQuality)
+	}
+	expect()
 
-	if _, err := find(levels, "monthly/1914-09"); err == nil {
-		t.Error("find gave a backdrop for a scenario without one")
+	source("1914-10/backdrop.png", 80)
+	expect("not in a level folder")
+	if _, err := find(levels, "1914-10"); err == nil {
+		t.Error("find gave a backdrop outside a level folder")
 	}
 }
 

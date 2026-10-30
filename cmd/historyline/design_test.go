@@ -8,7 +8,7 @@ import (
 // TestCycleDesignNoDos: without a dos session F8 cycles the painted backdrop
 // and the terrain tiles, and the original (DOS) design is skipped.
 func TestCycleDesignNoDos(t *testing.T) {
-	lvl, err := loadLevel(t.TempDir(), "monthly/1914-08:cp")
+	lvl, err := loadLevel(t.TempDir(), "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func TestCycleDesignNoDos(t *testing.T) {
 // TestCycleDesignNoBackdrop: a level without a painting stays on the terrain
 // tiles.
 func TestCycleDesignNoBackdrop(t *testing.T) {
-	lvl, err := loadLevel(t.TempDir(), "monthly/1914-08:cp")
+	lvl, err := loadLevel(t.TempDir(), "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -52,7 +52,7 @@ func TestCycleDesignNoBackdrop(t *testing.T) {
 // TestCycleDesignDosUnavailable: under -rules dos with the original art
 // unavailable, F8 still cycles the backdrop and the terrain tiles.
 func TestCycleDesignDosUnavailable(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
+	d := newDosTest(t, "1914-08:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	ww, wh := d.s.Level.Grid().Bounds()
@@ -73,7 +73,7 @@ func TestCycleDesignDosUnavailable(t *testing.T) {
 // TestCycleDesignDos: under -rules dos with the original art loaded, F8 cycles
 // backdrop, terrain tiles and the original tiles and units.
 func TestCycleDesignDos(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
+	d := newDosTest(t, "1914-08:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	ww, wh := d.s.Level.Grid().Bounds()

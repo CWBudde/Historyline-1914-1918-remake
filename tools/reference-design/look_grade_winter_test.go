@@ -16,7 +16,7 @@ import (
 // relief keeps its snow: only the rock takes the relief row, so a relief cell
 // loses at most 4 L*.
 func TestTerrainGradeWinterTargets(t *testing.T) {
-	for _, name := range []string{"monthly/1914-10:cp", "monthly/1916-12:cp"} {
+	for _, name := range []string{"1914-10:cp", "1916-12:cp"} {
 		lvl := testLevel(t, name)
 		families := map[string][]cell{}
 		g := lvl.Grid()

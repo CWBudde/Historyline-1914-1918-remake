@@ -21,7 +21,7 @@ const maxTurns = 300
 func shipped(tb testing.TB) []*level.Level {
 	tb.Helper()
 	var out []*level.Level
-	for _, name := range []string{"monthly/1914-08", "monthly/1914-10", "monthly/1914-12"} {
+	for _, name := range []string{"1914-08", "1914-10", "1914-12"} {
 		lv, err := scenario.ShippedLevel(name, scenario.CP)
 		if err != nil {
 			tb.Fatal(err)

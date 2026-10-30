@@ -8,7 +8,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// campaignLevel is a setup of a shipped scenario, "monthly/1915-02:cp".
+// campaignLevel is a setup of a shipped scenario, "1915-02:cp".
 func campaignLevel(t *testing.T, name string) *level.Level {
 	t.Helper()
 	l, err := campaignLevelErr(name)

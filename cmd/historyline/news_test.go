@@ -37,7 +37,7 @@ func TestFrontPagesFit(t *testing.T) {
 			}
 		}
 	}
-	pages, _ := fs.Glob(levels.Monthly, campaign.Dir+"/*.json")
+	pages, _ := fs.Glob(levels.Levels, "*/"+campaign.File)
 	if issues["1914-08"] != 1 || issues["1918-06"] != len(pages) || len(pages) != 27 {
 		t.Errorf("issues %d, %d of %d", issues["1914-08"], issues["1918-06"], len(pages))
 	}
@@ -59,16 +59,16 @@ func TestNewUnitsFollowTheChain(t *testing.T) {
 		slices.Sort(out)
 		return out
 	}
-	if got := ids("monthly/1917-12:cp"); !slices.Equal(got, []string{"CP_a7v", "CP_fokkerDVII", "CP_markIV"}) {
+	if got := ids("1917-12:cp"); !slices.Equal(got, []string{"CP_a7v", "CP_fokkerDVII", "CP_markIV"}) {
 		t.Errorf("1917-12 cp new units %v", got)
 	}
-	if got := ids("monthly/1917-10:ec"); !slices.Equal(got, []string{"EC_camel"}) {
+	if got := ids("1917-10:ec"); !slices.Equal(got, []string{"EC_camel"}) {
 		t.Errorf("1917-10 ec new units %v", got)
 	}
-	if got := ids("monthly/1914-09:cp"); len(got) != 0 {
+	if got := ids("1914-09:cp"); len(got) != 0 {
 		t.Errorf("1914-09 cp new units %v", got)
 	}
-	if n := len(ids("monthly/1914-08:cp")); n < 10 {
+	if n := len(ids("1914-08:cp")); n < 10 {
 		t.Errorf("1914-08 cp introduces %d unit types, want the whole force", n)
 	}
 	for _, m := range s.maps {

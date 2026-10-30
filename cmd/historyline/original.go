@@ -1,11 +1,11 @@
 package main
 
 import (
-	"embed"
 	"fmt"
+	"io/fs"
 	"os"
 	"path"
-	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
@@ -36,20 +36,47 @@ func loadMap(dir, name string, set *data.Set) (*level.Level, *dosbind.Board, err
 	return lvl, nil, err
 }
 
-// scenarioDirs are the -level prefixes of the scenario files.
-var scenarioDirs = map[string]embed.FS{"monthly/": levels.Monthly, "skirmish/": levels.Skirmish}
+// levelFiles is the levels directory on disk over the embedded levels: a
+// file below the directory where it opens, else its embedded copy. Any
+// error falls back on the embedded copy: the web build has no file system
+// and fails with "not implemented", not fs.ErrNotExist.
+type levelFiles struct{ disk fs.FS }
 
-// loadScenario loads -level name "dir/file:mode" from dir where present,
-// else the embedded copy.
-func loadScenario(dir string, emb embed.FS, name string) (*level.Level, error) {
+// levelsFS is the levels directory dir over the embedded levels.
+func levelsFS(dir string) fs.FS {
+	if dir == "" {
+		dir = "."
+	}
+	return levelFiles{os.DirFS(dir)}
+}
+
+func (l levelFiles) Open(name string) (fs.File, error) {
+	f, err := l.disk.Open(name)
+	if err != nil {
+		if e, embErr := levels.Levels.Open(name); embErr == nil {
+			return e, nil
+		}
+	}
+	return f, err
+}
+
+// scenarioName reports whether -level name is a setup of a level folder:
+// a campaign month ("1914-08:ec") or an extra map ("extra/15-water:2p").
+func scenarioName(name string) bool {
+	file, _, _ := strings.Cut(name, ":")
+	return monthName.MatchString(file) || strings.HasPrefix(file, scenario.ExtraDir+"/")
+}
+
+var monthName = regexp.MustCompile(`^19\d\d-\d\d$`)
+
+// loadScenario loads -level name "folder:mode" from the levels directory
+// dir where present, else the embedded copy; without a mode, the folder's
+// first setup.
+func loadScenario(dir, name string) (*level.Level, error) {
 	file, mode, _ := strings.Cut(name, ":")
-	raw, err := readLevelFile(dir, emb, file+".json")
+	f, err := scenario.Read(levelsFS(dir), file)
 	if err != nil {
 		return nil, err
-	}
-	f, err := scenario.Parse(raw)
-	if err != nil {
-		return nil, fmt.Errorf("%s: %w", file, err)
 	}
 	m := scenario.Mode(mode)
 	if mode == "" {
@@ -62,16 +89,16 @@ func loadScenario(dir string, emb embed.FS, name string) (*level.Level, error) {
 	return scenarioLevel(f, file, m)
 }
 
-// scenarioLevel is the level of setup m of the scenario file f, which is
-// file ("monthly/1914-08") below the levels directory; its backdrop
-// becomes a path below the levels directory too (levelBackdrop).
+// scenarioLevel is the level of setup m of the level folder f, which is
+// file ("1914-08") below the levels directory; its backdrop becomes a path
+// below the levels directory too (levelBackdrop).
 func scenarioLevel(f *scenario.File, file string, m scenario.Mode) (*level.Level, error) {
 	lvl, err := f.Level(m)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", file, err)
 	}
 	if b := lvl.Extra.Backdrop; b != "" {
-		lvl.Extra.Backdrop = path.Join(path.Dir(file), b)
+		lvl.Extra.Backdrop = path.Join(file, b)
 	}
 	return lvl, nil
 }
@@ -93,17 +120,4 @@ func loadOriginal(stem string, set *data.Set) (*finmap.Level, *level.Level, *dos
 		return nil, nil, nil, fmt.Errorf("%s: %w", name, err)
 	}
 	return l, lvl, b, nil
-}
-
-// readLevelFile reads file (slash-separated) below dir, else from emb. It
-// falls back on the embedded copy for any error: the web build has no file
-// system and fails with "not implemented", not fs.ErrNotExist.
-func readLevelFile(dir string, emb embed.FS, file string) ([]byte, error) {
-	raw, err := os.ReadFile(filepath.Join(dir, filepath.FromSlash(file)))
-	if err != nil {
-		if b, embErr := emb.ReadFile(file); embErr == nil {
-			return b, nil
-		}
-	}
-	return raw, err
 }

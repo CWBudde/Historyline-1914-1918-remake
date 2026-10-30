@@ -53,7 +53,7 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 		codes[32] != "AISNE" || codes[53] != "SODOM" {
 		t.Fatalf("codes %v", codes)
 	}
-	if s.maps[0].name != "monthly/1914-08:cp" || s.maps[27].name != "monthly/1914-08:ec" {
+	if s.maps[0].name != "1914-08:cp" || s.maps[27].name != "1914-08:ec" {
 		t.Fatalf("names %s, %s", s.maps[0].name, s.maps[27].name)
 	}
 	for i, m := range s.maps {
@@ -299,19 +299,19 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 		from int
 		next string
 	}{
-		{1, "monthly/1914-10:cp"},
-		{2, "monthly/1914-11:cp"},
-		{3, "monthly/1914-12:cp"},
-		{4, "monthly/1915-01:cp"},
-		{5, "monthly/1915-02:cp"},
-		{25, "monthly/1918-06:cp"},
+		{1, "1914-10:cp"},
+		{2, "1914-11:cp"},
+		{3, "1914-12:cp"},
+		{4, "1915-01:cp"},
+		{5, "1915-02:cp"},
+		{25, "1918-06:cp"},
 		{26, ""},
-		{27, "monthly/1914-09:ec"},
-		{28, "monthly/1914-10:ec"},
-		{29, "monthly/1914-11:ec"},
-		{30, "monthly/1914-12:ec"},
-		{31, "monthly/1915-01:ec"},
-		{32, "monthly/1915-02:ec"},
+		{27, "1914-09:ec"},
+		{28, "1914-10:ec"},
+		{29, "1914-11:ec"},
+		{30, "1914-12:ec"},
+		{31, "1915-01:ec"},
+		{32, "1915-02:ec"},
 		{53, ""},
 	} {
 		s.code = c.from
@@ -380,16 +380,16 @@ func TestCodeEntryPasswords(t *testing.T) {
 		t.Fatalf("map 33's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
 	}
 	enter("GOOSE")
-	if s.maps[s.code].name != "monthly/1914-10:ec" {
+	if s.maps[s.code].name != "1914-10:ec" {
 		t.Fatalf("GOOSE selected %s", s.maps[s.code].name)
 	}
 	enter("MOUSE")
-	if s.maps[s.code].name != "monthly/1914-12:cp" {
+	if s.maps[s.code].name != "1914-12:cp" {
 		t.Fatalf("MOUSE selected %s", s.maps[s.code].name)
 	}
 	// A victory shows the next map's password.
 	s.finish(outcome{won: true})
-	if s.maps[s.code].name != "monthly/1915-01:cp" || s.result.next != "CROUY" {
+	if s.maps[s.code].name != "1915-01:cp" || s.result.next != "CROUY" {
 		t.Fatalf("after MOUSE: %s, shown %q", s.maps[s.code].name, s.result.next)
 	}
 }
@@ -436,7 +436,7 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 	s.code = 2 // CIVIL, the Central Powers' October 1914
 	s.open(pageCountry)
 	s.activate(0) // France
-	if s.maps[s.code].name != "monthly/1914-10:ec" || s.side != state.Entente {
+	if s.maps[s.code].name != "1914-10:ec" || s.side != state.Entente {
 		t.Fatalf("France on CIVIL: %s, side %v", s.maps[s.code].name, s.side)
 	}
 	c := s.config(matchConfig{})
@@ -453,7 +453,7 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 	}
 	s.open(pageCountry)
 	s.activate(1) // Germany
-	if s.maps[s.code].name != "monthly/1914-10:cp" {
+	if s.maps[s.code].name != "1914-10:cp" {
 		t.Fatalf("Germany on GOOSE: %s, want CIVIL", s.maps[s.code].name)
 	}
 }
@@ -461,7 +461,7 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 func TestMonthlyMarne(t *testing.T) {
 	s := testShell(t)
 	m := s.maps[28]
-	if m.code() != "MARNE" || m.name != "monthly/1914-09:ec" || m.month != "1914-09" || m.next != 29 {
+	if m.code() != "MARNE" || m.name != "1914-09:ec" || m.month != "1914-09" || m.next != 29 {
 		t.Fatalf("monthly map %+v", m)
 	}
 	if k := s.maps[1]; k.code() != "KLUCK" || k.file != m.file || k.mode.Human() != state.CentralPowers {
@@ -515,7 +515,7 @@ func TestMonthlyMarne(t *testing.T) {
 func TestMonthlyYpres(t *testing.T) {
 	s := testShell(t)
 	m := s.maps[30]
-	if m.code() != "NONNE" || m.name != "monthly/1914-11:ec" || m.month != "1914-11" || m.next != 31 {
+	if m.code() != "NONNE" || m.name != "1914-11:ec" || m.month != "1914-11" || m.next != 31 {
 		t.Fatalf("monthly map %+v", m)
 	}
 	if k := s.maps[3]; k.code() != "POLYG" || k.file != m.file || k.mode.Human() != state.CentralPowers || k.next != 4 {
@@ -552,10 +552,10 @@ func TestMonthlyYpres(t *testing.T) {
 func TestMonthlyCrouy(t *testing.T) {
 	s := testShell(t)
 	cp, ec := s.maps[5], s.maps[32]
-	if cp.code() != "CROUY" || cp.name != "monthly/1915-01:cp" || cp.month != "1915-01" || cp.next != 6 {
+	if cp.code() != "CROUY" || cp.name != "1915-01:cp" || cp.month != "1915-01" || cp.next != 6 {
 		t.Fatalf("German setup %+v", cp)
 	}
-	if ec.code() != "AISNE" || ec.name != "monthly/1915-01:ec" || ec.file != cp.file || ec.next != 33 {
+	if ec.code() != "AISNE" || ec.name != "1915-01:ec" || ec.file != cp.file || ec.next != 33 {
 		t.Fatalf("French setup %+v", ec)
 	}
 	if p, ok := cp.news(); !ok || p.Label != "January 1915" {

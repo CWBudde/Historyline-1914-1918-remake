@@ -15,7 +15,7 @@ import (
 // player's, the playback reports it, and both panels mark the depot as the
 // player's.
 func TestDosCaptureDepot(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
+	d := newDosTest(t, "1914-08:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	depot := hexgrid.Coord{Line: 18, Col: 5}

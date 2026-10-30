@@ -1,22 +1,21 @@
 // Command hlbackdrop keeps the painted backdrops' lossless sources and the
-// JPEGs the game ships in step. A backdrop's source is the PNG under
-// levels/backdrops in its scenario's directory, named like the backdrop
-// (levels/backdrops/monthly/1915-08.png for levels/monthly/1915-08.jpg); every
-// edit happens on the source, and the shipped JPEG is the source encoded with
-// image/jpeg at the JPEG's own quality, read from its quantisation table (90
-// for 1914-08 through 1915-04, 95 later; 95 for a new backdrop).
+// JPEGs the game ships in step. A level folder's backdrop is backdrop.jpg,
+// its source backdrop.png beside it (levels/1915-08/backdrop.png for
+// levels/1915-08/backdrop.jpg); every edit happens on the source, and the
+// shipped JPEG is the source encoded with image/jpeg at the JPEG's own
+// quality, read from its quantisation table (90 for 1914-08 through 1915-04,
+// 95 later; 95 for a new backdrop).
 //
-//	go run ./cmd/hlbackdrop jpeg [-q 95] monthly/1915-08 ...   # write the JPEGs from their sources
-//	go run ./cmd/hlbackdrop check                               # every source encodes to its committed JPEG
+//	go run ./cmd/hlbackdrop jpeg [-q 95] 1915-08 ...   # write the JPEGs from their sources
+//	go run ./cmd/hlbackdrop check                       # every source encodes to its committed JPEG
 //
-// check fails on a backdrop without a source, a source whose JPEG differs and
-// a source no scenario names.
+// check fails on a backdrop without a source or without its JPEG, a source
+// whose JPEG differs and a source outside a level folder.
 package main
 
 import (
 	"bytes"
 	"encoding/binary"
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -30,6 +29,8 @@ import (
 	"slices"
 	"strings"
 	"sync"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 // defaultQuality is the quality of a backdrop that has no JPEG yet.
@@ -39,9 +40,9 @@ const defaultQuality = 95
 // about 100 MB.
 const workers = 3
 
-// backdrop is one scenario's painting: its source and the JPEG it ships.
+// backdrop is one level folder's painting: its source and the JPEG it ships.
 type backdrop struct {
-	name     string // the scenario, "monthly/1915-08"
+	name     string // the level folder, "1915-08"
 	src, out string // paths
 }
 
@@ -50,7 +51,7 @@ func main() {
 	levels := flag.String("levels", "levels", "the levels directory")
 	q := flag.Int("q", 0, "jpeg: the quality (default: the JPEG's own, 95 for a new one)")
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "usage: hlbackdrop [-levels dir] jpeg [-q n] monthly/1915-08 ... | check")
+		fmt.Fprintln(os.Stderr, "usage: hlbackdrop [-levels dir] jpeg [-q n] 1915-08 ... | check")
 	}
 	flag.Parse()
 	args := flag.Args()
@@ -91,63 +92,39 @@ func main() {
 	}
 }
 
-// find returns the backdrop of the scenario name ("monthly/1915-08").
+// find returns the backdrop of the level folder name ("1915-08").
 func find(levels, name string) (backdrop, error) {
-	name = strings.TrimSuffix(filepath.ToSlash(name), ".json")
-	b, ok, err := backdropOf(levels, name)
-	if err != nil {
-		return backdrop{}, err
+	name = strings.Trim(filepath.ToSlash(filepath.Clean(name)), "/")
+	if _, err := os.Stat(filepath.Join(levels, filepath.FromSlash(name), scenario.MapFile)); err != nil {
+		return backdrop{}, fmt.Errorf("%s: no level folder: %w", name, err)
 	}
-	if !ok {
-		return backdrop{}, fmt.Errorf("%s: the scenario names no backdrop", name)
-	}
-	return b, nil
+	return backdropOf(levels, name), nil
 }
 
-// backdropOf reads the backdrop the scenario file levels/name.json names.
-func backdropOf(levels, name string) (backdrop, bool, error) {
-	data, err := os.ReadFile(filepath.Join(levels, filepath.FromSlash(name)+".json"))
-	if err != nil {
-		return backdrop{}, false, err
-	}
-	var f struct {
-		Backdrop string `json:"backdrop"`
-	}
-	if err := json.Unmarshal(data, &f); err != nil {
-		return backdrop{}, false, fmt.Errorf("%s: %w", name, err)
-	}
-	if f.Backdrop == "" {
-		return backdrop{}, false, nil
-	}
-	if ext := strings.ToLower(filepath.Ext(f.Backdrop)); ext != ".jpg" && ext != ".jpeg" {
-		return backdrop{}, false, fmt.Errorf("%s: backdrop %s is not a JPEG", name, f.Backdrop)
-	}
-	dir := filepath.Dir(filepath.FromSlash(name))
-	stem := strings.TrimSuffix(f.Backdrop, filepath.Ext(f.Backdrop))
+// backdropOf is the backdrop of the level folder levels/name.
+func backdropOf(levels, name string) backdrop {
+	dir := filepath.Join(levels, filepath.FromSlash(name))
 	return backdrop{
 		name: name,
-		src:  filepath.Join(levels, "backdrops", dir, stem+".png"),
-		out:  filepath.Join(levels, dir, f.Backdrop),
-	}, true, nil
+		src:  filepath.Join(dir, scenario.BackdropSource),
+		out:  filepath.Join(dir, scenario.BackdropFile),
+	}
 }
 
-// all lists the backdrops of every scenario file in the levels' directories
-// (monthly, skirmish), in name order.
+// all lists the backdrops of the level folders that have a JPEG or a
+// source, in folder order.
 func all(levels string) ([]backdrop, error) {
+	dirs, err := scenario.Folders(os.DirFS(levels))
+	if err != nil {
+		return nil, err
+	}
 	var out []backdrop
-	for _, dir := range []string{"monthly", "skirmish"} {
-		files, err := filepath.Glob(filepath.Join(levels, dir, "*.json"))
-		if err != nil {
-			return nil, err
-		}
-		for _, f := range files {
-			b, ok, err := backdropOf(levels, dir+"/"+strings.TrimSuffix(filepath.Base(f), ".json"))
-			if err != nil {
-				return nil, err
-			}
-			if ok {
-				out = append(out, b)
-			}
+	for _, dir := range dirs {
+		b := backdropOf(levels, dir)
+		_, errOut := os.Stat(b.out)
+		_, errSrc := os.Stat(b.src)
+		if errOut == nil || errSrc == nil {
+			out = append(out, b)
 		}
 	}
 	return out, nil
@@ -232,9 +209,9 @@ func check(levels string) []error {
 	for _, b := range bs {
 		named[filepath.Clean(b.src)] = true
 	}
-	_ = filepath.WalkDir(filepath.Join(levels, "backdrops"), func(p string, d fs.DirEntry, err error) error {
-		if err == nil && !d.IsDir() && strings.HasSuffix(p, ".png") && !named[filepath.Clean(p)] {
-			errs = append(errs, fmt.Errorf("%s: no scenario names this backdrop", p))
+	_ = filepath.WalkDir(levels, func(p string, d fs.DirEntry, err error) error {
+		if err == nil && !d.IsDir() && d.Name() == scenario.BackdropSource && !named[filepath.Clean(p)] {
+			errs = append(errs, fmt.Errorf("%s: not in a level folder", p))
 		}
 		return nil
 	})
@@ -244,6 +221,9 @@ func check(levels string) []error {
 func checkOne(b backdrop) error {
 	want, err := os.ReadFile(b.out)
 	if err != nil {
+		if errors.Is(err, fs.ErrNotExist) {
+			return fmt.Errorf("%s: no JPEG for the source (hlbackdrop jpeg %s)", b.src, b.name)
+		}
 		return err
 	}
 	q, err := quality(want)

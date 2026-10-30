@@ -129,7 +129,7 @@ standing items of the terrain and overlays that the catalog has. Ground material
 context tile whose key is the SHA-256 of a descriptor (season, centre, neighbours NE SE S SW NW N, plus tile
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
-(`missing` or `undefined`). The three shipped levels and every scenario map (`levels/monthly`, `levels/skirmish`) have no gaps.
+(`missing` or `undefined`). The three shipped levels and every level folder's map (`levels/`) have no gaps.
 The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`mud` and
 `shelled_w`, the shell-hole fields, `rough_w`, the winter hills, and `stoney_w`, winter stony ground) are
 sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
@@ -246,9 +246,9 @@ their layouts leave the unit foot point clear. Rebuild with the pinned
 
 ### Painted backdrop
 
-A level can draw one painting of its whole ground in place of the terrain tiles: a scenario file names it
-as `backdrop`, a PNG or JPEG next to the file (`levels/monthly/1914-08.jpg`, embedded with the
-scenarios), and every battle on that map draws it. `-backdrop <file>` puts one painting under every level
+A level can draw one painting of its whole ground in place of the terrain tiles: a level folder holds it
+as `backdrop.jpg` (`levels/1914-08/backdrop.jpg`, embedded with the levels), and every battle on that map
+draws it. `-backdrop <file>` puts one painting under every level
 instead (a path, or a URL in a directory with `files.txt`, read like a catalog); `-backdrop off` draws the
 tiles where a level has a painting. The painting covers the world rectangle as `maprender` draws it
 (`maprender.Size`, 1090×1920 for PULSE, origin at world (0, 0)) at any resolution whose aspect is within

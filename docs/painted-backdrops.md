@@ -1,28 +1,28 @@
 # Painted backdrops
 
-A scenario file may name a backdrop (`"backdrop": "1914-08.jpg"` next to the file): one painting of the
-whole level's ground that the game draws in place of the terrain tiles (`-backdrop off` draws the tiles).
-It must match the level's world aspect; any resolution works.
+A level folder may hold a backdrop (`levels/1914-08/backdrop.jpg`): one painting of the whole level's
+ground that the game draws in place of the terrain tiles (`-backdrop off` draws the tiles). It must match
+the level's world aspect; any resolution works.
 
-The game, `just play` and the web demo ship the JPEG; its lossless source is the PNG of the same name
-under `levels/backdrops/` (`levels/backdrops/monthly/1914-08.png`). Edit the source only, then write
-the JPEG with `just backdrop-jpeg monthly/1914-08`, which keeps the JPEG's own quality (90 for 1914-08
-through 1915-04, 95 later and for a new backdrop); the hlbackdrop test fails when a JPEG is not its
-source's encoding. 1915-02's source is its decoded JPEG.
+The game, `just play` and the web demo ship the JPEG; its lossless source is `backdrop.png` beside it
+(`levels/1914-08/backdrop.png`), which the game does not embed. Edit the source only, then write the
+JPEG with `just backdrop-jpeg 1914-08`, which keeps the JPEG's own quality (90 for 1914-08 through
+1915-04, 95 later and for a new backdrop); the hlbackdrop test fails when a JPEG is not its source's
+encoding. 1915-02's source is its decoded JPEG.
 
-Shipped: PULSE (`1914-08.jpg`, 1536×2706),
-CIVIL (`1914-10.jpg`, 2336×2706) and Marne (`1914-09.jpg`, 3137×1578, six sections in a 3×2 grid),
-all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 2852×3302) uses about
+Shipped: PULSE (`1914-08`, 1536×2706),
+CIVIL (`1914-10`, 2336×2706) and Marne (`1914-09`, 3137×1578, six sections in a 3×2 grid),
+all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12`, 2852×3302) uses about
 1.72 image px per world px, with settled winter snow and cold overcast daylight. VENOM/BIMBO
-(`1915-02.jpg`, 2852×4403) uses the same density, with patchy late-winter snow and clear frosty light.
-NOISE/TEMPO (`1915-04.jpg`, 3657×4206) uses about 1.64 image px per world px, with budding spring
+(`1915-02`, 2852×4403) uses the same density, with patchy late-winter snow and clear frosty light.
+NOISE/TEMPO (`1915-04`, 3657×4206) uses about 1.64 image px per world px, with budding spring
 trees, damp grass and puddled lanes after a shower.
-CROUY/AISNE (`1915-01.jpg`, 2852×3302) uses MOUSE's density, with a rainy January thaw: wet dormant
+CROUY/AISNE (`1915-01`, 2852×3302) uses MOUSE's density, with a rainy January thaw: wet dormant
 olive meadow with standing water, bare woods with a few conifers, rutted clay mud fields with
 water-filled shell holes and a swollen grey-brown Aisne under flat raincloud light. Every house is an
 individual farmstead, cottage, mill or ruin. The German HQ has four arrowhead bastions
 around a parade square, the French HQ four square red-roofed towers around a château.
-RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
+RIGHT/BARON (`1915-06`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
 warm sunshine and saturated clay, deep ruts and dirty puddles in one ragged field; its trenches are
 timber-revetted with sandbagged dugouts and run through green meadow beside it. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
@@ -31,55 +31,55 @@ red-tiled cones, a square keep, a twin-turret gate and a walled orchard, one of 
 spires, a round keep in the courtyard, a stepped-gable hall and a barbican. Every other
 building is an individual design: a cotton spinning mill, a steam sawmill, a sandstone works and a
 field supply depot.
-ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
+ORKAN/BUMMM (`1915-08`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
 light and a wind-ruffled sea on the Courland coast. Its landing piers and coves leave room for the linked
 ships' full hulls. Its HQs are two castles: one of red Baltic brick with a square main tower, a
 stepped-gable wing and a reedy wet ditch, one whitewashed with green iron roofs, a gate tower, birches
 and an earthen rampart. Every other building is an individual design: a brickworks with a ring kiln, a
 fish smokery, a steam sawmill, a manor distillery, a flax mill with a thatched drying barn, and forage,
 ammunition, engineer, coal and ration depots. Zigzag trenches run in from the west map edge.
-FRONT/LEVEL (`1915-10.jpg`, 3829×3302) uses the same density, with copper autumn foliage, cool light
+FRONT/LEVEL (`1915-10`, 3829×3302) uses the same density, with copper autumn foliage, cool light
 after prolonged rain and a broad belt of saturated clay, dirty puddles and timber-lined trenches.
-RATIO/TOXIN (`1915-12.jpg`, 2852×3302) has fresh wet snow, pale winter light, slushy lanes and
+RATIO/TOXIN (`1915-12`, 2852×3302) has fresh wet snow, pale winter light, slushy lanes and
 snow-covered rocky passes, at the same density.
-PARTS/PRINC (`1916-02.jpg`, 3829×4403) has wind-scoured snow, cold diffuse daylight after a February
+PARTS/PRINC (`1916-02`, 3829×4403) has wind-scoured snow, cold diffuse daylight after a February
 squall and a gusty sea, at the same density. Rocky inlets clear the full linked hulls; capped landings
 give the coastal roads visible ends. The EC harbour car starts one hex south on its road bend.
-PLANE/CLEAN (`1916-04.jpg`, 4806×5504) uses the same density, with fresh green meadow, budding trees
+PLANE/CLEAN (`1916-04`, 4806×5504) uses the same density, with fresh green meadow, budding trees
 and clear early-April light after overnight frost. Forest clearings leave firm ground beneath the
 starting units; river railheads have timber buffers. Small starting-position shifts keep ships, a
 Charron and an AA crew clear of shores, trees and a house.
-FLAME/XENON (`1916-06.jpg`, 2852×3302) has full summer greenery, damp meadow and gravel under humid
+FLAME/XENON (`1916-06`, 2852×3302) has full summer greenery, damp meadow and gravel under humid
 overcast light after a June shower. Both airstrips and their hangars remain open; small grass
 clearings support the starting units. Its coastal coves retain their original shape.
-GOTHA/SIGNS (`1916-08.jpg`, 4806×4403) has dry late-summer grass and dusty gravel in warm, hazy
+GOTHA/SIGNS (`1916-08`, 4806×4403) has dry late-summer grass and dusty gravel in warm, hazy
 afternoon light. Five bridges cross its inland waterways; factory rail entries stay open and the
 northern rail spur ends at a timber buffer. Nearby starting-position shifts clear banks and bridge
 parapets; small meadow clearings support feet, wheels and a bunker base.
-BALON/HOUSE (`1916-10.jpg`, 2852×3302) has thin wet snow after an October cold snap, copper leaves,
+BALON/HOUSE (`1916-10`, 2852×3302) has thin wet snow after an October cold snap, copper leaves,
 slushy lanes and cool overcast light. Small woodland clearings and rocky shelves support the starting
 units. Railheads have timber buffers; the short southern track continues across the map edge. Three
 setup records move infantry off house roofs onto nearby ground. The northern AA position has a partly
 backfilled crater for firm footing.
-PAUSE/SIGMA (`1916-12.jpg`, 7737×3302) has dry wind-packed December snow and pale morning light after
+PAUSE/SIGMA (`1916-12`, 7737×3302) has dry wind-packed December snow and pale morning light after
 a coastal gale. Its streams meet the sea through open mouths; snowy gravel joins the roads and building
 approaches. Small level pockets support the starting units, and the southern forest road fades beneath
 snow and canopy. One EC setup infantry group starts beside its house instead of on the roof.
-ELITE/SEVEN (`1917-02.jpg`, 2852×3302) has a February thaw under low raincloud, wet dormant grass,
+ELITE/SEVEN (`1917-02`, 2852×3302) has a February thaw under low raincloud, wet dormant grass,
 bare trees and scattered old snow. Both airstrips stay open; the southern stream fragments form
 continuous channels. Small clearings and a level rocky shelf support the starting units. One EC
 anti-tank crew starts on the adjacent bank path, clear of the diagonal road bridge's stream.
-INFRA/ZOMBI (`1917-04.jpg`, 4806×5504) has wet spring meadow, budding trees and wind-ruffled inland
+INFRA/ZOMBI (`1917-04`, 4806×5504) has wet spring meadow, budding trees and wind-ruffled inland
 lakes under bright overcast light between April showers. Small woodland clearings and level shelves
 support the starting units. A connected rocky massif surrounds the southeastern HQ; the southwestern
 mud forms one field around the ruined depot. Both rail routes share one registered track design, with
 timber buffers at their ends and the southern factory entry left open. Gravel and dirt approaches join
 the building yards.
-HILLS/MOVES (`1917-06.jpg`, 3829×4403) has full June greenery and mostly dry gravel beneath thin
+HILLS/MOVES (`1917-06`, 3829×4403) has full June greenery and mostly dry gravel beneath thin
 high cloud, after several dry days. Small clearings and level shelves support the starting units;
 all three airstrips and seven hangars stay open. Fourteen timber bridges span continuous streams,
 with short footbridge approaches fading into worn grass.
-COBRA/BLADE (`1917-08.jpg`, 3829×4403) follows PULSE's look: bright late-summer meadow, painterly woods
+COBRA/BLADE (`1917-08`, 3829×4403) follows PULSE's look: bright late-summer meadow, painterly woods
 and natural stony river and lake banks under warm afternoon sun. Every building is an individual design:
 a moated limestone château with green copper domes and a red-brick fort with octagonal crenellated
 towers as the HQs; a textile mill, an ironworks, a munitions works, a sawmill and a brickworks; a supply
@@ -87,12 +87,12 @@ yard, an ammunition dump, a remount depot, a walled farm, engineer stores and a 
 rail networks share one continuous track design; three open railheads have timber buffers and the
 southern compound entries stay open. Four long timber bridges span the waterways. Small clearings and a
 grassy shelf support the starting units; three patrol boats and two infantry groups start on adjacent hexes clear of banks and bridge edges.
-ATLAS/ZORRO (`1917-10.jpg`, 4806×4403) has shallow fresh October snow, copper leaves and pale
+ATLAS/ZORRO (`1917-10`, 4806×4403) has shallow fresh October snow, copper leaves and pale
 clear morning light. Small woodland clearings and level rocky shelves support the starting units;
 both airstrips and four hangars stay open. Eight bridges cross continuous rivers and streams.
 One continuous winter railway runs from the factory approach to the southern map edge. One patrol
 boat and one infantry group start on adjacent hexes clear of a bank and a house.
-AMPER/STONE (`1917-12.jpg`, 3829×4403) follows MOUSE's look: settled December snow broken by bare
+AMPER/STONE (`1917-12`, 3829×4403) follows MOUSE's look: settled December snow broken by bare
 shrubs and dry grass, mixed woods of snow-laden conifers and leafless trees, and natural lake banks
 with snowy boulders, frozen reeds and a thin rim of shore ice, under diffuse cold afternoon light.
 Every building is an individual design: a granite citadel with square slate-roofed towers and a frozen
@@ -107,7 +107,7 @@ on their hexes, and the strips fade out into trodden snow at their open ends. Th
 the west is one field of frozen mud with ice-filled shell holes and splintered stumps, its two trenches
 linked into one V-shaped line. Six level rocky ledges support the starting crews, and a small
 snowy hoof margin retains the southern stony field. All starting positions remain unchanged.
-RHEIN/MOSEL (`1918-02.jpg`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
+RHEIN/MOSEL (`1918-02`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
 sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
 at its closed ends; capped piers and worn bank approaches finish the coastal roads. Small clearings
 support the starting units. One two-player transport starts on the adjacent water hex, clear of its pier.
@@ -119,18 +119,18 @@ Moselle château with four octagonal slate-roofed towers as the HQs; an ironwork
 glassworks, a munitions works and a cement works; a harbour supply depot, an ammunition dump, a field
 bakery and an engineer park.
 
-CANDL/ORDER (`1918-04.jpg`, 3829×6605) has fresh spring meadow, budding woodland and breezy blue
+CANDL/ORDER (`1918-04`, 3829×6605) has fresh spring meadow, budding woodland and breezy blue
 water under clear April afternoon light. Small clearings and rocky ledges support the starting crews.
 One registered railway retains its destroyed intervals; closed spurs have timber buffers and broken
 bridge stubs keep their missing spans. Worn approaches finish the supply paths. Four ships and two
 land units start on adjacent hexes clear of banks and roofs.
 
-STERN/SODOM (`1918-06.jpg`, 3829×4403) has full June greenery, damp shell-torn earth and soft
+STERN/SODOM (`1918-06`, 3829×4403) has full June greenery, damp shell-torn earth and soft
 daylight after overnight rain, at the same density. Both path loops stay continuous; unmarked gravel
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
-Ypres (`1914-11.jpg`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
+Ypres (`1914-11`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
 middle stays plain; the map edges, where no units start, carry the invention: ploughland, hedgerows,
 pollard willows, drainage ditches, a flooded meadow, a ruined farmstead and an orchard.
@@ -144,7 +144,7 @@ stitched.
 Render the level's ground with the current tile art:
 
 ```sh
-go run ./cmd/hlart map -level levels/monthly/1914-10.json:cp -out build/review/painted-civil/guide   # map-ground.png, 4x
+go run ./cmd/hlart map -level levels/1914-10:cp -out build/review/painted-civil/guide   # map-ground.png, 4x
 ```
 
 The render is the layout every section must follow; the tiles' flat look, hex-shaped patches and black

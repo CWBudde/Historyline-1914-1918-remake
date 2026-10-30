@@ -1,0 +1,39 @@
+{
+	"code": "MARNE",
+	"units": [
+		[5, 6, "CP_lArtillery"],
+		[5, 11, "CP_lArtillery"],
+		[6, 6, "CP_infantry"],
+		[6, 11, "CP_infantry"],
+		[7, 5, "CP_infantry"],
+		[7, 7, "CP_eliteInf"],
+		[7, 12, "CP_infantry"],
+		[8, 12, "CP_supplyCar"],
+		[9, 12, "CP_bunker"],
+		[10, 4, "CP_cavalry"],
+		[10, 9, "CP_cavalry"],
+		[14, 7, "EC_infantry"],
+		[14, 8, "EC_infantry"],
+		[14, 9, "EC_cavalry"],
+		[15, 6, "EC_lArtillery"],
+		[15, 7, "EC_lArtillery"],
+		[15, 10, "EC_mArtillery"],
+		[16, 3, "EC_infantry"],
+		[16, 6, "EC_infantry"],
+		[16, 7, "EC_lArtillery"],
+		[17, 7, "EC_infantry"],
+		[17, 9, "EC_eliteInf"],
+		[18, 7, "EC_infantry"],
+		[18, 10, "EC_infantry"],
+		[19, 3, "EC_eliteInf"],
+		[19, 5, "EC_cavalry"],
+		[21, 9, "EC_infantry"],
+		[22, 4, "EC_supplyCar"]
+	],
+	"buildings": [
+		{"at": [6, 13], "owner": "cp"},
+		{"at": [7, 11], "owner": "cp", "units": ["CP_infantry", "CP_lArtillery"]},
+		{"at": [20, 6], "owner": "ec", "units": ["EC_infantry", "EC_lArtillery"]},
+		{"at": [21, 2], "owner": "ec"}
+	]
+}

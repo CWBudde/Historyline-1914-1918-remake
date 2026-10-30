@@ -2,6 +2,7 @@ package campaign
 
 import (
 	"io/fs"
+	"path"
 	"strings"
 	"testing"
 
@@ -9,17 +10,17 @@ import (
 )
 
 func TestEveryMonthHasAFrontPage(t *testing.T) {
-	files, err := fs.Glob(levels.Monthly, "monthly/*.json")
-	if err != nil || len(files) == 0 {
-		t.Fatal(files, err)
+	maps, err := fs.Glob(levels.Levels, "19*/map.json")
+	if err != nil || len(maps) == 0 {
+		t.Fatal(maps, err)
 	}
-	pages, err := fs.Glob(levels.Monthly, Dir+"/*.json")
-	if err != nil || len(pages) != len(files) {
-		t.Fatalf("%d front pages for %d monthly levels (%v)", len(pages), len(files), err)
+	pages, err := fs.Glob(levels.Levels, "*/"+File)
+	if err != nil || len(pages) != len(maps) {
+		t.Fatalf("%d front pages for %d campaign months (%v)", len(pages), len(maps), err)
 	}
-	for _, f := range files {
-		month := strings.TrimSuffix(strings.TrimPrefix(f, "monthly/"), ".json")
-		raw, err := fs.ReadFile(levels.Monthly, Dir+"/"+month+".json")
+	for _, m := range maps {
+		month := path.Dir(m)
+		raw, err := fs.ReadFile(levels.Levels, month+"/"+File)
 		if err != nil {
 			t.Errorf("%s has no front page", month)
 			continue
@@ -48,7 +49,7 @@ func TestParseWantsAWholePage(t *testing.T) {
 			t.Errorf("Parse(%s) took an incomplete page", raw)
 		}
 	}
-	if Month("monthly/news/1916-02.json") != "1916-02" {
-		t.Error(Month("monthly/news/1916-02.json"))
+	if Month("1916-02/news.json") != "1916-02" {
+		t.Error(Month("1916-02/news.json"))
 	}
 }

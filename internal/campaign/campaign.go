@@ -1,8 +1,8 @@
 // Package campaign holds the campaign's front pages. Before each battle of a
-// campaign month (levels/monthly) the player reads the month's front page of
-// a neutral newspaper, newly written: the month's war in a few paragraphs,
-// an illustration and a column of short items. The pages are files next to
-// the levels, levels/monthly/news/1914-08.json.
+// campaign month the player reads the month's front page of a neutral
+// newspaper, newly written: the month's war in a few paragraphs, an
+// illustration and a column of short items. A page is a file in the
+// month's level folder, levels/1914-08/news.json.
 package campaign
 
 import (
@@ -11,11 +11,10 @@ import (
 	"errors"
 	"fmt"
 	"path"
-	"strings"
 )
 
-// Dir holds the front pages in levels.Monthly, one file per month.
-const Dir = "monthly/news"
+// File is the front page's file in a month's level folder (levels.Levels).
+const File = "news.json"
 
 // Article is the front page of a campaign month.
 type Article struct {
@@ -27,10 +26,10 @@ type Article struct {
 	Briefs   []string `json:"briefs"`   // the "In brief" column: news from elsewhere
 }
 
-// Month is the month of a front page file: "monthly/news/1914-08.json" is
+// Month is the month of a front page file: "1914-08/news.json" is
 // "1914-08".
 func Month(file string) string {
-	return strings.TrimSuffix(path.Base(file), ".json")
+	return path.Base(path.Dir(file))
 }
 
 // Parse reads a front page file; every part of the page must be there.

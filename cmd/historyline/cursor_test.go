@@ -592,7 +592,7 @@ func TestEdgeScroll(t *testing.T) {
 // The strategic map shows every building its side sees: CIVIL's factories as
 // factory plates in their owners' shades, unowned ones unshaded.
 func TestStrategicFactories(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-10:cp", passPlanner{})
+	d := newDosTest(t, "1914-10:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	g.applyLayout(1800, 1000, 1)

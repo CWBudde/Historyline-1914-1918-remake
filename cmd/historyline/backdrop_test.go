@@ -238,11 +238,11 @@ func TestSlimNoGap(t *testing.T) {
 // below the levels directory, the embedded copy loads and fits the map, and a
 // battle on it draws the painting unless -backdrop off.
 func TestLevelBackdrop(t *testing.T) {
-	lvl, err := loadLevel(t.TempDir(), "monthly/1914-08:cp")
+	lvl, err := loadLevel(t.TempDir(), "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got := lvl.Extra.Backdrop; got != "monthly/1914-08.jpg" {
+	if got := lvl.Extra.Backdrop; got != "1914-08/backdrop.jpg" {
 		t.Fatalf("backdrop %q", got)
 	}
 	bd, err := levelBackdrop(t.TempDir(), lvl.Extra.Backdrop)

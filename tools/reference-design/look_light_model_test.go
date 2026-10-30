@@ -29,8 +29,8 @@ func TestLightModelShadows(t *testing.T) {
 		want []string
 	}{
 		{referenceLevel, []string{"standing/scatter/crown", "standing/context/forest"}},
-		{"monthly/1918-04:cp", []string{"standing/scatter/crown", "standing/props/trees"}},
-		{"monthly/1914-10:cp", []string{"standing/scatter/crown"}},
+		{"1918-04:cp", []string{"standing/scatter/crown", "standing/props/trees"}},
+		{"1914-10:cp", []string{"standing/scatter/crown"}},
 	} {
 		lvl := testLevel(t, src.name)
 		for _, density := range []int{2, 4} {

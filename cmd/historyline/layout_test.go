@@ -110,7 +110,7 @@ func TestHUDHitTest(t *testing.T) {
 // apparent size when only the display scale changes.
 func TestWorldPointSurvivesZoomResizeAndDPI(t *testing.T) {
 	c := newTestControl(t)
-	lvl, err := loadLevel("", "monthly/1914-08:cp")
+	lvl, err := loadLevel("", "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

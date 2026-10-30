@@ -1,38 +1,40 @@
-// Package scenario reads and writes the level files of levels/monthly and
-// levels/skirmish: one map shared by every mode and a unit setup per mode
-// (the Central Powers against the computer, the Entente against the
-// computer, two players).
+// Package scenario reads and writes the level folders below levels/: one
+// map shared by every mode and a unit setup per mode (the Central Powers
+// against the computer, the Entente against the computer, two players),
+// each in its own file.
 //
+//	levels/1914-08/map.json
 //	{
 //		"format": "historyline-scenario",
-//		"version": 1,
-//		"month": "1914-08",
+//		"version": 2,
 //		"name": "Pulse",
-//		"backdrop": "1914-08.jpg",
 //		"map": {
 //			"line1": [["hills", ""], ["grass", "road236"], …],
 //			…
-//		},
-//		"setups": {
-//			"cp": {
-//				"code": "PULSE",
-//				"units": [[4, 1, "CP_lArtillery"], …],
-//				"buildings": [{"at": [11, 1], "owner": "cp", "credits": 5, "units": ["CP_infantry"]}, …],
-//				"builds": ["CP_infantry", …]
-//			},
-//			"ec": {…},
-//			"2p": {"from": "cp", "code": "…"}
 //		}
 //	}
+//
+//	levels/1914-08/cp.json
+//	{
+//		"code": "PULSE",
+//		"units": [[4, 1, "CP_lArtillery"], …],
+//		"buildings": [{"at": [11, 1], "owner": "cp", "credits": 5, "units": ["CP_infantry"]}, …],
+//		"builds": ["CP_infantry", …]
+//	}
+//
+//	levels/1914-08/2p.json
+//	{"from": "cp", "code": "…"}
 //
 // The map holds the hexes of the legacy level format (internal/level)
 // without units and content: [terrain, infrastructure], line1… as there.
 // Units and building entrances ("at") are [line, column], both counted from
 // 1 as the map's line keys. A building's owner is "cp", "ec" or absent
 // (none); its credits are per cycle. A setup with "from" reuses that
-// setup's units, buildings and builds under its own code. Skirmish files
-// have no month. The optional backdrop names a painting of the whole map's
-// ground next to the file, drawn in place of the terrain tiles.
+// setup's units, buildings and builds under its own code. A campaign
+// month's folder is named by the month; the extra maps (levels/extra) have
+// none. A folder's backdrop.jpg is a painting of the whole map's ground,
+// drawn in place of the terrain tiles; backdrop.png beside it is its
+// lossless source, which the game does not ship.
 package scenario
 
 import (
@@ -41,8 +43,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"os"
 	"path"
+	"path/filepath"
 	"regexp"
 	"slices"
 	"strconv"
@@ -56,7 +60,14 @@ import (
 // Format and Version name the file format.
 const (
 	Format  = "historyline-scenario"
-	Version = 1
+	Version = 2
+)
+
+// The files of a level folder besides the setups (SetupFile).
+const (
+	MapFile        = "map.json"
+	BackdropFile   = "backdrop.jpg"
+	BackdropSource = "backdrop.png"
 )
 
 // Mode is a setup's key: who plays which side.
@@ -82,14 +93,16 @@ func (m Mode) Human() game.Player {
 	return game.CentralPowers
 }
 
-// File is a scenario file.
+// SetupFile is the file of the mode's setup in a level folder: "cp.json".
+func SetupFile(m Mode) string { return string(m) + ".json" }
+
+// File is a level folder.
 type File struct {
-	Month string // "1914-08"; "" for a skirmish map
+	Month string // "1914-08", the folder's name; "" for an extra map
 	Name  string // "Pulse"
 	// Backdrop is the painting of the map's ground drawn in place of the
-	// terrain tiles: a PNG or JPEG file next to the scenario file
-	// ("1914-08.jpg") covering the map's world rectangle as
-	// maprender draws it; "" for none.
+	// terrain tiles: BackdropFile when the folder has one, covering the
+	// map's world rectangle as maprender draws it; "" for none.
 	Backdrop string
 	Map      [][]level.Hex // Map[line][col]: terrain and infrastructure only
 	Setups   map[Mode]*Setup
@@ -118,40 +131,66 @@ type Building struct {
 	Units   []string
 }
 
-// Load reads and parses a scenario file.
-func Load(path string) (*File, error) {
-	raw, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
+// Read reads and checks the level folder dir of fsys (slash-separated): its
+// map, the setups it has files for and whether it has a backdrop. The
+// month is dir's name where that is one.
+func Read(fsys fs.FS, dir string) (*File, error) {
+	files := map[string][]byte{}
+	for _, name := range append([]string{MapFile}, setupFiles()...) {
+		b, err := fs.ReadFile(fsys, path.Join(dir, name))
+		if name != MapFile && errors.Is(err, fs.ErrNotExist) {
+			continue
+		}
+		if err != nil {
+			return nil, err
+		}
+		files[name] = b
 	}
-	f, err := Parse(raw)
+	f, err := Decode(files)
 	if err != nil {
-		return nil, fmt.Errorf("%s: %w", path, err)
+		return nil, fmt.Errorf("%s: %w", dir, err)
+	}
+	if base := path.Base(dir); monthRE.MatchString(base) {
+		f.Month = base
+	}
+	if _, err := fs.Stat(fsys, path.Join(dir, BackdropFile)); err == nil {
+		f.Backdrop = BackdropFile
 	}
 	return f, nil
 }
 
-// LoadLevel is the level of a setup of a scenario file.
-func LoadLevel(path string, m Mode) (*level.Level, error) {
-	f, err := Load(path)
+// Load reads and checks the level folder dir from disk.
+func Load(dir string) (*File, error) {
+	dir = filepath.Clean(dir)
+	return Read(os.DirFS(filepath.Dir(dir)), filepath.Base(dir))
+}
+
+// LoadLevel is the level of a setup of a level folder on disk.
+func LoadLevel(dir string, m Mode) (*level.Level, error) {
+	f, err := Load(dir)
 	if err != nil {
 		return nil, err
 	}
 	lv, err := f.Level(m)
 	if err != nil {
-		return nil, fmt.Errorf("%s: %w", path, err)
+		return nil, fmt.Errorf("%s: %w", dir, err)
 	}
 	return lv, nil
 }
 
-type fileJSON struct {
-	Format   string                         `json:"format"`
-	Version  int                            `json:"version"`
-	Month    string                         `json:"month"`
-	Name     string                         `json:"name"`
-	Backdrop string                         `json:"backdrop"`
-	Map      map[string][][]json.RawMessage `json:"map"`
-	Setups   map[Mode]*setupJSON            `json:"setups"`
+func setupFiles() []string {
+	out := make([]string, len(Modes))
+	for i, m := range Modes {
+		out[i] = SetupFile(m)
+	}
+	return out
+}
+
+type mapJSON struct {
+	Format  string                         `json:"format"`
+	Version int                            `json:"version"`
+	Name    string                         `json:"name"`
+	Map     map[string][][]json.RawMessage `json:"map"`
 }
 
 type setupJSON struct {
@@ -174,40 +213,67 @@ var (
 	owners  = map[string]game.Player{"": game.None, "cp": game.CentralPowers, "ec": game.Entente}
 )
 
-// Parse decodes and checks a scenario file: unknown keys, gaps in the map
-// lines, hexes off the map, two units on a hex, a building entrance that is
-// no building, an unknown owner, a "from" chain and a code used twice are
-// errors.
-func Parse(raw []byte) (*File, error) {
+// strict decodes the single JSON object raw into v, unknown keys an error.
+func strict(raw []byte, v any) error {
 	dec := json.NewDecoder(bytes.NewReader(raw))
 	dec.DisallowUnknownFields()
-	var fj fileJSON
-	if err := dec.Decode(&fj); err != nil {
-		return nil, err
+	if err := dec.Decode(v); err != nil {
+		return err
 	}
 	if _, err := dec.Token(); !errors.Is(err, io.EOF) {
-		return nil, errors.New("data after the scenario object")
+		return errors.New("data after the object")
 	}
-	if fj.Format != Format || fj.Version != Version {
-		return nil, fmt.Errorf("format %q version %d, want %q version %d", fj.Format, fj.Version, Format, Version)
+	return nil
+}
+
+// Decode checks and decodes the files of a level folder by name (MapFile
+// and a SetupFile per setup): unknown files or keys, gaps in the map lines,
+// hexes off the map, two units on a hex, a building entrance that is no
+// building, an unknown owner, a "from" chain and a code used twice are
+// errors. The month and the backdrop are the folder's, not its files'.
+func Decode(files map[string][]byte) (*File, error) {
+	var mj mapJSON
+	raw, ok := files[MapFile]
+	if !ok {
+		return nil, errors.New("no " + MapFile)
 	}
-	if fj.Month != "" && !monthRE.MatchString(fj.Month) {
-		return nil, fmt.Errorf("month %q is not YYYY-MM", fj.Month)
+	if err := strict(raw, &mj); err != nil {
+		return nil, fmt.Errorf("%s: %w", MapFile, err)
 	}
-	if fj.Name == "" {
+	if mj.Format != Format || mj.Version != Version {
+		return nil, fmt.Errorf("%s: format %q version %d, want %q version %d", MapFile, mj.Format, mj.Version, Format, Version)
+	}
+	setups := map[Mode]*setupJSON{}
+	for name, raw := range files {
+		if name == MapFile {
+			continue
+		}
+		m := Mode(strings.TrimSuffix(name, ".json"))
+		if !slices.Contains(Modes, m) || name != SetupFile(m) {
+			return nil, fmt.Errorf("%s: no map or setup file", name)
+		}
+		var sj setupJSON
+		if err := strict(raw, &sj); err != nil {
+			return nil, fmt.Errorf("%s: %w", name, err)
+		}
+		setups[m] = &sj
+	}
+	return build(mj.Name, mj.Map, setups)
+}
+
+// build checks and makes the file of a map and its setups.
+func build(name string, lines map[string][][]json.RawMessage, setups map[Mode]*setupJSON) (*File, error) {
+	if name == "" {
 		return nil, errors.New("no name")
 	}
-	if b := fj.Backdrop; b != "" && (path.Base(b) != b || strings.HasPrefix(b, ".") || !slices.Contains([]string{".png", ".jpg", ".jpeg"}, strings.ToLower(path.Ext(b)))) {
-		return nil, fmt.Errorf("backdrop %q is not a PNG or JPEG file name", b)
-	}
-	f := &File{Month: fj.Month, Name: fj.Name, Backdrop: fj.Backdrop, Setups: map[Mode]*Setup{}}
-	if err := f.parseMap(fj.Map); err != nil {
+	f := &File{Name: name, Setups: map[Mode]*Setup{}}
+	if err := f.parseMap(lines); err != nil {
 		return nil, err
 	}
-	if len(fj.Setups) == 0 {
+	if len(setups) == 0 {
 		return nil, errors.New("no setups")
 	}
-	for m, sj := range fj.Setups {
+	for m, sj := range setups {
 		if !slices.Contains(Modes, m) {
 			return nil, fmt.Errorf("setup %q: no such mode", m)
 		}
@@ -424,9 +490,10 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	return lv, nil
 }
 
-// Marshal encodes the file: a map line per row, a unit and a building per
-// row, setups in Modes order, units and buildings in hex order.
-func (f *File) Marshal() ([]byte, error) {
+// Files encodes the folder's files by name: MapFile, a map line per row,
+// and a SetupFile per setup in Modes order, a unit and a building per row
+// in hex order.
+func (f *File) Files() (map[string][]byte, error) {
 	var b bytes.Buffer
 	str := func(s string) {
 		q, _ := json.Marshal(s)
@@ -442,18 +509,9 @@ func (f *File) Marshal() ([]byte, error) {
 		}
 		b.WriteString("]")
 	}
-	fmt.Fprintf(&b, "{\n\t\"format\": %q,\n\t\"version\": %d,\n", Format, Version)
-	if f.Month != "" {
-		b.WriteString("\t\"month\": ")
-		str(f.Month)
-		b.WriteString(",\n")
-	}
-	b.WriteString("\t\"name\": ")
+	out := map[string][]byte{}
+	fmt.Fprintf(&b, "{\n\t\"format\": %q,\n\t\"version\": %d,\n\t\"name\": ", Format, Version)
 	str(f.Name)
-	if f.Backdrop != "" {
-		b.WriteString(",\n\t\"backdrop\": ")
-		str(f.Backdrop)
-	}
 	b.WriteString(",\n\t\"map\": {\n")
 	for i, line := range f.Map {
 		fmt.Fprintf(&b, "\t\t\"line%d\": [", i+1)
@@ -480,99 +538,118 @@ func (f *File) Marshal() ([]byte, error) {
 		}
 		b.WriteString("\n")
 	}
-	b.WriteString("\t},\n\t\"setups\": {\n")
-	var modes []Mode
+	b.WriteString("\t}\n}\n")
+	out[MapFile] = slices.Clone(b.Bytes())
 	for _, m := range Modes {
-		if f.Setups[m] != nil {
-			modes = append(modes, m)
-		}
-	}
-	for i, m := range modes {
 		s := f.Setups[m]
-		fmt.Fprintf(&b, "\t\t%q: {", m)
-		var fields []func()
-		if s.From != "" {
-			fields = append(fields, func() { fmt.Fprintf(&b, "\"from\": %q", s.From) })
+		if s == nil {
+			continue
 		}
+		b.Reset()
+		if s.From != "" {
+			fmt.Fprintf(&b, "{\"from\": %q", s.From)
+			if s.Code != "" {
+				b.WriteString(", \"code\": ")
+				str(s.Code)
+			}
+			b.WriteString("}\n")
+			out[SetupFile(m)] = slices.Clone(b.Bytes())
+			continue
+		}
+		var fields []func()
 		if s.Code != "" {
 			fields = append(fields, func() { b.WriteString("\"code\": "); str(s.Code) })
 		}
-		if s.From == "" {
-			units := slices.Clone(s.Units)
-			slices.SortStableFunc(units, func(x, y Unit) int { return order(x.At, y.At) })
-			fields = append(fields, func() {
-				b.WriteString("\"units\": [")
-				for k, u := range units {
-					if k > 0 {
-						b.WriteString(",")
-					}
-					fmt.Fprintf(&b, "\n\t\t\t\t[%d, %d, ", u.At.Line+1, u.At.Col+1)
-					str(u.ID)
-					b.WriteString("]")
+		units := slices.Clone(s.Units)
+		slices.SortStableFunc(units, func(x, y Unit) int { return order(x.At, y.At) })
+		fields = append(fields, func() {
+			b.WriteString("\"units\": [")
+			for k, u := range units {
+				if k > 0 {
+					b.WriteString(",")
 				}
-				if len(units) > 0 {
-					b.WriteString("\n\t\t\t")
-				}
+				fmt.Fprintf(&b, "\n\t\t[%d, %d, ", u.At.Line+1, u.At.Col+1)
+				str(u.ID)
 				b.WriteString("]")
-			})
-			bs := slices.Clone(s.Buildings)
-			slices.SortStableFunc(bs, func(x, y Building) int { return order(x.At, y.At) })
-			fields = append(fields, func() {
-				b.WriteString("\"buildings\": [")
-				for k, bd := range bs {
-					if k > 0 {
-						b.WriteString(",")
-					}
-					fmt.Fprintf(&b, "\n\t\t\t\t{\"at\": [%d, %d]", bd.At.Line+1, bd.At.Col+1)
-					switch bd.Owner {
-					case game.CentralPowers:
-						b.WriteString(", \"owner\": \"cp\"")
-					case game.Entente:
-						b.WriteString(", \"owner\": \"ec\"")
-					}
-					if bd.Credits != 0 {
-						fmt.Fprintf(&b, ", \"credits\": %d", bd.Credits)
-					}
-					if len(bd.Units) > 0 {
-						b.WriteString(", \"units\": ")
-						strs(bd.Units)
-					}
-					b.WriteString("}")
-				}
-				if len(bs) > 0 {
-					b.WriteString("\n\t\t\t")
-				}
-				b.WriteString("]")
-			})
-			if len(s.Builds) > 0 {
-				fields = append(fields, func() { b.WriteString("\"builds\": "); strs(s.Builds) })
 			}
+			if len(units) > 0 {
+				b.WriteString("\n\t")
+			}
+			b.WriteString("]")
+		})
+		bs := slices.Clone(s.Buildings)
+		slices.SortStableFunc(bs, func(x, y Building) int { return order(x.At, y.At) })
+		fields = append(fields, func() {
+			b.WriteString("\"buildings\": [")
+			for k, bd := range bs {
+				if k > 0 {
+					b.WriteString(",")
+				}
+				fmt.Fprintf(&b, "\n\t\t{\"at\": [%d, %d]", bd.At.Line+1, bd.At.Col+1)
+				switch bd.Owner {
+				case game.CentralPowers:
+					b.WriteString(", \"owner\": \"cp\"")
+				case game.Entente:
+					b.WriteString(", \"owner\": \"ec\"")
+				}
+				if bd.Credits != 0 {
+					fmt.Fprintf(&b, ", \"credits\": %d", bd.Credits)
+				}
+				if len(bd.Units) > 0 {
+					b.WriteString(", \"units\": ")
+					strs(bd.Units)
+				}
+				b.WriteString("}")
+			}
+			if len(bs) > 0 {
+				b.WriteString("\n\t")
+			}
+			b.WriteString("]")
+		})
+		if len(s.Builds) > 0 {
+			fields = append(fields, func() { b.WriteString("\"builds\": "); strs(s.Builds) })
 		}
+		b.WriteString("{")
 		for k, w := range fields {
 			if k > 0 {
 				b.WriteString(",")
 			}
-			if s.From == "" {
-				b.WriteString("\n\t\t\t")
-			} else if k > 0 {
-				b.WriteString(" ")
-			}
+			b.WriteString("\n\t")
 			w()
 		}
-		if s.From == "" {
-			b.WriteString("\n\t\t")
-		}
-		b.WriteString("}")
-		if i+1 < len(modes) {
-			b.WriteString(",")
-		}
-		b.WriteString("\n")
+		b.WriteString("\n}\n")
+		out[SetupFile(m)] = slices.Clone(b.Bytes())
 	}
-	b.WriteString("\t}\n}\n")
-	if _, err := Parse(b.Bytes()); err != nil {
-		return nil, fmt.Errorf("scenario: the encoded file does not parse: %w", err)
+	if _, err := Decode(out); err != nil {
+		return nil, fmt.Errorf("scenario: the encoded files do not decode: %w", err)
 	}
-	return b.Bytes(), nil
+	return out, nil
+}
+
+// Write writes the folder's files into dir, which it makes where missing,
+// and removes the files of the setups f lacks.
+func (f *File) Write(dir string) error {
+	files, err := f.Files()
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+	for name, b := range files {
+		if err := os.WriteFile(filepath.Join(dir, name), b, 0o644); err != nil {
+			return err
+		}
+	}
+	for _, m := range Modes {
+		if f.Setups[m] != nil {
+			continue
+		}
+		if err := os.Remove(filepath.Join(dir, SetupFile(m))); err != nil && !errors.Is(err, fs.ErrNotExist) {
+			return err
+		}
+	}
+	return nil
 }
 
 // order sorts hexes by line, then column.

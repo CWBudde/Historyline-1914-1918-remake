@@ -232,7 +232,7 @@ func TestPlannerGivesOneActionPerUnit(t *testing.T) {
 
 func TestPlaysShippedLevels(t *testing.T) {
 	set := loadSet(t)
-	for _, name := range []string{"monthly/1914-08", "monthly/1914-10", "monthly/1914-12"} {
+	for _, name := range []string{"1914-08", "1914-10", "1914-12"} {
 		for _, side := range []game.Player{game.CentralPowers, game.Entente} {
 			t.Run(fmt.Sprintf("%s/%v", name, side), func(t *testing.T) {
 				lv, err := scenario.ShippedLevel(name, scenario.CP)
@@ -288,7 +288,7 @@ func owned(s *game.State, p game.Player) int {
 }
 
 // The planner plays both sides of every shipped scenario setup (the
-// monthly levels' three setups and the skirmish maps' two-player one: the
+// campaign months' three setups and the extra maps' two-player one: the
 // original maps with aircraft, ships and the whole roster) for some rounds
 // under both rule sets without an illegal order; with -short every sixth.
 func TestPlaysCampaignLevels(t *testing.T) {
@@ -299,7 +299,7 @@ func TestPlaysCampaignLevels(t *testing.T) {
 	}
 	var levels []scenario.Named
 	for _, n := range all {
-		if !strings.HasPrefix(n.Name, "skirmish/") || strings.HasSuffix(n.Name, ":2p") {
+		if !strings.HasPrefix(n.Name, "extra/") || strings.HasSuffix(n.Name, ":2p") {
 			levels = append(levels, n)
 		}
 	}

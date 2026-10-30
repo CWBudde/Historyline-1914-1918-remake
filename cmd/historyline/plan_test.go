@@ -24,8 +24,8 @@ func tickUntil(t *testing.T, d *dosControl, done func() bool) {
 }
 
 func TestPlanOffTheFrame(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", computerPlanner())
-	same := newDosTest(t, "monthly/1914-08:cp", computerPlanner())
+	d := newDosTest(t, "1914-08:cp", computerPlanner())
+	same := newDosTest(t, "1914-08:cp", computerPlanner())
 	opp := 1 - d.side
 	for turn := range 4 {
 		// The planning shows for planMinFrames at least with a rising bar,
@@ -82,7 +82,7 @@ func TestPlanOffTheFrame(t *testing.T) {
 }
 
 func TestPlanInTheFrameWithoutCommands(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
+	d := newDosTest(t, "1914-08:cp", passPlanner{})
 	d.Tick()
 	if d.planning() || !d.s.Ready(1-d.side) {
 		t.Errorf("pass planner: planning %v, ready %v", d.planning(), d.s.Ready(1-d.side))
@@ -164,7 +164,7 @@ func TestComputerMovesWalk(t *testing.T) {
 // TestComputerActsAtOnceReduced: with reduced motion the computer's orders
 // all land in the frame its planning comes in.
 func TestComputerActsAtOnceReduced(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", computerPlanner())
+	d := newDosTest(t, "1914-08:cp", computerPlanner())
 	d.SetReducedMotion(true)
 	tickUntil(t, d, func() bool { return !d.planning() && (d.acting() || d.s.Ready(1-d.side)) })
 	if d.acting() || !d.s.Ready(1-d.side) {
@@ -176,7 +176,7 @@ func TestComputerActsAtOnceReduced(t *testing.T) {
 // computer's rest before a move and its walk run actFastSpeed times as fast,
 // and at the normal speed again when the human side reopens its orders.
 func TestComputerMovesFasterWhileWaited(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", computerPlanner())
+	d := newDosTest(t, "1914-08:cp", computerPlanner())
 	opp := 1 - d.side
 	for turn := 0; d.act == nil || d.act.walk.Done(); turn++ {
 		if turn == 4 || d.s.Ended() != nil {

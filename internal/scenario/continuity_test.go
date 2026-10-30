@@ -10,23 +10,16 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
-// authored are the hand-authored months (the odd ones); the even months come
-// from the original maps.
+// authoredMonths are the hand-authored months; the others come from the
+// original maps (cmd/hlcampaign).
+var authoredMonths = []string{"1914-09", "1914-11", "1915-01"}
+
+// authored are the hand-authored months' folders.
 func authored(t *testing.T) []string {
 	t.Helper()
-	all, err := filepath.Glob(filepath.Join("..", "..", "levels", "monthly", "*.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
 	var out []string
-	for _, p := range all {
-		month := strings.TrimSuffix(filepath.Base(p), ".json")
-		if last := month[len(month)-1]; last%2 == 1 {
-			out = append(out, p)
-		}
-	}
-	if len(out) == 0 {
-		t.Fatal("no hand-authored months")
+	for _, m := range authoredMonths {
+		out = append(out, filepath.Join(levelsDir, m))
 	}
 	return out
 }
@@ -38,7 +31,7 @@ func authored(t *testing.T) []string {
 func TestAuthoredLinesAreContinuous(t *testing.T) {
 	for _, path := range authored(t) {
 		t.Run(filepath.Base(path), func(t *testing.T) {
-			if filepath.Base(path) == "1914-09.json" {
+			if filepath.Base(path) == "1914-09" {
 				t.Skip("Marne predates this check: three path ports and a road port dangle")
 			}
 			f, err := Load(path)

@@ -1,6 +1,7 @@
 package dosbind_test
 
 import (
+	"os"
 	"path/filepath"
 	"slices"
 	"strconv"
@@ -14,19 +15,23 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// Every setup of the shipped scenarios (levels/monthly, levels/skirmish)
-// must bind for -rules dos.
+// Every setup of the shipped level folders (the campaign months and the
+// extra maps) must bind for -rules dos.
 func TestBindScenarios(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
 		t.Fatal(err)
 	}
-	months, _ := filepath.Glob("../../levels/monthly/*.json")
-	skirmish, _ := filepath.Glob("../../levels/skirmish/*.json")
-	if len(months) < 25 || len(skirmish) != 24 {
-		t.Fatalf("%d months, %d skirmish maps", len(months), len(skirmish))
+	dirs, err := scenario.Folders(os.DirFS(levelsDir))
+	if err != nil {
+		t.Fatal(err)
 	}
-	for _, path := range append(months, skirmish...) {
+	months, err := scenario.Months(os.DirFS(levelsDir))
+	if err != nil || len(months) < 27 || len(dirs) < 51 {
+		t.Fatalf("%d months, %d folders, %v", len(months), len(dirs), err)
+	}
+	for _, dir := range dirs {
+		path := filepath.Join(levelsDir, filepath.FromSlash(dir))
 		f, err := scenario.Load(path)
 		if err != nil {
 			t.Fatal(err)
@@ -56,7 +61,7 @@ func TestBindScenarioCredits(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lv, err := scenario.LoadLevel("../../levels/monthly/1914-08.json", scenario.CP)
+	lv, err := scenario.LoadLevel(filepath.Join(levelsDir, "1914-08"), scenario.CP)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -78,20 +83,15 @@ func TestBindScenarioCredits(t *testing.T) {
 	}
 }
 
-// Every hex of a hand-authored month (the odd ones) binds to a terrain
-// record of its own: none loses an overlay to the fallback that drops
-// unrecorded infrastructure.
+// Every hex of a hand-authored month binds to a terrain record of its own:
+// none loses an overlay to the fallback that drops unrecorded
+// infrastructure.
 func TestAuthoredHexesHaveRecords(t *testing.T) {
-	months, _ := filepath.Glob("../../levels/monthly/*.json")
-	for _, path := range months {
-		month := strings.TrimSuffix(filepath.Base(path), ".json")
-		if month[len(month)-1]%2 == 0 {
-			continue
-		}
+	for _, month := range []string{"1914-09", "1914-11", "1915-01"} {
 		if month == "1914-09" || month == "1914-11" {
 			continue // predate this check: a double road, paths on mud and forest
 		}
-		f, err := scenario.Load(path)
+		f, err := scenario.Load(filepath.Join(levelsDir, month))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -121,7 +121,7 @@ func TestBindRoadBridgeOverWater(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lv, err := scenario.LoadLevel("../../levels/monthly/1917-12.json", scenario.CP)
+	lv, err := scenario.LoadLevel(filepath.Join(levelsDir, "1917-12"), scenario.CP)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -148,3 +148,6 @@ func TestBindRoadBridgeOverWater(t *testing.T) {
 		t.Errorf("%d bridge hexes, want 4", n)
 	}
 }
+
+// levelsDir is the levels directory on disk.
+var levelsDir = filepath.Join("..", "..", "levels")

@@ -1,0 +1,20 @@
+{
+	"code": "TROLL",
+	"units": [
+		[2, 4, "CP_staticAA"],
+		[3, 4, "CP_armCar"],
+		[3, 5, "CP_cavalry"],
+		[6, 3, "CP_bunker"],
+		[19, 5, "EC_bunker"],
+		[22, 4, "EC_staticAA"],
+		[23, 4, "EC_cavalry"],
+		[23, 5, "EC_charron"]
+	],
+	"buildings": [
+		{"at": [4, 4], "owner": "cp", "credits": 12},
+		{"at": [7, 2], "owner": "cp", "credits": 52},
+		{"at": [24, 4], "owner": "ec", "credits": 12},
+		{"at": [26, 2], "owner": "ec", "credits": 52}
+	],
+	"builds": ["CP_armCar", "CP_fokkerEI", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_sappers", "CP_cavalry", "CP_supplyCar", "EC_voisin", "EC_moraneN", "EC_dh2", "EC_charron"]
+}

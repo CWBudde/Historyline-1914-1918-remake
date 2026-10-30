@@ -38,7 +38,7 @@ type testLevel struct {
 
 // shipped are the Python remake's PULSE (internal/level's fixture, map 00),
 // then the setups that hold an original map's units: the cp setup of every
-// campaign month made from one, the 2p setup of every skirmish map.
+// campaign month made from one, the 2p setup of every extra map.
 func shipped(t *testing.T) []testLevel {
 	t.Helper()
 	out := []testLevel{pythonPulse(t)}
@@ -48,21 +48,20 @@ func shipped(t *testing.T) []testLevel {
 	}
 	for _, n := range sh {
 		file, mode, _ := strings.Cut(n.Name, ":")
-		dir, name, _ := strings.Cut(file, "/")
 		var y, m, k int
-		switch {
-		case dir == "monthly" && mode == "cp":
-			if _, err := fmt.Sscanf(name, "%4d-%2d", &y, &m); err != nil {
+		switch extra, isExtra := strings.CutPrefix(file, scenario.ExtraDir+"/"); {
+		case isExtra && mode == "2p":
+			if _, err := fmt.Sscanf(extra, "%2d-", &k); err != nil {
+				t.Fatalf("%s: %v", n.Name, err)
+			}
+			out = append(out, testLevel{n.Level, 47 + k})
+		case !isExtra && mode == "cp":
+			if _, err := fmt.Sscanf(file, "%4d-%2d", &y, &m); err != nil {
 				t.Fatalf("%s: %v", n.Name, err)
 			}
 			if months := 12*(y-1914) + m - 8; months%2 == 0 {
 				out = append(out, testLevel{n.Level, months / 2})
 			}
-		case dir == "skirmish" && mode == "2p":
-			if _, err := fmt.Sscanf(name, "%2d-", &k); err != nil {
-				t.Fatalf("%s: %v", n.Name, err)
-			}
-			out = append(out, testLevel{n.Level, 47 + k})
 		}
 	}
 	if len(out) != 49 {

@@ -128,11 +128,11 @@ art-index:
 art-check:
     go run ./cmd/hlart check
 
-# Write the backdrop JPEGs (levels/monthly/1914-08.jpg) from their sources in levels/backdrops, at each JPEG's own quality: just backdrop-jpeg monthly/1914-08
+# Write the backdrop JPEGs (levels/1914-08/backdrop.jpg) from their sources beside them (backdrop.png), at each JPEG's own quality: just backdrop-jpeg 1914-08
 backdrop-jpeg +names:
     go run ./cmd/hlbackdrop jpeg {{names}}
 
-# Write the scenarios of the original full game's maps (local original/): their months in levels/monthly and levels/skirmish (overwrites hand edits there, keeps backdrops)
+# Write the level folders of the original full game's maps (local original/): their months and levels/extra (overwrites hand edits there, keeps backdrops and front pages)
 levels-campaign:
     go run ./cmd/hlcampaign
 
@@ -145,12 +145,12 @@ artbook: _build-dir
     go run ./tools/art-review -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
     go run ./cmd/hlart pulse -out build/artbook/pulse
     go run ./tools/reference-design -look-out build/artbook/look
-    go run ./cmd/hlart map -level levels/monthly/1914-10.json:cp -out build/artbook/winter
-    go run ./cmd/hlart map -level levels/monthly/1914-12.json:cp -out build/artbook/winter3
-    go run ./cmd/hlart map -level levels/monthly/1914-08.json:cp -out build/artbook/campaign/summer
-    go run ./cmd/hlart map -level levels/monthly/1916-10.json:cp -out build/artbook/campaign/winter
-    go run ./cmd/hlart map -level levels/monthly/1916-06.json:ec -out build/artbook/campaign/sea
-    go run ./cmd/hlart map -level levels/skirmish/11-uboot.json:2p -out build/artbook/campaign/harbour
+    go run ./cmd/hlart map -level levels/1914-10:cp -out build/artbook/winter
+    go run ./cmd/hlart map -level levels/1914-12:cp -out build/artbook/winter3
+    go run ./cmd/hlart map -level levels/1914-08:cp -out build/artbook/campaign/summer
+    go run ./cmd/hlart map -level levels/1916-10:cp -out build/artbook/campaign/winter
+    go run ./cmd/hlart map -level levels/1916-06:ec -out build/artbook/campaign/sea
+    go run ./cmd/hlart map -level levels/extra/11-uboot:2p -out build/artbook/campaign/harbour
     go run ./tools/reference-design -compare build/artbook/compare -compare-format png
     compare=""
     if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi

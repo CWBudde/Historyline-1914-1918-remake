@@ -1,18 +1,15 @@
-// Package levels embeds the shipped levels so the game also runs where there is no
-// file system to read them from (the browser build).
+// Package levels embeds the shipped level folders (internal/scenario) so the
+// game also runs where there is no file system to read them from (the
+// browser build).
 package levels
 
 import "embed"
 
-// Monthly holds the campaign's scenario files (internal/scenario), one per
-// month, named like "monthly/1914-08.json", their backdrops and the
-// months' newspaper front pages (internal/campaign), "monthly/news/1914-08.json".
+// Levels holds the level folders: the campaign months, "1914-08/map.json"
+// with a setup file per mode, the backdrop "1914-08/backdrop.jpg" and the
+// month's newspaper front page "1914-08/news.json" (internal/campaign), and
+// the extra two-player maps, "extra/13-grand/map.json". The backdrops'
+// lossless sources (backdrop.png) stay out.
 //
-//go:embed monthly
-var Monthly embed.FS
-
-// Skirmish holds the original's two-player maps as scenario files, named
-// like "skirmish/01-track.json".
-//
-//go:embed skirmish/*.json
-var Skirmish embed.FS
+//go:embed 19*/*.json 19*/backdrop.jpg extra/*/*.json
+var Levels embed.FS

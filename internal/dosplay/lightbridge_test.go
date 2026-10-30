@@ -128,7 +128,7 @@ func TestLightBridgeMove(t *testing.T) {
 // NONNE's path bridge (line 20, column 8) binds to a bridge record, not to
 // the bare stream its key used to fall back to.
 func TestNonnePathBridgeBinds(t *testing.T) {
-	lv, err := scenario.LoadLevel("../../levels/monthly/1914-11.json", scenario.EC)
+	lv, err := scenario.LoadLevel("../../levels/1914-11", scenario.EC)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,9 +1,10 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
-	"slices"
+	"path"
 	"strings"
 	"unicode"
 
@@ -15,7 +16,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // The menus around a battle, laid out like the original's: the main menu
@@ -42,11 +42,11 @@ const (
 	pageUnits // the unit types new to the side, after the front page
 )
 
-// mapLevel is a map of the menu: a setup of a monthly level
-// (levels/monthly), opened by its code word.
+// mapLevel is a map of the menu: a setup of a campaign month
+// (levels/1914-08), opened by its code word.
 type mapLevel struct {
-	name       string // -level name: "monthly/1914-08:cp"
-	file       string // the scenario file: "monthly/1914-08"
+	name       string // -level name: "1914-08:cp"
+	file       string // the level folder: "1914-08"
 	mode       scenario.Mode
 	lvl        *level.Level
 	next       int    // the map a victory leads to, -1 for none
@@ -69,26 +69,23 @@ func (m mapLevel) news() (campaign.Article, bool) {
 	return *m.article, true
 }
 
-// frontPages reads the front pages (campaign.Dir) by month, numbered in
-// calendar order from 1.
-func frontPages(dir string) (map[string]*campaign.Article, map[string]int, error) {
-	files, err := fs.Glob(levels.Monthly, campaign.Dir+"/*.json")
-	if err != nil {
-		return nil, nil, err
-	}
-	slices.Sort(files)
+// frontPages reads the campaign months' front pages (campaign.File) by
+// month, numbered in calendar order from 1.
+func frontPages(fsys fs.FS, months []string) (map[string]*campaign.Article, map[string]int, error) {
 	pages, issues := map[string]*campaign.Article{}, map[string]int{}
-	for i, f := range files {
-		raw, err := readLevelFile(dir, levels.Monthly, f)
+	for _, month := range months {
+		raw, err := fs.ReadFile(fsys, path.Join(month, campaign.File))
+		if errors.Is(err, fs.ErrNotExist) {
+			continue
+		}
 		if err != nil {
-			return nil, nil, fmt.Errorf("%s: %w", f, err)
+			return nil, nil, err
 		}
 		a, err := campaign.Parse(raw)
 		if err != nil {
-			return nil, nil, fmt.Errorf("%s: %w", f, err)
+			return nil, nil, fmt.Errorf("%s: %w", month, err)
 		}
-		month := campaign.Month(f)
-		pages[month], issues[month] = &a, i+1
+		pages[month], issues[month] = &a, len(pages)+1
 	}
 	return pages, issues, nil
 }
@@ -124,27 +121,24 @@ func (m mapLevel) code() string {
 // Central Powers' chain, then the Entente's.
 var campaignModes = []scenario.Mode{scenario.CP, scenario.EC}
 
-// loadCampaign loads the campaign from the monthly levels (levels/monthly)
-// in calendar order: one chain per side, every month's setup of that side
-// with a code word, the Central Powers' first. A victory leads to the next
-// month of the chain, none after its last.
+// loadCampaign loads the campaign from the campaign months' level folders
+// below dir (embedded where missing) in calendar order: one chain per side,
+// every month's setup of that side with a code word, the Central Powers'
+// first. A victory leads to the next month of the chain, none after its
+// last.
 func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
-	files, err := fs.Glob(levels.Monthly, "monthly/*.json")
+	fsys := levelsFS(dir)
+	months, err := scenario.Months(fsys)
 	if err != nil {
 		return nil, err
 	}
-	slices.Sort(files)
-	scens := make([]*scenario.File, len(files))
-	for i, f := range files {
-		raw, err := readLevelFile(dir, levels.Monthly, f)
-		if err != nil {
-			return nil, fmt.Errorf("%s: %w", f, err)
-		}
-		if scens[i], err = scenario.Parse(raw); err != nil {
-			return nil, fmt.Errorf("%s: %w", f, err)
+	scens := make([]*scenario.File, len(months))
+	for i, month := range months {
+		if scens[i], err = scenario.Read(fsys, month); err != nil {
+			return nil, err
 		}
 	}
-	pages, issues, err := frontPages(dir)
+	pages, issues, err := frontPages(fsys, months)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +151,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			if s == nil || s.Code == "" {
 				continue
 			}
-			file := strings.TrimSuffix(files[i], ".json")
+			file := months[i]
 			lvl, err := scenarioLevel(f, file, mode)
 			if err != nil {
 				return nil, err
@@ -525,7 +519,7 @@ func (s *shell) loadSaved() {
 		return
 	}
 	for i, m := range s.maps {
-		if m.name == env.Map {
+		if m.name == strings.TrimPrefix(env.Map, "") { // saved before the level folders
 			s.code, s.pendingSave, s.pendingSide = i, env.Data, env.Side
 			s.side = dosbind.Factions[env.Side]
 			s.open(pageLoading)

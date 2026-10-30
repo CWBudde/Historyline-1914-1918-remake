@@ -1,0 +1,36 @@
+{
+	"code": "NONNE",
+	"units": [
+		[4, 8, "EC_eliteInf"],
+		[5, 6, "EC_cavalry"],
+		[6, 7, "EC_infantry"],
+		[7, 12, "CP_armCar"],
+		[8, 5, "EC_sappers"],
+		[8, 15, "CP_supplyCar"],
+		[9, 11, "CP_eliteInf"],
+		[9, 13, "CP_infantry"],
+		[10, 12, "CP_infantry"],
+		[11, 4, "EC_lArtillery"],
+		[11, 5, "EC_bunker"],
+		[11, 6, "EC_infantry"],
+		[11, 14, "CP_mArtillery"],
+		[13, 11, "CP_eliteInf"],
+		[14, 7, "EC_infantry"],
+		[14, 11, "CP_infantry"],
+		[15, 16, "CP_cavalry"],
+		[16, 2, "EC_supplyCar"],
+		[17, 4, "EC_lArtillery"],
+		[17, 6, "EC_infantry"],
+		[17, 12, "CP_infantry"],
+		[17, 14, "CP_mArtillery"],
+		[19, 13, "CP_infantry"],
+		[21, 7, "EC_infantry"],
+		[21, 8, "EC_cavalry"]
+	],
+	"buildings": [
+		{"at": [9, 2], "owner": "ec", "units": ["EC_infantry", "EC_lArtillery"]},
+		{"at": [10, 11], "owner": "cp", "units": ["CP_infantry"]},
+		{"at": [12, 3], "owner": "ec"},
+		{"at": [12, 14], "owner": "cp"}
+	]
+}

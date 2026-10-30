@@ -61,20 +61,20 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   `cmd/finextract` writes them as JSON for a look. `dosbind.FromOriginal` binds such a map exactly,
   `internal/origview` draws it (a look per terrain record, `looks.json`); `-level original/NN` plays it
   exactly.
-- `internal/scenario`: the level format of `levels/monthly/` (the campaign, one level per month,
-  `1914-08.json`) and `levels/skirmish/` (the original's two-player maps): one map shared by every
-  mode and a setup per mode (`cp`, `ec`, `2p`) with units, building owners, credits, builds and the code
-  word, and an optional backdrop, a painting of the whole ground next to the file
-  (`1914-08.jpg`) that the game draws in place of the terrain tiles (painted in stitched sections,
-  `docs/painted-backdrops.md`; its lossless source is `levels/backdrops/monthly/1914-08.png`, which
-  `cmd/hlbackdrop` encodes to the JPEG and checks); `File.Level` turns a setup into
-  a `level.Level`. The original campaign maps take the first month of each two-month period, their CP
-  version's terrain; `just levels-campaign` (`cmd/hlcampaign`) writes those months and the skirmish set
-  from the local original maps and overwrites hand edits there (backdrops stay), the other months (newly
-  authored levels such as Marne) stay. The menu campaign is a chain per side through the months;
-  `-level monthly/1914-08:ec` plays one setup. Before a campaign battle the player reads the month's
-  newspaper front page, `levels/monthly/news/1914-08.json` (`internal/campaign`); the notes on the page
-  of new units are `internal/data/notes.json`.
+- `internal/scenario`: the level folders below `levels/`: a folder per campaign month (`levels/1914-08/`)
+  and the extra two-player maps (`levels/extra/01-track/`). A folder holds the map shared by every mode
+  (`map.json`) and a file per setup (`cp.json`, `ec.json`, `2p.json`) with units, building owners,
+  credits, builds and the code word; a month's folder also its newspaper front page (`news.json`,
+  `internal/campaign`) and optionally its backdrop, a painting of the whole ground (`backdrop.jpg`) that
+  the game draws in place of the terrain tiles (painted in stitched sections,
+  `docs/painted-backdrops.md`; its lossless source `backdrop.png` beside it is not embedded, and
+  `cmd/hlbackdrop` encodes it to the JPEG and checks); `File.Level` turns a setup into a `level.Level`.
+  The original campaign maps take the first month of each two-month period, their CP version's
+  terrain; `just levels-campaign` (`cmd/hlcampaign`) writes those months and the extra maps from the
+  local original maps and overwrites hand edits there (backdrops and front pages stay), the other
+  months (newly authored levels such as Marne) stay. The menu campaign is a chain per side through the
+  months; `-level 1914-08:ec` plays one setup. The notes on the page of new units are
+  `internal/data/notes.json`.
 - `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);
   `art/style.md`, bundle manifests in `art/pipeline/`, the PULSE reference in `art/reference/pulse/`.
   Art guide: `art/README.md`. `assets/<kind>/<family>/`: runtime art only, every file listed in

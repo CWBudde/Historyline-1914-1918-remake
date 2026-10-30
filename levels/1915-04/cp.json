@@ -1,0 +1,41 @@
+{
+	"code": "NOISE",
+	"units": [
+		[2, 9, "EC_moraneN"],
+		[4, 9, "EC_moraneN"],
+		[6, 4, "EC_lArtillery"],
+		[6, 5, "EC_bunker"],
+		[9, 5, "EC_cavalry"],
+		[9, 6, "EC_cavalry"],
+		[10, 8, "EC_bunker"],
+		[13, 6, "EC_bunker"],
+		[17, 5, "EC_trainArt"],
+		[20, 10, "EC_cavalry"],
+		[23, 12, "EC_armTrain"],
+		[24, 6, "EC_hArtillery"],
+		[27, 11, "EC_bunker"],
+		[45, 4, "CP_bunker"],
+		[53, 14, "CP_armTrain"],
+		[53, 15, "CP_bunker"],
+		[54, 15, "CP_eliteInf"],
+		[55, 14, "CP_trainArt"],
+		[55, 15, "CP_eliteInf"],
+		[56, 13, "CP_mArtillery"],
+		[57, 14, "CP_transTrain"],
+		[60, 15, "CP_fokkerEI"],
+		[62, 15, "CP_fokkerEI"]
+	],
+	"buildings": [
+		{"at": [7, 4], "owner": "ec", "credits": 10},
+		{"at": [7, 8], "credits": 10, "units": ["CP_cavalry", "CP_cavalry", "CP_cavalry", "EC_charron", "CP_lArtillery"]},
+		{"at": [14, 12], "credits": 10, "units": ["CP_eliteInf", "CP_lArtillery", "CP_mArtillery", "CP_infantry", "CP_infantry", "CP_infantry"]},
+		{"at": [22, 4], "credits": 10, "units": ["CP_eliteInf", "CP_cavalry", "CP_cavalry", "CP_hArtillery", "CP_mArtillery", "EC_voisin"]},
+		{"at": [29, 10], "credits": 10, "units": ["CP_mArtillery", "CP_mArtillery", "CP_cavalry", "CP_cavalry", "CP_infantry", "CP_infantry"]},
+		{"at": [37, 3], "credits": 10, "units": ["CP_infantry", "CP_infantry", "CP_eliteInf"]},
+		{"at": [46, 11], "credits": 10, "units": ["CP_lArtillery", "CP_cavalry", "CP_infantry", "CP_infantry"]},
+		{"at": [52, 4], "credits": 15, "units": ["CP_lArtillery", "CP_cavalry", "CP_eliteInf", "CP_infantry"]},
+		{"at": [57, 9], "credits": 10, "units": ["CP_infantry", "CP_infantry", "CP_infantry"]},
+		{"at": [58, 14], "owner": "cp", "credits": 5}
+	],
+	"builds": ["CP_armCar", "CP_fokkerEI", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_cavalry", "CP_supplyCar", "EC_voisin", "EC_moraneN", "EC_charron"]
+}

@@ -21,7 +21,7 @@ func TestSeaDepthSteps(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"monthly/1916-02:cp", "monthly/1915-08:cp"} {
+	for _, name := range []string{"1916-02:cp", "1915-08:cp"} {
 		lvl, flat := testLevel(t, name), testLevel(t, name)
 		g := lvl.Grid()
 		families := map[string][]cell{}
@@ -92,7 +92,7 @@ func TestSeaRepeat(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lvl := testLevel(t, "monthly/1916-02:cp")
+	lvl := testLevel(t, "1916-02:cp")
 	g := lvl.Grid()
 	open := map[hexgrid.Coord]bool{}
 	for l, line := range lvl.Lines {

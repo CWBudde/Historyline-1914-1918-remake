@@ -1,15 +1,14 @@
-// Command hlcampaign writes the scenario files (internal/scenario) of the
+// Command hlcampaign writes the level folders (internal/scenario) of the
 // original full game's maps, read from the local original files
-// (internal/origmaps):
+// (internal/origmaps), below the levels directory:
 //
-//   - levels/monthly: campaign map k (00–23 with its Entente version
-//     24–47) becomes the level of month k*2 after August 1914, named by
-//     the month ("1914-08.json"). The map is the
-//     Central Powers version's; setup cp is that version, ec the Entente
-//     version on the same map, 2p the Central Powers side of the first and
-//     the Entente side of the second.
-//   - levels/skirmish: the two-player maps 48–71, "01-track.json", with
-//     the original's units as setup 2p and cp, ec from it.
+//   - campaign map k (00–23 with its Entente version 24–47) becomes the
+//     month k*2 after August 1914, named by the month ("1914-08"). The map
+//     is the Central Powers version's; setup cp is that version, ec the
+//     Entente version on the same map, 2p the Central Powers side of the
+//     first and the Entente side of the second.
+//   - the two-player maps 48–71 become extra/01-track …, with the
+//     original's units as setup 2p and cp, ec from it.
 //
 // Credits are the buildings' records' energy (an HQ without a record 50),
 // builds the map's producible types. Where the Entente version's terrain
@@ -17,11 +16,11 @@
 // and its buildings' content to the nearest building of the kind; the
 // command prints every such change.
 //
-//	go run ./cmd/hlcampaign [-monthly levels/monthly] [-skirmish levels/skirmish]
+//	go run ./cmd/hlcampaign [-levels levels]
 //
-// It replaces the months it writes in -monthly (other months' files, the
-// newly authored levels, stay) and every scenario file of -skirmish; a
-// replaced file keeps its backdrop, and the pictures stay.
+// It replaces the map and setup files of the folders it writes (the other
+// months, the newly authored levels, stay) and removes those of an extra
+// folder it no longer writes; backdrops and front pages stay.
 package main
 
 import (
@@ -48,8 +47,7 @@ import (
 )
 
 func main() {
-	monthly := flag.String("monthly", "levels/monthly", "output directory of the campaign months")
-	skirmish := flag.String("skirmish", "levels/skirmish", "output directory of the two-player maps")
+	dir := flag.String("levels", "levels", "the levels directory")
 	flag.Parse()
 	set, err := data.Load()
 	if err != nil {
@@ -59,58 +57,58 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	backdrops, err := keptBackdrops(*monthly, *skirmish)
-	if err != nil {
-		log.Fatal(err)
-	}
-	out, err := generate(maps, set, backdrops)
+	out, err := generate(maps, set)
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, line := range out.report {
 		fmt.Println(line)
 	}
-	// The importer owns its months: an older file of such a month goes,
-	// whatever its name.
-	old, err := filepath.Glob(filepath.Join(*monthly, "*.json"))
+	// The importer owns the extra maps: a folder it no longer writes loses
+	// its map and setups, and goes when nothing else is left in it.
+	extras, err := filepath.Glob(filepath.Join(*dir, scenario.ExtraDir, "*"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _, p := range old {
-		if out.months[path.Base(p)[:min(7, len(path.Base(p)))]] {
-			if err := os.Remove(p); err != nil {
+	for _, p := range extras {
+		if out.folders[path.Join(scenario.ExtraDir, filepath.Base(p))] != nil {
+			continue
+		}
+		for _, name := range append([]string{scenario.MapFile}, setupFiles()...) {
+			if err := os.Remove(filepath.Join(p, name)); err != nil && !errors.Is(err, os.ErrNotExist) {
 				log.Fatal(err)
 			}
 		}
+		_ = os.Remove(p)
 	}
-	old, err = filepath.Glob(filepath.Join(*skirmish, "*.json"))
-	if err != nil {
-		log.Fatal(err)
+	names := make([]string, 0, len(out.folders))
+	for name := range out.folders {
+		names = append(names, name)
 	}
-	for _, p := range old {
-		if err := os.Remove(p); err != nil {
-			log.Fatal(err)
+	slices.Sort(names)
+	for _, name := range names {
+		if err := out.folders[name].Write(filepath.Join(*dir, filepath.FromSlash(name))); err != nil {
+			log.Fatalf("%s: %v", name, err)
 		}
 	}
-	for dir, files := range map[string]map[string][]byte{*monthly: out.monthly, *skirmish: out.skirmish} {
-		if err := os.MkdirAll(dir, 0o755); err != nil {
-			log.Fatal(err)
-		}
-		for name, b := range files {
-			if err := os.WriteFile(filepath.Join(dir, name), b, 0o644); err != nil {
-				log.Fatal(err)
-			}
-		}
-	}
-	fmt.Printf("wrote %d months to %s and %d maps to %s\n", len(out.monthly), *monthly, len(out.skirmish), *skirmish)
+	fmt.Printf("wrote %d level folders to %s\n", len(out.folders), *dir)
 }
 
-// output is what generate writes: the files by name, the months they take
-// ("1914-08") and the changes the merge made.
+// setupFiles are the setup files of every mode.
+func setupFiles() []string {
+	var out []string
+	for _, m := range scenario.Modes {
+		out = append(out, scenario.SetupFile(m))
+	}
+	return out
+}
+
+// output is what generate writes: the level folders by their path below
+// the levels directory ("1914-08", "extra/01-track") and the changes the
+// merge made.
 type output struct {
-	monthly, skirmish map[string][]byte
-	months            map[string]bool
-	report            []string
+	folders map[string]*scenario.File
+	report  []string
 }
 
 // campaignMaps is the number of maps per campaign.
@@ -122,31 +120,9 @@ func Month(k int) string {
 	return fmt.Sprintf("%d-%02d", 1914+m/12, m%12+1)
 }
 
-// keptBackdrops are the backdrops of the scenario files in the directories,
-// by file name ("1914-08.json"); a missing directory has none.
-func keptBackdrops(dirs ...string) (map[string]string, error) {
-	out := map[string]string{}
-	for _, dir := range dirs {
-		paths, err := filepath.Glob(filepath.Join(dir, "*.json"))
-		if err != nil {
-			return nil, err
-		}
-		for _, p := range paths {
-			f, err := scenario.Load(p)
-			if err != nil {
-				return nil, err
-			}
-			if f.Backdrop != "" {
-				out[filepath.Base(p)] = f.Backdrop
-			}
-		}
-	}
-	return out, nil
-}
-
-// generate returns the scenario files of the full game's maps (00-71 in map
-// order), each with its backdrop by file name.
-func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (*output, error) {
+// generate returns the level folders of the full game's maps (00-71 in map
+// order).
+func generate(all []*finmap.Level, set *data.Set) (*output, error) {
 	if len(all) < 3*campaignMaps {
 		return nil, fmt.Errorf("%d maps, want %d", len(all), 3*campaignMaps)
 	}
@@ -156,7 +132,7 @@ func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (
 			return nil, fmt.Errorf("map %d (%s): not map %02d with a mission code", i, m.Source.Map, i)
 		}
 	}
-	out := &output{monthly: map[string][]byte{}, skirmish: map[string][]byte{}, months: map[string]bool{}}
+	out := &output{folders: map[string]*scenario.File{}}
 	ids := dosbind.RemakeIDs(set)
 	for k := range campaignMaps {
 		f, report, err := month(maps[k], maps[k+campaignMaps], set, ids)
@@ -164,15 +140,13 @@ func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (
 			return nil, fmt.Errorf("map %02d: %w", k, err)
 		}
 		f.Month = Month(k)
-		name := f.Month + ".json"
-		f.Backdrop = backdrops[name]
 		for _, r := range report {
-			out.report = append(out.report, name+": "+r)
+			out.report = append(out.report, f.Month+": "+r)
 		}
-		if out.monthly[name], err = encode(f, set); err != nil {
-			return nil, fmt.Errorf("%s: %w", name, err)
+		if err := check(f, set); err != nil {
+			return nil, fmt.Errorf("%s: %w", f.Month, err)
 		}
-		out.months[f.Month] = true
+		out.folders[f.Month] = f
 	}
 	for j := range campaignMaps {
 		m := maps[2*campaignMaps+j]
@@ -185,13 +159,13 @@ func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (
 		f := &scenario.File{Name: title(m.Mission.Code), Map: lines, Setups: map[scenario.Mode]*scenario.Setup{
 			scenario.TwoPlayer: s, scenario.CP: {From: scenario.TwoPlayer}, scenario.EC: {From: scenario.TwoPlayer},
 		}}
-		name := fmt.Sprintf("%02d-%s.json", j+1, strings.ToLower(m.Mission.Code))
-		f.Backdrop = backdrops[name]
-		if out.skirmish[name], err = encode(f, set); err != nil {
+		name := path.Join(scenario.ExtraDir, fmt.Sprintf("%02d-%s", j+1, strings.ToLower(m.Mission.Code)))
+		if err := check(f, set); err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
 		}
+		out.folders[name] = f
 	}
-	if len(out.monthly) != campaignMaps || len(out.skirmish) != campaignMaps {
+	if len(out.folders) != 2*campaignMaps {
 		return nil, errors.New("two maps share a code word")
 	}
 	return out, nil
@@ -202,13 +176,13 @@ func title(code string) string {
 	return code[:1] + strings.ToLower(code[1:])
 }
 
-// encode checks that every setup of f binds under the original rules and
-// starts a game under the remake's, and encodes f.
-func encode(f *scenario.File, set *data.Set) ([]byte, error) {
+// check checks that every setup of f binds under the original rules and
+// starts a game under the remake's, and that f encodes.
+func check(f *scenario.File, set *data.Set) error {
 	for _, m := range scenario.Modes {
 		lv, err := f.Level(m)
 		if err != nil {
-			return nil, err
+			return err
 		}
 		b, err := dosbind.Bind(lv, set)
 		if err == nil {
@@ -218,10 +192,11 @@ func encode(f *scenario.File, set *data.Set) ([]byte, error) {
 			_, err = game.New(lv, set)
 		}
 		if err != nil {
-			return nil, fmt.Errorf("setup %s: %w", m, err)
+			return fmt.Errorf("setup %s: %w", m, err)
 		}
 	}
-	return f.Marshal()
+	_, err := f.Files()
+	return err
 }
 
 // remake is the remake level of an original map (origview.Campaign) with

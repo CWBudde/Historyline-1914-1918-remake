@@ -11,7 +11,7 @@ import (
 
 // The browser build has no levels directory; the embedded copies must load.
 func TestLoadLevelEmbeddedFallback(t *testing.T) {
-	for _, name := range []string{"monthly/1914-08:cp", "monthly/1914-10:cp", "monthly/1914-12:cp"} {
+	for _, name := range []string{"1914-08:cp", "1914-10:cp", "1914-12:cp"} {
 		if _, err := loadLevel(t.TempDir(), name); err != nil {
 			t.Errorf("%s: %v", name, err)
 		}
@@ -285,7 +285,7 @@ func slicesContains(us []*state.Unit, u *state.Unit) bool {
 // on a hex the player cannot see now is never drawn from live state.
 func TestRememberedUnitShown(t *testing.T) {
 	c := newTestControl(t)
-	lvl, err := loadLevel("", "monthly/1914-08:cp")
+	lvl, err := loadLevel("", "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -349,7 +349,7 @@ func TestRememberedUnitShown(t *testing.T) {
 
 func TestOwnerShown(t *testing.T) {
 	c := newTestControl(t)
-	lvl, err := loadLevel("", "monthly/1914-08:cp")
+	lvl, err := loadLevel("", "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

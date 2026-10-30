@@ -1,0 +1,25 @@
+{
+	"code": "GRAND",
+	"units": [
+		[6, 3, "CP_cavalry"],
+		[54, 30, "EC_cavalry"]
+	],
+	"buildings": [
+		{"at": [4, 15], "credits": 13, "units": ["EC_spad7", "CP_staticAA", "CP_cavalry", "CP_cavalry", "CP_cavalry", "CP_cavalry"]},
+		{"at": [5, 30], "credits": 10, "units": ["CP_eliteInf", "CP_eliteInf", "CP_lArtillery", "CP_lArtillery", "CP_armCar", "CP_armCar"]},
+		{"at": [8, 3], "owner": "cp", "credits": 5},
+		{"at": [11, 21], "credits": 13, "units": ["CP_infantry", "CP_infantry", "CP_infantry", "CP_eliteInf", "CP_sappers", "CP_lArtillery"]},
+		{"at": [14, 9], "credits": 10, "units": ["EC_charron", "CP_markI", "CP_markI", "CP_mobileAA"]},
+		{"at": [23, 28], "credits": 13, "units": ["CP_fokkerEIII", "CP_infantry", "CP_infantry", "CP_infantry", "CP_eliteInf", "CP_eliteInf"]},
+		{"at": [27, 24], "credits": 14, "units": ["CP_mArtillery", "CP_mobileAA", "CP_eliteInf", "CP_transTrain", "CP_armTrain", "CP_armTrain"]},
+		{"at": [30, 14], "credits": 15, "units": ["CP_eliteInf", "CP_eliteInf", "CP_mArtillery", "CP_transTrain", "CP_armTrain", "CP_infantry"]},
+		{"at": [32, 7], "credits": 13, "units": ["CP_ft17", "CP_staticAA", "CP_markI", "CP_lArtillery", "CP_lArtillery"]},
+		{"at": [44, 11], "credits": 14, "units": ["CP_infantry", "CP_infantry", "CP_infantry", "CP_staticAA", "EC_voisin"]},
+		{"at": [46, 3], "credits": 13, "units": ["CP_ft17", "CP_staticAA", "EC_charron", "EC_charron", "EC_charron", "EC_charron"]},
+		{"at": [52, 22], "credits": 10, "units": ["CP_lArtillery", "CP_lArtillery", "CP_armCar", "CP_staticAA", "CP_staticAA"]},
+		{"at": [53, 14], "credits": 13, "units": ["CP_gothaGV", "CP_mobileAA", "CP_cavalry", "CP_cavalry", "CP_cavalry", "CP_cavalry"]},
+		{"at": [56, 30], "owner": "ec", "credits": 5},
+		{"at": [57, 5], "credits": 14, "units": ["CP_ft17", "CP_sappers", "CP_cavalry", "CP_cavalry", "CP_cavalry", "CP_cavalry"]}
+	],
+	"builds": ["CP_armCar", "CP_gothaGV", "CP_fokkerEI", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_sappers", "CP_cavalry", "CP_supplyCar", "CP_trainArt", "CP_armTrain", "CP_transTrain", "EC_voisin", "EC_moraneN", "EC_dh2", "EC_nieuport17", "EC_charron", "CP_ft17", "CP_markI"]
+}

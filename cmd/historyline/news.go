@@ -17,7 +17,7 @@ import (
 )
 
 // Before a campaign battle the player reads the month's front page of "The
-// War Chronicle" (levels/monthly/news): masthead, headline, an illustration
+// War Chronicle" (levels/<month>/news.json): masthead, headline, an illustration
 // (news/<month> of the screen catalog) with its caption and the battle's
 // orders under it, the article in two columns and a column of short items; then, where the map gives their side
 // unit types it has not had before, the page of new units, four a page.

@@ -26,7 +26,7 @@ func shipped(t *testing.T) []*level.Level {
 		t.Fatal(err)
 	}
 	out := []*level.Level{pulse}
-	for _, name := range []string{"monthly/1914-08", "monthly/1914-10", "monthly/1914-12"} {
+	for _, name := range []string{"1914-08", "1914-10", "1914-12"} {
 		lv, err := scenario.ShippedLevel(name, scenario.CP)
 		if err != nil {
 			t.Fatal(err)

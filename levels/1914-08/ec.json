@@ -1,0 +1,40 @@
+{
+	"code": "BATLE",
+	"units": [
+		[2, 1, "CP_infantry"],
+		[9, 3, "CP_mArtillery"],
+		[10, 3, "CP_infantry"],
+		[11, 3, "CP_eliteInf"],
+		[11, 4, "CP_infantry"],
+		[12, 2, "CP_infantry"],
+		[12, 3, "CP_lArtillery"],
+		[12, 4, "CP_mArtillery"],
+		[13, 2, "CP_infantry"],
+		[13, 4, "CP_eliteInf"],
+		[17, 3, "CP_cavalry"],
+		[18, 2, "CP_cavalry"],
+		[18, 4, "CP_bunker"],
+		[19, 2, "CP_cavalry"],
+		[29, 2, "EC_bunker"],
+		[34, 4, "EC_bunker"],
+		[34, 7, "EC_infantry"],
+		[37, 5, "EC_cavalry"],
+		[38, 6, "EC_eliteInf"],
+		[39, 6, "EC_eliteInf"],
+		[39, 7, "EC_mArtillery"],
+		[39, 8, "EC_lArtillery"],
+		[40, 5, "EC_bunker"],
+		[41, 5, "EC_hArtillery"],
+		[41, 6, "EC_infantry"],
+		[41, 8, "EC_supplyCar"],
+		[42, 5, "EC_infantry"],
+		[44, 3, "EC_cavalry"]
+	],
+	"buildings": [
+		{"at": [6, 1], "owner": "cp", "credits": 5},
+		{"at": [19, 6], "credits": 15, "units": ["EC_infantry", "EC_infantry", "EC_eliteInf"]},
+		{"at": [34, 1], "credits": 15, "units": ["EC_lArtillery", "EC_infantry", "EC_infantry"]},
+		{"at": [42, 6], "owner": "ec", "credits": 5}
+	],
+	"builds": ["EC_armCar", "CP_fokkerEI", "EC_lArtillery", "EC_mArtillery", "EC_hArtillery", "EC_construction", "EC_eliteInf", "EC_infantry", "EC_cavalry", "EC_supplyCar", "EC_voisin", "EC_moraneN", "EC_charron"]
+}

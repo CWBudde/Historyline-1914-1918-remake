@@ -18,7 +18,7 @@ import (
 
 // previewLevel is the campaign map whose bunkers the preview crops (its
 // cp setup).
-const previewLevel = "levels/monthly/1916-02.json"
+const previewLevel = "levels/1916-02"
 
 // renderPreview renders the installed family with the runtime art: every unit of
 // the family on previewLevel, and a summer and a winter field with each owner's

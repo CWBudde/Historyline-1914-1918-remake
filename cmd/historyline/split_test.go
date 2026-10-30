@@ -187,7 +187,7 @@ func TestPanelCameraMatchesView(t *testing.T) {
 // w × h.
 func newSplitTest(t *testing.T, planner dosPlanner, w, h int) (*game, *dosControl) {
 	t.Helper()
-	d := newDosTest(t, "monthly/1914-08:cp", planner)
+	d := newDosTest(t, "1914-08:cp", planner)
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	g.applyLayout(w, h, 1)

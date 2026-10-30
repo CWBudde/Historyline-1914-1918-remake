@@ -738,17 +738,15 @@ func (g *game) Layout(outsideW, outsideH int) (int, int) {
 	return g.view.PhysW, g.view.PhysH
 }
 
-// loadLevel loads name: a setup of a scenario file below dir
-// ("monthly/1914-08:ec", see loadScenario), or a level file of the
-// legacy format by its path ("art/reference/pulse/level.json").
+// loadLevel loads name: a setup of a level folder below dir ("1914-08:ec",
+// see loadScenario), or a level file of the legacy format by its path
+// ("art/reference/pulse/level.json").
 func loadLevel(dir, name string) (*level.Level, error) {
-	for prefix, emb := range scenarioDirs {
-		if strings.HasPrefix(name, prefix) {
-			return loadScenario(dir, emb, name)
-		}
+	if scenarioName(name) {
+		return loadScenario(dir, name)
 	}
 	if !strings.HasSuffix(name, ".json") {
-		return nil, fmt.Errorf("level %q: not a scenario setup (monthly/…, skirmish/…), original/NN or a .json file", name)
+		return nil, fmt.Errorf("level %q: not a level folder's setup (1914-08:cp, extra/…), original/NN or a .json file", name)
 	}
 	return level.Load(name)
 }
@@ -861,8 +859,8 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "monthly/1914-08:cp", "a scenario setup (monthly/1914-08:ec, skirmish/01-track:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
-	dir := flag.String("levels", "levels", "directory with the level files")
+	name := flag.String("level", "1914-08:cp", "a level folder's setup (1914-08:ec, extra/15-water:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
+	dir := flag.String("levels", "levels", "directory with the level folders")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")

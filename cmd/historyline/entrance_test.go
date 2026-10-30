@@ -12,7 +12,7 @@ import (
 // contents, the open gesture is offered, and a unit aimed at the entrance
 // enters on a click on another cell, which keeps its colour while aimed.
 func TestBuildingCellsActAsEntrance(t *testing.T) {
-	d := newDosTest(t, "monthly/1914-08:cp", passPlanner{})
+	d := newDosTest(t, "1914-08:cp", passPlanner{})
 	hq := ownHQ(t, d)
 	cells := d.s.Footprint(hq)
 	if len(cells) < 2 || cells[0] != hq {
