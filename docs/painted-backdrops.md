@@ -95,6 +95,10 @@ support the starting units. One two-player transport starts on the adjacent wate
 The western shelled ground is four fields of wet thawing mud with water-filled shell holes, stumps and
 wire; their trenches are revetted zigzag lines on their original courses. The south-eastern mountains are one
 rugged limestone massif of linked ridges, gullies and scree, split by the road in a pass.
+Every building is an individual design: a Prussian polygonal fort with four brick-faced bastions and a
+Moselle château with four octagonal slate-roofed towers as the HQs; an ironworks, a coal pithead, a
+glassworks, a munitions works and a cement works; a harbour supply depot, an ammunition dump, a field
+bakery and an engineer park.
 
 CANDL/ORDER (`1918-04.jpg`, 3829×6605) has fresh spring meadow, budding woodland and breezy blue
 water under clear April afternoon light. Small clearings and rocky ledges support the starting crews.
