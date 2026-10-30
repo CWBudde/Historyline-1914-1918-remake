@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
@@ -254,8 +255,14 @@ func TestCanRepairAndBuild(t *testing.T) {
 				t.Errorf("Buildable(%d): %+v", hold, o)
 			}
 		}
-		if !slices.Equal(types, s.Game.Buildings[hold].Builds) {
-			t.Errorf("Buildable(%d) = %v, builds %v", hold, types, s.Game.Buildings[hold].Builds)
+		var want []int
+		for _, typ := range s.Game.Buildings[hold].Builds {
+			if s.typeID(typ, 0) != "" {
+				want = append(want, typ)
+			}
+		}
+		if !slices.Equal(types, want) {
+			t.Errorf("Buildable(%d) = %v, want %v of builds %v", hold, types, want, s.Game.Buildings[hold].Builds)
 		}
 		o := opts[0]
 		s.Game.Energy[0] = o.Cost - 1
@@ -355,21 +362,17 @@ func TestContentSlots(t *testing.T) {
 	}
 }
 
-// A type only one side has in the remake still gets that unit's name, so a
-// factory never offers "Type 46".
-func TestTypeIDFallsBackToTheOtherSide(t *testing.T) {
+// A factory offers no type only the other side has in the remake, so never a
+// "Type 46".
+func TestBuildableHidesTheOtherSidesTypes(t *testing.T) {
 	s := civil(t)
-	for typ, want := range map[int]string{
-		46: "EC_charron", 49: "EC_stChamond", 37: "EC_handleyPage", 38: "EC_dh4",
-		43: "EC_se5a", 44: "EC_spad13", 45: "EC_camel",
-	} {
+	for hold := range s.Game.Buildings {
 		for side := 0; side <= 1; side++ {
-			if got := s.typeID(typ, side); got != want {
-				t.Errorf("typeID(%d, %d) = %q, want %q", typ, side, got, want)
+			for _, o := range s.Buildable(side, hold) {
+				if o.ID == "" || o.Name == "" || strings.HasPrefix(o.Name, "Type ") {
+					t.Errorf("Buildable(%d, %d) offers %+v", side, hold, o)
+				}
 			}
 		}
-	}
-	if got := s.typeID(18, 1); got == "" || got[:2] != "EC" {
-		t.Errorf("typeID(18, 1) = %q, want the Entente infantry", got)
 	}
 }

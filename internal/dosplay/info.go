@@ -174,7 +174,8 @@ type BuildOption struct {
 }
 
 // Buildable are the types building record hold builds, in the scenario's
-// order, as side sees them; none for a building that only repairs. Whether
+// order, as side sees them, without the types only the other side has; none
+// for a building that only repairs. Whether
 // the side may build one now is CanBuild's.
 func (s *Session) Buildable(side, hold int) []BuildOption {
 	types := s.Game.Profile.Tables.Types
@@ -188,6 +189,10 @@ func (s *Session) Buildable(side, hold int) []BuildOption {
 			continue
 		}
 		id := s.typeID(t, side)
+		if id == "" {
+			// The other side's unit (the Charron, the Camel): not offered.
+			continue
+		}
 		out = append(out, BuildOption{Type: t, ID: id, Name: s.typeName(id, t), Cost: types[t].Cost})
 	}
 	return out
