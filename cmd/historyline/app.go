@@ -434,10 +434,10 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 			drawText(dst, d, p.Label, true, 12, 24, 118, amber, false)
 		}
 		drawText(dst, d, m.lvl.MapName, true, 16, 24, 144, cream, false)
-		if m.briefing != "" {
-			drawText(dst, d, m.briefing, false, 12, 24, 180, cream, false)
+		for i, l := range wrapText(m.briefing, false, 12, panelW-48) {
+			drawText(dst, d, l, false, 12, 24, float64(172+i*17), cream, false)
 		}
-		drawText(dst, d, "The map is being prepared.", false, 13, 24, 216, cream, false)
+		drawText(dst, d, "The map is being prepared.", false, 13, 24, 238, cream, false)
 		// Only the web build fetches the terrain; on disk it opens at once.
 		if l := a.load; l != nil {
 			if f, ok := l.m.fraction(); ok {
@@ -659,23 +659,7 @@ func renderText(k textKey) textImage {
 	if t, ok := textCache[k]; ok {
 		return t
 	}
-	fk := textKey{bold: k.bold, serif: k.serif, size: k.size, density: k.density}
-	face, ok := faces[fk]
-	if !ok {
-		f := regularFont
-		switch {
-		case k.serif:
-			f = serifFont
-		case k.bold:
-			f = boldFont
-		}
-		var err error
-		face, err = opentype.NewFace(f, &opentype.FaceOptions{Size: k.size * float64(k.density), DPI: 72, Hinting: font.HintingNone})
-		if err != nil {
-			panic(err)
-		}
-		faces[fk] = face
-	}
+	face := faceFor(k)
 	m := face.Metrics()
 	ascent, descent := m.Ascent.Ceil(), m.Descent.Ceil()
 	advance := font.MeasureString(face, k.s).Ceil()
@@ -688,6 +672,50 @@ func renderText(k textKey) textImage {
 	}
 	textCache[k] = t
 	return t
+}
+
+// faceFor is the font face of k's style, size and density; k.s and k.c do not matter.
+func faceFor(k textKey) font.Face {
+	fk := textKey{bold: k.bold, serif: k.serif, size: k.size, density: k.density}
+	if face, ok := faces[fk]; ok {
+		return face
+	}
+	f := regularFont
+	switch {
+	case k.serif:
+		f = serifFont
+	case k.bold:
+		f = boldFont
+	}
+	face, err := opentype.NewFace(f, &opentype.FaceOptions{Size: k.size * float64(k.density), DPI: 72, Hinting: font.HintingNone})
+	if err != nil {
+		panic(err)
+	}
+	faces[fk] = face
+	return face
+}
+
+// wrapText breaks s at spaces into lines no wider than width logical pixels
+// in the sans face; a word wider than width keeps a line of its own.
+func wrapText(s string, bold bool, size, width float64) []string {
+	face := faceFor(textKey{bold: bold, size: size, density: 1})
+	var lines []string
+	line := ""
+	for _, w := range strings.Fields(s) {
+		next := w
+		if line != "" {
+			next = line + " " + w
+		}
+		if line != "" && float64(font.MeasureString(face, next).Ceil()) > width {
+			lines = append(lines, line)
+			next = w
+		}
+		line = next
+	}
+	if line != "" {
+		lines = append(lines, line)
+	}
+	return lines
 }
 
 // drawText draws s with its baseline at logical (x, y), from x or centred on it.

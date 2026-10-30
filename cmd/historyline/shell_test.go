@@ -5,6 +5,8 @@ import (
 	"strings"
 	"testing"
 
+	"golang.org/x/image/font"
+
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
@@ -581,6 +583,24 @@ func TestMonthlyCrouy(t *testing.T) {
 		}
 		if _, err := state.New(m.lvl, set); err != nil {
 			t.Fatalf("%s standard: %v", m.name, err)
+		}
+	}
+}
+
+func TestWrapTextFitsWidth(t *testing.T) {
+	face := faceFor(textKey{size: 12, density: 1})
+	for _, b := range []string{
+		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, false, true),
+		briefingLine("RHEIN", 2, nil, state.CentralPowers, true, true),
+	} {
+		lines := wrapText(b, false, 12, panelW-48)
+		if len(lines) > 3 || strings.Join(lines, " ") != b {
+			t.Errorf("%q wraps to %q", b, lines)
+		}
+		for _, l := range lines {
+			if w := font.MeasureString(face, l).Ceil(); w > panelW-48 {
+				t.Errorf("line %q is %d px wide", l, w)
+			}
 		}
 	}
 }
