@@ -79,8 +79,12 @@ with snowy boulders, frozen reeds and a thin rim of shore ice, under diffuse col
 Every building is an individual design: a granite citadel with square slate-roofed towers and a frozen
 moat and a sandstone fort with round red-tiled towers as the HQs; a beet sugar refinery, a gasworks, a
 lime works, an aircraft repair works and a brewery; a timber yard, a fuel depot, a field hospital, an
-artillery park, a fodder store and a hut camp. One long road bridge crosses the inland lake; all three
-airstrips and seven hangars stay open. Six level rocky ledges support the starting crews, and a small
+artillery park, a fodder store and a hut camp. One long road bridge crosses the inland lake. The three
+airfields differ: the northern one has rolled snow, a braced timber lookout tower, a pilots' hut, a
+timber and a canvas hangar; the southern one a swept earth strip, a brick watch office with a windsock
+mast, a workshop hut and four different hangars (buff and olive canvas, timber, corrugated iron); the
+south-eastern forward ground an open ladder tower and a sagging tent hangar. Their seven hangars stay
+on their hexes, and the strips fade out into trodden snow at their open ends. Six level rocky ledges support the starting crews, and a small
 snowy hoof margin retains the southern stony field. All starting positions remain unchanged.
 RHEIN/MOSEL (`1918-02.jpg`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
 sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
