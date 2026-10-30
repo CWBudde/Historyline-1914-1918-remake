@@ -575,30 +575,42 @@ func (g *game) drawCursor(dst *ebiten.Image) {
 
 // darken dims every cell of cells outside the aimed order's reach (terrain
 // and units) to darkKeep of its brightness, in one pass so shared edges are
-// not dimmed twice.
+// not dimmed twice. In the slim frame the picture shows beyond the playable
+// hexes, so there all of dst but the cells in reach is dimmed.
 func (g *game) darken(dst *ebiten.Image, cells []hexgrid.Coord) {
 	reach := g.dos.reach()
 	if reach == nil {
 		return
 	}
 	var p vector.Path
-	for _, c := range cells {
-		if reach[c] {
-			continue
-		}
-		for i, v := range hexgrid.Corners(c) {
-			x, y := g.cam.WorldToScreen(v[0], v[1])
-			if i == 0 {
-				p.MoveTo(float32(x), float32(y))
-			} else {
-				p.LineTo(float32(x), float32(y))
+	var fill *vector.FillOptions
+	if g.split != nil && g.split.frame.Slim {
+		b := dst.Bounds()
+		p.MoveTo(float32(b.Min.X), float32(b.Min.Y))
+		p.LineTo(float32(b.Max.X), float32(b.Min.Y))
+		p.LineTo(float32(b.Max.X), float32(b.Max.Y))
+		p.LineTo(float32(b.Min.X), float32(b.Max.Y))
+		p.Close()
+		var lit []hexgrid.Coord
+		for _, c := range cells {
+			if reach[c] {
+				lit = append(lit, c)
 			}
 		}
-		p.Close()
+		g.hexPath(&p, lit)
+		fill = &vector.FillOptions{FillRule: vector.FillRuleEvenOdd}
+	} else {
+		var dark []hexgrid.Coord
+		for _, c := range cells {
+			if !reach[c] {
+				dark = append(dark, c)
+			}
+		}
+		g.hexPath(&p, dark)
 	}
 	op := &vector.DrawPathOptions{AntiAlias: true}
 	op.ColorScale.Scale(0, 0, 0, 1-darkKeep)
-	vector.FillPath(dst, &p, nil, op)
+	vector.FillPath(dst, &p, fill, op)
 }
 
 // strategicPic is a panel's strategic map: its layout and its picture, redrawn
