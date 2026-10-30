@@ -18,8 +18,9 @@ RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, w
 warm sunshine and saturated clay, deep ruts and dirty puddles in one ragged field; its trenches are
 timber-revetted with sandbagged dugouts and run through green meadow beside it. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
-Its HQs are twin castles with four round corner towers, one of pink sandstone with red-tiled cones, one
-of grey limestone with slate cones, each reached over a gravel lane and a timber bridge. Every other
+Its HQs are two castles with four round corner towers and a dry ditch: one of pink sandstone with
+red-tiled cones, a square keep, a twin-turret gate and a walled orchard, one of grey limestone with slate
+spires, a round keep in the courtyard, a stepped-gable hall and a barbican. Every other
 building is an individual design: a cotton spinning mill, a steam sawmill, a sandstone works and a
 field supply depot.
 ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
