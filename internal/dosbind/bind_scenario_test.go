@@ -10,6 +10,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
@@ -111,4 +112,39 @@ func TestAuthoredHexesHaveRecords(t *testing.T) {
 func recorded(key string) bool {
 	_, ok := dosbind.Table.Terrain[key]
 	return ok
+}
+
+// The road bridge over the lake of 1917-12 (Amper) binds as a road for
+// ground units, not as the water under it.
+func TestBindRoadBridgeOverWater(t *testing.T) {
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	lv, err := scenario.LoadLevel("../../levels/monthly/1917-12.json", scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := dosbind.Bind(lv, set)
+	if err != nil {
+		t.Fatal(err)
+	}
+	terrains := dosrules.Full.Tables.Move.Terrains
+	road := terrains[dosbind.Table.Terrain["grass+road14"]].Mask
+	n := 0
+	for l, line := range lv.Lines {
+		for c, h := range line {
+			if h.Terrain != "water" || !slices.Contains(h.Infra.IDs, "rBridge14") {
+				continue
+			}
+			n++
+			cell, _ := b.Cell(hexgrid.Coord{Line: l, Col: c})
+			if rec := b.Terrain[cell]; terrains[rec].Mask != road {
+				t.Errorf("line%d[%d]: record %d, mask %#x, a road has %#x", l+1, c, rec, terrains[rec].Mask, road)
+			}
+		}
+	}
+	if n != 4 {
+		t.Errorf("%d bridge hexes, want 4", n)
+	}
 }

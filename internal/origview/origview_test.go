@@ -12,6 +12,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -397,4 +398,25 @@ func checkCells(t *testing.T, stem string, src *finmap.Level, lv *level.Level) {
 			}
 		}
 	}
+}
+
+// Every look binds for -rules dos to a terrain record of its own: what
+// hlcampaign writes from the original maps never loses an overlay to the
+// fallback that drops unrecorded infrastructure (a road bridge over open
+// water would bind as the water). Buildings bind by owner.
+func TestEveryLookHasARecord(t *testing.T) {
+	for r, k := range Looks {
+		if strings.HasPrefix(k.Terrain, "hq") || strings.HasPrefix(k.Terrain, "cmp") ||
+			strings.HasPrefix(k.Terrain, "factory") {
+			continue
+		}
+		if key := dosbind.Key(k.Hex(false)); !recorded(key) {
+			t.Errorf("record %d: no binding record for %q", r, key)
+		}
+	}
+}
+
+func recorded(key string) bool {
+	_, ok := dosbind.Table.Terrain[key]
+	return ok
 }
