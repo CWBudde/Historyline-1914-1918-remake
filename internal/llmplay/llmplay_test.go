@@ -123,6 +123,28 @@ func TestFallbackPlays(t *testing.T) {
 	}
 }
 
+// The Coach WINS RHEIN against dosai: annihilation at resolution 146
+// (deterministic; see docs/llmplay-strategy.md battle log v1-v32).
+// Regression: coach v2/v3 aborted at resolution 17 with "No such unit"
+// (destroyed cargo record in a hold; two-cell ship rears ordered).
+func TestCoachPlaysFullGame(t *testing.T) {
+	g := rhein(t)
+	end, err := g.PlayCoach(&Coach{}, 600)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if end == nil {
+		t.Fatal("coach game did not end within 600 resolutions")
+	}
+	if end.Winner != 0 {
+		t.Errorf("winner side %d won %v score %d, want CP (side 0) to win RHEIN", end.Winner, end.Won, end.Score)
+	}
+	if _, n, err := VerifyReplay(g.Dir); err != nil || n != 146 {
+		t.Errorf("verify: n=%d err=%v, want the deterministic 146-resolution win", n, err)
+	}
+	t.Logf("coach game: winner side %d won %v score %d", end.Winner, end.Won, end.Score)
+}
+
 // Project keeps every on-map unit for the frame renderer.
 func TestProjectUnits(t *testing.T) {
 	g := rhein(t)

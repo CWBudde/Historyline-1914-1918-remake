@@ -231,6 +231,80 @@ func (g *Game) Step(ordersText string) (rejected []string, evs []dosplay.Event, 
 // Ended reports the end, nil while the battle is open.
 func (g *Game) Ended() *dosrules.End { return g.S.Ended() }
 
+// StepPlayer plays one resolution with a programmatic PhasePlayer
+// (Coach) instead of text orders: no Observe prompt is built, so
+// self-play runs at engine speed. Recording is identical to Step.
+func (g *Game) StepPlayer(pl PhasePlayer) ([]dosplay.Event, error) {
+	s := g.S
+	if s.Ended() != nil {
+		return nil, fmt.Errorf("llmplay: game already ended")
+	}
+	before, err := StateHash(s)
+	if err != nil {
+		return nil, err
+	}
+	phaseLLM := phaseName(s, g.Side)
+	mark := s.Mark()
+	evs, err := pl.PlayPhase(s, g.Side)
+	if err != nil {
+		return nil, err
+	}
+	oppEvs, err := g.Planner.Plan(s, 1-g.Side)
+	if err != nil {
+		return nil, err
+	}
+	evs = append(evs, oppEvs...)
+	resEvs, err := s.Resolve()
+	if err != nil {
+		return nil, err
+	}
+	evs = append(evs, resEvs...)
+	after, err := StateHash(s)
+	if err != nil {
+		return nil, err
+	}
+	g.resolution++
+	frame := ""
+	if g.Frames != nil {
+		if frame, err = g.Frames(s, g.resolution); err != nil {
+			return evs, err
+		}
+	}
+	st := s.Stats()
+	recs := make([]EventRec, len(evs))
+	for i, ev := range evs {
+		recs[i] = Record(ev)
+	}
+	line := Line{
+		Kind: "resolution", Resolution: g.resolution, Turn: s.Turn(), PhaseLLM: phaseLLM,
+		OrdersText: "coach", Commands: s.CommandsSince(mark), Events: recs,
+		StateBefore: before, StateAfter: after, EnergyLLM: s.Energy(g.Side),
+		UnitsLLM: st.Sides[g.Side].Units, UnitsOpponent: st.Sides[1-g.Side].Units, Frame: frame,
+	}
+	if err := g.tr.Write(line); err != nil {
+		return evs, err
+	}
+	if err := WriteSave(g.Dir, s); err != nil {
+		return evs, err
+	}
+	g.digest = Digest(evs)
+	return evs, nil
+}
+
+// PlayCoach drives the game with pl until it ends or maxResolutions
+// ran. No prompts are rendered (the fast path `run -driver coach`).
+func (g *Game) PlayCoach(pl PhasePlayer, maxResolutions int) (*dosrules.End, error) {
+	for range maxResolutions {
+		if g.S.Ended() != nil {
+			break
+		}
+		if _, err := g.StepPlayer(pl); err != nil {
+			return nil, err
+		}
+	}
+	return g.S.Ended(), nil
+}
+
 // Play drives the game with d until it ends or maxResolutions ran (dosai
 // tests use 300). A rejected batch is fed back up to 3 times per phase;
 // after that (or on ErrFallback) the fallback plays the phase.

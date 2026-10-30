@@ -17,10 +17,17 @@ just llmplay review -dir ... -lessons LESSONS.md           # blunders -> review.
 just llmplay gif -dir ...                                  # frames/*.png -> game.gif
 ```
 
-`run -driver fallback|file` plays a whole game unattended; `-frames` records a
-PNG per resolution (omniscient `TrueView` projected through `maprender`) plus
-`game.gif`. `-oracle` appends the opponent's exact planned commands to the
-prompt (training only; marked in the transcript header).
+`run -driver fallback|file|coach` plays a whole game unattended; `-frames`
+records a PNG per resolution (omniscient `TrueView` projected through
+`maprender`) plus `game.gif`. `-oracle` appends the opponent's exact planned
+commands to the prompt (training only; marked in the transcript header).
+**`coach` is the fast self-player**: it drives the session API directly (no
+prompt is ever rendered; ~130 ms/resolution including the two-resolution
+oracle lookahead on a Clone) and implements the winning strategy of
+[llmplay-strategy.md](llmplay-strategy.md) — it wins RHEIN against dosai by
+annihilation at resolution 146, deterministically (pinned by
+`TestCoachPlaysFullGame`). `fallback` (dosai both sides + service) loses the HQ
+in 14 for comparison.
 
 ## Observe — what the model sees (fair play)
 

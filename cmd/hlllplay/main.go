@@ -287,6 +287,25 @@ func cmdRun(args []string) error {
 	}
 	var d llmplay.Driver
 	switch *driver {
+	case "coach":
+		// Fast path: no prompts are built.
+		ce, cerr := g.PlayCoach(&llmplay.Coach{}, *maxR)
+		if cerr != nil {
+			return cerr
+		}
+		st := s.Stats()
+		fmt.Printf("game dir: %s\nunits: you %d, opponent %d\n", dir, st.Sides[side].Units, st.Sides[1-side].Units)
+		if ce == nil {
+			fmt.Printf("NOT ENDED after %d resolutions\n", *maxR)
+		} else {
+			fmt.Printf("ENDED winner=side%d (%s) won=%v score=%d\n", ce.Winner, llmplay.Sides[max(ce.Winner, 0)], ce.Won, ce.Score)
+		}
+		if *frames {
+			if n, err := llmplay.WriteGIF(dir, 80, 2); err == nil {
+				fmt.Printf("game.gif: %d frames\n", n)
+			}
+		}
+		return nil
 	case "fallback":
 		d = llmplay.FallbackDriver{}
 	case "file":
