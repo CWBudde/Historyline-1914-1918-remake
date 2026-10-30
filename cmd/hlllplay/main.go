@@ -10,6 +10,8 @@
 //	hlllplay step    -dir GAME -orders FILE   validate+play one resolution (FILE "-" = fallback)
 //	hlllplay run    [-level REF] [-out DIR] [-driver fallback|file] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hlllplay replay  -dir GAME          verify the transcript reproduces every state hash
+//	hlllplay render  -dir GAME [-every 1] [-div 8] [-fps 2] [-width 1440] [-crf 28]
+//	                                    replay to frames/*.png + game.gif + game.mp4 (ffmpeg)
 //	hlllplay review  -dir GAME [-lessons FILE]   write review.md, append counted lessons
 //	hlllplay gif     -dir GAME [-delay 80] [-factor 2]
 //
@@ -23,6 +25,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -49,6 +52,8 @@ func main() {
 		err = cmdRun(os.Args[2:])
 	case "replay":
 		err = cmdReplay(os.Args[2:])
+	case "render":
+		err = cmdRender(os.Args[2:])
 	case "review":
 		err = cmdReview(os.Args[2:])
 	case "gif":
@@ -362,6 +367,51 @@ func cmdReview(args []string) error {
 		return err
 	}
 	fmt.Printf("review.md written: %d findings %v\n", len(rep.Findings), rep.Counts)
+	return nil
+}
+
+func cmdRender(args []string) error {
+	fs := flag.NewFlagSet("render", flag.ExitOnError)
+	dir := fs.String("dir", "", "game dir")
+	every := fs.Int("every", 1, "render every Nth resolution")
+	div := fs.Int("div", 8, "frame downscale divisor (8: about 1120px wide on RHEIN)")
+	fps := fs.Int("fps", 2, "video frames per second")
+	width := fs.Int("width", 1440, "video width in pixels (height follows the map)")
+	crf := fs.Int("crf", 28, "x264 quality (higher = smaller file; 34 makes units vanish)")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	r, err := maprender.New(os.DirFS("assets"))
+	if err != nil {
+		return err
+	}
+	n, err := llmplay.RenderReplay(*dir, r, llmplay.RenderOptions{Every: *every, Density: 2, Div: *div})
+	if err != nil {
+		return err
+	}
+	fmt.Printf("frames: %d in %s\n", n, filepath.Join(*dir, "frames"))
+	if gn, err := llmplay.WriteGIF(*dir, 100/max(*fps, 1), 1); err == nil {
+		fmt.Printf("game.gif: %d frames\n", gn)
+	}
+	ffmpeg, err := exec.LookPath("ffmpeg")
+	if err != nil {
+		fmt.Println("ffmpeg not found: game.mp4 skipped")
+		return nil
+	}
+	mp4 := filepath.Join(*dir, "game.mp4")
+	cmd := exec.Command(ffmpeg, "-y",
+		"-framerate", fmt.Sprint(max(*fps, 1)),
+		"-pattern_type", "glob", "-i", filepath.Join(*dir, "frames", "*.png"),
+		"-vf", fmt.Sprintf("scale=%d:-2", *width),
+		"-c:v", "libx264", "-preset", "veryfast", "-crf", fmt.Sprint(*crf),
+		"-pix_fmt", "yuv420p", "-movflags", "+faststart", mp4)
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("ffmpeg: %w", err)
+	}
+	if st, err := os.Stat(mp4); err == nil {
+		fmt.Printf("game.mp4: %s (%.1f MB)\n", mp4, float64(st.Size())/1e6)
+	}
 	return nil
 }
 

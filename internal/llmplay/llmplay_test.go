@@ -1,9 +1,12 @@
 package llmplay
 
 import (
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
@@ -143,6 +146,48 @@ func TestCoachPlaysFullGame(t *testing.T) {
 		t.Errorf("verify: n=%d err=%v, want the deterministic 146-resolution win", n, err)
 	}
 	t.Logf("coach game: winner side %d won %v score %d", end.Winner, end.Won, end.Score)
+}
+
+// RenderReplay replays a recorded game and writes a frame per
+// resolution (opening + 2 resolutions here).
+func TestRenderReplay(t *testing.T) {
+	dir := t.TempDir()
+	lvl, err := ShipLevel("1918-02", scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s, err := NewSession(lvl, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g, err := NewGame(s, 0, dir, "1918-02:cp", "RHEIN", false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for range 2 {
+		if _, err := g.StepPlayer(&Coach{}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := g.Close(); err != nil {
+		t.Fatal(err)
+	}
+	r, err := maprender.New(os.DirFS("../../assets"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n, err := RenderReplay(dir, r, RenderOptions{Every: 1, Density: 2, Div: 16})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n != 3 {
+		t.Errorf("frames %d, want 3 (opening + 2 resolutions)", n)
+	}
+	for _, f := range []string{"0000.png", "0001.png", "0002.png"} {
+		if _, err := os.Stat(filepath.Join(dir, "frames", f)); err != nil {
+			t.Error(err)
+		}
+	}
 }
 
 // Project keeps every on-map unit for the frame renderer.

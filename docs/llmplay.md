@@ -13,6 +13,8 @@ just llmplay prompt -dir build/review/llmplay/mygame       # state + legal order
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
 just llmplay replay -dir ...                               # verify every state hash
+just llmplay render -dir ... [-every 1] [-fps 2] [-width 1440] [-crf 28]
+                                                           # watch it: frames + game.gif + game.mp4
 just llmplay review -dir ... -lessons LESSONS.md           # blunders -> review.md + lessons
 just llmplay gif -dir ...                                  # frames/*.png -> game.gif
 ```
@@ -63,7 +65,15 @@ Each game dir (`build/review/llmplay/<game>/`) holds `transcript.jsonl` (header
 hashes = sha256 of `Save()`), `save.json` after every resolution, `map.txt`,
 `preamble.txt`, and with `-frames`, `frames/NNNN.png` + `game.gif`. `replay`
 rebuilds the game and proves every hash. A game survives total model context
-loss: `prompt` on the dir resumes from `save.json`.
+loss: `prompt` on the dir resumes from `save.json`. To **watch** a finished
+game, `render` replays the transcript (hash-verified) and renders
+`frames/NNNN.png` (downscaled by `-div`), stitches `game.gif`, and encodes
+`game.mp4` with ffmpeg (`-width`/`-crf` trade size for quality; defaults
+1440px/CRF 28 at 2 fps — the 146-resolution win is a 73 s, 0.65 MB video;
+CRF 34 at 960px shrinks it to 0.2 MB but the units all but vanish). The GIF
+is far larger (~30 MB) and only a fallback for players without H.264.
+Step-by-step "live" viewing without a video: `prompt` on the game dir after
+each `step`, or open the frames in any image viewer.
 
 ## Learn — review and lessons
 
