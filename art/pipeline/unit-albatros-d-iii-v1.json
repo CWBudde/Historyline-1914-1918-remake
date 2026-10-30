@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/albatros-d-iii/atlas.png",
-    "source_sha256": "94eea98091ea96b0987857b8191d7408a9fb20d4fbf7b3648bdfe325b162ff31"
+    "source_sha256": "3e4de86a003b367f2b26abf9ddf92267b5e905ddf0bebc68a136178fcd8253bf"
   },
   "family": "albatros-d-iii",
   "framing_inset": 0.8,

@@ -12462,7 +12462,7 @@
       "masters": [
         {
           "path": "art/units/albatros-d-iii/atlas.png",
-          "sha256": "94eea98091ea96b0987857b8191d7408a9fb20d4fbf7b3648bdfe325b162ff31",
+          "sha256": "3e4de86a003b367f2b26abf9ddf92267b5e905ddf0bebc68a136178fcd8253bf",
           "width": 1024,
           "height": 1536
         }
@@ -13876,7 +13876,7 @@
       "masters": [
         {
           "path": "art/units/handley-page-0400/atlas.png",
-          "sha256": "cd2f542d7b3eeed79a623f043a99d6337fe21a5c3ba9bc6108e77282e166e629",
+          "sha256": "badf0514cf59cfd6e565e882143a772041c593d61a635b26fc9559e4d6c2ddaa",
           "width": 1024,
           "height": 1536
         }
