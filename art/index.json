@@ -13749,6 +13749,12 @@
       "masters": [
         {
           "path": "art/units/elite-infantry/atlas.png",
+          "sha256": "17030e0c59e725a7927589c642a8d2140ecae1dc835382062a7204cee41a88d5",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "art/units/elite-infantry/team-full.png",
           "sha256": "5417831b8f7715a6a973c444c748f2676a667a8d97265c27c9e2fac0121f16ab",
           "width": 1024,
           "height": 1536
@@ -13789,7 +13795,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-elite-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.",
+      "post": "`art-review -unit art/pipeline/unit-elite-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.\n\nThe installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.84 about the anchor, so the team reads\nsmaller than the infantry group and in line with the sappers and cavalry:\n`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.84 -out art/units/elite-infantry/atlas.png`.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
@@ -14374,13 +14380,19 @@
       "masters": [
         {
           "path": "art/units/infantry/atlas.png",
+          "sha256": "6981da0366792f7b86a7ddcb7356c21539dd99ea1eb54baf76c012cb7ee8fcea",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "art/units/infantry/riflemen.png",
           "sha256": "a151ab9f110782ead6eba6bc4af3b4a17eb789204c5f19e4ca2e786614912290",
           "width": 1024,
           "height": 1536
         }
       ],
-      "look": "A squad of three riflemen in a wide, shallow line. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
-      "base_prompt": "Asset: six-direction tactical sprite atlas, 1024x1536 transparent RGBA, 2 columns by 3 rows of 512x512\ncells, row-major headings N, NW, SW, S, SE, NE. Subject in every cell: exactly three small WWI riflemen with steel helmets, simple tunics, rifles and light leather equipment, spread side by side in a wide, shallow line with the middle man only slightly forward; helmet tops, shoulders and rifles clearly visible from the high camera. In each cell the\nfront, where the soldiers face and advance, points towards that cell's heading. Saturated, naturally shaded magenta\nonly on uniform tunics and trousers; everything else in natural materials. Whole subject centred on (256,261) within\nthe central 65 percent of every cell, all extremities inside, alpha zero outside the objects.",
+      "look": "A squad of six riflemen in a loose block of two ranks of three. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
+      "base_prompt": "Asset: six-direction tactical sprite atlas, 1024x1536 transparent RGBA, 2 columns by 3 rows of 512x512\ncells, row-major headings N, NW, SW, S, SE, NE. Source atlas `riflemen.png`, subject in every cell: exactly three small WWI riflemen with steel helmets, simple tunics, rifles and light leather equipment, spread side by side in a wide, shallow line with the middle man only slightly forward; helmet tops, shoulders and rifles clearly visible from the high camera. In each cell the\nfront, where the soldiers face and advance, points towards that cell's heading. Saturated, naturally shaded magenta\nonly on uniform tunics and trousers; everything else in natural materials. Whole subject centred on (256,261) within\nthe central 65 percent of every cell, all extremities inside, alpha zero outside the objects.",
       "variants": [
         {
           "variant": "N (`n`)",
@@ -14414,7 +14426,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/infantry/<palette>/<facing>-<state>`. Promote into `assets/units/infantry/` and re-index.\n\nThe atlas is imagegen output `exec-7390dd78`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
+      "post": "`art-review -unit art/pipeline/unit-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/infantry/<palette>/<facing>-<state>`. Promote into `assets/units/infantry/` and re-index.\n\n`riflemen.png` is imagegen output `exec-7390dd78` (three men per facing), preferred on the candidate desk over the\nearlier atlas (2026-10-23). `atlas.png` is composed from it with six men:\n`go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 6 -out art/units/infantry/atlas.png`\n(scale 0.52). The weaker strengths are the families `infantry-1` … `infantry-5`, composed the same way.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
@@ -14438,6 +14450,391 @@
           "assets/units/infantry/cp/ne-normal-4x.png",
           "assets/units/infantry/ec/n-normal-4x.png",
           "assets/units/infantry/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/infantry-1",
+      "title": "Infantry, 1 of 6",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "unit/infantry-1"
+      ],
+      "dir": "art/units/infantry-1",
+      "assets_dir": "assets/units/infantry-1",
+      "prompt": "art/units/infantry-1/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/infantry-1/atlas.png",
+          "sha256": "9963e61eee4fc1cfb2f4f2f28ec8ad4fd8be3f77a7871abf9c883cfa412b64d2",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The infantry group at a strength of 1: one of its six riflemen, in the formation and scale of the full group\n(`units/infantry`), shown when the unit has 1 of 6 left. Same 96x96 logical sprite, anchor (48,49).",
+      "base_prompt": "No prompt: the atlas is composed from the riflemen of `units/infantry` (see Post), not generated.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the formation heads up."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the formation heads to the upper left."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the formation heads to the lower left."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the formation heads down."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the formation heads to the lower right."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the formation heads to the upper right."
+        }
+      ],
+      "edges": "",
+      "post": "Composed, not generated: `go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 1 -out\nart/units/infantry-1/atlas.png` cuts the three riflemen out of each facing of the source atlas, scales them to\n0.52 and sets 1 of them into a formation that turns with the facing. `art-review -unit\nart/pipeline/unit-infantry-1-v1.json` exports it like any family; installed under `assets/units/infantry-1/`.\nThe game draws this family for an infantry unit of strength 1.",
+      "avoid": [
+        "a different look from `units/infantry`",
+        "men overlapping so much that the count is unclear"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/infantry-1/cp/n-normal-4x.png",
+          "assets/units/infantry-1/cp/nw-normal-4x.png",
+          "assets/units/infantry-1/cp/sw-normal-4x.png",
+          "assets/units/infantry-1/cp/s-normal-4x.png",
+          "assets/units/infantry-1/cp/se-normal-4x.png",
+          "assets/units/infantry-1/cp/ne-normal-4x.png",
+          "assets/units/infantry-1/ec/n-normal-4x.png",
+          "assets/units/infantry-1/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/infantry-2",
+      "title": "Infantry, 2 of 6",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "unit/infantry-2"
+      ],
+      "dir": "art/units/infantry-2",
+      "assets_dir": "assets/units/infantry-2",
+      "prompt": "art/units/infantry-2/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/infantry-2/atlas.png",
+          "sha256": "2f7c0fe57158264a3a5924cd74f42dd7ebec5256a2f39c566e650a0e1ef242f3",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The infantry group at a strength of 2: two of its six riflemen, in the formation and scale of the full group\n(`units/infantry`), shown when the unit has 2 of 6 left. Same 96x96 logical sprite, anchor (48,49).",
+      "base_prompt": "No prompt: the atlas is composed from the riflemen of `units/infantry` (see Post), not generated.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the formation heads up."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the formation heads to the upper left."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the formation heads to the lower left."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the formation heads down."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the formation heads to the lower right."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the formation heads to the upper right."
+        }
+      ],
+      "edges": "",
+      "post": "Composed, not generated: `go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 2 -out\nart/units/infantry-2/atlas.png` cuts the three riflemen out of each facing of the source atlas, scales them to\n0.52 and sets 2 of them into a formation that turns with the facing. `art-review -unit\nart/pipeline/unit-infantry-2-v1.json` exports it like any family; installed under `assets/units/infantry-2/`.\nThe game draws this family for an infantry unit of strength 2.",
+      "avoid": [
+        "a different look from `units/infantry`",
+        "men overlapping so much that the count is unclear"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/infantry-2/cp/n-normal-4x.png",
+          "assets/units/infantry-2/cp/nw-normal-4x.png",
+          "assets/units/infantry-2/cp/sw-normal-4x.png",
+          "assets/units/infantry-2/cp/s-normal-4x.png",
+          "assets/units/infantry-2/cp/se-normal-4x.png",
+          "assets/units/infantry-2/cp/ne-normal-4x.png",
+          "assets/units/infantry-2/ec/n-normal-4x.png",
+          "assets/units/infantry-2/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/infantry-3",
+      "title": "Infantry, 3 of 6",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "unit/infantry-3"
+      ],
+      "dir": "art/units/infantry-3",
+      "assets_dir": "assets/units/infantry-3",
+      "prompt": "art/units/infantry-3/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/infantry-3/atlas.png",
+          "sha256": "181425fd516c49c5cbfbd862a1dde79d7c64b438a144299d098caa8445e8e75e",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The infantry group at a strength of 3: three of its six riflemen, in the formation and scale of the full group\n(`units/infantry`), shown when the unit has 3 of 6 left. Same 96x96 logical sprite, anchor (48,49).",
+      "base_prompt": "No prompt: the atlas is composed from the riflemen of `units/infantry` (see Post), not generated.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the formation heads up."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the formation heads to the upper left."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the formation heads to the lower left."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the formation heads down."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the formation heads to the lower right."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the formation heads to the upper right."
+        }
+      ],
+      "edges": "",
+      "post": "Composed, not generated: `go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 3 -out\nart/units/infantry-3/atlas.png` cuts the three riflemen out of each facing of the source atlas, scales them to\n0.52 and sets 3 of them into a formation that turns with the facing. `art-review -unit\nart/pipeline/unit-infantry-3-v1.json` exports it like any family; installed under `assets/units/infantry-3/`.\nThe game draws this family for an infantry unit of strength 3.",
+      "avoid": [
+        "a different look from `units/infantry`",
+        "men overlapping so much that the count is unclear"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/infantry-3/cp/n-normal-4x.png",
+          "assets/units/infantry-3/cp/nw-normal-4x.png",
+          "assets/units/infantry-3/cp/sw-normal-4x.png",
+          "assets/units/infantry-3/cp/s-normal-4x.png",
+          "assets/units/infantry-3/cp/se-normal-4x.png",
+          "assets/units/infantry-3/cp/ne-normal-4x.png",
+          "assets/units/infantry-3/ec/n-normal-4x.png",
+          "assets/units/infantry-3/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/infantry-4",
+      "title": "Infantry, 4 of 6",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "unit/infantry-4"
+      ],
+      "dir": "art/units/infantry-4",
+      "assets_dir": "assets/units/infantry-4",
+      "prompt": "art/units/infantry-4/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/infantry-4/atlas.png",
+          "sha256": "985b1d85a1cf5e342e58c22bc9facf52a98fb544b4c1cc307869cfc019524181",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The infantry group at a strength of 4: four of its six riflemen, in the formation and scale of the full group\n(`units/infantry`), shown when the unit has 4 of 6 left. Same 96x96 logical sprite, anchor (48,49).",
+      "base_prompt": "No prompt: the atlas is composed from the riflemen of `units/infantry` (see Post), not generated.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the formation heads up."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the formation heads to the upper left."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the formation heads to the lower left."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the formation heads down."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the formation heads to the lower right."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the formation heads to the upper right."
+        }
+      ],
+      "edges": "",
+      "post": "Composed, not generated: `go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 4 -out\nart/units/infantry-4/atlas.png` cuts the three riflemen out of each facing of the source atlas, scales them to\n0.52 and sets 4 of them into a formation that turns with the facing. `art-review -unit\nart/pipeline/unit-infantry-4-v1.json` exports it like any family; installed under `assets/units/infantry-4/`.\nThe game draws this family for an infantry unit of strength 4.",
+      "avoid": [
+        "a different look from `units/infantry`",
+        "men overlapping so much that the count is unclear"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/infantry-4/cp/n-normal-4x.png",
+          "assets/units/infantry-4/cp/nw-normal-4x.png",
+          "assets/units/infantry-4/cp/sw-normal-4x.png",
+          "assets/units/infantry-4/cp/s-normal-4x.png",
+          "assets/units/infantry-4/cp/se-normal-4x.png",
+          "assets/units/infantry-4/cp/ne-normal-4x.png",
+          "assets/units/infantry-4/ec/n-normal-4x.png",
+          "assets/units/infantry-4/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/infantry-5",
+      "title": "Infantry, 5 of 6",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "unit/infantry-5"
+      ],
+      "dir": "art/units/infantry-5",
+      "assets_dir": "assets/units/infantry-5",
+      "prompt": "art/units/infantry-5/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/infantry-5/atlas.png",
+          "sha256": "e99ece10cc6d58ae08a345cd66c02bd36d422ac4ea99fbacbd4587c4a91403bb",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The infantry group at a strength of 5: five of its six riflemen, in the formation and scale of the full group\n(`units/infantry`), shown when the unit has 5 of 6 left. Same 96x96 logical sprite, anchor (48,49).",
+      "base_prompt": "No prompt: the atlas is composed from the riflemen of `units/infantry` (see Post), not generated.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the formation heads up."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the formation heads to the upper left."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the formation heads to the lower left."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the formation heads down."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the formation heads to the lower right."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the formation heads to the upper right."
+        }
+      ],
+      "edges": "",
+      "post": "Composed, not generated: `go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 5 -out\nart/units/infantry-5/atlas.png` cuts the three riflemen out of each facing of the source atlas, scales them to\n0.52 and sets 5 of them into a formation that turns with the facing. `art-review -unit\nart/pipeline/unit-infantry-5-v1.json` exports it like any family; installed under `assets/units/infantry-5/`.\nThe game draws this family for an infantry unit of strength 5.",
+      "avoid": [
+        "a different look from `units/infantry`",
+        "men overlapping so much that the count is unclear"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/infantry-5/cp/n-normal-4x.png",
+          "assets/units/infantry-5/cp/nw-normal-4x.png",
+          "assets/units/infantry-5/cp/sw-normal-4x.png",
+          "assets/units/infantry-5/cp/s-normal-4x.png",
+          "assets/units/infantry-5/cp/se-normal-4x.png",
+          "assets/units/infantry-5/cp/ne-normal-4x.png",
+          "assets/units/infantry-5/ec/n-normal-4x.png",
+          "assets/units/infantry-5/neutral/n-normal-4x.png"
         ]
       }
     },

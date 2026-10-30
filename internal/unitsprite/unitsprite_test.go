@@ -57,15 +57,19 @@ func TestFamiliesMatchArt(t *testing.T) {
 		t.Fatal(err)
 	}
 	manifest := regexp.MustCompile(`^unit-(.+)-v[0-9]+\.json$`)
-	var seen, long []string
+	var seen, long, squads []string
 	for _, p := range paths {
 		m := manifest.FindStringSubmatch(filepath.Base(p))
 		if m == nil {
 			continue
 		}
 		family := m[1]
-		if family == "panel" || slices.Contains(seen, family) || slices.Contains(long, family) {
+		if family == "panel" || slices.Contains(seen, family) || slices.Contains(long, family) || slices.Contains(squads, family) {
 			continue // the unit panel manifest, or another version of a family
+		}
+		if slices.Contains(SquadFamilies(), family) {
+			squads = append(squads, family) // composed from the squad family's riflemen, no class of its own
+			continue
 		}
 		if strings.HasSuffix(family, "-long") {
 			long = append(long, family) // drawn from its ship family's art
@@ -83,6 +87,10 @@ func TestFamiliesMatchArt(t *testing.T) {
 	slices.Sort(seen)
 	if !slices.Equal(seen, Families()) {
 		t.Errorf("pipeline families %v, table %v", seen, Families())
+	}
+	slices.Sort(squads)
+	if !slices.Equal(squads, SquadFamilies()) {
+		t.Errorf("squad pipeline families %v, table %v", squads, SquadFamilies())
 	}
 	slices.Sort(long)
 	if !slices.Equal(long, LongFamilies()) {
@@ -206,5 +214,21 @@ func TestFacingToward(t *testing.T) {
 	}
 	if _, ok := Toward(0, 0); ok {
 		t.Error("a zero vector has no facing")
+	}
+}
+
+func TestSquadFamilyFollowsStrength(t *testing.T) {
+	for size, want := range map[int]string{0: "infantry", 1: "infantry-1", 5: "infantry-5", 6: "infantry", 7: "infantry"} {
+		if got := Squad("infantry", size); got != want {
+			t.Errorf("Squad(infantry, %d) = %s, want %s", size, got, want)
+		}
+	}
+	if got := Squad("cavalry", 2); got != "cavalry" {
+		t.Errorf("Squad(cavalry, 2) = %s, want cavalry", got)
+	}
+	for _, f := range SquadFamilies() {
+		if !slices.Contains(AllFamilies(), f) {
+			t.Errorf("squad family %s is not in AllFamilies", f)
+		}
 	}
 }

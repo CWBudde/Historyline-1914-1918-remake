@@ -73,7 +73,7 @@ func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 			return
 		}
 		sx, sy = g.cam.WorldToScreen((hx+rx)/2, (hy+ry)/2)
-	} else if g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, face) {
+	} else if g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Size, u.Owner, g.dosSpent(u), false, face) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
@@ -84,7 +84,7 @@ func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) bool {
 	switch u := w.unit.(type) {
 	case *state.Unit:
-		return u != nil && g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Owner, unitSpent(u), false, face)
+		return u != nil && g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, face)
 	case int:
 		if g.dos == nil {
 			return false
@@ -98,7 +98,7 @@ func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy fl
 			rx, ry := w.TailPos()
 			return g.drawShip(dst, c, v.ID, v.Owner, false, hx, hy, rx, ry)
 		}
-		return g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Owner, false, false, face)
+		return g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Size, v.Owner, false, false, face)
 	}
 	return false
 }

@@ -162,4 +162,5 @@ var catalogueSubjects = map[string]string{
 	"morane-saulnier-n": "Morane-Saulnier N", "nieuport-xvii": "Nieuport XVII", "spad-vii": "SPAD VII",
 	"se5a": "SE5a", "spad-xiii": "SPAD XIII", "sopwith-camel": "Sopwith Camel", "voisin-iii": "Voisin III",
 	"handley-page-0400": "Handley Page 0/400", "dh4": "DH4", "construction-unit": "Construction unit",
+	"infantry-1": "Infantry, one man", "infantry-2": "Infantry, two men", "infantry-3": "Infantry, three men", "infantry-4": "Infantry, four men", "infantry-5": "Infantry, five men",
 }

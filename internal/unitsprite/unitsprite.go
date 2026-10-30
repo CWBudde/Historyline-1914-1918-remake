@@ -78,6 +78,33 @@ func Long(family string) (string, bool) {
 	return l, ok
 }
 
+// squadFamily is the family whose sprites show one man per point of strength:
+// SquadSize men at full strength, drawn by the family itself; each weaker strength
+// has its own family <family>-<n> with n men.
+const squadFamily = "infantry"
+
+// SquadSize is the strength at which the squad family shows all its men.
+const SquadSize = 6
+
+// Squad returns the family that draws family at the given strength: for the squad
+// family a strength below SquadSize has its own family; every other strength and
+// family is drawn by family.
+func Squad(family string, size int) string {
+	if family == squadFamily && size >= 1 && size < SquadSize {
+		return fmt.Sprintf("%s-%d", family, size)
+	}
+	return family
+}
+
+// SquadFamilies returns the families of the squad family's weaker strengths.
+func SquadFamilies() []string {
+	var out []string
+	for n := 1; n < SquadSize; n++ {
+		out = append(out, Squad(squadFamily, n))
+	}
+	return out
+}
+
 // Size is the logical width and height of family's sprites.
 func Size(family string) int {
 	for _, l := range longs {
@@ -106,10 +133,10 @@ func LongFamilies() []string {
 	return slices.Sorted(maps.Values(longs))
 }
 
-// AllFamilies returns Families and LongFamilies, sorted: every family with a
+// AllFamilies returns Families, LongFamilies and SquadFamilies, sorted: every family with a
 // sprite pack.
 func AllFamilies() []string {
-	return slices.Sorted(slices.Values(append(Families(), LongFamilies()...)))
+	return slices.Sorted(slices.Values(slices.Concat(Families(), LongFamilies(), SquadFamilies())))
 }
 
 // ClassIDs returns the unit types drawn by family, sorted.

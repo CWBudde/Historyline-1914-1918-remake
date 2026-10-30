@@ -163,7 +163,7 @@ func (g *game) unitFacing(id string, owner state.Player, f unitsprite.Facing) *e
 	if g.art == nil {
 		return nil
 	}
-	family, sid, ok := unitSprite(id, owner, false, false, f)
+	family, sid, ok := unitSprite(id, 0, owner, false, false, f)
 	if !ok {
 		return nil
 	}

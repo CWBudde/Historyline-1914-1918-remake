@@ -211,10 +211,10 @@ func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, reme
 	if remembered {
 		col = rememberedUnit
 		if m, _ := g.state.Remembered(g.player, c); m.Unit != nil &&
-			g.drawUnitSprite(dst, c, sx, sy, m.Unit.Type, m.Unit.Owner, false, true, unitsprite.N) {
+			g.drawUnitSprite(dst, c, sx, sy, m.Unit.Type, m.Unit.Size, m.Unit.Owner, false, true, unitsprite.N) {
 			return
 		}
-	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u)) {
+	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u)) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)

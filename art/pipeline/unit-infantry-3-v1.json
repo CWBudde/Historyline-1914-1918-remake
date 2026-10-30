@@ -1,0 +1,58 @@
+{
+  "atlas": {
+    "source": "art/units/infantry-3/atlas.png",
+    "source_sha256": "181425fd516c49c5cbfbd862a1dde79d7c64b438a144299d098caa8445e8e75e"
+  },
+  "family": "infantry-3",
+  "framing_inset": 0.95,
+  "grounds": {
+    "grass": {
+      "2x": {
+        "source": "assets/terrain/grass/grass-2x.png",
+        "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
+      },
+      "4x": {
+        "source": "assets/terrain/grass/grass-4x.png",
+        "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
+      }
+    },
+    "grass_w": {
+      "2x": {
+        "source": "assets/terrain/grass/grass_w-2x.png",
+        "source_sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
+      },
+      "4x": {
+        "source": "assets/terrain/grass/grass_w-4x.png",
+        "source_sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
+      }
+    },
+    "mud": {
+      "2x": {
+        "source": "assets/terrain/ground/mud-2x.png",
+        "source_sha256": "83ad6451c239cf461a6f910a414638711d55464b4cab2606a7baab8bb1865d0f"
+      },
+      "4x": {
+        "source": "assets/terrain/ground/mud-4x.png",
+        "source_sha256": "3cf9a92544b7882bbbb551320d07756499b8041f0fb3b33f54a01d6df3e7d85f"
+      }
+    }
+  },
+  "palettes": {
+    "cp": [
+      96,
+      126,
+      58
+    ],
+    "ec": [
+      200,
+      165,
+      112
+    ],
+    "neutral": [
+      174,
+      174,
+      164
+    ]
+  },
+  "schema_version": 1
+}

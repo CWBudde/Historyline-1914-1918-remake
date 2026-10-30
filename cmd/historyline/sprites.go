@@ -48,14 +48,16 @@ func terrainDensity(eff float64) int {
 // unitSpent reports whether u has acted this turn and is drawn greyscale.
 func unitSpent(u *state.Unit) bool { return u.Moved || u.Attacked }
 
-// unitSprite picks the sprite of a unit of type typ owned by owner. The palette
+// unitSprite picks the sprite of a unit of type typ and strength size (0 for the
+// full strength) owned by owner. The palette
 // follows the owner, so captured units change colour; remembered units use the
 // greyscale spent sprite.
-func unitSprite(typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) (family, id string, ok bool) {
+func unitSprite(typ string, size int, owner state.Player, spent, remembered bool, face unitsprite.Facing) (family, id string, ok bool) {
 	family, ok = unitsprite.Family(typ)
 	if !ok {
 		return "", "", false
 	}
+	family = unitsprite.Squad(family, size)
 	st := unitsprite.Normal
 	if spent || remembered {
 		st = unitsprite.Spent
@@ -248,11 +250,11 @@ func (g *game) unitRim(c hexgrid.Coord) unitsprite.Rim {
 // its contact shadow, with its logical anchor on screen point (sx, sy), the hex
 // centre, and reports whether it could. Errors go to the status
 // line once and the caller falls back to the placeholder dot.
-func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
+func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, size int, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
 	if g.art == nil || typ == "" {
 		return false
 	}
-	family, id, ok := unitSprite(typ, owner, spent, remembered, face)
+	family, id, ok := unitSprite(typ, size, owner, spent, remembered, face)
 	if !ok {
 		g.artErr = fmt.Sprintf("no sprite family for unit type %s", typ)
 		return false

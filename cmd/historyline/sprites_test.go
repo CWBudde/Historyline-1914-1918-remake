@@ -32,25 +32,31 @@ func TestSpriteDensity(t *testing.T) {
 func TestUnitSpriteFollowsOwnerStateAndFacing(t *testing.T) {
 	cases := []struct {
 		typ               string
+		size              int
 		owner             state.Player
 		spent, remembered bool
 		face              unitsprite.Facing
 		family, id        string
 	}{
-		{"CP_infantry", state.CentralPowers, false, false, unitsprite.N, "infantry", "unit/infantry/cp/n-normal"},
-		{"EC_lArtillery", state.Entente, true, false, unitsprite.SW, "light-artillery", "unit/light-artillery/ec/sw-spent"},
+		{"CP_infantry", 0, state.CentralPowers, false, false, unitsprite.N, "infantry", "unit/infantry/cp/n-normal"},
+		{"EC_lArtillery", 0, state.Entente, true, false, unitsprite.SW, "light-artillery", "unit/light-artillery/ec/sw-spent"},
 		// A captured unit takes its owner's colours, not its country's.
-		{"EC_cavalry", state.CentralPowers, false, false, unitsprite.SE, "cavalry", "unit/cavalry/cp/se-normal"},
+		{"EC_cavalry", 0, state.CentralPowers, false, false, unitsprite.SE, "cavalry", "unit/cavalry/cp/se-normal"},
 		// Remembered units are drawn with the greyscale sprite.
-		{"CP_armCar", state.CentralPowers, false, true, unitsprite.NE, "armored-car", "unit/armored-car/cp/ne-spent"},
+		{"CP_armCar", 0, state.CentralPowers, false, true, unitsprite.NE, "armored-car", "unit/armored-car/cp/ne-spent"},
+		// A weakened infantry group shows fewer men; other classes ignore the strength.
+		{"CP_infantry", 4, state.CentralPowers, false, false, unitsprite.S, "infantry-4", "unit/infantry-4/cp/s-normal"},
+		{"EC_infantry", 6, state.Entente, true, false, unitsprite.N, "infantry", "unit/infantry/ec/n-spent"},
+		{"CP_cavalry", 2, state.CentralPowers, false, false, unitsprite.N, "cavalry", "unit/cavalry/cp/n-normal"},
 	}
+	// cases without a strength are the full group
 	for _, c := range cases {
-		family, id, ok := unitSprite(c.typ, c.owner, c.spent, c.remembered, c.face)
+		family, id, ok := unitSprite(c.typ, c.size, c.owner, c.spent, c.remembered, c.face)
 		if !ok || family != c.family || id != c.id {
 			t.Errorf("unitSprite(%s) = %s %s %v, want %s %s", c.typ, family, id, ok, c.family, c.id)
 		}
 	}
-	if _, _, ok := unitSprite("CP_zeppelin", state.CentralPowers, false, false, unitsprite.N); ok {
+	if _, _, ok := unitSprite("CP_zeppelin", 0, state.CentralPowers, false, false, unitsprite.N); ok {
 		t.Error("unknown unit type got a sprite")
 	}
 }

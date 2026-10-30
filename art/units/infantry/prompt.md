@@ -4,16 +4,16 @@ title: Infantry
 kind: unit
 status: approved
 runtime_ids: CP_infantry, EC_infantry
-masters: atlas.png
+masters: atlas.png, riflemen.png
 ---
 
 ## Look
-A squad of three riflemen in a wide, shallow line. It stands on a 96x96 logical sprite above the hex centre and must read at
+A squad of six riflemen in a loose block of two ranks of three. It stands on a 96x96 logical sprite above the hex centre and must read at
 48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.
 
 ## Base prompt
 Asset: six-direction tactical sprite atlas, 1024x1536 transparent RGBA, 2 columns by 3 rows of 512x512
-cells, row-major headings N, NW, SW, S, SE, NE. Subject in every cell: exactly three small WWI riflemen with steel helmets, simple tunics, rifles and light leather equipment, spread side by side in a wide, shallow line with the middle man only slightly forward; helmet tops, shoulders and rifles clearly visible from the high camera. In each cell the
+cells, row-major headings N, NW, SW, S, SE, NE. Source atlas `riflemen.png`, subject in every cell: exactly three small WWI riflemen with steel helmets, simple tunics, rifles and light leather equipment, spread side by side in a wide, shallow line with the middle man only slightly forward; helmet tops, shoulders and rifles clearly visible from the high camera. In each cell the
 front, where the soldiers face and advance, points towards that cell's heading. Saturated, naturally shaded magenta
 only on uniform tunics and trousers; everything else in natural materials. Whole subject centred on (256,261) within
 the central 65 percent of every cell, all extremities inside, alpha zero outside the objects.
@@ -35,8 +35,10 @@ anchor and framing inset, splits the magenta into a tint mask and recolours it t
 sprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);
 `unit/infantry/<palette>/<facing>-<state>`. Promote into `assets/units/infantry/` and re-index.
 
-The atlas is imagegen output `exec-7390dd78`, preferred on the candidate desk over the earlier
-atlas (2026-10-23).
+`riflemen.png` is imagegen output `exec-7390dd78` (three men per facing), preferred on the candidate desk over the
+earlier atlas (2026-10-23). `atlas.png` is composed from it with six men:
+`go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 6 -out art/units/infantry/atlas.png`
+(scale 0.52). The weaker strengths are the families `infantry-1` … `infantry-5`, composed the same way.
 
 ## Avoid
 - rotated or mirrored copies of one view
