@@ -4,14 +4,15 @@ title: Panel surfaces
 kind: screen
 status: candidate
 runtime_ids:
-masters: steel.png, ground.png, rivets.png, plate.png, plate-2.png, plate-3.png, plate-4.png
+masters: steel.png, ground.png, rivets.png, plate.png, plate-2.png, plate-3.png, plate-4.png, newsprint.png
 ---
 
 ## Look
 Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,
 contents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn
 brass rivet heads for the plates' rivets. The split screen's frame is built of riveted hex plates of
-olive gunmetal, four paintings that differ only in wear, drawn on the cells around the view.
+olive gunmetal, four paintings that differ only in wear, drawn on the cells around the view. Aged
+off-white newsprint is the sheet of the campaign newspaper.
 
 ## Base prompt
 ```text
@@ -41,6 +42,7 @@ values; all text is drawn live.
 | plate-2 | | `hp-03` (exec-380a6fa6), 1536x1024 RGBA: the plate prompt, then the plate-variant text with "Paint a few more scuffed, slightly lighter worn patches, placed elsewhere than in image 2." |
 | plate-3 | | `hp-04` (exec-960786a5), 1536x1024 RGBA: as plate-2 with "Paint a little more dark grime and oil staining, gathered near the lower edges and around some rivets, placed elsewhere than in image 2." |
 | plate-4 | | `hp-05` (exec-b7361a38), 1536x1024 RGBA: as plate-2 with "Paint fine long scratches running in a different direction than in image 2 and a few small dents, placed elsewhere than in image 2." |
+| newsprint | | `paper-01` (exec-4bb2c353, 2026-10-30), 1254x1254 opaque, wraps (edge step 4.3 vs 3.1–3.7 inside), mean RGB 230,214,188: the prompt below. |
 
 steel:
 
@@ -91,6 +93,20 @@ Image 1 is a shape template only: take the exact outline and position of its gre
 
 Image 2 was `hp-02`, the selected plate.
 
+newsprint:
+
+```text
+Newly authored texture for a World War I strategy game: a seamless, tileable surface of old newsprint
+paper, as from a newspaper of 1914-1918, seen flat and straight on under flat overcast light with no
+light direction. Off-white aged newsprint, mean RGB about 232, 223, 202, with very fine paper fibres,
+faint mottling and a few tiny specks; very low contrast (lightness varies by at most 4 percent), no
+folds, creases, stains, tears, edges, text, print, letters, lines, frames, borders or vignette. The
+texture must wrap seamlessly: the left edge continues the right edge and the top edge continues the
+bottom edge. SQUARE canvas, 1024x1024 pixels, filled edge to edge.
+
+No images are attached.
+```
+
 ## Post
 Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`
 family: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile
@@ -109,9 +125,13 @@ cell picks its plate by its place in the view. The chrome around the panels (the
 steel strips and the bolt) takes the plates' mean colour, with `surface/steel` graded on it as on the
 panels.
 
+`surface/newsprint` is scaled like a tile (512 px at 1x, 1024 px at 2x) and tiled unchanged over the
+campaign newspaper's sheet.
+
 ## Avoid
 - rivets, seams, plate edges or frames in the steel
 - grass, craters, puddles, footprints or objects in the ground
 - a light direction or a shading gradient across the tile
 - slots, crosses, markings, washers or cast shadows on the rivet heads
 - a plate outline off the cell silhouette, a centre boss, seams or welds across the plate face
+- print, folds, stains or a vignette in the newsprint

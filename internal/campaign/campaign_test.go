@@ -1,55 +1,36 @@
 package campaign
 
-import "testing"
+import (
+	"io/fs"
+	"strings"
+	"testing"
 
-func TestPeriodsRunThroughTheWar(t *testing.T) {
-	if len(Periods) != 24 {
-		t.Fatalf("%d periods, want 24 two-month layers", len(Periods))
-	}
-	if Periods[0].Label != "August – September 1914" || Periods[23].Label != "June – July 1918" {
-		t.Errorf("first %q, last %q", Periods[0].Label, Periods[23].Label)
-	}
-	for i, p := range Periods {
-		if p.Headline == "" || len(p.Lines) == 0 {
-			t.Errorf("period %d (%s) has no news", i, p.Label)
-		}
-		for _, l := range p.Lines {
-			if len(l) > 44 {
-				t.Errorf("period %d line too wide for the news column: %q", i, l)
-			}
-		}
-	}
-}
+	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+)
 
-func TestMonths(t *testing.T) {
-	for month, p := range Months {
-		if PeriodOf(month) < 0 || p.Headline == "" || len(p.Lines) == 0 {
-			t.Errorf("month %s: %+v", month, p)
-		}
-		for _, l := range p.Lines {
-			if len(l) > 44 {
-				t.Errorf("month %s line too wide for the news column: %q", month, l)
-			}
+func TestEveryMonthHasAFrontPage(t *testing.T) {
+	files, err := fs.Glob(levels.Monthly, "monthly/*.json")
+	if err != nil || len(files) == 0 {
+		t.Fatal(files, err)
+	}
+	for _, f := range files {
+		month := strings.TrimSuffix(strings.TrimPrefix(f, "monthly/"), ".json")
+		if _, ok := News(month); !ok {
+			t.Errorf("%s has no front page", month)
 		}
 	}
-	if p, ok := News("1914-09"); !ok || p.Label != "September 1914" {
-		t.Errorf("1914-09: %+v", p)
+	if len(Articles) != len(files) {
+		t.Errorf("%d front pages for %d monthly levels", len(Articles), len(files))
 	}
-	if p, ok := News("1914-08"); !ok || p.Label != Periods[0].Label {
-		t.Errorf("1914-08: %+v, want the first period", p)
+	for month, a := range Articles {
+		if a.Label == "" || a.Headline == "" || a.Deck == "" || a.Caption == "" || len(a.Body) < 2 || len(a.Briefs) != 3 {
+			t.Errorf("%s: incomplete page %+v", month, a)
+		}
+		if !strings.HasSuffix(a.Label, month[:4]) {
+			t.Errorf("%s: label %q", month, a.Label)
+		}
 	}
 	if _, ok := News("1918-08"); ok {
-		t.Error("1918-08 has news")
-	}
-}
-
-func TestPeriodOf(t *testing.T) {
-	for month, want := range map[string]int{
-		"1914-08": 0, "1914-09": 0, "1914-10": 1, "1915-01": 2, "1918-06": 23, "1918-07": 23,
-		"1914-07": -1, "1918-08": -1, "1914-8": -1, "x": -1, "1914-13": -1,
-	} {
-		if got := PeriodOf(month); got != want {
-			t.Errorf("PeriodOf(%q) = %d, want %d", month, got, want)
-		}
+		t.Error("1918-08 has a front page")
 	}
 }

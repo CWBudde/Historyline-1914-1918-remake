@@ -385,8 +385,15 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 	} else if scene != "" {
 		dst.Fill(dospanel.SteelColour(0.30))
 	}
-	if s.page == pageCountry {
+	switch s.page {
+	case pageCountry:
 		a.drawCountryPage(dst, d)
+		return
+	case pageNews:
+		a.drawNewsPage(dst, d)
+		return
+	case pageUnits:
+		a.drawUnitsPage(dst, d)
 		return
 	}
 	// The dark steel column over the painting, with a brass divider.
@@ -409,15 +416,6 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 		fillRect(dst, d, rect{24, 338, panelW - 48, 1}, dospanel.SteelBrassD)
 		drawText(dst, d, h[0], false, 12, 24, 360, cream, false)
 		drawText(dst, d, h[1], false, 12, 24, 378, muted, false)
-	case pageNews:
-		if p, ok := s.maps[s.code].news(); ok {
-			drawText(dst, d, "NEWS FROM THE FRONT", true, 11, 24, 122, amber, false)
-			drawDisplay(dst, d, p.Headline, 19, 24, 152, cream, false)
-			for i, l := range p.Lines {
-				drawText(dst, d, l, false, 12, 24, float64(184+i*19), cream, false)
-			}
-			drawText(dst, d, p.Label, false, 11, 24, 286, muted, false)
-		}
 	case pageScores:
 		if len(s.scoreList) == 0 {
 			drawText(dst, d, "No scores are kept yet.", false, 13, 24, 144, cream, false)
@@ -434,7 +432,7 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 			drawText(dst, d, p.Label, true, 12, 24, 118, amber, false)
 		}
 		drawText(dst, d, m.lvl.MapName, true, 16, 24, 144, cream, false)
-		for i, l := range wrapText(m.briefing, false, 12, panelW-48) {
+		for i, l := range wrapText(m.briefing, textKey{size: 12}, panelW-48) {
 			drawText(dst, d, l, false, 12, 24, float64(172+i*17), cream, false)
 		}
 		drawText(dst, d, "The map is being prepared.", false, 13, 24, 238, cream, false)
@@ -511,6 +509,8 @@ func pageTitle(s *shell) string {
 		return "EXTRAS"
 	case pageNews:
 		return "NEWS"
+	case pageUnits:
+		return "NEW AT THE FRONT"
 	case pageScores:
 		return "SCORE LIST"
 	case pageCountry:
@@ -606,9 +606,10 @@ func strokeRect(dst *ebiten.Image, d int, r rect, c color.Color) {
 	vector.StrokeRect(dst, float32(r.X*d), float32(r.Y*d), float32(r.W*d), float32(r.H*d), float32(d), c, false)
 }
 
-// The menu typefaces: Noto Serif Display for titles and Noto Sans for
-// labels and text (SIL OFL 1.1, see fonts/LICENSE), embedded so the menus
-// look the same everywhere. The battle's pixel font is separate and stays.
+// The menu typefaces: Noto Serif Display for titles, Noto Sans for labels
+// and text, and Noto Serif for the newspaper's print (SIL OFL 1.1, see
+// fonts/LICENSE), embedded so the menus look the same everywhere. The
+// battle's pixel font is separate and stays.
 var (
 	//go:embed fonts/NotoSerifDisplay-Bold.ttf
 	serifDisplayTTF []byte
@@ -616,12 +617,18 @@ var (
 	sansRegularTTF []byte
 	//go:embed fonts/NotoSans-SemiBold.ttf
 	sansSemiBoldTTF []byte
+	//go:embed fonts/NotoSerif-Regular.ttf
+	printRomanTTF []byte
+	//go:embed fonts/NotoSerif-Italic.ttf
+	printItalicTTF []byte
 )
 
 var (
 	serifFont   = mustFont(serifDisplayTTF)
 	boldFont    = mustFont(sansSemiBoldTTF)
 	regularFont = mustFont(sansRegularTTF)
+	romanFont   = mustFont(printRomanTTF)
+	italicFont  = mustFont(printItalicTTF)
 )
 
 func mustFont(ttf []byte) *opentype.Font {
@@ -637,10 +644,20 @@ type textKey struct {
 	s       string
 	bold    bool
 	serif   bool
+	print   printFace // a newspaper face; it overrides bold and serif
 	size    float64
 	c       color.RGBA
 	density int
 }
+
+// printFace is a newspaper text face, printNone for the menu faces.
+type printFace uint8
+
+const (
+	printNone printFace = iota
+	printRoman
+	printItalic
+)
 
 // textImage is a label rendered once; ascent is its baseline from the top.
 type textImage struct {
@@ -676,12 +693,16 @@ func renderText(k textKey) textImage {
 
 // faceFor is the font face of k's style, size and density; k.s and k.c do not matter.
 func faceFor(k textKey) font.Face {
-	fk := textKey{bold: k.bold, serif: k.serif, size: k.size, density: k.density}
+	fk := textKey{bold: k.bold, serif: k.serif, print: k.print, size: k.size, density: k.density}
 	if face, ok := faces[fk]; ok {
 		return face
 	}
 	f := regularFont
 	switch {
+	case k.print == printRoman:
+		f = romanFont
+	case k.print == printItalic:
+		f = italicFont
 	case k.serif:
 		f = serifFont
 	case k.bold:
@@ -695,10 +716,20 @@ func faceFor(k textKey) font.Face {
 	return face
 }
 
+// measure is the width of k.s in k's face, in logical pixels.
+func measure(k textKey) float64 {
+	k.density = 1
+	return float64(font.MeasureString(faceFor(k), k.s).Ceil())
+}
+
 // wrapText breaks s at spaces into lines no wider than width logical pixels
-// in the sans face; a word wider than width keeps a line of its own.
-func wrapText(s string, bold bool, size, width float64) []string {
-	face := faceFor(textKey{bold: bold, size: size, density: 1})
+// in the face of style; a word wider than width keeps a line of its own.
+func wrapText(s string, style textKey, width float64) []string {
+	return wrapIndent(s, style, width, 0)
+}
+
+// wrapIndent is wrapText with the first line indent pixels narrower.
+func wrapIndent(s string, style textKey, width, indent float64) []string {
 	var lines []string
 	line := ""
 	for _, w := range strings.Fields(s) {
@@ -706,7 +737,11 @@ func wrapText(s string, bold bool, size, width float64) []string {
 		if line != "" {
 			next = line + " " + w
 		}
-		if line != "" && float64(font.MeasureString(face, next).Ceil()) > width {
+		room := width
+		if len(lines) == 0 {
+			room -= indent
+		}
+		if style.s = next; line != "" && measure(style) > room {
 			lines = append(lines, line)
 			next = w
 		}
@@ -736,11 +771,22 @@ func drawFace(dst *ebiten.Image, d int, s string, serif, bold bool, size, x, y f
 	if s == "" {
 		return
 	}
-	t := renderText(textKey{s: s, bold: bold, serif: serif, size: size, c: c, density: d})
-	px := x * float64(d)
+	align := 0.0
 	if centre {
-		px -= float64(t.advance) / 2
+		align = 0.5
 	}
+	drawKey(dst, d, textKey{s: s, bold: bold, serif: serif, size: size, c: c}, x, y, align)
+}
+
+// drawKey draws k.s in k's face and colour with its baseline at logical
+// (x, y): from x for align 0, centred on it for 0.5, ending at it for 1.
+func drawKey(dst *ebiten.Image, d int, k textKey, x, y, align float64) {
+	if k.s == "" {
+		return
+	}
+	k.density = d
+	t := renderText(k)
+	px := x*float64(d) - align*float64(t.advance)
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(math.Round(px), math.Round(y*float64(d))-float64(t.ascent))
 	dst.DrawImage(t.img, op)

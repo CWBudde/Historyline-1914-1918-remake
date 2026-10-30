@@ -38,7 +38,8 @@ const (
 	pageOutcome
 	pageLeave // the battle is paused: leave it?
 	pageScores
-	pageNews // the period's news, before a campaign battle
+	pageNews  // the month's front page, before a campaign battle
+	pageUnits // the unit types new to the side, after the front page
 )
 
 // mapLevel is a map of the menu: a setup of a monthly level
@@ -53,12 +54,13 @@ type mapLevel struct {
 	players    int    // mission players (1 or 2); 0 means 1
 	humanSides []int  // mission human sides
 	winter     bool
-	briefing   string // one line shown on the loading page
-	month      string // "1914-08"
+	briefing   string     // one line shown on the loading page
+	month      string     // "1914-08"
+	newUnits   []unitCard // the side's unit types new in its campaign chain
 }
 
-// news is the news page of the map's month.
-func (m mapLevel) news() (campaign.Period, bool) {
+// news is the front page of the map's month.
+func (m mapLevel) news() (campaign.Article, bool) {
 	return campaign.News(m.month)
 }
 
@@ -116,6 +118,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 	var maps []mapLevel
 	for _, mode := range campaignModes {
 		first := len(maps)
+		seen := map[string]bool{}
 		for i, f := range scens {
 			s := f.Setup(mode)
 			if s == nil || s.Code == "" {
@@ -131,6 +134,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month,
 			}
 			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.winter, true)
+			m.newUnits = newCards(set, sideUnits(s, mode), seen)
 			if len(maps) > first {
 				maps[len(maps)-1].next = len(maps)
 			}
@@ -237,6 +241,7 @@ type shell struct {
 	scoreList   []scores.Entry
 	pendingSave []byte // a loaded battle to resume, consumed by config
 	pendingSide int
+	unitPage    int          // the page of new units shown
 	saveBattle  func() error // set by the app; nil in tests
 }
 
@@ -441,14 +446,20 @@ func (s *shell) buttons() []button {
 					if _, ok := s.maps[s.code].news(); ok {
 						s.open(pageNews)
 					} else {
-						s.open(pageLoading)
+						s.afterNews()
 					}
 				},
 			})
 		}
 		return append(bs, back(pageMain))
 	case pageNews:
-		return []button{{r: rect{40, 344, 216, 30}, label: "TO BATTLE", left: true, help: [2]string{"On to the battle."}, do: func(s *shell) { s.open(pageLoading) }}}
+		return []button{{r: newsButton, label: "CONTINUE", help: [2]string{"On to the battle."}, do: func(s *shell) { s.afterNews() }}}
+	case pageUnits:
+		var bs []button
+		if s.unitPage+1 < unitPages(s.maps[s.code].newUnits) {
+			bs = append(bs, button{r: unitsNextRect, label: "NEXT PAGE", help: [2]string{"More new units."}, do: func(s *shell) { s.unitPage++ }})
+		}
+		return append(bs, button{r: unitsBattleRect, label: "TO BATTLE", help: [2]string{"On to the battle."}, do: func(s *shell) { s.open(pageLoading) }})
 	case pageOutcome:
 		return []button{{r: footerRect, label: "CONTINUE", help: [2]string{"Back to the main menu."}, do: func(s *shell) { s.open(pageMain) }}}
 	case pageLeave:
@@ -566,6 +577,18 @@ func (s *shell) key(k shellKey) {
 			s.open(pageMain)
 		case pageLeave:
 			s.open(pageBattle)
+		case pageNews:
+			s.open(pageCountry)
+		case pageUnits:
+			switch _, news := s.maps[s.code].news(); {
+			case s.unitPage > 0:
+				s.unitPage--
+				s.focus = s.step(-1, 1)
+			case news:
+				s.open(pageNews)
+			default:
+				s.open(pageCountry)
+			}
 		}
 	}
 }
@@ -588,6 +611,17 @@ func (s *shell) enterCode() {
 		}
 	}
 	s.note = [2]string{"Unknown code " + s.typed + ".", "The map stays " + s.maps[s.code].lvl.MapName + "."}
+}
+
+// afterNews opens the page of new units where the map has any, else the
+// loading page.
+func (s *shell) afterNews() {
+	if len(s.maps[s.code].newUnits) == 0 {
+		s.open(pageLoading)
+		return
+	}
+	s.unitPage = 0
+	s.open(pageUnits)
 }
 
 // activate does what button i does.

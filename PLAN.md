@@ -569,10 +569,13 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       rears); exact `FromOriginal` boards remain for `-level original/NN` (local original files,
       `internal/origmaps`; `levels/original` is gone).
       Evidence: `TestBindScenarios` (every setup binds), `TestBindScenarioCredits`.
-- [x] 5.6 Campaign calendar: 24 two-month periods, August 1914 – July 1918 (`internal/campaign`), with
-      newly written news pages; a month shows its own page (`campaign.Months`) or its period's.
-      Starting a campaign battle shows the news (TO BATTLE continues to loading), and the loading
-      page names it. Evidence: `TestCampaignPeriodsAndNews`, `internal/campaign` tests.
+- [x] 5.6 Campaign front pages (`internal/campaign`): every campaign month has a newly written front
+      page of a neutral paper, "The War Chronicle" (`campaign.Articles`): headline, deck, a
+      pen-and-ink illustration (`art/screens/news`) with caption, a two-column article and "In
+      brief". After it, a page introduces the unit types new to the player's side in its campaign
+      chain (portrait, stats, `campaign.UnitNotes`), four a page; then loading. Evidence:
+      `TestCampaignNews`, `TestFrontPagesFit`, `TestNewUnitsFollowTheChain`, `TestUnitPages`,
+      `internal/campaign` tests.
 - [ ] 5.8 Monthly campaign: one level per month (48) in `levels/monthly`, in the scenario format
       (`internal/scenario`): one map for every mode, a setup each for a Central Powers player
       (`cp`), an Entente player (`ec`) and two players (`2p`), each with its own code word. The menu

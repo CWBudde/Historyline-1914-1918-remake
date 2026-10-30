@@ -5,13 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/image/font"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
+	"golang.org/x/image/font"
 )
 
 var shellSet *data.Set
@@ -246,12 +245,10 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 	s.key(keyLeft)
 	s.key(keyEnter)
 	if s.page != pageNews {
-		t.Fatalf("page %d, want the period's news", s.page)
+		t.Fatalf("page %d, want the month's front page", s.page)
 	}
-	s.activate(0) // TO BATTLE
-	if s.page != pageLoading {
-		t.Fatalf("page %d", s.page)
-	}
+	s.activate(0) // CONTINUE
+	toBattle(t, s)
 	// France takes the month's Entente setup.
 	c := s.config(matchConfig{rules: "dos"})
 	if c.lvl != s.maps[27].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
@@ -397,19 +394,20 @@ func TestCodeEntryPasswords(t *testing.T) {
 	}
 }
 
-func TestCampaignPeriodsAndNews(t *testing.T) {
+func TestCampaignNews(t *testing.T) {
 	s := testShell(t)
-	// The original maps show their period's news, Marne its own month's.
+	// Every campaign map shows its month's front page.
 	for idx, want := range map[int]string{
-		0: "August – September 1914", 1: "September 1914", 2: "October – November 1914",
-		3: "November 1914", 5: "January 1915", 26: "June – July 1918", 27: "August – September 1914",
+		0: "August 1914", 1: "September 1914", 2: "October 1914",
+		3: "November 1914", 5: "January 1915", 26: "June 1918", 27: "August 1914",
 		28: "September 1914", 30: "November 1914", 32: "January 1915",
 	} {
 		if p, ok := s.maps[idx].news(); !ok || p.Label != want {
 			t.Errorf("maps[%d] (%s) news %q, want %q", idx, s.maps[idx].month, p.Label, want)
 		}
 	}
-	// Starting a campaign map shows its news first; TO BATTLE then loads.
+	// Starting a campaign map shows its front page first, then the side's
+	// new units, then loads.
 	s.code = 0
 	s.open(pageCountry)
 	s.activate(1) // Germany
@@ -417,8 +415,18 @@ func TestCampaignPeriodsAndNews(t *testing.T) {
 		t.Fatalf("campaign map start page %d code %d, want news of map 0", s.page, s.code)
 	}
 	s.activate(0)
+	toBattle(t, s)
+}
+
+// toBattle leaves the page of new units, if shown, by TO BATTLE and wants the
+// loading page.
+func toBattle(t *testing.T, s *shell) {
+	t.Helper()
+	if s.page == pageUnits {
+		s.activate(len(s.buttons()) - 1)
+	}
 	if s.page != pageLoading {
-		t.Fatalf("news continue page %d, want loading", s.page)
+		t.Fatalf("page %d, want loading", s.page)
 	}
 }
 
@@ -478,9 +486,7 @@ func TestMonthlyMarne(t *testing.T) {
 		t.Fatalf("monthly start page %d, want news", s.page)
 	}
 	s.activate(0)
-	if s.page != pageLoading {
-		t.Fatalf("news continue page %d, want loading", s.page)
-	}
+	toBattle(t, s)
 	// Easy by design: the Entente field force outnumbers the German one.
 	var ec, cp int
 	for _, line := range m.lvl.Lines {
@@ -593,7 +599,7 @@ func TestWrapTextFitsWidth(t *testing.T) {
 		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, false, true),
 		briefingLine("RHEIN", 2, nil, state.CentralPowers, true, true),
 	} {
-		lines := wrapText(b, false, 12, panelW-48)
+		lines := wrapText(b, textKey{size: 12}, panelW-48)
 		if len(lines) > 3 || strings.Join(lines, " ") != b {
 			t.Errorf("%q wraps to %q", b, lines)
 		}

@@ -6386,6 +6386,332 @@
       }
     },
     {
+      "id": "screens/news",
+      "title": "Campaign newspaper",
+      "kind": "screen",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/screens/news",
+      "assets_dir": "assets/screens/news",
+      "prompt": "art/screens/news/prompt.md",
+      "masters": [
+        {
+          "path": "art/screens/news/1914-08.png",
+          "sha256": "def90d6143b62d0328a7fb75686893c83247526465eaf6a1861d82f2e8a756dd",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1914-09.png",
+          "sha256": "30096f3c16fdb07c86ec94bb45e75429226b2aec612cea7959056d476466e327",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1914-10.png",
+          "sha256": "fb7718e920612486a4409581bf22dc1d1e14049a1b40ec19c98a42ea85e1fdc2",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1914-11.png",
+          "sha256": "19e41595fade049a7c706d793bb62203b9c3c81563437ecec376059713307ee1",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1914-12.png",
+          "sha256": "c916905e2ffb6a18bf315b0527d3bdddfd38b784709611ca5d8b2c27d6b4805c",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-01.png",
+          "sha256": "4011356fcda203e89bc36c07d6ea33d8017392ff07d7ca309deedb64d11cf149",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-02.png",
+          "sha256": "51acb16572efc01937749eb7d1c83ec4527b04ca3b9dd8bef3976e2f2dff8890",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-04.png",
+          "sha256": "26939b28727a7933a6341ef6e75bd816ede1cd01174118b412d2921259fe42a5",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-06.png",
+          "sha256": "e1cac90e81dd379cd8ec0237118a50c739e26f2362f3804620b1a96e6b066071",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-08.png",
+          "sha256": "e56ccc24a812328aeceda6dd419a8236e00b729d2b2aaf0e4baf16a6a2b1e301",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-10.png",
+          "sha256": "6a52c05d88d2120548c9bba7141dc0d4678c67a1d6b890767ff301750f1c99ec",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-12.png",
+          "sha256": "1ca793571acbec3b1c4c7534436d9ae9d68f4dff0a03330c2dfcc9a8c267e3bb",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-02.png",
+          "sha256": "8cdf6007ecd066e8fd4e65dc84059d4f1790be8e5dee1bed53523f2a725f388a",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-04.png",
+          "sha256": "b95bc534da0739a308f9f1cd918a067f51e8a6916b137b45f644fdc185a6e85f",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-06.png",
+          "sha256": "48187c11e12574640578fc095d63b7d1c852739df98fb0e800009678dafab8f0",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-08.png",
+          "sha256": "a518400fa0c8a6415b79080bc28f75e80476f01f949d0bad90993a5dacf54d21",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-10.png",
+          "sha256": "72407f447fc1f72770390a60c179f4858cb1565fe1f323e5910caca060af5e61",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-12.png",
+          "sha256": "bf3f55de5c2be2e7a0043d5461789c3bac4f995d4078ba1a2bbccd66a9805bad",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-02.png",
+          "sha256": "72d636a950446b1bf8e226aba0d99c33ecdff84eac779fb16fd0a29abc2431ee",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-04.png",
+          "sha256": "2374fd080fec944454e5433769007f2fd9c5016cb0430be0e4deeb6a919e0a6e",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-06.png",
+          "sha256": "868c947e625fd525d3f166460e1de029b4bd3e95aea2512693684d8e12c4f344",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-08.png",
+          "sha256": "1a7fd146e1e74725de697ce89a5dab057a8f345fafb89d72fccc7893fd852927",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-10.png",
+          "sha256": "c414c40d9df3eb630ff9395ba9518f1378b348fa7016efcb6b9ffdcf25f5400b",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-12.png",
+          "sha256": "8db271fd84a9d0506ea31c7312c2e7fb1e372d63d8151100d96f927342faee7f",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-02.png",
+          "sha256": "5cfce03490cb0651d66aca4a80108f7020530b2899eeba5c69276f1dd6aab677",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-04.png",
+          "sha256": "b8ecc08284ff283f2b17aa4fc69e2ab3c11ac76ec3af1a92bd6285f51256acb6",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-06.png",
+          "sha256": "956d5ea6e0c4125b5a87bc67bf81f908c37c638dc0377276a635a500cdaf1a34",
+          "width": 1536,
+          "height": 1024
+        }
+      ],
+      "look": "The illustrations of the campaign newspaper, one per campaign month: a war artist's pen-and-ink\nsketch with cross-hatching and a grey wash, as an illustrated weekly of 1914–1918 printed it, in\nwarm black ink on off-white paper. Each shows the month's headline event (the Marne taxis, the\nChristmas truce, the first tank, the Messines mines, the Renault tanks of July 1918), restrained:\nno gore, no bodies. The page's text, rules and frame are drawn live on `surface/newsprint`.",
+      "base_prompt": "```text\nNewly authored artwork for a World War I strategy game, 1914-1918: one illustration as printed in an\nillustrated weekly newspaper of the time, from a sketch by the paper's war artist. Pen-and-ink drawing\nwith crisp cross-hatching and a soft grey ink wash; monochrome warm black ink only, no colour at all.\nBelievable figures, uniforms, vehicles, ships and landscape; a reportage composition with depth and\natmosphere, restrained and dignified: no gore, no wounded or dead bodies shown. Not a photograph, not a\n3D render, not a cartoon, not pixel art, not a flat vector. No text, letters, numbers, captions,\nlabels, logos, watermarks, signatures, flags, national insignia, frames, borders or paper margin. Do\nnot copy or trace any existing artwork or game graphics.\nLANDSCAPE canvas, 3:2 aspect, 1536x1024 pixels: the drawing fills the whole canvas edge to edge, on a\nplain off-white paper tone (RGB about 236, 228, 210) where the drawing is light.\n```\n\nEach month's prompt is this text, a blank line, then its scene. No images are attached.",
+      "variants": [
+        {
+          "variant": "1914-08",
+          "runtime_ids": [],
+          "delta": "`news-01` (exec-e6b1d429), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1914-09",
+          "runtime_ids": [],
+          "delta": "`news-02` (exec-79d7a2ba), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1914-10",
+          "runtime_ids": [],
+          "delta": "`news-03` (exec-cd06e906), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1914-11",
+          "runtime_ids": [],
+          "delta": "`news-04` (exec-ddb54d90), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1914-12",
+          "runtime_ids": [],
+          "delta": "`news-05` (exec-0b82c09e), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-01",
+          "runtime_ids": [],
+          "delta": "`news-06` (exec-01d2086f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-02",
+          "runtime_ids": [],
+          "delta": "`news-07` (exec-b0c090a6), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-04",
+          "runtime_ids": [],
+          "delta": "`news-08` (exec-ad7877cb), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-06",
+          "runtime_ids": [],
+          "delta": "`news-09` (exec-68d47959), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-08",
+          "runtime_ids": [],
+          "delta": "`news-10` (exec-0d7f5437), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-10",
+          "runtime_ids": [],
+          "delta": "`news-11` (exec-02f46a39), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-12",
+          "runtime_ids": [],
+          "delta": "`news-12` (exec-ef3d41f3), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-02",
+          "runtime_ids": [],
+          "delta": "`news-13` (exec-6fe80639), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-04",
+          "runtime_ids": [],
+          "delta": "`news-14` (exec-a9ad13a6), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-06",
+          "runtime_ids": [],
+          "delta": "`news-15` (exec-5d9513ea), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-08",
+          "runtime_ids": [],
+          "delta": "`news-16` (exec-0c0ad80f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-10",
+          "runtime_ids": [],
+          "delta": "`news-17` (exec-116fc91f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-12",
+          "runtime_ids": [],
+          "delta": "`news-18` (exec-f8d3423f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-02",
+          "runtime_ids": [],
+          "delta": "`news-19` (exec-40f02d0b), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-04",
+          "runtime_ids": [],
+          "delta": "`news-20` (exec-324e369f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-06",
+          "runtime_ids": [],
+          "delta": "`news-28` (exec-8120ef01), 1536x1024 opaque: a second try (the first, `news-21`, painted the mines as small tree-like puffs), the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-08",
+          "runtime_ids": [],
+          "delta": "`news-22` (exec-f230c1c4), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-10",
+          "runtime_ids": [],
+          "delta": "`news-23` (exec-0dc4fce2), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-12",
+          "runtime_ids": [],
+          "delta": "`news-24` (exec-9d65ffd6), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-02",
+          "runtime_ids": [],
+          "delta": "`news-25` (exec-98d41ea8), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-04",
+          "runtime_ids": [],
+          "delta": "`news-26` (exec-2be2f544), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-06",
+          "runtime_ids": [],
+          "delta": "`news-27` (exec-de7a8aef), 1536x1024 opaque: the base prompt and the scene below."
+        }
+      ],
+      "edges": "",
+      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `news`\nfamily as `news/<month>`, 270x180 at 1x and 540x360 at 2x; the front page draws it 240x160 in its\nfirst column, under a thin ink frame.",
+      "avoid": [
+        "colour beyond the warm ink tone",
+        "text, captions, signatures, flags or insignia",
+        "wounded or dead",
+        "a paper margin or frame around the drawing"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "screens/options",
       "title": "Settings",
       "kind": "screen",
@@ -7047,9 +7373,15 @@
           "sha256": "0a731aa000de378c484155740d84987a1576a22155f96c120f1169e2e97c7437",
           "width": 1536,
           "height": 1024
+        },
+        {
+          "path": "art/screens/surface/newsprint.png",
+          "sha256": "55334ec84531dbacdf12fa2402977269e65a9c8cb6695f27c5e53f4a1f45a603",
+          "width": 1254,
+          "height": 1254
         }
       ],
-      "look": "Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,\ncontents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn\nbrass rivet heads for the plates' rivets. The split screen's frame is built of riveted hex plates of\nolive gunmetal, four paintings that differ only in wear, drawn on the cells around the view.",
+      "look": "Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,\ncontents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn\nbrass rivet heads for the plates' rivets. The split screen's frame is built of riveted hex plates of\nolive gunmetal, four paintings that differ only in wear, drawn on the cells around the view. Aged\noff-white newsprint is the sheet of the campaign newspaper.",
       "base_prompt": "Newly authored artwork for a turn-based World War I hex strategy game set in rural Europe, 1914-1918.\nContinuous hand-painted digital illustration with fine, believable material detail: wool, leather, wood,\nsteel, concrete, earth, grass, stone and water. Restrained, natural palette and calm values so that\nmarkers and units stay readable on top. Soft, diffuse daylight from the upper left with short, soft\nshadows to the lower right. Crisp, antialiased natural edges. Not pixel art, not a pixel enlargement,\nnot a flat vector, not a cartoon, not a photograph or 3D render. No text, letters, numbers, labels,\nlogos, watermarks, flags, national insignia, grid lines, hex outlines, frames, borders, arrows,\nvignettes or checkerboard patterns. Do not copy or trace any existing game's graphics.\n\nSlate and brass interface vocabulary: dark slate panels (#162630), muted blue-grey\nhairlines (#6e8088), aged brass accents (#c4a773) and cream highlights (#eee5d2). Flat, clean shapes with\nsmall corner radii and thin bevels; icons are simple solid glyphs in brass or slate. Painted items\n(weapons, explosions) use the painted medium above on true transparency. Art never contains labels or\nvalues; all text is drawn live.",
       "variants": [
         {
@@ -7086,16 +7418,22 @@
           "variant": "plate-4",
           "runtime_ids": [],
           "delta": "`hp-05` (exec-b7361a38), 1536x1024 RGBA: as plate-2 with \"Paint fine long scratches running in a different direction than in image 2 and a few small dents, placed elsewhere than in image 2.\""
+        },
+        {
+          "variant": "newsprint",
+          "runtime_ids": [],
+          "delta": "`paper-01` (exec-4bb2c353, 2026-10-30), 1254x1254 opaque, wraps (edge step 4.3 vs 3.1–3.7 inside), mean RGB 230,214,188: the prompt below."
         }
       ],
       "edges": "",
-      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`\nfamily: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile\nstays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades\nthe tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in\na master does not matter. One steel tile spans 256 reference pixels of a panel, one ground tile 96. The\nrivet heads keep their painted hue, brightened evenly so their mean is as light as the panel's brass.\nEach head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's\nfaint alpha haze; the rivet's shadow is drawn in code.\n\n`surface/plate` and `surface/plate-2` to `-4` are scaled like a tile (512 px wide at 1x, 1024 px at 2x).\n`internal/dosscreen` takes each one's opaque box (alpha over half) as the cell's 96x80 box and draws a\nplate, unchanged in colour, on every cell of a panel frame that is not an opening, over the darkest\nsteel, so the teeth are plates with seams between them; a dark lip is drawn along the openings. Each\ncell picks its plate by its place in the view. The chrome around the panels (the divider post, the\nsteel strips and the bolt) takes the plates' mean colour, with `surface/steel` graded on it as on the\npanels.",
+      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`\nfamily: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile\nstays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades\nthe tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in\na master does not matter. One steel tile spans 256 reference pixels of a panel, one ground tile 96. The\nrivet heads keep their painted hue, brightened evenly so their mean is as light as the panel's brass.\nEach head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's\nfaint alpha haze; the rivet's shadow is drawn in code.\n\n`surface/plate` and `surface/plate-2` to `-4` are scaled like a tile (512 px wide at 1x, 1024 px at 2x).\n`internal/dosscreen` takes each one's opaque box (alpha over half) as the cell's 96x80 box and draws a\nplate, unchanged in colour, on every cell of a panel frame that is not an opening, over the darkest\nsteel, so the teeth are plates with seams between them; a dark lip is drawn along the openings. Each\ncell picks its plate by its place in the view. The chrome around the panels (the divider post, the\nsteel strips and the bolt) takes the plates' mean colour, with `surface/steel` graded on it as on the\npanels.\n\n`surface/newsprint` is scaled like a tile (512 px at 1x, 1024 px at 2x) and tiled unchanged over the\ncampaign newspaper's sheet.",
       "avoid": [
         "rivets, seams, plate edges or frames in the steel",
         "grass, craters, puddles, footprints or objects in the ground",
         "a light direction or a shading gradient across the tile",
         "slots, crosses, markings, washers or cast shadows on the rivet heads",
-        "a plate outline off the cell silhouette, a centre boss, seams or welds across the plate face"
+        "a plate outline off the cell silhouette, a centre boss, seams or welds across the plate face",
+        "print, folds, stains or a vignette in the newsprint"
       ],
       "runtime": {
         "count": 0,

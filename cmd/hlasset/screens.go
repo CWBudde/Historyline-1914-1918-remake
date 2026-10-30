@@ -106,8 +106,9 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 	// The panels' surfaces, art/screens/surface/<name>.png, in one family
 	// "surface": the seamless tiles and the rivet sheet; and the capture
 	// scenes' paintings, art/screens/capture/<name>.png, in "capture", the
-	// headquarters' full-screen.
-	for _, family := range []string{"surface", "capture"} {
+	// headquarters' full-screen; and the campaign newspaper's illustrations,
+	// art/screens/news/<month>.png, in "news" at newsW×newsH.
+	for _, family := range []string{"surface", "capture", "news"} {
 		srcs, err := filepath.Glob(filepath.Join(artDir, "screens", family, "*.png"))
 		if err != nil {
 			return nil, err
@@ -115,6 +116,13 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 		slices.Sort(srcs)
 		for _, src := range srcs {
 			id := family + "/" + strings.TrimSuffix(filepath.Base(src), ".png")
+			if family == "news" {
+				files = append(files, screenFile{
+					Family: family, ID: id, Density: d, Width: newsW * d, Height: newsH * d,
+					read: func() ([]byte, error) { return scalePainting(src, newsW*d, newsH*d) },
+				})
+				continue
+			}
 			if fullCaptures[id] {
 				files = append(files, screenFile{
 					Family: family, ID: id, Density: d, Width: screenW * d, Height: screenH * d,
@@ -134,6 +142,9 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 	}
 	return files, nil
 }
+
+// newsW, newsH are the logical size of a newspaper illustration (3:2).
+const newsW, newsH = 270, 180
 
 // fullCaptures are the capture paintings scaled to the full screen.
 var fullCaptures = map[string]bool{

@@ -38,7 +38,8 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"portraits":      {"portrait/armored-car", "portrait/light-artillery"},
 			"rank":           {"rank/01", "rank/10"},
 			"effect":         {"effect/explosion-00", "effect/explosion-08", "effect/hit"},
-			"surface":        {"surface/steel", "surface/ground", "surface/rivets", "surface/plate", "surface/plate-4"},
+			"surface":        {"surface/steel", "surface/ground", "surface/rivets", "surface/plate", "surface/plate-4", "surface/newsprint"},
+			"news":           {"news/1914-08", "news/1918-06"},
 			"capture":        {"capture/depot", "capture/factory", "capture/hand", "capture/hq", "capture/hq-open", "capture/surrender", "capture/surrender-offer", "capture/surrender-accepted"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
@@ -67,7 +68,11 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 				if sheet && (e.Width != surfaceTile*d || e.Height != h) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}
-				full = full && !sheet
+				news := strings.HasPrefix(id, "news/")
+				if news && (e.Width != newsW*d || e.Height != newsH*d) {
+					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
+				}
+				full = full && !sheet && !news
 				if full && (e.Width != screenW*d || e.Height != screenH*d) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}
