@@ -60,11 +60,14 @@ HILLS/MOVES (`1917-06.jpg`, 3829×4403) has full June greenery and mostly dry gr
 high cloud, after several dry days. Small clearings and level shelves support the starting units;
 all three airstrips and seven hangars stay open. Fourteen timber bridges span continuous streams,
 with short footbridge approaches fading into worn grass.
-COBRA/BLADE (`1917-08.jpg`, 3829×4403) has mature August greenery, damp gravel and wind-ruffled
-water under brightening overcast light after a shower. Both rail networks share one continuous track
-design; three open railheads have timber buffers and the southern compound entries stay open.
-Four long timber bridges span the waterways. Small clearings and a grassy shelf support the starting
-units; three patrol boats and two infantry groups start on adjacent hexes clear of banks and bridge edges.
+COBRA/BLADE (`1917-08.jpg`, 3829×4403) follows PULSE's look: bright late-summer meadow, painterly woods
+and natural stony river and lake banks under warm afternoon sun. Every building is an individual design:
+a moated limestone château with green copper domes and a red-brick fort with octagonal crenellated
+towers as the HQs; a textile mill, an ironworks, a munitions works, a sawmill and a brickworks; a supply
+yard, an ammunition dump, a remount depot, a walled farm, engineer stores and a railhead depot. Both
+rail networks share one continuous track design; three open railheads have timber buffers and the
+southern compound entries stay open. Four long timber bridges span the waterways. Small clearings and a
+grassy shelf support the starting units; three patrol boats and two infantry groups start on adjacent hexes clear of banks and bridge edges.
 ATLAS/ZORRO (`1917-10.jpg`, 4806×4403) has shallow fresh October snow, copper leaves and pale
 clear morning light. Small woodland clearings and level rocky shelves support the starting units;
 both airstrips and four hangars stay open. Eight bridges cross continuous rivers and streams.
@@ -184,6 +187,9 @@ along y. Check the joins at full resolution and with a hex-grid overlay for regi
   by 80 to 500 px. Paint the section without them, generate the objects as a separate top-down sheet
   and paste them on their hexes with a round, feathered blend and a gain matched to the surroundings;
   never rotate or transpose them.
+- Individual buildings: edit a square crop of the stitched painting around each HQ, factory or depot
+  ("same image, change only the complex in the middle") and paste it back with a round, feathered blend.
+  Where two crops overlap, keep the radii tight and paste the more important building last.
 - Save as JPEG next to the scenario file and set `backdrop`; check it in the game with units on top at
   normal and close zoom.
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
