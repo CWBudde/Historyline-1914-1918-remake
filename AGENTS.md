@@ -50,6 +50,10 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
   costs towards the enemy HQ and units, takes buildings on its way and queues the attacks the exact battle
   outcome favours; `PlayOut`.
+- `internal/llmplay` + `cmd/hlllplay` (`just llmplay`, `docs/llmplay.md`): an external agent plays a shipped
+  level against `dosai` through fair text prompts (legal orders with exact `Engage` gains and threat
+  warnings) and atomic JSONL orders; every game is recorded (replayable transcript, per-resolution save,
+  optional frames/GIF) and reviewed into counted `LESSONS.md` patterns.
 - `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen under
   `-rules dos` (layout, steel frame, panel views, cursor gestures); see `docs/dos-screen.md`.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).

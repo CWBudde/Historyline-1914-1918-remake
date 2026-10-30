@@ -14,6 +14,10 @@ py *args:
 run *args:
     go run ./cmd/historyline {{args}}
 
+# Let an LLM play a shipped level (default RHEIN, 1918-02:cp) against dosai, fully recorded; see docs/llmplay.md
+llmplay *args:
+    go run ./cmd/hlllplay {{args}}
+
 # Generated output lives in ignored build/: packs/<name>, web, manual,
 # review/<name>/ (studies and desks) and scratch/ (disposable). build/go.mod keeps stray
 # Go files there out of ./...
