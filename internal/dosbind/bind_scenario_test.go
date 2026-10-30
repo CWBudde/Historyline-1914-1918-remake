@@ -15,20 +15,15 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// Every setup of the shipped level folders (the campaign months and the
-// extra maps) must bind for -rules dos.
+// Every setup of the shipped level folders must bind for -rules dos.
 func TestBindScenarios(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
 		t.Fatal(err)
 	}
-	dirs, err := scenario.Folders(os.DirFS(levelsDir))
-	if err != nil {
-		t.Fatal(err)
-	}
-	months, err := scenario.Months(os.DirFS(levelsDir))
-	if err != nil || len(months) < 27 || len(dirs) < 51 {
-		t.Fatalf("%d months, %d folders, %v", len(months), len(dirs), err)
+	dirs, err := scenario.Months(os.DirFS(levelsDir))
+	if err != nil || len(dirs) < 51 {
+		t.Fatalf("%d level folders, %v", len(dirs), err)
 	}
 	for _, dir := range dirs {
 		path := filepath.Join(levelsDir, filepath.FromSlash(dir))

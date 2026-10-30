@@ -38,8 +38,8 @@ func TestFrontPagesFit(t *testing.T) {
 		}
 	}
 	pages, _ := fs.Glob(levels.Levels, "*/"+campaign.File)
-	if issues["1914-08"] != 1 || issues["1918-07"] != len(pages) || len(pages) != 48 {
-		t.Errorf("issues %d, %d of %d", issues["1914-08"], issues["1918-07"], len(pages))
+	if issues["1914-08"] != 1 || issues["1918-11"] != len(pages) || len(pages) != 51 {
+		t.Errorf("issues %d, %d of %d", issues["1914-08"], issues["1918-11"], len(pages))
 	}
 }
 

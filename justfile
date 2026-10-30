@@ -132,7 +132,7 @@ art-check:
 backdrop-jpeg +names:
     go run ./cmd/hlbackdrop jpeg {{names}}
 
-# Write the level folders of the original full game's maps (local original/): their months and levels/extra (overwrites hand edits there, keeps backdrops and front pages)
+# Write the level folders of the original full game's maps (local original/): their months (overwrites hand edits there, keeps backdrops and front pages)
 levels-campaign:
     go run ./cmd/hlcampaign
 

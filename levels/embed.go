@@ -7,9 +7,8 @@ import "embed"
 
 // Levels holds the level folders: the campaign months, "1914-08/map.json"
 // with a setup file per mode, the backdrop "1914-08/backdrop.jpg" and the
-// month's newspaper front page "1914-08/news.json" (internal/campaign), and
-// the extra two-player maps, "extra/13-grand/map.json". The backdrops'
-// lossless sources (backdrop.png) stay out.
+// month's newspaper front page "1914-08/news.json" (internal/campaign). The
+// backdrops' lossless sources (backdrop.png) stay out.
 //
-//go:embed 19*/*.json 19*/backdrop.jpg extra/*/*.json
+//go:embed 19*/*.json 19*/backdrop.jpg
 var Levels embed.FS

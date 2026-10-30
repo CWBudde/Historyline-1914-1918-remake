@@ -7,10 +7,9 @@
 //     is the Central Powers version's; setup cp is that version, ec the
 //     Entente version on the same map, 2p the Central Powers side of the
 //     first and the Entente side of the second.
-//   - the two-player maps 48–71 fill the months between (twoPlayer):
-//     setup cp is the original's units, ec and 2p are from it; the three
-//     that fit the campaign worst become extra/10-troll …, with the
-//     units as setup 2p and cp, ec from it.
+//   - the two-player maps 48–71 fill the months between and after them
+//     up to November 1918 (twoPlayer): setup cp is the original's units,
+//     ec and 2p are from it.
 //
 // Credits are the buildings' records' energy (an HQ without a record 50),
 // builds the map's producible types. Where the Entente version's terrain
@@ -21,8 +20,7 @@
 //	go run ./cmd/hlcampaign [-levels levels]
 //
 // It replaces the map and setup files of the folders it writes (the other
-// months, the newly authored levels, stay) and removes those of an extra
-// folder it no longer writes; backdrops and front pages stay.
+// months, the newly authored levels, stay); backdrops and front pages stay.
 package main
 
 import (
@@ -30,8 +28,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"os"
-	"path"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -66,48 +62,21 @@ func main() {
 	for _, line := range out.report {
 		fmt.Println(line)
 	}
-	// The importer owns the extra maps: a folder it no longer writes loses
-	// its map and setups, and goes when nothing else is left in it.
-	extras, err := filepath.Glob(filepath.Join(*dir, scenario.ExtraDir, "*"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, p := range extras {
-		if out.folders[path.Join(scenario.ExtraDir, filepath.Base(p))] != nil {
-			continue
-		}
-		for _, name := range append([]string{scenario.MapFile}, setupFiles()...) {
-			if err := os.Remove(filepath.Join(p, name)); err != nil && !errors.Is(err, os.ErrNotExist) {
-				log.Fatal(err)
-			}
-		}
-		_ = os.Remove(p)
-	}
 	names := make([]string, 0, len(out.folders))
 	for name := range out.folders {
 		names = append(names, name)
 	}
 	slices.Sort(names)
 	for _, name := range names {
-		if err := out.folders[name].Write(filepath.Join(*dir, filepath.FromSlash(name))); err != nil {
+		if err := out.folders[name].Write(filepath.Join(*dir, name)); err != nil {
 			log.Fatalf("%s: %v", name, err)
 		}
 	}
 	fmt.Printf("wrote %d level folders to %s\n", len(out.folders), *dir)
 }
 
-// setupFiles are the setup files of every mode.
-func setupFiles() []string {
-	var out []string
-	for _, m := range scenario.Modes {
-		out = append(out, scenario.SetupFile(m))
-	}
-	return out
-}
-
-// output is what generate writes: the level folders by their path below
-// the levels directory ("1914-08", "extra/13-grand") and the changes the
-// merge made.
+// output is what generate writes: the level folders by their month and the
+// changes the merge made.
 type output struct {
 	folders map[string]*scenario.File
 	report  []string
@@ -123,10 +92,10 @@ func Month(k int) string {
 }
 
 // twoPlayer is where the two-player maps 48–71 go, in map order: the
-// campaign month that fills a month between the original campaign's, with
-// the code word of its Entente setup, or an extra folder (no month). A
-// map's month is no earlier than its unit types, a winter map's month a
-// winter one.
+// campaign month that fills a month between the original campaign's or after
+// it up to the armistice, with the code word of its Entente setup. A map's
+// month is no earlier than its unit types, a winter map's month a winter
+// one.
 var twoPlayer = [campaignMaps]struct{ month, ecCode string }{
 	{"1915-05", "TOMMY"}, // TRACK
 	{"1915-03", "SABRE"}, // HUSAR
@@ -137,12 +106,12 @@ var twoPlayer = [campaignMaps]struct{ month, ecCode string }{
 	{"1916-05", "ALPIN"}, // VIRUS
 	{"1916-01", "FROST"}, // BISON
 	{"1916-03", "MEUSE"}, // DRUCK
-	{"", ""},             // TROLL: four units a side
+	{"1918-08", "BLACK"}, // TROLL
 	{"1917-01", "DEPTH"}, // UBOOT
 	{"1916-09", "TANKS"}, // DROID
-	{"", ""},             // GRAND: one unit a side, and the computer does not build
+	{"1918-09", "ARGON"}, // GRAND: for September and October
 	{"1916-11", "CROWN"}, // ROYAL
-	{"", ""},             // WATER: open sea
+	{"1918-11", "TRUCE"}, // WATER
 	{"1917-03", "CABLE"}, // SKILL
 	{"1917-05", "ANZAC"}, // SKULL
 	{"1917-07", "MASKS"}, // AUDIO
@@ -190,19 +159,10 @@ func generate(all []*finmap.Level, set *data.Set) (*output, error) {
 		}
 		lines, s := scenario.Split(lv)
 		s.Code = m.Mission.Code
-		f := &scenario.File{Name: title(m.Mission.Code), Map: lines}
 		name := twoPlayer[j].month
-		if name == "" {
-			name = path.Join(scenario.ExtraDir, fmt.Sprintf("%02d-%s", j+1, strings.ToLower(m.Mission.Code)))
-			f.Setups = map[scenario.Mode]*scenario.Setup{
-				scenario.TwoPlayer: s, scenario.CP: {From: scenario.TwoPlayer}, scenario.EC: {From: scenario.TwoPlayer},
-			}
-		} else {
-			f.Month = name
-			f.Setups = map[scenario.Mode]*scenario.Setup{
-				scenario.CP: s, scenario.EC: {From: scenario.CP, Code: twoPlayer[j].ecCode}, scenario.TwoPlayer: {From: scenario.CP},
-			}
-		}
+		f := &scenario.File{Name: title(m.Mission.Code), Month: name, Map: lines, Setups: map[scenario.Mode]*scenario.Setup{
+			scenario.CP: s, scenario.EC: {From: scenario.CP, Code: twoPlayer[j].ecCode}, scenario.TwoPlayer: {From: scenario.CP},
+		}}
 		if out.folders[name] != nil {
 			return nil, fmt.Errorf("map %s: %s is taken", m.Source.Map, name)
 		}

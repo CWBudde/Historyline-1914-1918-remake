@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"maps"
 	"reflect"
-	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
@@ -288,20 +287,13 @@ func owned(s *game.State, p game.Player) int {
 }
 
 // The planner plays both sides of every shipped scenario setup (the
-// campaign months' three setups and the extra maps' two-player one: the
 // original maps with aircraft, ships and the whole roster) for some rounds
 // under both rule sets without an illegal order; with -short every sixth.
 func TestPlaysCampaignLevels(t *testing.T) {
 	set := loadSet(t)
-	all, err := scenario.Shipped()
+	levels, err := scenario.Shipped()
 	if err != nil {
 		t.Fatal(err)
-	}
-	var levels []scenario.Named
-	for _, n := range all {
-		if !strings.HasPrefix(n.Name, "extra/") || strings.HasSuffix(n.Name, ":2p") {
-			levels = append(levels, n)
-		}
 	}
 	if len(levels) < 99 {
 		t.Fatalf("%d scenario setups", len(levels))

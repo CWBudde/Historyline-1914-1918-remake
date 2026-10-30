@@ -91,7 +91,7 @@ func TestScenarioLevel(t *testing.T) {
 		{"1914-08", "PULSE", state.CentralPowers.String()},
 		{"1914-09", "KLUCK", state.CentralPowers.String()},
 		{"1915-05:2p", "Track", state.CentralPowers.String()},
-		{"extra/13-grand:2p", "GRAND", state.CentralPowers.String()},
+		{"1918-09:ec", "ARGON", state.Entente.String()},
 	} {
 		lvl, b, err := loadMap(t.TempDir(), c.name, set)
 		if err != nil {

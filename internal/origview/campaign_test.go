@@ -136,7 +136,7 @@ func TestCommittedCampaignArt(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(maps) < 49 {
-		t.Fatalf("%d scenario maps, want the 24 months, Marne and the 24 extra maps", len(maps))
+		t.Fatalf("%d scenario maps, want the 51 months", len(maps))
 	}
 	has := terrainCatalog(t)
 	for _, m := range maps {

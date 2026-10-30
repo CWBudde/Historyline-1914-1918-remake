@@ -576,12 +576,12 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       campaign chain (portrait, stats, a note from `internal/data/notes.json`), four a page; then
       loading. Evidence: `TestCampaignNews`, `TestFrontPagesFit`, `TestNewUnitsFollowTheChain`,
       `TestUnitPages`, `internal/campaign` tests.
-- [ ] 5.8 Monthly campaign: one level per month (48, August 1914 to July 1918), a folder each below
-      `levels/` (`levels/1914-08/`: `map.json`, `cp.json`, `ec.json`, `2p.json`), in the scenario format
-      (`internal/scenario`): one map for every mode, a setup each for a Central Powers player
-      (`cp`), an Entente player (`ec`) and two players (`2p`), each with its own code word. The menu
-      plays a chain per side through the months; the country card picks the month's setup for its
-      side. (2026-10-25) The 24 original campaign maps open their periods (1914-08 PULSE/BATLE …
+- [ ] 5.8 Monthly campaign: one level per month (51, August 1914 to the armistice in November 1918), a
+      folder each below `levels/` (`levels/1914-08/`: `map.json`, `cp.json`, `ec.json`, `2p.json`), in
+      the scenario format (`internal/scenario`): one map for every mode, a setup each for a Central
+      Powers player (`cp`), an Entente player (`ec`) and two players (`2p`), each with its own code
+      word. The menu plays a chain per side through the months; the country card picks the month's
+      setup for its side. (2026-10-25) The 24 original campaign maps open their periods (1914-08 PULSE/BATLE …
       1918-06 STERN/SODOM): the CP version's map; `cp` that version, `ec` the EC version's units
       and buildings laid onto it, `2p` each side from its own campaign, with the originals'
       credits and builds. Merge report of `cmd/hlcampaign`: 1088 EC terrain cells replaced; EC
@@ -589,13 +589,14 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       without rails (RIGHT) and 2 bunkers (STERN `2p`); 3 EC buildings moved to their kind's
       nearest, 14 without a match within 4 hexes left their content out (among them neutral
       factories with units on PARTS, HILLS and RHEIN). (2026-10-30) The original two-player maps fill
-      the 21 months between from March 1915 (1915-03 HUSAR/SABRE … 1918-07 GREEN/HAMEL): `cp` their
-      units under their code word, `ec` (a new code word) and `2p` from it; each map in a month no
-      earlier than its unit types, the eight winter maps in winter months. Troll, Grand and Water stay
-      in `levels/extra` (setup `2p`, `cp`/`ec` from it). Evidence: `TestTwoPlayerMonths`. September
-      1914: Marne (`1914-09`, `ec` MARNE: an easy Entente counterattack, three rival designs
-      played out AI-vs-AI, Meaux won; `cp` KLUCK and `2p` the same units). Evidence:
-      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 48),
+      the 21 months between from March 1915 (1915-03 HUSAR/SABRE … 1918-07 GREEN/HAMEL) and those
+      after the original campaign (1918-08 TROLL/BLACK, 1918-09 GRAND/ARGON for October too, 1918-11
+      WATER/TRUCE): `cp` their units under their code word, `ec` (a new code word) and `2p` from it;
+      each map in a month no earlier than its unit types, the eight winter maps in winter months and
+      WATER in November. Evidence: `TestTwoPlayerMonths`. September 1914: Marne (`1914-09`, `ec`
+      MARNE: an easy Entente counterattack, three rival designs played out AI-vs-AI, Meaux won; `cp`
+      KLUCK and `2p` the same units). Evidence:
+      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 51),
       `TestVictorySelectsTheNextMap`, `TestCountryPicksTheSidesSetup`, `TestMonthlyMarne`; the
       migration check matched every `cp` and two-player `2p` setup hex for hex with the former
       `levels/campaign` files. November 1914: Ypres (`1914-11`, 25 lines of 16: the Prussian
@@ -614,10 +615,10 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       record). Remaining: a balance pass on the merged `ec`
       and `2p` setups and on Marne's and Ypres' `cp`, Marne's and Ypres' overlays that the original
       rules drop (a double road, paths on mud and forest), the two-player maps against the computer (it
-      builds nothing; their setups are symmetric), and the news illustrations (`art/screens/news`) of
-      the 21 new months, whose pages (each about its month's events the neighbouring pages leave out)
-      show a plain tone in their place.
-- [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month, the extra maps) exist, the menu
+      builds nothing; their setups are symmetric, GRAND starts with one unit a side), and the news
+      illustrations (`art/screens/news`) of the 24 new months, whose pages (each about its month's
+      events the neighbouring pages leave out) show a plain tone in their place.
+- [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month) exist, the menu
       has no hot-seat mode yet.
 - [ ] 5.10 Painted backdrops: a level folder may hold a painting of its whole ground (`backdrop.jpg`), drawn
       in place of the terrain tiles (`-backdrop off` draws the tiles). PULSE ships one

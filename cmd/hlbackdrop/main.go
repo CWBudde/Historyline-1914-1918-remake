@@ -114,7 +114,7 @@ func backdropOf(levels, name string) backdrop {
 // all lists the backdrops of the level folders that have a JPEG or a
 // source, in folder order.
 func all(levels string) ([]backdrop, error) {
-	dirs, err := scenario.Folders(os.DirFS(levels))
+	dirs, err := scenario.Months(os.DirFS(levels))
 	if err != nil {
 		return nil, err
 	}

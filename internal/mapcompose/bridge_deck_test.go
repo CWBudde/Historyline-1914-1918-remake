@@ -149,7 +149,7 @@ func TestStandingRailDeck(t *testing.T) {
 		{"1917-10:cp", hexgrid.Coord{Line: 46, Col: 9}},
 		{"1917-10:cp", hexgrid.Coord{Line: 48, Col: 9}},
 		{"1914-10:cp", hexgrid.Coord{Line: 10, Col: 4}},
-		{"extra/13-grand:2p", hexgrid.Coord{Line: 31, Col: 24}}, // summer
+		{"1918-09:2p", hexgrid.Coord{Line: 31, Col: 24}}, // summer
 	} {
 		w, c := window(campaignLevel(t, site.level), site.at, 7, 5)
 		m, err := r.Render(w, density, false)

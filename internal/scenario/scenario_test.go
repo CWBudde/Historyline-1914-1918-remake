@@ -24,7 +24,7 @@ var levelsDir = filepath.Join("..", "..", "levels")
 // shipped are the shipped level folders' paths on disk.
 func shipped(t *testing.T) []string {
 	t.Helper()
-	dirs, err := Folders(os.DirFS(levelsDir))
+	dirs, err := Months(os.DirFS(levelsDir))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -38,7 +38,7 @@ func shipped(t *testing.T) []string {
 }
 
 // Every shipped folder reads, encodes to its own files and holds no other
-// JSON than them and a month's front page, and every setup is a level the
+// JSON than them and the front page, and every setup is a level the
 // rules start.
 func TestShippedRoundTrip(t *testing.T) {
 	set, err := data.Load()
@@ -69,11 +69,11 @@ func TestShippedRoundTrip(t *testing.T) {
 				t.Fatal(err)
 			}
 			for _, p := range onDisk {
-				if name := filepath.Base(p); files[name] == nil && (name != "news.json" || f.Month == "") {
+				if name := filepath.Base(p); files[name] == nil && name != "news.json" {
 					t.Errorf("%s is no file of the level", name)
 				}
 			}
-			if (f.Month == "") != (filepath.Base(filepath.Dir(dir)) == ExtraDir) {
+			if f.Month != filepath.Base(dir) {
 				t.Errorf("month %q in %s", f.Month, dir)
 			}
 			for _, m := range Modes {
@@ -96,21 +96,17 @@ func TestShippedRoundTrip(t *testing.T) {
 
 // The embedded folders are the folders on disk, and the embedded files
 // leave the backdrops' sources out.
-func TestShippedFolders(t *testing.T) {
-	disk, err := Folders(os.DirFS(levelsDir))
+func TestShippedMonths(t *testing.T) {
+	disk, err := Months(os.DirFS(levelsDir))
 	if err != nil {
 		t.Fatal(err)
 	}
-	emb, err := Folders(levels.Levels)
+	emb, err := Months(levels.Levels)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !slices.Equal(disk, emb) {
+	if !slices.Equal(disk, emb) || len(emb) == 0 || emb[0] != "1914-08" || emb[len(emb)-1] != "1918-11" {
 		t.Errorf("embedded %v, on disk %v", emb, disk)
-	}
-	months, err := Months(levels.Levels)
-	if err != nil || len(months) == 0 || months[0] != "1914-08" || slices.ContainsFunc(months, func(d string) bool { return strings.HasPrefix(d, ExtraDir) }) {
-		t.Errorf("months %v, %v", months, err)
 	}
 	if src, _ := fs.Glob(levels.Levels, "*/"+BackdropSource); len(src) > 0 {
 		t.Errorf("embedded backdrop sources %v", src)

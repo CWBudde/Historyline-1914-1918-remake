@@ -30,11 +30,10 @@
 // Units and building entrances ("at") are [line, column], both counted from
 // 1 as the map's line keys. A building's owner is "cp", "ec" or absent
 // (none); its credits are per cycle. A setup with "from" reuses that
-// setup's units, buildings and builds under its own code. A campaign
-// month's folder is named by the month; the extra maps (levels/extra) have
-// none. A folder's backdrop.jpg is a painting of the whole map's ground,
-// drawn in place of the terrain tiles; backdrop.png beside it is its
-// lossless source, which the game does not ship.
+// setup's units, buildings and builds under its own code. A folder is
+// named by its campaign month. Its backdrop.jpg is a painting of the whole
+// map's ground, drawn in place of the terrain tiles; backdrop.png beside it
+// is its lossless source, which the game does not ship.
 package scenario
 
 import (
@@ -98,7 +97,7 @@ func SetupFile(m Mode) string { return string(m) + ".json" }
 
 // File is a level folder.
 type File struct {
-	Month string // "1914-08", the folder's name; "" for an extra map
+	Month string // "1914-08", the folder's name
 	Name  string // "Pulse"
 	// Backdrop is the painting of the map's ground drawn in place of the
 	// terrain tiles: BackdropFile when the folder has one, covering the

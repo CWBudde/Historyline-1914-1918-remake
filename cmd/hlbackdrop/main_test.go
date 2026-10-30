@@ -69,7 +69,6 @@ func TestCheck(t *testing.T) {
 
 	write("1914-08/map.json", []byte(`{}`))
 	write("1914-09/map.json", []byte(`{}`))
-	write("extra/01-track/map.json", []byte(`{}`))
 	var buf bytes.Buffer
 	if err := jpeg.Encode(&buf, image.NewRGBA(image.Rect(0, 0, 24, 16)), &jpeg.Options{Quality: 90}); err != nil {
 		t.Fatal(err)

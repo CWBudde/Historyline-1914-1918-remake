@@ -37,8 +37,8 @@ type testLevel struct {
 }
 
 // twoPlayerCodes are the code words of the original two-player maps 48–71;
-// three are extra maps, the others fill the campaign months between the
-// original campaign's (their cp setup).
+// they fill campaign months between the original campaign's and after it
+// (their cp setup).
 var twoPlayerCodes = []string{
 	"TRACK", "HUSAR", "BEAST", "PLATE", "LIGHT", "SCROL", "VIRUS", "BISON", "DRUCK", "TROLL", "UBOOT", "DROID",
 	"GRAND", "ROYAL", "WATER", "SKILL", "SKULL", "AUDIO", "SPELL", "CAMEL", "FLAGS", "STORY", "SCOUT", "GREEN",
@@ -46,32 +46,24 @@ var twoPlayerCodes = []string{
 
 // shipped are the Python remake's PULSE (internal/level's fixture, map 00),
 // then the setups that hold an original map's units: the cp setup of every
-// campaign month made from one, the 2p setup of every extra map.
+// campaign month made from one.
 func shipped(t *testing.T) []testLevel {
 	t.Helper()
 	out := []testLevel{pythonPulse(t)}
-	sh, err := scenario.Shipped(scenario.CP, scenario.TwoPlayer)
+	sh, err := scenario.Shipped(scenario.CP)
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, n := range sh {
-		file, mode, _ := strings.Cut(n.Name, ":")
-		var y, m, k int
-		switch extra, isExtra := strings.CutPrefix(file, scenario.ExtraDir+"/"); {
-		case isExtra && mode == "2p":
-			if _, err := fmt.Sscanf(extra, "%2d-", &k); err != nil {
-				t.Fatalf("%s: %v", n.Name, err)
-			}
-			out = append(out, testLevel{n.Level, 47 + k})
-		case !isExtra && mode == "cp":
-			if _, err := fmt.Sscanf(file, "%4d-%2d", &y, &m); err != nil {
-				t.Fatalf("%s: %v", n.Name, err)
-			}
-			if months := 12*(y-1914) + m - 8; months%2 == 0 {
-				out = append(out, testLevel{n.Level, months / 2})
-			} else if k := slices.Index(twoPlayerCodes, n.Level.MapName); k >= 0 {
-				out = append(out, testLevel{n.Level, 48 + k})
-			}
+		file, _, _ := strings.Cut(n.Name, ":")
+		var y, m int
+		if _, err := fmt.Sscanf(file, "%4d-%2d", &y, &m); err != nil {
+			t.Fatalf("%s: %v", n.Name, err)
+		}
+		if k := slices.Index(twoPlayerCodes, n.Level.MapName); k >= 0 {
+			out = append(out, testLevel{n.Level, 48 + k})
+		} else if months := 12*(y-1914) + m - 8; months%2 == 0 && months < 48 {
+			out = append(out, testLevel{n.Level, months / 2})
 		}
 	}
 	if len(out) != 49 {

@@ -60,11 +60,11 @@ func (l levelFiles) Open(name string) (fs.File, error) {
 	return f, err
 }
 
-// scenarioName reports whether -level name is a setup of a level folder:
-// a campaign month ("1914-08:ec") or an extra map ("extra/15-water:2p").
+// scenarioName reports whether -level name is a setup of a level folder,
+// a campaign month ("1914-08:ec").
 func scenarioName(name string) bool {
 	file, _, _ := strings.Cut(name, ":")
-	return monthName.MatchString(file) || strings.HasPrefix(file, scenario.ExtraDir+"/")
+	return monthName.MatchString(file)
 }
 
 var monthName = regexp.MustCompile(`^19\d\d-\d\d$`)

@@ -61,21 +61,21 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   `cmd/finextract` writes them as JSON for a look. `dosbind.FromOriginal` binds such a map exactly,
   `internal/origview` draws it (a look per terrain record, `looks.json`); `-level original/NN` plays it
   exactly.
-- `internal/scenario`: the level folders below `levels/`: a folder per campaign month (`levels/1914-08/`)
-  and the extra two-player maps (`levels/extra/13-grand/`). A folder holds the map shared by every mode
-  (`map.json`) and a file per setup (`cp.json`, `ec.json`, `2p.json`) with units, building owners,
-  credits, builds and the code word; a month's folder also its newspaper front page (`news.json`,
-  `internal/campaign`) and optionally its backdrop, a painting of the whole ground (`backdrop.jpg`) that
-  the game draws in place of the terrain tiles (painted in stitched sections,
+- `internal/scenario`: the level folders below `levels/`, a folder per campaign month (`levels/1914-08/`).
+  A folder holds the map shared by every mode (`map.json`), a file per setup (`cp.json`, `ec.json`,
+  `2p.json`) with units, building owners, credits, builds and the code word, the month's newspaper front
+  page (`news.json`, `internal/campaign`) and optionally its backdrop, a painting of the whole ground
+  (`backdrop.jpg`) that the game draws in place of the terrain tiles (painted in stitched sections,
   `docs/painted-backdrops.md`; its lossless source `backdrop.png` beside it is not embedded, and
   `cmd/hlbackdrop` encodes it to the JPEG and checks); `File.Level` turns a setup into a `level.Level`.
-  The campaign runs from August 1914 to July 1918: the original campaign maps take the first month of
-  each two-month period, their CP version's terrain; the original two-player maps fill the months
-  between from March 1915 (cp their units, ec and 2p from it; Troll, Grand and Water stay extra maps);
-  1914-09, 1914-11 and 1915-01 are newly authored. `just levels-campaign` (`cmd/hlcampaign`) writes the
-  original maps' months and the extra maps from the local original maps and overwrites hand edits there
-  (backdrops and front pages stay). The menu campaign is a chain per side through the months;
-  `-level 1914-08:ec` plays one setup. The notes on the page of new units are `internal/data/notes.json`.
+  The campaign runs from August 1914 to the armistice in November 1918: the original campaign maps take
+  the first month of each two-month period, their CP version's terrain; the original two-player maps
+  fill the months between from March 1915 and those after June 1918 (cp their units, ec and 2p from
+  it; 1918-09 stands for October too); 1914-09, 1914-11 and 1915-01 are newly authored. `just
+  levels-campaign` (`cmd/hlcampaign`) writes the original maps' months from the local original maps and
+  overwrites hand edits there (backdrops and front pages stay). The menu campaign is a chain per side
+  through the months; `-level 1914-08:ec` plays one setup. The notes on the page of new units are
+  `internal/data/notes.json`.
 - `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);
   `art/style.md`, bundle manifests in `art/pipeline/`, the PULSE reference in `art/reference/pulse/`.
   Art guide: `art/README.md`. `assets/<kind>/<family>/`: runtime art only, every file listed in

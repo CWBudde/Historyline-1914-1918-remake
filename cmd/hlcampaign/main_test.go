@@ -38,8 +38,7 @@ func originalMaps(t *testing.T) []*finmap.Level {
 
 // The shipped levels began as what hlcampaign writes from the original
 // maps and are hand-editable, so this test does not require byte identity
-// with the generator: every generated folder is shipped, and the extra
-// maps are the generated ones.
+// with the generator: every generated folder is shipped.
 func TestScenariosCurrent(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -52,18 +51,13 @@ func TestScenariosCurrent(t *testing.T) {
 	if len(out.folders) != 48 {
 		t.Fatalf("%d level folders, want 48", len(out.folders))
 	}
-	shipped, err := scenario.Folders(levels.Levels)
+	shipped, err := scenario.Months(levels.Levels)
 	if err != nil {
 		t.Fatal(err)
 	}
 	for name := range out.folders {
 		if !slices.Contains(shipped, name) {
 			t.Errorf("%s is missing: run just levels-campaign", name)
-		}
-	}
-	for _, name := range shipped {
-		if strings.HasPrefix(name, scenario.ExtraDir+"/") && out.folders[name] == nil {
-			t.Errorf("%s is no extra map the import writes", name)
 		}
 	}
 }
@@ -79,22 +73,19 @@ func TestLeavesTheAuthoredMonths(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for month, want := range map[string]bool{"1914-08": true, "1914-09": false, "1914-11": false, "1915-01": false, "1915-03": true, "1918-06": true, "1918-07": true} {
+	for month, want := range map[string]bool{"1914-08": true, "1914-09": false, "1914-11": false, "1915-01": false, "1915-03": true, "1918-06": true, "1918-07": true, "1918-11": true} {
 		if got := out.folders[month] != nil; got != want {
 			t.Errorf("%s written %v, want %v", month, got, want)
 		}
 	}
 }
 
-// The two-player maps fill every month between the original campaign's
-// from March 1915 to July 1918 once, each Entente setup with a code word of
-// its own.
+// The two-player maps fill the months from March 1915 to the armistice
+// that no original campaign map takes, each once and September 1918 for
+// October too, each Entente setup with a code word of its own.
 func TestTwoPlayerMonths(t *testing.T) {
 	months, codes := map[string]bool{}, map[string]bool{}
 	for _, tp := range twoPlayer {
-		if tp.month == "" {
-			continue
-		}
 		if months[tp.month] || codes[tp.ecCode] || len(tp.ecCode) != 5 || strings.ToUpper(tp.ecCode) != tp.ecCode {
 			t.Errorf("%s %s: month or code twice, or not a code word", tp.month, tp.ecCode)
 		}
@@ -104,7 +95,8 @@ func TestTwoPlayerMonths(t *testing.T) {
 	for m := 14; m <= 54; m += 2 { // months after January 1914: March 1915 to July 1918
 		want = append(want, fmt.Sprintf("%d-%02d", 1914+m/12, m%12+1))
 	}
-	if len(months) != len(want) || want[0] != "1915-03" || want[len(want)-1] != "1918-07" {
+	want = append(want, "1918-08", "1918-09", "1918-11") // September for October too
+	if len(months) != len(want) || want[0] != "1915-03" {
 		t.Fatalf("months %v, want %v", months, want)
 	}
 	for _, m := range want {

@@ -746,7 +746,7 @@ func loadLevel(dir, name string) (*level.Level, error) {
 		return loadScenario(dir, name)
 	}
 	if !strings.HasSuffix(name, ".json") {
-		return nil, fmt.Errorf("level %q: not a level folder's setup (1914-08:cp, extra/…), original/NN or a .json file", name)
+		return nil, fmt.Errorf("level %q: not a level folder's setup (1914-08:cp), original/NN or a .json file", name)
 	}
 	return level.Load(name)
 }
@@ -859,7 +859,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "1914-08:cp", "a level folder's setup (1914-08:ec, extra/15-water:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
+	name := flag.String("level", "1914-08:cp", "a level folder's setup (1914-08:ec, 1918-11:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level folders")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")
