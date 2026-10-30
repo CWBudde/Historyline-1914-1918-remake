@@ -93,7 +93,8 @@ sheltered old snow in pale midmorning light after sleet. One continuous rail des
 at its closed ends; capped piers and worn bank approaches finish the coastal roads. Small clearings
 support the starting units. One two-player transport starts on the adjacent water hex, clear of its pier.
 The western shelled ground is four fields of wet thawing mud with water-filled shell holes, stumps and
-wire; their trenches are revetted zigzag lines on their original courses.
+wire; their trenches are revetted zigzag lines on their original courses. The south-eastern mountains are one
+rugged limestone massif of linked ridges, gullies and scree, split by the road in a pass.
 
 STERN/SODOM (`1918-06.jpg`, 3829×4403) has full June greenery, damp shell-torn earth and soft
 daylight after overnight rain, at the same density. Both path loops stay continuous; unmarked gravel
