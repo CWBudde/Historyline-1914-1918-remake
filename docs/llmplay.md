@@ -71,7 +71,10 @@ game, `render` replays the transcript (hash-verified) and renders
 `game.mp4` with ffmpeg (`-width`/`-crf` trade size for quality; defaults
 1440px/CRF 28 at 2 fps — the 146-resolution win is a 73 s, 0.65 MB video;
 CRF 34 at 960px shrinks it to 0.2 MB but the units all but vanish). The GIF
-is far larger (~30 MB) and only a fallback for players without H.264.
+is far larger (~30 MB) and only a fallback for players without H.264. For a
+high-quality cut render with `-div 4` (native ~2248px frames) and encode at
+CRF 16: the same win is 3.3 MB — this content (a mostly static map) saturates
+x264, so even a ~8 MB budget buys nothing visible beyond that.
 Step-by-step "live" viewing without a video: `prompt` on the game dir after
 each `step`, or open the frames in any image viewer.
 
