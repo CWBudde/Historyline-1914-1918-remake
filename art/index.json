@@ -15216,7 +15216,7 @@
       "masters": [
         {
           "path": "art/units/spad-xiii/atlas.png",
-          "sha256": "1f31af3f748e87093a52ec41f90a9844e93926effb5aef6f8bbd615c4f6a6637",
+          "sha256": "1499d9589e14fcf9077628b292173f8b6b10975316f48fbdf7f1b55d5c6291f7",
           "width": 1024,
           "height": 1536
         }
@@ -15293,7 +15293,7 @@
       "masters": [
         {
           "path": "art/units/st-chamond/atlas.png",
-          "sha256": "5f725505c3ade2b1ffeac036dc88b0de24f4b89cac59bb68d93026ec09009b98",
+          "sha256": "2630d3d50de92734d127989960eb940dbb842824e352de5a5fbe7e9e0fec7ab4",
           "width": 1024,
           "height": 1536
         }
