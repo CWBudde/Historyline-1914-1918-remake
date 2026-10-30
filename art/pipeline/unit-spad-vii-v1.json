@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/spad-vii/atlas.png",
-    "source_sha256": "a98ecc7f8e298d3228fe4de5058d9d4aa3eab605c2d5a4f300f6cd44cecded34"
+    "source_sha256": "14e73f5fc8540bc9ab493c5e2f6ee157da19223df0aab3cfb565b3b355ef7a2d"
   },
   "family": "spad-vii",
   "framing_inset": 0.8,

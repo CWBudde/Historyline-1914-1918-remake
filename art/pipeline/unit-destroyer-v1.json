@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/destroyer/atlas.png",
-    "source_sha256": "10ada74df427f8791960bf686201b127144866b11681c2ae91802f67c52207b8"
+    "source_sha256": "9a4c16027a7ad93e8a63ac8406aa885e2d58da1bc2ba99efc8f84e57aca146cb"
   },
   "family": "destroyer",
   "framing_inset": 0.8,
