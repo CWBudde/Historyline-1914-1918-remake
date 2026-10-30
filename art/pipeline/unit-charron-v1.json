@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/charron/atlas.png",
-    "source_sha256": "c5f5f7730921fa5e91fa3b084bdebaa164faf34f587db29535beb8b55301fca3"
+    "source_sha256": "89bcfb34223f67dcb6532c422ba5395065c8fd83369879cb17c5d372726eed6f"
   },
   "family": "charron",
   "framing_inset": 0.93,

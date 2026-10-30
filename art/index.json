@@ -12385,7 +12385,7 @@
       "masters": [
         {
           "path": "art/units/a7v/atlas.png",
-          "sha256": "ee83b0d2b6d0ac96b2861c6f943116653c6788100063703860178680632d2884",
+          "sha256": "31f8caf652d80b4acf47fc80167f8be79fbee0472b519da8038b035b02010f5e",
           "width": 1024,
           "height": 1536
         }
@@ -13019,7 +13019,7 @@
       "masters": [
         {
           "path": "art/units/charron/atlas.png",
-          "sha256": "c5f5f7730921fa5e91fa3b084bdebaa164faf34f587db29535beb8b55301fca3",
+          "sha256": "89bcfb34223f67dcb6532c422ba5395065c8fd83369879cb17c5d372726eed6f",
           "width": 1024,
           "height": 1536
         }
@@ -13994,7 +13994,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-heavy-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/heavy-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/heavy-artillery/` and re-index.",
+      "post": "`art-review -unit art/pipeline/unit-heavy-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/heavy-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/heavy-artillery/` and re-index.\n\nThe atlas is imagegen output `exec-d5e058b3` (2026-10-30), each cell scaled to 0.90 about (256,261) so the three artillery classes keep a size ladder (light slim and small, medium mid, heavy bulky) inside the framing guard.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
@@ -14235,7 +14235,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-light-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/light-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/light-artillery/` and re-index.\n\nThe atlas is imagegen output `exec-2b7881ae`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
+      "post": "`art-review -unit art/pipeline/unit-light-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/light-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/light-artillery/` and re-index.\n\nThe atlas is imagegen output `exec-daf1421f` (2026-10-30), each cell scaled to 0.80 about (256,261) so the three artillery classes keep a size ladder (light slim and small, medium mid, heavy bulky) inside the framing guard.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
@@ -14473,7 +14473,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-medium-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/medium-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/medium-artillery/` and re-index.",
+      "post": "`art-review -unit art/pipeline/unit-medium-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/medium-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/medium-artillery/` and re-index.\n\nThe atlas is imagegen output `exec-8fd94b2d` (2026-10-30), each cell scaled to 0.85 about (256,261) so the three artillery classes keep a size ladder (light slim and small, medium mid, heavy bulky) inside the framing guard.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",

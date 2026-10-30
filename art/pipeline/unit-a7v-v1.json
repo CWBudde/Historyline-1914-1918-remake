@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/a7v/atlas.png",
-    "source_sha256": "ee83b0d2b6d0ac96b2861c6f943116653c6788100063703860178680632d2884"
+    "source_sha256": "31f8caf652d80b4acf47fc80167f8be79fbee0472b519da8038b035b02010f5e"
   },
   "family": "a7v",
   "framing_inset": 0.8,
