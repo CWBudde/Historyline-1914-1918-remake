@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/static-balloon/atlas.png",
-    "source_sha256": "50190da70cfc1c12c483ccd6129dfd2c6d4dff67fbbacd251dd15eedd53dfbc1"
+    "source_sha256": "d5e7f049b498f1b4fb4b1748e7b41d20045b1dcd62c9e6581c7466764af8e5dd"
   },
   "family": "static-balloon",
   "framing_inset": 0.8,
