@@ -73,10 +73,15 @@ clear morning light. Small woodland clearings and level rocky shelves support th
 both airstrips and four hangars stay open. Eight bridges cross continuous rivers and streams.
 One continuous winter railway runs from the factory approach to the southern map edge. One patrol
 boat and one infantry group start on adjacent hexes clear of a bank and a house.
-AMPER/STONE (`1917-12.jpg`, 3829×4403) has settled December snow and diffuse cold afternoon light
-under thick overcast. One long road bridge crosses its inland lake; all three airstrips and seven
-hangars stay open. Six level rocky ledges support the starting crews, and a small snowy hoof margin
-retains the southern stony field. All starting positions remain unchanged.
+AMPER/STONE (`1917-12.jpg`, 3829×4403) follows MOUSE's look: settled December snow broken by bare
+shrubs and dry grass, mixed woods of snow-laden conifers and leafless trees, and natural lake banks
+with snowy boulders, frozen reeds and a thin rim of shore ice, under diffuse cold afternoon light.
+Every building is an individual design: a granite citadel with square slate-roofed towers and a frozen
+moat and a sandstone fort with round red-tiled towers as the HQs; a beet sugar refinery, a gasworks, a
+lime works, an aircraft repair works and a brewery; a timber yard, a fuel depot, a field hospital, an
+artillery park, a fodder store and a hut camp. One long road bridge crosses the inland lake; all three
+airstrips and seven hangars stay open. Six level rocky ledges support the starting crews, and a small
+snowy hoof margin retains the southern stony field. All starting positions remain unchanged.
 RHEIN/MOSEL (`1918-02.jpg`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
 sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
 at its closed ends; capped piers and worn bank approaches finish the coastal roads. Small clearings
