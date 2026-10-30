@@ -15,7 +15,8 @@ water-filled shell holes and a swollen grey-brown Aisne under flat raincloud lig
 individual farmstead, cottage, mill or ruin. The German HQ has four arrowhead bastions
 around a parade square, the French HQ four square red-roofed towers around a château.
 RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, with full summer foliage,
-warm sunshine and saturated clay, deep ruts and dirty puddles around the trenches. Its southern
+warm sunshine and saturated clay, deep ruts and dirty puddles in one ragged field; its trenches are
+timber-revetted with sandbagged dugouts and run through green meadow beside it. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
 ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
 light and a wind-ruffled sea. Its landing piers and coves leave room for the linked ships' full hulls.
