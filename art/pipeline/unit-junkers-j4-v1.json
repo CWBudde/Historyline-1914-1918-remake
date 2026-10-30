@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/junkers-j4/atlas.png",
-    "source_sha256": "ba3b400d6e75cdb6aefd4aa7f644baf9e7861a506f4638a934a370ec17f457dd"
+    "source_sha256": "d4d3dec8799555dd9942f18054f4eeb313d8f6323c6ffb076c34dddd48e3e883"
   },
   "family": "junkers-j4",
   "framing_inset": 0.8,

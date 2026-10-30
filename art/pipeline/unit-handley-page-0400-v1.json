@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/handley-page-0400/atlas.png",
-    "source_sha256": "badf0514cf59cfd6e565e882143a772041c593d61a635b26fc9559e4d6c2ddaa"
+    "source_sha256": "c608f1466245cd16281b048ff6126b112d5565442a9a64e4d4559cea7a964a83"
   },
   "family": "handley-page-0400",
   "framing_inset": 0.8,

@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/sopwith-camel/atlas.png",
-    "source_sha256": "d8a64f59dce9d5f19eeea9f45f4039d107ae901fbf5a03c7a92d8b374868afef"
+    "source_sha256": "2cecc840e348ffe942b2ae640be04ebbeb019981efff958dadcfe98e7eda281b"
   },
   "family": "sopwith-camel",
   "framing_inset": 0.8,

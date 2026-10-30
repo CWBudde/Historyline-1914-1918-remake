@@ -43,10 +43,10 @@ text, then this.
 
 ## Post
 `go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v3.json` clears alpha below 24,
-centres the base's solid box on the anchor (48,49) and scales it to 78 logical pixels, and resamples
+centres the base's solid box on the anchor (48,49) and scales it to 61 logical pixels, and resamples
 every owner to 2x (192x192) and 4x (384x384). An edit redraws the whole picture (its outline drifted
 by a few pixels), so only the roof disc is taken from `tilt-view-cp.png` and `tilt-view-ec.png`: an
-ellipse of half-width 15.6 logical pixels, height 0.88 of its width, centred 6.6 logical pixels above
+ellipse of half-width 12.2 logical pixels, height 0.88 of its width, centred 5.1 logical pixels above
 the box centre (`radius`, `squash`, `dy` in the manifest), registered on the base by the gradient of the
 ring around it, matched to the base's concrete luma and blended over 10 px. All owners therefore share
 one outline. The same image serves all six facings; `spent` is the grey (R,R,R,A) of normal, as for

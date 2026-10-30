@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/voisin-iii/atlas.png",
-    "source_sha256": "638b75ae32506f56782e07a6197617e67cb94d3780bc6b4cc49e54bedc360017"
+    "source_sha256": "a91d515183e39debb8195287bbb3afb2579973b81dbe8c1cc15ec2bbead868fd"
   },
   "family": "voisin-iii",
   "framing_inset": 0.8,

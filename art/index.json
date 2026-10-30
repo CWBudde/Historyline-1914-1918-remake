@@ -12723,7 +12723,7 @@
       "masters": [
         {
           "path": "art/units/a7v/atlas.png",
-          "sha256": "31f8caf652d80b4acf47fc80167f8be79fbee0472b519da8038b035b02010f5e",
+          "sha256": "b687410389dacf6c0949df5a98de7943de3444b6dd71147363ee7765d24e6ec8",
           "width": 1024,
           "height": 1536
         }
@@ -12800,7 +12800,7 @@
       "masters": [
         {
           "path": "art/units/albatros-d-iii/atlas.png",
-          "sha256": "3e4de86a003b367f2b26abf9ddf92267b5e905ddf0bebc68a136178fcd8253bf",
+          "sha256": "72bba3b3f2715fe4fe45e74d8cbbfad70bc43010a42a97eb8137889ed38a20aa",
           "width": 1024,
           "height": 1536
         }
@@ -13235,7 +13235,7 @@
         }
       ],
       "edges": "",
-      "post": "`go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v3.json` clears alpha below 24,\ncentres the base's solid box on the anchor (48,49) and scales it to 78 logical pixels, and resamples\nevery owner to 2x (192x192) and 4x (384x384). An edit redraws the whole picture (its outline drifted\nby a few pixels), so only the roof disc is taken from `tilt-view-cp.png` and `tilt-view-ec.png`: an\nellipse of half-width 15.6 logical pixels, height 0.88 of its width, centred 6.6 logical pixels above\nthe box centre (`radius`, `squash`, `dy` in the manifest), registered on the base by the gradient of the\nring around it, matched to the base's concrete luma and blended over 10 px. All owners therefore share\none outline. The same image serves all six facings; `spent` is the grey (R,R,R,A) of normal, as for\nevery unit. It writes `assets/units/bunker/` and re-pins those entries of `assets/index.json`;\n`-preview build/...` renders the bunker on the map.\nRecords: `build/review/gen-2026-10-30/bt/` (bt-01 base, bt-04 cp, bt-03 ec; bt-02, a try without the\nattachment, tilted more and hid the back barrel).",
+      "post": "`go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v3.json` clears alpha below 24,\ncentres the base's solid box on the anchor (48,49) and scales it to 61 logical pixels, and resamples\nevery owner to 2x (192x192) and 4x (384x384). An edit redraws the whole picture (its outline drifted\nby a few pixels), so only the roof disc is taken from `tilt-view-cp.png` and `tilt-view-ec.png`: an\nellipse of half-width 12.2 logical pixels, height 0.88 of its width, centred 5.1 logical pixels above\nthe box centre (`radius`, `squash`, `dy` in the manifest), registered on the base by the gradient of the\nring around it, matched to the base's concrete luma and blended over 10 px. All owners therefore share\none outline. The same image serves all six facings; `spent` is the grey (R,R,R,A) of normal, as for\nevery unit. It writes `assets/units/bunker/` and re-pins those entries of `assets/index.json`;\n`-preview build/...` renders the bunker on the map.\nRecords: `build/review/gen-2026-10-30/bt/` (bt-01 base, bt-04 cp, bt-03 ec; bt-02, a try without the\nattachment, tilted more and hid the back barrel).",
       "avoid": [
         "a straight-down view, or a camera tilted so far that the back barrel disappears",
         "ground, shadows, haze or backdrop",
@@ -13439,7 +13439,7 @@
       "masters": [
         {
           "path": "art/units/construction-unit/atlas.png",
-          "sha256": "ee7b5e42a8e4c8ac186d42dff45b033d2c6d0ce1ca35d772acceadf10a1b260a",
+          "sha256": "6c6254c7215e8049f2431c512f0ffc1948af73d035a1e3eab84fc7896403cb9d",
           "width": 1024,
           "height": 1536
         }
@@ -13594,7 +13594,7 @@
       "masters": [
         {
           "path": "art/units/dh2/atlas.png",
-          "sha256": "294fd27a34d5c26adda2ec78fd7a35e42c43e98fe259a3e91d1d34394d225bc9",
+          "sha256": "5bd1c9c9db97d371205a880385c34f3fea1db45f19e10bf237158861908c6f91",
           "width": 1024,
           "height": 1536
         }
@@ -13671,7 +13671,7 @@
       "masters": [
         {
           "path": "art/units/dh4/atlas.png",
-          "sha256": "fc5a8d7ac34a11b67353110f1fe7e23e199a5a0ad726c61d998e91017331e27a",
+          "sha256": "3ad89e26a4a6bc801fa55615b8a8b64422f60c85b4974a7e2a913a7b6e1eea84",
           "width": 1024,
           "height": 1536
         }
@@ -13917,7 +13917,7 @@
       "masters": [
         {
           "path": "art/units/fokker-d-vii/atlas.png",
-          "sha256": "5b62588c2ff69e012c4d5e042c4764b6a2521be5b5fbb848c1d2b8d5cfe9c205",
+          "sha256": "191eb79a81b089f461118b6f27b2dca9b2474747369fa16acd3f150480c0eb0e",
           "width": 1024,
           "height": 1536
         }
@@ -13994,7 +13994,7 @@
       "masters": [
         {
           "path": "art/units/fokker-dr-i/atlas.png",
-          "sha256": "e97dcf1706ee51837dc8b603559d9d81ab972d0293a78e39cf99f11038a093d3",
+          "sha256": "383b839cc49c02fa7982154bb0f9d70cd0a5b8c7b127f212cee776b8e9011459",
           "width": 1024,
           "height": 1536
         }
@@ -14071,7 +14071,7 @@
       "masters": [
         {
           "path": "art/units/fokker-e-i/atlas.png",
-          "sha256": "7b86e28be79c5dfcb576cadb28596b314cd0a08d6eeecd6ed6b939c715d7b861",
+          "sha256": "8776029417115ecae293c94d5501dc30586e19636ab35806a55ac71a619b8837",
           "width": 1024,
           "height": 1536
         }
@@ -14148,7 +14148,7 @@
       "masters": [
         {
           "path": "art/units/fokker-e-iii/atlas.png",
-          "sha256": "aa9ba7f3c689df3126553b8481276a71e750e1b5b6ce40aa0aec22580e2eb383",
+          "sha256": "28a93ecd1d533dcb26a592ab7d1c0cb6809cf78e2fdc82b48fd3fb5b4f6a3e38",
           "width": 1024,
           "height": 1536
         }
@@ -14225,7 +14225,7 @@
       "masters": [
         {
           "path": "art/units/gotha-g-vb/atlas.png",
-          "sha256": "f3951149c54e51ee486b2bb7888c3ef0c1fe4f94f8f5bc7a3f220313eac1b258",
+          "sha256": "e9b484a883059b67d4bae23e7fa6df903f14660e489c1ba0fa6544e793d22309",
           "width": 1024,
           "height": 1536
         }
@@ -14302,7 +14302,7 @@
       "masters": [
         {
           "path": "art/units/handley-page-0400/atlas.png",
-          "sha256": "badf0514cf59cfd6e565e882143a772041c593d61a635b26fc9559e4d6c2ddaa",
+          "sha256": "c608f1466245cd16281b048ff6126b112d5565442a9a64e4d4559cea7a964a83",
           "width": 1024,
           "height": 1536
         }
@@ -14380,7 +14380,7 @@
       "masters": [
         {
           "path": "art/units/heavy-artillery/atlas.png",
-          "sha256": "ed073201ce3bfcb9042311d0cca6f63ce24eabbc596a3584771840aeda6509a6",
+          "sha256": "cb8fe47a319520c519b3783889aaced092bddcd8f501344003ba87ccd5f8308c",
           "width": 1024,
           "height": 1536
         }
@@ -14934,7 +14934,7 @@
       "masters": [
         {
           "path": "art/units/junkers-j4/atlas.png",
-          "sha256": "ba3b400d6e75cdb6aefd4aa7f644baf9e7861a506f4638a934a370ec17f457dd",
+          "sha256": "d4d3dec8799555dd9942f18054f4eeb313d8f6323c6ffb076c34dddd48e3e883",
           "width": 1024,
           "height": 1536
         }
@@ -15094,7 +15094,7 @@
       "masters": [
         {
           "path": "art/units/mark-i/atlas.png",
-          "sha256": "95c2db13e8a526791527a56577f1b02b3985489f8dca910cd63bae1d56081ffa",
+          "sha256": "3e4aa1689770f07cc381774c7ad9de1d7a3df204951b53f05671a918cdb409dc",
           "width": 1024,
           "height": 1536
         }
@@ -15408,7 +15408,7 @@
       "masters": [
         {
           "path": "art/units/morane-saulnier-n/atlas.png",
-          "sha256": "44f487ff34483289e81e2827578abf2ebadae9eceee302709db3e0d0100e04b1",
+          "sha256": "1e1149f71b74c4af363c46b3b2a3dac39040147b5d19cd23f42d06f2281c21e1",
           "width": 1024,
           "height": 1536
         }
@@ -15485,7 +15485,7 @@
       "masters": [
         {
           "path": "art/units/nieuport-xvii/atlas.png",
-          "sha256": "41c4f6c1bcf3558f69ace16fa18aef59867cb9fd1782f676edc963dc782fb185",
+          "sha256": "22670386fd9fd977a63e37ec48fb61b4a8932ee24e8849a376c909b05e5cf6d7",
           "width": 1024,
           "height": 1536
         }
@@ -15644,7 +15644,7 @@
       "masters": [
         {
           "path": "art/units/renault-ft17/atlas.png",
-          "sha256": "283c2a09f0a561be2c3b596ba4939c2438ec00e895c9f244892a9cce3673bc36",
+          "sha256": "64b239c4fd2053f34043afe0527d3c8bef4e5a5c913d3354f92f4ebd9fbb2a81",
           "width": 1024,
           "height": 1536
         }
@@ -15802,7 +15802,7 @@
       "masters": [
         {
           "path": "art/units/se5a/atlas.png",
-          "sha256": "2bad1657d4324f24b2ac88542d193b0571482396ca7e9cdc907a36fb1ba0d961",
+          "sha256": "978e803c9c8346bcc8a8c162396463c34af45a532c23f9d71cfe67b1d8710a85",
           "width": 1024,
           "height": 1536
         }
@@ -15879,7 +15879,7 @@
       "masters": [
         {
           "path": "art/units/sopwith-camel/atlas.png",
-          "sha256": "d8a64f59dce9d5f19eeea9f45f4039d107ae901fbf5a03c7a92d8b374868afef",
+          "sha256": "2cecc840e348ffe942b2ae640be04ebbeb019981efff958dadcfe98e7eda281b",
           "width": 1024,
           "height": 1536
         }
@@ -15956,7 +15956,7 @@
       "masters": [
         {
           "path": "art/units/spad-vii/atlas.png",
-          "sha256": "14e73f5fc8540bc9ab493c5e2f6ee157da19223df0aab3cfb565b3b355ef7a2d",
+          "sha256": "96fcff33665f56c343fb71d9a15047ac4c6488ac40aee702482503db63745294",
           "width": 1024,
           "height": 1536
         }
@@ -16033,7 +16033,7 @@
       "masters": [
         {
           "path": "art/units/spad-xiii/atlas.png",
-          "sha256": "1499d9589e14fcf9077628b292173f8b6b10975316f48fbdf7f1b55d5c6291f7",
+          "sha256": "c9f37b61c4d924e2208c8719505e0b651810da9e9b7210e9f24cdc13281e3923",
           "width": 1024,
           "height": 1536
         }
@@ -16110,7 +16110,7 @@
       "masters": [
         {
           "path": "art/units/st-chamond/atlas.png",
-          "sha256": "2630d3d50de92734d127989960eb940dbb842824e352de5a5fbe7e9e0fec7ab4",
+          "sha256": "e5902b59deabc6132a2d86932df2d6a176403bf2dc7d1bdc7c08e46e502288a2",
           "width": 1024,
           "height": 1536
         }
@@ -16823,7 +16823,7 @@
       "masters": [
         {
           "path": "art/units/voisin-iii/atlas.png",
-          "sha256": "638b75ae32506f56782e07a6197617e67cb94d3780bc6b4cc49e54bedc360017",
+          "sha256": "a91d515183e39debb8195287bbb3afb2579973b81dbe8c1cc15ec2bbead868fd",
           "width": 1024,
           "height": 1536
         }
@@ -16900,7 +16900,7 @@
       "masters": [
         {
           "path": "art/units/zeppelin-staaken-r-vi/atlas.png",
-          "sha256": "6ce8ebafb64115f18015235b6679a9b78dcb43286f2831d5ee557c83f3b85847",
+          "sha256": "9e11765f5bd5e8d2d1bb1d71cf7d30008bd2119a56addafa53fde1f753bd2bb5",
           "width": 1024,
           "height": 1536
         }

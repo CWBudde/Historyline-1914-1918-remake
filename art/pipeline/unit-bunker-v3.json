@@ -6,22 +6,22 @@
     "source_sha256": "b9c1de39643aca2a203cdbdb87986c863817b52117624e850dd1a44fe68298a6"
   },
   "alpha_cut": 24,
-  "diameter": 78,
+  "diameter": 61,
   "densities": [2, 4],
   "owners": {
     "cp": {
-      "radius": 15.6,
+      "radius": 12.2,
       "squash": 0.88,
-      "dy": -6.6,
+      "dy": -5.1,
       "inlay": {
         "source": "art/units/bunker/tilt-view-cp.png",
         "source_sha256": "5d5429a8a74d7e456072d21054672437e7f372a7baadb01d97d3a28785909870"
       }
     },
     "ec": {
-      "radius": 15.6,
+      "radius": 12.2,
       "squash": 0.88,
-      "dy": -6.6,
+      "dy": -5.1,
       "inlay": {
         "source": "art/units/bunker/tilt-view-ec.png",
         "source_sha256": "1a87bd5519530d458edc56f47e4b8434e31a9111d0f187f7d2871eff6db82a28"

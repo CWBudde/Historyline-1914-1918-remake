@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/nieuport-xvii/atlas.png",
-    "source_sha256": "41c4f6c1bcf3558f69ace16fa18aef59867cb9fd1782f676edc963dc782fb185"
+    "source_sha256": "22670386fd9fd977a63e37ec48fb61b4a8932ee24e8849a376c909b05e5cf6d7"
   },
   "family": "nieuport-xvii",
   "framing_inset": 0.8,

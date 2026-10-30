@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/se5a/atlas.png",
-    "source_sha256": "2bad1657d4324f24b2ac88542d193b0571482396ca7e9cdc907a36fb1ba0d961"
+    "source_sha256": "978e803c9c8346bcc8a8c162396463c34af45a532c23f9d71cfe67b1d8710a85"
   },
   "family": "se5a",
   "framing_inset": 0.8,

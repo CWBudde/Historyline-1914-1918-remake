@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/renault-ft17/atlas.png",
-    "source_sha256": "283c2a09f0a561be2c3b596ba4939c2438ec00e895c9f244892a9cce3673bc36"
+    "source_sha256": "64b239c4fd2053f34043afe0527d3c8bef4e5a5c913d3354f92f4ebd9fbb2a81"
   },
   "family": "renault-ft17",
   "framing_inset": 0.8,

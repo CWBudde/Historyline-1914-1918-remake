@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/heavy-artillery/atlas.png",
-    "source_sha256": "ed073201ce3bfcb9042311d0cca6f63ce24eabbc596a3584771840aeda6509a6"
+    "source_sha256": "cb8fe47a319520c519b3783889aaced092bddcd8f501344003ba87ccd5f8308c"
   },
   "family": "heavyArtillery",
   "framing_inset": 0.91,

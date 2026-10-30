@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/zeppelin-staaken-r-vi/atlas.png",
-    "source_sha256": "6ce8ebafb64115f18015235b6679a9b78dcb43286f2831d5ee557c83f3b85847"
+    "source_sha256": "9e11765f5bd5e8d2d1bb1d71cf7d30008bd2119a56addafa53fde1f753bd2bb5"
   },
   "family": "zeppelin-staaken-r-vi",
   "framing_inset": 0.8,

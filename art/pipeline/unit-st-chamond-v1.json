@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/st-chamond/atlas.png",
-    "source_sha256": "2630d3d50de92734d127989960eb940dbb842824e352de5a5fbe7e9e0fec7ab4"
+    "source_sha256": "e5902b59deabc6132a2d86932df2d6a176403bf2dc7d1bdc7c08e46e502288a2"
   },
   "family": "st-chamond",
   "framing_inset": 0.8,

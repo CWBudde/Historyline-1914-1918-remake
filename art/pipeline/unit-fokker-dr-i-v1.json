@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/fokker-dr-i/atlas.png",
-    "source_sha256": "e97dcf1706ee51837dc8b603559d9d81ab972d0293a78e39cf99f11038a093d3"
+    "source_sha256": "383b839cc49c02fa7982154bb0f9d70cd0a5b8c7b127f212cee776b8e9011459"
   },
   "family": "fokker-dr-i",
   "framing_inset": 0.8,

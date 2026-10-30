@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/fokker-e-i/atlas.png",
-    "source_sha256": "7b86e28be79c5dfcb576cadb28596b314cd0a08d6eeecd6ed6b939c715d7b861"
+    "source_sha256": "8776029417115ecae293c94d5501dc30586e19636ab35806a55ac71a619b8837"
   },
   "family": "fokker-e-i",
   "framing_inset": 0.8,

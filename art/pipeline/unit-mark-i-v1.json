@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/mark-i/atlas.png",
-    "source_sha256": "95c2db13e8a526791527a56577f1b02b3985489f8dca910cd63bae1d56081ffa"
+    "source_sha256": "3e4aa1689770f07cc381774c7ad9de1d7a3df204951b53f05671a918cdb409dc"
   },
   "family": "mark-i",
   "framing_inset": 0.8,

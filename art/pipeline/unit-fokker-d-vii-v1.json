@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/fokker-d-vii/atlas.png",
-    "source_sha256": "5b62588c2ff69e012c4d5e042c4764b6a2521be5b5fbb848c1d2b8d5cfe9c205"
+    "source_sha256": "191eb79a81b089f461118b6f27b2dca9b2474747369fa16acd3f150480c0eb0e"
   },
   "family": "fokker-d-vii",
   "framing_inset": 0.8,
