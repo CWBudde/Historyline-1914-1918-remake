@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/gotha-g-vb/atlas.png",
-    "source_sha256": "5078892103ff983bfcb1574f30136a10f4092aaa1bd586e7ebeabea1526d398a"
+    "source_sha256": "f3951149c54e51ee486b2bb7888c3ef0c1fe4f94f8f5bc7a3f220313eac1b258"
   },
   "family": "gotha-g-vb",
   "framing_inset": 0.8,

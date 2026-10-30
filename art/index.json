@@ -12618,7 +12618,7 @@
       "masters": [
         {
           "path": "art/units/armored-car/atlas.png",
-          "sha256": "47c81a6fce51979c9495966e15175c8616301b57580df8d1598bf185f0f50ce3",
+          "sha256": "4d64d797398a93f2212fadcef3c6a9b757c9ff9805d46d5abd8eb7e140520fdd",
           "width": 1024,
           "height": 1536
         }
@@ -13799,7 +13799,7 @@
       "masters": [
         {
           "path": "art/units/gotha-g-vb/atlas.png",
-          "sha256": "5078892103ff983bfcb1574f30136a10f4092aaa1bd586e7ebeabea1526d398a",
+          "sha256": "f3951149c54e51ee486b2bb7888c3ef0c1fe4f94f8f5bc7a3f220313eac1b258",
           "width": 1024,
           "height": 1536
         }
