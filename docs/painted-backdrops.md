@@ -92,7 +92,7 @@ RHEIN/MOSEL (`1918-02.jpg`, 7737×3302) has a February thaw, wet dormant meadow,
 sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
 at its closed ends; capped piers and worn bank approaches finish the coastal roads. Small clearings
 support the starting units. One two-player transport starts on the adjacent water hex, clear of its pier.
-The western shelled ground is four fields of wet thawing mud with water-filled shell holes, stumps and
+The shelled ground in the west (four fields) and on the north-eastern factory peninsula is wet thawing mud with water-filled shell holes, stumps and
 wire; their trenches are revetted zigzag lines on their original courses. The south-eastern mountains are one
 rugged limestone massif of linked ridges, gullies and scree, split by the road in a pass.
 Every building is an individual design: a Prussian polygonal fort with four brick-faced bastions and a
