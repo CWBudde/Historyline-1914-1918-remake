@@ -13749,7 +13749,7 @@
       "masters": [
         {
           "path": "art/units/elite-infantry/atlas.png",
-          "sha256": "17030e0c59e725a7927589c642a8d2140ecae1dc835382062a7204cee41a88d5",
+          "sha256": "011f9507e89e1f7209ab3490fd09d68d1ebe00624973f7e6adff06d34ce539b0",
           "width": 1024,
           "height": 1536
         },
@@ -13795,7 +13795,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-elite-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.\n\nThe installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.84 about the anchor, so the team reads\nsmaller than the infantry group and in line with the sappers and cavalry:\n`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.84 -out art/units/elite-infantry/atlas.png`.",
+      "post": "`art-review -unit art/pipeline/unit-elite-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.\n\nThe installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.68 about the anchor, so the team reads\nsmaller than the infantry group and in line with the sappers and cavalry:\n`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.68 -out art/units/elite-infantry/atlas.png`.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",

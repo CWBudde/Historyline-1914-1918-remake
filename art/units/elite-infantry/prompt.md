@@ -35,9 +35,9 @@ anchor and framing inset, splits the magenta into a tint mask and recolours it t
 sprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);
 `unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.
 
-The installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.84 about the anchor, so the team reads
+The installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.68 about the anchor, so the team reads
 smaller than the infantry group and in line with the sappers and cavalry:
-`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.84 -out art/units/elite-infantry/atlas.png`.
+`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.68 -out art/units/elite-infantry/atlas.png`.
 
 ## Avoid
 - rotated or mirrored copies of one view
