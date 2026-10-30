@@ -73,7 +73,7 @@ func TestLeavesTheAuthoredMonths(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for month, want := range map[string]bool{"1914-08": true, "1914-09": false, "1914-11": false, "1915-01": false, "1915-03": true, "1918-06": true, "1918-07": true, "1918-11": true} {
+	for month, want := range map[string]bool{"1914-08": true, "1914-09": false, "1914-11": false, "1915-01": false, "1915-03": true, "1918-06": true, "1918-07": true, "1918-10": false, "1918-11": true} {
 		if got := out.folders[month] != nil; got != want {
 			t.Errorf("%s written %v, want %v", month, got, want)
 		}
@@ -81,8 +81,8 @@ func TestLeavesTheAuthoredMonths(t *testing.T) {
 }
 
 // The two-player maps fill the months from March 1915 to the armistice
-// that no original campaign map takes, each once and September 1918 for
-// October too, each Entente setup with a code word of its own.
+// that no original campaign map takes but October 1918, each once, each
+// Entente setup with a code word of its own.
 func TestTwoPlayerMonths(t *testing.T) {
 	months, codes := map[string]bool{}, map[string]bool{}
 	for _, tp := range twoPlayer {
@@ -95,7 +95,7 @@ func TestTwoPlayerMonths(t *testing.T) {
 	for m := 14; m <= 54; m += 2 { // months after January 1914: March 1915 to July 1918
 		want = append(want, fmt.Sprintf("%d-%02d", 1914+m/12, m%12+1))
 	}
-	want = append(want, "1918-08", "1918-09", "1918-11") // September for October too
+	want = append(want, "1918-08", "1918-09", "1918-11")
 	if len(months) != len(want) || want[0] != "1915-03" {
 		t.Fatalf("months %v, want %v", months, want)
 	}

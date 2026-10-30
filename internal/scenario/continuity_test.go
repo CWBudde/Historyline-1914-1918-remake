@@ -12,7 +12,7 @@ import (
 
 // authoredMonths are the hand-authored months; the others come from the
 // original maps (cmd/hlcampaign).
-var authoredMonths = []string{"1914-09", "1914-11", "1915-01"}
+var authoredMonths = []string{"1914-09", "1914-11", "1915-01", "1918-10"}
 
 // authored are the hand-authored months' folders.
 func authored(t *testing.T) []string {
@@ -27,7 +27,8 @@ func authored(t *testing.T) []string {
 // Roads, paths, rails and streams are continuous: every port of a hex meets
 // the opposite port of the same kind on its neighbour, or leaves the map, or
 // runs into a building. A path may end on a road's port, as the original maps
-// join them.
+// join them, a stream in open water and a harbour yard's road in its
+// warehouse.
 func TestAuthoredLinesAreContinuous(t *testing.T) {
 	for _, path := range authored(t) {
 		t.Run(filepath.Base(path), func(t *testing.T) {
@@ -48,6 +49,10 @@ func TestAuthoredLinesAreContinuous(t *testing.T) {
 							for _, p := range s.ports {
 								n := hexgrid.Around(c)[p-1]
 								if !g.Contains(n) || building(f.Map[n.Line][n.Col].Terrain) {
+									continue
+								}
+								if nh := f.Map[n.Line][n.Col]; s.kind == "stream" && strings.HasPrefix(nh.Terrain, "water") && len(nh.Infra.IDs) == 0 ||
+									s.kind == "road" && slices.Contains(nh.Infra.IDs, "harbourN") {
 									continue
 								}
 								want := (p+2)%6 + 1

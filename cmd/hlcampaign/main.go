@@ -8,8 +8,8 @@
 //     Entente version on the same map, 2p the Central Powers side of the
 //     first and the Entente side of the second.
 //   - the two-player maps 48–71 fill the months between and after them
-//     up to November 1918 (twoPlayer): setup cp is the original's units,
-//     ec and 2p are from it.
+//     up to November 1918 but October 1918 (twoPlayer): setup cp is the
+//     original's units, ec and 2p are from it.
 //
 // Credits are the buildings' records' energy (an HQ without a record 50),
 // builds the map's producible types. Where the Entente version's terrain
@@ -109,7 +109,7 @@ var twoPlayer = [campaignMaps]struct{ month, ecCode string }{
 	{"1918-08", "BLACK"}, // TROLL
 	{"1917-01", "DEPTH"}, // UBOOT
 	{"1916-09", "TANKS"}, // DROID
-	{"1918-09", "ARGON"}, // GRAND: for September and October
+	{"1918-09", "ARGON"}, // GRAND
 	{"1916-11", "CROWN"}, // ROYAL
 	{"1918-11", "TRUCE"}, // WATER
 	{"1917-03", "CABLE"}, // SKILL

@@ -590,13 +590,13 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       nearest, 14 without a match within 4 hexes left their content out (among them neutral
       factories with units on PARTS, HILLS and RHEIN). (2026-10-30) The original two-player maps fill
       the 21 months between from March 1915 (1915-03 HUSAR/SABRE … 1918-07 GREEN/HAMEL) and those
-      after the original campaign (1918-08 TROLL/BLACK, 1918-09 GRAND/ARGON for October too, 1918-11
+      after the original campaign (1918-08 TROLL/BLACK, 1918-09 GRAND/ARGON, 1918-11
       WATER/TRUCE): `cp` their units under their code word, `ec` (a new code word) and `2p` from it;
       each map in a month no earlier than its unit types, the eight winter maps in winter months and
       WATER in November. Evidence: `TestTwoPlayerMonths`. September 1914: Marne (`1914-09`, `ec`
       MARNE: an easy Entente counterattack, three rival designs played out AI-vs-AI, Meaux won; `cp`
       KLUCK and `2p` the same units). Evidence:
-      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 51),
+      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 52),
       `TestVictorySelectsTheNextMap`, `TestCountryPicksTheSidesSetup`, `TestMonthlyMarne`; the
       migration check matched every `cp` and two-player `2p` setup hex for hex with the former
       `levels/campaign` files. November 1914: Ypres (`1914-11`, 25 lines of 16: the Prussian
@@ -612,11 +612,19 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `2p` goes to the French in 26 with 3 units left, and two or three units fewer on the favoured
       side turn `cp` and `ec` around). Evidence: `TestMonthlyCrouy`, `TestAuthoredLinesAreContinuous`
       (now rails and level crossings too), `TestAuthoredHexesHaveRecords` (every hex binds to its own
-      record). Remaining: a balance pass on the merged `ec`
+      record). October 1918: Flanders (`1918-10`, 95 lines of 32 like GREEN: the Belgian coast from
+      the Yser to Zeebrugge and Bruges, taken back from 14 to 19 October; the North Sea with the
+      Flanders flotillas and the Dover Patrol, the Ostend–Bruges and Bruges–Zeebrugge canals, the
+      flooded Yser plain, eleven railways, four airfields, three harbours and 18 buildings; all 75 unit
+      types take part; `cp` COAST, `ec` LIBRE, `2p` the same units; computer against computer both
+      sides fall from about 100 units to 8 and 16 within 30 turns and the game stays open). Evidence:
+      `TestMonthlyFlanders`, `TestAuthoredLinesAreContinuous` (a stream may end in open water, a
+      harbour yard's road in its warehouse), `TestAuthoredHexesHaveRecords`,
+      `TestAuthoredBuildingsConnect`. Remaining: a balance pass on the merged `ec`
       and `2p` setups and on Marne's and Ypres' `cp`, Marne's and Ypres' overlays that the original
       rules drop (a double road, paths on mud and forest), the two-player maps against the computer (it
       builds nothing; their setups are symmetric, GRAND starts with one unit a side), and the news
-      illustrations (`art/screens/news`) of the 24 new months, whose pages (each about its month's
+      illustrations (`art/screens/news`) of the 25 new months, whose pages (each about its month's
       events the neighbouring pages leave out) show a plain tone in their place.
 - [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month) exist, the menu
       has no hot-seat mode yet.

@@ -82,7 +82,7 @@ func TestBindScenarioCredits(t *testing.T) {
 // none loses an overlay to the fallback that drops unrecorded
 // infrastructure.
 func TestAuthoredHexesHaveRecords(t *testing.T) {
-	for _, month := range []string{"1914-09", "1914-11", "1915-01"} {
+	for _, month := range []string{"1914-09", "1914-11", "1915-01", "1918-10"} {
 		if month == "1914-09" || month == "1914-11" {
 			continue // predate this check: a double road, paths on mud and forest
 		}

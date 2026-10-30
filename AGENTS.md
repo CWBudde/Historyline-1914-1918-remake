@@ -74,8 +74,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   `cmd/hlbackdrop` encodes it to the JPEG and checks); `File.Level` turns a setup into a `level.Level`.
   The campaign runs from August 1914 to the armistice in November 1918: the original campaign maps take
   the first month of each two-month period, their CP version's terrain; the original two-player maps
-  fill the months between from March 1915 and those after June 1918 (cp their units, ec and 2p from
-  it; 1918-09 stands for October too); 1914-09, 1914-11 and 1915-01 are newly authored. `just
+  fill the months between from March 1915 and those after June 1918 but October (cp their units, ec
+  and 2p from it); 1914-09, 1914-11, 1915-01 and 1918-10 are newly authored. `just
   levels-campaign` (`cmd/hlcampaign`) writes the original maps' months from the local original maps and
   overwrites hand edits there (backdrops and front pages stay). The menu campaign is a chain per side
   through the months; `-level 1914-08:ec` plays one setup. The notes on the page of new units are
