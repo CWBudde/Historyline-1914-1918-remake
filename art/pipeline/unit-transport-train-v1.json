@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/transport-train/atlas.png",
-    "source_sha256": "1f5a5b4812991e4f97bb1fd65a8b6e63f3d2f09a530fe18589c130f448f85324"
+    "source_sha256": "e094cca727ec8bd22c7ebfc20cb8aa51385ee042d37a283d8d3e0d30321e9938"
   },
   "family": "transportTrain",
   "grounds": {

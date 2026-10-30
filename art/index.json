@@ -12700,7 +12700,7 @@
       "masters": [
         {
           "path": "art/units/armored-train/atlas.png",
-          "sha256": "80fb0a08d2977a232b6d6185f2400708b009d56170d00e6390304b0d56a256e2",
+          "sha256": "c75672c9148b9676cdaf945bf9f1e67e3423837a184b9434dd46bc4340cf5340",
           "width": 1024,
           "height": 1536
         }
@@ -15925,7 +15925,7 @@
       "masters": [
         {
           "path": "art/units/transport-train/atlas.png",
-          "sha256": "1f5a5b4812991e4f97bb1fd65a8b6e63f3d2f09a530fe18589c130f448f85324",
+          "sha256": "e094cca727ec8bd22c7ebfc20cb8aa51385ee042d37a283d8d3e0d30321e9938",
           "width": 1024,
           "height": 1536
         }

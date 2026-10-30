@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/armored-train/atlas.png",
-    "source_sha256": "80fb0a08d2977a232b6d6185f2400708b009d56170d00e6390304b0d56a256e2"
+    "source_sha256": "c75672c9148b9676cdaf945bf9f1e67e3423837a184b9434dd46bc4340cf5340"
   },
   "family": "armoredTrain",
   "grounds": {
