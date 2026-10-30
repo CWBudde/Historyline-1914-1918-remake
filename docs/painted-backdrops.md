@@ -2,7 +2,15 @@
 
 A scenario file may name a backdrop (`"backdrop": "1914-08.jpg"` next to the file): one painting of the
 whole level's ground that the game draws in place of the terrain tiles (`-backdrop off` draws the tiles).
-It must match the level's world aspect; any resolution works. Shipped: PULSE (`1914-08.jpg`, 1536×2706),
+It must match the level's world aspect; any resolution works.
+
+The game, `just play` and the web demo ship the JPEG; its lossless source is the PNG of the same name
+under `levels/backdrops/` (`levels/backdrops/monthly/1914-08.png`). Edit the source only, then write
+the JPEG with `just backdrop-jpeg monthly/1914-08`, which keeps the JPEG's own quality (90 for 1914-08
+through 1915-04, 95 later and for a new backdrop); the hlbackdrop test fails when a JPEG is not its
+source's encoding. 1915-02's source is its decoded JPEG.
+
+Shipped: PULSE (`1914-08.jpg`, 1536×2706),
 CIVIL (`1914-10.jpg`, 2336×2706) and Marne (`1914-09.jpg`, 3137×1578, six sections in a 3×2 grid),
 all at 1536/1090 ≈ 1.41 image px per world px. MOUSE/SPORT (`1914-12.jpg`, 2852×3302) uses about
 1.72 image px per world px, with settled winter snow and cold overcast daylight. VENOM/BIMBO
@@ -228,7 +236,8 @@ along y. Check the joins at full resolution and with a hex-grid overlay for regi
 - Individual buildings: edit a square crop of the stitched painting around each HQ, factory or depot
   ("same image, change only the complex in the middle") and paste it back with a round, feathered blend.
   Where two crops overlap, keep the radii tight and paste the more important building last.
-- Save as JPEG next to the scenario file and set `backdrop`; check it in the game with units on top at
+- Save the painting as its source PNG, write the JPEG next to the scenario file (`just backdrop-jpeg`) and
+  set `backdrop`; check it in the game with units on top at
   normal and close zoom.
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
   unit overlays can hide hull collisions with shores and piers.

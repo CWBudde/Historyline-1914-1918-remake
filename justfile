@@ -128,6 +128,10 @@ art-index:
 art-check:
     go run ./cmd/hlart check
 
+# Write the backdrop JPEGs (levels/monthly/1914-08.jpg) from their sources in levels/backdrops, at each JPEG's own quality: just backdrop-jpeg monthly/1914-08
+backdrop-jpeg +names:
+    go run ./cmd/hlbackdrop jpeg {{names}}
+
 # Write the scenarios of the original full game's maps (local original/): their months in levels/monthly and levels/skirmish (overwrites hand edits there, keeps backdrops)
 levels-campaign:
     go run ./cmd/hlcampaign

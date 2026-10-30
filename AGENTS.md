@@ -66,7 +66,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   mode and a setup per mode (`cp`, `ec`, `2p`) with units, building owners, credits, builds and the code
   word, and an optional backdrop, a painting of the whole ground next to the file
   (`1914-08.jpg`) that the game draws in place of the terrain tiles (painted in stitched sections,
-  `docs/painted-backdrops.md`); `File.Level` turns a setup into
+  `docs/painted-backdrops.md`; its lossless source is `levels/backdrops/monthly/1914-08.png`, which
+  `cmd/hlbackdrop` encodes to the JPEG and checks); `File.Level` turns a setup into
   a `level.Level`. The original campaign maps take the first month of each two-month period, their CP
   version's terrain; `just levels-campaign` (`cmd/hlcampaign`) writes those months and the skirmish set
   from the local original maps and overwrites hand edits there (backdrops stay), the other months (newly
