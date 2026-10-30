@@ -96,6 +96,12 @@ The western shelled ground is four fields of wet thawing mud with water-filled s
 wire; their trenches are revetted zigzag lines on their original courses. The south-eastern mountains are one
 rugged limestone massif of linked ridges, gullies and scree, split by the road in a pass.
 
+CANDL/ORDER (`1918-04.jpg`, 3829×6605) has fresh spring meadow, budding woodland and breezy blue
+water under clear April afternoon light. Small clearings and rocky ledges support the starting crews.
+One registered railway retains its destroyed intervals; closed spurs have timber buffers and broken
+bridge stubs keep their missing spans. Worn approaches finish the supply paths. Four ships and two
+land units start on adjacent hexes clear of banks and roofs.
+
 STERN/SODOM (`1918-06.jpg`, 3829×4403) has full June greenery, damp shell-torn earth and soft
 daylight after overnight rain, at the same density. Both path loops stay continuous; unmarked gravel
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
@@ -159,6 +165,9 @@ PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 61
 
 HILLS/MOVES, COBRA/BLADE, AMPER/STONE and STERN/SODOM use twenty sections at x 0, 499, 998, 1498
 and y 0, 458, 916, 1374, 1833.
+
+CANDL/ORDER uses twenty-eight sections at x 0, 499, 998, 1498 and y 0, 518, 1037, 1556, 2075,
+2594, 3113.
 
 PAUSE/SIGMA and RHEIN/MOSEL use twenty-four of those sections: columns at x 0, 538, 1077, 1615,
 2154, 2692, 3231, 3770 and rows at y 0, 596, 1193.
