@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/dh2/atlas.png",
-    "source_sha256": "087645339db36765ff87405fb98b7757c06bff4cb8c777017e063923821b8488"
+    "source_sha256": "294fd27a34d5c26adda2ec78fd7a35e42c43e98fe259a3e91d1d34394d225bc9"
   },
   "family": "dh2",
   "framing_inset": 0.8,

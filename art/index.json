@@ -13256,7 +13256,7 @@
       "masters": [
         {
           "path": "art/units/dh2/atlas.png",
-          "sha256": "087645339db36765ff87405fb98b7757c06bff4cb8c777017e063923821b8488",
+          "sha256": "294fd27a34d5c26adda2ec78fd7a35e42c43e98fe259a3e91d1d34394d225bc9",
           "width": 1024,
           "height": 1536
         }
@@ -14117,7 +14117,7 @@
       "masters": [
         {
           "path": "art/units/junkers-j4/atlas.png",
-          "sha256": "c9f3ccdede4400d00a37f376351a236660872b45061696a12f79fe300f8f1ee1",
+          "sha256": "ba3b400d6e75cdb6aefd4aa7f644baf9e7861a506f4638a934a370ec17f457dd",
           "width": 1024,
           "height": 1536
         }
