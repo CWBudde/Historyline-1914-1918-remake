@@ -223,6 +223,11 @@ func TestSquadFamilyFollowsStrength(t *testing.T) {
 			t.Errorf("Squad(infantry, %d) = %s, want %s", size, got, want)
 		}
 	}
+	for size, want := range map[int]string{0: "elite-infantry", 1: "elite-infantry-1", 3: "elite-infantry-1", 4: "elite-infantry", 6: "elite-infantry"} {
+		if got := Squad("elite-infantry", size); got != want {
+			t.Errorf("Squad(elite-infantry, %d) = %s, want %s", size, got, want)
+		}
+	}
 	if got := Squad("cavalry", 2); got != "cavalry" {
 		t.Errorf("Squad(cavalry, 2) = %s, want cavalry", got)
 	}

@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/elite-infantry/atlas.png",
-    "source_sha256": "011f9507e89e1f7209ab3490fd09d68d1ebe00624973f7e6adff06d34ce539b0"
+    "source_sha256": "bae3dbcdd11b831dc29752cd3a189dde73acd2ac75219e67f2506d2c8efda89a"
   },
   "family": "eliteInfantry",
   "grounds": {

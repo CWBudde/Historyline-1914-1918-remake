@@ -4,11 +4,11 @@ title: Elite infantry
 kind: unit
 status: approved
 runtime_ids: CP_eliteInf, EC_eliteInf
-masters: atlas.png, team-full.png
+masters: atlas.png, section.png, team-full.png
 ---
 
 ## Look
-A compact two-man machine-gun team. It stands on a 96x96 logical sprite above the hex centre and must read at
+A machine-gun section: one gun and four men (gunner, assistant with ammunition box, two riflemen), drawn for a strength of 4 to 6 of 6; the two-man team is `units/elite-infantry-1`. It stands on a 96x96 logical sprite above the hex centre and must read at
 48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.
 
 ## Base prompt
@@ -35,13 +35,17 @@ anchor and framing inset, splits the magenta into a tint mask and recolours it t
 sprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);
 `unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.
 
-The installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.68 about the anchor, so the team reads
-smaller than the infantry group and in line with the sappers and cavalry:
-`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.68 -out art/units/elite-infantry/atlas.png`.
+`team-full.png` is the earlier imagegen atlas (the base prompt above, two men); it is the strength 1-3 look, installed as
+`units/elite-infantry-1`. `section.png` is imagegen output `exec-bfec7a7d` (2026-10-30, try 3 of 4): the same gun and
+men with two kneeling riflemen added, four men in the N, NW and S views and three in the others. Its prompt was the
+`art/style.md` Preamble and Units text, then the base prompt with "one WWI machine-gun SECTION of exactly FOUR men",
+the two-man atlas attached as the look reference, and a bounding box of at most 330 px. The installed `atlas.png` is
+`section.png` scaled to 0.58 about the anchor so it reads at the size of the sappers:
+`go run ./tools/unit-squad -src art/units/elite-infantry/section.png -n 0 -scale 0.58 -out art/units/elite-infantry/atlas.png`.
 
 ## Avoid
 - rotated or mirrored copies of one view
 - ground, shadows, haze or backdrop
 - magenta on skin, leather, metal, wood or horses
 - national insignia, flags or text
-- a third soldier or a rifle squad
+- more than four men or a second gun

@@ -13749,7 +13749,13 @@
       "masters": [
         {
           "path": "art/units/elite-infantry/atlas.png",
-          "sha256": "011f9507e89e1f7209ab3490fd09d68d1ebe00624973f7e6adff06d34ce539b0",
+          "sha256": "bae3dbcdd11b831dc29752cd3a189dde73acd2ac75219e67f2506d2c8efda89a",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "art/units/elite-infantry/section.png",
+          "sha256": "962081ce6ee351c5c5c851a228a609f4623e945af7814fa068a2d901f9c031c1",
           "width": 1024,
           "height": 1536
         },
@@ -13760,7 +13766,7 @@
           "height": 1536
         }
       ],
-      "look": "A compact two-man machine-gun team. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
+      "look": "A machine-gun section: one gun and four men (gunner, assistant with ammunition box, two riflemen), drawn for a strength of 4 to 6 of 6; the two-man team is `units/elite-infantry-1`. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
       "base_prompt": "Asset: six-direction tactical sprite atlas, 1024x1536 transparent RGBA, 2 columns by 3 rows of 512x512\ncells, row-major headings N, NW, SW, S, SE, NE. Subject in every cell: one two-man machine-gun team: a kneeling gunner behind a tripod-mounted, belt-fed, water-cooled machine gun and a crouched assistant beside him with an ammunition box and belt; exactly two people and one gun, tripod feet and muzzle fully visible. In each cell the\nfront, where the gun barrel and both men point, points towards that cell's heading. Saturated, naturally shaded magenta\nonly on uniform tunics and trousers; everything else in natural materials. Whole subject centred on (256,261) within\nthe central 65 percent of every cell, all extremities inside, alpha zero outside the objects.",
       "variants": [
         {
@@ -13795,13 +13801,13 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-elite-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.\n\nThe installed `atlas.png` is `team-full.png` (the imagegen atlas) scaled to 0.68 about the anchor, so the team reads\nsmaller than the infantry group and in line with the sappers and cavalry:\n`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.68 -out art/units/elite-infantry/atlas.png`.",
+      "post": "`art-review -unit art/pipeline/unit-elite-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/elite-infantry/<palette>/<facing>-<state>`. Promote into `assets/units/elite-infantry/` and re-index.\n\n`team-full.png` is the earlier imagegen atlas (the base prompt above, two men); it is the strength 1-3 look, installed as\n`units/elite-infantry-1`. `section.png` is imagegen output `exec-bfec7a7d` (2026-10-30, try 3 of 4): the same gun and\nmen with two kneeling riflemen added, four men in the N, NW and S views and three in the others. Its prompt was the\n`art/style.md` Preamble and Units text, then the base prompt with \"one WWI machine-gun SECTION of exactly FOUR men\",\nthe two-man atlas attached as the look reference, and a bounding box of at most 330 px. The installed `atlas.png` is\n`section.png` scaled to 0.58 about the anchor so it reads at the size of the sappers:\n`go run ./tools/unit-squad -src art/units/elite-infantry/section.png -n 0 -scale 0.58 -out art/units/elite-infantry/atlas.png`.",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
         "magenta on skin, leather, metal, wood or horses",
         "national insignia, flags or text",
-        "a third soldier or a rifle squad"
+        "more than four men or a second gun"
       ],
       "runtime": {
         "count": 72,
@@ -13818,6 +13824,82 @@
           "assets/units/elite-infantry/cp/ne-normal-4x.png",
           "assets/units/elite-infantry/ec/n-normal-4x.png",
           "assets/units/elite-infantry/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/elite-infantry-1",
+      "title": "Elite infantry, strength 1-3",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "unit/elite-infantry-1"
+      ],
+      "dir": "art/units/elite-infantry-1",
+      "assets_dir": "assets/units/elite-infantry-1",
+      "prompt": "art/units/elite-infantry-1/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/elite-infantry-1/atlas.png",
+          "sha256": "e3bff9adccb411a3ee21478cb8539b4bd3bedb3ef61c19251512d7966d9be642",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The elite infantry at a strength of 1 to 3 of 6: the two-man machine-gun team (`team-full.png` of\n`units/elite-infantry`), drawn smaller than the full section of `units/elite-infantry`. Same 96x96 logical sprite,\nanchor (48,49).",
+      "base_prompt": "No prompt: the atlas is the two-man team atlas of `units/elite-infantry` scaled, not generated (see Post).",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the team points up."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the team points to the upper left."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the team points to the lower left."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the team points down."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the team points to the lower right."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the team points to the upper right."
+        }
+      ],
+      "edges": "",
+      "post": "`go run ./tools/unit-squad -src art/units/elite-infantry/team-full.png -n 0 -scale 0.55 -out\nart/units/elite-infantry-1/atlas.png`, then `art-review -unit art/pipeline/unit-elite-infantry-1-v1.json`;\ninstalled under `assets/units/elite-infantry-1/`. The game draws this family for an elite infantry unit of\nstrength 1 to 3.",
+      "avoid": [
+        "a different look from `units/elite-infantry`"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/elite-infantry-1/cp/n-normal-4x.png",
+          "assets/units/elite-infantry-1/cp/nw-normal-4x.png",
+          "assets/units/elite-infantry-1/cp/sw-normal-4x.png",
+          "assets/units/elite-infantry-1/cp/s-normal-4x.png",
+          "assets/units/elite-infantry-1/cp/se-normal-4x.png",
+          "assets/units/elite-infantry-1/cp/ne-normal-4x.png",
+          "assets/units/elite-infantry-1/ec/n-normal-4x.png",
+          "assets/units/elite-infantry-1/neutral/n-normal-4x.png"
         ]
       }
     },

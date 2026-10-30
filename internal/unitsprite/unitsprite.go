@@ -86,12 +86,22 @@ const squadFamily = "infantry"
 // SquadSize is the strength at which the squad family shows all its men.
 const SquadSize = 6
 
+// teamFamily is the family drawn as a small team of 1..TeamLow men strength: the
+// family itself shows the full team, <family>-1 the weakened one.
+const teamFamily = "elite-infantry"
+
+// TeamLow is the highest strength drawn by the weakened team family.
+const TeamLow = 3
+
 // Squad returns the family that draws family at the given strength: for the squad
-// family a strength below SquadSize has its own family; every other strength and
-// family is drawn by family.
+// family a strength below SquadSize has its own family, for the team family a
+// strength up to TeamLow; every other strength and family is drawn by family.
 func Squad(family string, size int) string {
-	if family == squadFamily && size >= 1 && size < SquadSize {
+	switch {
+	case family == squadFamily && size >= 1 && size < SquadSize:
 		return fmt.Sprintf("%s-%d", family, size)
+	case family == teamFamily && size >= 1 && size <= TeamLow:
+		return family + "-1"
 	}
 	return family
 }
@@ -102,6 +112,8 @@ func SquadFamilies() []string {
 	for n := 1; n < SquadSize; n++ {
 		out = append(out, Squad(squadFamily, n))
 	}
+	out = append(out, teamFamily+"-1")
+	slices.Sort(out)
 	return out
 }
 
