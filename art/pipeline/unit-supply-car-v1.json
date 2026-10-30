@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/supply-car/atlas.png",
-    "source_sha256": "2ae3fba131b601178a17d4c944030e3a1393f111ad669098b46fda8ce6378518"
+    "source_sha256": "abda545fab26469ccf3929cfd9cf79f3eeec0ea841b12306e31b87b0b4e0a653"
   },
   "family": "supplyCar",
   "grounds": {
