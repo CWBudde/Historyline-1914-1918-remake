@@ -18,9 +18,10 @@ RIGHT/BARON (`1915-06.jpg`, 2852×3302) returns to 1.72 image px per world px, w
 warm sunshine and saturated clay, deep ruts and dirty puddles in one ragged field; its trenches are
 timber-revetted with sandbagged dugouts and run through green meadow beside it. Its southern
 mountains form a connected rocky massif; gravel approaches blend building streets into dirt paths.
-Every building is an individual design: a walled Vosges abbey with a cloister and a Baroque manor with a
-parterre garden as the HQs; a cotton spinning mill, a steam sawmill and a sandstone works; a field
-supply depot.
+Its HQs are twin castles with four round corner towers, one of pink sandstone with red-tiled cones, one
+of grey limestone with slate cones, each reached over a gravel lane and a timber bridge. Every other
+building is an individual design: a cotton spinning mill, a steam sawmill, a sandstone works and a
+field supply depot.
 ORKAN/BUMMM (`1915-08.jpg`, 4806×5504) uses the same density, with late-summer greenery, cool coastal
 light and a wind-ruffled sea. Its landing piers and coves leave room for the linked ships' full hulls.
 FRONT/LEVEL (`1915-10.jpg`, 3829×3302) uses the same density, with copper autumn foliage, cool light
