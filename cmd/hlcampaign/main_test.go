@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"slices"
 	"strings"
 	"testing"
@@ -78,9 +79,37 @@ func TestLeavesTheAuthoredMonths(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for month, want := range map[string]bool{"1914-08": true, "1914-09": false, "1914-11": false, "1915-01": false, "1918-06": true} {
+	for month, want := range map[string]bool{"1914-08": true, "1914-09": false, "1914-11": false, "1915-01": false, "1915-03": true, "1918-06": true, "1918-07": true} {
 		if got := out.folders[month] != nil; got != want {
 			t.Errorf("%s written %v, want %v", month, got, want)
+		}
+	}
+}
+
+// The two-player maps fill every month between the original campaign's
+// from March 1915 to July 1918 once, each Entente setup with a code word of
+// its own.
+func TestTwoPlayerMonths(t *testing.T) {
+	months, codes := map[string]bool{}, map[string]bool{}
+	for _, tp := range twoPlayer {
+		if tp.month == "" {
+			continue
+		}
+		if months[tp.month] || codes[tp.ecCode] || len(tp.ecCode) != 5 || strings.ToUpper(tp.ecCode) != tp.ecCode {
+			t.Errorf("%s %s: month or code twice, or not a code word", tp.month, tp.ecCode)
+		}
+		months[tp.month], codes[tp.ecCode] = true, true
+	}
+	var want []string
+	for m := 14; m <= 54; m += 2 { // months after January 1914: March 1915 to July 1918
+		want = append(want, fmt.Sprintf("%d-%02d", 1914+m/12, m%12+1))
+	}
+	if len(months) != len(want) || want[0] != "1915-03" || want[len(want)-1] != "1918-07" {
+		t.Fatalf("months %v, want %v", months, want)
+	}
+	for _, m := range want {
+		if !months[m] {
+			t.Errorf("%s is not filled", m)
 		}
 	}
 }

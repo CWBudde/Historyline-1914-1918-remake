@@ -150,7 +150,7 @@ artbook: _build-dir
     go run ./cmd/hlart map -level levels/1914-08:cp -out build/artbook/campaign/summer
     go run ./cmd/hlart map -level levels/1916-10:cp -out build/artbook/campaign/winter
     go run ./cmd/hlart map -level levels/1916-06:ec -out build/artbook/campaign/sea
-    go run ./cmd/hlart map -level levels/extra/11-uboot:2p -out build/artbook/campaign/harbour
+    go run ./cmd/hlart map -level levels/1917-01:2p -out build/artbook/campaign/harbour
     go run ./tools/reference-design -compare build/artbook/compare -compare-format png
     compare=""
     if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi

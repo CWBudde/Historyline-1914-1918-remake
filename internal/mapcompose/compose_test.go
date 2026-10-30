@@ -204,7 +204,7 @@ func TestShippedLevelGaps(t *testing.T) {
 		}
 	}
 	want := map[string]string{
-		pythonPulse:          "forest/selected:81 ground/selected:24 hills/selected:51",
+		pythonPulse:  "forest/selected:81 ground/selected:24 hills/selected:51",
 		"1914-08:cp": "forest/selected:76 ground/selected:29 hills/selected:53 shore/missing:3 trench/missing:3",
 		"1914-10:cp": "forest/selected:168 ground/selected:64 trench/missing:9",
 		"1914-12:cp": "forest/selected:97 ground/selected:86 trench/missing:3",

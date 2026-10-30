@@ -561,7 +561,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       loading page shows a one-line briefing derived from the map's facts.
 - [ ] 5.1a Authored briefing texts per map (the shipped briefings are one-line derivations).
 - [x] 5.7 The campaign is the original levels, merged: the menu campaign is the original maps played
-      from their shipped, hand-editable scenario files (`levels/monthly`, 5.8; the three Python remake
+      from their shipped, hand-editable level folders (`levels/1914-08/`, 5.8; the three Python remake
       levels are gone, its PULSE stays as the reference design's map `art/reference/pulse/level.json` and
       a test fixture). `just levels-campaign` re-imports from the local original files and overwrites
       edits. DOS mode binds a setup via `dosbind.Bind`, with the setup's credits and builds and a
@@ -570,13 +570,14 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `internal/origmaps`; `levels/original` is gone).
       Evidence: `TestBindScenarios` (every setup binds), `TestBindScenarioCredits`.
 - [x] 5.6 Campaign front pages (`internal/campaign`): every campaign month has a newly written front
-      page of a neutral paper, "The War Chronicle" (`levels/monthly/news/<month>.json`): headline,
+      page of a neutral paper, "The War Chronicle" (`levels/<month>/news.json`): headline,
       deck, a pen-and-ink illustration (`art/screens/news`) with caption, a two-column article and
       "In brief". After it, a page introduces the unit types new to the player's side in its
       campaign chain (portrait, stats, a note from `internal/data/notes.json`), four a page; then
       loading. Evidence: `TestCampaignNews`, `TestFrontPagesFit`, `TestNewUnitsFollowTheChain`,
       `TestUnitPages`, `internal/campaign` tests.
-- [ ] 5.8 Monthly campaign: one level per month (48) in `levels/monthly`, in the scenario format
+- [ ] 5.8 Monthly campaign: one level per month (48, August 1914 to July 1918), a folder each below
+      `levels/` (`levels/1914-08/`: `map.json`, `cp.json`, `ec.json`, `2p.json`), in the scenario format
       (`internal/scenario`): one map for every mode, a setup each for a Central Powers player
       (`cp`), an Entente player (`ec`) and two players (`2p`), each with its own code word. The menu
       plays a chain per side through the months; the country card picks the month's setup for its
@@ -587,19 +588,22 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       units moved 21 (`ec`) and 96 (`2p`, mostly off hexes the CP force holds), left out 4 trains
       without rails (RIGHT) and 2 bunkers (STERN `2p`); 3 EC buildings moved to their kind's
       nearest, 14 without a match within 4 hexes left their content out (among them neutral
-      factories with units on PARTS, HILLS and RHEIN). The 24 two-player maps are
-      `levels/skirmish` (setup `2p`, `cp`/`ec` from it). September 1914: Marne
-      (`1914-09.json`, `ec` MARNE: an easy Entente counterattack, three rival designs
+      factories with units on PARTS, HILLS and RHEIN). (2026-10-30) The original two-player maps fill
+      the 21 months between from March 1915 (1915-03 HUSAR/SABRE … 1918-07 GREEN/HAMEL): `cp` their
+      units under their code word, `ec` (a new code word) and `2p` from it; each map in a month no
+      earlier than its unit types, the eight winter maps in winter months. Troll, Grand and Water stay
+      in `levels/extra` (setup `2p`, `cp`/`ec` from it). Evidence: `TestTwoPlayerMonths`. September
+      1914: Marne (`1914-09`, `ec` MARNE: an easy Entente counterattack, three rival designs
       played out AI-vs-AI, Meaux won; `cp` KLUCK and `2p` the same units). Evidence:
-      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 26),
+      `TestScenariosCurrent`, `TestShippedRoundTrip`, `TestCampaignOrderAndCodes` (two chains of 48),
       `TestVictorySelectsTheNextMap`, `TestCountryPicksTheSidesSetup`, `TestMonthlyMarne`; the
-      migration check matched every `cp` and skirmish `2p` setup hex for hex with the former
-      `levels/campaign` files. November 1914: Ypres (`1914-11.json`, 25 lines of 16: the Prussian
+      migration check matched every `cp` and two-player `2p` setup hex for hex with the former
+      `levels/campaign` files. November 1914: Ypres (`1914-11`, 25 lines of 16: the Prussian
       Guard storms Nonne Bosschen; the Menin Road, a forest ride and a southern path each cross the
       stream by a bridge, the only three crossings; `ec` NONNE defends, `cp` POLYG attacks; computer
       against computer ends in 24–26 turns). Evidence: `TestMonthlyYpres`,
       `TestAuthoredLinesAreContinuous` (roads, paths and streams meet their neighbours),
-      `TestAuthoredBuildingsConnect`. January 1915: Crouy (`1915-01.json`, 47 lines of 12, rain and
+      `TestAuthoredBuildingsConnect`. January 1915: Crouy (`1915-01`, 47 lines of 12, rain and
       mud on summer terrain: the French bridgehead north of Soissons between Spur 132 and the Vregny
       plateau, the flooded Aisne behind it with four crossings, the Soissons–Laon railway down the
       valley; seven buildings, every gate on its road; `cp` CROUY Germans attack, `ec` AISNE French
@@ -607,15 +611,18 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `2p` goes to the French in 26 with 3 units left, and two or three units fewer on the favoured
       side turn `cp` and `ec` around). Evidence: `TestMonthlyCrouy`, `TestAuthoredLinesAreContinuous`
       (now rails and level crossings too), `TestAuthoredHexesHaveRecords` (every hex binds to its own
-      record). Remaining: the 21 free months (1915-03, … 1918-07), a balance pass on the merged `ec`
+      record). Remaining: a balance pass on the merged `ec`
       and `2p` setups and on Marne's and Ypres' `cp`, Marne's and Ypres' overlays that the original
-      rules drop (a double road, paths on mud and forest), and month news pages.
-- [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month, the skirmish maps) exist, the menu
+      rules drop (a double road, paths on mud and forest), the two-player maps against the computer (it
+      builds nothing; their setups are symmetric), and the news illustrations (`art/screens/news`) of
+      the 21 new months, whose pages (each about its month's events the neighbouring pages leave out)
+      show a plain tone in their place.
+- [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month, the extra maps) exist, the menu
       has no hot-seat mode yet.
-- [ ] 5.10 Painted backdrops: a scenario file may name a painting of its whole ground (`backdrop`), drawn
+- [ ] 5.10 Painted backdrops: a level folder may hold a painting of its whole ground (`backdrop.jpg`), drawn
       in place of the terrain tiles (`-backdrop off` draws the tiles). PULSE ships one
-      (`1914-08.jpg`), painted from the Python remake's PULSE: 31 hexes of the month's map differ
-      (stone, mountains, trenches) until it is repainted. CIVIL (`1914-10.jpg`, a wet late October) was
+      (`1914-08`), painted from the Python remake's PULSE: 31 hexes of the month's map differ
+      (stone, mountains, trenches) until it is repainted. CIVIL (`1914-10`, a wet late October) was
       painted from the Python remake's map 2 and touched up to the month's map (stones, an
       emplacement under each `cp` bunker on its crater hex); trenches in 9 hexes and one rough hex still follow the old map.
       Open: paintings for the other maps, a render mode switch between tiles and painting in the game.

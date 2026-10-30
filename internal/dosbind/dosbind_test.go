@@ -36,6 +36,14 @@ type testLevel struct {
 	Map int
 }
 
+// twoPlayerCodes are the code words of the original two-player maps 48–71;
+// three are extra maps, the others fill the campaign months between the
+// original campaign's (their cp setup).
+var twoPlayerCodes = []string{
+	"TRACK", "HUSAR", "BEAST", "PLATE", "LIGHT", "SCROL", "VIRUS", "BISON", "DRUCK", "TROLL", "UBOOT", "DROID",
+	"GRAND", "ROYAL", "WATER", "SKILL", "SKULL", "AUDIO", "SPELL", "CAMEL", "FLAGS", "STORY", "SCOUT", "GREEN",
+}
+
 // shipped are the Python remake's PULSE (internal/level's fixture, map 00),
 // then the setups that hold an original map's units: the cp setup of every
 // campaign month made from one, the 2p setup of every extra map.
@@ -61,6 +69,8 @@ func shipped(t *testing.T) []testLevel {
 			}
 			if months := 12*(y-1914) + m - 8; months%2 == 0 {
 				out = append(out, testLevel{n.Level, months / 2})
+			} else if k := slices.Index(twoPlayerCodes, n.Level.MapName); k >= 0 {
+				out = append(out, testLevel{n.Level, 48 + k})
 			}
 		}
 	}
