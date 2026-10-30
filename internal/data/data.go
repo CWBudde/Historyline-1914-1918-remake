@@ -1,7 +1,8 @@
 // Package data holds the terrain, unit and weapon tables. Terrain and the weapon
 // catalogue are ported from hlrData.py; unit stats and attacks come from the
 // original UNIT.DAT (see testdata/unitdat.json). The tables live in embedded JSON
-// files whose field names follow the Python dictionaries.
+// files whose field names follow the Python dictionaries. notes.json holds the
+// newly written notes of the campaign's page of new units.
 package data
 
 import (
@@ -10,7 +11,7 @@ import (
 	"fmt"
 )
 
-//go:embed terrain.json units.json weapons.json
+//go:embed terrain.json units.json weapons.json notes.json
 var files embed.FS
 
 // Terrain holds the modifiers of a bgTilesModifiers entry. A nil value is the
@@ -98,6 +99,9 @@ type Set struct {
 	Terrain map[string]Terrain
 	Units   map[string]Unit
 	Weapons map[string]Weapon
+	// Notes introduce each unit type by its art family (unitsprite.Family):
+	// what it was and what it is for, in two sentences.
+	Notes map[string]string
 }
 
 // Load parses the embedded tables and checks that every weapon a unit carries
@@ -108,6 +112,7 @@ func Load() (*Set, error) {
 		"terrain.json": &s.Terrain,
 		"units.json":   &s.Units,
 		"weapons.json": &s.Weapons,
+		"notes.json":   &s.Notes,
 	} {
 		raw, err := files.ReadFile(name)
 		if err != nil {

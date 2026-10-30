@@ -17,7 +17,7 @@ import (
 )
 
 // Before a campaign battle the player reads the month's front page of "The
-// War Chronicle" (campaign.Articles): masthead, headline, an illustration
+// War Chronicle" (levels/monthly/news): masthead, headline, an illustration
 // (news/<month> of the screen catalog) with its caption and the battle's
 // orders under it, the article in two columns and a column of short items; then, where the map gives their side
 // unit types it has not had before, the page of new units, four a page.
@@ -59,16 +59,6 @@ type newsPage struct {
 	lines     []printLine
 	briefRule float64 // y of the rule over "In brief"
 	fits      bool    // false when a part runs out of its room
-}
-
-// issue is the paper's number of month: its place among the front pages.
-func issue(month string) int {
-	months := make([]string, 0, len(campaign.Articles))
-	for m := range campaign.Articles {
-		months = append(months, m)
-	}
-	slices.Sort(months)
-	return slices.Index(months, month) + 1
 }
 
 // layoutNews sets article a as the front page of issue n, with the
@@ -169,7 +159,7 @@ func (a *app) drawNewsPage(dst *ebiten.Image, d int) {
 	}
 	fillRect(dst, d, rect{newsSheet.X + 3, newsSheet.Y + 3, newsSheet.W, newsSheet.H}, shadow)
 	a.drawPaper(dst, d, newsSheet)
-	p := layoutNews(art, issue(m.month), m.briefing)
+	p := layoutNews(art, m.issue, m.briefing)
 	hr := func(y, h int) { fillRect(dst, d, rect{newsLeft, y, newsRight - newsLeft, h}, ink) }
 	hr(44, 2)
 	hr(60, 1)
@@ -228,7 +218,7 @@ type unitCard struct {
 	armour, speed int
 	attack        string // "Ground 30 · Water 30"; "No weapons" for none
 	reach         string // "Range 1–3"; "" for none
-	note          string // campaign.UnitNotes
+	note          string // data.Set.Notes
 }
 
 // unitsPerPage is how many cards the page of new units shows at once.
@@ -238,7 +228,7 @@ const unitsPerPage = 4
 func newCard(set *data.Set, id string) unitCard {
 	u := set.Units[id]
 	family, _ := unitsprite.Family(id)
-	c := unitCard{id: id, family: family, name: u.Name, country: u.Country, armour: u.Armour, speed: u.Speed, note: campaign.UnitNotes[family]}
+	c := unitCard{id: id, family: family, name: u.Name, country: u.Country, armour: u.Armour, speed: u.Speed, note: set.Notes[family]}
 	var power [3]int // air, ground, water
 	lo, hi := math.MaxInt, 0
 	for _, sl := range u.Weapons {

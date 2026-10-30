@@ -1,21 +1,28 @@
 package main
 
 import (
+	"io/fs"
 	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/campaign"
+	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
-// Every front page fits its sheet: headline and deck across it, caption and
-// orders above the button, the article in its two columns above "In brief".
+// Every campaign map has its month's front page, and every page fits its
+// sheet: headline and deck across it, caption and orders above the button,
+// the article in its two columns above "In brief".
 func TestFrontPagesFit(t *testing.T) {
-	orders := map[string]string{}
+	issues := map[string]int{}
 	for _, m := range testShell(t).maps {
-		orders[m.month] = m.briefing
-	}
-	for month, a := range campaign.Articles {
-		p := layoutNews(a, issue(month), orders[month])
+		a, ok := m.news()
+		if !ok {
+			t.Errorf("%s has no front page", m.name)
+			continue
+		}
+		month := m.month
+		issues[month] = m.issue
+		p := layoutNews(a, m.issue, m.briefing)
 		if !p.fits {
 			t.Errorf("%s does not fit its page", month)
 		}
@@ -30,8 +37,9 @@ func TestFrontPagesFit(t *testing.T) {
 			}
 		}
 	}
-	if issue("1914-08") != 1 || issue("1918-06") != len(campaign.Articles) {
-		t.Errorf("issues %d, %d", issue("1914-08"), issue("1918-06"))
+	pages, _ := fs.Glob(levels.Monthly, campaign.Dir+"/*.json")
+	if issues["1914-08"] != 1 || issues["1918-06"] != len(pages) || len(pages) != 27 {
+		t.Errorf("issues %d, %d of %d", issues["1914-08"], issues["1918-06"], len(pages))
 	}
 }
 

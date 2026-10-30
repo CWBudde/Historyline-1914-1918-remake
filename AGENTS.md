@@ -71,7 +71,9 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   version's terrain; `just levels-campaign` (`cmd/hlcampaign`) writes those months and the skirmish set
   from the local original maps and overwrites hand edits there (backdrops stay), the other months (newly
   authored levels such as Marne) stay. The menu campaign is a chain per side through the months;
-  `-level monthly/1914-08:ec` plays one setup.
+  `-level monthly/1914-08:ec` plays one setup. Before a campaign battle the player reads the month's
+  newspaper front page, `levels/monthly/news/1914-08.json` (`internal/campaign`); the notes on the page
+  of new units are `internal/data/notes.json`.
 - `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);
   `art/style.md`, bundle manifests in `art/pipeline/`, the PULSE reference in `art/reference/pulse/`.
   Art guide: `art/README.md`. `assets/<kind>/<family>/`: runtime art only, every file listed in

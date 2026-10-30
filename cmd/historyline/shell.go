@@ -54,14 +54,43 @@ type mapLevel struct {
 	players    int    // mission players (1 or 2); 0 means 1
 	humanSides []int  // mission human sides
 	winter     bool
-	briefing   string     // one line shown on the loading page
-	month      string     // "1914-08"
-	newUnits   []unitCard // the side's unit types new in its campaign chain
+	briefing   string            // one line shown on the loading page
+	month      string            // "1914-08"
+	newUnits   []unitCard        // the side's unit types new in its campaign chain
+	article    *campaign.Article // the month's front page, nil for none
+	issue      int               // the front page's number: its place among the months
 }
 
 // news is the front page of the map's month.
 func (m mapLevel) news() (campaign.Article, bool) {
-	return campaign.News(m.month)
+	if m.article == nil {
+		return campaign.Article{}, false
+	}
+	return *m.article, true
+}
+
+// frontPages reads the front pages (campaign.Dir) by month, numbered in
+// calendar order from 1.
+func frontPages(dir string) (map[string]*campaign.Article, map[string]int, error) {
+	files, err := fs.Glob(levels.Monthly, campaign.Dir+"/*.json")
+	if err != nil {
+		return nil, nil, err
+	}
+	slices.Sort(files)
+	pages, issues := map[string]*campaign.Article{}, map[string]int{}
+	for i, f := range files {
+		raw, err := readLevelFile(dir, levels.Monthly, f)
+		if err != nil {
+			return nil, nil, fmt.Errorf("%s: %w", f, err)
+		}
+		a, err := campaign.Parse(raw)
+		if err != nil {
+			return nil, nil, fmt.Errorf("%s: %w", f, err)
+		}
+		month := campaign.Month(f)
+		pages[month], issues[month] = &a, i+1
+	}
+	return pages, issues, nil
 }
 
 // briefingLine is the one-line briefing from the map's own facts; there is
@@ -115,6 +144,10 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			return nil, fmt.Errorf("%s: %w", f, err)
 		}
 	}
+	pages, issues, err := frontPages(dir)
+	if err != nil {
+		return nil, err
+	}
 	var maps []mapLevel
 	for _, mode := range campaignModes {
 		first := len(maps)
@@ -132,6 +165,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			m := mapLevel{
 				name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
 				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month,
+				article: pages[f.Month], issue: issues[f.Month],
 			}
 			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.winter, true)
 			m.newUnits = newCards(set, sideUnits(s, mode), seen)
