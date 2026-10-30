@@ -354,3 +354,22 @@ func TestContentSlots(t *testing.T) {
 		t.Error("ContentSlots off the level")
 	}
 }
+
+// A type only one side has in the remake still gets that unit's name, so a
+// factory never offers "Type 46".
+func TestTypeIDFallsBackToTheOtherSide(t *testing.T) {
+	s := civil(t)
+	for typ, want := range map[int]string{
+		46: "EC_charron", 49: "EC_stChamond", 37: "EC_handleyPage", 38: "EC_dh4",
+		43: "EC_se5a", 44: "EC_spad13", 45: "EC_camel",
+	} {
+		for side := 0; side <= 1; side++ {
+			if got := s.typeID(typ, side); got != want {
+				t.Errorf("typeID(%d, %d) = %q, want %q", typ, side, got, want)
+			}
+		}
+	}
+	if got := s.typeID(18, 1); got == "" || got[:2] != "EC" {
+		t.Errorf("typeID(18, 1) = %q, want the Entente infantry", got)
+	}
+}

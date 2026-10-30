@@ -106,15 +106,24 @@ func (s *Session) unitID(idx int) string {
 }
 
 // typeID is the first unit id of UNIT.DAT type typ and side (any side for
-// 2), "" for a type the remake has no unit for yet.
+// 2). A type only the other side has in the remake (the Charron, the
+// Sopwith Camel) falls back to that unit; "" is a type the remake has no
+// unit for at all.
 func (s *Session) typeID(typ, side int) string {
+	other := ""
 	for _, id := range slices.Sorted(maps.Keys(s.set.Units)) {
 		d := s.set.Units[id]
-		if d.Dos == typ && (side == 2 || dosbind.Side(game.FactionOf(d.Country)) == side) {
+		if d.Dos != typ {
+			continue
+		}
+		if side == 2 || dosbind.Side(game.FactionOf(d.Country)) == side {
 			return id
 		}
+		if other == "" {
+			other = id
+		}
 	}
-	return ""
+	return other
 }
 
 // typeName is the name of unit id, for "" a placeholder naming type typ.
