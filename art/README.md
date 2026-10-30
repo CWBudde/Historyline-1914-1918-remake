@@ -88,7 +88,7 @@ Modes: `-connected` (road, stream, path, rail, trench), `-mixed` (bridges, cross
 `-fog`, `-ground`, `-forest`, `-hills`, `-unit`, `-portrait`. Interface, weapons, effects and screens come
 from `tools/interface-art` (see its README); the unit panel preview from `tools/unit-panel`. The bunker
 is a top view with the owner's insignia: `go run ./tools/unit-topview -manifest
-art/pipeline/unit-bunker-v2.json` writes its runtime files into `assets/` and re-pins them. Tagged
+art/pipeline/unit-bunker-v3.json` writes its runtime files into `assets/` and re-pins them. Tagged
 generators in `tools/art-review` (`campaigngfx`, `grassgfx`, `riverbankgfx`, `retainedgfx`) rebuild derived
 sources and missing contexts. `just gfx-check` runs the art checks.
 Use the selected manifest named in each family's `prompt.md`; earlier manifests retain their draft sources.

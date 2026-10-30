@@ -39,6 +39,10 @@ type source struct {
 // radius logical pixels around the centre taken from the inlay master.
 type owner struct {
 	Radius float64 `json:"radius,omitempty"`
+	// Squash is the disc's height over its width in a tilted view (0 means 1, a circle);
+	// DY moves its centre from the base's box centre, in logical pixels (negative is up).
+	Squash float64 `json:"squash,omitempty"`
+	DY     float64 `json:"dy,omitempty"`
 	Inlay  *source `json:"inlay,omitempty"`
 }
 
@@ -126,7 +130,11 @@ func build(root string, m manifest, base *image.NRGBA, log io.Writer) (map[strin
 				return nil, fmt.Errorf("owner %s: the inlay must match the base's size and its radius lie inside the diameter", p)
 			}
 			var note string
-			master, note = inlay(base, edit, f.centreX, f.centreY, r, 10)
+			sq := o.Squash
+			if sq == 0 {
+				sq = 1
+			}
+			master, note = inlay(base, edit, f.centreX, f.centreY+o.DY*f.scale, r, sq, 10)
 			_, _ = fmt.Fprintf(log, "%s inlay: %s\n", p, note)
 		}
 		for _, d := range m.Densities {

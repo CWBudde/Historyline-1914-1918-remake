@@ -20,16 +20,16 @@ func lumAt(im *image.NRGBA, x, y int) float64 {
 // register finds the shift (dx, dy) within ±reach that best lays edit onto base:
 // the smallest mean absolute luma gradient difference over the annulus
 // [r0, r1) around (cx, cy), which holds the disc's edge and the roof's seams.
-func register(base, edit *image.NRGBA, cx, cy, r0, r1 float64, reach int) (int, int) {
+func register(base, edit *image.NRGBA, cx, cy, r0, r1, sq float64, reach int) (int, int) {
 	grad := func(im *image.NRGBA, x, y int) float64 {
 		return math.Abs(lumAt(im, x+1, y)-lumAt(im, x-1, y)) + math.Abs(lumAt(im, x, y+1)-lumAt(im, x, y-1))
 	}
 	b := base.Bounds().Intersect(edit.Bounds()).Inset(reach + 1)
 	type pt struct{ x, y int }
 	var ring []pt
-	for y := int(cy - r1); y <= int(cy+r1); y += 2 {
+	for y := int(cy - r1*sq); y <= int(cy+r1*sq); y += 2 {
 		for x := int(cx - r1); x <= int(cx+r1); x += 2 {
-			d := math.Hypot(float64(x)+.5-cx, float64(y)+.5-cy)
+			d := math.Hypot(float64(x)+.5-cx, (float64(y)+.5-cy)/sq)
 			if d >= r0 && d < r1 && image.Pt(x, y).In(b) {
 				ring = append(ring, pt{x, y})
 			}
@@ -58,16 +58,16 @@ func register(base, edit *image.NRGBA, cx, cy, r0, r1 float64, reach int) (int, 
 // inlay replaces the disc of radius r around (cx, cy) of base with the
 // registered disc of edit, scaled to the base's mean concrete luma just inside the disc
 // edge, blended over the last feather pixels. The note reports shift and gain.
-func inlay(base, edit *image.NRGBA, cx, cy, r, feather float64) (*image.NRGBA, string) {
-	dx, dy := register(base, edit, cx, cy, r-20, r+50, 10)
+func inlay(base, edit *image.NRGBA, cx, cy, r, sq, feather float64) (*image.NRGBA, string) {
+	dx, dy := register(base, edit, cx, cy, r-20, r+50, sq, 10)
 	out := image.NewNRGBA(base.Bounds())
 	copy(out.Pix, base.Pix)
 	// The tone is matched on bare concrete only: grey in the edit and near the
 	// base's luma, so paint that reaches the edge does not count.
 	var lb, le, n float64
-	for y := int(cy - r); y <= int(cy+r); y++ {
+	for y := int(cy - r*sq); y <= int(cy+r*sq); y++ {
 		for x := int(cx - r); x <= int(cx+r); x++ {
-			if d := math.Hypot(float64(x)+.5-cx, float64(y)+.5-cy); d < r-2*feather || d >= r {
+			if d := math.Hypot(float64(x)+.5-cx, (float64(y)+.5-cy)/sq); d < r-2*feather || d >= r {
 				continue
 			}
 			p := edit.Pix[edit.PixOffset(x+dx, y+dy):]
@@ -82,9 +82,9 @@ func inlay(base, edit *image.NRGBA, cx, cy, r, feather float64) (*image.NRGBA, s
 	if n > 0 && le > 0 {
 		gain = lb / le
 	}
-	for y := int(cy - r - 1); y <= int(cy+r+1); y++ {
+	for y := int(cy - r*sq - 1); y <= int(cy+r*sq+1); y++ {
 		for x := int(cx - r - 1); x <= int(cx+r+1); x++ {
-			d := math.Hypot(float64(x)+.5-cx, float64(y)+.5-cy)
+			d := math.Hypot(float64(x)+.5-cx, (float64(y)+.5-cy)/sq)
 			w := math.Max(0, math.Min(1, (r-d)/feather))
 			if w == 0 {
 				continue

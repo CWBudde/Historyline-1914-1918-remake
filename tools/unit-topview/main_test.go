@@ -18,7 +18,7 @@ const repoRoot = "../.."
 // The committed bunker sprites are exactly what the manifest builds, every
 // owner shares the neutral outline, and spent is the grey of normal.
 func TestCommittedBunkerReproduces(t *testing.T) {
-	m, base, err := readManifest(repoRoot, filepath.Join(repoRoot, "art/pipeline/unit-bunker-v2.json"))
+	m, base, err := readManifest(repoRoot, filepath.Join(repoRoot, "art/pipeline/unit-bunker-v3.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func TestCommittedBunkerReproduces(t *testing.T) {
 		}
 		g, ok := got.(*image.NRGBA)
 		if !ok || g.Bounds() != want.Bounds() || !bytes.Equal(g.Pix, want.Pix) {
-			t.Errorf("%s differs from the manifest's build; run go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v2.json", path)
+			t.Errorf("%s differs from the manifest's build; run go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v3.json", path)
 		}
 	}
 	for _, d := range []string{"2x", "4x"} {
@@ -90,10 +90,10 @@ func ringImage(cx, cy float64) *image.NRGBA {
 
 func TestRegisterFindsTheShift(t *testing.T) {
 	base, edit := ringImage(100, 100), ringImage(103, 98)
-	if dx, dy := register(base, edit, 100, 100, 30, 60, 6); dx != 3 || dy != -2 {
+	if dx, dy := register(base, edit, 100, 100, 30, 60, 1, 6); dx != 3 || dy != -2 {
 		t.Errorf("shift (%d,%d), want (3,-2)", dx, dy)
 	}
-	if dx, dy := register(base, base, 100, 100, 30, 60, 6); dx != 0 || dy != 0 {
+	if dx, dy := register(base, base, 100, 100, 30, 60, 1, 6); dx != 0 || dy != 0 {
 		t.Errorf("identical images shift (%d,%d)", dx, dy)
 	}
 }
@@ -107,7 +107,7 @@ func TestInlayKeepsTheOutside(t *testing.T) {
 			edit.SetNRGBA(x, y, color.NRGBA{200, 30, 30, 255})
 		}
 	}
-	out, _ := inlay(base, edit, 100, 100, 30, 4)
+	out, _ := inlay(base, edit, 100, 100, 30, 1, 4)
 	for y := range 200 {
 		for x := range 200 {
 			d := math.Hypot(float64(x)+.5-100, float64(y)+.5-100)
