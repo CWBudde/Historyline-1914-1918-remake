@@ -1,13 +1,24 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
+
+// skipMissingOriginal skips local comparison tests when the unshipped
+// original files are absent. Other loading errors still fail the test.
+func skipMissingOriginal(t *testing.T, err error) {
+	t.Helper()
+	if errors.Is(err, origmaps.ErrNotFound) {
+		t.Skip("no original files")
+	}
+}
 
 // An imported original map loads from the embedded files with its campaign
 // level, plays its exact board on the original rules and its campaign level on
@@ -18,6 +29,7 @@ func TestOriginalMap(t *testing.T) {
 		t.Fatal(err)
 	}
 	lvl, b, err := loadMap(t.TempDir(), "original/06", set)
+	skipMissingOriginal(t, err)
 	if err != nil {
 		t.Fatal(err)
 	}

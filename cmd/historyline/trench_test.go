@@ -64,6 +64,7 @@ func TestSapperWorkRedrawsTerrain(t *testing.T) {
 		t.Fatal(err)
 	}
 	lvl, b, err := loadMap(t.TempDir(), "original/03", set)
+	skipMissingOriginal(t, err)
 	if err != nil {
 		t.Fatal(err)
 	}

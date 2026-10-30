@@ -40,7 +40,7 @@ func (g *game) toggleOrigArt() string {
 	}
 	if g.orig == nil {
 		g.orig = &origArt{}
-		if a, err := loadOrigArt(); err != nil {
+		if a, err := loadOrigArt(); err != nil { //nolint:staticcheck // The !origtiles stub always errors; the origtiles loader can succeed.
 			g.orig.err = err.Error()
 		} else {
 			g.orig.tiles, g.orig.units = a.tiles, a.units

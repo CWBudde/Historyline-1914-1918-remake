@@ -30,8 +30,10 @@ func TestShipSpritesSpanTwoHexes(t *testing.T) {
 			if im.Bounds().Dx() != 4*shipCanvas || im.Bounds().Dy() != 4*shipCanvas {
 				t.Fatalf("%s %s: %v", family, f.Facing, im.Bounds())
 			}
-			if f.Scale4x > 1.6 {
-				t.Errorf("%s %s: upscaled %.2f from its master", family, f.Facing, f.Scale4x)
+			// The master must resolve the 2x runtime hull without upscaling;
+			// the 4x export may enlarge it by up to two times.
+			if f.Scale4x/2 > 1 {
+				t.Errorf("%s %s: 2x hull upscaled %.2f from its master", family, f.Facing, f.Scale4x/2)
 			}
 			step := steps[f.Facing]
 			l := math.Hypot(step[0], step[1])

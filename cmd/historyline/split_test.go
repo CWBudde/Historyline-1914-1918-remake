@@ -514,6 +514,7 @@ func TestSplitStopsAtTheEdge(t *testing.T) {
 		t.Fatal(err)
 	}
 	lvl, b, err := loadMap(t.TempDir(), "original/09", set)
+	skipMissingOriginal(t, err)
 	if err != nil {
 		t.Fatal(err)
 	}
