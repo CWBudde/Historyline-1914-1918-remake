@@ -3,6 +3,7 @@
 	"version": 1,
 	"month": "1918-06",
 	"name": "Stern",
+	"backdrop": "1918-06.jpg",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
