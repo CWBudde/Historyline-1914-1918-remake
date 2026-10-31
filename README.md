@@ -14,7 +14,7 @@ newly painted art. The roadmap is [PLAN.md](PLAN.md).
 | `assets/` | Runtime art the game packs are built from, listed in `assets/index.json` |
 | `cmd/hl` | Unified developer CLI: art, assets, exports, reviews, levels, LLM play and web serving |
 | `tools/` | Importable offline art tooling and the PULSE reference design |
-| `docs/` | Art book, runtime asset packs, reconstructed manual |
+| `docs/` | [CLI](docs/cli.md), [screen layout](docs/dos-screen.md), [LLM play](docs/llmplay.md), [runtime asset packs](docs/runtime-assets.md), [painted backdrops](docs/painted-backdrops.md), art book, reconstructed manual |
 | `legacy/` | The upstream Python remake, kept as a test reference only |
 
 ## Running
