@@ -173,6 +173,11 @@ func compoundReadSource(base string, ref connectionMaterial, ground bool) (compo
 	if err := compoundSafeRelative(ref.Source); err != nil {
 		return out, err
 	}
+	ref, _, err := seasonRef(base, ref)
+	if err != nil {
+		return out, err
+	}
+	out.Ref = ref
 	want, err := hex.DecodeString(ref.SourceSHA256)
 	if err != nil || len(want) != 32 || strings.ToLower(ref.SourceSHA256) != ref.SourceSHA256 {
 		return out, errors.New("compound source requires canonical lowercase SHA256")

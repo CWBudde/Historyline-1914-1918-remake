@@ -7,6 +7,7 @@ import (
 	"math"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
@@ -88,6 +89,9 @@ func (r *Renderer) drawDeep(dst draw.Image, id string, at hexgrid.Coord, density
 		id  string
 		set *image.Image
 	}{{waterdepth.SeaTile(at, id), &with.Sea}, {waterdepth.WaterTile(id), &with.Water}, {waterdepth.SurfTile(id), &with.Surf}} {
+		if !r.has[t.id] {
+			t.id = mapcompose.SummerID(t.id) // an autumn or spring form the catalog lacks
+		}
 		if _, im, err := r.assetImage(t.id, density); err == nil {
 			*t.set = im
 		}

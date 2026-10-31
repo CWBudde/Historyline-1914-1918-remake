@@ -42,6 +42,7 @@ type hillsReport struct {
 	Ownership        string                              `json:"ownership"`
 	ResamplingChain  []string                            `json:"resampling_chain"`
 	Acceptance       string                              `json:"acceptance"`
+	seasonReport
 }
 type hillsBundle struct {
 	artifacts []connectionArtifact
@@ -70,7 +71,7 @@ func (b *hillsBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 
 func buildHillsBundle(in hillsInputs) (hillsBundle, error) {
 	b := hillsBundle{pixels: map[string]*image.NRGBA{}, report: hillsReport{
-		SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Materials: map[string]connectionMaterialReport{}, Parameters: hillsNumericParameters(), Profile: hillsProfileText, Ownership: groundOwnership,
+		SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Materials: map[string]connectionMaterialReport{}, Parameters: hillsNumericParameters(), Profile: hillsProfileText, Ownership: groundOwnership,
 		ResamplingChain: []string{"unchanged grass material and height-derived relief normal on opaque 416x352 4x overscan; pixel world origin+(pixel+0.5)/4-4", "whole unmasked Lanczos3 -> 208x176 2x; crop four world pixels then complementary half-open ownership independently at both densities", "decode actual exported PNGs -> ordinary Over seven-visible-cell fixtures; never repaint patch"},
 		Acceptance:      "Provisional bounded hills candidates: all 64 neighbor masks at phase 0, all 32 isolated phases, plus actual fixed fixture contexts. Runtime context selection, arbitrary maps, other terrain, zoom and visual/native-size acceptance remain OPEN.",
 	}}
@@ -103,6 +104,7 @@ func buildHillsBundle(in hillsInputs) (hillsBundle, error) {
 		if c.canonical() {
 			dir, stem = "tiles", c.RuntimeID
 		}
+		stem = seasonID(stem)
 		p := hillsProfileReport{RuntimeID: c.RuntimeID, Season: "summer", ContextKey: key, Descriptor: c.descriptor(), NeighborIDs: c.NeighborIDs, Phase: c.Phase, Canonical: c.canonical(), IsolatedCue: renderer.cueFor(c)}
 		rendered, err := renderer.tiles(c)
 		if err != nil {

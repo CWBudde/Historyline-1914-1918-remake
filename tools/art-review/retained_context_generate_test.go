@@ -4,6 +4,8 @@ package artreview
 
 // Opt-in offline authoring hook. It supplements a freshly generated ignored
 // bundle; it never promotes or modifies active art or the context profiles.
+// A seasonal bundle (-season) is supplemented with every summer profile in its
+// season: seasonal sources, runtime files suffixed like the bundle's own.
 //
 // From repository root:
 // go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/pipeline/ground-terrain-v1.json -context-profiles art/pipeline/contexts/ground.json -context-bundle build/review/fresh-ground
@@ -48,9 +50,10 @@ func retainedContextPath(path string) (string, error) {
 	return filepath.Abs(filepath.Join("..", "..", path))
 }
 
-// Append only absent identities; rendering replaces stale PNG metadata from
-// the profiles file. Re-running the helper leaves existing profiles intact.
-func retainedAppendProfiles[P any](profilesFile []byte, profiles *[]P, key func(P) string, render func(P) (P, error)) error {
+// Append only absent identities of an exported season; rendering replaces
+// stale PNG metadata from the profiles file. Re-running the helper leaves
+// existing profiles intact.
+func retainedAppendProfiles[P any](profilesFile []byte, profiles *[]P, key, season func(P) string, render func(P) (P, error)) error {
 	var retained struct {
 		Profiles []P `json:"profiles"`
 	}
@@ -65,7 +68,7 @@ func retainedAppendProfiles[P any](profilesFile []byte, profiles *[]P, key func(
 		known[key(p)] = true
 	}
 	for _, p := range retained.Profiles {
-		if known[key(p)] {
+		if known[key(p)] || !seasonExported(season(p)) {
 			continue
 		}
 		updated, err := render(p)
@@ -84,7 +87,7 @@ func retainedContextOutputs(key string, tiles map[int]*image.NRGBA, add func(str
 		if tiles[scale] == nil {
 			return nil, fmt.Errorf("missing %dx render for %s", scale, key)
 		}
-		out, err := add(fmt.Sprintf("profiles/%s-%dx.png", key, scale), tiles[scale])
+		out, err := add(fmt.Sprintf("profiles/%s-%dx.png", seasonID(key), scale), tiles[scale])
 		if err != nil {
 			return nil, err
 		}
@@ -160,9 +163,20 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 	}
 	var header struct {
 		ManifestSHA256 string `json:"manifest_sha256"`
+		Season         string `json:"season"`
 	}
 	if err = json.Unmarshal(reportBytes, &header); err != nil {
 		return err
+	}
+	if header.Season != "" {
+		if seasonSuffixes[header.Season] == "" {
+			return fmt.Errorf("unknown bundle season %q", header.Season)
+		}
+		if family == "forest" {
+			return fmt.Errorf("seasonal forest contexts come from -forest-layered")
+		}
+		exportSeason = header.Season
+		defer func() { exportSeason = "" }()
 	}
 	sum := sha256.Sum256(input)
 	if header.ManifestSHA256 != hex.EncodeToString(sum[:]) {
@@ -188,10 +202,10 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		for id, s := range in.Sources {
 			materials[id] = s.Image
 		}
-		r := newGroundRenderer(materials)
+		r := newLatticeGroundRenderer(materials, in.Manifest.LatticeMaterials)
 		r.mudFeature = in.Manifest.MudFeature
 		r.shelledFeature = in.Manifest.ShelledFeature
-		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p groundProfileReport) string { return p.ContextKey }, func(p groundProfileReport) (groundProfileReport, error) {
+		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p groundProfileReport) string { return p.ContextKey }, func(p groundProfileReport) string { return p.Season }, func(p groundProfileReport) (groundProfileReport, error) {
 			c, e := newGroundContext(p.RuntimeID, p.NeighborIDs[:])
 			if e != nil {
 				return p, e
@@ -231,7 +245,7 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		if e != nil {
 			return e
 		}
-		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p forestProfileReport) string { return p.ContextKey }, func(p forestProfileReport) (forestProfileReport, error) {
+		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p forestProfileReport) string { return p.ContextKey }, func(p forestProfileReport) string { return p.Season }, func(p forestProfileReport) (forestProfileReport, error) {
 			c, e := newForestContext(p.RuntimeID, p.NeighborIDs[:])
 			if e != nil {
 				return p, e
@@ -265,7 +279,7 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		if source, ok := in.Sources["scrub"]; ok {
 			r.scrub = source.Image
 		}
-		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p hillsProfileReport) string { return p.ContextKey }, func(p hillsProfileReport) (hillsProfileReport, error) {
+		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p hillsProfileReport) string { return p.ContextKey }, func(p hillsProfileReport) string { return p.Season }, func(p hillsProfileReport) (hillsProfileReport, error) {
 			c, e := newHillsContext(p.RuntimeID, p.NeighborIDs[:], p.Phase)
 			if e != nil {
 				return p, e

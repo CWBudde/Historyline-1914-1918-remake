@@ -31,9 +31,12 @@
 // 1 as the map's line keys. A building's owner is "cp", "ec" or absent
 // (none); its credits are per cycle. A setup with "from" reuses that
 // setup's units, buildings and builds under its own code. A folder is
-// named by its campaign month. Its backdrop.jpg is a painting of the whole
-// map's ground, drawn in place of the terrain tiles; backdrop.png beside it
-// is its lossless source, which the game does not ship.
+// named by its campaign month, which gives the map's look its season
+// (File.Season); the map's optional "season" after "name" ("summer",
+// "autumn" or "spring", never on a winter map) overrides it. Its
+// backdrop.jpg is a painting of the whole map's ground, drawn in place of
+// the terrain tiles; backdrop.png beside it is its lossless source, which
+// the game does not ship.
 package scenario
 
 import (
@@ -99,6 +102,9 @@ func SetupFile(m Mode) string { return string(m) + ".json" }
 type File struct {
 	Month string // "1914-08", the folder's name
 	Name  string // "Pulse"
+	// MapSeason is the season map.json sets for the map's look ("summer",
+	// "autumn" or "spring"); "" for the month's (Season).
+	MapSeason string
 	// Backdrop is the painting of the map's ground drawn in place of the
 	// terrain tiles: BackdropFile when the folder has one, covering the
 	// map's world rectangle as maprender draws it; "" for none.
@@ -189,6 +195,7 @@ type mapJSON struct {
 	Format  string                         `json:"format"`
 	Version int                            `json:"version"`
 	Name    string                         `json:"name"`
+	Season  string                         `json:"season"`
 	Map     map[string][][]json.RawMessage `json:"map"`
 }
 
@@ -228,8 +235,9 @@ func strict(raw []byte, v any) error {
 // Decode checks and decodes the files of a level folder by name (MapFile
 // and a SetupFile per setup): unknown files or keys, gaps in the map lines,
 // hexes off the map, two units on a hex, a building entrance that is no
-// building, an unknown owner, a "from" chain and a code used twice are
-// errors. The month and the backdrop are the folder's, not its files'.
+// building, an unknown owner, a "from" chain, a code used twice, an unknown
+// season and a season on a winter map are errors. The month and the backdrop
+// are the folder's, not its files'.
 func Decode(files map[string][]byte) (*File, error) {
 	var mj mapJSON
 	raw, ok := files[MapFile]
@@ -257,7 +265,32 @@ func Decode(files map[string][]byte) (*File, error) {
 		}
 		setups[m] = &sj
 	}
-	return build(mj.Name, mj.Map, setups)
+	f, err := build(mj.Name, mj.Map, setups)
+	if err != nil {
+		return nil, err
+	}
+	if err := f.setSeason(mj.Season); err != nil {
+		return nil, fmt.Errorf("%s: %w", MapFile, err)
+	}
+	return f, nil
+}
+
+// mapSeasons are the seasons map.json may set; winter comes from the terrain.
+var mapSeasons = []string{"summer", "autumn", "spring"}
+
+// setSeason sets the map's season s from map.json, "" for none.
+func (f *File) setSeason(s string) error {
+	if s == "" {
+		return nil
+	}
+	if !slices.Contains(mapSeasons, s) {
+		return fmt.Errorf("season %q, want summer, autumn or spring", s)
+	}
+	if f.Winter() {
+		return fmt.Errorf("season %q on a winter map", s)
+	}
+	f.MapSeason = s
+	return nil
 }
 
 // build checks and makes the file of a map and its setups.
@@ -447,12 +480,34 @@ func (f *File) Winter() bool {
 	return false
 }
 
+// Season is the season the map is drawn in: "winter" for a winter map,
+// else MapSeason where set, else its month's: "spring" from March to May,
+// "autumn" from September to November, "summer" otherwise and without a
+// month. It changes the look only, never the rules.
+func (f *File) Season() string {
+	switch {
+	case f.Winter():
+		return "winter"
+	case f.MapSeason != "":
+		return f.MapSeason
+	}
+	if m := monthRE.FindStringSubmatch(f.Month); m != nil {
+		switch m[2] {
+		case "03", "04", "05":
+			return "spring"
+		case "09", "10", "11":
+			return "autumn"
+		}
+	}
+	return "summer"
+}
+
 // Level is a setup as a level of the legacy format: the map with the
 // setup's units and building content, Player the mode's first human side,
 // MapName the setup's code word (the file's name without one: the game info
 // and the best scores go by it), MapNo 0, and Extra the setup's credits and
-// builds and the file's backdrop. A unit on a building's content hex is an
-// error.
+// builds and the file's backdrop and Season. A unit on a building's content
+// hex is an error.
 func (f *File) Level(m Mode) (*level.Level, error) {
 	s := f.Setup(m)
 	if s == nil {
@@ -464,7 +519,7 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	}
 	lv := &level.Level{
 		MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
-		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop},
+		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop, Season: f.Season()},
 	}
 	for i, line := range f.Map {
 		lv.Lines[i] = make([]level.Hex, len(line))
@@ -489,9 +544,9 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	return lv, nil
 }
 
-// Files encodes the folder's files by name: MapFile, a map line per row,
-// and a SetupFile per setup in Modes order, a unit and a building per row
-// in hex order.
+// Files encodes the folder's files by name: MapFile, its season only where
+// set and a map line per row, and a SetupFile per setup in Modes order, a
+// unit and a building per row in hex order.
 func (f *File) Files() (map[string][]byte, error) {
 	var b bytes.Buffer
 	str := func(s string) {
@@ -511,6 +566,10 @@ func (f *File) Files() (map[string][]byte, error) {
 	out := map[string][]byte{}
 	fmt.Fprintf(&b, "{\n\t\"format\": %q,\n\t\"version\": %d,\n\t\"name\": ", Format, Version)
 	str(f.Name)
+	if f.MapSeason != "" {
+		b.WriteString(",\n\t\"season\": ")
+		str(f.MapSeason)
+	}
 	b.WriteString(",\n\t\"map\": {\n")
 	for i, line := range f.Map {
 		fmt.Fprintf(&b, "\t\t\"line%d\": [", i+1)

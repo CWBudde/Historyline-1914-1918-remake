@@ -39,7 +39,7 @@ func (r *Renderer) RenderBackdrop(lvl *level.Level, density int, backdrop image.
 		return Map{}, fmt.Errorf("backdrop aspect %dx%d does not match the map's %dx%d", bb.Dx(), bb.Dy(), w, h)
 	}
 	field := mapmaterial.New(lvl)
-	scene := mapcompose.Compose(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
+	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.LevelSeason(lvl))
 	depth := waterdepth.New(lvl, &scene)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
 	xdraw.CatmullRom.Scale(m.Image, m.Image.Bounds(), backdrop, bb, xdraw.Src, nil)
@@ -61,7 +61,7 @@ func (r *Renderer) RenderBackdrop(lvl *level.Level, density int, backdrop image.
 					if err := r.drawDeep(m.Image, bg, at, density, depth); err != nil {
 						return Map{}, err
 					}
-				case r.materials[density] != nil && (terrain == "grass" || terrain == "hills"):
+				case r.materials[density] != nil && materialGround(terrain, bg):
 					if err := r.drawMaterial(m.Image, bg, at, density, field); err != nil {
 						return Map{}, err
 					}

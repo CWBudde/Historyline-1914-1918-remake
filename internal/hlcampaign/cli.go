@@ -9,9 +9,11 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// Run writes the original maps' campaign folders, keeping backdrops and front pages.
+// Run writes the original maps' campaign folders, keeping backdrops, front pages
+// and a map's season override.
 func Run(args []string, stdout, stderr io.Writer) error {
 	f := flag.NewFlagSet("hl levels campaign", flag.ContinueOnError)
 	f.SetOutput(stderr)
@@ -45,7 +47,11 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	}
 	slices.Sort(names)
 	for _, name := range names {
-		if err := out.folders[name].Write(filepath.Join(*dir, name)); err != nil {
+		folder := out.folders[name]
+		if old, err := scenario.Load(filepath.Join(*dir, name)); err == nil && !folder.Winter() {
+			folder.MapSeason = old.MapSeason
+		}
+		if err := folder.Write(filepath.Join(*dir, name)); err != nil {
 			return fmt.Errorf("%s: %w", name, err)
 		}
 	}

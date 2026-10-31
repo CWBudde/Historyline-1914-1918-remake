@@ -22,9 +22,10 @@ const OverhangX, OverhangY = hexgrid.HexWidth / 2, hexgrid.HexHeight / 2
 func StandingID(runtimeID string) string { return "standing/" + runtimeID }
 
 // ShadowID identifies a standing item's separately painted cast shadow. Both
-// live in the standing pack and share its overhang limits.
+// live in the standing pack and share its overhang limits. Shadows have no
+// autumn or spring form: an item's seasonal forms share its summer shadow.
 func ShadowID(standingID string) string {
-	return "standing/shadow/" + strings.TrimPrefix(standingID, "standing/")
+	return "standing/shadow/" + strings.TrimPrefix(SummerID(standingID), "standing/")
 }
 
 // ShadowsAt returns the cast shadows paired with the selected standing items.

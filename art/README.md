@@ -77,13 +77,22 @@ its own family.
 
 ## Regenerate
 
-`tools/art-review` builds a fresh bundle from a manifest; the output directory must not exist:
+`hl review art` (`tools/art-review`) builds a fresh bundle from a manifest; the output directory must not
+exist:
 
 ```sh
-go run ./tools/art-review -connected art/pipeline/connected-terrain-v2.json -out build/review/road
-go run ./tools/art-review -unit art/pipeline/unit-infantry-v1.json -out build/review/infantry
+go run ./cmd/hl review art -connected art/pipeline/connected-terrain-v2.json -out build/review/road
+go run ./cmd/hl review art -unit art/pipeline/unit-infantry-v1.json -out build/review/infantry
 go run ./tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json -out build/review/feature-stamps
 ```
+
+`-season autumn|spring` exports a terrain mode in that season: each summer or shared source
+`<stem>-<summer|shared>-v<N>.png` is replaced by its newest edit `<stem>-<season>-v<M>.png` in the same
+folder (same pixel size; pinned and reported when exported), sources without an edit stay, and every
+runtime ID and file name gets `_au` or `_sp`. Geometry, profiles and context keys are the summer ones; the
+run refuses when no source has an edit. `-ground`/`-hills` exports cover the manifest's profiles; `hl export
+generate retained-context-bundle` fills a seasonal bundle with every summer context (not forest, whose
+seasonal contexts come from `-forest-layered`). Fog, units, portraits and packs have no season.
 
 Modes: `-connected` (road, stream, path, rail, trench), `-mixed` (bridges, crossings), `-shore`, `-compound`,
 `-fog`, `-ground`, `-forest`, `-hills`, `-unit`, `-portrait`. Interface, weapons, effects and screens come

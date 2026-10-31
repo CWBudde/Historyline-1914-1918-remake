@@ -191,14 +191,14 @@ func (b *shoreBundle) addMouths(in shoreInputs) error {
 			m := shoreMouthReport{ID: fmt.Sprintf("%s-outlet%d", v.ID, port), Shore: v.ID, Port: port}
 			canonical := map[int]*image.NRGBA{}
 			for _, scale := range []int{2, 4} {
-				canonical[scale] = b.pixels[fmt.Sprintf("tiles/%s-%dx.png", v.ID, scale)]
+				canonical[scale] = b.pixels[shoreTile(v.ID, scale)]
 			}
 			tiles, err := exportShoreMouthOnBase(in, v, port, canonical)
 			if err != nil {
 				return err
 			}
 			for _, scale := range []int{2, 4} {
-				o, e := b.addPNG(fmt.Sprintf("tiles/%s-%dx.png", m.ID, scale), tiles[scale])
+				o, e := b.addPNG(shoreTile(m.ID, scale), tiles[scale])
 				if e != nil {
 					return e
 				}
@@ -235,10 +235,10 @@ func (b *shoreBundle) addMouthProof(in shoreInputs) error {
 			n := c.manifest.Geometry.Neighbors[m.port-1]
 			minX, minY := min(0., n[0]), min(0., n[1])
 			at := image.Pt((12+i*254-int(minX))*scale, (24-int(minY))*scale)
-			shore := b.pixels[fmt.Sprintf("tiles/%s-%dx.png", m.id, scale)]
+			shore := b.pixels[shoreTile(m.id, scale)]
 			draw.Draw(im, shore.Bounds().Add(at), shore, shore.Bounds().Min, draw.Over)
 			at = at.Add(image.Pt(int(n[0])*scale, int(n[1])*scale))
-			grass := b.pixels[fmt.Sprintf("tiles/grass-%dx.png", scale)]
+			grass := b.pixels[shoreTile("grass", scale)]
 			draw.Draw(im, grass.Bounds().Add(at), grass, grass.Bounds().Min, draw.Over)
 			streamPort := (m.port-1)%3 + 1
 			stream := b.pixels[fmt.Sprintf("mouth-proof/stream%d%d-%dx.png", streamPort, streamPort+3, scale)]

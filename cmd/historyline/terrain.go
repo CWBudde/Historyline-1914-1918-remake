@@ -103,9 +103,11 @@ func (a *terrainArt) present(id string) error {
 	return nil
 }
 
-// compose composes lvl as the scene; on a missing tile the scene stays.
+// compose composes lvl in its season as the scene; on a missing tile the
+// scene stays.
 func (a *terrainArt) compose(lvl *level.Level) error {
-	s := mapcompose.Compose(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return a.present(id) == nil })
+	has := func(id string) bool { return a.present(id) == nil }
+	s := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), has, mapcompose.LevelSeason(lvl))
 	var ids []string
 	for _, line := range s.Cells {
 		for _, c := range line {

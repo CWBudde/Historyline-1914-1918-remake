@@ -29,7 +29,7 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 		return CanopyMap{}, fmt.Errorf("density %d: runtime art exists at 2x and 4x", density)
 	}
 	grid := lvl.Grid()
-	scene := mapcompose.Compose(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
+	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.LevelSeason(lvl))
 	w, h := Size(grid)
 	m := CanopyMap{
 		Coverage: image.NewAlpha(image.Rect(0, 0, w*density, h*density)),
@@ -82,7 +82,9 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 	return m, nil
 }
 
+// isCanopy reports whether standing item id, in any season, is crowns only.
 func isCanopy(id string) bool {
+	id = mapcompose.SummerID(id)
 	return id == "standing/forest" || strings.HasPrefix(id, "standing/context/forest/") || strings.HasPrefix(id, "standing/props/trees/") ||
 		strings.HasPrefix(id, "standing/scatter/crown/")
 }

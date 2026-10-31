@@ -54,6 +54,7 @@ type mapLevel struct {
 	players    int    // mission players (1 or 2); 0 means 1
 	humanSides []int  // mission human sides
 	winter     bool
+	season     string            // the map's look: summer, winter, autumn or spring (scenario.File.Season)
 	briefing   string            // one line shown on the loading page
 	month      string            // "1914-08"
 	newUnits   []unitCard        // the side's unit types new in its campaign chain
@@ -90,15 +91,12 @@ func frontPages(fsys fs.FS, months []string) (map[string]*campaign.Article, map[
 	return pages, issues, nil
 }
 
-// briefingLine is the one-line briefing from the map's own facts; there is
-// no briefing text in the map files (PLAN open question), so it is derived.
-func briefingLine(code string, players int, humanSides []int, side state.Player, winter, knownSeason bool) string {
-	season := ""
-	if knownSeason {
-		season = ", summer"
-		if winter {
-			season = ", winter"
-		}
+// briefingLine is the one-line briefing from the map's own facts, its season
+// where known ("" for none); there is no briefing text in the map files (PLAN
+// open question), so it is derived.
+func briefingLine(code string, players int, humanSides []int, side state.Player, season string) string {
+	if season != "" {
+		season = ", " + season
 	}
 	if players == 2 {
 		return "Map " + code + season + " — two-player map; in v1 play one side vs computer or passive."
@@ -158,10 +156,10 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			}
 			m := mapLevel{
 				name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
-				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month,
+				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), season: f.Season(), month: f.Month,
 				article: pages[f.Month], issue: issues[f.Month],
 			}
-			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.winter, true)
+			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.season)
 			m.newUnits = newCards(set, sideUnits(s, mode), seen)
 			if len(maps) > first {
 				maps[len(maps)-1].next = len(maps)

@@ -1,8 +1,7 @@
 package mapcompose
 
 import (
-	"encoding/json"
-	"os"
+	"maps"
 	"slices"
 	"strings"
 	"testing"
@@ -38,30 +37,59 @@ func auditFamily(id string) string {
 }
 
 // Winter maps (Civil, Mouse and the winter campaign maps) draw no summer
-// water, shore, road or other infrastructure whose winter form exists.
-// The test logs every family still drawn in summer form.
+// water, shore, road or other infrastructure whose winter form exists. Autumn
+// and spring maps (by their month or map.json) draw no summer form of a
+// family that has forms of their season in the catalog (IDFamily), so a season
+// is filled family by family. The test logs every family still drawn in summer
+// form.
 func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
-	raw, err := os.ReadFile("../../assets/index.json")
-	if err != nil {
-		t.Fatal(err)
+	have := indexIDs(t)
+	for _, c := range []struct {
+		season Season
+		least  int // the maps of the season at least
+	}{{Winter, 16}, {Autumn, 4}, {Spring, 6}} {
+		t.Run(string(c.season), func(t *testing.T) {
+			done := func(f string) bool { return slices.Contains(winterAuditDone, f) }
+			if c.season != Winter {
+				seasonal := map[string]bool{}
+				for id := range have {
+					if IDSeason(id) == c.season {
+						seasonal[IDFamily(id)] = true
+					}
+				}
+				done = func(f string) bool { return seasonal[f] }
+			}
+			summer, audited := seasonAudit(t, have, c.season)
+			if audited < c.least {
+				t.Fatalf("audited %d %s maps, want every %s scenario map (at least %d)", audited, c.season, c.season, c.least)
+			}
+			for _, f := range slices.Sorted(maps.Keys(summer)) {
+				total := 0
+				for _, n := range summer[f] {
+					total += n
+				}
+				t.Logf("%-24s %5d summer IDs on %2d of %d %s maps", f, total, len(summer[f]), audited, c.season)
+				if done(f) {
+					t.Errorf("%s: %d summer IDs on %s maps %v", f, total, c.season, summer[f])
+				}
+			}
+		})
 	}
-	var index struct {
-		Assets []struct {
-			ID      string `json:"id"`
-			Density int    `json:"density"`
-		} `json:"assets"`
-	}
-	if err := json.Unmarshal(raw, &index); err != nil {
-		t.Fatal(err)
-	}
-	have := map[string]bool{}
-	for _, entry := range index.Assets {
-		if entry.Density == 4 {
-			have[entry.ID] = true
+}
+
+// seasonAudit composes the shipped maps of season against the catalog have
+// and counts the summer IDs they draw per family (auditFamily in winter,
+// IDFamily otherwise) and map. Winter maps are the mostly winter ones, the
+// others go by LevelSeason.
+func seasonAudit(t *testing.T, have map[string]bool, season Season) (summer map[string]map[string]int, audited int) {
+	t.Helper()
+	summer = map[string]map[string]int{} // family -> map -> count
+	count := func(f, name string, n int) {
+		if summer[f] == nil {
+			summer[f] = map[string]int{}
 		}
+		summer[f][name] += n
 	}
-	audited := 0
-	summer := map[string]map[string]int{} // family -> map -> count
 	for _, nl := range allLevels(t) {
 		name, l := nl.Name, nl.Level
 		g := l.Grid()
@@ -69,11 +97,17 @@ func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
 			h := l.Lines[c.Line][c.Col]
 			return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
 		}
-		if !mostlyWinter(g, at) {
+		if season == Winter && !mostlyWinter(g, at) || season != Winter && LevelSeason(l) != season {
 			continue
 		}
 		audited++
-		s := Compose(g, at, func(id string) bool { return have[id] })
+		s := ComposeSeason(g, at, func(id string) bool { return have[id] }, season)
+		if season != Winter {
+			for id, n := range s.Fallbacks {
+				count(IDFamily(id), name, n)
+			}
+			continue
+		}
 		for _, line := range s.Cells {
 			for _, c := range line {
 				ids := slices.Concat([]string{c.Background, c.Under}, c.Overlays, c.Standing)
@@ -81,36 +115,12 @@ func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
 					if id == "" || strings.HasSuffix(id, "_w") {
 						continue
 					}
-					f := auditFamily(id)
-					if f == "" {
-						continue
+					if f := auditFamily(id); f != "" {
+						count(f, name, 1)
 					}
-					if summer[f] == nil {
-						summer[f] = map[string]int{}
-					}
-					summer[f][name]++
 				}
 			}
 		}
 	}
-	if audited < 16 {
-		t.Fatalf("audited %d winter maps, want every winter scenario map", audited)
-	}
-	families := slices.Sorted(func(yield func(string) bool) {
-		for f := range summer {
-			if !yield(f) {
-				return
-			}
-		}
-	})
-	for _, f := range families {
-		total := 0
-		for _, n := range summer[f] {
-			total += n
-		}
-		t.Logf("%-20s %5d summer IDs on %2d of %d winter maps", f, total, len(summer[f]), audited)
-		if slices.Contains(winterAuditDone, f) {
-			t.Errorf("%s: %d summer IDs on winter maps %v", f, total, summer[f])
-		}
-	}
+	return summer, audited
 }

@@ -244,6 +244,25 @@ selected by coordinate hash. Infrastructure and adjacent buildings, water or roa
 their layouts leave the unit foot point clear. Rebuild with the pinned
 `art/pipeline/forest-layered-v4.json` and `art-review -forest-layered` into a fresh output directory.
 
+### Seasons
+
+A map is drawn in one season (`scenario.File.Season`, carried in `level.Extra.Season`): `winter` when its
+terrain has `_w` IDs; otherwise the `"season"` of its `map.json` (`summer`, `autumn` or `spring`; not
+allowed on a winter map) where set, else its month's: March to May spring, September to November autumn,
+the other months and folders without a month summer. Levels without a scenario (PULSE, `original/NN`)
+are winter when mostly winter, else summer. `hl levels campaign` keeps a `map.json` season.
+
+Autumn and spring change the look only. `mapcompose.ComposeSeason` composes the map as in summer, then
+swaps every drawn ID for its seasonal form, the summer ID plus `_au` or `_sp` (`tile/road36_au`,
+`context/forest/<key>_au`: the summer descriptor's key plus the suffix), where the catalog has it.
+Missing forms draw in summer and are counted in `Scene.Fallbacks`; `hl assets terrain-gaps` prints them per
+map and per season by family. Cast shadows have no season: a seasonal item casts its summer shadow
+(`ShadowID`). Open water, sea and surf follow the background's suffix and fall back to summer, the grade
+takes the season's meadow (`tile/grass_au`, `tile/grass_sp`) and falls back to the summer one, and only
+summer backgrounds sample the world materials. `TestWinterMapsDrawNoSummerInfrastructure` fails when a
+family with forms of a map's season still draws in summer. The tile families and their order:
+[art/tileset.md](../art/tileset.md).
+
 ### Painted backdrop
 
 A level can draw one painting of its whole ground in place of the terrain tiles: a level folder holds it

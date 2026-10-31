@@ -28,7 +28,7 @@ type Level struct {
 	Extra *Extra
 }
 
-// Extra are a level's building credits, factory builds and backdrop.
+// Extra are a level's building credits, factory builds, backdrop and season.
 type Extra struct {
 	Credits map[hexgrid.Coord]int // credits per cycle, by a hex of the building
 	Builds  []string              // the unit ids factories build
@@ -36,6 +36,9 @@ type Extra struct {
 	// terrain tiles, a picture file named relative to the scenario file's
 	// directory ("1914-08.jpg"); "" for none.
 	Backdrop string
+	// Season is the season the map is drawn in ("summer", "winter",
+	// "autumn" or "spring", scenario.File.Season); "" for the terrain's.
+	Season string
 }
 
 // Hex is one [terrain, infra, unit] or [terrain, infra, unit, content] entry.

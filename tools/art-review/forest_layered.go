@@ -198,8 +198,14 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 	if m.SchemaVersion != 1 || len(m.Atlases) != 3 {
 		return errors.New("layered forest requires schema 1 and three atlases")
 	}
+	// A seasonal export records the sources it read, edits included.
+	season := struct {
+		seasonReport
+		Sources []connectionMaterial `json:"sources"`
+	}{seasonReport: currentSeasonReport()}
 	load := func(ref connectionMaterial, opaque bool) (*image.NRGBA, error) {
 		s, e := compoundReadSource(sourceBase(path), ref, opaque)
+		season.Sources = append(season.Sources, s.Ref)
 		return s.Image, e
 	}
 	ground, err := load(m.Ground, true)
@@ -248,6 +254,7 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 	}
 	var entries []layeredForestEntry
 	export := func(id, stem, group string, im *image.NRGBA, anchor [2]float64) error {
+		id, stem = seasonID(id), seasonID(stem)
 		for _, density := range []int{1, 2, 4} {
 			scaled := im
 			if group != "standing" {
@@ -357,6 +364,14 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 	}
 	if err = write("manifest.json", data); err != nil {
 		return err
+	}
+	if seasonActive() {
+		if encoded, err = json.MarshalIndent(season, "", "  "); err != nil {
+			return err
+		}
+		if err = write("season.json", append(encoded, '\n')); err != nil {
+			return err
+		}
 	}
 	_, err = fmt.Fprintf(log, "Layered forest: 64 summer contexts, 12 crowns, four meadow prop groups; %d runtime entries and 1x review exports in %s\n", len(entries), out)
 	return err

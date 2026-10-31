@@ -68,6 +68,7 @@ type shoreReport struct {
 	Mouths           []shoreMouthReport                  `json:"mouths"`
 	MouthProofs      []packOutput                        `json:"mouth_proofs"`
 	Exports          []packOutput                        `json:"exports"`
+	seasonReport
 }
 type shoreBundle struct {
 	artifacts []connectionArtifact
@@ -169,11 +170,16 @@ func shoreSceneFor(center shoreVariant, parity int) (shoreScene, error) {
 func renderShoreScene(pixels map[string]*image.NRGBA, s shoreScene, density int) *image.NRGBA {
 	out := image.NewNRGBA(image.Rect(0, 0, 238*density, 240*density))
 	for _, c := range s.Cells {
-		src := pixels[fmt.Sprintf("tiles/%s-%dx.png", c.RuntimeID, density)]
+		src := pixels[shoreTile(c.RuntimeID, density)]
 		at := image.Pt(int(c.Origin[0]-s.CanvasOrigin[0])*density, int(c.Origin[1]-s.CanvasOrigin[1])*density)
 		draw.Draw(out, src.Bounds().Add(at), src, src.Bounds().Min, draw.Over)
 	}
 	return out
+}
+
+// shoreTile names the exported tile of a shore variant, outlet or base.
+func shoreTile(id string, density int) string {
+	return fmt.Sprintf("tiles/%s-%dx.png", seasonID(id), density)
 }
 
 func (b *shoreBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
@@ -196,7 +202,7 @@ func (b *shoreBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 }
 
 func buildShoreBundle(in shoreInputs) (shoreBundle, error) {
-	b := shoreBundle{pixels: map[string]*image.NRGBA{}, report: shoreReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Profile: shoreProfile, Acceptance: "Candidate; pixel-aligned 2x/4x authoring/export previews only. No whole-map, runtime or user approval claim. Topology: 100 directed campaign endpoint checks verified separately; lakeside12 unplaced and four lakeside123/126 boundary corners inferred, without acceptance claim.", Materials: map[string]connectionMaterialReport{}}}
+	b := shoreBundle{pixels: map[string]*image.NRGBA{}, report: shoreReport{SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Profile: shoreProfile, Acceptance: "Candidate; pixel-aligned 2x/4x authoring/export previews only. No whole-map, runtime or user approval claim. Topology: 100 directed campaign endpoint checks verified separately; lakeside12 unplaced and four lakeside123/126 boundary corners inferred, without acceptance claim.", Materials: map[string]connectionMaterialReport{}}}
 	if in.Manifest.BankProfile == authoredBankProfile {
 		b.report.Profile += authoredBankDescription
 	}
@@ -215,7 +221,7 @@ func buildShoreBundle(in shoreInputs) (shoreBundle, error) {
 		}
 		vr := shoreVariantReport{shoreVariant: v, Edges: shoreEdges(v)}
 		for _, density := range []int{2, 4} {
-			path := fmt.Sprintf("tiles/%s-%dx.png", v.ID, density)
+			path := shoreTile(v.ID, density)
 			output, e := b.addPNG(path, exports[density])
 			if e != nil {
 				return b, e

@@ -8,9 +8,11 @@ import (
 	"image/png"
 	"io"
 	"io/fs"
+	"maps"
 	"os"
 	"path"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
@@ -210,7 +212,7 @@ func terrainRecoder(assetsDir string, entries []indexEntry) (recoder, error) {
 	meadow := map[string]image.Image{}
 	for _, e := range entries {
 		art[e.ID] = e.Art
-		if e.ID == "tile/grass" || e.ID == "tile/grass_w" {
+		if e.ID == terraingrade.Meadow(e.ID) {
 			b, err := os.ReadFile(filepath.Join(assetsDir, filepath.FromSlash(e.Path)))
 			if err != nil {
 				return nil, err
@@ -238,14 +240,20 @@ func terrainRecoder(assetsDir string, entries []indexEntry) (recoder, error) {
 		if err != nil {
 			return nil, err
 		}
-		err = png.Encode(&buf, terraingrade.Grade(im, e.ID, art[e.ID], meadow[fmt.Sprintf("%d/%s", e.Density, terraingrade.Meadow(e.ID))]))
+		m, ok := meadow[fmt.Sprintf("%d/%s", e.Density, terraingrade.Meadow(e.ID))]
+		if !ok { // an autumn or spring meadow the index lacks
+			m = meadow[fmt.Sprintf("%d/%s", e.Density, mapcompose.SummerID(terraingrade.Meadow(e.ID)))]
+		}
+		err = png.Encode(&buf, terraingrade.Grade(im, e.ID, art[e.ID], m))
 		return buf.Bytes(), err
 	}, nil
 }
 
-// terrainGaps composes every shipped map (a scenario's cp setup) against the context tiles of the
-// catalog in dir and lists each hex drawn with a default tile instead of its
-// context, plus stray compound pieces, for the art track.
+// terrainGaps composes every shipped map (a scenario's cp setup) in its season
+// against the context tiles of the catalog in dir and lists each hex drawn with
+// a default tile instead of its context, plus stray compound pieces, for the
+// art track. On an autumn or spring map it counts the summer IDs drawn for want
+// of their seasonal form, and totals them per season and family at the end.
 func terrainGaps(dir string, w io.Writer) error {
 	have := map[string]bool{}
 	root, err := os.OpenRoot(dir)
@@ -283,9 +291,11 @@ func terrainGaps(dir string, w io.Writer) error {
 	if err != nil {
 		return err
 	}
+	fallbacks := map[mapcompose.Season]*seasonFallbacks{}
 	for _, sh := range shipped {
 		name, l := sh.Name, sh.Level
-		s := mapcompose.Compose(l.Grid(), mapcompose.LevelHex(l), func(id string) bool { return have[id] })
+		season := mapcompose.LevelSeason(l)
+		s := mapcompose.ComposeSeason(l.Grid(), mapcompose.LevelHex(l), func(id string) bool { return have[id] }, season)
 		selected, count := 0, map[mapcompose.Reason]int{}
 		for _, line := range s.Cells {
 			for _, c := range line {
@@ -325,6 +335,66 @@ func terrainGaps(dir string, w io.Writer) error {
 			if _, err := fmt.Fprintf(w, "  unstamped %s %s (line %d, col %d): %s\n", cl.Kind, cl.Shape, c.Line, c.Col, mapcompose.StampID(cl.Kind, cl.Shape, 1)); err != nil {
 				return err
 			}
+		}
+		if s.Fallbacks == nil {
+			continue
+		}
+		total := 0
+		for _, n := range s.Fallbacks {
+			total += n
+		}
+		if _, err := fmt.Fprintf(w, "  %s fallbacks: %d summer IDs drawn, %d distinct\n", season, total, len(s.Fallbacks)); err != nil {
+			return err
+		}
+		if fallbacks[season] == nil {
+			fallbacks[season] = &seasonFallbacks{ids: map[string]int{}}
+		}
+		fallbacks[season].add(s.Fallbacks)
+	}
+	for _, season := range []mapcompose.Season{mapcompose.Autumn, mapcompose.Spring} {
+		if f := fallbacks[season]; f != nil {
+			if err := f.write(w, season); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+// seasonFallbacks are the summer IDs the maps of one season draw for want of
+// their seasonal form, with their counts over the maps.
+type seasonFallbacks struct {
+	maps int
+	ids  map[string]int
+}
+
+func (f *seasonFallbacks) add(ids map[string]int) {
+	f.maps++
+	for id, n := range ids {
+		f.ids[id] += n
+	}
+}
+
+// write writes the season's total and its families (mapcompose.IDFamily) by name.
+func (f *seasonFallbacks) write(w io.Writer, season mapcompose.Season) error {
+	type family struct{ drawn, ids int }
+	families := map[string]*family{}
+	total := 0
+	for id, n := range f.ids {
+		name := mapcompose.IDFamily(id)
+		if families[name] == nil {
+			families[name] = &family{}
+		}
+		families[name].drawn += n
+		families[name].ids++
+		total += n
+	}
+	if _, err := fmt.Fprintf(w, "%s fallbacks: %d maps, %d summer IDs drawn, %d distinct\n", season, f.maps, total, len(f.ids)); err != nil {
+		return err
+	}
+	for _, name := range slices.Sorted(maps.Keys(families)) {
+		if _, err := fmt.Fprintf(w, "  %s: %d drawn, %d distinct\n", name, families[name].drawn, families[name].ids); err != nil {
+			return err
 		}
 	}
 	return nil

@@ -431,6 +431,26 @@ func TestTerrainGapsReport(t *testing.T) {
 			t.Errorf("report lacks a complete line for %s", sh.Name)
 		}
 	}
+	// Autumn and spring maps draw the summer forms the catalog has no seasonal
+	// form of: each map counts them, and each season totals them by family.
+	seasonal := map[mapcompose.Season]int{}
+	for _, sh := range shipped {
+		if season := mapcompose.LevelSeason(sh.Level); season == mapcompose.Autumn || season == mapcompose.Spring {
+			seasonal[season]++
+		}
+	}
+	for _, season := range []mapcompose.Season{mapcompose.Autumn, mapcompose.Spring} {
+		if seasonal[season] == 0 {
+			t.Fatalf("no shipped %s map", season)
+		}
+		if n := len(regexp.MustCompile(`(?m)^  `+string(season)+` fallbacks: [1-9]\d* summer IDs drawn, [1-9]\d* distinct$`).FindAllString(s, -1)); n != seasonal[season] {
+			t.Errorf("%d %s maps report fallbacks, want %d", n, season, seasonal[season])
+		}
+		total := regexp.MustCompile(`(?m)^` + string(season) + ` fallbacks: (\d+) maps, [1-9]\d* summer IDs drawn, [1-9]\d* distinct\n((?:  .*\n)+)`).FindStringSubmatch(s)
+		if total == nil || total[1] != strconv.Itoa(seasonal[season]) || !strings.Contains(total[2], "  tile/road: ") {
+			t.Errorf("%s total %q", season, total)
+		}
+	}
 	// A catalog with an omitted optional stamp must still report the fallback.
 	// Remove the same known crater shape at both densities, leaving other art intact.
 	for _, d := range terrainDensities {

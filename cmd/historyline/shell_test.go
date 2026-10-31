@@ -84,6 +84,12 @@ func TestCampaignBriefingsAndPlayers(t *testing.T) {
 	if !s.maps[2].winter || s.maps[0].winter || !strings.Contains(s.maps[2].briefing, "winter") {
 		t.Errorf("CIVIL winter %v, PULSE winter %v, %q", s.maps[2].winter, s.maps[0].winter, s.maps[2].briefing)
 	}
+	// The briefing names the map's season, autumn and spring by its month.
+	for i, want := range map[int]string{0: ", summer", 1: ", autumn", 2: ", winter", 8: ", spring"} {
+		if !strings.Contains(s.maps[i].briefing, want) {
+			t.Errorf("%s: %q lacks %q", s.maps[i].name, s.maps[i].briefing, want)
+		}
+	}
 }
 
 func TestSaveLoadWiring(t *testing.T) {
@@ -658,8 +664,9 @@ func TestMonthlyFlanders(t *testing.T) {
 func TestWrapTextFitsWidth(t *testing.T) {
 	face := faceFor(textKey{size: 12, density: 1})
 	for _, b := range []string{
-		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, false, true),
-		briefingLine("RHEIN", 2, nil, state.CentralPowers, true, true),
+		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, "summer"),
+		briefingLine("RHEIN", 2, nil, state.CentralPowers, "winter"),
+		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, "autumn"),
 	} {
 		lines := wrapText(b, textKey{size: 12}, panelW-48)
 		if len(lines) > 3 || strings.Join(lines, " ") != b {

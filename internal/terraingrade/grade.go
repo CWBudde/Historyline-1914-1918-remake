@@ -108,12 +108,26 @@ var rows = map[string]row{
 
 // Meadow is the asset id of the meadow tile baked into the tile id: the snow
 // meadow for a winter tile, so its snow counts as meadow and keeps the land's
-// grade instead of its family's.
+// grade instead of its family's, and the autumn or spring meadow for an
+// autumn or spring tile (suffix _au, _sp), where a caller without it takes
+// the summer meadow.
 func Meadow(id string) string {
-	if strings.HasSuffix(id, "_w") {
-		return "tile/grass_w"
+	for _, sfx := range []string{"_w", "_au", "_sp"} {
+		if strings.HasSuffix(id, sfx) {
+			return "tile/grass" + sfx
+		}
 	}
 	return "tile/grass"
+}
+
+// summer is id without an autumn or spring suffix (mapcompose.SummerID).
+func summer(id string) string {
+	for _, sfx := range []string{"_au", "_sp"} {
+		if base, ok := strings.CutSuffix(id, sfx); ok {
+			return base
+		}
+	}
+	return id
 }
 
 // Applies reports whether the asset id of art family art is graded.
@@ -136,7 +150,7 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 	}
 	r := rows[art]
 	land := landL
-	if strings.HasPrefix(id, "standing/scatter/crown/") || strings.HasPrefix(id, "standing/context/forest/") || id == "standing/forest" {
+	if crown := summer(id); strings.HasPrefix(crown, "standing/scatter/crown/") || strings.HasPrefix(crown, "standing/context/forest/") || crown == "standing/forest" {
 		land = crownL
 	}
 	if art == "terrain/forest" && grey(out) >= winterShare {

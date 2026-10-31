@@ -121,6 +121,13 @@ func New(assets fs.FS) (*Renderer, error) {
 	return r, nil
 }
 
+// materialGround reports whether background id of a hex of terrain samples the
+// world material: a summer meadow or hills background, not its autumn or
+// spring form.
+func materialGround(terrain, id string) bool {
+	return mapcompose.IDSeason(id) == mapcompose.Summer && (terrain == "grass" || terrain == "hills")
+}
+
 // Size returns the logical (1x) pixel size of a grid's map.
 func Size(g hexgrid.Grid) (int, int) {
 	return (g.Width-1)*142 + 96, (g.Lines-1)*40 + 80
@@ -133,7 +140,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}
 	grid := lvl.Grid()
 	field := mapmaterial.New(lvl)
-	scene := mapcompose.Compose(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
+	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.LevelSeason(lvl))
 	depth := waterdepth.New(lvl, &scene)
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
@@ -170,7 +177,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 						continue
 					}
 					terrain := lvl.Lines[line][col].Terrain
-					if pass == 0 && r.materials[density] != nil && (terrain == "grass" || terrain == "hills") {
+					if pass == 0 && r.materials[density] != nil && materialGround(terrain, id) {
 						if err := r.drawMaterial(m.Image, id, at, density, field); err != nil {
 							return Map{}, err
 						}
@@ -250,7 +257,11 @@ func (r *Renderer) assetImage(id string, density int) (Entry, image.Image, error
 		im = terrainlight.Cast(item, density, terrainlight.Diameter(item, density), opacity)
 	} else if !r.Ungraded && terraingrade.Applies(e.ID, e.Art) {
 		var meadow image.Image
-		if g, ok := r.files[fmt.Sprintf("%d/%s", density, terraingrade.Meadow(e.ID))]; ok {
+		g, ok := r.files[fmt.Sprintf("%d/%s", density, terraingrade.Meadow(e.ID))]
+		if !ok { // an autumn or spring meadow the catalog lacks
+			g, ok = r.files[fmt.Sprintf("%d/%s", density, mapcompose.SummerID(terraingrade.Meadow(e.ID)))]
+		}
+		if ok {
 			if meadow, err = r.source(g); err != nil {
 				return Entry{}, nil, err
 			}

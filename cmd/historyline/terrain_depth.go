@@ -5,6 +5,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -68,6 +69,9 @@ func (a *terrainArt) depthImage(c hexgrid.Coord, signature, id string, d int, ba
 		id  string
 		set *image.Image
 	}{{waterdepth.SeaTile(c, id), &with.Sea}, {waterdepth.WaterTile(id), &with.Water}, {waterdepth.SurfTile(id), &with.Surf}} {
+		if a.group[w.id] == "" {
+			w.id = mapcompose.SummerID(w.id) // an autumn or spring form the catalog lacks
+		}
 		if a.group[w.id] == "" {
 			continue
 		}

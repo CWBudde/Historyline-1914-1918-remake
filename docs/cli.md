@@ -25,11 +25,11 @@ The existing `just` shortcuts use `hl` too.
 | `assets packs` | Update the changed runtime packs (`-out build/packs`) | `packs` |
 | `assets build` / `build-units` / `build-terrain` / `build-screens` | Build one pack kind: interface, units, terrain, screens | |
 | `assets lite` | Compress packs for the web build | |
-| `assets terrain-gaps` / `validate` | Report missing terrain clusters; validate a pack | |
+| `assets terrain-gaps` / `validate` | Report missing terrain clusters and the autumn and spring summer fallbacks; validate a pack | |
 | `export materials` / `kits` / `terrain-stamps` | Periodic world materials; world kits (`-install` writes runtime cells); pinned terrain cut-outs | |
 | `export unit-topview` / `unit-squad` / `unit-panel` / `interface` | Unit families, squad atlas, inspector panel, interface and effect candidates | |
 | `export generate` | Explicit authoring hooks, see below | |
-| `review art` | Comparisons and candidate bundles from a manifest (`-ground`, `-out`) | `gfx-review` |
+| `review art` | Comparisons and candidate bundles from a manifest (`-ground`, `-out`; `-season autumn\|spring` for seasonal terrain, art/README.md) | `gfx-review` |
 | `review reference` | Check or render the PULSE reference design | `reference`, `reference-check`, `look-check` |
 | `review candidates` | Raw candidates beside installed art | |
 | `review gallery` | Comparison desk, composer and PULSE study | `gfx-game-review`, `gfx-study` |

@@ -138,7 +138,7 @@ func openTile(scene *mapcompose.Scene, c hexgrid.Coord) bool {
 	if c.Line < 0 || c.Line >= len(scene.Cells) || c.Col < 0 || c.Col >= len(scene.Cells[c.Line]) {
 		return false
 	}
-	return strings.TrimSuffix(scene.Cells[c.Line][c.Col].Background, "_w") == mapcompose.TileID("water")
+	return strings.TrimSuffix(mapcompose.SummerID(scene.Cells[c.Line][c.Col].Background), "_w") == mapcompose.TileID("water")
 }
 
 // At is the depth at world point (x, y), 0 to 1.
@@ -202,23 +202,17 @@ func seaPhase(c hexgrid.Coord) string {
 }
 
 // SeaTile is the tile of the open sea's material for hex c whose background
-// is background: its winter form (suffix _w) under a winter background.
+// is background, in the background's season (mapcompose.IDSeason): its winter
+// form (suffix _w) under a winter background. A renderer draws the summer
+// form where the catalog lacks an autumn or spring one.
 func SeaTile(c hexgrid.Coord, background string) string {
-	id := mapcompose.TileID("sea-" + seaPhase(c))
-	if strings.HasSuffix(background, "_w") {
-		id += "_w"
-	}
-	return id
+	return mapcompose.SeasonalID(mapcompose.TileID("sea-"+seaPhase(c)), mapcompose.IDSeason(background))
 }
 
 // WaterTile is the open water tile of background's season, whose pixels the
 // shores share where they are open water.
 func WaterTile(background string) string {
-	id := mapcompose.TileID("water")
-	if strings.HasSuffix(background, "_w") {
-		id += "_w"
-	}
-	return id
+	return mapcompose.SeasonalID(mapcompose.TileID("water"), mapcompose.IDSeason(background))
 }
 
 // seaFrom and seaFull are the depths over which the open sea's material
@@ -328,9 +322,5 @@ func sized(im image.Image, size image.Point) *image.NRGBA {
 
 // SurfTile is the surf of background's season (Tiles.Surf).
 func SurfTile(background string) string {
-	id := mapcompose.TileID("surf")
-	if strings.HasSuffix(background, "_w") {
-		id += "_w"
-	}
-	return id
+	return mapcompose.SeasonalID(mapcompose.TileID("surf"), mapcompose.IDSeason(background))
 }

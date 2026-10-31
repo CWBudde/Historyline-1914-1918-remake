@@ -20,7 +20,8 @@
 //	go run ./cmd/hl levels campaign [-levels levels]
 //
 // It replaces the map and setup files of the folders it writes (the other
-// months, the newly authored levels, stay); backdrops and front pages stay.
+// months, the newly authored levels, stay); backdrops, front pages and the
+// season of a map.json stay.
 package hlcampaign
 
 import (

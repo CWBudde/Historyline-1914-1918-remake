@@ -58,7 +58,7 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 		return l, fmt.Errorf("unsupported compound scene %q", id)
 	}
 	l.Season = "summer"
-	suffix := ""
+	suffix := seasonID("")
 	if strings.HasSuffix(id, "-winter") {
 		l.Season = "winter"
 		suffix = "_w"

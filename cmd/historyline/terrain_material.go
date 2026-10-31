@@ -9,6 +9,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -113,14 +114,15 @@ func materialOrigin(c hexgrid.Coord, e assets.Entry, d int) image.Point {
 	return image.Pt(int(math.Round((x-e.Anchor[0])*float64(d))), int(math.Round((y-e.Anchor[1])*float64(d))))
 }
 
-// Only the actual summer ground background participates; overlays and unseen
-// backgrounds retain their own art even when their owning cell is meadow.
+// Only the actual summer ground background participates; overlays, unseen
+// backgrounds and autumn or spring forms retain their own art even when their
+// owning cell is meadow.
 func (m *terrainMaterials) eligible(c hexgrid.Coord, id string) bool {
 	if m == nil || m.level == nil || c.Line < 0 || c.Line >= len(m.level.Lines) || c.Col < 0 || c.Col >= len(m.level.Lines[c.Line]) {
 		return false
 	}
 	terrain := m.level.Lines[c.Line][c.Col].Terrain
-	return id != "" && id != "tile/unseen" && (terrain == "grass" || terrain == "hills")
+	return id != "" && id != "tile/unseen" && mapcompose.IDSeason(id) == mapcompose.Summer && (terrain == "grass" || terrain == "hills")
 }
 
 func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int, bare bool) (*ebiten.Image, assets.Entry, error) {

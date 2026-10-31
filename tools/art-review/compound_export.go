@@ -35,7 +35,7 @@ func compoundGroundID(season string) string {
 	if season == "winter" {
 		return "grass_w"
 	}
-	return "grass"
+	return seasonID("grass")
 }
 
 type compoundPatchCell struct {
@@ -80,6 +80,7 @@ type compoundReport struct {
 	Exports          []packOutput                        `json:"exports"`
 	Profile          string                              `json:"profile"`
 	Acceptance       string                              `json:"acceptance"`
+	seasonReport
 }
 
 type compoundBundle struct {
@@ -223,7 +224,7 @@ func compoundSceneArtwork(in compoundInputs, s compoundSceneInput, layout compou
 }
 
 func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
-	b := compoundBundle{pixels: map[string]*image.NRGBA{}, report: compoundReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Grounds: map[string]connectionMaterialReport{}, Profile: compoundProfile, Acceptance: "Provisional candidate; no whole-map, runtime or user approval claim."}}
+	b := compoundBundle{pixels: map[string]*image.NRGBA{}, report: compoundReport{SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Grounds: map[string]connectionMaterialReport{}, Profile: compoundProfile, Acceptance: "Provisional candidate; no whole-map, runtime or user approval claim."}}
 	if _, ok := in.Grounds["shared"]; ok {
 		b.report.Profile = compoundProfileForSeason("shared")
 		if len(in.Grounds) > 1 {
@@ -232,7 +233,7 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	groundExports := map[string]map[int]*image.NRGBA{}
-	for _, season := range []string{"summer", "winter", "shared"} {
+	for _, season := range seasonExports("summer", "winter", "shared") {
 		src, ok := in.Grounds[season]
 		if !ok {
 			continue
@@ -262,6 +263,9 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		layout, err := compoundLayoutFor(s.ID)
 		if err != nil {
 			return b, err
+		}
+		if !seasonExported(layout.Season) {
+			continue
 		}
 		_, art4, tr, guard, err := compoundSceneArtwork(in, s, layout)
 		if err != nil {
@@ -351,6 +355,9 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 			sr.Patches = append(sr.Patches, patch)
 		}
 		b.report.Scenes = append(b.report.Scenes, sr)
+	}
+	if seasonActive() && len(b.report.Scenes) == 0 {
+		return b, errors.New("-season exports the summer scenes; this manifest has none")
 	}
 	data, err := json.MarshalIndent(b.report, "", "  ")
 	if err != nil {

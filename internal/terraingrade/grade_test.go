@@ -297,3 +297,24 @@ func TestWinterWater(t *testing.T) {
 		t.Errorf("snow in a winter shore %v → %v", snow, got)
 	}
 }
+
+// An autumn or spring form grades as its summer form, against its season's
+// meadow.
+func TestSeasonalForms(t *testing.T) {
+	for id, want := range map[string]string{
+		"tile/hqN": "tile/grass", "tile/hqN_w": "tile/grass_w", "tile/hqN_au": "tile/grass_au", "tile/road36_sp": "tile/grass_sp",
+	} {
+		if got := Meadow(id); got != want {
+			t.Errorf("Meadow(%s) = %s, want %s", id, got, want)
+		}
+	}
+	c := color.NRGBA{50, 62, 26, 255}
+	for _, id := range []string{"standing/forest", "standing/context/forest/abc", "standing/scatter/crown/oak-22"} {
+		summer := Grade(flat(c, 2, 2), id, "terrain/forest", nil).NRGBAAt(0, 0)
+		for _, sfx := range []string{"_au", "_sp"} {
+			if got := Grade(flat(c, 2, 2), id+sfx, "terrain/forest", nil).NRGBAAt(0, 0); got != summer {
+				t.Errorf("%s%s grades to %v, its summer form to %v", id, sfx, got, summer)
+			}
+		}
+	}
+}

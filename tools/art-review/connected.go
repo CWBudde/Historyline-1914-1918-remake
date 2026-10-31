@@ -118,6 +118,7 @@ type connectionReport struct {
 	Ownership        string                              `json:"ownership"`
 	Acceptance       string                              `json:"acceptance"`
 	Outputs          []packOutput                        `json:"outputs"`
+	seasonReport
 }
 type connectionArtifact struct {
 	name string
@@ -241,6 +242,10 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 		if !ok {
 			return in, fmt.Errorf("missing material %s", id)
 		}
+		if material, _, err = seasonRef(sourceBase(path), material); err != nil {
+			return in, fmt.Errorf("material %s: %w", id, err)
+		}
+		m.Materials[id] = material
 		want, err := hex.DecodeString(material.SourceSHA256)
 		if err != nil || len(want) != 32 {
 			return in, fmt.Errorf("material %s requires SHA256", id)
@@ -374,8 +379,11 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
+	if err = seasonConnectionVariants(&in.manifest); err != nil {
+		return err
+	}
 	report := connectionReport{
-		SchemaVersion: 1, ManifestSHA256: in.hash, Geometry: in.manifest.Geometry, Materials: map[string]connectionMaterialReport{},
+		SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.hash, Geometry: in.manifest.Geometry, Materials: map[string]connectionMaterialReport{},
 		Method:           "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: 0.9-world-pixel light centre dashes and 0.6-world-pixel continuous edge lines one world pixel inside each pavement edge, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow dusty shoulders blend the earth material with RGB(177,168,145) at weight.35.",
 		TextureMethod:    "New opaque source images only. Non-grass materials retain bilinear mirror-periodic coordinates, periods (142,80), and two-coset averaging. All independent cells use world origin phase (0,0). No original-game pixels. " + grassSamplingProfile,
 		StreamInterior:   "Stream-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(1.2*sin(A),1.2*sin(B)); core radius=width/2+0.8*E*sin(A+0.4)*cos(B). Thus the 8-world-pixel edge zone is unchanged and the envelope reaches full effect at 16 px. For junctions, smoothly union core SDF with a central disc of radius 0.68*width at warped coordinates: h=max(3-abs(core-disc),0)/3, merged=min(core,disc)-3*h*h/4, core=core+E*(merged-core). Border=max(0,border-0.8*E+0.3*E*sin(B+0.7)). Pocket=S((sin(A)*sin(B)-0.15)/0.65); bank opacity=1-0.65*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). Cores stay opaque; translucent earth banks reveal underlying terrain with no baked-in grass. Road arithmetic and protected stream profiles are unchanged.",
@@ -567,6 +575,24 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 }
 
 const connectionGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connected material candidates</title><style>body{background:#242923;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}section{display:flex;flex-wrap:wrap;gap:1rem}img{max-width:100%;height:auto}.overlay{background:repeating-conic-gradient(#777 0% 25%,#555 0% 50%) 0/16px 16px}article{border-top:1px solid #888;padding:1rem 0}</style><h1>Connected material candidates</h1><p>{{.Acceptance}}</p><p>{{.Ownership}}</p><p>{{.Method}}</p><p>{{.StreamInterior}}</p>{{if .PathInterior}}<p>{{.PathInterior}}</p>{{end}}{{if .RailProfile}}<p>{{.RailProfile.Method}} {{.RailProfile.Phase}} {{.RailProfile.Turnouts}}</p>{{end}}<p>{{.CompositionScope}}</p><p><a href="report.json">Geometry, provenance, topology and output hashes</a></p><img src="contact-sheet.png" alt="Overlay and grass composite pairs">{{range .Variants}}<article><h2>{{.ID}} · {{.Family}} · ports {{.Ports}}</h2><p>Core {{.Width}} world px; earth border {{.Border}} world px per side</p><section><a href="{{.ID}}-4x.png"><img class="overlay" src="{{.ID}}-2x.png" alt="{{.ID}} transparent overlay"></a><img src="{{.ID}}-grass-2x.png" alt="{{.ID}} on grass"></section></article>{{end}}<h2>Seven-cell patches · both line parities</h2>{{range .Scenes}}<article><h3>{{.ID}}</h3><a href="{{.Output4x.Path}}"><img src="{{.Output.Path}}" alt="{{.ID}}"></a><p>2× PNG assembly preview; open image for 4× assembly.</p><p>All interior declared ports are reciprocal. Outer patch continuations leave the patch.</p></article>{{end}}<h2>Full new material sources</h2><section>{{range $id,$m:=.Materials}}<figure><a href="{{$m.RetainedSource}}"><img style="width:192px" src="{{$m.RetainedSource}}" alt="{{$id}} new material"></a><figcaption>{{$id}} · {{$m.Dimensions.Width}}×{{$m.Dimensions.Height}}</figcaption></figure>{{end}}</section></html>`
+
+// seasonConnectionVariants suffixes the variant IDs, and so the runtime files,
+// of a seasonal export; winter families have no autumn or spring form.
+func seasonConnectionVariants(m *connectionManifest) error {
+	if !seasonActive() {
+		return nil
+	}
+	for i := range m.Families {
+		f := &m.Families[i]
+		for j := range f.Variants {
+			if f.Season == "winter" || f.Verge == "snow" || strings.HasSuffix(f.Variants[j].ID, "_w") {
+				return errSeasonWinter
+			}
+			f.Variants[j].ID = seasonID(f.Variants[j].ID)
+		}
+	}
+	return nil
+}
 
 // Keep sorting deterministic when selecting equivalent neighbor variants.
 func sortedConnectionVariants(vs []connectionVariant) []connectionVariant {

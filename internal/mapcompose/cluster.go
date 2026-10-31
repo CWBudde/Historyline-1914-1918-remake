@@ -281,7 +281,7 @@ func (s *Scene) Layers(c hexgrid.Coord, stamped func(*Cluster) bool) (bg, stamp 
 		}
 	}
 	for _, id := range standing {
-		rest, _ := strings.CutPrefix(id, "standing/")
+		rest, _ := strings.CutPrefix(SummerID(id), "standing/")
 		if _, _, terrain := clusterKind(rest); !terrain {
 			kept = append(kept, id)
 		}

@@ -66,6 +66,7 @@ type groundReport struct {
 	Ownership        string                              `json:"ownership"`
 	ResamplingChain  []string                            `json:"resampling_chain"`
 	Acceptance       string                              `json:"acceptance"`
+	seasonReport
 }
 type groundBundle struct {
 	artifacts []connectionArtifact
@@ -201,7 +202,7 @@ func renderGroundScene(scene groundScene, tiles map[string]map[int]*image.NRGBA,
 
 func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	b := groundBundle{pixels: map[string]*image.NRGBA{}, report: groundReport{
-		SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Materials: map[string]connectionMaterialReport{},
+		SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Materials: map[string]connectionMaterialReport{},
 		Profile: groundProfileText, Ownership: groundOwnership,
 		ResamplingChain: []string{"pinned opaque source bytes -> unchanged lattice material samples -> float64 context field -> round half up fully opaque unmasked 4x overscan 416x352 at p=(pixel+0.5)/4-4", "whole unmasked 4x -> whole unmasked 2x overscan 208x176: unchanged resizeLanczos (Lanczos3)", "crop four world pixels per side, then independent final half-open ownership at 4x 384x320 and 2x 192x160", "decode every actual exported tile PNG -> ordinary image.Draw Over seven-visible-cell scenes, no scene repaint or filtering"},
 		Acceptance:      "Provisional ground candidates. Context selection and generation of missing contexts remain OPEN for future runtime integration; five canonical isolated PNGs are not unconditional drop-in terrain assets. Native-size, full-map and visual acceptance remain open.",
@@ -249,6 +250,7 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 				dir = "ground"
 			}
 		}
+		stem = seasonID(stem)
 		profile := groundProfileReport{RuntimeID: c.RuntimeID, Season: season, ContextKey: key, Descriptor: c.descriptor(), NeighborIDs: c.NeighborIDs, Canonical: canonical}
 		exports, err := renderer.tiles(c)
 		if err != nil {
@@ -269,7 +271,10 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	}
 	// Canonical defaults are present even if no fixture happened to reference one.
 	for _, id := range groundMaterialIDs {
-		_, base := groundSeason(id)
+		season, base := groundSeason(id)
+		if !seasonExported(season) {
+			continue
+		}
 		ids := [6]string{}
 		for i := range ids {
 			ids[i] = base
@@ -285,6 +290,9 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	var scenes []groundScene
 	for _, scenario := range []string{"isolated", "homogeneous"} {
 		for _, id := range groundTargetIDs {
+			if season, _ := groundSeason(id); !seasonExported(season) {
+				continue
+			}
 			for parity := range 2 {
 				scene, err := groundSceneFor(id, scenario, parity)
 				if err != nil {
@@ -294,7 +302,7 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 			}
 		}
 	}
-	for _, season := range []string{"summer", "winter"} {
+	for _, season := range seasonExports("summer", "winter") {
 		for parity := range 2 {
 			scene, err := groundSceneFor(season, "mixed", parity)
 			if err != nil {
@@ -380,7 +388,7 @@ func runGround(path, out string, log io.Writer) (resultErr error) {
 			return err
 		}
 	}
-	_, err = fmt.Fprintf(log, "Wrote %d ground candidate PNGs (%d profiles, 24 scenes) to %s; runtime context selection open.\n", len(bundle.report.Exports), len(bundle.report.Profiles), out)
+	_, err = fmt.Fprintf(log, "Wrote %d ground candidate PNGs (%d profiles, %d scenes) to %s; runtime context selection open.\n", len(bundle.report.Exports), len(bundle.report.Profiles), len(bundle.report.Scenes), out)
 	return err
 }
 

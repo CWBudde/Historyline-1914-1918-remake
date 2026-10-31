@@ -57,6 +57,7 @@ type forestReport struct {
 	Ownership            string                              `json:"ownership"`
 	ResamplingChain      []string                            `json:"resampling_chain"`
 	Acceptance           string                              `json:"acceptance"`
+	seasonReport
 }
 type forestBundle struct {
 	artifacts []connectionArtifact
@@ -168,7 +169,7 @@ func forestSceneFor(season, scenario string, parity int) (groundScene, error) {
 
 func buildForestBundle(in forestInputs) (forestBundle, error) {
 	b := forestBundle{pixels: map[string]*image.NRGBA{}, report: forestReport{
-		SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(),
+		SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(),
 		Grounds: map[string]connectionMaterialReport{}, Atlases: map[string]connectionMaterialReport{},
 		Template: forestTemplate(), TemplateSeed: "0x19141918", TemplateAttempts: 1934,
 		PanelSpecies: []string{"broadleaf-a", "broadleaf-b", "conifer-a", "conifer-b"}, CrownWorldSize: 24, GateRadius: forestGateRadius(),
@@ -225,6 +226,7 @@ func buildForestBundle(in forestInputs) (forestBundle, error) {
 		if canonical {
 			dir, stem = "tiles", c.RuntimeID
 		}
+		stem = seasonID(stem)
 		profile := forestProfileReport{RuntimeID: c.RuntimeID, Season: season, ContextKey: key, Descriptor: c.descriptor(), NeighborIDs: c.NeighborIDs, Canonical: canonical, Instances: renderer.instances(c)}
 		exports, err := renderer.tiles(c)
 		if err != nil {
@@ -244,7 +246,10 @@ func buildForestBundle(in forestInputs) (forestBundle, error) {
 		return nil
 	}
 	for _, id := range []string{"grass", "grass_w", "forest", "forest_w"} {
-		_, base := forestSeason(id)
+		season, base := forestSeason(id)
+		if !seasonExported(season) {
+			continue
+		}
 		neighbors := [6]string{base, base, base, base, base, base}
 		c, err := newForestContext(id, neighbors[:])
 		if err != nil {
@@ -254,7 +259,7 @@ func buildForestBundle(in forestInputs) (forestBundle, error) {
 			return b, err
 		}
 	}
-	for _, season := range []string{"summer", "winter"} {
+	for _, season := range seasonExports("summer", "winter") {
 		for _, scenario := range []string{"isolated", "homogeneous", "frontier", "clearing"} {
 			for parity := range 2 {
 				scene, err := forestSceneFor(season, scenario, parity)

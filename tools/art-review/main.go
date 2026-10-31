@@ -28,6 +28,8 @@
 // -forest builds bounded whole-crown seasonal forest contexts and fixed patches.
 // -hills builds bounded summer height-derived relief contexts and fixed patches.
 // -unit builds the canonical runtime unit families and actual PNG terrain fixtures.
+// -season autumn|spring makes a terrain mode export its summer forms from the
+// seasonal edits of their sources, runtime IDs and files suffixed _au or _sp.
 package artreview
 
 import (
@@ -106,13 +108,34 @@ func run(args []string, log io.Writer) error {
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
 	out := fs.String("out", "", "output directory (existing artifact names are rejected)")
 	root := fs.String("root", "", "directory manifest source paths are relative to (default: the repository root above the manifest)")
+	season := fs.String("season", "", "autumn or spring: a terrain mode exports its summer forms from the seasonal edits of their sources, runtime IDs and files suffixed _au or _sp")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
 		}
 		return err
 	}
-	sourceRoot = *root
+	// Both settings last for this run only.
+	previousRoot := sourceRoot
+	sourceRoot, exportSeason = *root, *season
+	defer func() { sourceRoot, exportSeason = previousRoot, "" }()
+	if *season != "" {
+		if seasonSuffixes[*season] == "" {
+			return errors.New("-season must be autumn or spring")
+		}
+		manifest := ""
+		fs.Visit(func(f *flag.Flag) {
+			if seasonModes[f.Name] {
+				manifest = f.Value.String()
+			}
+		})
+		if manifest == "" {
+			return errors.New("-season applies to -connected, -mixed, -shore, -compound, -ground, -forest, -forest-layered and -hills; fog, units, portraits, packs and comparisons have no season")
+		}
+		if err := seasonPreflight(manifest); err != nil {
+			return err
+		}
+	}
 	portraitProvided := false
 	fs.Visit(func(f *flag.Flag) {
 		if f.Name == "portrait" {
@@ -158,7 +181,7 @@ func run(args []string, log io.Writer) error {
 	if hillsProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "hills" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "hills" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -170,7 +193,7 @@ func run(args []string, log io.Writer) error {
 	if *layeredForestPath != "" {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "forest-layered" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "forest-layered" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -188,7 +211,7 @@ func run(args []string, log io.Writer) error {
 	if forestProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "forest" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "forest" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -206,7 +229,7 @@ func run(args []string, log io.Writer) error {
 	if groundProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "ground" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "ground" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -242,7 +265,7 @@ func run(args []string, log io.Writer) error {
 	if shoreProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "shore" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "shore" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -260,7 +283,7 @@ func run(args []string, log io.Writer) error {
 	if compoundProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "compound" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "compound" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -278,7 +301,7 @@ func run(args []string, log io.Writer) error {
 	if mixedProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "mixed" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "mixed" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})
@@ -296,7 +319,7 @@ func run(args []string, log io.Writer) error {
 	if connectedProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "connected" && f.Name != "out" && f.Name != "root" {
+			if f.Name != "connected" && f.Name != "out" && f.Name != "root" && f.Name != "season" {
 				conflict = true
 			}
 		})

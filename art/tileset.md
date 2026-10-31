@@ -17,8 +17,9 @@ Autumn and spring are new. They change only how a map looks, never the rules:
 - **Season of a map.** A winter map stays winter. Any other map takes its month's season: March to May is
   spring, September to November is autumn, the other months are summer. An optional `season` in a
   level's `map.json` overrides this.
-- **IDs.** Autumn forms end in `_au` and spring forms in `_sp`, as winter forms end in `_w`
-  (`tile/road36_au`). Neutral families (see the table) keep their summer ID in every season.
+- **IDs.** The autumn form of every drawn ID is its summer ID plus `_au`, the spring form plus `_sp`
+  (`tile/road36_au`; a context tile keeps its summer key: `context/forest/<key>_au`). Cast shadows have no
+  season. Neutral families (see the table) keep their summer ID in every season.
 - **Fallback.** When the catalog has no autumn or spring form of an ID, the summer form is drawn, so a
   season can be filled family by family. `hl assets terrain-gaps` reports the fallbacks per season.
 - **Sources.** Source PNGs are named `<family>[-<variant>]-<summer|winter|autumn|spring|shared>-v<N>.png`.
@@ -104,11 +105,10 @@ Each compound is one painting with its grounds: lawns, trees and verges.
 
 ## Order of work
 
-1. **Code.** A season per map (month or `map.json`), seasonal IDs with summer fallback in
-   `internal/mapcompose`, a season in the context descriptors, the source name pattern in `hl art
-   check`, a seasonal mode for the exports in `tools/art-review` (which today know only `summer`,
-   `winter` and `shared`), and fallback counts per season in `hl assets terrain-gaps`. Generalise
-   `TestWinterMapsDrawNoSummerInfrastructure` to all seasons.
+1. **Code** (done): the season per map, seasonal IDs with summer fallback in `internal/mapcompose`
+   ([docs/runtime-assets.md](../docs/runtime-assets.md#seasons)), the source names in `hl art check`,
+   the seasonal export in `tools/art-review`, fallback counts in `hl assets terrain-gaps`, and
+   `TestWinterMapsDrawNoSummerInfrastructure` for all three seasons.
 2. **Autumn**, by drawn area and contrast:
    1. grass meadow → ground contexts;
    2. forest crowns, floor and scatter species;

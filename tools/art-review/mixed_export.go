@@ -54,6 +54,7 @@ type mixedReport struct {
 	Scenes            []mixedScene                        `json:"scenes"`
 	Outputs           []packOutput                        `json:"outputs"`
 	Acceptance        string                              `json:"acceptance"`
+	seasonReport
 }
 
 func mixedComponentLayers(in mixedInputs, ids []string) []mixedLayer {
@@ -165,7 +166,12 @@ func runMixed(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	report := mixedReport{SchemaVersion: 1, ManifestSHA256: in.hash, Manifests: in.manifest.Manifests, RetainedManifests: map[string]string{}, Materials: map[string]connectionMaterialReport{}, Geometry: sharedConnectionGeometry(), Profile: mixedProfileFor(in.components["path36"].family.Width), RailProfile: connectionRailProfileFor(in.components["rail36"].family.Width), Acceptance: "Summer new-material candidates, provisional visual review. No original pixels; winter bases deferred. Pixel-aligned 2x/4x integer runtime lattice source-over assembly only. Each patch uses decoded exported PNGs, ground first then ordered per-cell layers. Finite road-bridge alpha contacts are empty; traversal direction is semantic and requires explicit upper route. Complementary final polygon ownership; zero RGBA outside. Input manifests and source materials retained verbatim; source paths resolve relative to their original manifest, retained manifests are provenance definitions."}
+	// A seasonal export suffixes the variants, and so their runtime files.
+	for i := range in.manifest.Variants {
+		v := &in.manifest.Variants[i]
+		v.ID, v.RuntimeID = seasonID(v.ID), seasonID(v.RuntimeID)
+	}
+	report := mixedReport{SchemaVersion: 1, seasonReport: currentSeasonReport(), ManifestSHA256: in.hash, Manifests: in.manifest.Manifests, RetainedManifests: map[string]string{}, Materials: map[string]connectionMaterialReport{}, Geometry: sharedConnectionGeometry(), Profile: mixedProfileFor(in.components["path36"].family.Width), RailProfile: connectionRailProfileFor(in.components["rail36"].family.Width), Acceptance: "Summer new-material candidates, provisional visual review. No original pixels; winter bases deferred. Pixel-aligned 2x/4x integer runtime lattice source-over assembly only. Each patch uses decoded exported PNGs, ground first then ordered per-cell layers. Finite road-bridge alpha contacts are empty; traversal direction is semantic and requires explicit upper route. Complementary final polygon ownership; zero RGBA outside. Input manifests and source materials retained verbatim; source paths resolve relative to their original manifest, retained manifests are provenance definitions."}
 	if in.manifest.BridgeArtwork == "standing" {
 		report.BridgeArtwork = "standing"
 		report.Profile.Method = "Standing bridge artwork is supplied separately. Road-bridge tile overlays are transparent. Footbridge tiles retain the original " + mixedPathApproach(in.components["path36"].family.Width) + " path approaches outside the 48-pixel deck, excluding all legacy finite timber, rails and earth abutments before density filtering. Crossings, path port contacts, overscan, Lanczos3 filtering and complementary hex ownership are unchanged."
@@ -299,10 +305,10 @@ func runMixed(path, out string, log io.Writer) (resultErr error) {
 	// Campaign examples expose the structure under every actual upper route.
 	var road36, road25 mixedVariant
 	for _, v := range in.manifest.Variants {
-		if v.ID == "rbridge36" {
+		if v.ID == seasonID("rbridge36") {
 			road36 = v
 		}
-		if v.ID == "rbridge25" {
+		if v.ID == seasonID("rbridge25") {
 			road25 = v
 		}
 	}

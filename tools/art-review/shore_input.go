@@ -134,6 +134,9 @@ func loadShoreInputs(path string) (shoreInputs, error) {
 	if in.Manifest.Season != "" && (in.Manifest.Season != "winter" || in.Manifest.BankProfile != authoredBankProfile) {
 		return in, errors.New("shore season must be winter, with the authored-rocks-v1 bank, when set")
 	}
+	if in.Manifest.Season == "winter" && seasonActive() {
+		return in, errSeasonWinter
+	}
 	expected := map[string][]int{}
 	for _, v := range shoreRoster() {
 		expected[v.ID] = v.LandVertices

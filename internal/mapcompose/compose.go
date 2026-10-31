@@ -70,6 +70,9 @@ type Scene struct {
 	Gaps     []Gap
 	Issues   []Issue
 	Clusters []Cluster
+	// Fallbacks counts the summer IDs an autumn or spring scene draws for want
+	// of their seasonal form (ComposeSeason); nil in summer and winter.
+	Fallbacks map[string]int
 }
 
 // Compose selects the tiles of every hex of g. at returns a hex's terrain; has

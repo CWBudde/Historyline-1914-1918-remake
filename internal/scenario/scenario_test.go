@@ -286,3 +286,66 @@ func TestWrite(t *testing.T) {
 		t.Errorf("read back %+v", g)
 	}
 }
+
+// A map's season: winter from its terrain, else map.json's, else its month's.
+func TestSeason(t *testing.T) {
+	for month, want := range map[string]string{
+		"1914-08": "summer", "1914-09": "autumn", "1914-11": "autumn", "1914-12": "summer",
+		"1915-02": "summer", "1915-03": "spring", "1915-05": "spring", "1915-06": "summer", "": "summer",
+	} {
+		f := &File{Month: month}
+		if got := f.Season(); got != want {
+			t.Errorf("month %q: %s, want %s", month, got, want)
+		}
+	}
+	winter := func(files map[string]string) {
+		files[MapFile] = strings.Replace(files[MapFile], `["forest", ["stream25"`, `["forest_w", ["stream25"`, 1)
+	}
+	season := func(s string) func(map[string]string) {
+		return func(files map[string]string) {
+			files[MapFile] = strings.Replace(files[MapFile], `"name": "Test",`, `"name": "Test",`+"\n\t\"season\": \""+s+"\",", 1)
+		}
+	}
+	f, err := Read(smallFS(winter), "1914-08")
+	if err != nil || f.Season() != "winter" {
+		t.Fatalf("winter map: %v", err)
+	}
+	for _, s := range []string{"summer", "autumn", "spring"} {
+		edit := season(s)
+		f, err := Read(smallFS(edit), "1914-08")
+		if err != nil {
+			t.Fatalf("%s: %v", s, err)
+		}
+		lv, err := f.Level(CP)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if f.MapSeason != s || f.Season() != s || lv.Extra.Season != s {
+			t.Errorf("%s: map %q, season %q, level %q", s, f.MapSeason, f.Season(), lv.Extra.Season)
+		}
+		files, err := f.Files()
+		if err != nil {
+			t.Fatal(err)
+		}
+		want := map[string]string{MapFile: small[MapFile]}
+		edit(want)
+		if string(files[MapFile]) != want[MapFile] {
+			t.Errorf("%s: encodes\n%s", s, files[MapFile])
+		}
+	}
+	for name, edits := range map[string][]func(map[string]string){
+		"winter":           {season("winter")},
+		"unknown":          {season("fall")},
+		"on a winter map":  {winter, season("autumn")},
+		"summer on winter": {winter, season("summer")},
+	} {
+		fsys := smallFS(func(files map[string]string) {
+			for _, e := range edits {
+				e(files)
+			}
+		})
+		if _, err := Read(fsys, "1914-08"); err == nil {
+			t.Errorf("season %s reads", name)
+		}
+	}
+}

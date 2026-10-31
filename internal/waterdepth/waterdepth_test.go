@@ -210,3 +210,23 @@ func TestSurf(t *testing.T) {
 		t.Errorf("water by a lake %v, want no foam", got)
 	}
 }
+
+// The water tiles follow the season of the background, and an autumn or spring
+// sea has the depths of its summer one.
+func TestSeasonalWater(t *testing.T) {
+	c := hexgrid.Coord{Line: 3, Col: 2}
+	for _, sfx := range []string{"", "_w", "_au", "_sp"} {
+		bg := "tile/shore-12" + sfx
+		if SeaTile(c, bg) != SeaTile(c, "tile/water")+sfx || WaterTile(bg) != "tile/water"+sfx || SurfTile(bg) != "tile/surf"+sfx {
+			t.Errorf("%s: %s, %s, %s", bg, SeaTile(c, bg), WaterTile(bg), SurfTile(bg))
+		}
+	}
+	l, summer := sea("waterSea", nil, nil, []hexgrid.Coord{{Line: 7, Col: 4}})
+	s := mapcompose.ComposeSeason(l.Grid(), mapcompose.LevelHex(l), func(string) bool { return true }, mapcompose.Autumn)
+	autumn := New(l, &s)
+	for _, c := range []hexgrid.Coord{{Line: 6, Col: 3}, {Line: 7, Col: 3}, {Line: 2, Col: 2}} {
+		if a, b := autumn.Signature(c), summer.Signature(c); a != b || a == "" {
+			t.Errorf("%v: autumn signature %q, summer %q", c, a, b)
+		}
+	}
+}

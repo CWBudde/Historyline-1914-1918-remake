@@ -167,7 +167,7 @@ func (b *shoreBundle) renderReuseCatalogue(density int) *image.NRGBA {
 	label(12, 8, "Reusable shore tiles - native exports")
 	for i, v := range shoreRoster() {
 		x, y := 12+i%3*254, 32+i/3*104
-		src := b.pixels[fmt.Sprintf("tiles/%s-%dx.png", v.ID, density)]
+		src := b.pixels[shoreTile(v.ID, density)]
 		at := image.Pt((x+71)*density, y*density)
 		draw.Draw(im, src.Bounds().Add(at), src, src.Bounds().Min, draw.Over)
 		label(x+71, y+84, v.ID)
