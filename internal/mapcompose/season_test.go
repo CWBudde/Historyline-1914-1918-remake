@@ -123,7 +123,7 @@ func drawnIDs(s Scene) []string {
 // unchanged.
 func TestComposeSeason(t *testing.T) {
 	have := indexIDs(t)
-	summerHas := func(id string) bool { return have[id] }
+	summerHas := func(id string) bool { return have[id] && SummerID(id) == id } // the catalog without seasonal art
 	for _, name := range []string{"1915-08:cp", "1918-02:cp", "1916-12:cp"} {
 		l := campaignLevel(t, name)
 		g, at := l.Grid(), LevelHex(l)

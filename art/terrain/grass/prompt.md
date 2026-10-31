@@ -4,7 +4,7 @@ title: Meadow
 kind: terrain
 status: approved
 runtime_ids: grass, grass_w, grass-detail-00, grass-detail-01, grass-detail-02, grass-detail-03, grass-detail-04, grass-detail-05, grass-detail-06, grass-detail-07, grass-detail-08, grass-detail-09, grass-detail-10, grass-detail-11, grass-detail-12, grass-detail-13, grass-detail-14, grass-detail-15
-masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png
+masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png, grass-autumn-v1.png, grass-props-autumn-v1.png
 ---
 
 ## Look
@@ -40,6 +40,48 @@ Seams to forest, ground and hills are handled by those families' contexts, which
 their base.
 
 ## Post
+
+### Autumn meadow prop sheet edit (2026-10-31)
+`grass-props-autumn-v1.png` (exec-28aac019) is the autumn form of `grass-props-summer-v1.png`: the
+edit's colours on the summer sheet's alpha (1254×1254 RGBA). The edit kept every item in place but
+filled the gaps between blades and under the flowers and pebbles with an opaque mat (opaque area 5.5 %
+against 2.3 %), so its colours were carried onto the summer silhouettes in code: the alpha is the summer
+sheet's, each pixel takes the edit's colour or, where the edit is transparent, its alpha-weighted mean
+within 6 px. Tufts dry straw and olive-ochre with olive centres, the flowers dry seed heads, soil, straw
+and pebbles nearly unchanged; mean RGB 137,108,63, L\* 46.4, a\* 6.6, b\* 28.9. A first try was a
+brighter golden orange (a\* 8.4) with mats as well. Attachments: image 1 `grass-props-summer-v1.png`,
+image 2 `grass-autumn-v1.png` (palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY. Image 1 is the selected summer meadow prop sheet of a top-down WWI strategy map: a transparent 1254x1254 RGBA sheet, 4x4 grid, strict nadir view, ten canvas px per world px. Recolour it for early October on the Western Front. Change the colours of the existing pixels only: every item keeps exactly its outline, size, position and silhouette, every thin blade stays a separate thin blade, and every transparent gap between blades, between flowers, around each pebble and between straw stalks stays fully transparent (alpha zero), exactly as in image 1. No ground plate, mat, disc or backing under any item, no halo, no checkerboard, no cast shadow.
+A previous try failed: it filled the gaps between the blades and under the flowers and pebbles with an opaque golden mat (opaque area rose from 2.3 to 7.0 percent of the sheet) and turned everything bright golden orange (mean a* 8.4). Do not do that.
+Per item: the grass tufts (row 1 and the blades around the other items) turn dry, dull straw and olive-ochre: lit tips near RGB 170,150,90, mid blades near RGB 120,100,50, blade bases near RGB 70,62,30, with faded olive green at the tuft centres (near RGB 85,90,40). The three wildflower patches (row 2, columns 1 to 3) keep their blades and petal positions, but the white and yellow petals become dry brown seed heads and faded beige petals; the largest patch gets three tiny fallen leaves (dull rust and ochre, 15 to 25 px). The bare-soil flecks, the straw patches and the pebble clusters keep their colours; only green blades on them turn straw-coloured. Overall the props should be duller and less saturated than bright gold: mean close to RGB 135,115,65.
+Output: one transparent RGBA image, 1254x1254, the same 4x4 layout as image 1.
+Avoid: filled gaps, mats or discs under items, thicker or merged blades, moved, enlarged or added items, orange or golden cast, bright green, snow, frost, halos, light outlines, semi-transparent haze in the gutters, text.
+
+Image 1 is the selected summer prop sheet (the image to recolour: keep every item, blade gap and the transparency exactly); image 2 is the selected autumn meadow material (palette only, never paint it behind the items).
+```
+
+
+### Autumn meadow edit (2026-10-31)
+`grass-autumn-v1.png` (exec-067c38d1) is the autumn form of `grass-summer-v1.png`: an edit of it,
+generated at 1586×992 and reduced with Lanczos3 to the summer source's 768×480, no grade. Drier
+straw-gold and olive-ochre grass with faded green tuft centres, dry seed heads for the wildflowers and a
+sparse scatter of small fallen leaves; the tuft layout and the value structure follow the summer source
+(mean RGB 123,96,41, L\* 42.3, a\* 4.4, b\* 34.6; lightest quarter L\* 63, darkest 22, as in summer).
+The thin curly straw threads are a little busier than in summer. `-season autumn` exports take it in
+place of `grass-summer-v1.png`. Attachments: image 1 `grass-summer-v1.png`, image 2 a meadow crop of
+the 1915-10 backdrop (palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY. Image 1 is the selected summer meadow material of a top-down WWI strategy map (opaque, landscape, 8:5 aspect, strict nadir view; the canvas spans about 300 m by 190 m of ground; a single grass tuft is 3 to 10 px). Repaint image 1 as the same meadow in early October on the Western Front, tracing it stroke by stroke: every tuft, dark tuft centre, blade, straw scratch, soil fleck, pebble and flower speck stays exactly at its outline, size and position, with the same short straight blades and the same light from the upper left. Only the colours of the grass change. A previous try failed: it moved every tuft, replaced the short straight blades with a uniform tangle of thin curly threads, removed all green and came out too red-brown (mean RGB 125,91,43). Do not do that.
+Colour: drier late-season grass, straw-gold and olive-ochre, with green left in places. Lit blade tips pale straw near RGB 160,146,88; mid grass olive-ochre near RGB 112,104,52; shaded tufts and hollows dull olive near RGB 60,62,30. About a quarter of the area, in irregular soft patches and in the dark tuft centres, keeps a faded olive green near RGB 82,92,40. Overall mean close to RGB 110,102,50 and the same lightness as image 1 (image 1 averages RGB 96,104,31): green and blue channels must stay close to each other's summer ratio, no red-brown cast. The yellow wildflower specks become small dry brown seed heads; add a very sparse scatter of tiny fallen leaves, each 2 to 4 px, dull ochre and rust, under 1 percent of the canvas. Image 2 is a crop of the painted autumn map: take its dryness and straw tones only, not its red-brown bushes, puddles, road or layout.
+Output: one opaque image, LANDSCAPE, 1536x960 (the 8:5 aspect of image 1), filled edge to edge.
+Avoid: moved or new tufts, curly or tangled threads, a finer or busier texture than image 1, orange or red-brown overall cast, uniform flat straw colour, bushes, trees, puddles, mud, bare soil patches, leaf piles, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer meadow (the image to recolour: keep its layout exactly); image 2 is a crop of the painted autumn map (straw tones only).
+```
+
 
 ### Look 2 G1b close-up candidate, second round (2026-10-23)
 

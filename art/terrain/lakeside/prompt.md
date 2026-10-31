@@ -4,7 +4,7 @@ title: Lake shore
 kind: terrain
 status: approved
 runtime_ids: lakeside12, lakeside123, lakeside126, lakeside156, lakeside16, lakeside23, lakeside34, lakeside3456, lakeside56
-masters: lakeside-bank-shared-v3.png, lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png, lakeside-lake-summer-v3.png
+masters: lakeside-bank-shared-v3.png, lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png, lakeside-lake-summer-v3.png, lakeside-bank-autumn-v1.png
 ---
 
 ## Look
@@ -44,6 +44,28 @@ When one neighbouring stream points into a fully-land edge, the compositor selec
 edge's land corners and all other edge guards intact. The same variant works at any map position.
 
 ## Post
+
+### Autumn bank material edit (2026-10-31)
+
+`lakeside-bank-autumn-v1.png` (`exec-0bda9774`, native 1254×1254 RGB, unchanged) is the autumn edit of
+`lakeside-bank-shared-v3.png`: every stone in place, the weeds and reeds dry golden straw, the moss
+bronze, the earth damper, about 30 small leaves. Whole RGB 109,85,61 (L\* 36.9, hue 68; summer 117,97,61,
+L\* 41.0). Selected: `-season autumn` exports take it wherever the bank material is sampled, the stream
+banks (`tile/stream*_au`) and, once exported, the shore and lakeside banks. Attached:
+`lakeside-bank-shared-v3.png`. The prompt was:
+
+```text
+Seasonal edit of the supplied stony river-bank material: change the season to a damp late-September/October day only, preserve every outline and position. Keep the square canvas exactly as supplied (1254x1254, opaque, full-bleed, seamless left-right and top-bottom, strict vertical plan view).
+Every boulder, stone, pebble, crack and plant tuft stays exactly where it is, with its size and outline; the stones keep their colours and lightness. Change only:
+- The green weeds, grass tufts and moss turn autumnal: dry golden straw and ochre reeds and grass (lit about RGB 185,150,75, shaded about 95,72,30), faded olive-bronze moss on the stones (about 110,95,40), a few rust-brown dead leaves of the small plants (about 125,70,35). No fresh green left except a little dull olive deep inside a few tufts.
+- The earth between the stones is slightly damp and darker (about 6 L* darker than now), dark brown, not black.
+- A few single fallen leaves (about 40 over the canvas, each 8 to 14 px long, ochre and rust brown) lying flat between the stones.
+No snow, no water, no new stones, no orange glow, no text, no vignette, no visible tiling.
+Corrections from the measured previous edit: the plants came out bright orange and rust (whole hue 67, a* +8), and its fallen leaves were about 2 times too large (20 to 30 px) and too many, so the bank read orange. Make the tufts and reeds pale golden straw and dull ochre (about RGB 175,145,80 lit, 95,75,35 shaded), never orange or red; keep only a few rust-brown accents. Paint only about 30 single leaves, each 8 to 14 px long. Whole average about RGB 115,92,60, hue about 75.
+
+Image 1 is the selected summer bank material (lakeside-bank-shared-v3) to edit: keep its layout, every stone's position and size, and its scale; change only the season as described.
+```
+
 `art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per
 variant from the explicit land vertices. `shore-terrain-winter-v1.json` takes the snow meadow
 (`grass-winter-v1.png`) and sets `season: winter`, which turns the dry stones cold grey with snow on their

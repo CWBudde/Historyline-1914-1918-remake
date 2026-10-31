@@ -4,7 +4,7 @@ title: Forest
 kind: terrain
 status: approved
 runtime_ids: forest, forest_w
-masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png, forest-crowns-winter-v4.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png, forest-crowns-winter-v4.png, forest-crowns-autumn-v1.png, forest-floor-autumn-v1.png, forest-oak-autumn-v1.png, forest-beech-autumn-v1.png, forest-birch-autumn-v1.png
 ---
 
 ## Look
@@ -14,7 +14,8 @@ irregular silhouettes match the existing painted terrain. Crowns thin at woodlan
 their owning hex. Singles and small copses reuse these crowns in meadow, with clear unit foot points.
 Winter forest scatters the F3 sheet `forest-crowns-winter-v4.png` (spruce, fir and bare broadleaf, cut by
 `hl export kits`) over the snow tile; the four-crown v3 atlas exports remain for winter forest beside
-infrastructure.
+infrastructure. Autumn forest uses edits of the summer sources (`forest-*-autumn-v1.png`, outlines kept): copper
+beech, olive-bronze oak and golden birch crowns over golden-brown leaf litter.
 
 ## Base prompt
 Strict nadir hand-painted European woodland. Opaque dark mossy forest-floor material with fine leaf
@@ -34,6 +35,106 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Look 8 autumn birch atlas v1 (2026-10-31)
+
+`forest-birch-autumn-v1.png` (`exec-f504bb49`, native 1254×1254 RGBA, unchanged) is the autumn edit of
+`forest-birch-summer-v4.png`: the same four outlines (bounding boxes within 1–3 px), ochre-gold with a little green; mean 102,77,25, L\* 33.5 (summer 36.2).
+The seasonal `-forest-layered` export reads it for `standing/context/forest/<key>_au` and
+`standing/props/trees/<n>_au`. Selected; first try (`build/review/gen-2026-10-31/au-forest-birch/review.md`).
+Attached: the summer atlas as the edit target and a crop of the 1915-10 backdrop's forest for colour only.
+The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 2x2 crown atlas (image 1); keep its 1254x1254 canvas, its four cells, every crown centre, every outline and footprint exactly, and the alpha-zero space around the crowns. Change the season only: early October on the Western Front, the same four broadleaf crowns in early autumn foliage, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+All four crowns are birch: clear but muted yellow and ochre-gold small leaves with a little green left inside the crown; mean about RGB 100,88,34, lit sprays about RGB 175,155,65, shade about RGB 38,32,14.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the overall value as dark as the original: the shaded half and the recesses between lobes stay deep and dark. Muted, painted, earthy autumn colours.
+Avoid: red, crimson, maroon, pink, saturated or neon orange, uniform colour per crown, lighter overall value, bare branches, fallen leaves outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer birch crown atlas (the edit target): keep its 1254x1254 RGBA canvas, its 2x2 cells, every crown centre and outline footprint and the alpha-zero space; change the season only. Image 2 is a crop of a painted autumn map of the same game, for the autumn colours of the broadleaf crowns only; ignore its conifers, its bare trees, its ground and its arrangement.
+```
+
+
+### Look 8 autumn beech atlas v1 (2026-10-31)
+
+`forest-beech-autumn-v1.png` (`exec-cb91c957`, native 1254×1254 RGBA, unchanged) is the autumn edit of
+`forest-beech-summer-v4.png`: the same four outlines (bounding boxes within 1–3 px), copper and tan-ochre, a few olive lobes; mean 93,59,21, L\* 27.5 (summer 32.0).
+The seasonal `-forest-layered` export reads it for `standing/context/forest/<key>_au` and
+`standing/props/trees/<n>_au`. Selected; first try (`build/review/gen-2026-10-31/au-forest-beech/review.md`).
+Attached: the summer atlas as the edit target and a crop of the 1915-10 backdrop's forest for colour only.
+The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 2x2 crown atlas (image 1); keep its 1254x1254 canvas, its four cells, every crown centre, every outline and footprint exactly, and the alpha-zero space around the crowns. Change the season only: early October on the Western Front, the same four broadleaf crowns in early autumn foliage, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+All four crowns are beech: warm copper and tan-ochre, golden brown rather than red, a few lobes still olive; mean about RGB 92,68,28, lit lobes about RGB 170,120,50, shade about RGB 32,24,12.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the overall value as dark as the original: the shaded half and the recesses between lobes stay deep and dark. Muted, painted, earthy autumn colours.
+Avoid: red, crimson, maroon, pink, saturated or neon orange, uniform colour per crown, lighter overall value, bare branches, fallen leaves outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer beech crown atlas (the edit target): keep its 1254x1254 RGBA canvas, its 2x2 cells, every crown centre and outline footprint and the alpha-zero space; change the season only. Image 2 is a crop of a painted autumn map of the same game, for the autumn colours of the broadleaf crowns only; ignore its conifers, its bare trees, its ground and its arrangement.
+```
+
+
+### Look 8 autumn oak atlas v1 (2026-10-31)
+
+`forest-oak-autumn-v1.png` (`exec-3d774ab8`, native 1254×1254 RGBA, unchanged) is the autumn edit of
+`forest-oak-summer-v4.png`: the same four outlines (bounding boxes within 1–3 px), bronze and olive-brown, about half the lobes olive; mean 81,61,26, L\* 26.4 (summer 35.2).
+The seasonal `-forest-layered` export reads it for `standing/context/forest/<key>_au` and
+`standing/props/trees/<n>_au`. Selected; first try (`build/review/gen-2026-10-31/au-forest-oak/review.md`).
+Attached: the summer atlas as the edit target and a crop of the 1915-10 backdrop's forest for colour only.
+The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 2x2 crown atlas (image 1); keep its 1254x1254 canvas, its four cells, every crown centre, every outline and footprint exactly, and the alpha-zero space around the crowns. Change the season only: early October on the Western Front, the same four broadleaf crowns in early autumn foliage, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+All four crowns are oak; oaks turn late. Bronze and olive-brown, with about half of the lobes still dull olive green and some leathery tan-brown lobes; mean about RGB 76,68,32, lit lobes about RGB 140,125,60, shade about RGB 28,26,14.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the overall value as dark as the original: the shaded half and the recesses between lobes stay deep and dark. Muted, painted, earthy autumn colours.
+Avoid: red, crimson, maroon, pink, saturated or neon orange, uniform colour per crown, lighter overall value, bare branches, fallen leaves outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer oak crown atlas (the edit target): keep its 1254x1254 RGBA canvas, its 2x2 cells, every crown centre and outline footprint and the alpha-zero space; change the season only. Image 2 is a crop of a painted autumn map of the same game, for the autumn colours of the broadleaf crowns only; ignore its conifers, its bare trees, its ground and its arrangement.
+```
+
+
+### Look 8 F1 autumn floor v1 (2026-10-31)
+
+`forest-floor-autumn-v1.png` (`exec-ca7fb9fd`, native 1254×1254 RGB, unchanged) is the autumn edit of
+`forest-floor-summer-v4.png`: golden-brown and tan leaf litter over the same twigs and pebbles, about a third
+dark moss left. Mean 80,54,24, L\* 24.6 (3.4 under summer), h 70; wrap step as summer. The seasonal
+`-forest-layered` export reads it for `context/forest/<key>_au`. Selected. Second of two tries; the first was
+8 L\* too dark and reddish (`build/review/gen-2026-10-31/au-forest-floor/review.md`). Attached: the summer
+floor as the edit target and a crop of the 1915-10 backdrop's forest for colour only. The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied seamless forest-floor material (image 1); keep its 1254x1254 canvas, its fine detail scale, the position of every twig, pebble and leaf, its even density and its seamless left-right and top-bottom wrap. Change the season only: an October woodland floor on the Western Front. Most of the moss is now covered by freshly fallen leaf litter in brown-ochre, tan, ochre and dull golden brown with only a little russet, with patches of dark moss green still showing between the leaves (about a third of the area stays mossy olive green). The fallen leaves stay as small as the leaves already painted (single leaves 6-20 px); do not paint larger leaves.
+Colour: overall mean about RGB 84,66,30 (exactly as light as the original, which is about RGB 76,68,24; the previous try came out about 8 L* too dark at RGB 68,44,19 and slightly too red), lit leaf edges about RGB 150,105,55 at most, shaded gaps about RGB 30,22,12. Low contrast, calm and even; it lies in the shade under the canopy and must read as dark ground.
+Avoid: bright orange or red carpet, reddish or rust cast, darker overall value, yellow cast, larger leaves, new objects, paths, logs, mushrooms, puddles, snow, lighter overall value, sun patches, vignette, seams, text.
+
+Image 1 is the selected summer forest-floor material (the edit target): keep its 1254x1254 opaque canvas, its detail scale and every element's position, and its seamless wrap; change the season only. Image 2 is a crop of a painted autumn map of the same game, for the autumn colours of the woodland ground and leaves only; ignore its trees and its arrangement.
+```
+
+
+### Look 8 F2 autumn crowns v1 (2026-10-31)
+
+`forest-crowns-autumn-v1.png` (`exec-e8bed00b`, native 1254×1254 RGBA, unchanged) is the autumn edit of the
+F2 sheet `forest-crowns-summer-v6.png`: the same nine outlines (bounding boxes within 1–4 px), oak bronze and
+olive-brown with half its lobes olive (mean about 89,68,26, h 80–85), beech copper and tan-ochre (about
+101,71,26, h 74–76), birch ochre-gold (about 109,88,30, h 86–88). Mean 100,75,27, L\* 32.8, 4.4 over the
+summer sheet; `hl export kits` grades it (sheet 77,56,21, oak cells 70,58,22, birch cells 101,73,16) for the
+autumn scatter kit `kit/forest/crowns-autumn` (`standing/scatter/crown/<species>-<size>_au`, summer shadows).
+Fault: the star-shaped leaf florets of the summer sheet remain. Selected. Second of two tries; the first
+turned oak and beech the same maroon (`build/review/gen-2026-10-31/au-forest-crowns/review.md`). Attached:
+the summer sheet as the edit target and a crop of the 1915-10 backdrop's forest for colour only. The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 3x3 crown sheet (image 1); keep its 1254x1254 canvas, its cells, every crown centre, every outline and footprint exactly, and the alpha-zero gutters. Change the season only: early October on the Western Front, the same nine broadleaf crowns in early autumn foliage, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+The previous try turned the oak and the beech into the same red-brown (hue about 60-65, both reading maroon on the map); the three species must now differ clearly, and nothing may be red, pink or maroon.
+Row 1 (oak): oaks turn late. Bronze and olive-brown, with about half of the lobes still dull olive green and some leathery tan-brown lobes; mean about RGB 76,68,32, lit lobes about RGB 140,125,60, shade about RGB 28,26,14.
+Row 2 (beech): warm copper and tan-ochre, golden brown rather than red, a few lobes still olive; mean about RGB 92,68,28, lit lobes about RGB 170,120,50, shade about RGB 32,24,12.
+Row 3 (birch): clear but muted yellow and ochre-gold small leaves with a little green left inside the crown; mean about RGB 100,88,34, lit sprays about RGB 175,155,65, shade about RGB 38,32,14.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone (copper beside ochre beside olive). Keep the overall value as dark as the original: the shaded half and the recesses between lobes stay deep and dark. Muted, painted, earthy autumn colours.
+Avoid: red, crimson, maroon, pink, saturated or neon orange, uniform colour per crown, lighter overall value, bare branches, fallen leaves outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer crown sheet (the edit target): keep its 1254x1254 RGBA canvas, its 3x3 cells, every crown centre and outline footprint and the alpha-zero gutters; change the season only. Image 2 is a crop of a painted autumn map of the same game, for the autumn colours of the broadleaf crowns only; ignore its conifers, its bare trees, its ground and its arrangement.
+```
+
 
 ### Look 7 F3 winter crowns v4 (2026-10-23)
 

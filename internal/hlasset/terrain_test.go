@@ -37,6 +37,31 @@ func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack
 	return p
 }
 
+// openTerrainParts opens group and its numbered parts (group-2, …) at density d.
+func openTerrainParts(t *testing.T, out string, d int, group string) []*assets.Pack {
+	t.Helper()
+	parts := []*assets.Pack{openTerrainPack(t, out, d, group)}
+	for i := 2; ; i++ {
+		part := fmt.Sprintf("%s-%d", group, i)
+		if _, err := os.Stat(filepath.Join(out, terrainDir(d, part))); err != nil {
+			return parts
+		}
+		parts = append(parts, openTerrainPack(t, out, d, part))
+	}
+}
+
+// partsEntry is the entry of id at density d in whichever part holds it.
+func partsEntry(parts []*assets.Pack, id string, d int) (assets.Entry, error) {
+	var err error
+	for _, p := range parts {
+		var e assets.Entry
+		if e, err = p.Entry(id, d); err == nil {
+			return e, nil
+		}
+	}
+	return assets.Entry{}, err
+}
+
 // isStandingPart reports whether group is the standing group or one of its
 // numbered parts (standing-2, …).
 func isStandingPart(group string) bool {
@@ -95,10 +120,12 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]int{
-		"backgrounds": 272, "infrastructure": 268,
-		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 198,
-		"context-forest": 130,
-		"context-hills":  273, "context-hills-2": 273, "context-hills-3": 273, "context-hills-4": 151,
+		"backgrounds": 273, "backgrounds-2": 20, "infrastructure": 273, "infrastructure-2": 42,
+		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 273,
+		"context-ground-5": 273, "context-ground-6": 117,
+		"context-forest": 194,
+		"context-hills":  273, "context-hills-2": 273, "context-hills-3": 273, "context-hills-4": 273,
+		"context-hills-5": 273, "context-hills-6": 273, "context-hills-7": 273, "context-hills-8": 29,
 	}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {
@@ -143,8 +170,8 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	// Every terrain and infrastructure ID of the shipped levels has a tile at
 	// every density, the derived 1x too, registered on the hex centre.
 	for _, d := range append([]int{derivedDensity}, terrainDensities...) {
-		bg := openTerrainPack(t, out, d, "backgrounds")
-		inf := openTerrainPack(t, out, d, "infrastructure")
+		bg := openTerrainParts(t, out, d, "backgrounds")
+		inf := openTerrainParts(t, out, d, "infrastructure")
 		for _, feature := range []struct {
 			group, id string
 			w, h      int
@@ -189,7 +216,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 					if waterdepth.Of(h.Terrain) > 0 {
 						continue // drawn as water, shaded by its depth
 					}
-					e, err := bg.Entry(mapcompose.TileID(h.Terrain), d)
+					e, err := partsEntry(bg, mapcompose.TileID(h.Terrain), d)
 					if err != nil {
 						t.Fatal(err)
 					}
@@ -197,7 +224,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 						t.Fatalf("%s: %v %dx%d", e.ID, e.Anchor, e.Width, e.Height)
 					}
 					for _, id := range h.Infra.IDs {
-						if _, err := inf.Entry(mapcompose.TileID(id), d); err != nil {
+						if _, err := partsEntry(inf, mapcompose.TileID(id), d); err != nil {
 							t.Fatal(err)
 						}
 					}
@@ -268,7 +295,7 @@ func TestTerrainPlanIncludesGrassVariations(t *testing.T) {
 	counts := map[int]int{}
 	for _, p := range packs {
 		for _, e := range p.Manifest.Entries {
-			if strings.HasPrefix(e.ID, "tile/grass-detail-") {
+			if strings.HasPrefix(e.ID, "tile/grass-detail-") && mapcompose.SummerID(e.ID) == e.ID {
 				if p.Group != "backgrounds" {
 					t.Errorf("grass detail outside the background pack: %+v", e)
 				}
@@ -447,7 +474,7 @@ func TestTerrainGapsReport(t *testing.T) {
 			t.Errorf("%d %s maps report fallbacks, want %d", n, season, seasonal[season])
 		}
 		total := regexp.MustCompile(`(?m)^` + string(season) + ` fallbacks: (\d+) maps, [1-9]\d* summer IDs drawn, [1-9]\d* distinct\n((?:  .*\n)+)`).FindStringSubmatch(s)
-		if total == nil || total[1] != strconv.Itoa(seasonal[season]) || !strings.Contains(total[2], "  tile/road: ") {
+		if total == nil || total[1] != strconv.Itoa(seasonal[season]) || !regexp.MustCompile(`(?m)^  [a-z]+/[A-Za-z/]+: `).MatchString(total[2]) {
 			t.Errorf("%s total %q", season, total)
 		}
 	}

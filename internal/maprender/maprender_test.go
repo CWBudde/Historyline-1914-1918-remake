@@ -17,6 +17,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 )
 
 // Catch odd-line shifts and anchors drifting between authored densities.
@@ -44,7 +45,7 @@ func TestRenderPulse(t *testing.T) {
 	}
 	details := 0
 	for id := range r.has {
-		if strings.HasPrefix(id, "tile/grass-detail-") {
+		if strings.HasPrefix(id, "tile/grass-detail-") && mapcompose.SummerID(id) == id {
 			details++
 		}
 	}

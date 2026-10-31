@@ -4,7 +4,7 @@ title: Hills
 kind: terrain
 status: approved
 runtime_ids: hills
-masters: hills-scrub-summer-v2.png, hills-height-shared-v1.png, hills-hummock-summer-v1.png
+masters: hills-scrub-summer-v2.png, hills-height-shared-v1.png, hills-hummock-summer-v1.png, hills-scrub-autumn-v1.png
 ---
 
 ## Look
@@ -28,6 +28,28 @@ The painted material uses the absolute grass lattice and blends through a 7..19 
 gate at grass-facing edges. The final four-world-pixel border exactly matches canonical meadow.
 
 ## Post
+
+### Autumn scrub edit (2026-10-31)
+
+`hills-scrub-autumn-v1.png` (`exec-4145eaf4`, native 1536×1024 RGB, unchanged) is the autumn edit of
+`hills-scrub-summer-v2.png`: every clump in place, the open grass the dry olive-gold of `grass-autumn-v1`,
+the scrub russet and bronze. Whole RGB 113,83,38 (L\* 37.1, hue 76; the autumn meadow is L\* 41.8, hue 82),
+wrap steps as the summer master. Selected: `-season autumn -hills art/pipeline/hills-terrain-v2.json`
+takes it for every `context/hills/<key>_au`. Attached: `hills-scrub-summer-v2.png` and
+`grass-autumn-v1.png`. The prompt was:
+
+```text
+Seasonal edit of the supplied hill scrub-meadow material: change the season to a dry late-September/October day only, preserve every outline and position. Keep the canvas exactly as supplied (1536x1024 LANDSCAPE, opaque, full-bleed, seamless left-right and top-bottom, strict vertical plan view, flat overcast light with no light direction, whatever any style note says).
+Every scrub clump, bush, tuft, pebble and patch of open grass stays exactly where it is, with its size and outline. Change only the colours:
+- The open grass between the clumps becomes the same dry autumn meadow as image 2: straw-gold and olive-ochre with faded olive green left in the tuft centres; lit blade tips pale straw near RGB 184,148,75, mid grass olive-ochre near RGB 120,92,36, shaded tufts near RGB 67,51,18. Dry brown seed heads replace the tiny white flowers.
+- The scrub, bramble and bush clumps turn to autumn: most of them russet and rust brown (lit leaves about RGB 150,88,40, shaded parts about RGB 70,40,20), some dull bronze-olive (about 105,85,35), a few still dark olive; no bright orange, no red, no yellow crowns. Keep the clumps darker than the open grass, as now.
+- Overall average colour close to RGB 112,86,38 (L* about 39, about 3 L* darker than the autumn meadow); the lightness of every part stays as in the supplied image, only hue changes from green to straw-ochre and russet.
+No new objects, no leaf carpets, no bare earth patches, no rocks, no paths, no trees, no text, no vignette, no visible tiling.
+Corrections from the measured previous edit: it came out too brown-orange and slightly too dark (average RGB 112,79,34, L* 35.7, a* +9, hue 74); the open grass read orange-brown instead of the meadow's olive-gold. Make the open grass match image 2 closely: olive-ochre and straw-gold with faded olive green in the tuft centres (hue about 82, a* about +4, mean near RGB 123,96,41), and keep the russet-brown only in the scrub clumps. Target overall average RGB 114,90,38, L* about 38.
+
+Image 1 is the selected summer hills scrub material (hills-scrub-summer-v2) to edit: keep its layout, clump positions, sizes and grain exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the open grass only; do not copy its layout.
+```
+
 
 ### Look 2 G3 hummock overlay candidate (2026-10-23)
 

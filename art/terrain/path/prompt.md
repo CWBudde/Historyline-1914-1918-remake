@@ -4,7 +4,7 @@ title: Path
 kind: terrain
 status: approved
 runtime_ids: path125, path13, path135, path136, path14, path15, path24, path25, path26, path346, path35, path356, path36, path46, path125_w, path13_w, path135_w, path136_w, path14_w, path15_w, path24_w, path25_w, path26_w, path346_w, path35_w, path356_w, path36_w, path46_w
-masters: path-earth-shared-v2.png, path-earth-shared-v1.png, path-track-winter-v1.png, path-track-summer-v1.png
+masters: path-earth-shared-v2.png, path-earth-shared-v1.png, path-track-winter-v1.png, path-track-summer-v1.png, path-earth-autumn-v1.png
 ---
 
 ## Look
@@ -43,6 +43,29 @@ world pixels either side of the centre line; the winter forms keep the geometry 
 slush there instead.
 
 ## Post
+
+### Autumn path material edit (2026-10-31)
+
+`path-earth-autumn-v1.png` (`exec-f7f458a0`, native 1254×1254 RGB, unchanged) is the autumn edit of
+`path-earth-shared-v2.png`: every grain and pebble in place, the earth damp with darker wet patches and
+small fallen leaves (8–14 px). Whole RGB 153,109,64 (L\* 49.3, hue 69; summer 175,132,83, L\* 57.9), still
+lighter than the autumn meadow (L\* 42). Selected: `-season autumn` exports of the path manifests take
+it for every `tile/path*_au` and the path layer of `tile/cross*_au`. Attached: `path-earth-shared-v2.png`.
+The prompt was:
+
+```text
+Seasonal edit of the supplied earth-track material: change the season to a damp late-September/October day only, preserve every outline and position. Keep the square canvas exactly as supplied (1254x1254, opaque, full-bleed, seamless left-right and top-bottom, strict vertical plan view, flat overcast light with no light direction).
+Every grain, pebble and tone patch stays exactly where it is and keeps its size. Change only:
+- The packed earth is rain-damp: a little darker and browner than now, average colour close to RGB 150,113,74 (now 175,132,83; L* about 50 instead of 58); lit grains about 190,150,105, shaded hollows about 95,68,45. Still a warm tan dirt track, distinct from grey road and from dark mud.
+- A few soft darker wet patches 40-120 px across in the slight hollows, dull and matt, no reflections, no puddle rims.
+- Sparse fallen leaves lying flat: about 60 single small leaves over the whole canvas, each 8 to 14 px long, scattered irregularly, muted ochre (about 165,120,55), rust brown (about 125,70,35) and dull yellow (175,150,70); no shadows. Leaves cover under 2 percent of the canvas.
+No grass, no verges, no ruts or tyre tracks, no track edges, no stones larger than in the source, no text, no vignette, no visible tiling.
+Corrections from the measured previous edit: it came out far too dark and too red-brown (average RGB 118,82,52, L* 38, hue 64; target RGB 150,113,74, L* 50, hue about 70): darken the summer image only slightly, keep its warm tan-ochre hue and do not turn it into chocolate mud. Its leaves were about twice too large (20 to 28 px); paint each leaf only 8 to 14 px long, and only about 60 of them.
+The second try was still too dark and too red (average RGB 133,92,57, L* 42, hue 65); its leaves were right. The track must stay clearly lighter than the surrounding autumn meadow: keep the summer image's lightness almost unchanged, only about 4 L* darker (average about RGB 160,122,78, L* 53), and keep its sandy ochre hue (hue about 72, yellower than now, not red-brown). The damp look comes from the darker wet patches, not from darkening everything.
+
+Image 1 is the selected summer earth-track material (path-earth-shared-v2) to edit: keep its layout, grain, scale and every pebble's position; change only the season as described.
+```
+
 
 ### Look 4 R2 path strip candidate (2026-10-23)
 

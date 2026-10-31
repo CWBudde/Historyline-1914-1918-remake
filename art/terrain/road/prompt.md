@@ -4,7 +4,7 @@ title: Road
 kind: terrain
 status: approved
 runtime_ids: road124, road125, road13, road135, road14, road145, road15, road236, road24, road25, road26, road346, road35, road356, road36, road46, road124_w, road125_w, road13_w, road135_w, road14_w, road145_w, road15_w, road236_w, road24_w, road25_w, road26_w, road346_w, road35_w, road356_w, road36_w, road46_w
-masters: road-asphalt-shared-v2.png, road-snow-winter-v1.png, road-asphalt-shared-v1.png, road-macadam-winter-v1.png, road-macadam-summer-v1.png
+masters: road-asphalt-shared-v2.png, road-snow-winter-v1.png, road-asphalt-shared-v1.png, road-macadam-winter-v1.png, road-macadam-summer-v1.png, road-asphalt-autumn-v1.png
 ---
 
 ## Look
@@ -47,6 +47,29 @@ Centre dashes are drawn by the renderer along the centre line. The winter forms 
 renderer draws two slush ruts 4.5 world pixels either side of the centre line instead of the dashes.
 
 ## Post
+
+### Autumn road material edit (2026-10-31)
+
+`road-asphalt-autumn-v1.png` (`exec-37b47510`, native 1254×1254 RGB, unchanged) is the autumn edit of
+`road-asphalt-shared-v2.png`: every pebble in place, the macadam rain-damp with darker wet hollows and
+about 80 small fallen leaves (8–14 px). Whole RGB 88,77,68 (L\* 33.2, hue 70; summer 117,108,98, L\* 45.8):
+three tries all came out 13 L\* below summer; the strip still reads as a wet road over `grass_au`.
+Selected: `-season autumn` exports of the road manifests take it for every `tile/road*_au` and the road
+layer of `tile/cross*_au`. Attached: `road-asphalt-shared-v2.png`. The prompt was:
+
+```text
+Seasonal edit of the supplied road material: change the season to a wet late-September/October day only, preserve every outline and position. Keep the square canvas exactly as supplied (1254x1254, opaque, full-bleed, seamless left-right and top-bottom, strict vertical plan view, flat overcast light with no light direction).
+Every pebble, grain, crack and colour patch stays exactly where it is and keeps its size and shape. Change only:
+- The whole surface is rain-damp: about 6 L* darker and a touch richer than now. Average colour close to RGB 100,92,82 (now 117,108,98); lit pebbles about 150,140,125, shaded gaps about 55,50,46. Still grey-brown macadam, not black, not blue.
+- A few darker damp patches 40-120 px across where water lies in the slight hollows, with a faint dull sheen, no reflections of sky, no puddle edges or rings.
+- Sparse fallen leaves lying flat: about 70 single small leaves over the whole canvas, each only 8 to 14 px long (about 1/100 of the canvas width), scattered irregularly and never in rows or clusters of more than two, muted ochre (about 165,120,55), rust brown (about 125,70,35) and a few dull yellow (175,150,70); wet and flat, no shadows. Leaves cover under 2 percent of the canvas.
+No mud piles, no wheel ruts, no grass, no road markings, no edges or verges, no text, no vignette, no visible tiling.
+Corrections from the measured previous edit: it came out far too dark (average RGB 81,69,57, L* 30; target RGB 100,92,82, L* about 40, only slightly darker than the summer image) and too brown; keep the summer's neutral grey-brown and lighten everything. Its leaves were 2 to 3 times too large (20 to 30 px) and about 180 of them; paint only about 70 leaves, each 8 to 14 px long, so they read as small specks.
+The second try was still too dark (average RGB 88,77,66, L* 33): the target is only about 6 L* below the summer image, average RGB 100,92,82, L* 40; lighten the whole surface to that, keep the neutral grey-brown, and keep the leaf size and count of the second try.
+
+Image 1 is the selected summer road material (road-asphalt-shared-v2) to edit: keep its layout, grain, scale and every pebble's position; change only the season as described.
+```
+
 
 `art-review -connected art/pipeline/connected-terrain-v2.json` renders the summer roads from
 `road-asphalt-shared-v2.png`. `connected-road-winter-v1.json` renders the `_w` forms from

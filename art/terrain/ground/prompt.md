@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: approved
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png
 ---
 
 ## Look
@@ -84,6 +84,26 @@ Summer boulder stamps replace per-hex stone art across their complete clusters, 
 gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
+
+### Autumn stone edit (2026-10-31)
+`ground-stone-autumn-v1.png` (exec-81e1964e) is the autumn form of `ground-stone-summer-v2.png`: an
+edit of it at the summer source's native 1374×1145, unchanged. Every boulder and pebble cluster keeps
+its outline and position; the meadow between them takes the autumn meadow's straw-gold and olive-ochre,
+the shrubs turn dull bronze. Mean RGB 118,89,42, L\* 39.9, a\* 6.4, b\* 31.5 (the autumn meadow:
+L\* 42.3, a\* 4.4); the grass is a little warmer and darker than the meadow. A first try kept the stones
+as well but came out more orange (a\* 8.4). `-season autumn` exports take it in place of
+`ground-stone-summer-v2.png`. Attachments: image 1 `ground-stone-summer-v2.png`, image 2
+`art/terrain/grass/grass-autumn-v1.png` (palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal edit ONLY. Image 1 is the selected summer stony-meadow material of a top-down WWI strategy map (opaque, 6:5 aspect, strict nadir view; one 50 m map hex is about 250 px across; the largest boulders are about 110 px). Repaint image 1 as the same ground in early October on the Western Front. Change the season only: every boulder, pebble, pebble cluster and shrub stays exactly at its outline, size and position, with the same light from the upper left and the same shadows; the stones keep their grey and grey-brown colours and their texture.
+The meadow between the stones becomes the autumn meadow of image 2: dry straw-gold and olive-ochre grass, lit tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded tufts near RGB 67,51,18, faded olive green only in the tuft centres; the yellow and white wildflower specks become dry brown seed heads. The small bright green shrubs keep their outline but turn russet, bronze and dull olive-brown (near RGB 120,80,40, a few still dull green), and a few tiny fallen leaves (2 to 4 px) lie around them. Overall the ground between the stones matches image 2 in colour, lightness and grain; image 1's summer meadow averages RGB 112,104,30, the autumn result should average close to RGB 123,96,41. The previous try kept every stone perfectly (keep that), but its grass came out too orange and a little dark: mean RGB 119,86,38 (a* 8.4, hue 76) against the meadow of image 2 at RGB 123,96,41 (a* 4.4, hue 83). Make the grass less orange, more olive-straw, as light as image 2, and keep the shrubs dull bronze rather than rust.
+Output: one opaque image, LANDSCAPE, 1374x1145 (the 6:5 aspect of image 1), filled edge to edge.
+Avoid: moved, added or removed stones, recoloured stones, moss turned orange, an orange or red overall cast, bright green grass, snow, frost, mud, puddles, new bushes or trees, vignette, border, text.
+
+Image 1 is the selected summer stony meadow (the image to edit: keep every stone exactly); image 2 is the selected autumn meadow material (palette and grain of the grass only, not its layout).
+```
+
 
 ### Look 8 C3 shell-hole field material, summer (2026-10-24)
 `ground-shelled-summer-v1.png` (exec-f7813a66), native 1536×1024 RGB: an even field of dark shell pits

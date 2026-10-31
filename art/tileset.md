@@ -118,6 +118,11 @@ Each compound is one painting with its grounds: lawns, trees and verges.
    6. trenches (regenerate), stamps;
    7. compounds: hq, cmp/ruin, factory, mount, house, airfield;
    8. optional: mud, water, rocks, harbour.
+   Autumn status: grass (base and detail tiles, meadow props), stone, forest (crowns, floor, contexts,
+   copses), hills, road, path, cross and stream are installed; road, path, rail, stream and cross verges
+   are the hex background, so only their surfaces and the stream bank are painted. Open: the detail
+   tiles' flowers and worn patches (they are phases of the autumn base), rail (summer reads fine),
+   shore and lakeside, trenches, stamps, compounds, mud.
 3. **Spring**, in the same order.
 
 Each step is accepted on one autumn (or spring) map in the game before the next family follows.
