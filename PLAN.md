@@ -52,7 +52,7 @@ history.
       - hand-test all three original levels and the monthly campaign from both sides under the default
         `-rules dos` (`just play`, `just run`, the web build), including repair and production in the
         contents view; move, attack, enter/leave container, capture, end turn;
-      - `-capture` frames of all three levels, both sides, next to the reference frames in `hlgallery`
+      - `-capture` frames of all three levels, both sides, next to the reference frames in `hl review gallery`
         (local only, the references stay ignored); 720p–4K, UI scales; summer and winter; check attack
         targets and which panel shows the battle against further battle frames;
       - hand test in a window that the OS pointer hides over the human side's map.
@@ -86,7 +86,7 @@ the replaced family back to `candidate`/`revised` on new-master install.
       and user acceptance remain open, as do visual acceptance and runtime exports of the 108 screen
       frame/control variants.
 - [ ] 2.5 Interface candidates: cleanup and runtime exports of the 14 interface families.
-- [ ] 2.6 In-engine art preview (`cmd/hlartpreview`): seven-hex patches, random fixtures, shipped maps; switch
+- [ ] 2.6 In-engine art preview (`hl preview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
 - [ ] 2.7 Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).
 - [ ] 2.8 `just art-build` / `art-preview`.
@@ -182,7 +182,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
 - [ ] L1.7 Mask-based transitions:
       - each blending family is authored as a **tileable material** (large period, like the hills phase
         568×320) plus one **edge mask set** (six edge masks and the vertex blends, soft and irregular);
-      - the pack build (`internal/hlasset`) composes a hex's ground from the base material, the neighbouring
+      - the pack build (`hl assets`) composes a hex's ground from the base material, the neighbouring
         materials and the masks; the context key stays the cache key, so the runtime is unchanged;
       - order of materials (what lies over what): water < lakeside shore < grass < hills < stone < mud <
         forest floor; decide and record in `art/style.md`;
@@ -209,7 +209,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
 - [ ] L2.1 Forest crowns as scatter instances placed by a world density field: sizes 16/22/28 world px; cover
       ≥ 85 % in forest cells (about 25 crowns per hex) and 4–8 % in open cells; the woodland edge wanders
       −14..+10 px around the hex edge; stands of species chosen by low-frequency noise. Summer crowns
-      scatter (the nine v6 crowns of `forest-crowns-summer-v6.png` through `internal/hlkit`, profile
+      scatter (the nine v6 crowns of `forest-crowns-summer-v6.png` through `hl export kits`, profile
       `art/pipeline/world-kits-v1.json`). Remaining:
       - open-cell trees at 4–8 % (the old tree props remain);
       - the edge-distance measurement;
@@ -224,7 +224,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       - G1a tone at the 568×400 period;
       - G1b close-up texture at a 189⅓×133⅓ period;
       - the result replaces `material/grass/summer` once it passes the map check.
-      The `hlmaterial` profile schema 2 and its G1 checks exist; the current meadow `grass-summer-v1` fails
+      The `hl export materials` profile schema 2 and its G1 checks exist; the current meadow `grass-summer-v1` fails
       on edge density 0.57 and the 3/10 band 4.46. Candidate round 2 (`grass-tone-summer-v2.png` +
       `grass-closeup-summer-v2.png`) passes all detail and result checks at gain 0.5 but fails the tone check
       (σ of the radius-10 box mean 3.35 for 4–6); on PULSE the meadow is slightly too even (cell means
@@ -264,7 +264,7 @@ stones.
       (lake rocks); W5 (riffles) only if the computed lap line is not enough. Candidates, unpromoted,
       prompts and faults in `art/terrain/water/prompt.md`: W1 `water-deep-summer-v1.png` (teal right,
       sparkle stars, σL\* 6.7), W2 `water-bed-summer-v1.png` (colour right, photographic, stones too large).
-      `hlkit` sizes and grades W3, W4 and W6; code cannot fix the W3 white crackle foam, the W6 foam ring, or
+      `hl export kits` sizes and grades W3, W4 and W6; code cannot fix the W3 white crackle foam, the W6 foam ring, or
       W4 pebbles of about 7 world px inside a cluster (spec 2–4). The open sea uses the C1 sea material
       (L8.1); W1 for the lake stays open.
 - [ ] L3.6 Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5.
@@ -299,7 +299,7 @@ stones.
       footprint 18–22. Candidates, unpromoted, with prompts and measured faults in each family's prompt.md:
       R1 road and R2 path (summer and winter), R3 rail (summer and winter; the sleeper gap across the wrap is
       74 px instead of 48), R4 trench (summer and winter; the entry's bay numbers do not fill 1536 px, so 6
-      bays of 256 px), R6 barbed wire (patches set vertically; `hlkit` clears the matte and scales each patch
+      bays of 256 px), R6 barbed wire (patches set vertically; `hl export kits` clears the matte and scales each patch
       to 70 world px). R5 waits for the stroke renderer.
 - [ ] L4.3 Road: water-bound macadam with two worn wheel tracks, sandy verges and a ditch, no paint (period
       fit overrules the reference's lane markings); curves and junctions as in the features "Northern road
@@ -443,7 +443,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       trenches) until repainted; CIVIL (`1914-10`) follows the old map in trenches of 9 hexes and one rough
       hex; Flanders (`1918-10`) has a placeholder, the tile render of its ground. Open: paintings for the
       other maps, a render mode switch between tiles and painting in the game.
-- [ ] 5.6 Terrain art for the original maps: `hlasset terrain-gaps` over every shipped map finds every
+- [ ] 5.6 Terrain art for the original maps: `hl assets terrain-gaps` over every shipped map finds every
       context, but crater and boulder clusters without an installed stamp of their own (the stamps
       were made for the Python maps), PULSE, CIVIL and MOUSE included.
 - [ ] 5.7 Unit roster: weapon slots use stand-ins from the existing catalogue; the remake's own rules still
@@ -456,7 +456,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       selection, loading, victory/defeat, leave-battle, save/load, score list); hover/focus/pressed/disabled
       states and keyboard navigation throughout.
 - [ ] 6.2 Sound and music (`ebiten/audio`).
-- [ ] 6.3 Map editor (`-edit` or `cmd/hlmapedit`) with tile/infra/unit/container palettes and a new-map wizard.
+- [ ] 6.3 Map editor (`-edit` or an `hl` command) with tile/infra/unit/container palettes and a new-map wizard.
 - [ ] 6.4 Release binaries via GoReleaser (the WASM build is deployed to GitHub Pages by
       `.github/workflows/deploy-pages.yaml`).
 - [ ] 6.5 Remove `legacy/` once nothing depends on it.
