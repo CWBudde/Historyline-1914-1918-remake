@@ -15,7 +15,7 @@ reconstructions of them.
 | `art/pipeline/contexts/*.json` | Ground, forest and hills context profiles (neighbours, phase, key) |
 | `art/reference/pulse/` | PULSE reference design: families, exemplar cells, features and notes |
 | `art/fonts/` | Interface typefaces and their licence |
-| `art/index.json` | Generated catalogue of all families (`go run ./cmd/hlart index`) |
+| `art/index.json` | Generated catalogue of all families (`hl art index`) |
 | `assets/<kind>/<family>/` | Runtime PNGs; `assets/index.json` lists each file with its `art` key |
 
 The art key is the same path in both trees: `assets/index.json` entries with `"art": "terrain/road"`
@@ -38,7 +38,7 @@ order: `## Look`, `## Base prompt`, `## Variants` (table `| Variant | Runtime ID
 `—` for rows without their own ID), `## Edges & joins` (terrain only), `## Post`, `## Avoid`.
 
 To generate: paste the `art/style.md` preamble and the section for the kind, then the base prompt and
-one variant's delta. `go run ./cmd/hlart check` validates every prompt, master and runtime ID.
+one variant's delta. `hl art check` validates every prompt, master and runtime ID.
 
 Screen and portrait families with painted masters may leave `runtime_ids` empty while their status is
 `candidate` and the feature or unit binding is not yet defined. Keep each painting and its prompt in
@@ -105,7 +105,7 @@ empty until a real gameplay class exists. Added sprite and portrait families fol
 contract; their appearance and export completeness are separate from panel/gameplay binding.
 
 Copy the reviewed export files into `assets/<kind>/<family>/`, update the master's pin in the manifest when
-the master changed, then run `go run ./cmd/hlart index` and `go run ./cmd/hlart check`.
+the master changed, then run `hl art index` and `hl art check`.
 
 ## Review
 

@@ -13,7 +13,7 @@ Summer woodland uses a dark mossy floor and twelve whole oak, beech and birch cr
 irregular silhouettes match the existing painted terrain. Crowns thin at woodland edges and overhang
 their owning hex. Singles and small copses reuse these crowns in meadow, with clear unit foot points.
 Winter forest scatters the F3 sheet `forest-crowns-winter-v4.png` (spruce, fir and bare broadleaf, cut by
-`hlkit`) over the snow tile; the four-crown v3 atlas exports remain for winter forest beside
+`hl export kits`) over the snow tile; the four-crown v3 atlas exports remain for winter forest beside
 infrastructure.
 
 ## Base prompt
@@ -40,7 +40,7 @@ the border. Scale and light must match the house, hq and mountain art.
 `forest-crowns-winter-v4.png` (`exec-0fd58d12`, native 1254×1254 RGBA, unchanged) is the F3 edit of the
 F2 v6 sheet: rows 1 and 2 are spruce and fir crowns in dark green (mean about 60,66,53, L\* 25–28) with
 sparse snow caps on the upper-left branch tips, row 3 bare broadleaf branch networks in dark wood
-(about 75,67,61). Crowns are 1.15–1.2× the v6 footprints (194–359 px); `hlkit` scales them to 16/22/28
+(about 75,67,61). Crowns are 1.15–1.2× the v6 footprints (194–359 px); `hl export kits` scales them to 16/22/28
 world px. Faults: the bare crowns' fine twigs are a semi-transparent haze (cover 7–21 % of the cell), and
 the conifers are slightly radial. Selected for the winter scatter kit (`kit/forest/crowns-winter`).
 Attached: the summer sheet `forest-crowns-summer-v6.png` as the edit target. Third of three tries

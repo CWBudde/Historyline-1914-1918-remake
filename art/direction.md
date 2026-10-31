@@ -120,7 +120,7 @@ Rules:
   - prop sheets 1254×1254 or 1536×1024 RGBA in a stated grid;
   - whole scenes 1536×1536 or 1536×1024 RGBA.
 
-**Cut-out sheets are prepared in code.** `cmd/hlkit` (profile `art/pipeline/world-kits-v1.json`) does
+**Cut-out sheets are prepared in code.** `hl export kits` (profile `art/pipeline/world-kits-v1.json`) does
 four things and reports their checks; the review sprites and contact sheets go to `build/review/world-kits/`:
 - it clears the alpha haze below a cut (32);
 - it splits a sheet into items by connected alpha, so an item may cross its cell line;
@@ -152,7 +152,7 @@ G1b's period is fractional on purpose: 4×4 would repeat it every 142 world px, 
 the detail would repeat with the lattice. Prompts do not ask for tiling; code blends the period edges
 (`worldmaterial.Seamless`). Generate up to four of each part and keep the best by its checks.
 
-**Combining** (`cmd/hlmaterial`, profile schema 2, a `detail` block on the meadow): G1a is cropped and
+**Combining** (`hl export materials`, profile schema 2, a `detail` block on the meadow): G1a is cropped and
 scaled to the 568×400 period, and G1b is made seamless and wrapped 3×3 across it. G1b's L\* is
 high-passed: three periodic box blurs of radius 4 world px, about a 12-world-px kernel, are subtracted.
 It is multiplied by one gain and added to G1a's L\*; a\* and b\* stay G1a's. The report suggests the
@@ -183,7 +183,7 @@ Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x
 Avoid: large light or dark patches, large grass clumps, tufts wider than 30 px, blurry or smooth areas, dark shadow pools, broadleaf weeds, rosettes, flowers in clusters, long diagonal blades, bushes, stones over 20 px, bare soil patches, paths, tracks, rows, mowing stripes, neon or lime green, photograph, 3D render, pixel art, perspective, horizon, vignette, grid, text.
 ```
 
-**Checks**, reported by `hlmaterial` at 1× with the band and edge definitions of `tools/reference-design`
+**Checks**, reported by `hl export materials` at 1× with the band and edge definitions of `tools/reference-design`
 (box radii 1/3 and 3/10 world px, Sobel L\* gradient > 6), wrapped over the period. The reference
 meadow's band ratio comes from its PULSE grass measurement (4.82 / 4.61). G1b's amplitude does not
 matter, because the gain sets it.

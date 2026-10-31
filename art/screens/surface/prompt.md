@@ -108,7 +108,7 @@ No images are attached.
 ```
 
 ## Post
-Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`
+Masters are used unchanged. `hl assets build-screens` scales each into the screen catalog's `surface`
 family: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile
 stays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades
 the tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in

@@ -1,6 +1,6 @@
 # Runtime asset packs
 
-`internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `internal/hlasset` builds and checks them from the runtime art in
+`internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
 `build/packs/` until art is approved; only approved art will be embedded (`assets/assets.go`).
@@ -91,7 +91,7 @@ copied unchanged.
 Cast shadows follow one light (`internal/terrainlight`, art/direction.md "One light"): azimuth 315°, RGB
 18,26,16, 0.25 × the item's diameter long, opacity 0.6 for crowns (0.45 rocks, 0.35 buildings). The builder
 and `internal/maprender` draw every painted `standing/shadow/…` from its standing item's alpha, its
-diameter measured from the item's blobs; `internal/hlkit` makes the scattered items' shadows with the same model
+diameter measured from the item's blobs; `hl export kits` (`internal/hlkit`) makes the scattered items' shadows with the same model
 and refuses a profile that leaves it. `build/packs/terrain/grade` names the grade and the light.
 
 The optional `materials` group contains `material/grass/summer` and `material/hills/summer` together at

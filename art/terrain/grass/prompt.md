@@ -63,7 +63,7 @@ Image 1 is the broad meadow tone this close-up texture will be laid over: take o
 
 `grass-tone-summer-v2.png` (`exec-fdd184bd`, native 1536×1024 RGB, unchanged) is a G1a meadow tone
 painted as a fine, dense mottle over only faint tone drifts, so that most of the meadow's variation
-does not repeat with the close-up texture. Graded by `hlmaterial` (`tone_contrast` 1.08, `tone_offset`
+does not repeat with the close-up texture. Graded by `hl export materials` (`tone_contrast` 1.08, `tone_offset`
 [−1.5, 0, −3]) under `grass-closeup-summer-v2.png` at gain 0.5, it passes all 20 detail and result checks,
 some only just (σL\* 10.0, edge density 0.399, autocorrelation at (284,0) 0.150). It fails the tone
 check: σL\* of the radius-10 box mean is 3.35, below 4–6. Stronger grades push the edge density over 0.40.
@@ -85,7 +85,7 @@ Images 1 and 2 are crops of the reference painting: take only its meadow colours
 ### Look 2 G1a tone candidate (2026-10-23)
 
 `grass-tone-summer-v1.png` (`exec-2a8150c6`, native 1536×1024 RGB, unchanged) is the G1a broad
-meadow tone, in flat overcast light. Graded by `hlmaterial` (`tone_contrast` 1.42, `tone_offset`
+meadow tone, in flat overcast light. Graded by `hl export materials` (`tone_contrast` 1.42, `tone_offset`
 [−2.5, −1, −4]) under `grass-closeup-summer-v1.png`, it passes all 17 G1 checks with no period seam.
 It fails the map check: on PULSE its dark patches read as camouflage blotches. Across the 88 clean
 grass cells at 1× the cell means vary by σL\* 7.3 against 4.3 in the reference, and the fine residual
@@ -123,7 +123,7 @@ Image 1 is the broad meadow tone this close-up texture will be laid over: take o
 prop sheet in a 4×4 grid. Item sizes are 0.77–1.45× the spec, every item stays in its cell, and the
 tufts read as plan-view blade stars over the meadow. Faults: soil flecks 1.45× too large, straw too warm
 (mean 164,138,80 against 178,160,94), a thin semi-solid backing under tufts and flowers, and alpha haze
-(1–31) in the gutters, so cutting needs an alpha threshold. Installed as the meadow props (2026-10-23): `hlkit` cuts
+(1–31) in the gutters, so cutting needs an alpha threshold. Installed as the meadow props (2026-10-23): `hl export kits` cuts
 the haze, scales each item to its size and grades the soil to 112,100,62 and the straw to 150,140,78; the
 largest straw patch stays out (figure-sized and too loud at 1×), and `mapcompose/props.go` scatters the
 other fifteen.

@@ -196,7 +196,7 @@ palms lower and his head bows deeper, and the white cloth hangs fully open, the 
 at the right.
 
 ## Post
-Masters are used unchanged. `hlasset build-screens` scales them into the screen catalog's `capture`
+Masters are used unchanged. `hl assets build-screens` scales them into the screen catalog's `capture`
 family: `capture/depot`, `capture/factory` and `capture/hand` 512 px wide at 1x and 1024 at 2x,
 `capture/hq` and `capture/hq-open` to the full screen, 640x400 at 1x and 1280x800 at 2x, and the
 three surrender paintings likewise to the full screen (`capture/surrender`,

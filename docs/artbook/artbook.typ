@@ -3,9 +3,9 @@
 // Build with `just artbook` (build/artbook/Historyline_Art.pdf).
 //
 // Inputs: base (the art tree, default the repository root), thumbs (directory of the
-// optional master and sample thumbnails written by `hlart thumbs`; the normal book embeds native files), pulse
-// (directory of the PULSE map written by `hlart pulse`; default: no map chapter),
-// winter, winter3 (directories of winter levels written by `hlart map`; default: no winter chapters),
+// optional master and sample thumbnails written by `hl art thumbs`; the normal book embeds native files), pulse
+// (directory of the PULSE map written by `hl art pulse`; default: no map chapter),
+// winter, winter3 (directories of winter levels written by `hl art map`; default: no winter chapters),
 // campaign (directory with summer/winter/sea/harbour map renders; default: no campaign chapters),
 // look (directory written by reference-design -look-out; default: no measurement chapter),
 // compare (directory written by `reference-design -compare`; default: no comparison), style=false
@@ -305,7 +305,7 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   }
 }
 
-// The PULSE level drawn with the runtime art (`hlart pulse`).
+// The PULSE level drawn with the runtime art (`hl art pulse`).
 #if pulse != "" {
   let info = json(pulse + "/pulse.json")
   // A fractional height only resolves in the page flow, not inside a figure.

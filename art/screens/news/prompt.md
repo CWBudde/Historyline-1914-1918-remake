@@ -224,7 +224,7 @@ Scene: July 1918, the edge of the forest of Villers-Cotterets: small French Rena
 ```
 
 ## Post
-Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `news`
+Masters are used unchanged. `hl assets build-screens` scales each into the screen catalog's `news`
 family as `news/<month>`, 270x180 at 1x and 540x360 at 2x; the front page draws it 240x160 in its
 first column, under a thin ink frame.
 
