@@ -191,9 +191,16 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	if !units {
 		return m, nil
 	}
+	if err := r.drawUnits(&m, lvl, density); err != nil {
+		return Map{}, err
+	}
+	return m, nil
+}
+
+func (r *Renderer) drawUnits(m *Map, lvl *level.Level, density int) error {
 	st, err := game.New(lvl, r.set)
 	if err != nil {
-		return Map{}, err
+		return err
 	}
 	for line, hs := range lvl.Lines {
 		for col, hx := range hs {
@@ -203,16 +210,16 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 			at := hexgrid.Coord{Line: line, Col: col}
 			family, ok := unitsprite.Family(hx.Unit)
 			if !ok {
-				return Map{}, fmt.Errorf("missing unit family %s", hx.Unit)
+				return fmt.Errorf("missing unit family %s", hx.Unit)
 			}
 			id := fmt.Sprintf("unit/%s/%s/n-normal", family, unitsprite.PaletteOf(st.At(at).Unit.Owner))
 			if err := r.draw(m.Image, id, at, density); err != nil {
-				return Map{}, err
+				return err
 			}
 			m.Units++
 		}
 	}
-	return m, nil
+	return nil
 }
 
 // assetImage returns the entry of id at density and its image, graded as the

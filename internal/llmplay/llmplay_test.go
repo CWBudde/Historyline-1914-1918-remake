@@ -190,6 +190,53 @@ func TestRenderReplay(t *testing.T) {
 	}
 }
 
+// RenderReplay with the level's own painted backdrop writes the same
+// hash-verified frames on the painting instead of terrain tiles.
+func TestRenderReplayBackdrop(t *testing.T) {
+	dir := t.TempDir()
+	lvl, err := ShipLevel("1918-02", scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	bd, err := LevelBackdrop("1918-02", lvl)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := bd.Bounds(); got.Dx() != 7737 || got.Dy() != 3302 {
+		t.Fatalf("RHEIN backdrop bounds %v, want 7737x3302", got)
+	}
+	s, err := NewSession(lvl, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g, err := NewGame(s, 0, dir, "1918-02:cp", "RHEIN", false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := g.StepPlayer(&Coach{}); err != nil {
+		t.Fatal(err)
+	}
+	if err := g.Close(); err != nil {
+		t.Fatal(err)
+	}
+	r, err := maprender.New(os.DirFS("../../assets"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n, err := RenderReplay(dir, r, RenderOptions{Every: 1, Density: 2, Div: 16, Backdrop: bd})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n != 2 {
+		t.Errorf("frames %d, want 2 (opening + 1 resolution)", n)
+	}
+	for _, f := range []string{"0000.png", "0001.png"} {
+		if _, err := os.Stat(filepath.Join(dir, "frames", f)); err != nil {
+			t.Error(err)
+		}
+	}
+}
+
 // Project keeps every on-map unit for the frame renderer.
 func TestProjectUnits(t *testing.T) {
 	g := rhein(t)

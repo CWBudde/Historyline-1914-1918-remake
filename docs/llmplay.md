@@ -13,8 +13,8 @@ just llmplay prompt -dir build/review/llmplay/mygame       # state + legal order
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
 just llmplay replay -dir ...                               # verify every state hash
-just llmplay render -dir ... [-every 1] [-fps 2] [-width 1440] [-crf 28]
-                                                           # watch it: frames + game.gif + game.mp4
+just llmplay render -dir ... [-backdrop level] [-density 2] [-div 2] [-fps 2] [-width 3840] [-crf 16]
+                                                           # watch it on the painted backdrop: frames + game.mp4
 just llmplay review -dir ... -lessons LESSONS.md           # blunders -> review.md + lessons
 just llmplay gif -dir ...                                  # frames/*.png -> game.gif
 ```
@@ -71,10 +71,15 @@ game, `render` replays the transcript (hash-verified) and renders
 `game.mp4` with ffmpeg (`-width`/`-crf` trade size for quality; defaults
 1440px/CRF 28 at 2 fps — the 146-resolution win is a 73 s, 0.65 MB video;
 CRF 34 at 960px shrinks it to 0.2 MB but the units all but vanish). The GIF
-is far larger (~30 MB) and only a fallback for players without H.264. For a
-high-quality cut render with `-div 4` (native ~2248px frames) and encode at
-CRF 16: the same win is 3.3 MB — this content (a mostly static map) saturates
-x264, so even a ~8 MB budget buys nothing visible beyond that.
+is far larger (~30 MB) and only a fallback for players without H.264.
+
+With `-backdrop level` the frames use the level's painted backdrop instead of
+terrain tiles (the working tree's lossless `backdrop.png` master when present,
+otherwise the shipped JPEG); sapper-reworked hexes, units and strength pips are
+drawn over the painting. At the default density 2, `-div 2` writes the map's
+full logical resolution (4498×1920 on RHEIN), which can be encoded at 3840px
+for a high-quality cut. An explicit PNG/JPEG path may replace `level`, and
+`-gif=false` skips the comparatively huge GIF.
 Step-by-step "live" viewing without a video: `prompt` on the game dir after
 each `step`, or open the frames in any image viewer.
 

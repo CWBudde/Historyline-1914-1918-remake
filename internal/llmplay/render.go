@@ -2,6 +2,7 @@ package llmplay
 
 import (
 	"fmt"
+	"image"
 	"image/png"
 	"os"
 	"path/filepath"
@@ -11,9 +12,10 @@ import (
 
 // RenderOptions controls RenderReplay.
 type RenderOptions struct {
-	Every   int // render every Nth resolution (1 = all)
-	Density int // maprender density (2 or 4)
-	Div     int // integer downscale of the rendered frame (8 ≈ 1120px wide on RHEIN)
+	Every    int         // render every Nth resolution (1 = all)
+	Density  int         // maprender density (2 or 4)
+	Div      int         // integer downscale of the rendered frame (8 ≈ 1120px wide on RHEIN)
+	Backdrop image.Image // painted level backdrop instead of terrain tiles, nil for tiles
 }
 
 // RenderReplay replays a recorded game (verifying every state hash as
@@ -51,7 +53,13 @@ func RenderReplay(dir string, r *maprender.Renderer, o RenderOptions) (int, erro
 		return 0, err
 	}
 	write := func(n int) error {
-		img, err := RenderFrame(r, s, o.Density)
+		var img *image.NRGBA
+		var err error
+		if o.Backdrop != nil {
+			img, err = RenderFrameBackdrop(r, s, o.Density, o.Backdrop)
+		} else {
+			img, err = RenderFrame(r, s, o.Density)
+		}
 		if err != nil {
 			return err
 		}

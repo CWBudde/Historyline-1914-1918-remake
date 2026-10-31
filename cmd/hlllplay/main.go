@@ -10,7 +10,7 @@
 //	hlllplay step    -dir GAME -orders FILE   validate+play one resolution (FILE "-" = fallback)
 //	hlllplay run    [-level REF] [-out DIR] [-driver fallback|file] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hlllplay replay  -dir GAME          verify the transcript reproduces every state hash
-//	hlllplay render  -dir GAME [-every 1] [-div 8] [-fps 2] [-width 1440] [-crf 28]
+//	hlllplay render  -dir GAME [-every 1] [-density 2] [-div 8] [-backdrop level|FILE] [-fps 2] [-width 1440] [-crf 28] [-gif]
 //	                                    replay to frames/*.png + game.gif + game.mp4 (ffmpeg)
 //	hlllplay review  -dir GAME [-lessons FILE]   write review.md, append counted lessons
 //	hlllplay gif     -dir GAME [-delay 80] [-factor 2]
@@ -24,6 +24,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -370,28 +371,59 @@ func cmdReview(args []string) error {
 	return nil
 }
 
+func loadRenderBackdrop(spec, dir string) (image.Image, error) {
+	if spec != "level" {
+		return llmplay.LoadBackdrop(spec)
+	}
+	h, _, err := llmplay.ReadTranscript(dir)
+	if err != nil {
+		return nil, err
+	}
+	month, mode, err := llmplay.ParseLevelRef(h.Level)
+	if err != nil {
+		return nil, err
+	}
+	lvl, err := llmplay.ShipLevel(month, mode)
+	if err != nil {
+		return nil, err
+	}
+	return llmplay.LevelBackdrop(month, lvl)
+}
+
 func cmdRender(args []string) error {
 	fs := flag.NewFlagSet("render", flag.ExitOnError)
 	dir := fs.String("dir", "", "game dir")
 	every := fs.Int("every", 1, "render every Nth resolution")
+	density := fs.Int("density", 2, "render density (2 or 4)")
 	div := fs.Int("div", 8, "frame downscale divisor (8: about 1120px wide on RHEIN)")
+	backdrop := fs.String("backdrop", "", "painted backdrop instead of terrain tiles: \"level\" for the level's own, or a PNG/JPEG file")
+	gif := fs.Bool("gif", true, "also stitch game.gif from the frames")
 	fps := fs.Int("fps", 2, "video frames per second")
 	width := fs.Int("width", 1440, "video width in pixels (height follows the map)")
 	crf := fs.Int("crf", 28, "x264 quality (higher = smaller file; 34 makes units vanish)")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
+	var bd image.Image
+	if *backdrop != "" {
+		var err error
+		if bd, err = loadRenderBackdrop(*backdrop, *dir); err != nil {
+			return err
+		}
+	}
 	r, err := maprender.New(os.DirFS("assets"))
 	if err != nil {
 		return err
 	}
-	n, err := llmplay.RenderReplay(*dir, r, llmplay.RenderOptions{Every: *every, Density: 2, Div: *div})
+	n, err := llmplay.RenderReplay(*dir, r, llmplay.RenderOptions{Every: *every, Density: *density, Div: *div, Backdrop: bd})
 	if err != nil {
 		return err
 	}
 	fmt.Printf("frames: %d in %s\n", n, filepath.Join(*dir, "frames"))
-	if gn, err := llmplay.WriteGIF(*dir, 100/max(*fps, 1), 1); err == nil {
-		fmt.Printf("game.gif: %d frames\n", gn)
+	if *gif {
+		if gn, err := llmplay.WriteGIF(*dir, 100/max(*fps, 1), max(1, 8/max(*div, 1))); err == nil {
+			fmt.Printf("game.gif: %d frames\n", gn)
+		}
 	}
 	ffmpeg, err := exec.LookPath("ffmpeg")
 	if err != nil {

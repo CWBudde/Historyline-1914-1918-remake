@@ -1,21 +1,27 @@
 package llmplay
 
 import (
+	"bytes"
 	"fmt"
 	"image"
 	"image/color"
 	"image/color/palette"
 	"image/draw"
 	"image/gif"
+	_ "image/jpeg"
 	"image/png"
+	"io/fs"
 	"os"
+	"path"
 	"path/filepath"
 	"slices"
+	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
+	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // Project turns the omniscient TrueView into a level maprender can draw:
@@ -97,6 +103,42 @@ func pip(img *image.NRGBA, c hexgrid.Coord, size, full, density int, col color.C
 	draw.Draw(img, image.Rect(x0, y0, x0+fill, y0+h), &image.Uniform{col}, image.Point{}, draw.Src)
 }
 
+// LoadBackdrop decodes a PNG or JPEG backdrop image from disk.
+func LoadBackdrop(file string) (image.Image, error) {
+	raw, err := os.ReadFile(file)
+	if err != nil {
+		return nil, err
+	}
+	img, _, err := image.Decode(bytes.NewReader(raw))
+	if err != nil {
+		return nil, fmt.Errorf("llmplay: backdrop %s: %w", file, err)
+	}
+	return img, nil
+}
+
+// LevelBackdrop loads a shipped level's painted backdrop. A working
+// tree's lossless backdrop.png master is preferred when present (the
+// hlllplay command runs from the repo root); otherwise the shipped
+// embedded JPEG is used.
+func LevelBackdrop(month string, lvl *level.Level) (image.Image, error) {
+	if lvl == nil || lvl.Extra.Backdrop == "" {
+		return nil, fmt.Errorf("llmplay: shipped level %s has no backdrop", month)
+	}
+	master := filepath.Join("levels", month, strings.TrimSuffix(lvl.Extra.Backdrop, filepath.Ext(lvl.Extra.Backdrop))+".png")
+	if _, err := os.Stat(master); err == nil {
+		return LoadBackdrop(master)
+	}
+	raw, err := fs.ReadFile(levels.Levels, path.Join(month, lvl.Extra.Backdrop))
+	if err != nil {
+		return nil, err
+	}
+	img, _, err := image.Decode(bytes.NewReader(raw))
+	if err != nil {
+		return nil, fmt.Errorf("llmplay: backdrop %s: %w", lvl.Extra.Backdrop, err)
+	}
+	return img, nil
+}
+
 // RenderFrame draws the current true state at density (2 or 4) with a
 // strength pip per unit: green for side 0, red for side 1, grey neutral.
 func RenderFrame(r *maprender.Renderer, s *dosplay.Session, density int) (*image.NRGBA, error) {
@@ -104,13 +146,33 @@ func RenderFrame(r *maprender.Renderer, s *dosplay.Session, density int) (*image
 	if err != nil {
 		return nil, err
 	}
+	addPips(m.Image, s, density)
+	return m.Image, nil
+}
+
+// RenderFrameBackdrop is RenderFrame on the level's painted backdrop
+// instead of the terrain tiles, with sapper-reworked hexes and units
+// (and strength pips) over the painting.
+func RenderFrameBackdrop(r *maprender.Renderer, s *dosplay.Session, density int, backdrop image.Image) (*image.NRGBA, error) {
+	reworked := map[hexgrid.Coord]bool{}
+	for at := range s.Reworked() {
+		reworked[at] = true
+	}
+	m, err := r.RenderBackdrop(Project(s), density, backdrop, reworked)
+	if err != nil {
+		return nil, err
+	}
+	addPips(m.Image, s, density)
+	return m.Image, nil
+}
+
+func addPips(img *image.NRGBA, s *dosplay.Session, density int) {
 	cols := [3]color.Color{
 		color.NRGBA{40, 200, 60, 255}, color.NRGBA{230, 50, 40, 255}, color.NRGBA{170, 170, 170, 255},
 	}
 	for at, u := range s.TrueView().Units {
-		pip(m.Image, at, u.Size, u.Full, density, cols[u.Side])
+		pip(img, at, u.Size, u.Full, density, cols[u.Side])
 	}
-	return m.Image, nil
 }
 
 // Downscale box-averages img by an integer factor (1 keeps it). A
