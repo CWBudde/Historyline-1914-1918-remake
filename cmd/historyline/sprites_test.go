@@ -77,7 +77,7 @@ func TestUnitSpentAfterActing(t *testing.T) {
 }
 
 // testCatalog is a complete unit catalog of transparent sprites in the layout of
-// hlasset build-units, optionally without one family or one sprite ID.
+// hl assets build-units, optionally without one family or one sprite ID.
 func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
 	t.Helper()
 	fsys := fstest.MapFS{}

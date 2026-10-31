@@ -12,7 +12,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// screenDensities are the densities of the screen catalog (hlasset
+// screenDensities are the densities of the screen catalog (hl assets
 // build-screens): the paintings have no 4x.
 var screenDensities = []int{1, 2}
 

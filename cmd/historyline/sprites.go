@@ -16,7 +16,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// spriteDensities are the unit pack densities the game loads: what hlasset
+// spriteDensities are the unit pack densities the game loads: what hl assets
 // build-units writes, but only 2x in the web build, which downloads its packs
 // and cannot afford the 4x ones.
 var spriteDensities = func() []int {
@@ -27,7 +27,7 @@ var spriteDensities = func() []int {
 }()
 
 // terrainDensities are the terrain pack densities the game loads: the sprite
-// densities plus the 1x packs hlasset build-terrain derives from the 2x ones,
+// densities plus the 1x packs hl assets build-terrain derives from the 2x ones,
 // so a zoomed-out map is not drawn from half-sized 2x tiles.
 var terrainDensities = append([]int{1}, spriteDensities...)
 

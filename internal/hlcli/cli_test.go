@@ -26,6 +26,7 @@ func TestHelpWithoutDisplay(t *testing.T) {
 		"export unit-topview", "export unit-squad", "export unit-panel", "export interface", "export generate",
 		"review", "review art", "review reference", "review candidates", "review gallery",
 		"levels", "levels extract", "levels campaign", "levels backdrop", "levels backdrop jpeg", "levels backdrop check",
+		"web", "artbook", "manual",
 		"llmplay", "llmplay new", "llmplay prompt", "llmplay step", "llmplay run",
 		"llmplay replay", "llmplay render", "llmplay review", "llmplay gif",
 		"preview", "preview effects", "serve",

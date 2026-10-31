@@ -41,7 +41,7 @@ _build-dir:
 
 art_flags := "-units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates"
 
-# Build the unit, terrain and screen packs into build/packs where their art or hlasset changed; pass e.g. -only terrain
+# Build the unit, terrain and screen packs into build/packs where their art or `hl assets` changed; pass e.g. -only terrain
 packs *args: _build-dir
     go run ./cmd/hl assets packs -out build/packs {{args}}
 
@@ -107,23 +107,9 @@ wasm:
     GOOS=js GOARCH=wasm go build -o bin/{{binary}}.wasm ./cmd/historyline
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" bin/
 
-# Build the web demo (index.html, wasm, loader and the 2x art packs) into build/web; pass a port to serve it
-# Each art catalog is served twice: packs/<c>-lite/ (JPEG and WebP, hlasset lite), which the game boots from, and
-# packs/<c>/ (the PNGs), which it loads in the background on a fast connection.
-# build.json holds a content hash the page adds to every URL, so a cached old file never meets a new one, and
-# the size of the wasm for the loading bar.
-web port="": packs
-    mkdir -p build/web
-    GOOS=js GOARCH=wasm go build -o build/web/{{binary}}.wasm ./cmd/historyline
-    cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" web/index.html build/web/
-    rm -rf build/web/packs && mkdir -p build/web/packs/units build/web/packs/terrain build/web/packs/screens
-    cp -al build/packs/units/2x build/web/packs/units/
-    cp -al build/packs/terrain/1x build/packs/terrain/2x build/web/packs/terrain/
-    cp -al build/packs/screens/1x build/packs/screens/2x build/web/packs/screens/
-    for c in units terrain screens; do go run ./cmd/hl assets lite -in build/web/packs/$c -out build/web/packs/$c-lite; done
-    for c in units terrain screens units-lite terrain-lite screens-lite; do (cd build/web/packs/$c && find . -type f ! -name files.txt -printf '%s %P\n' | sort -k2 > files.txt); done
-    cd build/web && rm -f version.txt && printf '{"version":"%s","wasm":%s}\n' "$(find historyline.wasm wasm_exec.js packs -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-16)" "$(stat -c %s historyline.wasm)" > build.json
-    if [ -n "{{port}}" ]; then go run ./cmd/hl serve -dir build/web -addr localhost:{{port}}; fi
+# Build the web demo (page, wasm, loader and the art packs, each catalog as PNGs and as compressed lite files) into build/web; pass a port to serve it
+web port="":
+    go run ./cmd/hl web {{ if port != "" { "-port " + port } else { "" } }}
 
 # Everything CI checks, each test once
 ci: lint test build build-tools wasm art-check reference-check
@@ -152,27 +138,8 @@ levels-campaign:
     go run ./cmd/hl levels campaign
 
 # Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
-artbook: _build-dir
-    #!/usr/bin/env sh
-    set -eu
-    mkdir -p build/artbook
-    rm -rf build/artbook/shore
-    go run ./cmd/hl review art -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
-    go run ./cmd/hl art pulse -out build/artbook/pulse
-    go run ./cmd/hl review reference -look-out build/artbook/look
-    go run ./cmd/hl art map -level levels/1914-10:cp -out build/artbook/winter
-    go run ./cmd/hl art map -level levels/1914-12:cp -out build/artbook/winter3
-    go run ./cmd/hl art map -level levels/1914-08:cp -out build/artbook/campaign/summer
-    go run ./cmd/hl art map -level levels/1916-10:cp -out build/artbook/campaign/winter
-    go run ./cmd/hl art map -level levels/1916-06:ec -out build/artbook/campaign/sea
-    go run ./cmd/hl art map -level levels/1917-01:2p -out build/artbook/campaign/harbour
-    go run ./cmd/hl review reference -compare build/artbook/compare -compare-format png
-    compare=""
-    if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi
-    style=false
-    if [ -f art/style.md ]; then style=true; fi
-    {{manual_typst}} --input pulse=/build/artbook/pulse --input look=/build/artbook/look --input winter=/build/artbook/winter --input winter3=/build/artbook/winter3 --input campaign=/build/artbook/campaign --input shore=/build/artbook/shore --input compare=$compare --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
-    echo build/artbook/Historyline_Art.pdf
+artbook:
+    go run ./cmd/hl artbook
 
 # Render the PULSE reference design review (needs the local RefDesign2.png) into build/review/reference
 reference: _build-dir
@@ -207,24 +174,14 @@ gfx-study *args: packs
     go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
     go run ./cmd/hl review gallery -captures "$study_dir/captures" "$@"
 
-manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"
-manual_typst := "typst compile --root . --font-path docs/manual/fonts"
-
 # Extract the original manual's pictures into the ignored build/manual/img/
-manual-images: _build-dir
-    mkdir -p build/manual/img
-    pdfimages -all -p {{manual_pdf}} build/manual/img/img
+manual-images:
+    go run ./cmd/hl manual -images
 
 # Build the reconstructed manual (with pictures when the original PDF is present)
-manual: _build-dir
-    #!/usr/bin/env sh
-    set -eu
-    mkdir -p build/manual
-    images=false
-    if [ -f "{{manual_pdf}}" ]; then just manual-images; images=true; fi
-    {{manual_typst}} --input images=$images docs/manual/manual.typ build/manual/Historyline_1914-1918_Manual.pdf
-    echo "build/manual/Historyline_1914-1918_Manual.pdf (images=$images)"
+manual:
+    go run ./cmd/hl manual
 
 # Rebuild the manual on every change (run `just manual-images` once first)
 manual-watch:
-    typst watch --root . --font-path docs/manual/fonts --input images=true docs/manual/manual.typ build/manual/Historyline_1914-1918_Manual.pdf
+    go run ./cmd/hl manual -watch

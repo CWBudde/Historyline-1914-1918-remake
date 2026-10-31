@@ -26,7 +26,7 @@ import (
 // (drawTerrain); overlays keep a transparent border.
 const tilePad = 3
 
-// terrainGroups are the pack groups hlasset build-terrain writes; the optional
+// terrainGroups are the pack groups hl assets build-terrain writes; the optional
 // groups only when the catalog has standing items or cluster stamps.
 var (
 	terrainGroups  = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}

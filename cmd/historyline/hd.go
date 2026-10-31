@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// The web build boots from compressed art catalogs (hlasset lite). When they
+// The web build boots from compressed art catalogs (hl assets lite). When they
 // arrived fast enough, it loads the full-quality catalogs in the background and
 // swaps them in: the unit and screen art while the menus run, a battle's terrain
 // while it is played.

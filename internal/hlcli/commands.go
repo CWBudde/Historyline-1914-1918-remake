@@ -49,5 +49,8 @@ func commands() command {
 			"Start a recorded game", "Print the current phase prompt", "Apply one atomic batch of orders", "Play a recorded game through a driver", "Verify every replay state hash", "Render replay frames and video", "Write the game review and counted lessons", "Encode recorded frames as a GIF")...),
 		group("preview", "Native graphics previews", leaf("effects", "Preview unit movement and effects (requires a graphics display)", previewEffects)),
 		leaf("serve", "Serve the local web demo", webServer),
+		leaf("web", "Build the web demo into build/web (-port serves it)", webBuild),
+		leaf("artbook", "Render the art book PDF into build/artbook (needs typst)", artbook),
+		leaf("manual", "Build the reconstructed manual PDF (needs typst; -images, -watch)", manual),
 	)
 }

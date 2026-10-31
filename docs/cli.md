@@ -28,6 +28,9 @@ The existing `just` shortcuts use `hl` too.
 | `llmplay` | `new`, `prompt`, `step`, `run`, `replay`, `render`, `review`, `gif` |
 | `preview` | `effects` |
 | `serve` | Local HTTP file server |
+| `web` | Build the web demo into `build/web` (`-port 8080` serves it) |
+| `artbook` | Render `build/artbook/Historyline_Art.pdf` (needs `typst`) |
+| `manual` | Build the reconstructed manual PDF (needs `typst`; `-images` extracts the original's pictures with `pdfimages`, `-watch` rebuilds on change) |
 
 Existing tool flags, defaults, manifests and output formats are preserved.
 Backdrop flags follow the action: `hl levels backdrop jpeg -levels levels -q 95

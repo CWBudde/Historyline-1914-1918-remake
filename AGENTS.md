@@ -22,18 +22,19 @@ go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml); just lint-fix applies its fixes
 just fmt         # treefmt (treefmt.toml): gofumpt, gci, typstyle, prettier, shfmt; just fix = lint-fix + fmt
 just check-formatted  # fails if just fmt would change a tracked file (formats a copy)
-just run         # play; just play uses the candidate art; just build -> bin/; just web 8080
+just run         # play; just play uses the candidate art; just build -> bin/; just web 8080 (hl web -port 8080)
 just play-original  # just play, with F8 switching to the original tiles and units from the local original/ (-tags origtiles)
 just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates
-just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
+just artbook     # hl artbook: build/artbook/Historyline_Art.pdf (needs typst)
 just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin/hl + native preview helper
 ```
 
 ## Architecture
 
-- `cmd/hl`, `internal/hlcli`: the unified developer CLI (`docs/cli.md`). Commands
-  call the tooling packages in `internal/` and `tools/` directly; the native effects
-  preview and explicit tagged authoring generators run as child processes.
+- `cmd/hl`, `internal/hlcli`: the one developer CLI (`docs/cli.md`); the `justfile` only forwards to it
+  and wraps lint, fmt and test. Commands call the tooling packages in `internal/` and `tools/` directly
+  (`hl web`, `hl artbook`, `hl manual` orchestrate other commands); the native effects preview
+  (`cmd/hleffectpreview`) and explicit tagged authoring generators run as child processes.
 - `cmd/historyline`: the Ebitengine front end; `shell.go` holds the menus around a battle, `app.go` runs
   and draws them.
 - `internal/game`: rules engine with **no rendering**; UI and AI drive it through commands
@@ -54,7 +55,7 @@ just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
   costs towards the enemy HQ and units, takes buildings on its way and queues the attacks the exact battle
   outcome favours; `PlayOut`.
-- `internal/llmplay` + `internal/hlllplay` (`just llmplay`, `docs/llmplay.md`): an external agent plays a shipped
+- `internal/llmplay` + `internal/hlllplay` (`hl llmplay`, `just llmplay`, `docs/llmplay.md`): an external agent plays a shipped
   level against `dosai` through fair text prompts (legal orders with exact `Engage` gains and threat
   warnings) and atomic JSONL orders; every game is recorded (replayable transcript, per-resolution save,
   optional frames/GIF) and reviewed into counted `LESSONS.md` patterns.
@@ -75,12 +76,12 @@ just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin
   page (`news.json`, `internal/campaign`) and optionally its backdrop, a painting of the whole ground
   (`backdrop.jpg`) that the game draws in place of the terrain tiles (painted in stitched sections,
   `docs/painted-backdrops.md`; its lossless source `backdrop.png` beside it is not embedded, and
-  `internal/hlbackdrop` encodes it to the JPEG and checks); `File.Level` turns a setup into a `level.Level`.
+  `hl levels backdrop jpeg|check` (`internal/hlbackdrop`) encodes it to the JPEG and checks); `File.Level` turns a setup into a `level.Level`.
   The campaign runs from August 1914 to the armistice in November 1918: the original campaign maps take
   the first month of each two-month period, their CP version's terrain; the original two-player maps
   fill the months between from March 1915 and those after June 1918 but October (cp their units, ec
-  and 2p from it); 1914-09, 1914-11, 1915-01 and 1918-10 are newly authored. `just
-  levels-campaign` (`internal/hlcampaign`) writes the original maps' months from the local original maps and
+  and 2p from it); 1914-09, 1914-11, 1915-01 and 1918-10 are newly authored. `hl levels campaign`
+  (`just levels-campaign`, `internal/hlcampaign`) writes the original maps' months from the local original maps and
   overwrites hand edits there (backdrops and front pages stay). The menu campaign is a chain per side
   through the months; `-level 1914-08:ec` plays one setup. The notes on the page of new units are
   `internal/data/notes.json`.
@@ -88,17 +89,17 @@ just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin
   `art/style.md`, bundle manifests in `art/pipeline/`, the PULSE reference in `art/reference/pulse/`.
   Art guide: `art/README.md`. `assets/<kind>/<family>/`: runtime art only, every file listed in
   `assets/index.json` with its art key.
-- `internal/hlart`: writes and checks the generated `art/index.json` (prompts, masters, runtime files and IDs);
+- `internal/hlart` (`hl art`): writes and checks the generated `art/index.json` (prompts, masters, runtime files and IDs);
   `docs/artbook/` renders it with Typst as the art book.
-- `internal/assets`, `internal/mapcompose`, `internal/unitsprite`, `internal/hlasset`: runtime art packs built
+- `internal/assets`, `internal/mapcompose`, `internal/unitsprite`, `internal/hlasset` (`hl assets`): runtime art packs built
   from `assets/index.json` (screen packs add the `art/screens` paintings) and map composition
   (`docs/runtime-assets.md`). `internal/maprender` draws a whole level with the runtime art (the art book's
-  PULSE map, `hlgallery`'s PULSE study). `internal/waterdepth` shades open water by the original's depths
+  PULSE map, the PULSE study of `hl review gallery`). `internal/waterdepth` shades open water by the original's depths
   (`water`, `waterDeep`, `waterSea`) as one smooth field, blends in the open sea's material and lays surf
   along sea coasts, in the game and in `maprender`.
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
-  tool tests. `internal/hlgallery` is the local comparison desk (`just gfx-game-review`). `tools/candidate-review`
+  tool tests. `hl review gallery` (`internal/hlgallery`) is the local comparison desk (`just gfx-game-review`). `tools/candidate-review`
   renders unused imagegen candidates in game context (units on the map, portraits in the panel) for a
   keep/delete decision page under `build/review/candidates/site`.
 
