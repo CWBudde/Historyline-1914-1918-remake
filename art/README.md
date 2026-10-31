@@ -11,6 +11,7 @@ reconstructions of them.
 | `art/<kind>/<family>/` | Selected masters of one art family plus its `prompt.md` |
 | `art/style.md` | Shared prompt preamble and style rules per kind |
 | `art/direction.md` | Terrain art direction: verdict, scale and value targets, prompt kit for new images |
+| `art/tileset.md` | Tile families per season (summer, winter, autumn, spring) and the order of the new seasons |
 | `art/pipeline/*.json` | Export manifests (sources pinned by SHA-256, repository-relative) |
 | `art/pipeline/contexts/*.json` | Ground, forest and hills context profiles (neighbours, phase, key) |
 | `art/reference/pulse/` | PULSE reference design: families, exemplar cells, features and notes |

@@ -95,6 +95,8 @@ the replaced family back to `candidate`/`revised` on new-master install.
       100–150 %, zoom 0.75–2; check halos, bleed, repetition, cracks, picking, text.
 - [ ] 2.11 Performance: name baseline hardware; 60 FPS (p95 ≤ 16.7 ms) on the stress map; startup time,
       download size and texture memory. Ship 4× only if it passes the same review.
+- [ ] 2.12 Autumn, then spring: season per map, seasonal IDs with summer fallback, then the tile families in
+      the order of [art/tileset.md](art/tileset.md).
 
 #### Terrain look: order of work
 
