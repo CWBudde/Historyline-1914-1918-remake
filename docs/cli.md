@@ -18,19 +18,33 @@ Each group and command accepts `--help`; `hl help art map` also works. Run
 commands from the repository root unless specifying their input/root paths.
 The existing `just` shortcuts use `hl` too.
 
-| Group | Commands |
-| --- | --- |
-| `art` | `index`, `check`, `thumbs`, `pulse`, `map` |
-| `assets` | `build`, `build-units`, `build-terrain`, `build-screens`, `packs`, `lite`, `terrain-gaps`, `validate` |
-| `export` | `materials`, `kits`, `terrain-stamps`, `unit-topview`, `unit-squad`, `unit-panel`, `interface`, `generate` |
-| `review` | `art`, `reference`, `candidates`, `gallery` |
-| `levels` | `extract`, `campaign`, `backdrop jpeg`, `backdrop check` |
-| `llmplay` | `new`, `prompt`, `step`, `run`, `replay`, `render`, `review`, `gif` |
-| `preview` | `effects` |
-| `serve` | Local HTTP file server |
-| `web` | Build the web demo into `build/web` (`-port 8080` serves it) |
-| `artbook` | Render `build/artbook/Historyline_Art.pdf` (needs `typst`) |
-| `manual` | Build the reconstructed manual PDF (needs `typst`; `-images` extracts the original's pictures with `pdfimages`, `-watch` rebuilds on change) |
+| Command | Purpose | `just` shortcut |
+| --- | --- | --- |
+| `art index` / `check` | Write / validate the generated `art/index.json` (prompts, masters, runtime files) | `art-index`, `art-check` |
+| `art thumbs` / `pulse` / `map` | Catalogue thumbnails; the PULSE reference map; a level with a detail crop | |
+| `assets packs` | Update the changed runtime packs (`-out build/packs`) | `packs` |
+| `assets build` / `build-units` / `build-terrain` / `build-screens` | Build one pack kind: interface, units, terrain, screens | |
+| `assets lite` | Compress packs for the web build | |
+| `assets terrain-gaps` / `validate` | Report missing terrain clusters; validate a pack | |
+| `export materials` / `kits` / `terrain-stamps` | Periodic world materials; world kits (`-install` writes runtime cells); pinned terrain cut-outs | |
+| `export unit-topview` / `unit-squad` / `unit-panel` / `interface` | Unit families, squad atlas, inspector panel, interface and effect candidates | |
+| `export generate` | Explicit authoring hooks, see below | |
+| `review art` | Comparisons and candidate bundles from a manifest (`-ground`, `-out`) | `gfx-review` |
+| `review reference` | Check or render the PULSE reference design | `reference`, `reference-check`, `look-check` |
+| `review candidates` | Raw candidates beside installed art | |
+| `review gallery` | Comparison desk, composer and PULSE study | `gfx-game-review`, `gfx-study` |
+| `levels extract` | Extract the local original maps as level JSON | |
+| `levels campaign` | Write the campaign folders from the original maps; overwrites setups, keeps backdrops and front pages | `levels-campaign` |
+| `levels backdrop jpeg` / `check` | Encode `backdrop.png` to `backdrop.jpg`; check the backdrops | `backdrop-jpeg` |
+| `llmplay new` / `prompt` / `step` / `run` | Start a recorded game; print the phase prompt; apply one batch of orders; drive a game ([llmplay](llmplay.md)) | `llmplay` |
+| `llmplay replay` / `render` / `review` / `gif` | Verify state hashes; frames and video; lessons; GIF | |
+| `preview effects` | Unit movement and effects preview (needs a display) | |
+| `serve` | Local HTTP file server (`-dir`, `-addr`) | |
+| `web` | Build the web demo into `build/web`; `-port 8080` serves it | `web` |
+| `artbook` | Render `build/artbook/Historyline_Art.pdf` (needs `typst`) | `artbook` |
+| `manual` | Build the reconstructed manual PDF (needs `typst`); `-images` extracts the original's pictures with `pdfimages`, `-watch` rebuilds on change | `manual`, `manual-images`, `manual-watch` |
+
+`hl <command> --help` lists the flags of each command.
 
 Existing tool flags, defaults, manifests and output formats are preserved.
 Backdrop flags follow the action: `hl levels backdrop jpeg -levels levels -q 95
