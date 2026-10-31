@@ -38,8 +38,8 @@ func auditFamily(id string) string {
 }
 
 // Winter maps (Civil, Mouse and the winter campaign maps) draw no summer
-// water, shore, road or other infrastructure whose winter form exists
-// (PLAN.md L7.6). The test logs every family still drawn in summer form.
+// water, shore, road or other infrastructure whose winter form exists.
+// The test logs every family still drawn in summer form.
 func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
 	raw, err := os.ReadFile("../../assets/index.json")
 	if err != nil {
