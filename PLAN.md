@@ -634,6 +634,8 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       (stone, mountains, trenches) until it is repainted. CIVIL (`1914-10`, a wet late October) was
       painted from the Python remake's map 2 and touched up to the month's map (stones, an
       emplacement under each `cp` bunker on its crater hex); trenches in 9 hexes and one rough hex still follow the old map.
+      Flanders (`1918-10`) has a placeholder until it is painted: the tile render of its ground at the
+      painted maps' density (`TestMonthlyFlanders`).
       Open: paintings for the other maps, a render mode switch between tiles and painting in the game.
 - [ ] 5.11 Terrain art for the original maps: `hlasset terrain-gaps` over every shipped map finds every
       context, but crater and boulder clusters without an installed stamp of their own (the stamps

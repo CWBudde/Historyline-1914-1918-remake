@@ -130,6 +130,10 @@ daylight after overnight rain, at the same density. Both path loops stay continu
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
+Flanders (`1918-10`, 7737×6605) ships a placeholder: the layout guide below, the tile render of its
+ground at 1.72 image px per world px, its border notches filled from the ground beside them. Painted,
+it takes 56 sections: PAUSE's columns and CANDL's rows.
+
 Ypres (`1914-11`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
 middle stays plain; the map edges, where no units start, carry the invention: ploughland, hedgerows,

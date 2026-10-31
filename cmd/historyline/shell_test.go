@@ -618,6 +618,13 @@ func TestMonthlyFlanders(t *testing.T) {
 	if p, ok := cp.news(); !ok || p.Label != "October 1918" || cp.winter {
 		t.Fatalf("news %+v ok %v, winter %v", p, ok, cp.winter)
 	}
+	bd, err := levelBackdrop(t.TempDir(), cp.lvl.Extra.Backdrop)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := bd.on(cp.lvl.Grid()); err != nil {
+		t.Fatalf("backdrop %s: %v", cp.lvl.Extra.Backdrop, err)
+	}
 	// Every unit type of the game takes part, on the map or in a building.
 	set := testSet(t)
 	seen := map[string]bool{}
