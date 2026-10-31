@@ -1,0 +1,95 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-longhouse-summer-v1.png",
+        "source_sha256": "8788a9e85ca990bd99acac3ec4af3825ef76791f078669c2584ca7ca14e20466"
+      },
+      "id": "hamlet2-summer",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-longhouse-winter-v1.png",
+        "source_sha256": "e474d9f18f18e1a5dc5675282e1a9482696522eaf3c0187b54dfb36eab4b6f2e"
+      },
+      "id": "hamlet2-winter",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-cottage-summer-v1.png",
+        "source_sha256": "ccc0e7398dc0931009e90c1481512bd3368814f0af5b2df5eddadba8e0a62437"
+      },
+      "id": "hamlet3-summer",
+      "inset": 0.7
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-cottage-winter-v1.png",
+        "source_sha256": "1c050a35c655b8fe955be2a32157cc4404454773d7884c95022c317921e8123b"
+      },
+      "id": "hamlet3-winter",
+      "inset": 0.7
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-stonefarm-summer-v1.png",
+        "source_sha256": "76d968800715ee0101a3526dd7721dbf76c7bd6df2022aa8d56437d30d0a3ec9"
+      },
+      "id": "hamlet4-summer",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-stonefarm-winter-v1.png",
+        "source_sha256": "8dd843cca4158e77e1726792092b0982fb88d2a9fddb2c5cf1a2ccfecc2c8b5e"
+      },
+      "id": "hamlet4-winter",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-courtyard-summer-v1.png",
+        "source_sha256": "d6768f527765d33663854d5b8c19df5b8328c0eaf7f38a63e0b86942b4da7196"
+      },
+      "id": "hamlet5-summer",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-courtyard-winter-v1.png",
+        "source_sha256": "8bf0fb91ef6ca128773430ee0f51451bb3ac5167d53a3adf8a349443e9b65e21"
+      },
+      "id": "hamlet5-winter",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-windmill-summer-v1.png",
+        "source_sha256": "5e42bf9cef15e9e24f6da5483fba3fa3244cee9d50234bce3bda8871341c7b53"
+      },
+      "id": "hamlet6-summer",
+      "inset": 0.8
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/house-windmill-winter-v1.png",
+        "source_sha256": "ba938e1a837a0e88c55328e1257a69b7012c8cea3d3e7f8b5ed96387acc22e2f"
+      },
+      "id": "hamlet6-winter",
+      "inset": 0.8
+    }
+  ],
+  "schema_version": 1
+}

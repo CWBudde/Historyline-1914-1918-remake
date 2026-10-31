@@ -177,7 +177,9 @@ func TestLabRoundTrip(t *testing.T) {
 }
 
 // The shipped summer building tiles come to the direction's b* 16 where they
-// differ from the meadow.
+// differ from the meadow. The house variants (house2 …) carry their own
+// gardens, trees and yards, which keep the land's grade: brought to b* 16
+// they would turn grey against the meadow, so only the hut is held to it.
 func TestShippedBuildings(t *testing.T) {
 	load := func(name string) image.Image {
 		f, err := os.Open(filepath.Join("../../assets/terrain", name))
@@ -200,7 +202,7 @@ func TestShippedBuildings(t *testing.T) {
 		}
 		var n, painted, graded float64
 		for _, f := range files {
-			if strings.HasSuffix(f, "_w-2x.png") {
+			if strings.HasSuffix(f, "_w-2x.png") || family == "house" && filepath.Base(f) != "house-2x.png" {
 				continue
 			}
 			src := Grade(load(filepath.Join(family, filepath.Base(f))), "x", "none", nil)

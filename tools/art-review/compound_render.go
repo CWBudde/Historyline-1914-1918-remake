@@ -43,7 +43,10 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	case "mountain-single-summer", "mountain-single-winter":
 		l.Layout = "mountain-single"
 		l.Width, l.Height, l.EntryCell = 96, 80, ""
-	case "hamlet-summer", "hamlet-winter":
+	case "hamlet-summer", "hamlet-winter", "hamlet2-summer", "hamlet2-winter", "hamlet3-summer", "hamlet3-winter",
+		"hamlet4-summer", "hamlet4-winter", "hamlet5-summer", "hamlet5-winter", "hamlet6-summer", "hamlet6-winter",
+		"hamlet7-summer", "hamlet7-winter", "hamlet8-summer", "hamlet8-winter":
+		// hamletN is the house variant houseN (mapcompose.MaxHouseVariants).
 		l.Layout = "hamlet"
 		l.Width, l.Height, l.EntryCell = 96, 80, ""
 	case "water-stones":
@@ -65,7 +68,8 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 		return l, nil
 	}
 	if l.Layout == "hamlet" {
-		l.Tiles = []compoundTile{{Cell: "C", RuntimeID: "house" + suffix, Origin: connectionPoint{0, 0}}}
+		variant := strings.TrimPrefix(strings.TrimSuffix(strings.TrimSuffix(id, "-summer"), "-winter"), "hamlet")
+		l.Tiles = []compoundTile{{Cell: "C", RuntimeID: "house" + variant + suffix, Origin: connectionPoint{0, 0}}}
 		return l, nil
 	}
 	cells := []string{"N", "W", "E", "S"}

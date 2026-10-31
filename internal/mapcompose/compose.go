@@ -141,6 +141,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			}
 		}
 	}
+	s.varyHouses(at, has)
 	s.registerCompounds(at, has)
 	s.registerClusters(at, has)
 	s.scatterCrowns(at, has)
@@ -159,8 +160,11 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 }
 
 // baseTile is the default tile of terrain on hex (line, col): a grass variation
-// where the catalog has one.
+// or a house variant where the catalog has one.
 func baseTile(terrain string, line, col int, has func(string) bool) string {
+	if id, ok := houseTile(terrain, line, col, has); ok {
+		return id
+	}
 	if terrain == "grass" {
 		if id := GrassVariationID(line, col); has(id) {
 			return id

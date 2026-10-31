@@ -387,6 +387,10 @@ stones.
       - H4–H6, three house variants chosen by seed: detached hut with a brown roof, a small shed and a
         trodden yard, overhanging into the meadow. Exemplars `r2c6`, `r22c5`, `r39c2`; feature "Northern
         huts".
+        2026-10-31: five farmstead variants with winter edits stand beside the hut (`house2`–`house6`:
+        longhouse, Flemish cottage, stone farm in an L, courtyard farm, post windmill); a house hex draws one
+        of the six by its coordinates, never the same as a house beside it on an earlier line
+        (`TestComposeHouseVariants`, `TestComposeHousesDiffer`). Their front walls still show a few px.
 - [ ] L5.4 Done when no wall face is taller than 2 world px, the house body is 34–40 world px, and the HQ and
       depot meet their rows in the table.
 

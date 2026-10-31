@@ -93,7 +93,9 @@ type row struct {
 
 // rows are the families with a grade of their own, by art key. Relief is darker
 // than grass. The summer buildings are painted at b* 17.1 (hq) to 19.8 (factory)
-// where they differ from the meadow; each is brought to the direction's 16.
+// where they differ from the meadow; each is brought to the direction's 16. The
+// house variants (tile/house2 …) take the hut's offset: their gardens and yards
+// would turn grey at 16.
 var rows = map[string]row{
 	"terrain/hills":    {l: -3.5},
 	"terrain/mount":    {l: -12},

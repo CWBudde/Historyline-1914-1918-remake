@@ -187,3 +187,20 @@ func TestCompoundHamletElevenSceneBound(t *testing.T) {
 		})
 	}
 }
+
+// hamletN scenes export the house variants houseN and houseN_w.
+func TestCompoundHamletVariants(t *testing.T) {
+	for id, runtime := range map[string]string{"hamlet2-summer": "house2", "hamlet4-winter": "house4_w", "hamlet8-summer": "house8"} {
+		l, err := compoundLayoutFor(id)
+		if err != nil {
+			t.Fatal(err)
+		}
+		mountainCheckLayout(t, l, mountainSceneWant{id, "hamlet", map[bool]string{false: "summer", true: "winter"}[strings.HasSuffix(id, "-winter")], 96, 80,
+			[]compoundTile{{Cell: "C", RuntimeID: runtime, Origin: connectionPoint{0, 0}}}})
+	}
+	for _, id := range []string{"hamlet1-summer", "hamlet9-summer", "hamlet2-autumn"} {
+		if _, err := compoundLayoutFor(id); err == nil {
+			t.Errorf("%s has a layout", id)
+		}
+	}
+}
