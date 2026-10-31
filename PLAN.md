@@ -36,7 +36,7 @@ history.
   density, HiDPI and fullscreen. Under `-rules dos` the original's split screen
   ([docs/dos-screen.md](docs/dos-screen.md)); under `-rules standard` the single-map HUD with minimap,
   text info box, placeholder battle panel and banners.
-- **Runtime art**: packs built by `cmd/hlasset` from `assets/index.json`; unit and terrain catalogs with
+- **Runtime art**: packs built by `internal/hlasset` from `assets/index.json`; unit and terrain catalogs with
   context-aware composition (`internal/mapcompose`), graded and lit in the pack build, with scattered crowns
   and meadow props. Interface packs build, but the game does not use them yet.
 - **AI** (`internal/ai`): greedy prototype through game commands and its own vision; plays all shipped levels.
@@ -223,7 +223,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
 - [ ] L1.7 Mask-based transitions:
       - each blending family is authored as a **tileable material** (large period, like the hills phase
         568×320) plus one **edge mask set** (six edge masks and the vertex blends, soft and irregular);
-      - the pack build (`cmd/hlasset`) composes a hex's ground from the base material, the neighbouring
+      - the pack build (`internal/hlasset`) composes a hex's ground from the base material, the neighbouring
         materials and the masks; the context key stays the cache key, so the runtime is unchanged;
       - order of materials (what lies over what): water < lakeside shore < grass < hills < stone < mud <
         forest floor; decide and record in `art/style.md`;
@@ -253,7 +253,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
 - [ ] L2.1 Forest crowns as scatter instances placed by a world density field: sizes 16/22/28 world px; cover
       ≥ 85 % in forest cells (about 25 crowns per hex) and 4–8 % in open cells; the woodland edge wanders
       −14..+10 px around the hex edge; stands of species chosen by low-frequency noise. Summer crowns
-      scatter (the nine v6 crowns of `forest-crowns-summer-v6.png` through `cmd/hlkit`, profile
+      scatter (the nine v6 crowns of `forest-crowns-summer-v6.png` through `internal/hlkit`, profile
       `art/pipeline/world-kits-v1.json`). Remaining:
       - open-cell trees at 4–8 % (the old tree props remain);
       - the edge-distance measurement;
@@ -588,7 +588,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       setup for its side. (2026-10-25) The 24 original campaign maps open their periods (1914-08 PULSE/BATLE …
       1918-06 STERN/SODOM): the CP version's map; `cp` that version, `ec` the EC version's units
       and buildings laid onto it, `2p` each side from its own campaign, with the originals'
-      credits and builds. Merge report of `cmd/hlcampaign`: 1088 EC terrain cells replaced; EC
+      credits and builds. Merge report of `internal/hlcampaign`: 1088 EC terrain cells replaced; EC
       units moved 21 (`ec`) and 96 (`2p`, mostly off hexes the CP force holds), left out 4 trains
       without rails (RIGHT) and 2 bunkers (STERN `2p`); 3 EC buildings moved to their kind's
       nearest, 14 without a match within 4 hexes left their content out (among them neutral

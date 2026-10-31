@@ -1,4 +1,4 @@
-package main
+package unittopview
 
 import (
 	"bytes"
@@ -36,7 +36,7 @@ func TestCommittedBunkerReproduces(t *testing.T) {
 		}
 		g, ok := got.(*image.NRGBA)
 		if !ok || g.Bounds() != want.Bounds() || !bytes.Equal(g.Pix, want.Pix) {
-			t.Errorf("%s differs from the manifest's build; run go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v3.json", path)
+			t.Errorf("%s differs from the manifest's build; run go run ./cmd/hl export unit-topview -manifest art/pipeline/unit-bunker-v3.json", path)
 		}
 	}
 	for _, d := range []string{"2x", "4x"} {

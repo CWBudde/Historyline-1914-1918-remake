@@ -11,7 +11,7 @@ import (
 )
 
 // authoredMonths are the hand-authored months; the others come from the
-// original maps (cmd/hlcampaign).
+// original maps (internal/hlcampaign).
 var authoredMonths = []string{"1914-09", "1914-11", "1915-01", "1918-10"}
 
 // authored are the hand-authored months' folders.

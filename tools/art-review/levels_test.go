@@ -1,4 +1,4 @@
-package main
+package artreview
 
 import "github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 

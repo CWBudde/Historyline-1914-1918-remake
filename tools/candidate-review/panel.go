@@ -1,17 +1,19 @@
-package main
+package candidatereview
 
 import (
 	"encoding/json"
 	"fmt"
 	"image"
 	"image/draw"
+	"io"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	interfaceart "github.com/CWBudde/Historyline-1914-1918-remake/tools/interface-art"
+	unitpanel "github.com/CWBudde/Historyline-1914-1918-remake/tools/unit-panel"
 )
 
 // Unit panel geometry at 2x (tools/unit-panel compose: portrait at logical
@@ -32,10 +34,8 @@ func (r *renderer) panelBase() (*image.NRGBA, error) {
 	file := filepath.Join(out, "fixtures", "cp-ready-2x.png")
 	if _, err := os.Stat(file); err != nil {
 		_ = os.RemoveAll(out)
-		cmd := exec.Command("go", "run", "./tools/unit-panel", "-manifest", "art/pipeline/unit-panel-v1.json", "-out", out)
-		cmd.Dir = r.o.root
-		if msg, err := cmd.CombinedOutput(); err != nil {
-			return nil, fmt.Errorf("unit-panel: %v: %s", err, msg)
+		if err := unitpanel.Run([]string{"-manifest", filepath.Join(r.o.root, "art/pipeline/unit-panel-v1.json"), "-out", out}, io.Discard, io.Discard); err != nil {
+			return nil, fmt.Errorf("unit-panel: %w", err)
 		}
 	}
 	img, err := loadPNG(file)
@@ -227,10 +227,8 @@ func (r *renderer) backdrop(g *group, c *candidate) error {
 		if err := os.WriteFile(file, data, 0o644); err != nil {
 			return "", err
 		}
-		cmd := exec.Command("go", "run", "./tools/interface-art", "-manifest", file, "-out", out)
-		cmd.Dir = r.o.root
-		if msg, err := cmd.CombinedOutput(); err != nil {
-			return "", fmt.Errorf("interface-art: %v: %s", err, msg)
+		if err := interfaceart.Run([]string{"-manifest", file, "-out", out}, io.Discard, io.Discard); err != nil {
+			return "", fmt.Errorf("interface-art: %w", err)
 		}
 		return out, nil
 	}

@@ -1,13 +1,13 @@
-// Command candidate-review renders raw art candidates in their game context (units
+// Package candidatereview renders raw art candidates in their game context (units
 // on the composed map, portraits in the unit panel, interface items at runtime size)
 // next to the installed art, and writes candidates.json plus media for a decision page.
-package main
+package candidatereview
 
 import (
 	_ "embed"
 	"encoding/json"
-	"flag"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -16,23 +16,9 @@ import (
 )
 
 type options struct {
+	stderr                    io.Writer
 	root, catalogue, raw, out string
 	only, decisions           string
-}
-
-func main() {
-	var o options
-	flag.StringVar(&o.root, "root", ".", "repository root")
-	flag.StringVar(&o.catalogue, "catalogue", "build/review/look-audit/agent-inventory/catalogue.tsv", "candidate catalogue (TSV)")
-	flag.StringVar(&o.raw, "raw", "build/review/candidates/raw", "local copy of the raw candidates, laid out <session>/<exec>.png")
-	flag.StringVar(&o.out, "out", "build/review/candidates/site", "output directory under build/")
-	flag.StringVar(&o.only, "only", "", "comma-separated kinds to render (unit, portrait, interface, screen, terrain, other)")
-	flag.StringVar(&o.decisions, "terrain-decisions", "build/review/candidates/terrain-decisions.tsv", "Claude's terrain decisions: exec, keep|delete, reason (TSV, optional)")
-	flag.Parse()
-	if err := run(o); err != nil {
-		fmt.Fprintln(os.Stderr, "candidate-review:", err)
-		os.Exit(1)
-	}
 }
 
 //go:embed page.html
@@ -59,6 +45,9 @@ type view struct {
 }
 
 func run(o options) error {
+	if o.stderr == nil {
+		o.stderr = io.Discard
+	}
 	if !strings.HasPrefix(filepath.ToSlash(filepath.Clean(o.out)), "build/") {
 		return fmt.Errorf("-out must be under build/")
 	}
@@ -115,7 +104,9 @@ func run(o options) error {
 		if len(kinds) > 0 && !kinds[g.Kind] {
 			continue
 		}
-		fmt.Fprintf(os.Stderr, "%s/%s: %d candidates\n", g.Kind, g.Family, len(g.Candidates))
+		if _, err := fmt.Fprintf(o.stderr, "%s/%s: %d candidates\n", g.Kind, g.Family, len(g.Candidates)); err != nil {
+			return err
+		}
 		if err := r.group(g); err != nil {
 			return fmt.Errorf("%s/%s: %w", g.Kind, g.Family, err)
 		}

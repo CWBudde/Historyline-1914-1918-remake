@@ -3,7 +3,7 @@
 // a shadow of RGB 18,26,16 that is 0.25 × the item's diameter long, at an
 // opacity by kind: crowns 0.6, rocks 0.45, buildings 0.35. Paintings carry
 // only form shading; the cast shadows come from code, here for the painted
-// shadows of the standing items and in cmd/hlkit for the scattered ones.
+// shadows of the standing items and in internal/hlkit for the scattered ones.
 package terrainlight
 
 import (
@@ -46,7 +46,7 @@ var opacities = map[string]float64{"terrain/forest": Crown}
 // Recast reports whether the asset id of art family art is a painted cast
 // shadow to be drawn by Cast instead, and of which standing item at which
 // opacity. The shadows of scattered items (standing/shadow/scatter/…) are
-// made by cmd/hlkit with this model and kept.
+// made by internal/hlkit with this model and kept.
 func Recast(id, art string) (standing string, opacity float64, ok bool) {
 	rest, shadow := strings.CutPrefix(id, "standing/shadow/")
 	if !shadow || strings.HasPrefix(rest, "scatter/") {

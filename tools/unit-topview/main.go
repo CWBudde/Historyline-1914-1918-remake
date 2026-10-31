@@ -1,23 +1,21 @@
-// Command unit-topview exports a unit family drawn from straight above, such as
+// Package unittopview exports a unit family drawn from straight above, such as
 // the bunker: one master for all six facings (a top view does not turn, so its
 // marking stays upright). The neutral master is the base; each owner's master is
 // an edit of it that paints the national insignia, of which only the centre disc
 // is inlaid into the base, so the outline never changes between owners.
 //
-//	go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v2.json
+//	go run ./cmd/hl export unit-topview -manifest art/pipeline/unit-bunker-v2.json
 //
 // writes assets/units/<family>/<palette>/<facing>-<state>-<d>x.png and re-pins
 // their assets/index.json entries; -preview DIR (under build/) also renders the
 // family on the map.
-package main
+package unittopview
 
 import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"errors"
-	"flag"
 	"fmt"
 	"image"
 	"image/png"
@@ -148,38 +146,4 @@ func build(root string, m manifest, base *image.NRGBA, log io.Writer) (map[strin
 		}
 	}
 	return files, nil
-}
-
-func run() error {
-	path := flag.String("manifest", "", "top-view unit manifest (art/pipeline/unit-<family>-v<N>.json)")
-	root := flag.String("root", ".", "repository root the manifest's sources are relative to")
-	preview := flag.String("preview", "", "also render the installed family on the map into this directory under build/")
-	flag.Parse()
-	if *path == "" || flag.NArg() != 0 {
-		return errors.New("usage: unit-topview -manifest FILE [-root DIR] [-preview build/DIR]")
-	}
-	m, base, err := readManifest(*root, *path)
-	if err != nil {
-		return err
-	}
-	files, err := build(*root, m, base, os.Stdout)
-	if err != nil {
-		return err
-	}
-	assetsDir := filepath.Join(*root, "assets")
-	if err := install(assetsDir, files); err != nil {
-		return err
-	}
-	fmt.Printf("installed %d files of unit/%s\n", len(files), m.Family)
-	if *preview != "" {
-		return renderPreview(*root, *preview, m.Family)
-	}
-	return nil
-}
-
-func main() {
-	if err := run(); err != nil {
-		fmt.Fprintln(os.Stderr, "unit-topview:", err)
-		os.Exit(1)
-	}
 }

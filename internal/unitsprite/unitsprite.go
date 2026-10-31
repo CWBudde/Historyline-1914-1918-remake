@@ -1,6 +1,6 @@
 // Package unitsprite names the runtime unit sprite catalog: the family that draws
 // each unit type, the six authored facings, the owner palette, the moved state and
-// the stable visual IDs. cmd/hlasset builds packs under these IDs and the game
+// the stable visual IDs. internal/hlasset builds packs under these IDs and the game
 // looks sprites up by them, so both sides share one table.
 package unitsprite
 

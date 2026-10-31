@@ -1,12 +1,12 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignTrenches -count=1 -v
 // Every derived trench tile the levels select (mapcompose.TrenchShape) that
 // the runtime index lacks is rendered with the connected-trench-v2 manifest,
 // written to assets/terrain/trench/ and added to assets/index.json; run
-// `go run ./cmd/hlart index` afterwards.
+// `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

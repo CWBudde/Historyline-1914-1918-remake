@@ -1,12 +1,12 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateQuayTiles -count=1 -v
 // Renders tile/quay14, quay25 and quay36 from the selected pier painting, and
 // their winter forms (quay14_w, …) from the winter pier, into
 // assets/terrain/quay/, replacing earlier exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

@@ -6,7 +6,7 @@ fixtures from real `data.Load` / `game.NewUnit` state.
 
 ```sh
 mkdir -p build/review/unit-panel
-go run ./tools/unit-panel -manifest art/pipeline/unit-panel-v1.json -out build/review/unit-panel/new
+go run ./cmd/hl export unit-panel -manifest art/pipeline/unit-panel-v1.json -out build/review/unit-panel/new
 go test ./tools/unit-panel
 ```
 

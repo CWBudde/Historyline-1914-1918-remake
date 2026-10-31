@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWinterPathsAndRails -count=1 -v
 // Renders the winter paths (tile/path*_w, connected-paths-winter-v2) into
@@ -10,7 +10,7 @@ package main
 // cross1_w..cross4_w, connected-mixed-winter-v2: the summer mixed tiles with
 // winter path, road and rail components) into assets/terrain/bridge/ and
 // assets/terrain/cross/, replacing earlier winter exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards. This generator
+// assets/index.json; run `go run ./cmd/hl art index` afterwards. This generator
 // owns every winter crossing; TestGenerateWinterRoads owns the winter roads.
 import (
 	"bytes"

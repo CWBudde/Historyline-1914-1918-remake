@@ -1,13 +1,13 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWinterTrenches -count=1 -v
 // Renders the winter form (suffix _w, connected-trench-winter-v1) of every
 // trench piece and of every derived trench the levels select
 // (mapcompose.TrenchShape, as TestGenerateCampaignTrenches lists them) into
 // assets/terrain/trench/, replacing earlier winter exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"encoding/json"
 	"path/filepath"

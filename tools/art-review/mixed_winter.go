@@ -1,4 +1,4 @@
-package main
+package artreview
 
 import (
 	"encoding/hex"

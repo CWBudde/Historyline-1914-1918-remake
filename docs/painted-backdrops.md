@@ -148,7 +148,7 @@ stitched.
 Render the level's ground with the current tile art:
 
 ```sh
-go run ./cmd/hlart map -level levels/1914-10:cp -out build/review/painted-civil/guide   # map-ground.png, 4x
+go run ./cmd/hl art map -level levels/1914-10:cp -out build/review/painted-civil/guide   # map-ground.png, 4x
 ```
 
 The render is the layout every section must follow; the tiles' flat look, hex-shaped patches and black

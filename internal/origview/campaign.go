@@ -10,7 +10,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
-// Campaign is the remake level of an imported map, what cmd/hlcampaign
+// Campaign is the remake level of an imported map, what internal/hlcampaign
 // makes the scenario setups of: the view (Level) with the map's units by remake id
 // (dosbind.RemakeIDs) and the units the container records put into the
 // buildings as the entrances' content, in record order. The level format

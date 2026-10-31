@@ -1,13 +1,13 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWinterStreams -count=1 -v
 // Renders the winter streams (tile/stream*_w, connected-stream-winter-v1) into
 // assets/terrain/stream/ and re-renders the winter stream mouths
 // (tile/<shore>-outlet<n>_w, shore-terrain-winter-v1), whose mouth now carries
 // the winter stream, into assets/terrain/lakeside/, replacing earlier winter
-// exports, and lists them in assets/index.json; run `go run ./cmd/hlart index`
+// exports, and lists them in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards.
 import (
 	"bytes"

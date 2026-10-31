@@ -1,4 +1,4 @@
-package main
+package unitpanel
 
 import (
 	"bytes"
@@ -23,7 +23,7 @@ func TestStrictInputsAndCLI(t *testing.T) {
 		t.Fatalf("inputs=%d", len(in.Items))
 	}
 	for _, args := range [][]string{{}, {"-manifest", path, "-out", "x", "extra"}, {"-manifest", path, "-out", "x", "-wat"}, {"-manifest", path, "-manifest", path, "-out", "x"}} {
-		if err := run(args); err == nil {
+		if err := Run(args, io.Discard, io.Discard); err == nil {
 			t.Fatalf("accepted args %q", args)
 		}
 	}

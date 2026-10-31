@@ -1,6 +1,6 @@
 //go:build retainedgfx
 
-package main
+package artreview
 
 // Opt-in offline authoring hook. It supplements a freshly generated ignored
 // bundle; it never promotes or modifies active art or the context profiles.

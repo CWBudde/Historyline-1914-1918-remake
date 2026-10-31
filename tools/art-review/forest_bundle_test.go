@@ -1,4 +1,4 @@
-package main
+package artreview
 
 import (
 	"bytes"
@@ -49,7 +49,7 @@ func forestTestCLIActualPNGsAndFixtureTopology(t *testing.T, canopy bool) {
 		forestTestSelectCanopyProfile(t, path)
 	}
 	out := filepath.Join(filepath.Dir(path), "bundle")
-	cmd := exec.Command("go", "run", ".", "-forest", path, "-out", out)
+	cmd := exec.Command("go", "run", "../../cmd/hl", "review", "art", "-forest", path, "-out", out)
 	if b, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("forest CLI %v: %s", err, b)
 	}

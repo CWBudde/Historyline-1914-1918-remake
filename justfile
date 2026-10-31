@@ -6,6 +6,11 @@ binary := "historyline"
 default:
     @just --list
 
+# Run any developer tool; just hl --help lists the command groups
+[positional-arguments]
+hl *args:
+    go run ./cmd/hl "$@"
+
 # Run the legacy Python remake (test reference only)
 py *args:
     cd legacy/python && python3 main.py {{args}}
@@ -16,7 +21,7 @@ run *args:
 
 # Let an LLM play a shipped level (default RHEIN, 1918-02:cp) against dosai, fully recorded; see docs/llmplay.md
 llmplay *args:
-    go run ./cmd/hlllplay {{args}}
+    go run ./cmd/hl llmplay {{args}}
 
 # Generated output lives in ignored build/: packs/<name>, web, manual,
 # review/<name>/ (studies and desks) and scratch/ (disposable). build/go.mod keeps stray
@@ -38,7 +43,7 @@ art_flags := "-units build/packs/units -terrain build/packs/terrain -screens bui
 
 # Build the unit, terrain and screen packs into build/packs where their art or hlasset changed; pass e.g. -only terrain
 packs *args: _build-dir
-    go run ./cmd/hlasset packs -out build/packs {{args}}
+    go run ./cmd/hl assets packs -out build/packs {{args}}
 
 # Play with the candidate unit, terrain and screen art
 play *args: packs
@@ -90,6 +95,12 @@ build:
     mkdir -p bin
     go build -o bin/{{binary}} ./cmd/historyline
 
+# Build the unified developer CLI and its native graphics preview helper
+build-tools:
+    mkdir -p bin
+    go build -o bin/hl ./cmd/hl
+    go build -o bin/hleffectpreview ./cmd/hleffectpreview
+
 # Build the WASM binary plus the wasm_exec.js loader
 wasm:
     mkdir -p bin
@@ -109,16 +120,16 @@ web port="": packs
     cp -al build/packs/units/2x build/web/packs/units/
     cp -al build/packs/terrain/1x build/packs/terrain/2x build/web/packs/terrain/
     cp -al build/packs/screens/1x build/packs/screens/2x build/web/packs/screens/
-    for c in units terrain screens; do go run ./cmd/hlasset lite -in build/web/packs/$c -out build/web/packs/$c-lite; done
+    for c in units terrain screens; do go run ./cmd/hl assets lite -in build/web/packs/$c -out build/web/packs/$c-lite; done
     for c in units terrain screens units-lite terrain-lite screens-lite; do (cd build/web/packs/$c && find . -type f ! -name files.txt -printf '%s %P\n' | sort -k2 > files.txt); done
     cd build/web && rm -f version.txt && printf '{"version":"%s","wasm":%s}\n' "$(find historyline.wasm wasm_exec.js packs -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-16)" "$(stat -c %s historyline.wasm)" > build.json
-    if [ -n "{{port}}" ]; then go run ./cmd/serve -dir build/web -addr localhost:{{port}}; fi
+    if [ -n "{{port}}" ]; then go run ./cmd/hl serve -dir build/web -addr localhost:{{port}}; fi
 
 # Everything CI checks, each test once
-ci: lint test build wasm art-check reference-check
+ci: lint test build build-tools wasm art-check reference-check
 
 # ci without the art tools' tests, for changes outside tools/ (a few minutes)
-check: lint test-quick build wasm art-check reference-check
+check: lint test-quick build build-tools wasm art-check reference-check
 
 # Check the art catalogue, the PULSE reference data and the art tools (no original data required)
 gfx-check: art-check reference-check
@@ -126,19 +137,19 @@ gfx-check: art-check reference-check
 
 # Regenerate art/index.json from art/<kind>/<family>/prompt.md, masters and assets/index.json
 art-index:
-    go run ./cmd/hlart index
+    go run ./cmd/hl art index
 
 # Check prompts, masters, runtime files, runtime IDs and that art/index.json is current
 art-check:
-    go run ./cmd/hlart check
+    go run ./cmd/hl art check
 
 # Write the backdrop JPEGs (levels/1914-08/backdrop.jpg) from their sources beside them (backdrop.png), at each JPEG's own quality: just backdrop-jpeg 1914-08
 backdrop-jpeg +names:
-    go run ./cmd/hlbackdrop jpeg {{names}}
+    go run ./cmd/hl levels backdrop jpeg {{names}}
 
 # Write the level folders of the original full game's maps (local original/): their months (overwrites hand edits there, keeps backdrops and front pages)
 levels-campaign:
-    go run ./cmd/hlcampaign
+    go run ./cmd/hl levels campaign
 
 # Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
 artbook: _build-dir
@@ -146,16 +157,16 @@ artbook: _build-dir
     set -eu
     mkdir -p build/artbook
     rm -rf build/artbook/shore
-    go run ./tools/art-review -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
-    go run ./cmd/hlart pulse -out build/artbook/pulse
-    go run ./tools/reference-design -look-out build/artbook/look
-    go run ./cmd/hlart map -level levels/1914-10:cp -out build/artbook/winter
-    go run ./cmd/hlart map -level levels/1914-12:cp -out build/artbook/winter3
-    go run ./cmd/hlart map -level levels/1914-08:cp -out build/artbook/campaign/summer
-    go run ./cmd/hlart map -level levels/1916-10:cp -out build/artbook/campaign/winter
-    go run ./cmd/hlart map -level levels/1916-06:ec -out build/artbook/campaign/sea
-    go run ./cmd/hlart map -level levels/1917-01:2p -out build/artbook/campaign/harbour
-    go run ./tools/reference-design -compare build/artbook/compare -compare-format png
+    go run ./cmd/hl review art -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
+    go run ./cmd/hl art pulse -out build/artbook/pulse
+    go run ./cmd/hl review reference -look-out build/artbook/look
+    go run ./cmd/hl art map -level levels/1914-10:cp -out build/artbook/winter
+    go run ./cmd/hl art map -level levels/1914-12:cp -out build/artbook/winter3
+    go run ./cmd/hl art map -level levels/1914-08:cp -out build/artbook/campaign/summer
+    go run ./cmd/hl art map -level levels/1916-10:cp -out build/artbook/campaign/winter
+    go run ./cmd/hl art map -level levels/1916-06:ec -out build/artbook/campaign/sea
+    go run ./cmd/hl art map -level levels/1917-01:2p -out build/artbook/campaign/harbour
+    go run ./cmd/hl review reference -compare build/artbook/compare -compare-format png
     compare=""
     if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi
     style=false
@@ -165,25 +176,25 @@ artbook: _build-dir
 
 # Render the PULSE reference design review (needs the local RefDesign2.png) into build/review/reference
 reference: _build-dir
-    go run ./tools/reference-design -out build/review/reference
+    go run ./cmd/hl review reference -out build/review/reference
 
 # Check art/reference/pulse/reference.json against the level and the art families
 reference-check:
-    go run ./tools/reference-design -check
+    go run ./cmd/hl review reference -check
 
 # Strict look acceptance; retains the report and fails for missing evidence or unmet targets
 look-check: _build-dir
-    go run ./tools/reference-design -look-out build/review/look-check/pulse -look-check
+    go run ./cmd/hl review reference -look-out build/review/look-check/pulse -look-check
 
 # Create fidelity sheets; pass -reference, -candidate and -out
 [positional-arguments]
 gfx-review *args:
-    go run ./tools/art-review "$@"
+    go run ./cmd/hl review art "$@"
 
 # Local comparison desk, composer and PULSE study (under build/review/gfx/)
 [positional-arguments]
 gfx-game-review *args: _build-dir
-    go run ./cmd/hlgallery "$@"
+    go run ./cmd/hl review gallery "$@"
 
 # Refresh PULSE maps and nine actual game captures; open build/review/gfx/pulse.html.
 # On headless Linux: EGL_PLATFORM=x11 xvfb-run -a just gfx-study
@@ -194,7 +205,7 @@ gfx-study *args: packs
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
     go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
-    go run ./cmd/hlgallery -captures "$study_dir/captures" "$@"
+    go run ./cmd/hl review gallery -captures "$study_dir/captures" "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"
 manual_typst := "typst compile --root . --font-path docs/manual/fonts"

@@ -1,11 +1,11 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignContexts -count=1 -v
 // Normal tests never write artwork. Existing context exports are hash-checked
 // and retained. Absent contexts are exported and added to their profiles and
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

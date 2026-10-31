@@ -1,6 +1,6 @@
 //go:build grassgfx
 
-package main
+package artreview
 
 // Explicit selected-variant exporter:
 // go test -tags grassgfx ./tools/art-review -run TestGenerateGrassVariations -count=1 -v

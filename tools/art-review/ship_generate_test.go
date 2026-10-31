@@ -1,11 +1,11 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateLongShips -count=1 -v
 // Writes the long sprites of the two-cell ships (art/pipeline/unit-<family>-long-v1.json)
 // to assets/units/<family>-long/ and replaces their entries in assets/index.json;
-// run `go run ./cmd/hlart index` afterwards.
+// run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

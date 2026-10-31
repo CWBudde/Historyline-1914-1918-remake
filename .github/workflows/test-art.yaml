@@ -19,7 +19,7 @@ jobs:
           go-version-file: go.mod
 
       - name: Check the art catalogue
-        run: go run ./cmd/hlart check
+        run: go run ./cmd/hl art check
 
       - name: Check the PULSE reference data
-        run: go run ./tools/reference-design -check
+        run: go run ./cmd/hl review reference -check

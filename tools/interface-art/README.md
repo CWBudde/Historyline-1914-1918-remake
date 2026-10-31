@@ -7,9 +7,9 @@ output directory must not exist yet; the runtime copies live in `assets/interfac
 
 ```sh
 mkdir -p build/review/interface build/review/screen
-go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out build/review/interface/new
-go run ./tools/interface-art -manifest art/pipeline/screens-v1.json   -out build/review/screen/new
-go run ./tools/interface-art -manifest art/pipeline/screens-v2.json   -out build/review/screen/states
+go run ./cmd/hl export interface -manifest art/pipeline/interface-v1.json -out build/review/interface/new
+go run ./cmd/hl export interface -manifest art/pipeline/screens-v1.json   -out build/review/screen/new
+go run ./cmd/hl export interface -manifest art/pipeline/screens-v2.json   -out build/review/screen/states
 go test ./tools/interface-art
 ```
 

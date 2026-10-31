@@ -1,4 +1,4 @@
-package main
+package interfaceart
 
 // WidgetGeometry describes composition in logical pixels. Artwork deliberately
 // contains no labels, editable strings, numeric values or application behavior.

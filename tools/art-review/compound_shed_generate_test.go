@@ -1,13 +1,13 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCompoundShedMasters -count=1 -v
 // Writes the depot and factory masters whose buildings stay inside the hex
 // edge (compoundShedEdits: cmp-summer-v3/v4, cmp-winter-v4/v5,
 // factory-summer-v3/v4, factory-winter-v5/v6) from the masters before them, in
 // order; a master whose pixels already equal its edit is left as it is. Run it
-// before TestGenerateCompoundTiles and `go run ./cmd/hlart index`.
+// before TestGenerateCompoundTiles and `go run ./cmd/hl art index`.
 import (
 	"bytes"
 	"crypto/sha256"

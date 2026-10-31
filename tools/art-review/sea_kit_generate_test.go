@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateSeaKit -count=1 -v
 // Cuts the shoals and skerries of the C2 kit, art/terrain/water/
@@ -14,7 +14,7 @@ package main
 // collars), its paint under the summer kit's alpha (waterRocksOutline), so they
 // keep the summer skerries' outline. Writes them to assets/terrain/water/,
 // replacing earlier exports, and lists them in assets/index.json; run
-// `go run ./cmd/hlart index` afterwards.
+// `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

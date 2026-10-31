@@ -4,7 +4,7 @@ Exports pinned PNG cut-outs for the optional terrain stamp and standing packs. S
 the command's working directory. Output must be a new directory.
 
 ```sh
-go run ./tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json -out build/review/feature-stamps
+go run ./cmd/hl export terrain-stamps -manifest art/pipeline/feature-stamps-v1.json -out build/review/feature-stamps
 ```
 
 Manifest example:

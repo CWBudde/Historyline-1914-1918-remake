@@ -1,6 +1,6 @@
 //go:build retainedgfx
 
-package main
+package artreview
 
 import (
 	"bytes"

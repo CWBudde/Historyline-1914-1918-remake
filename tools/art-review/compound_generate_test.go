@@ -1,11 +1,11 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCompoundTiles -count=1 -v
 // Renders the selected HQ, depot and factory scenes and replaces their
 // installed tile PNGs (tile/hq*, cmp*, factory*, both seasons) in place,
-// updating each file's hash in assets/index.json; run `go run ./cmd/hlart index`
+// updating each file's hash in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards.
 import (
 	"bytes"

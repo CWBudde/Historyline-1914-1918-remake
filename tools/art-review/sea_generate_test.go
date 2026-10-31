@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateSeaTiles -count=1 -v
 // Renders the open sea, art/terrain/water/water-sea-shared-v1.png, as one
@@ -12,7 +12,7 @@ package main
 // how dark the sea is; internal/waterdepth blends it in by depth. The winter
 // forms (suffix _w) are the same pixels under the winter water grade. Writes
 // them to assets/terrain/water/, replacing earlier exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

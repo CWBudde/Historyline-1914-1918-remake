@@ -9,13 +9,13 @@ infrastructure prefixes, art folder, exemplar cells) and named features with not
 Cells are one-based, `r<row>c<column>`, on the level's lines.
 
 ```sh
-go run ./tools/reference-design -check        # validate reference.json and targets.json (image optional)
-go run ./tools/reference-design -check -drift # plus the render's metrics against the targets per family
-go run ./tools/reference-design -dump-cells   # every cell: "r12c3 terrain=mud"
-go run ./tools/reference-design -look-out build/review/look-foundation/pulse # partial Look 0 report
+go run ./cmd/hl review reference -check        # validate reference.json and targets.json (image optional)
+go run ./cmd/hl review reference -check -drift # plus the render's metrics against the targets per family
+go run ./cmd/hl review reference -dump-cells   # every cell: "r12c3 terrain=mud"
+go run ./cmd/hl review reference -look-out build/review/look-foundation/pulse # partial Look 0 report
 just look-check                              # strict acceptance; retains report and fails while unmet/incomplete
-go run ./tools/reference-design -out build/review/reference      # review page, comparison, targets.json
-go run ./tools/reference-design -compare build/artbook/compare   # comparison only (JPEG), for the art book
+go run ./cmd/hl review reference -out build/review/reference      # review page, comparison, targets.json
+go run ./cmd/hl review reference -compare build/artbook/compare   # comparison only (JPEG), for the art book
 ```
 
 `-check` loads the level and verifies that every terrain id and infrastructure id

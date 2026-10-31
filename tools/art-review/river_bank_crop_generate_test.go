@@ -1,6 +1,6 @@
 //go:build riverbankgfx
 
-package main
+package artreview
 
 // Explicit deterministic source authoring:
 // go test -tags riverbankgfx ./tools/art-review -run '^TestGenerateRiverBankGravelCrop$' -count=1

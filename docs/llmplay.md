@@ -1,4 +1,4 @@
-# LLM play (`cmd/hlllplay`, `internal/llmplay`)
+# LLM play (`hl llmplay`, `internal/llmplay`)
 
 An external agent (a language model, a script, a human) plays a shipped level
 under the DOS rules (`dosplay`) against the computer side (`dosai.Planner`).

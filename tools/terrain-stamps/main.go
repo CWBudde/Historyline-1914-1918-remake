@@ -1,5 +1,5 @@
-// Command terrain-stamps exports pinned terrain cut-outs at 4× and 2×.
-package main
+// Package terrainstamps exports pinned terrain cut-outs at 4× and 2×.
+package terrainstamps
 
 import (
 	"bytes"
@@ -51,15 +51,10 @@ type indexEntry struct {
 	Art     string     `json:"art"`
 }
 
-func main() {
-	if err := run(os.Args[1:], os.Stdout); err != nil {
-		fmt.Fprintln(os.Stderr, "terrain-stamps:", err)
-		os.Exit(1)
-	}
-}
-
-func run(args []string, log io.Writer) (resultErr error) {
-	fs := flag.NewFlagSet("terrain-stamps", flag.ContinueOnError)
+// Run exports pinned terrain cut-outs at the supported runtime densities.
+func Run(args []string, log, stderr io.Writer) (resultErr error) {
+	fs := flag.NewFlagSet("hl export terrain-stamps", flag.ContinueOnError)
+	fs.SetOutput(stderr)
 	manifestPath := fs.String("manifest", "", "pinned source manifest; source paths are relative to the working directory")
 	out := fs.String("out", "", "new output directory")
 	if err := fs.Parse(args); err != nil {

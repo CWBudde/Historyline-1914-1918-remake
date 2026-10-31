@@ -4,6 +4,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"image"
@@ -15,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/effectconfig"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/presentation"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -275,28 +277,26 @@ func (g *preview) validateCaptureCoverage() error {
 func (*preview) Layout(int, int) (int, int) { return 1000, 720 }
 
 func main() {
-	repo := flag.String("repo", ".", "repository containing offline candidates")
-	self := flag.Bool("self-check", false, "save bounded native screenshots and evidence, then exit")
-	mode := flag.String("mode", "normal", "normal, reduced or skip")
-	family := flag.String("family", "infantry", "delivered unit-family slug (see README)")
-	out := flag.String("out", "build/review/effect-preview", "fresh output directory for self-check evidence")
-	flag.Parse()
-	if flag.NArg() != 0 || (*mode != "normal" && *mode != "reduced" && *mode != "skip") {
-		log.Fatal("usage: hleffectpreview [-repo path] [-family slug] [-self-check -mode normal|reduced|skip -out fresh-directory]")
+	o, err := effectconfig.Parse(os.Args[1:], os.Stderr)
+	if errors.Is(err, flag.ErrHelp) {
+		return
 	}
-	a, err := loadFamilyAssets(*repo, *family)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if *self {
-		if err := os.MkdirAll(filepath.Dir(*out), 0o755); err != nil {
+	a, err := loadFamilyAssets(o.Repo, o.Family)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if o.SelfCheck {
+		if err := os.MkdirAll(filepath.Dir(o.Out), 0o755); err != nil {
 			log.Fatal(err)
 		}
-		if err := os.Mkdir(*out, 0o700); err != nil {
+		if err := os.Mkdir(o.Out, 0o700); err != nil {
 			log.Fatal("output must be a fresh directory: ", err)
 		}
 	}
-	g := &preview{assets: a, textures: make(map[string]*ebiten.Image), self: *self, mode: *mode, output: *out, reduced: *mode == "reduced"}
+	g := &preview{assets: a, textures: make(map[string]*ebiten.Image), self: o.SelfCheck, mode: o.Mode, output: o.Out, reduced: o.Mode == "reduced"}
 	for id, im := range a.images {
 		g.textures[id] = ebiten.NewImageFromImage(im)
 	}
@@ -305,13 +305,13 @@ func main() {
 	}
 	ebiten.SetWindowSize(1000, 720)
 	ebiten.SetWindowTitle("Historyline candidate movement/effects")
-	if *self {
+	if o.SelfCheck {
 		ebiten.SetVsyncEnabled(false)
 	}
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
-	if *self && !g.finishedDraw {
+	if o.SelfCheck && !g.finishedDraw {
 		log.Fatal("self-check interrupted before completion")
 	}
 }

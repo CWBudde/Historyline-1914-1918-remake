@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWinterWater -count=1 -v
 // Installs the winter open water tile/water_w as the installed summer pixels:
@@ -10,7 +10,7 @@ package main
 // scene (compound-water-stones-winter-v1.json, the snow-capped rocks under the
 // summer rocks' alpha) over that same water. Writes them to
 // assets/terrain/water/, replacing earlier winter exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

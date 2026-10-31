@@ -1,4 +1,4 @@
-package main
+package interfaceart
 
 import (
 	"encoding/json"

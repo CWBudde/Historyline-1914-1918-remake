@@ -1,4 +1,4 @@
-package main
+package terrainstamps
 
 import (
 	"crypto/sha256"
@@ -20,7 +20,7 @@ func TestExportCropAndTransparentCompanion(t *testing.T) {
 	root, m := fixture(t)
 	m.Assets = append(m.Assets, asset{ID: "stamp/knoll/1/1", Transparent: true, Canvas: [2]int{8, 6}, Anchor: [2]float64{4, 3}, Layer: "ground", Art: "terrain/mountain", Path: "terrain/mountain/knoll-ground"})
 	out := filepath.Join(root, "out")
-	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard); err != nil {
+	if err := Run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard, io.Discard); err != nil {
 		t.Fatal(err)
 	}
 	var entries []indexEntry
@@ -62,7 +62,7 @@ func TestExportCropAndTransparentCompanion(t *testing.T) {
 			}
 		}
 	}
-	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard); err == nil {
+	if err := Run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard, io.Discard); err == nil {
 		t.Fatal("overwrote existing output")
 	}
 }
@@ -87,7 +87,7 @@ func TestInvalidInputDoesNotPublish(t *testing.T) {
 			root, m := fixture(t)
 			tc.change(&m)
 			out := filepath.Join(root, "out")
-			err := run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard)
+			err := Run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard, io.Discard)
 			if err == nil || !strings.Contains(err.Error(), tc.want) {
 				t.Fatalf("error=%v, want %q", err, tc.want)
 			}
@@ -102,11 +102,11 @@ func TestInvalidInputDoesNotPublish(t *testing.T) {
 func TestStandingVariantID(t *testing.T) {
 	root, m := fixture(t)
 	m.Assets[0].ID = "standing/rBridge36-rail_w"
-	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", filepath.Join(root, "out")}, io.Discard); err != nil {
+	if err := Run([]string{"-manifest", writeManifest(t, root, m), "-out", filepath.Join(root, "out")}, io.Discard, io.Discard); err != nil {
 		t.Fatal(err)
 	}
 	m.Assets[0].ID = "standing/-rail"
-	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", filepath.Join(root, "bad")}, io.Discard); err == nil {
+	if err := Run([]string{"-manifest", writeManifest(t, root, m), "-out", filepath.Join(root, "bad")}, io.Discard, io.Discard); err == nil {
 		t.Fatal("accepted an ID starting with a dash")
 	}
 }
@@ -115,7 +115,7 @@ func TestClusterStandingUsesSeparatePack(t *testing.T) {
 	root, m := fixture(t)
 	m.Assets[0].ID = "standing/stamp/knoll_w/1/1"
 	out := filepath.Join(root, "out")
-	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard); err != nil {
+	if err := Run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard, io.Discard); err != nil {
 		t.Fatal(err)
 	}
 	var entries []indexEntry
@@ -162,7 +162,7 @@ func TestClusterCanvasAndAlphaReduction(t *testing.T) {
 	m.Assets[0].SourceSHA256 = hex.EncodeToString(h[:])
 	m.Assets = append(m.Assets, asset{ID: "stamp/crater/4_-1.1_1.1_0.2/1", Transparent: true, Canvas: [2]int{238, 160}, Anchor: [2]float64{119, 40}, Layer: "ground", Art: "terrain/ground", Path: "terrain/ground/crater"})
 	out := filepath.Join(root, "out")
-	if err = run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard); err != nil {
+	if err = Run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard, io.Discard); err != nil {
 		t.Fatal(err)
 	}
 	f, err = os.Open(filepath.Join(out, "terrain/house/standing-2x.png"))

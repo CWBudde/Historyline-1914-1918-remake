@@ -1,12 +1,12 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateAirfieldTiles -count=1 -v
 // Renders tile/runway36, the aprons (tile/hangar, apron-sw, apron-nw), the
 // hangar (standing/hangar) and its shadow, summer and winter (_w), from the
 // selected airfield paintings into assets/terrain/airfield/, replacing earlier
-// exports, and lists them in assets/index.json; run `go run ./cmd/hlart index`
+// exports, and lists them in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards.
 import (
 	"bytes"

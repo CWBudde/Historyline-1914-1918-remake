@@ -1,7 +1,7 @@
 // Package origmaps reads the maps of the local original game files
 // (original/ above the working directory, git-ignored) into finmap levels:
 // each map's MAP/*.FIN with its .SHP and .COM files and its CODES.DAT
-// record. The repository ships none of them; cmd/hlcampaign writes the
+// record. The repository ships none of them; internal/hlcampaign writes the
 // scenarios from the full game's maps, -level original/NN plays one exactly,
 // and the tests that check the original rules on the real maps skip without
 // them (ErrNotFound).

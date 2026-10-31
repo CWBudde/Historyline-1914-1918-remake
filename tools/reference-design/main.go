@@ -1,12 +1,12 @@
-// Command reference-design checks the reference design data and renders its
+// Package referencedesign checks the reference design data and renders its
 // review page: the reference painting cut into game hexes, grouped by art family,
 // and compared with the level drawn in the runtime art.
-package main
+package referencedesign
 
 import (
 	"errors"
-	"flag"
 	"fmt"
+	"io"
 	"maps"
 	"os"
 	"path/filepath"
@@ -14,6 +14,7 @@ import (
 )
 
 type options struct {
+	stdout                  io.Writer
 	root, ref, out, compare string
 	lookOut                 string
 	lookCheck               bool
@@ -21,26 +22,11 @@ type options struct {
 	check, dump, drift      bool
 }
 
-func main() {
-	var o options
-	flag.StringVar(&o.root, "root", ".", "repository root that reference paths resolve against")
-	flag.StringVar(&o.ref, "ref", "art/reference/pulse/reference.json", "reference data, relative to -root")
-	flag.BoolVar(&o.check, "check", false, "validate the reference data and targets (default when neither -out nor -compare is given)")
-	flag.BoolVar(&o.dump, "dump-cells", false, "print the terrain and infrastructure of every cell")
-	flag.BoolVar(&o.drift, "drift", false, "with -check: print the render's metrics against the targets per family")
-	flag.StringVar(&o.out, "out", "", "render tiles, the comparison and index.html into this directory and measure targets.json")
-	flag.StringVar(&o.lookOut, "look-out", "", "write partial Look 0 measurements and provenance to DIR/look.json (no acceptance claim)")
-	flag.BoolVar(&o.lookCheck, "look-check", false, "with -look-out: fail unless every required Look 0 acceptance rule passes")
-	flag.StringVar(&o.compare, "compare", "", "write only the comparison (bands, crops, compare.json) into this directory; skipped without the image")
-	flag.StringVar(&o.compareFormat, "compare-format", "jpg", "comparison image format: png or jpg")
-	flag.Parse()
-	if err := run(o); err != nil {
-		fmt.Fprintln(os.Stderr, "reference-design:", err)
-		os.Exit(1)
-	}
-}
-
 func run(o options) error {
+	stdout := o.stdout
+	if stdout == nil {
+		stdout = io.Discard
+	}
 	if o.lookCheck && (o.lookOut == "" || o.dump || o.check || o.out != "" || o.compare != "") {
 		return fmt.Errorf("-look-check requires -look-out and cannot be combined with other output/check modes")
 	}
@@ -60,8 +46,11 @@ func run(o options) error {
 	if err != nil {
 		return err
 	}
+	p.stdout = stdout
 	if o.dump {
-		fmt.Print(p.dump())
+		if _, err := fmt.Fprint(stdout, p.dump()); err != nil {
+			return err
+		}
 		return nil
 	}
 	if errs := p.validate(); len(errs) > 0 {
@@ -73,7 +62,7 @@ func run(o options) error {
 			return err
 		}
 		if o.lookCheck {
-			return checkWrittenLookGate(o.lookOut)
+			return checkWrittenLookGate(o.lookOut, stdout)
 		}
 		return nil
 	case o.check:
@@ -81,7 +70,9 @@ func run(o options) error {
 		if err := p.render(o.out); err != nil {
 			return err
 		}
-		fmt.Printf("wrote %s/index.html and %s\n", o.out, p.targetsPath)
+		if _, err := fmt.Fprintf(stdout, "wrote %s/index.html and %s\n", o.out, p.targetsPath); err != nil {
+			return err
+		}
 		return nil
 	case o.compare != "":
 		src, present, err := p.source()
@@ -89,13 +80,17 @@ func run(o options) error {
 			return err
 		}
 		if !present {
-			fmt.Printf("reference image %s not present, no comparison written\n", p.ref.Image.Path)
+			if _, err := fmt.Fprintf(stdout, "reference image %s not present, no comparison written\n", p.ref.Image.Path); err != nil {
+				return err
+			}
 			return os.RemoveAll(o.compare)
 		}
 		if _, err := p.compare(src, o.compare, format); err != nil {
 			return err
 		}
-		fmt.Printf("wrote %s/compare.json\n", o.compare)
+		if _, err := fmt.Fprintf(stdout, "wrote %s/compare.json\n", o.compare); err != nil {
+			return err
+		}
 		return nil
 	}
 	return p.check(o.drift)
@@ -107,16 +102,22 @@ func (p *project) check(table bool) error {
 		return err
 	}
 	if present {
-		fmt.Println("reference data and image ok")
+		if _, err := fmt.Fprintln(p.writer(), "reference data and image ok"); err != nil {
+			return err
+		}
 	} else {
-		fmt.Printf("reference data ok (image %s not present, sha not checked)\n", p.ref.Image.Path)
+		if _, err := fmt.Fprintf(p.writer(), "reference data ok (image %s not present, sha not checked)\n", p.ref.Image.Path); err != nil {
+			return err
+		}
 	}
 	t, err := p.loadTargets()
 	if err != nil {
 		return err
 	}
 	if t == nil {
-		fmt.Printf("no %s yet: measure with just reference\n", p.targetsPath)
+		if _, err := fmt.Fprintf(p.writer(), "no %s yet: measure with just reference\n", p.targetsPath); err != nil {
+			return err
+		}
 		return nil
 	}
 	if errs := p.checkTargets(t); len(errs) > 0 {
@@ -127,7 +128,9 @@ func (p *project) check(table bool) error {
 		return err
 	}
 	if table {
-		fmt.Print(driftTable(rows))
+		if _, err := fmt.Fprint(p.writer(), driftTable(rows)); err != nil {
+			return err
+		}
 	}
 	n := 0
 	for _, d := range rows {
@@ -135,11 +138,17 @@ func (p *project) check(table bool) error {
 			n++
 		}
 	}
-	fmt.Printf("render drift: %d of %d families outside their targets", n, len(rows))
-	if n > 0 && !table {
-		fmt.Print(" (details with -drift)")
+	if _, err := fmt.Fprintf(p.writer(), "render drift: %d of %d families outside their targets", n, len(rows)); err != nil {
+		return err
 	}
-	fmt.Println()
+	if n > 0 && !table {
+		if _, err := fmt.Fprint(p.writer(), " (details with -drift)"); err != nil {
+			return err
+		}
+	}
+	if _, err := fmt.Fprintln(p.writer()); err != nil {
+		return err
+	}
 	return nil
 }
 

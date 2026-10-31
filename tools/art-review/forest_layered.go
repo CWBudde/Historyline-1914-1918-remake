@@ -1,4 +1,4 @@
-package main
+package artreview
 
 // The layered summer profile keeps the existing context keys but exports the
 // woodland floor, whole crowns and cast shadows independently. Winter retains

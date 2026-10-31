@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 import (
 	"encoding/json"

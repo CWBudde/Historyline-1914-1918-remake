@@ -1,25 +1,25 @@
 # Runtime asset packs
 
-`internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `cmd/hlasset` builds and checks them from the runtime art in
+`internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `internal/hlasset` builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
 `build/packs/` until art is approved; only approved art will be embedded (`assets/assets.go`).
 
 ```sh
-go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
-go run ./cmd/hlasset build-units   -out build/packs/units                  # 48 unit families, 3 long ships
-go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
-go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
-go run ./cmd/hlasset packs -out build/packs                                # the three above, each only when changed
-go run ./cmd/hlasset lite -in build/packs/units -out <dir>                # compressed copy for the web
-go run ./cmd/hlasset validate -root <pack> -allow-candidates
-go run ./cmd/hlasset terrain-gaps -terrain build/packs/terrain
+go run ./cmd/hl assets build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
+go run ./cmd/hl assets build-units   -out build/packs/units                  # 48 unit families, 3 long ships
+go run ./cmd/hl assets build-terrain -out build/packs/terrain                # tiles, overlays, contexts
+go run ./cmd/hl assets build-screens -out build/packs/screens                # menu frames, controls, paintings
+go run ./cmd/hl assets packs -out build/packs                                # the three above, each only when changed
+go run ./cmd/hl assets lite -in build/packs/units -out <dir>                # compressed copy for the web
+go run ./cmd/hl assets validate -root <pack> -allow-candidates
+go run ./cmd/hl assets terrain-gaps -terrain build/packs/terrain
 just play                                                                  # game with all three catalogs
 just web 8080                                                              # web build with the 2x catalogs
 ```
 
-`hlasset packs` (`just packs`, which `just play` and `just web` run first) keeps `build/packs/units`,
-`terrain` and `screens` current: each catalog's `stamp` holds the sha256 of the hlasset binary and of the
+`hl assets packs` (`just packs`, which `just play` and `just web` run first) keeps `build/packs/units`,
+`terrain` and `screens` current: each catalog's `stamp` holds the sha256 of the hl binary and of the
 catalog's inputs (its `assets/index.json` entries with their file hashes; for the screens also every
 `art/screens/<family>/*.png`). A catalog whose stamp matches is kept; any other is built beside it and then
 replaces it, so a failed build keeps the old one.
@@ -91,13 +91,13 @@ copied unchanged.
 Cast shadows follow one light (`internal/terrainlight`, art/direction.md "One light"): azimuth 315°, RGB
 18,26,16, 0.25 × the item's diameter long, opacity 0.6 for crowns (0.45 rocks, 0.35 buildings). The builder
 and `internal/maprender` draw every painted `standing/shadow/…` from its standing item's alpha, its
-diameter measured from the item's blobs; `cmd/hlkit` makes the scattered items' shadows with the same model
+diameter measured from the item's blobs; `internal/hlkit` makes the scattered items' shadows with the same model
 and refuses a profile that leaves it. `build/packs/terrain/grade` names the grade and the light.
 
 The optional `materials` group contains `material/grass/summer` and `material/hills/summer` together at
 2× and 4×: opaque 568×400 world-pixel periods, anchor (0,0). Both renderers share the native-aspect,
 area-filtered world sampler and a continuous hills blend field. These periods stay lossless in lite
-packs. Export with `go run ./cmd/hlmaterial -out build/review/world-materials`; the pinned profile and
+packs. Export with `go run ./cmd/hl export materials -out build/review/world-materials`; the pinned profile and
 report record source hashes and fractional crops. Near each period edge the export cross-fades into
 its half-period shift, keeping contrast, so the material continues across the wrap. A schema-2 profile
 may give the meadow a `detail` layer (art/direction.md, G1): the tone is graded (`tone_contrast`
@@ -109,7 +109,7 @@ removal of baked meadow from adjoining families; the selected tile catalog keeps
 rendering meanwhile.
 
 Cut-out sheets (crowns, props, stones, wire) become world-scale sprites with
-`go run ./cmd/hlkit -out build/review/world-kits`. The pinned profile `art/pipeline/world-kits-v1.json`
+`go run ./cmd/hl export kits -out build/review/world-kits`. The pinned profile `art/pipeline/world-kits-v1.json`
 gives each sheet its grid, alpha cut, painting scale, per-cell world size and colour target. The command
 writes each item at 2× and 4× with its anchor, a contact sheet over the meadow, and `kits.json` with the
 checks; `-check` fails while any check fails. `-install assets` installs the cells with a `runtime` ID
@@ -122,7 +122,7 @@ in half-hex columns and lines: `1`, `2_0.2` (one above the other), `4_-1.1_1.1_0
 for the shape the cluster's hexes get the base material (grass) and the stamp; the variant is seeded by the
 first hex. A knoll or boulder cluster whose shape has no stamp is covered with the largest stamped shapes
 that fit (`mapcompose.Tile`), each piece its own cluster; hexes no stamp fits keep the per-hex art. Crater
-fields and lakes are not tiled. `hlasset terrain-gaps` lists the clusters still drawn per hex.
+fields and lakes are not tiled. `hl assets terrain-gaps` lists the clusters still drawn per hex.
 
 `internal/mapcompose` turns a level into per-hex draws: background, stored overlays in order, then the
 standing items of the terrain and overlays that the catalog has. Ground materials, forest and hills pick a
@@ -221,7 +221,7 @@ backgrounds are drawn beneath all backgrounds, which are drawn again bare over t
 neighbour's texels.
 
 Summer forest crowns are scattered over the map (`mapcompose`, `scatter.go`) when the catalog has the nine
-`standing/scatter/crown/<oak|beech|birch>-<16|22|28>` items and their shadows, which `hlkit -install assets`
+`standing/scatter/crown/<oak|beech|birch>-<16|22|28>` items and their shadows, which `hl export kits -install assets`
 writes from the crown sheet with code-made shadows (RGB 18,26,16 at 0.6, 0.25 × size to the lower right).
 Sites lie on a jittered 15-px grid; a site carries a crown when the hex under it, moved by up to 12 px of
 low-frequency wander, is forest without infrastructure, so the woodland edge leaves the hex edge. Species
@@ -280,7 +280,7 @@ over it, live text in the Go fonts and the button states; without the catalog th
 ## Web
 
 `just web` hard-links the 2× unit packs, the 1× and 2× terrain packs and both screen densities into `build/web/packs/<catalog>/`,
-writes their compressed copies to `build/web/packs/<catalog>-lite/` (`hlasset lite`: an opaque image as JPEG,
+writes their compressed copies to `build/web/packs/<catalog>-lite/` (`hl assets lite`: an opaque image as JPEG,
 any other as lossy WebP, a PNG where that is smaller; about a fifth of the bytes) and lists each catalog in
 `files.txt` (`<size> <path>` per line), since HTTP cannot list directories. `index.html` passes the catalogs it
 finds to the game as URLs, the compressed ones as `-units`, `-terrain`, `-screens` and the full ones as

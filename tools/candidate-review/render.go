@@ -1,4 +1,4 @@
-package main
+package candidatereview
 
 import (
 	"crypto/sha256"
@@ -9,7 +9,6 @@ import (
 	"image/draw"
 	"io"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -18,6 +17,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
+	artreview "github.com/CWBudde/Historyline-1914-1918-remake/tools/art-review"
 )
 
 var slate = color.NRGBA{0x16, 0x26, 0x30, 255}
@@ -35,14 +35,13 @@ type stage struct {
 }
 
 type renderer struct {
-	o        options
-	work     string
-	maps     *maprender.Renderer
-	land     stage
-	water    stage
-	panel    *image.NRGBA
-	assets   []assetEntry
-	exporter string
+	o      options
+	work   string
+	maps   *maprender.Renderer
+	land   stage
+	water  stage
+	panel  *image.NRGBA
+	assets []assetEntry
 }
 
 type assetEntry struct {
@@ -303,7 +302,7 @@ func (r *renderer) units(g *group) error {
 	return nil
 }
 
-// exportUnit runs tools/art-review -unit on a copy of the family's manifest whose
+// exportUnit calls the art exporter on a copy of the family's manifest whose
 // atlas points at the candidate. It returns the sprite directory
 // <bundle>/sprites/<manifest family> without the palette, or a rejection.
 func (r *renderer) exportUnit(family string, c *candidate) (string, string) {
@@ -339,34 +338,10 @@ func (r *renderer) exportUnit(family string, c *candidate) (string, string) {
 	if err := os.WriteFile(filepath.Join(dir, "manifest.json"), data, 0o644); err != nil {
 		return "", err.Error()
 	}
-	bin, err := r.artReview()
-	if err != nil {
+	if err := artreview.Run([]string{"-unit", filepath.Join(dir, "manifest.json"), "-out", out, "-root", r.o.root}, io.Discard, io.Discard); err != nil {
 		return "", err.Error()
 	}
-	cmd := exec.Command(bin, "-unit", filepath.Join(dir, "manifest.json"), "-out", out, "-root", r.o.root)
-	msg, err := cmd.CombinedOutput()
-	if err != nil {
-		lines := strings.Split(strings.TrimSpace(string(msg)), "\n")
-		return "", strings.TrimPrefix(lines[len(lines)-1], "art-review: ")
-	}
 	return sprites, ""
-}
-
-func (r *renderer) artReview() (string, error) {
-	if r.exporter != "" {
-		return r.exporter, nil
-	}
-	bin, err := filepath.Abs(filepath.Join(r.work, "bin", "art-review"))
-	if err != nil {
-		return "", err
-	}
-	cmd := exec.Command("go", "build", "-o", bin, "./tools/art-review")
-	cmd.Dir = r.o.root
-	if msg, err := cmd.CombinedOutput(); err != nil {
-		return "", fmt.Errorf("build art-review: %v: %s", err, msg)
-	}
-	r.exporter = bin
-	return bin, nil
 }
 
 func fileSHA(file string) (string, error) {

@@ -1,8 +1,8 @@
-// Command art-review creates an offline sprite comparison at reference size.
+// Package artreview creates an offline sprite comparison at reference size.
 //
 // Usage:
 //
-//	go run ./tools/art-review -reference tile.png -candidate raw.png -out review
+//	go run ./cmd/hl review art -reference tile.png -candidate raw.png -out review
 //
 // The candidate must be at least 4x reference size and match its aspect ratio
 // within 1%. Outputs are reference-masked 4x/2x working PNGs, a reference-size
@@ -28,7 +28,7 @@
 // -forest builds bounded whole-crown seasonal forest contexts and fixed patches.
 // -hills builds bounded summer height-derived relief contexts and fixed patches.
 // -unit builds the canonical runtime unit families and actual PNG terrain fixtures.
-package main
+package artreview
 
 import (
 	"encoding/json"
@@ -84,15 +84,8 @@ type diagnostics struct {
 	Advisory            string     `json:"advisory"`
 }
 
-func main() {
-	if err := run(os.Args[1:], os.Stderr); err != nil {
-		fmt.Fprintln(os.Stderr, "art-review:", err)
-		os.Exit(1)
-	}
-}
-
 func run(args []string, log io.Writer) error {
-	fs := flag.NewFlagSet("art-review", flag.ContinueOnError)
+	fs := flag.NewFlagSet("hl review art", flag.ContinueOnError)
 	fs.SetOutput(log)
 	referencePath := fs.String("reference", "", "reference PNG; seven-hex layout available only for 96x80")
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")

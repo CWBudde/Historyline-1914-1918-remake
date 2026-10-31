@@ -1,6 +1,6 @@
 //go:build grassgfx
 
-package main
+package artreview
 
 import (
 	"image"

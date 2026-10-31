@@ -1,4 +1,4 @@
-package main
+package artreview
 
 import (
 	"bytes"
@@ -195,8 +195,10 @@ func TestCompoundHamletVariants(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		mountainCheckLayout(t, l, mountainSceneWant{id, "hamlet", map[bool]string{false: "summer", true: "winter"}[strings.HasSuffix(id, "-winter")], 96, 80,
-			[]compoundTile{{Cell: "C", RuntimeID: runtime, Origin: connectionPoint{0, 0}}}})
+		mountainCheckLayout(t, l, mountainSceneWant{
+			id, "hamlet", map[bool]string{false: "summer", true: "winter"}[strings.HasSuffix(id, "-winter")], 96, 80,
+			[]compoundTile{{Cell: "C", RuntimeID: runtime, Origin: connectionPoint{0, 0}}},
+		})
 	}
 	for _, id := range []string{"hamlet1-summer", "hamlet9-summer", "hamlet2-autumn"} {
 		if _, err := compoundLayoutFor(id); err == nil {

@@ -1,4 +1,4 @@
-package main
+package interfaceart
 
 // Full-screen art uses the same editable path model as the interface catalog.
 // Text, examples and controls are fixture data, never baked into runtime art.

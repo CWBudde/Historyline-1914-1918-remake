@@ -1,13 +1,13 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateHarbourTiles -count=1 -v
 // Renders the paving of the three harbour pieces (tile/harbourN, harbourW,
 // harbourS), their buildings and cargo (standing/harbour*) and the shadows,
 // summer and winter (_w), from the selected harbour paintings into
 // assets/terrain/harbour/, replacing earlier exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

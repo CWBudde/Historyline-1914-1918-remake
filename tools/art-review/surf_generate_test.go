@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateSurf -count=1 -v
 // Packs the four surf strips of art/terrain/water/water-surf-shared-v1.png
@@ -10,7 +10,7 @@ package main
 // world px pressed into the 96 of the tile. The renderers read it by the
 // distance from the coast (internal/waterdepth). The winter form (suffix _w)
 // is the same pixels. Writes them to assets/terrain/water/, replacing earlier
-// exports, and lists them in assets/index.json; run `go run ./cmd/hlart index`
+// exports, and lists them in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards.
 import (
 	"bytes"

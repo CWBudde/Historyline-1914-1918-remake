@@ -1,6 +1,6 @@
 //go:build bridgegfx
 
-package main
+package terrainstamps
 
 // Explicit offline generator, run from the repository root's tools/terrain-stamps:
 //
@@ -16,7 +16,7 @@ package main
 // the 1152x960 export frame of that export, writes the -export- masters and
 // art/terrain/<family>/<family>-registration-v<registrationVersion>.json,
 // pins their hashes in the manifest, exports the standing items with run() and
-// puts them into assets/ and assets/index.json. Run `go run ./cmd/hlart index`
+// puts them into assets/ and assets/index.json. Run `go run ./cmd/hl art index`
 // afterwards.
 import (
 	"bytes"
@@ -345,7 +345,7 @@ func TestGenerateBridgeDecks(t *testing.T) {
 	if err := os.Chdir(root); err != nil {
 		t.Fatal(err)
 	}
-	err = run([]string{"-manifest", "art/pipeline/bridge-standing-v3.json", "-out", "build/scratch/bridge-standing-v3"}, io.Discard)
+	err = Run([]string{"-manifest", "art/pipeline/bridge-standing-v3.json", "-out", "build/scratch/bridge-standing-v3"}, io.Discard, io.Discard)
 	if cerr := os.Chdir(wd); cerr != nil {
 		t.Fatal(cerr)
 	}

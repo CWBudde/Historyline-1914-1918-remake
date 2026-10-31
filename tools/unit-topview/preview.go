@@ -1,10 +1,11 @@
-package main
+package unittopview
 
 import (
 	"fmt"
 	"image"
 	"image/draw"
 	"image/png"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -24,7 +25,7 @@ const previewLevel = "levels/1916-02"
 // the family on previewLevel, and a summer and a winter field with each owner's
 // sprite, normal and spent, next to infantry for scale. Each image is written at
 // 2x and reduced to 1x and 0.5x.
-func renderPreview(root, out, family string) error {
+func renderPreview(root, out, family string, stdout io.Writer) error {
 	if clean := filepath.ToSlash(filepath.Clean(out)); !strings.HasPrefix(clean, "build/") && !strings.Contains(clean, "/build/") {
 		return fmt.Errorf("-preview must be under build/")
 	}
@@ -96,7 +97,9 @@ func renderPreview(root, out, family string) error {
 			return err
 		}
 	}
-	fmt.Printf("preview: %d %s units on %s, two fields, in %s\n", n, family, previewLevel, out)
+	if _, err := fmt.Fprintf(stdout, "preview: %d %s units on %s, two fields, in %s\n", n, family, previewLevel, out); err != nil {
+		return err
+	}
 	return nil
 }
 

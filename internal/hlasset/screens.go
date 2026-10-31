@@ -1,0 +1,354 @@
+package hlasset
+
+import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"image"
+	"image/png"
+	"io"
+	"io/fs"
+	"math"
+	"os"
+	"path"
+	"path/filepath"
+	"slices"
+	"strings"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"golang.org/x/image/draw"
+)
+
+// screenDensities are the densities of the screen catalog: the backdrop and
+// the scene paintings have no 4x.
+var screenDensities = []int{1, 2}
+
+const screenW, screenH = 640, 400 // logical size of every full-screen image
+
+// screenFile is one image of the screen catalog: a runtime file of
+// assets/index.json or a scene painting scaled from art/.
+type screenFile struct {
+	Family  string // art/screens/<family>
+	ID      string
+	Density int
+	Width   int
+	Height  int
+	Anchor  [2]float64
+	read    func() ([]byte, error)
+}
+
+// interfaceFamilies are the interface art families the screen catalog also
+// carries, each in a family of its own name: the experience badges and the
+// battle effects.
+var interfaceFamilies = map[string]string{"interface/rank": "rank", "interface/effect": "effect"}
+
+// screenEntry reports whether the screen catalog carries e at its density: an
+// unpacked runtime file under screens/, a unit portrait or one of the
+// interfaceFamilies.
+func screenEntry(e indexEntry) bool {
+	if _, ok := interfaceFamilies[e.Art]; ok {
+		return true
+	}
+	return e.Pack == "" && (strings.HasPrefix(e.Art, "screens/") || strings.HasPrefix(e.Art, "portraits/"))
+}
+
+// planScreens returns the files of the screen catalog at density d: every
+// unpacked runtime file under screens/ at d, the unit portraits at d in one
+// family "portraits", the interfaceFamilies at d, and scene/<family> for each
+// art/screens/<family>/illustration.png.
+func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]screenFile, error) {
+	var files []screenFile
+	seen := map[string]bool{}
+	for _, e := range entries {
+		if e.Density != d || !screenEntry(e) {
+			continue
+		}
+		portrait := strings.HasPrefix(e.Art, "portraits/")
+		iface, isIface := interfaceFamilies[e.Art]
+		if seen[e.ID] {
+			return nil, fmt.Errorf("screen asset %s at %dx listed twice", e.ID, d)
+		}
+		seen[e.ID] = true
+		name := filepath.Join(assetsDir, filepath.FromSlash(e.Path))
+		var anchor [2]float64
+		if e.Anchor != nil {
+			anchor = *e.Anchor
+		}
+		family := strings.TrimPrefix(e.Art, "screens/")
+		switch {
+		case portrait:
+			family = "portraits"
+		case isIface:
+			family = iface
+		}
+		files = append(files, screenFile{
+			Family: family, ID: e.ID, Density: d, Width: e.Width, Height: e.Height, Anchor: anchor,
+			read: func() ([]byte, error) { return os.ReadFile(name) },
+		})
+	}
+	if !seen["backdrop/western-front"] {
+		return nil, fmt.Errorf("index has no backdrop/western-front at %dx", d)
+	}
+	paintings, err := filepath.Glob(filepath.Join(artDir, "screens", "*", "illustration.png"))
+	if err != nil {
+		return nil, err
+	}
+	slices.Sort(paintings)
+	for _, src := range paintings {
+		family := filepath.Base(filepath.Dir(src))
+		files = append(files, screenFile{
+			Family: family, ID: "scene/" + family, Density: d, Width: screenW * d, Height: screenH * d,
+			read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) },
+		})
+	}
+	// The panels' surfaces, art/screens/surface/<name>.png, in one family
+	// "surface": the seamless tiles and the rivet sheet; and the capture
+	// scenes' paintings, art/screens/capture/<name>.png, in "capture", the
+	// headquarters' full-screen; and the campaign newspaper's illustrations,
+	// art/screens/news/<month>.png, in "news" at newsW×newsH.
+	for _, family := range []string{"surface", "capture", "news"} {
+		srcs, err := filepath.Glob(filepath.Join(artDir, "screens", family, "*.png"))
+		if err != nil {
+			return nil, err
+		}
+		slices.Sort(srcs)
+		for _, src := range srcs {
+			id := family + "/" + strings.TrimSuffix(filepath.Base(src), ".png")
+			if family == "news" {
+				files = append(files, screenFile{
+					Family: family, ID: id, Density: d, Width: newsW * d, Height: newsH * d,
+					read: func() ([]byte, error) { return scalePainting(src, newsW*d, newsH*d) },
+				})
+				continue
+			}
+			if fullCaptures[id] {
+				files = append(files, screenFile{
+					Family: family, ID: id, Density: d, Width: screenW * d, Height: screenH * d,
+					read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) },
+				})
+				continue
+			}
+			w, h, err := surfaceSize(src, d)
+			if err != nil {
+				return nil, err
+			}
+			files = append(files, screenFile{
+				Family: family, ID: id, Density: d, Width: w, Height: h,
+				read: func() ([]byte, error) { return scaleTile(src, w, h) },
+			})
+		}
+	}
+	return files, nil
+}
+
+// newsW, newsH are the logical size of a newspaper illustration (3:2).
+const newsW, newsH = 270, 180
+
+// fullCaptures are the capture paintings scaled to the full screen.
+var fullCaptures = map[string]bool{
+	"capture/hq": true, "capture/hq-open": true,
+	"capture/surrender": true, "capture/surrender-offer": true, "capture/surrender-accepted": true,
+}
+
+// surfaceTile is the width of a surface at 1x.
+const surfaceTile = 512
+
+// surfaceSize is the size of the surface at src at density d: surfaceTile·d
+// wide and d times the height the master's proportion gives at 1x, so every
+// density has the same logical size.
+func surfaceSize(src string, d int) (w, h int, err error) {
+	f, err := os.Open(src)
+	if err != nil {
+		return 0, 0, err
+	}
+	defer func() { _ = f.Close() }()
+	c, err := png.DecodeConfig(f)
+	if err != nil {
+		return 0, 0, fmt.Errorf("%s: %w", src, err)
+	}
+	return surfaceTile * d, max(1, int(math.Round(surfaceTile*float64(c.Height)/float64(c.Width)))) * d, nil
+}
+
+// scaleTile scales the image at src down to w×h. Each texel is the
+// area-weighted mean of the source it covers, alpha premultiplied, which
+// never reaches across the image's edge, so a seamless tile stays seamless.
+func scaleTile(src string, w, h int) ([]byte, error) {
+	f, err := os.Open(src)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = f.Close() }()
+	im, err := png.Decode(io.LimitReader(f, 64<<20))
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w", src, err)
+	}
+	b := im.Bounds()
+	sw, sh := b.Dx(), b.Dy()
+	if sw < w || sh < h {
+		return nil, fmt.Errorf("%s: %dx%d is smaller than %dx%d; no upscaling", src, sw, sh, w, h)
+	}
+	img := image.NewRGBA(image.Rect(0, 0, sw, sh))
+	draw.Draw(img, img.Bounds(), im, b.Min, draw.Src)
+	rows, tx := make([]float64, 4*w*sh), taps(sw, w) // shrunk along the rows
+	for y := range sh {
+		for x, ts := range tx {
+			for _, t := range ts {
+				for c := range 4 {
+					rows[4*(y*w+x)+c] += t.w * float64(img.Pix[4*(y*sw+t.i)+c])
+				}
+			}
+		}
+	}
+	dst := image.NewRGBA(image.Rect(0, 0, w, h))
+	for y, ts := range taps(sh, h) {
+		for x := range w {
+			for c := range 4 {
+				var v float64
+				for _, t := range ts {
+					v += t.w * rows[4*(t.i*w+x)+c]
+				}
+				dst.Pix[4*(y*w+x)+c] = uint8(min(255, max(0, v+0.5)))
+			}
+		}
+	}
+	var out bytes.Buffer
+	if err := png.Encode(&out, dst); err != nil {
+		return nil, err
+	}
+	return out.Bytes(), nil
+}
+
+// tap is a source sample and its weight.
+type tap struct {
+	i int
+	w float64
+}
+
+// taps are, for each of n outputs, the from inputs it covers and their
+// share of it.
+func taps(from, n int) [][]tap {
+	step := float64(from) / float64(n)
+	ts := make([][]tap, n)
+	for o := range n {
+		lo, hi := float64(o)*step, float64(o+1)*step
+		for i := int(lo); float64(i) < hi && i < from; i++ {
+			ts[o] = append(ts[o], tap{i, (min(hi, float64(i+1)) - max(lo, float64(i))) / step})
+		}
+	}
+	return ts
+}
+
+// scalePainting trims one pixel from each edge of the painting at src (the
+// sources are 1586×992, a hair wider than 16:10) and scales it to w×h.
+func scalePainting(src string, w, h int) ([]byte, error) {
+	f, err := os.Open(src)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = f.Close() }()
+	im, err := png.Decode(io.LimitReader(f, 64<<20))
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w", src, err)
+	}
+	b := im.Bounds()
+	if b.Dx()-2 < w || b.Dy()-2 < h {
+		return nil, fmt.Errorf("%s: %dx%d is smaller than %dx%d; no upscaling", src, b.Dx(), b.Dy(), w, h)
+	}
+	dst := image.NewNRGBA(image.Rect(0, 0, w, h))
+	draw.CatmullRom.Scale(dst, dst.Bounds(), im, b.Inset(1), draw.Src, nil)
+	var out bytes.Buffer
+	if err := png.Encode(&out, dst); err != nil {
+		return nil, err
+	}
+	return out.Bytes(), nil
+}
+
+// buildScreens writes the screen catalog into the new directory out: one pack
+// per family and density in out/<d>x/<family>/ (a frame and its painting share
+// one), so each stays inside the loader's decoded-image budget. Every pack is
+// loaded and fully validated before the build counts as done; a failed build
+// leaves nothing behind.
+func buildScreens(assetsDir, artDir, out string) ([]assets.Manifest, error) {
+	entries, err := readIndex(assetsDir)
+	if err != nil {
+		return nil, err
+	}
+	plans := make([][]screenFile, len(screenDensities))
+	for i, d := range screenDensities {
+		if plans[i], err = planScreens(entries, assetsDir, artDir, d); err != nil {
+			return nil, err
+		}
+	}
+	o, err := newOutput(out)
+	if err != nil {
+		return nil, err
+	}
+	defer o.close()
+	var written []assets.Manifest
+	for i, d := range screenDensities {
+		var families []string
+		for _, f := range plans[i] {
+			if !slices.Contains(families, f.Family) {
+				families = append(families, f.Family)
+			}
+		}
+		for _, family := range families {
+			m, err := o.writeScreenPack(plans[i], d, family)
+			if err != nil {
+				return nil, err
+			}
+			written = append(written, m)
+		}
+	}
+	o.done()
+	return written, nil
+}
+
+// writeScreenPack writes the files of family at density d as the pack
+// screen-<family>-<d>x into <d>x/<family>/ and validates it.
+func (o *output) writeScreenPack(files []screenFile, d int, family string) (assets.Manifest, error) {
+	dir := path.Join(fmt.Sprintf("%dx", d), family)
+	m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("screen-%s-%dx", family, d), Status: "candidate"}
+	if err := o.mkdirAll(path.Join(dir, "images")); err != nil {
+		return m, err
+	}
+	for _, f := range files {
+		if f.Family != family {
+			continue
+		}
+		b, err := f.read()
+		if err != nil {
+			return m, fmt.Errorf("%s at %dx: %w", f.ID, d, err)
+		}
+		sum := sha256.Sum256(b)
+		name := fmt.Sprintf("images/%04d.png", len(m.Entries))
+		if err := o.writeNew(path.Join(dir, name), func(w io.Writer) error { _, err := w.Write(b); return err }); err != nil {
+			return m, err
+		}
+		m.Entries = append(m.Entries, assets.Entry{
+			ID: f.ID, Path: name, SHA256: hex.EncodeToString(sum[:]),
+			Width: f.Width, Height: f.Height, Density: d, Anchor: f.Anchor,
+		})
+	}
+	b, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		return m, err
+	}
+	if err := o.writeNew(path.Join(dir, "manifest.json"), func(w io.Writer) error {
+		_, err := w.Write(append(b, '\n'))
+		return err
+	}); err != nil {
+		return m, err
+	}
+	sub, err := fs.Sub(o.root.FS(), dir)
+	if err != nil {
+		return m, err
+	}
+	p, err := assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+	if err != nil {
+		return m, err
+	}
+	return m, p.Validate()
+}

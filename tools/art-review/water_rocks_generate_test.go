@@ -1,6 +1,6 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWaterRocks -count=1 -v
 // Renders tile/waterRocks from the water-stones scene of
@@ -10,7 +10,7 @@ package main
 // without their water, so a stones hex draws them over the shore its
 // neighbours give it. Over the open water tile they are tile/waterStones and
 // tile/waterStones_w. Writes them to assets/terrain/water/, replacing earlier
-// exports, and lists them in assets/index.json; run `go run ./cmd/hlart index`
+// exports, and lists them in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards.
 import (
 	"bytes"

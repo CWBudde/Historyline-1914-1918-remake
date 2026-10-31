@@ -1,12 +1,12 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestRegenerateLatticeGroundContexts -count=1 -v
 // Re-renders, from groundManifestPath, every exported ground context whose
 // centre or neighbours use a material the manifest samples lattice-periodic
 // (lattice_materials), canonical tiles included, overwriting their PNGs and
-// updating their hashes in assets/index.json; run `go run ./cmd/hlart index`
+// updating their hashes in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards. TestGenerateCampaignContexts then finds them current.
 import (
 	"bytes"

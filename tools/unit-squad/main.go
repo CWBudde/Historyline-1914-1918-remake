@@ -1,27 +1,23 @@
-// Command unit-squad composes a unit atlas that shows n of the soldiers of a
+// Package unitsquad composes a unit atlas that shows n of the soldiers of a
 // source atlas: every strength of an infantry group gets its own sprite, with as
 // many men as it has strength left.
 //
-//	go run ./tools/unit-squad -src art/units/infantry/riflemen.png -n 4 -out art/units/infantry-4/atlas.png
+//	go run ./cmd/hl export unit-squad -src art/units/infantry/riflemen.png -n 4 -out art/units/infantry-4/atlas.png
 //
 // The source is a unit atlas (1024x1536, 2x3 cells, headings N, NW, SW, S, SE,
 // NE) with exactly three separate men per cell. Each man is cut out of his cell,
 // scaled by -scale and set into a formation that turns with the cell's heading,
 // centred on the atlas anchor (256,261) of the cell. The result goes through the
 // usual `art-review -unit` export.
-package main
+package unitsquad
 
 import (
 	"errors"
-	"flag"
 	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
-	"image/png"
 	"math"
-	"os"
-	"path/filepath"
 	"slices"
 
 	xdraw "golang.org/x/image/draw"
@@ -231,60 +227,6 @@ func atlas(src *image.NRGBA, n int, scale float64) (*image.NRGBA, error) {
 		draw.Draw(out, rect, compose(pool, n, headings[f], scale, size), image.Point{}, draw.Src)
 	}
 	return out, nil
-}
-
-func main() {
-	src := flag.String("src", "", "source atlas with three men per cell")
-	n := flag.Int("n", 6, "men per cell, 1..6; 0 scales the source cells as they are")
-	out := flag.String("out", "", "atlas to write")
-	scale := flag.Float64("scale", .52, "size of a man relative to the source")
-	lone := flag.Bool("gunner", false, "first drop the loader of a two-man team (use with -n 0)")
-	flag.Parse()
-	if *src == "" || *out == "" {
-		flag.Usage()
-		os.Exit(2)
-	}
-	f, err := os.Open(*src)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	im, err := png.Decode(f)
-	_ = f.Close()
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	nrgba := image.NewNRGBA(im.Bounds())
-	draw.Draw(nrgba, nrgba.Bounds(), im, im.Bounds().Min, draw.Src)
-	if *lone {
-		if nrgba, err = gunners(nrgba); err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
-		}
-	}
-	res, err := atlas(nrgba, *n, *scale)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	if err := os.MkdirAll(filepath.Dir(*out), 0o755); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	o, err := os.Create(*out)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	if err := png.Encode(o, res); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	if err := o.Close(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
 }
 
 // gunner drops the second man of a two-man team cell: the coats (the magenta

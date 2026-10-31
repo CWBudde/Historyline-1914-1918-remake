@@ -12,8 +12,8 @@ newly painted art. The roadmap is [PLAN.md](PLAN.md).
 | `levels/` | Level files |
 | `art/` | Art masters and `prompt.md` per runtime family, style guide, PULSE reference; see the [art guide](art/README.md) |
 | `assets/` | Runtime art the game packs are built from, listed in `assets/index.json` |
-| `cmd/hlart` | Generates and checks `art/index.json`, the catalogue of all art families |
-| `tools/` | Offline art tooling and the PULSE reference design |
+| `cmd/hl` | Unified developer CLI: art, assets, exports, reviews, levels, LLM play and web serving |
+| `tools/` | Importable offline art tooling and the PULSE reference design |
 | `docs/` | Art book, runtime asset packs, reconstructed manual |
 | `legacy/` | The upstream Python remake, kept as a test reference only |
 
@@ -30,11 +30,16 @@ just play       # play with the candidate art and menu screens (builds the packs
 just test       # go test ./...
 just lint       # go vet + golangci-lint
 just build      # bin/historyline
+just build-tools # bin/hl and its native preview helper
+just hl --help  # all developer tools; see docs/cli.md
 just web 8080   # web build with the art packs into build/web, served on :8080
 just ci         # everything CI runs
 just check      # ci without the slow art tool tests
 just clean      # delete all generated output under build/
 ```
+
+All developer tools use the [`hl` CLI](docs/cli.md), for example
+`just hl art check`, `just hl review gallery` and `just hl llmplay new`.
 
 The game opens with a main menu laid out like the original's: start (country selection, then the battle),
 the map code (a month's code word for its side, PULSE or BATLE to start; a victory sets the next month),

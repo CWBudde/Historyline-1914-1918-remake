@@ -1,12 +1,12 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateRuinTiles -count=1 -v
 // Cuts the destroyed depot (art/pipeline/compound-ruin-v2.json) into tile/ruinN,
 // ruinW, ruinE and ruinS in both seasons through the compound pipeline, writes
 // them to assets/terrain/ruin/, replacing earlier exports, and lists them in
-// assets/index.json; run `go run ./cmd/hlart index` afterwards.
+// assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"

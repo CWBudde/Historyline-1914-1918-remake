@@ -1,17 +1,17 @@
-// Command unit-panel exports a deterministic infantry inspector art pilot.
-package main
+// Package unitpanel exports a deterministic infantry inspector art pilot.
+package unitpanel
 
 import (
 	"flag"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 )
 
-func run(args []string) error {
-	fs := flag.NewFlagSet("unit-panel", flag.ContinueOnError)
-	fs.SetOutput(io.Discard)
+// Run exports the unit inspector panel from a strict pinned manifest.
+func Run(args []string, stdout, stderr io.Writer) error {
+	fs := flag.NewFlagSet("hl export unit-panel", flag.ContinueOnError)
+	fs.SetOutput(stderr)
 	manifest := fs.String("manifest", "", "strict pinned manifest")
 	out := fs.String("out", "", "fresh output directory")
 	seen := map[string]bool{}
@@ -28,18 +28,11 @@ func run(args []string) error {
 		return e
 	}
 	if fs.NArg() != 0 || *manifest == "" || *out == "" {
-		return fmt.Errorf("usage: unit-panel -manifest FILE -out FRESH_DIR")
+		return fmt.Errorf("usage: hl export unit-panel -manifest FILE -out FRESH_DIR")
 	}
 	in, e := loadInputs(*manifest)
 	if e != nil {
 		return e
 	}
 	return exportBundle(in, *out)
-}
-
-func main() {
-	if e := run(os.Args[1:]); e != nil {
-		fmt.Fprintln(os.Stderr, e)
-		os.Exit(1)
-	}
 }

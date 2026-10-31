@@ -1,4 +1,4 @@
-package main
+package referencedesign
 
 import (
 	"crypto/sha256"
@@ -242,6 +242,8 @@ func (p *project) writeLookReport(out string) error {
 	if err := os.WriteFile(filepath.Join(out, "look.json"), append(raw, '\n'), 0o644); err != nil {
 		return err
 	}
-	fmt.Printf("wrote %s/look.json; partial Look 0 evidence, acceptance remains open\n", out)
+	if _, err := fmt.Fprintf(p.writer(), "wrote %s/look.json; partial Look 0 evidence, acceptance remains open\n", out); err != nil {
+		return err
+	}
 	return nil
 }

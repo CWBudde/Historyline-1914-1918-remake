@@ -1,8 +1,9 @@
-package main
+package referencedesign
 
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"math"
 	"os"
 	"path/filepath"
@@ -153,7 +154,7 @@ func evaluateLookGate(report lookReport) lookGate {
 	return gate
 }
 
-func checkWrittenLookGate(out string) error {
+func checkWrittenLookGate(out string, stdout io.Writer) error {
 	raw, err := os.ReadFile(filepath.Join(out, "look.json"))
 	if err != nil {
 		return err
@@ -166,7 +167,9 @@ func checkWrittenLookGate(out string) error {
 		return fmt.Errorf("look 0 acceptance: gate unavailable")
 	}
 	gate := report.Gate
-	fmt.Printf("Look 0: %d PASS, %d FAIL, %d INCOMPLETE\n", gate.Passed, gate.Failed, gate.Incomplete)
+	if _, err := fmt.Fprintf(stdout, "Look 0: %d PASS, %d FAIL, %d INCOMPLETE\n", gate.Passed, gate.Failed, gate.Incomplete); err != nil {
+		return err
+	}
 	if !gate.Accepted || !report.Accepted {
 		return fmt.Errorf("look 0 acceptance: %d failed, %d incomplete (details in %s/look.json)", gate.Failed, gate.Incomplete, out)
 	}

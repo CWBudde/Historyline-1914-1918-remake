@@ -1,5 +1,5 @@
-// Command interface-art builds offline interface, weapon and effect candidates.
-package main
+// Package interfaceart builds offline interface, weapon and effect candidates.
+package interfaceart
 
 import (
 	"bytes"
@@ -338,9 +338,10 @@ func guardCrop(im *image.NRGBA, c [4]int) error {
 	return nil
 }
 
-func run(args []string) error {
-	fs := flag.NewFlagSet("interface-art", flag.ContinueOnError)
-	fs.SetOutput(io.Discard)
+// Run exports an interface, weapon, effect or screen candidate bundle.
+func Run(args []string, stdout, stderr io.Writer) error {
+	fs := flag.NewFlagSet("hl export interface", flag.ContinueOnError)
+	fs.SetOutput(stderr)
 	manifest := fs.String("manifest", "", "pinned authored inputs")
 	out := fs.String("out", "", "fresh output directory")
 	seen := map[string]bool{}
@@ -357,14 +358,7 @@ func run(args []string) error {
 		return e
 	}
 	if fs.NArg() != 0 || *manifest == "" || *out == "" {
-		return errors.New("usage: interface-art -manifest FILE -out FRESH_DIR")
+		return errors.New("usage: hl export interface -manifest FILE -out FRESH_DIR")
 	}
 	return export(*manifest, *out)
-}
-
-func main() {
-	if e := run(os.Args[1:]); e != nil {
-		fmt.Fprintln(os.Stderr, e)
-		os.Exit(1)
-	}
 }

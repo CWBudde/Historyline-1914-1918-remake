@@ -1,10 +1,11 @@
-package main
+package interfaceart
 
 import (
 	"bytes"
 	"image"
 	"image/color"
 	"image/png"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -140,7 +141,7 @@ func TestManifestAndCLIRejectIncompleteOrAmbiguousInputs(t *testing.T) {
 		}
 	}
 	for _, args := range [][]string{{}, {"-out", "a", "-out", "b"}, {"-bad", "x"}, {"-manifest", "x", "-out", "y", "extra"}} {
-		if e := run(args); e == nil {
+		if e := Run(args, io.Discard, io.Discard); e == nil {
 			t.Fatalf("accepted %v", args)
 		}
 	}

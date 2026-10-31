@@ -1,4 +1,4 @@
-package main
+package referencedesign
 
 import (
 	"bytes"
@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"image/png"
+	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -72,6 +73,7 @@ func parseCell(s string) (cell, error) {
 
 // project is a reference with its level, resolved against the repository root.
 type project struct {
+	stdout      io.Writer
 	root        string
 	assets      fs.FS  // the runtime art the level is rendered with
 	targetsPath string // targets.json next to reference.json
@@ -352,4 +354,11 @@ func (p *project) dump() string {
 		b.WriteByte('\n')
 	}
 	return b.String()
+}
+
+func (p *project) writer() io.Writer {
+	if p.stdout == nil {
+		return io.Discard
+	}
+	return p.stdout
 }

@@ -1,13 +1,13 @@
 //go:build campaigngfx
 
-package main
+package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignShores -count=1 -v
 // Every derived shore tile the levels select (mapcompose.ShoreShape) that the
 // runtime index lacks is rendered with the shore-terrain-v2 materials (winter
 // forms, suffix _w, with shore-terrain-winter-v1), written to
 // assets/terrain/lakeside/ and added to assets/index.json; run
-// `go run ./cmd/hlart index` afterwards.
+// `go run ./cmd/hl art index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"
