@@ -41,12 +41,12 @@ separate approval under the standing scope rules.
 
 - [ ] [1918-10](levels/1918-10/) — the existing Flanders placeholder described in
       [Painted backdrops](docs/painted-backdrops.md).
-  - [ ] Audit `levels/1918-10/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. Repeat the audit and guide after the factory approach corrections; painting is paused.
+  - [x] Audit `levels/1918-10/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. Repeated after the factory and shoreline corrections: `build/review/backdrops/1918-10/current-audit.json`; binding and scenario checks passed. User approved the corrected map and resumed painting, adding fields outside the centre to the brief.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User approved the October 1915 style, wet autumn ground and cool diffuse light; brief: `build/review/backdrops/1918-10/brief.md`.
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-10:cp -out build/review/backdrops/1918-10/guide`.
-  - [ ] Record world/output dimensions and aspect, canvas sizes, origins and overlaps for the documented 56-section layout; confirm complete coverage against the current map.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
+  - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1918-10/current-guide/`; 4498×3840 world pixels, no gaps or issues.
+  - [x] Record world/output dimensions and aspect, canvas sizes, origins and overlaps for the documented 56-section layout; confirm complete coverage against the current map. `section-layout.json` records full coverage, 7737×6605 output and minimum 189×208 world-pixel overlaps.
+  - [x] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration. All 56 crops in `sections/`, 1252×1250 each, via `hl levels backdrop jpeg -sections build/review/backdrops/1918-10/section-layout.json 1918-10`.
+  - [x] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style. All 56 prompts in `prompts/`; peripheral fields included in the approved brief.
   - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
   - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
   - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.

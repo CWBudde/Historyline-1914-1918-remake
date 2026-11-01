@@ -157,6 +157,12 @@ go run ./cmd/hl art map -level levels/1914-10:cp -out build/review/painted-civil
 The render is the layout every section must follow; the tiles' flat look, hex-shaped patches and black
 border notches are not to be copied.
 
+For large guides, `hl levels backdrop jpeg -sections <plan.json> <month>` prepares
+registered PNG crops without changing the installed backdrop. The JSON names
+`guide`, `directory`, `world`, `section_world`, `canvas` and `sections` (each with
+an `id` and world-pixel `origin`). It requires an integer-density guide matching
+the current map and refuses existing crop files.
+
 ## 2. Sections
 
 Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas each, so one hex is about

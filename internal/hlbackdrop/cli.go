@@ -1,6 +1,7 @@
 package hlbackdrop
 
 import (
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -31,10 +32,12 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	var q int
 	var placeholder bool
 	var assets string
+	var sections string
 	if args[0] == "jpeg" {
 		f.IntVar(&q, "q", 0, "JPEG quality (default: the existing JPEG's own, 95 for a new one)")
 		f.BoolVar(&placeholder, "placeholder", false, "create missing sources from unit-free terrain; refuse existing backdrops")
 		f.StringVar(&assets, "assets", "assets", "runtime assets for placeholder rendering")
+		f.StringVar(&sections, "sections", "", "prepare registered guide crops from a section-plan JSON instead of encoding JPEGs")
 	}
 	if err := f.Parse(args[1:]); err != nil {
 		return err
@@ -50,6 +53,12 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	}
 	if q < 0 || q > 100 {
 		return fmt.Errorf("JPEG quality must be 1 through 100, or 0 for the default")
+	}
+	if sections != "" {
+		if placeholder || q != 0 || f.NArg() != 1 {
+			return fmt.Errorf("sections requires exactly one level and cannot combine with placeholder or q")
+		}
+		return prepareSections(*levels, f.Arg(0), sections, stdout)
 	}
 	if placeholder {
 		// Preflight the entire batch before creating anything. Existing art is
@@ -100,6 +109,95 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		if placeholder {
 			// Large maps and decoded terrain must be released between jobs.
 			runtime.GC()
+		}
+	}
+	return nil
+}
+
+// prepareSections keeps authoring of large guides inside the backdrop CLI.
+// Some image tools reject the 276-megapixel Flanders guide before cropping.
+func prepareSections(levels, name, planPath string, stdout io.Writer) error {
+	var plan struct {
+		Guide        string `json:"guide"`
+		Directory    string `json:"directory"`
+		World        [2]int `json:"world"`
+		Canvas       [2]int `json:"canvas"`
+		SectionWorld [2]int `json:"section_world"`
+		Sections     []struct {
+			ID     string `json:"id"`
+			Origin [2]int `json:"origin"`
+		} `json:"sections"`
+	}
+	data, err := os.ReadFile(planPath)
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(data, &plan); err != nil {
+		return err
+	}
+	b, err := find(levels, name)
+	if err != nil {
+		return err
+	}
+	lvl, err := scenario.LoadLevel(filepath.Dir(b.src), scenario.CP)
+	if err != nil {
+		return err
+	}
+	w, h := maprender.Size(lvl.Grid())
+	if plan.World != [2]int{w, h} || len(plan.Sections) == 0 || plan.Guide == "" || plan.Directory == "" {
+		return fmt.Errorf("section plan must name its guide, directory and sections and match the level's %dx%d world", w, h)
+	}
+	cw, ch := plan.Canvas[0], plan.Canvas[1]
+	sw, sh := plan.SectionWorld[0], plan.SectionWorld[1]
+	if cw <= 0 || ch <= 0 || cw > 8192 || ch > 8192 || sw <= 0 || sh <= 0 {
+		return fmt.Errorf("invalid section or canvas dimensions")
+	}
+	seen := map[string]bool{}
+	for _, section := range plan.Sections {
+		id, x, y := section.ID, section.Origin[0], section.Origin[1]
+		if id == "" || filepath.Base(id) != id || id == "." || id == ".." || seen[id] || x < 0 || y < 0 || x > w-sw || y > h-sh {
+			return fmt.Errorf("invalid, duplicate or out-of-bounds section %q", id)
+		}
+		seen[id] = true
+		path := filepath.Join(plan.Directory, id+"-guide.png")
+		if _, err := os.Lstat(path); err == nil {
+			return fmt.Errorf("refusing to replace section %s", path)
+		} else if !errors.Is(err, os.ErrNotExist) {
+			return err
+		}
+	}
+	f, err := os.Open(plan.Guide)
+	if err != nil {
+		return err
+	}
+	guide, _, decodeErr := image.Decode(f)
+	if err := errors.Join(decodeErr, f.Close()); err != nil {
+		return err
+	}
+	bounds := guide.Bounds()
+	density := bounds.Dx() / w
+	if density <= 0 || bounds.Dx() != w*density || bounds.Dy() != h*density {
+		return fmt.Errorf("guide must have an exact integer world density")
+	}
+	if err := os.MkdirAll(plan.Directory, 0o755); err != nil {
+		return err
+	}
+	for _, section := range plan.Sections {
+		x, y := section.Origin[0]*density, section.Origin[1]*density
+		crop := image.Rect(x, y, x+sw*density, y+sh*density).Add(bounds.Min)
+		canvas := image.NewNRGBA(image.Rect(0, 0, cw, ch))
+		xdraw.CatmullRom.Scale(canvas, canvas.Bounds(), guide, crop, xdraw.Src, nil)
+		path := filepath.Join(plan.Directory, section.ID+"-guide.png")
+		out, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+		if err != nil {
+			return err
+		}
+		encodeErr := png.Encode(out, canvas)
+		if err := errors.Join(encodeErr, out.Close()); err != nil {
+			return errors.Join(err, os.Remove(path))
+		}
+		if _, err := fmt.Fprintln(stdout, path); err != nil {
+			return err
 		}
 	}
 	return nil
