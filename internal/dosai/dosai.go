@@ -483,12 +483,12 @@ func (pl *plan) action() ([]dosplay.Event, error) {
 }
 
 // candidates are the possible attack orders and the units that have one.
-// Sappers have none: their work is no battle.
+// Sappers and construction units have none: their work is no battle.
 func (pl *plan) candidates() ([]candidate, []int) {
 	var cands []candidate
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
-		if u.Side != pl.side || u.Moved || pl.s.Sapper(u.Index) {
+		if u.Side != pl.side || u.Moved || pl.s.Sapper(u.Index) || pl.s.Builder(u.Index) {
 			continue
 		}
 		for _, t := range dosplay.Coords(pl.s.Targets(pl.side, u.Index)) {

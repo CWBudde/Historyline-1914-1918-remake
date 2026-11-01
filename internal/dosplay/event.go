@@ -29,11 +29,12 @@ const (
 	Captured                      // Side took a building with Unit: To the building, Hold its record, Text
 	Tasked                        // a sapper got its work order: From the sapper, To the hex
 	Dug                           // a sapper dug or filled a trench: From the sapper, To the hex, Hexes, Text
+	Constructed                   // a construction unit built half a depot or completed one: From, To the N hex, Hexes, Hold (complete), Text
 )
 
 var kindNames = [...]string{
 	"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
-	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug",
+	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug", "constructed",
 }
 
 func (k EventKind) String() string {
@@ -77,13 +78,14 @@ type Event struct {
 	Turn     int
 	Energy   int
 	End      *dosrules.End
-	Hold     int // Captured: the building's container record
+	Hold     int // Captured: the building's container record; Constructed: the new depot's
 	Text     string
 	Raw      dosrules.Event
 	// Rear is the path of a moving two-cell ship's rear, one step behind
 	// Path: from the rear's hex to the one before the goal.
 	Rear []hexgrid.Coord
-	// Hexes are the hexes whose terrain a sapper's work changed (Dug).
+	// Hexes are the hexes whose terrain a sapper's or construction unit's
+	// work changed (Dug, Constructed).
 	Hexes []hexgrid.Coord
 }
 
@@ -132,6 +134,14 @@ func MessageText(code int) string {
 		return "No orders left this phase."
 	case dosrules.MsgTrench:
 		return "Trench work ordered."
+	case dosrules.MsgDepot:
+		return "Depot construction ordered."
+	case dosrules.MsgDepotLimit:
+		return "No more depots can be built."
+	case dosrules.MsgNoSite:
+		return "There is no room for a depot here."
+	case dosrules.MsgNoCharge:
+		return "The unit has nothing left to build with."
 	case 0:
 		return ""
 	}
@@ -219,6 +229,17 @@ func (s *Session) event(r dosrules.Event, b *battles) Event {
 		ev.Kind, ev.To, ev.Text = Dug, s.coord(r.Cell), "Trench dug."
 		if r.Kind == dosrules.EvFilled {
 			ev.Text = "Trench filled."
+		}
+		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
+		for _, c := range r.Cells {
+			if p, ok := s.Board.Coord(c); ok {
+				ev.Hexes = append(ev.Hexes, p)
+			}
+		}
+	case dosrules.EvHalfDepot, dosrules.EvDepot:
+		ev.Kind, ev.To, ev.Text = Constructed, s.coord(r.Cell), "Half a depot built."
+		if r.Kind == dosrules.EvDepot {
+			ev.Text, ev.Hold = "Depot built.", r.Hold
 		}
 		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
 		for _, c := range r.Cells {

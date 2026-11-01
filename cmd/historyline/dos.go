@@ -283,6 +283,14 @@ func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 					d.Message = u.Name + ": no ground to dig or fill"
 				}
 			}
+			if d.s.Builder(u.Index) {
+				d.Message = u.Name + ": pick where to build a depot"
+				if err := d.s.CanConstruct(d.side, u.Index); err != nil {
+					d.Message = u.Name + ": " + reason(err)
+				} else if len(d.targets) == 0 {
+					d.Message = u.Name + ": no room for a depot"
+				}
+			}
 		} else {
 			d.moves, err = d.s.Destinations(d.side, u.Index)
 			d.Message = u.Name + ": pick where to move"
@@ -571,6 +579,15 @@ func (d *dosControl) step() {
 			d.Message = "The enemy dug a trench."
 			if ev.Raw.Kind == dosrules.EvFilled {
 				d.Message = "The enemy filled a trench."
+			}
+		}
+	case dosplay.Constructed:
+		d.rework = true
+		d.Message = ev.Text
+		if ev.Side != d.side {
+			d.Message = "The enemy built half a depot."
+			if ev.Raw.Kind == dosrules.EvDepot {
+				d.Message = "The enemy built a depot."
 			}
 		}
 	case dosplay.Ended:

@@ -252,9 +252,15 @@ const (
 	EvBuilt    EventKind = "built"    // a unit built: Unit, the building's Cell, Energy left
 	EvCredit   EventKind = "credit"   // a side credited after the phase change: Energy
 	EvCaptured EventKind = "captured" // Side took building record Hold at Cell with Unit (capture.go)
-	EvWork     EventKind = "work"     // a sapper's work order on Cell was taken (sapper.go): Messages
+	EvWork     EventKind = "work"     // a sapper's or construction unit's work order on Cell was taken: Messages
 	EvDug      EventKind = "dug"      // a sapper dug a trench at Cell: Cells took trench records (sapper.go)
 	EvFilled   EventKind = "filled"   // a sapper filled a trench at Cell: Cells took TerrainFilled (sapper.go)
+	// EvHalfDepot: a construction unit laid half a depot at Cell, its
+	// anchor: Cells (N, E, S, W) took the half depot's records (builder.go).
+	EvHalfDepot EventKind = "halfDepot"
+	// EvDepot: a construction unit completed the depot at Cell: Cells took
+	// the depot's records and Hold is its new container record (builder.go).
+	EvDepot EventKind = "depot"
 )
 
 // Event is one thing that happened, in order.
@@ -304,7 +310,8 @@ func (g *Game) unitOf(c Command) (int, error) {
 //     message 0x45) that is a target of the unit (Target). Assumed, not
 //     verified: as for a move, the attacker must be on the side's map, not
 //     held in a container and the occupant of its cell. A sapper's order
-//     needs a neighbouring cell it can dig or fill instead (sapper.go).
+//     needs a neighbouring cell it can dig or fill instead (sapper.go), a
+//     construction unit's a charge and a depot site (builder.go).
 //   - A repair or a build needs an own building, the action phase and the
 //     energy (energy.go).
 //
@@ -365,6 +372,9 @@ func (g *Game) Check(c Command) error {
 	if g.Limit > 0 && !p.Computer && len(p.Orders) >= g.Limit {
 		return refuse(MsgLimit, "the move limit is reached")
 	}
+	if c.Kind == CmdAttack && u.Builder() {
+		return g.checkBuilder(c.Side, u, idx, c.Cell)
+	}
 	if c.Kind == CmdAttack && u.Sapper() {
 		if !g.trenchTarget(c.Side, u, c.Cell) {
 			return refuse(MsgNoTarget, "no trench work there")
@@ -424,7 +434,7 @@ func (g *Game) occupant(side, cell int) int {
 //     +4 0x200), +0x11 to the target, +0x13 = 9 and +0x14 = 2, and appends the
 //     unit to the list (message 0x49). A sapper's order sets the moved flag,
 //     +0x11 and +0x13 = 0x11 and stays off the list (message 0x6e,
-//     EvWork).
+//     EvWork); so does a construction unit's (message 0x46, builder.go).
 //
 // A repair or a build is carried out at once (energy.go).
 //
@@ -439,6 +449,9 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 		return g.repair(c), nil
 	case CmdBuild:
 		return g.build(c), nil
+	}
+	if c.Kind == CmdAttack && g.Units[c.Unit].Builder() {
+		return []Event{g.orderDepot(c.Side, c.Unit, c.Cell)}, nil
 	}
 	if c.Kind == CmdAttack && g.Units[c.Unit].Sapper() {
 		u := g.Units[c.Unit]
@@ -681,7 +694,8 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // unit taken off that map with bit 4 of its +0x14 set (02dc:2083). The
 // action pass then hands the buildings the movement side's units entered to
 // that side (capture, EvCaptured) and carries out the sappers' work on the
-// action side's map (trench, EvDug and EvFilled). Then the phase change (ChangePhase)
+// action side's map (trench, EvDug and EvFilled) and the construction units'
+// (builder.go, EvHalfDepot and EvDepot). Then the phase change (ChangePhase)
 // brings both maps into line, marks the destroyed units 0x8000, swaps the
 // phases, clears both lists and the confirmations and counts the turn. It
 // also clears every unit's +4 bits 0x0f00 (moved among them), its order cell

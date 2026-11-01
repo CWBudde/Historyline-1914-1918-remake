@@ -89,6 +89,8 @@ func Digest(evs []dosplay.Event) string {
 			fmt.Fprintf(&b, " built u%d at %s, energy left %d\n", ev.Unit, show(ev.To), ev.Energy)
 		case dosplay.Dug:
 			fmt.Fprintf(&b, " sapper work at %s: %s\n", show(ev.To), ev.Text)
+		case dosplay.Constructed:
+			fmt.Fprintf(&b, " %s depot work at %s: %s\n", Sides[ev.Side], show(ev.To), ev.Text)
 		case dosplay.Ended:
 			if ev.End != nil {
 				fmt.Fprintf(&b, " GAME OVER winner=side%d (%s) won=%v score=%d\n", ev.End.Winner, Sides[max(ev.End.Winner, 0)], ev.End.Won, ev.End.Score)

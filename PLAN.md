@@ -414,11 +414,15 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
       attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
       within the weapon's range for that class.
-- [ ] 3.3 Buildings: depot construction and barbed wire. Sapper trenches work under `-rules dos`.
-      (2026-11-01) — partial: `dosai` digs with sappers near an enemy or an own HQ and never fills
-      (`internal/dosai/dig.go`, previewed by `dosplay.Session.Work`). Open: depot construction (no order handler,
-      cell rule or half-depot records known) and barbed wire (no terrain record binds it, no unit places it);
-      the movement planner does not yet steer sappers to dig spots.
+- [x] 3.3 Buildings: depot construction. Sapper trenches work under `-rules dos`.
+      (2026-11-01) — `dosai` digs with sappers near an enemy or an own HQ and never fills
+      (`internal/dosai/dig.go`). Construction units build depots as the original does
+      (`internal/dosrules/builder.go`): ten sites around the unit, half a depot (records 21–24) per charge,
+      checked against the other side's map, and the completion by either side makes a depot record that
+      credits nothing, at most ten depots. `dosplay` offers the sites, draws the depot and reports
+      `Constructed`; the front end and `llmplay` take the order. Barbed wire is struck: the original has none
+      (no terrain record of the 175 is wire, trench class 6 holds only the trench records and the map edge,
+      and sappers only dig and fill).
 
 ### 4. Computer opponent
 
@@ -427,6 +431,9 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       (return fire, support, hidden opposing orders), plus capture value, HQ distance, terrain defence.
 - [ ] 4.3 Strategic roles (attack, defend HQ/depots, capture, escort) and an energy budget.
 - [ ] 4.4 Headless AI-vs-AI runner recording rules/data versions and orders for replay.
+- [ ] 4.5 `dosai` builds depots with its construction units (the original's computer side has its own
+      builder logic) and steers sappers to dig spots; today it leaves construction units idle and digs only
+      where a sapper already stands.
 
 ### 5. Content
 

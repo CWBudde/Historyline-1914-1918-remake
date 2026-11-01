@@ -408,16 +408,17 @@ func (s *Session) canExit(side, hold, slot int) error {
 }
 
 // Targets are the hexes of side's map unit may attack now; for a sapper,
-// the hexes it may dig or fill, with a unit on them or not.
+// the hexes it may dig or fill, with a unit on them or not; for a
+// construction unit, the depot sites (the depot's N piece) it may build on.
 func (s *Session) Targets(side, unit int) map[hexgrid.Coord]bool {
 	out := map[hexgrid.Coord]bool{}
 	if side != 0 && side != 1 || s.Phase(side) != dosrules.PhaseAction || s.CanOrder(side, unit) != nil {
 		return out
 	}
 	m := s.Game.Maps[side]
-	sapper := s.Sapper(unit)
+	work := s.Sapper(unit) || s.Builder(unit)
 	for c := range s.Game.Width * s.Game.Height {
-		if !sapper && m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
+		if !work && m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
 			continue
 		}
 		if s.Game.Check(dosrules.Command{Kind: dosrules.CmdAttack, Side: side, Unit: unit, Cell: c}) == nil {

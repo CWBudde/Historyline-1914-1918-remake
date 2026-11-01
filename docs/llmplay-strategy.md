@@ -33,7 +33,7 @@ Mark I)** — taking it roughly doubles CP income.
 ## The opponent (dosai), and how it dies
 
 Exact sequential focus fire in its action phase; greedy 1-phase movement to the
-nearest visible enemy/HQ; **never builds, never repairs**; sappers dig (never
+nearest visible enemy/HQ; **never builds (units or depots), never repairs**; sappers dig (never
 fill) only with an enemy within 4 hexes or its HQ within 3; captures only at
 zero detour, no HQ garrison/threat model, and its view of our moves is stale
 until the phase change. Consequences we exploit:

@@ -251,6 +251,15 @@ func (s *Session) Entrance(c hexgrid.Coord) (hexgrid.Coord, bool) {
 			return c, true
 		}
 	}
+	// A depot built in the battle has no parts on the board: its record's
+	// cells.
+	for i, h := range s.Game.Holds {
+		if i >= dosrules.HoldFlag40 && slices.Contains(h.Cells[1:], 2*cell) {
+			if e, ok := s.Board.Coord(h.Cells[0] / 2); ok {
+				return e, true
+			}
+		}
+	}
 	return hexgrid.Coord{}, false
 }
 
@@ -265,6 +274,17 @@ func (s *Session) Footprint(e hexgrid.Coord) []hexgrid.Coord {
 	for p, en := range s.Board.Parts {
 		if en == entrance {
 			rest = append(rest, p)
+		}
+	}
+	if len(rest) == 0 {
+		for i, h := range s.Game.Holds {
+			if i >= dosrules.HoldFlag40 && h.Cells[0] == 2*entrance {
+				for _, x := range h.Cells[1:] {
+					if x != h.Cells[0] {
+						rest = append(rest, x/2)
+					}
+				}
+			}
 		}
 	}
 	out := []hexgrid.Coord{e}

@@ -95,7 +95,7 @@ never the model's self-assessment.
 ## Strategy playbook for RHEIN (CP, 34 vs 74 units, income 45 vs 95)
 
 Opponent profile (`dosai`): exact focus-fire attacks, but greedy 1-phase
-movement toward the nearest visible enemy/HQ; never builds, never repairs;
+movement toward the nearest visible enemy/HQ; never builds units or depots, never repairs;
 sappers dig (never fill) only with an enemy within 4 hexes or its HQ within 3;
 captures only at zero detour, no HQ garrison, stale view of your moves, no
 pincer/threat awareness. Do not offer it positive-gain trades — check

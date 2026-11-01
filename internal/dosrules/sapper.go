@@ -142,9 +142,9 @@ func (g *Game) trench(a, i int) Event {
 }
 
 // work is the action pass for side a's resolution, in unit order: the
-// captures (capture) and the sappers' work (trench). It returns their events
-// and the side that took an HQ (-1 if none), the order handler's return
-// value.
+// captures (capture), the sappers' work (trench) and the construction units'
+// (builder.go). It returns their events and the side that took an HQ (-1 if
+// none), the order handler's return value.
 func (g *Game) work(a int) ([]Event, int) {
 	won := -1
 	var evs []Event
@@ -163,6 +163,12 @@ func (g *Game) work(a int) ([]Event, int) {
 			}
 		case actionTrench:
 			evs = append(evs, g.trench(a, i))
+		case actionHalf:
+			if ev, ok := g.halfDepotWork(a, i); ok {
+				evs = append(evs, ev)
+			}
+		case actionDepot:
+			evs = append(evs, g.depotWork(a, i))
 		}
 	}
 	return evs, won

@@ -1463,7 +1463,7 @@ func (p *coachPlan) attacks() ([]dosplay.Event, error) {
 	}
 	var cands []cand
 	for _, u := range p.own {
-		if u.Moved || u.Held || p.s.Sapper(u.Index) {
+		if u.Moved || u.Held || p.s.Sapper(u.Index) || p.s.Builder(u.Index) {
 			continue
 		}
 		for _, t := range dosplay.Coords(p.s.Targets(p.side, u.Index)) {

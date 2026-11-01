@@ -326,6 +326,10 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 				parts = append(parts, fmt.Sprintf("%s dig/work", show(t)))
 				continue
 			}
+			if s.Builder(u.Index) {
+				parts = append(parts, fmt.Sprintf("%s build depot", show(t)))
+				continue
+			}
 			if err == nil && occupied {
 				if cell, ok := s.Board.Cell(t); ok {
 					if o, e := prof.Engage(bf, u.Index, cell); e == nil && o.Battle {

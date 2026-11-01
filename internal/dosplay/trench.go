@@ -1,6 +1,7 @@
 package dosplay
 
 import (
+	"errors"
 	"slices"
 	"strings"
 
@@ -9,9 +10,10 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
-// Sappers dig and fill trenches (dosrules sapper.go). The level stays as it
-// was loaded; Reworked gives the hexes whose terrain the work changed, from
-// the terrain records, so a resumed battle shows them as well.
+// Sappers dig and fill trenches (dosrules sapper.go), construction units
+// build depots (dosrules builder.go). The level stays as it was loaded;
+// Reworked gives the hexes whose terrain the work changed, from the terrain
+// records, so a resumed battle shows them as well.
 
 // trenchPorts are the directions of hexgrid.Around a trench course may take:
 // the original's trench pieces and a sapper's work run only along the four
@@ -25,7 +27,17 @@ const (
 	plain ground = iota
 	trench
 	filled
+	depotN // a depot's pieces, half or complete
+	depotE
+	depotS
+	depotW
 )
+
+// depotGround are the depot records, half (21-24) and complete (15-20).
+var depotGround = map[int]ground{
+	15: depotN, 16: depotN, 17: depotN, 18: depotS, 19: depotW, 20: depotE,
+	21: depotN, 22: depotS, 23: depotW, 24: depotE,
+}
 
 func groundOf(rec int) ground {
 	switch {
@@ -34,6 +46,9 @@ func groundOf(rec int) ground {
 	case rec == dosrules.TerrainFilled:
 		return filled
 	}
+	if g, ok := depotGround[rec]; ok {
+		return g
+	}
 	return plain
 }
 
@@ -41,6 +56,26 @@ func groundOf(rec int) ground {
 // its action order goes to a neighbouring hex, which it digs or fills after
 // the battles, and fights no battle.
 func (s *Session) Sapper(unit int) bool { return s.Game.Units[unit].Sapper() }
+
+// Builder reports whether unit builds depots instead of attacking: its
+// action order goes to a depot site next to it (Targets), where it lays half
+// a depot after the battles, or completes one, and fights no battle.
+func (s *Session) Builder(unit int) bool { return s.Game.Units[unit].Builder() }
+
+// CanConstruct is why construction unit of side can build no depot now (no
+// charge left, no site), nil when it can.
+func (s *Session) CanConstruct(side, unit int) error {
+	u, ok := s.Game.Units[unit]
+	if !ok || !u.Builder() {
+		return refusal("not a construction unit")
+	}
+	err := s.Game.Check(dosrules.Command{Kind: dosrules.CmdAttack, Side: side, Unit: unit, Cell: u.Cell(side)})
+	var r *dosrules.Refusal
+	if errors.As(err, &r) && r.Code == dosrules.MsgNoTarget {
+		return nil // a site elsewhere: its own cell is none
+	}
+	return wrap(err)
+}
 
 // Work is the work sapper unit of side would do on hex to as the side's own
 // map shows it now, without ordering it: the hexes it changes, the terrain
@@ -62,10 +97,12 @@ func (s *Session) Work(side, unit int, to hexgrid.Coord) (hexes []hexgrid.Coord,
 	return hexes, recs, fill
 }
 
-// Reworked are the level's hexes whose terrain sappers changed, as the
-// current terrain records make them: a dug hex is grass with a trench whose
-// ports lead to its trench neighbours, a filled one grass without its trench
-// (its record, 0x51, plays as grass). The other hexes are the level's.
+// Reworked are the level's hexes whose terrain sappers or construction
+// units changed, as the current terrain records make them: a dug hex is
+// grass with a trench whose ports lead to its trench neighbours, a filled one
+// grass without its trench (its record, 0x51, plays as grass), a depot's hex,
+// half or complete, the depot's piece without infrastructure. The other hexes
+// are the level's.
 func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 	out := map[hexgrid.Coord]level.Hex{}
 	m := s.Game.Maps[0]
@@ -76,6 +113,12 @@ func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 			continue
 		}
 		h := s.Level.Lines[c.Line][c.Col]
+		if g := groundOf(rec); g >= depotN {
+			h.Terrain = s.season("cmp" + string("NESW"[g-depotN]))
+			h.Infra = level.Infra{}
+			out[c] = h
+			continue
+		}
 		ids := slices.DeleteFunc(slices.Clone(h.Infra.IDs), func(id string) bool { return strings.HasPrefix(id, "trench") })
 		h.Terrain = s.season("grass")
 		if groundOf(rec) == trench {
