@@ -346,8 +346,9 @@ stones.
       rings (G6); boulders and scrub come from the props (G7).
 - [ ] L6.2 Crater stamps for other cluster shapes; keep the per-hex fallback for unknown shapes.
 - [ ] L6.3 Knolls (G8, three variants) and massifs (G9, one per reference feature) carry no grass of their
-      own. Each is a semi-transparent shade layer over the meadow plus a standing crest. The massif inset
-      goes from 0.65 to 1.0 with 12 px overhang. Relief stays 6–10 L\* darker than grass.
+      own. Each is a semi-transparent shade layer over the meadow plus a standing crest. The massif already
+      fills its four hexes (inset 1.0, `slope_fade`); the 12 px overhang is open. Relief stays 6–10 L\*
+      darker than grass.
       - Knoll: grassy with a rocky top, about 1.5 hexes across, overhanging its hex with a grassy skirt;
         three or four variants chosen by seed; lighting fixed, so no mirroring. Exemplars `r18c7`, `r29c3`,
         `r46c4`.

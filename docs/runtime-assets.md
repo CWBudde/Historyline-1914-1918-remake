@@ -204,7 +204,9 @@ streets reach the hex edge at the gate, and the first 10 world px of the street 
 road tile (`entry_road`), so the road runs on into the gate (`TestGenerateCompoundTiles` and
 `TestGenerateRuinTiles` re-export them). The painted street lies within 1 world px of that road
 (`TestCompoundEntryStreetMeetsTheRoad`). The ruin, which has no fence, fades out towards its outer edge along
-an irregular line (`edge_feather`).
+an irregular line (`edge_feather`). The massif (`tile/mountN`, `mountE`, `mountS`, `mountW`) fills its four
+hexes and fades its lower slopes towards its own outline in noisy patches (`slope_fade`,
+`art/pipeline/compound-mountain-v3.json`), so it runs out into the meadow instead of ending at a rim.
 For one adjacent stream facing a fully-land shore edge, the compositor selects
 `tile/<shore>-outlet<port>`, including derived `shore-*` shapes. The mouth shares the ordinary bank
 and water materials, retains the corner states and meets the stream's port profile. Missing variants

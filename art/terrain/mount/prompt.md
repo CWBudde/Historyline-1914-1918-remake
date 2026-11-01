@@ -82,8 +82,10 @@ detail. The winter edit changes only thin settled snow and dormant vegetation, p
 crest, every slab and grassy fold. Single-cell fallback tiles use the same sources; the independently
 selected summer knoll standing stamps remain separate.
 
-`art-review -compound art/pipeline/compound-mountain-v2.json` scales the mountain master into the four-cell
-scene for both seasons and slices it. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+`art-review -compound art/pipeline/compound-mountain-v3.json` scales the mountain master into the four-cell
+scene for both seasons and slices it. The massif fills the whole scene (inset 1); its `slope_fade` (56 world
+px) fades the lower slopes towards the outline in noisy patches, so they run out into the meadow inside the
+boundary guard instead of ending at a rim. The single-cell fallback keeps inset 0.55 without the fade. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

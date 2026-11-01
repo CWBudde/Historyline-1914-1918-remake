@@ -38,6 +38,10 @@ type compoundSceneInput struct {
 	// feather keeps the artwork exactly: walls, towers, fences and buildings
 	// that reach the boundary keep their straight edge.
 	EdgeKeep [][]connectionPoint `json:"edge_keep,omitempty"`
+	// SlopeFade (world px; free-standing cut-outs such as the massif) fades the
+	// artwork towards its own outline in noisy patches, so it can fill the scene
+	// and still melt into the ground inside the guard.
+	SlopeFade float64 `json:"slope_fade,omitempty"`
 }
 
 // fit is how the scene's artwork maps onto its box: reference-layout scenes
@@ -143,7 +147,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		}
 	}
 	for _, s := range scenes {
-		if err := keys(s, "id", "artwork", "inset", "framing", "shift", "zoom", "entry_road", "edge_feather", "edge_keep"); err != nil {
+		if err := keys(s, "id", "artwork", "inset", "framing", "shift", "zoom", "entry_road", "edge_feather", "edge_keep", "slope_fade"); err != nil {
 			return err
 		}
 		if road, ok := s["entry_road"]; ok {
@@ -329,6 +333,9 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 			in.EntryRoads[s.ID] = road
 		}
 		if e = compoundValidateFeather(l, s.Framing, s.EdgeFeather, s.EntryRoad != nil, s.EdgeKeep); e != nil {
+			return in, fmt.Errorf("%s: %w", s.ID, e)
+		}
+		if e = compoundValidateSlope(s.Framing, s.SlopeFade); e != nil {
 			return in, fmt.Errorf("%s: %w", s.ID, e)
 		}
 		src, e := compoundReadSource(sourceBase(path), s.Artwork, false)
