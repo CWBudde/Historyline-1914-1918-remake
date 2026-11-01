@@ -414,8 +414,11 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
       attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
       within the weapon's range for that class.
-- [ ] 3.3 Buildings: depot construction and barbed wire. Sapper trenches work under `-rules dos`; the computer
-      side does not dig yet.
+- [ ] 3.3 Buildings: depot construction and barbed wire. Sapper trenches work under `-rules dos`.
+      (2026-11-01) — partial: `dosai` digs with sappers near an enemy or an own HQ and never fills
+      (`internal/dosai/dig.go`, previewed by `dosplay.Session.Work`). Open: depot construction (no order handler,
+      cell rule or half-depot records known) and barbed wire (no terrain record binds it, no unit places it);
+      the movement planner does not yet steer sappers to dig spots.
 
 ### 4. Computer opponent
 

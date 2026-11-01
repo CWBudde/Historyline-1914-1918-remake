@@ -95,9 +95,10 @@ never the model's self-assessment.
 ## Strategy playbook for RHEIN (CP, 34 vs 74 units, income 45 vs 95)
 
 Opponent profile (`dosai`): exact focus-fire attacks, but greedy 1-phase
-movement toward the nearest visible enemy/HQ; never builds, never repairs,
-never digs, captures only at zero detour, no HQ garrison, stale view of your
-moves, no pincer/threat awareness. Do not offer it positive-gain trades — check
+movement toward the nearest visible enemy/HQ; never builds, never repairs;
+sappers dig (never fill) only with an enemy within 4 hexes or its HQ within 3;
+captures only at zero detour, no HQ garrison, stale view of your moves, no
+pincer/threat awareness. Do not offer it positive-gain trades — check
 every candidate against the annotated gains.
 
 1. **NE reserve by sea.** Depot [10,31] holds 2×A7V + antiTank + 2×eliteInf;

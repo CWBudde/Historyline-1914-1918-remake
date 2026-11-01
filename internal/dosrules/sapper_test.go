@@ -144,3 +144,49 @@ func TestSapperFills(t *testing.T) {
 		})
 	}
 }
+
+// WorkCells previews the work: the cells, the records they take and whether
+// it fills, as the work then changes them, without changing the maps.
+func TestSapperWorkCells(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			rock := unworked(t, p)
+			for _, tc := range []struct {
+				from, to int
+				terrain  map[int]int
+			}{
+				{40, 31, nil},
+				{41, 51, nil},
+				{40, 31, map[int]int{31: 0xA7, 32: rock}},
+				{40, 31, map[int]int{30: 0xAA, 32: rock}},
+			} {
+				g := sapperScene(t, p, tc.from, 0, tc.terrain)
+				before := slices.Clone(g.Maps[1])
+				cells, recs, fill := g.WorkCells(1, 1, tc.to)
+				if !slices.Equal(g.Maps[1], before) {
+					t.Fatalf("%d→%d: the preview changed the map", tc.from, tc.to)
+				}
+				ev := work(t, g, tc.to)
+				if !slices.Equal(cells, ev.Cells) || fill != (ev.Kind == EvFilled) || len(recs) != len(cells) {
+					t.Errorf("%d→%d: preview %v %v %v, work %+v", tc.from, tc.to, cells, recs, fill, ev)
+				}
+				for k, c := range cells {
+					if got := terrainOf(g, c); k < len(recs) && got != recs[k] {
+						t.Errorf("%d→%d: cell %d took %#x, preview %#x", tc.from, tc.to, c, got, recs[k])
+					}
+				}
+			}
+			g := sapperScene(t, p, 40, 0, nil)
+			if cells, _, _ := g.WorkCells(1, 1, 42); cells != nil {
+				t.Errorf("a cell beyond the neighbours: %v", cells)
+			}
+			if cells, _, _ := g.WorkCells(1, 7, 31); cells != nil {
+				t.Errorf("no such unit: %v", cells)
+			}
+			g = sapperScene(t, p, 40, 0, map[int]int{31: rock})
+			if cells, _, _ := g.WorkCells(1, 1, 31); cells != nil {
+				t.Errorf("terrain the sapper leaves alone: %v", cells)
+			}
+		})
+	}
+}

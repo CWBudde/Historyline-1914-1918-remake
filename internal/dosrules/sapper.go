@@ -84,23 +84,30 @@ func (g *Game) trenchTarget(side int, u Live, cell int) bool {
 	return slices.Contains(n[:], cell) && g.worked(g.Maps[side][2*cell])
 }
 
-// trench is the work of sapper i of side a on a's map, the terrain the
-// cells take: dug below the first trench record, filled from there on. A cell
-// off the map is left alone (the original's offset reads beyond the map's
-// rows).
-func (g *Game) trench(a, i int) Event {
-	u := g.Units[i]
-	from, to := u.Cell(a), u.Target/2
-	m := g.Maps[a]
+// WorkCells is the work sapper unit of side would do on cell as the side's
+// map shows it now, without doing it: the cells it changes, the terrain
+// record each takes and whether it fills (a trench on cell) rather than
+// digs. The cells are nil for a cell the unit may not work on (no
+// neighbour, or terrain sappers leave alone).
+func (g *Game) WorkCells(side, unit, cell int) (cells, recs []int, fill bool) {
+	u, ok := g.Units[unit]
+	if !ok || side != 0 && side != 1 || cell < 0 || cell >= g.Width*g.Height || !g.trenchTarget(side, u, cell) {
+		return nil, nil, false
+	}
+	return g.workCells(side, u.Cell(side), cell)
+}
+
+// workCells is the work from cell from on cell to on side's map: the cells
+// sappers work among the three, the record each takes, and whether the
+// work fills. A cell off the map is left alone (the original's offset reads
+// beyond the map's rows).
+func (g *Game) workCells(side, from, to int) (cells, recs []int, fill bool) {
+	m := g.Maps[side]
+	fill = m[2*to] >= trenchFirst
 	n := neighbours(from, g.Width, g.Height)
 	k := slices.Index(n[:], to)
-	kind := EvDug
-	if m[2*to] >= trenchFirst {
-		kind = EvFilled
-	}
-	ev := Event{Kind: kind, Side: a, Unit: i, Cell: to}
 	if k < 0 {
-		return ev
+		return nil, nil, fill
 	}
 	x, y := from%g.Width, from/g.Width
 	for _, c := range trenchWork[x&1][k] {
@@ -108,12 +115,28 @@ func (g *Game) trench(a, i int) Event {
 		if cell < 0 || cell >= g.Width*g.Height || !g.worked(m[2*cell]) {
 			continue
 		}
-		rec := TerrainFilled
-		if kind == EvDug {
-			rec = c.rec
+		rec := c.rec
+		if fill {
+			rec = TerrainFilled
 		}
-		m[2*cell] = rec
-		ev.Cells = append(ev.Cells, cell)
+		cells = append(cells, cell)
+		recs = append(recs, rec)
+	}
+	return cells, recs, fill
+}
+
+// trench is the work of sapper i of side a on a's map, the terrain the
+// cells take: dug below the first trench record, filled from there on.
+func (g *Game) trench(a, i int) Event {
+	u := g.Units[i]
+	to := u.Target / 2
+	cells, recs, fill := g.workCells(a, u.Cell(a), to)
+	ev := Event{Kind: EvDug, Side: a, Unit: i, Cell: to, Cells: cells}
+	if fill {
+		ev.Kind = EvFilled
+	}
+	for k, cell := range cells {
+		g.Maps[a][2*cell] = recs[k]
 	}
 	return ev
 }

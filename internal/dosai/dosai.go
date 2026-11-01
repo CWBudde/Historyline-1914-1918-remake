@@ -5,7 +5,9 @@
 // and the enemy units it sees, and takes the enemy HQ or another side's or
 // a neutral building where a unit reaches its entrance; in the
 // action phase it queues the attacks whose exact outcome (dosrules.Engage on
-// the side's map as the earlier orders leave it) gains most.
+// the side's map as the earlier orders leave it) gains most, then has each
+// sapper near an enemy unit or an own HQ dig the trench that adds most
+// defence where it counts; it never fills one.
 //
 // It reads only what the side may know: its view (the other side's units
 // where they stood at the last phase change), its battlefield, and the
@@ -65,7 +67,7 @@ func (p *Planner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, error) {
 	if s.Phase(side) == dosrules.PhaseMovement {
 		evs, err = pl.move()
 	} else {
-		evs, err = pl.attack()
+		evs, err = pl.action()
 	}
 	if err != nil {
 		return evs, err
@@ -465,10 +467,24 @@ type candidate struct {
 	near   bool // within hqRadius of an own HQ
 }
 
-// attack gives the action phase's orders: repeatedly the candidate whose
-// battle, fought on the state the orders so far leave, gains most, while one
-// gains anything. Sappers get no order: their work is no battle.
-func (pl *plan) attack() ([]dosplay.Event, error) {
+// action gives the action phase's orders: the attacks (attack), then the
+// sappers' work (dig). The progress counts the attackers, then the diggers.
+func (pl *plan) action() ([]dosplay.Event, error) {
+	cands, units := pl.candidates()
+	diggers := pl.diggers()
+	total := len(units) + len(diggers)
+	pl.report(0, total)
+	evs, err := pl.attack(cands, len(units), total)
+	if err != nil {
+		return evs, err
+	}
+	ev, err := pl.dig(diggers, len(units), total)
+	return append(evs, ev...), err
+}
+
+// candidates are the possible attack orders and the units that have one.
+// Sappers have none: their work is no battle.
+func (pl *plan) candidates() ([]candidate, []int) {
 	var cands []candidate
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
@@ -490,7 +506,13 @@ func (pl *plan) attack() ([]dosplay.Event, error) {
 			units = append(units, c.unit)
 		}
 	}
-	pl.report(0, len(units))
+	return cands, units
+}
+
+// attack gives the attack orders: repeatedly the candidate whose battle,
+// fought on the state the orders so far leave, gains most, while one gains
+// anything. The progress runs from 0 to n of total.
+func (pl *plan) attack(cands []candidate, n, total int) ([]dosplay.Event, error) {
 	var orders []dosrules.Order
 	var evs []dosplay.Event
 	for len(cands) > 0 {
@@ -515,13 +537,13 @@ func (pl *plan) attack() ([]dosplay.Event, error) {
 		evs = append(evs, ev...)
 		orders = append(orders, dosrules.Order{Attacker: c.unit, Target: c.cell})
 		cands = slices.DeleteFunc(cands, func(o candidate) bool { return o.unit == c.unit })
-		if len(orders) < len(units) {
-			pl.report(len(orders), len(units))
+		if len(orders) < n {
+			pl.report(len(orders), total)
 		}
 	}
-	if len(units) > 0 {
+	if n > 0 {
 		// The units left gain nothing from an attack.
-		pl.report(len(units), len(units))
+		pl.report(n, total)
 	}
 	return evs, nil
 }
