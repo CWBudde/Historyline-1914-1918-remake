@@ -238,6 +238,13 @@ Scale each pick to its section's size in the output and stack the sections:
 A two-column map is stitched per row along x first (transpose, stack, transpose back), then the rows
 along y. Check the joins at full resolution and with a hex-grid overlay for registration.
 
+`hl levels backdrop jpeg -stitch <plan.json> <month>` performs these operations
+without replacing installed art. The section plan additionally names `output`,
+`columns`, `rows`, `painted` and `stitched`; each section can override its selected
+`painting` path. It writes an exclusive PNG and a JSON record of gains and seams.
+`-inspect <plan.json>` exports native-resolution join crops and hex-grid overlays
+to the plan's `review` directory. Both modes refuse existing output files.
+
 ## 5. Finishing
 
 - Grade towards the target look: a mild desaturation and gain (PULSE: 0.2 and 0.9; 0.4 turned it grey
