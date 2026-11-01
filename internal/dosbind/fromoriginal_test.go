@@ -3,6 +3,7 @@ package dosbind
 import (
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 	"testing"
 
@@ -217,17 +218,13 @@ func TestFromOriginalImportedMaps(t *testing.T) {
 	}
 }
 
-// knownNumbering are the building records Bind numbers otherwise than the
-// game (and the imported map): the game numbers depots and factories by
-// their entrances in cell order, Bind by the buildings' first cells. The
-// bound record by the imported one.
-var knownNumbering = map[string]map[int]int{}
-
-// TestFromOriginalMatchesBind compares the building records of the Python
-// remake's PULSE with those of its original map.
+// TestFromOriginalMatchesBind compares the building records of every
+// shipped level made from an original map with those of the map: Bind takes
+// each building as its pieces and numbers depots and factories by their
+// entrances in cell order, as the game does.
 func TestFromOriginalMatchesBind(t *testing.T) {
 	set := loadSet(t)
-	for _, lv := range []testLevel{pythonPulse(t)} {
+	for _, lv := range shipped(t) {
 		bound := bind(t, lv.Level)
 		_, b := fromOriginal(t, lv.Map, set)
 		n := 0
@@ -236,17 +233,16 @@ func TestFromOriginalMatchesBind(t *testing.T) {
 				continue
 			}
 			n++
-			j, ok := knownNumbering[lv.MapName][i]
-			if !ok {
-				j = i
-			}
-			h, ok := bound.Holds[j]
+			h, ok := bound.Holds[i]
 			if !ok || o.Cells != h.Cells || o.Flags != h.Flags || o.Occupant != h.Occupant {
-				t.Errorf("%s: record %d: original %+v, bound %d %+v", lv.MapName, i, o, j, h)
+				t.Errorf("%s (map %02d): record %d: original %+v, bound %+v", lv.MapName, lv.Map, i, o, h)
 			}
 		}
 		if n != buildingHolds(bound) {
-			t.Errorf("%s: %d building records, bound %d", lv.MapName, n, buildingHolds(bound))
+			t.Errorf("%s (map %02d): %d building records, bound %d", lv.MapName, lv.Map, n, buildingHolds(bound))
+		}
+		if !maps.Equal(b.Parts, bound.Parts) {
+			t.Errorf("%s (map %02d): building parts %v, bound %v", lv.MapName, lv.Map, b.Parts, bound.Parts)
 		}
 	}
 }

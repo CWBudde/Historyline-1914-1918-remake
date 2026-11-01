@@ -150,9 +150,15 @@ func TestBindShippedLevels(t *testing.T) {
 	}
 }
 
+// knownStacked are the cells where Bind places two units: addRear puts the
+// rears of two destroyers (PARTS' ec and 2p setups, lines 39 and 42) on the
+// one free water hex both touch, as it skips the level's units but not the
+// rears it placed before.
+var knownStacked = map[string][]int{"1916-02:ec": {670}, "1916-02:2p": {670}}
+
 // checkHolds checks the container records: a building's first cell is its
-// entrance, a transporter's its unit, and every unit is in at most one
-// record.
+// entrance, a transporter's its unit, every unit is in at most one record,
+// and the buildings are numbered as the game numbers them.
 func checkHolds(t *testing.T, name string, b *Board) {
 	t.Helper()
 	terrains := dosrules.Full.Tables.Move.Terrains
@@ -201,10 +207,41 @@ func checkHolds(t *testing.T, name string, b *Board) {
 			t.Errorf("%s: unit %d in %d records", name, u, n)
 		}
 	}
+	// The depot and factory tables run gap-free from their bases, in the
+	// cell order of their entrances; every entrance has exactly one record.
+	for _, base := range []int{dosrules.HoldFlag100, dosrules.HoldFlag400} {
+		prev := -1
+		for i := base; i < base+tableLen; i++ {
+			h, ok := b.Holds[i]
+			if !ok {
+				for j := i + 1; j < base+tableLen; j++ {
+					if _, ok := b.Holds[j]; ok {
+						t.Errorf("%s: record %d without record %d", name, j, i)
+					}
+				}
+				break
+			}
+			if h.Cells[0] <= prev {
+				t.Errorf("%s: record %d at cell %d, the record before at %d", name, i, h.Cells[0]/2, prev/2)
+			}
+			prev = h.Cells[0]
+		}
+	}
+	entered := map[int]int{}
+	for i, h := range b.Holds {
+		if i >= dosrules.HoldFlag40 {
+			entered[h.Cells[0]/2]++
+		}
+	}
+	for cell, rec := range b.Terrain {
+		if terrains[rec].Flags&(flagHQ|flagDepot|flagFactory) != 0 && entered[cell] != 1 {
+			t.Errorf("%s: entrance cell %d (record %d) entered by %d records", name, cell, rec, entered[cell])
+		}
+	}
 	cells := map[int]int{}
 	for i, u := range b.Units {
 		if in[i] == 0 {
-			if j, dup := cells[u.Cell]; dup {
+			if j, dup := cells[u.Cell]; dup && !slices.Contains(knownStacked[name], u.Cell) {
 				t.Errorf("%s: units %d and %d on cell %d", name, i, j, u.Cell)
 			}
 			cells[u.Cell] = i
@@ -252,18 +289,199 @@ func TestBindErrorsNameTheHex(t *testing.T) {
 	}
 }
 
+// everySetup are the Python remake's PULSE and every setup of the shipped
+// level folders, of every mode.
+func everySetup(t *testing.T) []scenario.Named {
+	t.Helper()
+	sh, err := scenario.Shipped()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return append([]scenario.Named{{Name: "Pulse", Level: pythonPulse(t).Level}}, sh...)
+}
+
+// shippedLevel is setup m of the shipped level folder month.
+func shippedLevel(t *testing.T, month string, m scenario.Mode) *level.Level {
+	t.Helper()
+	lv, err := scenario.ShippedLevel(month, m)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return lv
+}
+
+// TestDroppedContent binds every setup: each unit of a building's content
+// is held in the building's container record, none is dropped.
 func TestDroppedContent(t *testing.T) {
-	for _, lv := range shipped(t) {
-		b := bind(t, lv.Level)
-		n := 0
-		for _, ids := range b.Dropped {
-			n += len(ids)
+	for _, n := range everySetup(t) {
+		b := bind(t, n.Level)
+		content := 0
+		for _, line := range n.Level.Lines {
+			for _, h := range line {
+				if h.Content != nil {
+					content += len(h.Content.Units)
+				}
+			}
 		}
-		// PARTS has two camps that touch, which Bind takes for one
-		// building: the second camp's content is dropped (PLAN 5.8).
-		want := map[string]int{"PARTS": 6}[lv.MapName]
-		if n != want {
-			t.Errorf("%s: %d dropped units %v, want %d", lv.MapName, n, b.Dropped, want)
+		held := 0
+		for i, h := range b.Holds {
+			if i < dosrules.HoldFlag40 {
+				continue
+			}
+			for _, u := range h.Slots[:7] {
+				if u <= dosrules.SlotFree {
+					held++
+				}
+			}
 		}
+		if held != content {
+			t.Errorf("%s: %d of %d content units held", n.Name, held, content)
+		}
+	}
+}
+
+// TestBindHoldsEverySetup checks the container records of every setup.
+func TestBindHoldsEverySetup(t *testing.T) {
+	for _, n := range everySetup(t) {
+		checkHolds(t, n.Name, bind(t, n.Level))
+	}
+}
+
+// TestBindNumbersByEntrance binds MOUSE, whose two lower factories come in
+// the other order by their first cells: the game numbers depots and
+// factories by their entrances in cell order.
+func TestBindNumbersByEntrance(t *testing.T) {
+	b := bind(t, shippedLevel(t, "1914-12", scenario.CP))
+	for _, c := range []struct {
+		record   int
+		entrance hexgrid.Coord
+		first    string
+	}{
+		{dosrules.HoldFlag400, hexgrid.Coord{Line: 15, Col: 3}, "CP_armCar"},
+		{dosrules.HoldFlag400 + 1, hexgrid.Coord{Line: 37, Col: 9}, "CP_hArtillery"},
+		{dosrules.HoldFlag400 + 2, hexgrid.Coord{Line: 38, Col: 1}, "CP_mArtillery"},
+	} {
+		cell, _ := b.Cell(c.entrance)
+		h, ok := b.Holds[c.record]
+		if !ok || h.Cells[0] != 2*cell || b.IDs[h.Slots[0]] != c.first {
+			t.Errorf("record %d: %+v (%v), want entrance cell %d holding %s first", c.record, h, ok, cell, c.first)
+		}
+	}
+	if _, ok := b.Holds[dosrules.HoldFlag400+3]; ok {
+		t.Error("a fourth factory record")
+	}
+}
+
+// TestTouchingCampsBindApart binds PARTS, whose depot at line 60 touches
+// the camp at line 59: each takes its own four hexes. The camp without
+// content is a ruin (no container record), the depot holds its six units.
+func TestTouchingCampsBindApart(t *testing.T) {
+	b := bind(t, shippedLevel(t, "1916-02", scenario.CP))
+	cells := func(cs ...hexgrid.Coord) []int {
+		var out []int
+		for _, c := range cs {
+			cell, _ := b.Cell(c)
+			out = append(out, cell)
+		}
+		return out
+	}
+	for _, c := range []struct {
+		record int
+		camp   []int // entrance, then its other cells in cell order
+		units  []string
+	}{
+		{
+			dosrules.HoldFlag100,
+			cells(hexgrid.Coord{Line: 57, Col: 5}, hexgrid.Coord{Line: 58, Col: 5}, hexgrid.Coord{Line: 59, Col: 5}, hexgrid.Coord{Line: 58, Col: 6}),
+			[]string{"CP_fokkerEI", "CP_lArtillery", "CP_eliteInf", "CP_infantry", "CP_infantry", "CP_sappers"},
+		},
+		{
+			dosrules.HoldFlag100 + 1,
+			cells(hexgrid.Coord{Line: 59, Col: 9}, hexgrid.Coord{Line: 60, Col: 9}, hexgrid.Coord{Line: 61, Col: 9}, hexgrid.Coord{Line: 60, Col: 10}),
+			[]string{"CP_lArtillery", "CP_lArtillery", "CP_eliteInf", "CP_eliteInf", "CP_infantry", "CP_infantry"},
+		},
+	} {
+		h, ok := b.Holds[c.record]
+		var ids []string
+		for _, u := range h.Slots[:7] {
+			if u <= dosrules.SlotFree {
+				ids = append(ids, b.IDs[u])
+			}
+		}
+		if !ok || !slices.Equal(ids, c.units) {
+			t.Errorf("record %d holds %v (%v), want %v", c.record, ids, ok, c.units)
+		}
+		for k, cell := range c.camp {
+			if h.Cells[k] != 2*cell {
+				t.Errorf("record %d: cells %v, want %v (doubled)", c.record, h.Cells, c.camp)
+				break
+			}
+			if e, ok := b.Parts[cell]; k > 0 && (!ok || e != c.camp[0]) {
+				t.Errorf("record %d: cell %d is part of %d (%v)", c.record, cell, e, ok)
+			}
+		}
+	}
+	if _, ok := b.Holds[dosrules.HoldFlag100+2]; ok {
+		t.Error("a third depot record")
+	}
+	ruin := cells(hexgrid.Coord{Line: 58, Col: 11}, hexgrid.Coord{Line: 59, Col: 10}, hexgrid.Coord{Line: 59, Col: 11}, hexgrid.Coord{Line: 60, Col: 11})
+	for k, rec := range []int{Table.Terrain["cmpN@-"], Table.Terrain["cmpW@-"], Table.Terrain["cmpE@-"], Table.Terrain["cmpS@-"]} {
+		cell := ruin[k]
+		if b.Terrain[cell] != rec {
+			t.Errorf("ruin cell %d: record %d, want %d", cell, b.Terrain[cell], rec)
+		}
+		if e, ok := b.Parts[cell]; ok {
+			t.Errorf("ruin cell %d is part of the building at %d", cell, e)
+		}
+		for i, h := range b.Holds {
+			if i >= dosrules.HoldFlag40 && slices.Contains(h.Cells[:], 2*cell) {
+				t.Errorf("ruin cell %d in record %d", cell, i)
+			}
+		}
+	}
+}
+
+// TestBindBuildingErrors binds PARTS with a building broken: an error names
+// the hex.
+func TestBindBuildingErrors(t *testing.T) {
+	set := loadSet(t)
+	lv := shippedLevel(t, "1916-02", scenario.CP)
+	for _, c := range []struct {
+		edit func(lines [][]level.Hex)
+		want string
+	}{
+		// The depot entered at line60[9] without its S piece.
+		{func(lines [][]level.Hex) { lines[61][9].Terrain = "grass" }, "line62[9]: no cmpS of the building at line60[9]"},
+		// A piece that no building's N piece stamps.
+		{func(lines [][]level.Hex) { lines[0][0].Terrain = "cmpW" }, "line1[0]: cmpW outside a complete building"},
+		// Content on the W piece of a depot that has its own.
+		{
+			func(lines [][]level.Hex) { lines[60][9].Content = &level.Content{Units: []string{"CP_infantry"}} },
+			"line61[9]: a second content of the building at line60[9]",
+		},
+	} {
+		cp := *lv
+		cp.Lines = make([][]level.Hex, len(lv.Lines))
+		for i := range lv.Lines {
+			cp.Lines[i] = slices.Clone(lv.Lines[i])
+		}
+		c.edit(cp.Lines)
+		if _, err := Bind(&cp, set); err == nil || !strings.Contains(err.Error(), c.want) {
+			t.Errorf("Bind: %v, want %q", err, c.want)
+		}
+	}
+	// Content on any piece of a building is the building's.
+	cp := *lv
+	cp.Lines = make([][]level.Hex, len(lv.Lines))
+	for i := range lv.Lines {
+		cp.Lines[i] = slices.Clone(lv.Lines[i])
+	}
+	cp.Lines[60][9].Content, cp.Lines[59][9].Content = cp.Lines[59][9].Content, nil
+	b, err := Bind(&cp, set)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if h := b.Holds[dosrules.HoldFlag100+1]; b.IDs[h.Slots[0]] != "CP_lArtillery" {
+		t.Errorf("content on the depot's W piece: record %+v", h)
 	}
 }

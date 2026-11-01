@@ -6,6 +6,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
 // Hex is the terrain of one map hex: its background ID and its infrastructure
@@ -223,29 +224,6 @@ func selectContext(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, 
 	return "", gap
 }
 
-// A compound building covers several hexes, each with its own piece tile. Steps
-// walk from the group's N piece to each piece through hexgrid.Around directions.
-type compound struct {
-	prefix string
-	pieces map[string][]int // piece suffix → Around directions from N
-}
-
-const (
-	dirSE, dirS, dirSW = 1, 2, 3
-)
-
-var diamond = map[string][]int{"N": nil, "W": {dirSW}, "E": {dirSE}, "S": {dirS}}
-
-var compounds = []compound{
-	{"hq", map[string][]int{
-		"N": nil, "NW": {dirSW}, "NE": {dirSE}, "C": {dirS},
-		"SW": {dirS, dirSW}, "SE": {dirS, dirSE}, "S": {dirS, dirS},
-	}},
-	{"cmp", diamond},
-	{"factory", diamond},
-	{"mount", diamond},
-}
-
 // seasonalOverlay returns the overlay drawn for infrastructure id. Overlays
 // carry no season in the levels, so on a winter map (mostlyWinter, which also
 // covers roads on bridges and quays over water) every overlay takes its winter
@@ -258,21 +236,6 @@ func seasonalOverlay(id string, winter bool, has func(string) bool) string {
 		return w
 	}
 	return id
-}
-
-// piece splits a compound terrain ID into its compound, piece and season suffix.
-func piece(id string) (cp *compound, name, suffix string) {
-	base, winter := strings.CutSuffix(id, "_w")
-	if winter {
-		suffix = "_w"
-	}
-	for i := range compounds {
-		p, ok := strings.CutPrefix(base, compounds[i].prefix)
-		if _, known := compounds[i].pieces[p]; ok && known {
-			return &compounds[i], p, suffix
-		}
-	}
-	return nil, "", ""
 }
 
 // ruinPrefix names the pieces of a destroyed depot: tile/ruinN, ruinW, ruinE and
@@ -289,20 +252,17 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) b
 	for l := range s.Cells {
 		for col := range s.Cells[l] {
 			c := hexgrid.Coord{Line: l, Col: col}
-			cp, name, sfx := piece(at(c).Terrain)
+			cp, name, sfx := level.CompoundPiece(at(c).Terrain)
 			if cp == nil || name != "N" {
 				continue
 			}
 			group := map[string]hexgrid.Coord{"N": c}
-			for p, steps := range cp.pieces {
-				x := c
-				for _, d := range steps {
-					x = hexgrid.Around(x)[d]
-				}
+			for p := range cp.Pieces {
+				x := cp.At(c, p)
 				if p == "N" {
 					continue
 				}
-				if !g.Contains(x) || at(x).Terrain != cp.prefix+p+sfx {
+				if !g.Contains(x) || at(x).Terrain != cp.Prefix+p+sfx {
 					group = nil
 					break
 				}
@@ -311,7 +271,7 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) b
 			for _, x := range group {
 				claimed[x] = true
 			}
-			if group != nil && cp.prefix == "cmp" && at(c).Vacant {
+			if group != nil && cp.Prefix == "cmp" && at(c).Vacant {
 				s.ruin(group, sfx, has)
 			}
 		}
@@ -320,16 +280,16 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) b
 		for col := range s.Cells[l] {
 			c := hexgrid.Coord{Line: l, Col: col}
 			t := at(c).Terrain
-			cp, _, sfx := piece(t)
+			cp, _, sfx := level.CompoundPiece(t)
 			if cp == nil || claimed[c] {
 				continue
 			}
-			if cp.prefix == "mount" {
+			if cp.Prefix == "mount" {
 				s.Cells[l][col].Background = TileID("mountain" + sfx)
 				s.Cells[l][col].Standing = standing("mountain"+sfx, at(c).Infra, sfx != "", has)
 				continue
 			}
-			s.Issues = append(s.Issues, Issue{At: c, Detail: fmt.Sprintf("%s outside a complete %s group", t, cp.prefix)})
+			s.Issues = append(s.Issues, Issue{At: c, Detail: fmt.Sprintf("%s outside a complete %s group", t, cp.Prefix)})
 		}
 	}
 }

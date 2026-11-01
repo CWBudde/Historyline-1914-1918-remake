@@ -414,8 +414,11 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
       attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
       within the weapon's range for that class.
-- [ ] 3.3 Buildings: depot construction and barbed wire. Sapper trenches work under `-rules dos`; the computer
-      side does not dig yet.
+- [ ] 3.3 Buildings: depot construction and barbed wire. Sapper trenches work under `-rules dos`.
+      (2026-11-01) — partial: `dosai` digs with sappers near an enemy or an own HQ and never fills
+      (`internal/dosai/dig.go`, previewed by `dosplay.Session.Work`). Open: depot construction (no order handler,
+      cell rule or half-depot records known) and barbed wire (no terrain record binds it, no unit places it);
+      the movement planner does not yet steer sappers to dig spots.
 
 ### 4. Computer opponent
 
@@ -431,9 +434,15 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 5.2 The level format lacks transporter cargo, ship rears and terrain records that share a look (the
       original rules keep the exact binding through `dosbind.FromOriginal`); scenario setups carry credits
       and builds. CIVIL's mountains, for one, bind the default mountain record, not the original's 71-77.
-- [ ] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
+- [x] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
       in cell order (MOUSE's factories swap), and takes adjacent buildings of one family for one: PARTS'
       two touching camps bind as one, the second camp's six units are dropped (`TestDroppedContent`).
+      (2026-11-01) — Bind stamps each building from its N piece (`level.Compounds`) and numbers depots and
+      factories by entrance cell; PARTS' camps bind apart, and Bind matches `FromOriginal` on every shipped
+      original map (MOUSE, PLANE, INFRA, GREEN no longer swap).
+- [ ] 5.3a `addRear` places the rears of two EC destroyers of PARTS' `ec` and `2p` setups (1916-02, [39,16] and
+      [42,15]) on one cell (670); it skips the level's units but not rears already placed. Then drop
+      `knownStacked` in `internal/dosbind/dosbind_test.go`.
 - [ ] 5.4 Monthly campaign: remaining work.
       - a balance pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`;
       - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);

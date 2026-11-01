@@ -42,6 +42,26 @@ func groundOf(rec int) ground {
 // the battles, and fights no battle.
 func (s *Session) Sapper(unit int) bool { return s.Game.Units[unit].Sapper() }
 
+// Work is the work sapper unit of side would do on hex to as the side's own
+// map shows it now, without ordering it: the hexes it changes, the terrain
+// record each takes, and whether it fills (a trench on to) rather than
+// digs. The hexes are nil for a unit that is no sapper or a hex that is no
+// neighbour of it.
+func (s *Session) Work(side, unit int, to hexgrid.Coord) (hexes []hexgrid.Coord, recs []int, fill bool) {
+	cell, ok := s.Board.Cell(to)
+	if !ok || !s.Sapper(unit) {
+		return nil, nil, false
+	}
+	cells, rs, fill := s.Game.WorkCells(side, unit, cell)
+	for k, c := range cells {
+		if p, ok := s.Board.Coord(c); ok {
+			hexes = append(hexes, p)
+			recs = append(recs, rs[k])
+		}
+	}
+	return hexes, recs, fill
+}
+
 // Reworked are the level's hexes whose terrain sappers changed, as the
 // current terrain records make them: a dug hex is grass with a trench whose
 // ports lead to its trench neighbours, a filled one grass without its trench

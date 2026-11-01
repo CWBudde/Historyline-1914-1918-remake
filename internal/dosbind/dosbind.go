@@ -19,6 +19,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"slices"
 	"strconv"
 	"strings"
@@ -117,9 +118,6 @@ type Board struct {
 	// Parts is the entrance cell of every other cell of a building with a
 	// container record, by cell.
 	Parts map[int]int
-	// Dropped is the level content the original has no container for (a
-	// building cell other than the entrance), by hex; it is not placed.
-	Dropped map[hexgrid.Coord][]string
 
 	grid hexgrid.Grid
 }
@@ -184,22 +182,9 @@ func Key(h level.Hex) string {
 	return k
 }
 
-// The building families: their cells carry the name prefix, the entrance
-// holds the level's content.
-var families = []struct{ prefix, entrance string }{{"hq", "hqN"}, {"cmp", "cmpN"}, {"factory", "factoryE"}}
-
-func family(terrain string) int {
-	t := strings.TrimSuffix(terrain, "_w")
-	for i, f := range families {
-		if strings.HasPrefix(t, f.prefix) {
-			return i
-		}
-	}
-	return -1
-}
-
-// building is the cells of one building on the level.
+// building is the hexes of one building on the level.
 type building struct {
+	n        hexgrid.Coord // the N piece, which names the building
 	cells    []hexgrid.Coord
 	entrance hexgrid.Coord
 	content  *level.Content
@@ -214,68 +199,54 @@ func (bd *building) state() string {
 	return strconv.Itoa(Side(game.Player(bd.content.Owner)))
 }
 
-// buildings groups the building cells of a level: adjacent cells of one
-// family form a building.
+// buildings stamps the buildings of a level (level.Compounds): each N piece
+// of an HQ, depot or factory takes its pieces, whatever buildings touch it.
+// A building's content may stand on any of its pieces. A piece missing from
+// its building, a piece of no building, a building's second content and
+// content outside a building are errors naming the hex.
 func buildings(lv *level.Level) (map[hexgrid.Coord]*building, error) {
 	g := lv.Grid()
+	terrain := func(c hexgrid.Coord) string { return strings.TrimSuffix(lv.Lines[c.Line][c.Col].Terrain, "_w") }
 	at := map[hexgrid.Coord]*building{}
 	for l, line := range lv.Lines {
 		for c, h := range line {
-			start := hexgrid.Coord{Line: l, Col: c}
-			fam := family(h.Terrain)
-			if fam < 0 || at[start] != nil {
+			n := hexgrid.Coord{Line: l, Col: c}
+			cp, piece, _ := level.CompoundPiece(h.Terrain)
+			if cp == nil || cp.Entrance == "" || piece != "N" {
 				continue
 			}
-			bd := &building{entrance: hexgrid.Coord{Line: -1}}
-			var entrances []hexgrid.Coord
-			stack := []hexgrid.Coord{start}
-			at[start] = bd
-			for len(stack) > 0 {
-				p := stack[len(stack)-1]
-				stack = stack[:len(stack)-1]
-				bd.cells = append(bd.cells, p)
-				ph := lv.Lines[p.Line][p.Col]
-				if strings.TrimSuffix(ph.Terrain, "_w") == families[fam].entrance {
-					entrances = append(entrances, p)
+			bd := &building{n: n}
+			for _, p := range slices.Sorted(maps.Keys(cp.Pieces)) {
+				x := cp.At(n, p)
+				if !g.Contains(x) || terrain(x) != cp.Prefix+p {
+					return nil, fmt.Errorf("line%d[%d]: no %s%s of the building at line%d[%d]", x.Line+1, x.Col, cp.Prefix, p, l+1, c)
 				}
-				for _, n := range g.Neighbors(p) {
-					if at[n] == nil && family(lv.Lines[n.Line][n.Col].Terrain) == fam {
-						at[n] = bd
-						stack = append(stack, n)
-					}
-				}
-			}
-			if len(entrances) == 0 {
-				return nil, fmt.Errorf("line%d[%d]: a building without its entrance", l+1, c)
-			}
-			// A transcription can name several cells of one building as
-			// its entrance terrain (factory pieces): the first in cell
-			// order is the entrance, and the content of all of them is
-			// the building's, in cell order.
-			slices.SortFunc(entrances, func(a, b hexgrid.Coord) int {
-				if a.Line != b.Line {
-					return a.Line - b.Line
-				}
-				return a.Col - b.Col
-			})
-			bd.entrance = entrances[0]
-			for _, e := range entrances {
-				if ct := lv.Lines[e.Line][e.Col].Content; ct != nil {
-					if bd.content == nil {
-						cp := *ct
-						bd.content = &cp
-					} else {
-						bd.content.Units = append(bd.content.Units, ct.Units...)
-					}
+				at[x] = bd
+				bd.cells = append(bd.cells, x)
+				if p == cp.Entrance {
+					bd.entrance = x
 				}
 			}
 		}
 	}
 	for l, line := range lv.Lines {
 		for c, h := range line {
-			if h.Content != nil && at[hexgrid.Coord{Line: l, Col: c}] == nil {
-				return nil, fmt.Errorf("line%d[%d]: content outside a building", l+1, c)
+			p := hexgrid.Coord{Line: l, Col: c}
+			if cp, _, _ := level.CompoundPiece(h.Terrain); cp != nil && cp.Entrance != "" && at[p] == nil {
+				return nil, fmt.Errorf("line%d[%d]: %s outside a complete building", l+1, c, h.Terrain)
 			}
+			if h.Content == nil {
+				continue
+			}
+			bd := at[p]
+			switch {
+			case bd == nil:
+				return nil, fmt.Errorf("line%d[%d]: content outside a building", l+1, c)
+			case bd.content != nil:
+				return nil, fmt.Errorf("line%d[%d]: a second content of the building at line%d[%d]", l+1, c, bd.n.Line+1, bd.n.Col)
+			}
+			ct := *h.Content
+			bd.content = &ct
 		}
 	}
 	return at, nil
@@ -307,6 +278,10 @@ func owner(flags int) int {
 // Bind binds a level. Every hex must have a terrain key in the table and
 // every unit a type; an error names the hex.
 //
+// A building is the pieces its N piece stamps (level.Compounds), whatever
+// buildings touch it; depot and factory records are numbered by their
+// entrances in cell order, as the game numbers them.
+//
 // Assumed, not verified:
 //   - Units are numbered in the order of their cells, then the units in
 //     buildings in the order of the building records and their content.
@@ -314,8 +289,7 @@ func owner(flags int) int {
 //     show every unit at the start; a unit in a neutral building is neutral.
 //   - A building record covers the building's entrance first, then its
 //     other cells in cell order, at most four; its occupant byte is
-//     dosrules.InBuilding. Depot and factory records are numbered in the
-//     order of each building's first cell.
+//     dosrules.InBuilding.
 //   - A transporter's record is the next free one from 0 in unit order; it
 //     takes the classes its type carries, its occupant byte is the transporter.
 //   - A building record's credits are the scenario's (Maps.Credits by the
@@ -385,14 +359,6 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 	}
 	if err := b.bindBuildings(set, at, mr); err != nil {
 		return nil, err
-	}
-	for p, bd := range at {
-		if h := lv.Lines[p.Line][p.Col]; h.Content != nil && p != bd.entrance && len(h.Content.Units) > 0 {
-			if b.Dropped == nil {
-				b.Dropped = map[hexgrid.Coord][]string{}
-			}
-			b.Dropped[p] = slices.Clone(h.Content.Units)
-		}
 	}
 	if err := b.bindTransporters(); err != nil {
 		return nil, err
@@ -521,21 +487,21 @@ func (b *Board) addRear(lv *level.Level, p hexgrid.Coord, typ, side int) error {
 	return fmt.Errorf("two-cell ship at %v has no free water neighbour for its rear", p)
 }
 
-// bindBuildings gives every building entrance its container record, in
-// the order of the buildings' first cells, with the units of its content.
+// bindBuildings gives every building entrance its container record, depots
+// and factories numbered in the cell order of their entrances, with the
+// units of its content.
 func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr MapRecords) error {
 	var order []*building
-	first := map[*building]int{}
-	for p, bd := range at {
-		cell, _ := b.Cell(p)
-		if f, ok := first[bd]; !ok || cell < f {
-			first[bd] = cell
-		}
+	for _, bd := range at {
 		if !slices.Contains(order, bd) {
 			order = append(order, bd)
 		}
 	}
-	slices.SortFunc(order, func(x, y *building) int { return first[x] - first[y] })
+	entranceCell := func(bd *building) int {
+		cell, _ := b.Cell(bd.entrance)
+		return cell
+	}
+	slices.SortFunc(order, func(x, y *building) int { return entranceCell(x) - entranceCell(y) })
 	base := map[int]int{flagDepot: dosrules.HoldFlag100, flagFactory: dosrules.HoldFlag400}
 	next := map[int]int{flagDepot: base[flagDepot], flagFactory: base[flagFactory]}
 	terrains := dosrules.Full.Tables.Move.Terrains

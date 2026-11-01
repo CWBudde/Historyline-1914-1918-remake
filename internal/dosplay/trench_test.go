@@ -6,7 +6,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
 // passUntilAction resolves empty phases until side is in its action phase.
@@ -137,5 +139,51 @@ func TestSapperTrench(t *testing.T) {
 	}
 	if lv.Lines[to.Line][to.Col].Terrain != "grass" {
 		t.Error("the work changed the level")
+	}
+}
+
+// grassLevel is an 11-line level of grass with the given units.
+func grassLevel(units map[hexgrid.Coord]string) *level.Level {
+	lv := &level.Level{MapName: "grass", Player: "Central Powers"}
+	for l := range 11 {
+		line := make([]level.Hex, 8-l%2)
+		for c := range line {
+			line[c] = level.Hex{Terrain: "grass"}
+		}
+		lv.Lines = append(lv.Lines, line)
+	}
+	for c, id := range units {
+		lv.Lines[c.Line][c.Col].Unit = id
+	}
+	return lv
+}
+
+// Work previews a sapper's work from the side's own map: the hexes the
+// work then changes, and a fill on a trench.
+func TestSapperWork(t *testing.T) {
+	from, enemy := hexgrid.Coord{Line: 4, Col: 3}, hexgrid.Coord{Line: 8, Col: 3}
+	s := session(t, grassLevel(map[hexgrid.Coord]string{from: "CP_sappers", enemy: "EC_infantry"}), Options{})
+	sapper := s.View(0).Units[from].Index
+	passUntilAction(t, s, 0)
+	to := hexgrid.Around(from)[2]
+	hexes, recs, fill := s.Work(0, sapper, to)
+	if fill || len(hexes) != 3 || len(recs) != 3 || !slices.Contains(hexes, to) {
+		t.Fatalf("dig preview %v %v %v", hexes, recs, fill)
+	}
+	for _, r := range recs {
+		if !dosrules.Trench(r) {
+			t.Errorf("a dug record %#x is no trench", r)
+		}
+	}
+	if h, _, _ := s.Work(0, sapper, from); h != nil {
+		t.Errorf("its own hex: %v", h)
+	}
+	ev := work(t, s, 0, sapper, to)
+	if !slices.Equal(ev.Hexes, hexes) {
+		t.Errorf("dug %v, preview %v", ev.Hexes, hexes)
+	}
+	passUntilAction(t, s, 0)
+	if hexes, recs, fill := s.Work(0, sapper, to); !fill || len(hexes) != 3 || recs[0] != dosrules.TerrainFilled {
+		t.Errorf("fill preview %v %v %v", hexes, recs, fill)
 	}
 }
