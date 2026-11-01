@@ -431,9 +431,6 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       (return fire, support, hidden opposing orders), plus capture value, HQ distance, terrain defence.
 - [ ] 4.3 Strategic roles (attack, defend HQ/depots, capture, escort) and an energy budget.
 - [ ] 4.4 Headless AI-vs-AI runner recording rules/data versions and orders for replay.
-- [ ] 4.5 `dosai` builds depots with its construction units (the original's computer side has its own
-      builder logic) and steers sappers to dig spots; today it leaves construction units idle and digs only
-      where a sapper already stands.
 
 ### 5. Content
 

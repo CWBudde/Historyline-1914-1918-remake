@@ -7,7 +7,9 @@
 // action phase it queues the attacks whose exact outcome (dosrules.Engage on
 // the side's map as the earlier orders leave it) gains most, then has each
 // sapper near an enemy unit or an own HQ dig the trench that adds most
-// defence where it counts; it never fills one.
+// defence where it counts; it never fills one. Like the original's computer
+// side it never builds depots. The digging is its own: the original's
+// sappers get no work order on purpose.
 //
 // It reads only what the side may know: its view (the other side's units
 // where they stood at the last phase change), its battlefield, and the

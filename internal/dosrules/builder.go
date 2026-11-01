@@ -26,11 +26,12 @@ import "slices"
 //     the depot's E, S and W pieces. A charge is spent. The record credits
 //     no energy: the work clears the energy bytes +0x16/+0x17 the creator
 //     set (the SHP record's energy, which a scenario depot gets at the level
-//     load), and its +0x18 (the computer's goal weight) is 10.
+//     load), and its +0x18 is 10.
 //
 // Either side may complete either side's half depot. Not modelled: the
-// per-side depot count (32f7:4d3f) the completion raises, which nothing is
-// known to read.
+// per-side depot count (32f7:4d3f, stride 0x17) the completion raises: only
+// the statistics panel (130d:0eea) and the save header (1263) read it, and it
+// equals the number of depot records the side owns.
 
 const (
 	flagBuilder = 0x4000 // live +6: a construction unit
