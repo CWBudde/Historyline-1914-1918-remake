@@ -8,7 +8,8 @@ Direction and prompt rules: [direction.md](direction.md); runtime IDs and compos
 
 The original game has two tile sets, summer and winter, with one tile per terrain record (174 records),
 and each map is either a summer map or a winter map. The remake follows this. A winter hex draws its
-terrain's `_w` form (`grass_w`, `forest_w`). On a mostly winter map (`mapcompose.mostlyWinter`), roads,
+terrain's winter form (`grass_w`, `forest_w`; hills, mud and stone take the original's rough, shelled and
+stony ground, `rough_w`, `shelled_w`, `stoney_w`). On a mostly winter map (`mapcompose.mostlyWinter`), roads,
 water and infrastructure, which carry no season in the level, draw their `_w` form.
 
 Autumn and spring are new. They change only how a map looks, never the rules:

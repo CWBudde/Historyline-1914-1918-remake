@@ -368,8 +368,8 @@ func TestSeason(t *testing.T) {
 		lv.Extra.SeasonAt(hexgrid.Coord{Line: 2, Col: 2}) != "autumn" || lv.Extra.SeasonAt(hexgrid.Coord{Line: 2}) != "summer" {
 		t.Errorf("seasons %v, level %v", f.Seasons, lv.Extra.Seasons)
 	}
-	if got := []string{lv.Lines[2][0].Terrain, lv.Lines[2][1].Terrain, lv.Lines[2][2].Terrain}; !slices.Equal(got, []string{"grass", "grass_w", "grass"}) {
-		t.Errorf("line3 terrain %v", got)
+	if got := []string{lv.Lines[2][0].Terrain, lv.Lines[2][1].Terrain, lv.Lines[2][2].Terrain}; !slices.Equal(got, []string{"grass", "grass", "grass"}) {
+		t.Errorf("line3 terrain %v: the seasons of hexes change their look only", got)
 	}
 	roundTrip("seasons", f, mixed)
 	if f, err := read(seasons(`"line3": ".s."`)); err != nil || f.Seasons != nil {
@@ -387,8 +387,14 @@ func TestSeason(t *testing.T) {
 		"winter suffix": {func(files map[string]string) {
 			files[MapFile] = strings.Replace(files[MapFile], `["forest", ["stream25"`, `["forest_w", ["stream25"`, 1)
 		}},
-		"winter only": {func(files map[string]string) {
+		"winter name": {func(files map[string]string) {
 			files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["rough", "road25"]`, 1)
+		}},
+		"winter name in winter": {season("winter"), func(files map[string]string) {
+			files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["rough", "road25"]`, 1)
+		}},
+		"unknown terrain": {func(files map[string]string) {
+			files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["grss", "road25"]`, 1)
 		}},
 		"seasons line":  {seasons(`"line4": "..."`)},
 		"seasons key":   {seasons(`"3": "..."`)},
@@ -399,9 +405,15 @@ func TestSeason(t *testing.T) {
 			t.Errorf("%s reads", name)
 		}
 	}
-	if _, err := read(season("winter"), func(files map[string]string) {
-		files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["rough", "road25"]`, 1)
-	}); err != nil {
-		t.Errorf("rough in winter: %v", err)
+	hills := func(files map[string]string) {
+		files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["hills", "road25"]`, 1)
 	}
+	f, err = read(season("winter"), hills)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if f.Map[1][0].Terrain != "rough_w" {
+		t.Errorf("hills in winter: %s", f.Map[1][0].Terrain)
+	}
+	roundTrip("hills in winter", f, season("winter"), hills)
 }

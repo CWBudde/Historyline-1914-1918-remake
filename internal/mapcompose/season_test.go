@@ -238,6 +238,40 @@ func TestComposeHexSeasons(t *testing.T) {
 	}
 }
 
+// A hex drawn in winter on a summer level takes the winter look of its
+// terrain, hills, mud and stone the original's rough, shelled and stony
+// ground, and its shores, roads and standing items follow it.
+func TestLevelHexWinter(t *testing.T) {
+	l := campaignLevel(t, "1915-08:cp")
+	l.Extra.Seasons = map[hexgrid.Coord]string{}
+	want := map[string]string{"hills": "rough_w", "mud": "shelled_w", "stone": "stoney_w", "grass": "grass_w", "water": "water"}
+	at := LevelHex(l)
+	seen := map[string]bool{}
+	for li, line := range l.Lines {
+		for col, h := range line {
+			c := hexgrid.Coord{Line: li, Col: col}
+			w, ok := want[h.Terrain]
+			if !ok || seen[h.Terrain] {
+				continue
+			}
+			seen[h.Terrain] = true
+			l.Extra.Seasons[c] = string(Winter)
+			if got := at(c); got.Terrain != w || got.Season != Winter {
+				t.Errorf("%s at %v in winter: %s (%s)", h.Terrain, c, got.Terrain, got.Season)
+			}
+			if l.Lines[li][col].Terrain != h.Terrain {
+				t.Errorf("the level's terrain at %v changed", c)
+			}
+		}
+	}
+	if len(seen) < 4 {
+		t.Fatalf("1915-08 has only %v", seen)
+	}
+	if got := at(hexgrid.Coord{}); got.Season != "" {
+		t.Errorf("a hex in the map's season has Season %q", got.Season)
+	}
+}
+
 // summerIDs joins ids in their summer form.
 func summerIDs(ids ...string) string {
 	out := make([]string, len(ids))

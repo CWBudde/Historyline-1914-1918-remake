@@ -57,7 +57,7 @@ func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 		}
 		h := s.Level.Lines[c.Line][c.Col]
 		ids := slices.DeleteFunc(slices.Clone(h.Infra.IDs), func(id string) bool { return strings.HasPrefix(id, "trench") })
-		h.Terrain = s.season("grass", c)
+		h.Terrain = s.season("grass")
 		if groundOf(rec) == trench {
 			ids = append(ids, s.trenchPiece(c))
 		}
@@ -67,14 +67,9 @@ func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 	return out
 }
 
-// season is a terrain name in the season of hex c: the level's season
-// there, else the board's.
-func (s *Session) season(terrain string, c hexgrid.Coord) string {
-	winter := s.Board.Winter
-	if e := s.Level.Extra; e != nil && e.Season != "" {
-		winter = e.SeasonAt(c) == "winter"
-	}
-	if winter {
+// season is a terrain name in the board's season.
+func (s *Session) season(terrain string) string {
+	if s.Board.Winter {
 		return terrain + "_w"
 	}
 	return terrain

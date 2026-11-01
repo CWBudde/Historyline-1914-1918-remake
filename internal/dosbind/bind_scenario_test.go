@@ -73,8 +73,8 @@ func TestBindScenarioSeason(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if !winter && (lv.Lines[0][1].Terrain != "forest_w" || lv.Lines[0][0].Terrain != "hills") {
-			t.Fatalf("%s: winter hexes are %s, %s", month, lv.Lines[0][0].Terrain, lv.Lines[0][1].Terrain)
+		if !winter && lv.Lines[0][1].Terrain != "forest" {
+			t.Fatalf("%s: a hex drawn in winter plays as %s", month, lv.Lines[0][1].Terrain)
 		}
 		b, err := dosbind.Bind(lv, set)
 		if err != nil {

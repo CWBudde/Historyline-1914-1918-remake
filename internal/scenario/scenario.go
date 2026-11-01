@@ -29,14 +29,15 @@
 //
 // The map holds the hexes of the legacy level format (internal/level)
 // without units and content: [terrain, infrastructure], line1… as there,
-// the terrain without a season ("grass", never "grass_w"). The map's
-// "season" ("summer", "autumn", "spring" or "winter") sets the rules
-// season (winter plays by the original's winter tables) and the look of
-// every hex; the optional "seasons" changes the look of single hexes only:
+// the terrain a kind without a season ("grass" and "hills", never
+// "grass_w" or "rough_w"). The map's "season" ("summer", "autumn",
+// "spring" or "winter") sets the rules season (winter plays by the
+// original's winter tables) and the look of every hex; in winter the level
+// holds each terrain's winter form (data.InSeason: "grass_w", hills
+// "rough_w"). The optional "seasons" changes the look of single hexes only:
 // a string per line that has any, a character per hex, "." for the map's
-// season, "s" summer, "a" autumn, "p" spring, "w" winter. A hex drawn in
-// winter takes its terrain's winter form (Level: "grass_w") where the
-// terrain table has one. Units and building entrances ("at") are [line,
+// season, "s" summer, "a" autumn, "p" spring, "w" winter
+// (mapcompose.LevelHex draws them). Units and building entrances ("at") are [line,
 // column], both counted from 1 as the map's line keys. A building's owner
 // is "cp", "ec" or absent (none); its credits are per cycle. A setup with
 // "from" reuses that setup's units, buildings and builds under its own
@@ -61,7 +62,6 @@ import (
 	"slices"
 	"strconv"
 	"strings"
-	"sync"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
@@ -122,7 +122,7 @@ type File struct {
 	// map's world rectangle as maprender draws it; "" for none.
 	Backdrop string
 	// Map[line][col] is terrain and infrastructure only, the terrain in
-	// the season of its hex (TerrainIn).
+	// the map's season (data.InSeason): Seasons changes the look only.
 	Map    [][]level.Hex
 	Setups map[Mode]*Setup
 }
@@ -313,35 +313,21 @@ func MonthSeason(month string) string {
 	return "summer"
 }
 
-// terrains is the terrain table, which knows the winter forms.
-var terrains = sync.OnceValues(func() (map[string]data.Terrain, error) {
-	set, err := data.Load()
-	if err != nil {
-		return nil, err
-	}
-	return set.Terrain, nil
-})
-
-// TerrainIn is terrain kind ("grass") in season: its winter form
-// ("grass_w") in winter where the terrain table has one, kind otherwise.
-func TerrainIn(kind, season string) string {
-	if season == "winter" {
-		if table, err := terrains(); err == nil {
-			if _, ok := table[kind+"_w"]; ok {
-				return kind + "_w"
-			}
-		}
-	}
-	return kind
-}
-
 // setSeasons sets the map's season and the hexes' seasons from map.json
-// (SetSeasons), its terrain without a season.
+// (SetSeasons). The terrain is a kind (data.Kind): "hills", never "hills_w"
+// or "rough_w".
 func (f *File) setSeasons(season string, lines map[string]string) error {
 	for i, line := range f.Map {
 		for col, h := range line {
-			if strings.HasSuffix(h.Terrain, "_w") {
-				return fmt.Errorf("map: line%d[%d]: terrain %q: the season comes from season and seasons", i+1, col, h.Terrain)
+			kind := data.Kind(h.Terrain)
+			if !data.HasTerrain(kind) && data.HasTerrain(h.Terrain+"_w") {
+				kind = data.Kind(h.Terrain + "_w") // "rough" names the winter form of "hills"
+			}
+			switch {
+			case !data.HasTerrain(kind):
+				return fmt.Errorf("map: line%d[%d]: unknown terrain %q", i+1, col, h.Terrain)
+			case kind != h.Terrain:
+				return fmt.Errorf("map: line%d[%d]: terrain %q: write %q, the season comes from season and seasons", i+1, col, h.Terrain, kind)
 			}
 		}
 	}
@@ -373,8 +359,9 @@ func (f *File) setSeasons(season string, lines map[string]string) error {
 
 // SetSeasons sets the map's season and the hexes drawn in another one
 // (entries in the map's season are dropped) and puts every hex's terrain in
-// its season (TerrainIn). An unknown season and a terrain the terrain table
-// lacks in its hex's season are errors.
+// the map's season (data.InSeason): the seasons of single hexes change their
+// look only. An unknown season and a terrain the terrain table lacks in the
+// map's season or its hex's are errors.
 func (f *File) SetSeasons(season string, seasons map[hexgrid.Coord]string) error {
 	if !slices.Contains(seasonNames, season) {
 		return fmt.Errorf("season %q, want summer, autumn, spring or winter", season)
@@ -393,17 +380,15 @@ func (f *File) SetSeasons(season string, seasons map[hexgrid.Coord]string) error
 			f.Seasons[c] = s
 		}
 	}
-	table, err := terrains()
-	if err != nil {
-		return err
-	}
 	for i, line := range f.Map {
 		for col := range line {
 			h := &line[col]
-			s := f.HexSeason(hexgrid.Coord{Line: i, Col: col})
-			h.Terrain = TerrainIn(strings.TrimSuffix(h.Terrain, "_w"), s)
-			if _, ok := table[h.Terrain]; !ok {
-				return fmt.Errorf("map: line%d[%d]: no terrain %q in %s", i+1, col, strings.TrimSuffix(h.Terrain, "_w"), s)
+			kind := data.Kind(h.Terrain)
+			h.Terrain = data.InSeason(kind, season)
+			for _, s := range []string{season, f.HexSeason(hexgrid.Coord{Line: i, Col: col})} {
+				if !data.HasTerrain(data.InSeason(kind, s)) {
+					return fmt.Errorf("map: line%d[%d]: no terrain %q in %s", i+1, col, kind, s)
+				}
 			}
 		}
 	}
@@ -646,7 +631,7 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 // per row with the terrain without its season and a "seasons" line per row
 // with hexes in another season, and a SetupFile per setup in Modes order, a
 // unit and a building per row in hex order. A terrain that is not in the
-// season of its hex (TerrainIn) is an error.
+// map's season (data.InSeason) is an error.
 func (f *File) Files() (map[string][]byte, error) {
 	var b bytes.Buffer
 	str := func(s string) {
@@ -682,9 +667,9 @@ func (f *File) Files() (map[string][]byte, error) {
 					chars[col] = 'p'
 				}
 			}
-			kind := strings.TrimSuffix(h.Terrain, "_w")
-			if s := f.HexSeason(c); TerrainIn(kind, s) != h.Terrain {
-				return nil, fmt.Errorf("scenario: line%d[%d]: terrain %q on a hex in %s", i+1, col, h.Terrain, s)
+			kind := data.Kind(h.Terrain)
+			if data.InSeason(kind, f.Season) != h.Terrain {
+				return nil, fmt.Errorf("scenario: line%d[%d]: terrain %q on a %s map", i+1, col, h.Terrain, f.Season)
 			}
 			if col > 0 {
 				b.WriteString(", ")

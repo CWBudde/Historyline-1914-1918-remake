@@ -10,10 +10,14 @@ import (
 // Hex is the terrain of one map hex: its background ID and its infrastructure
 // IDs in stored (drawing) order. Vacant marks a hex the level gives no building
 // content: a depot whose entrance is vacant is destroyed (LevelHex sets it).
+// Season is the season a hex is drawn in when it differs from the map's; its
+// shores, overlays and standing items then follow it instead of the map
+// (mostlyWinter). "" for the map's.
 type Hex struct {
 	Terrain string
 	Infra   []string
 	Vacant  bool
+	Season  Season
 }
 
 // Cell is what the map view draws on one hex: a background tile, then the
@@ -79,7 +83,7 @@ type Scene struct {
 // reports whether a context asset ID is available.
 func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) bool) Scene {
 	s := Scene{Grid: g, Cells: make([][]Cell, g.Lines)}
-	winter := mostlyWinter(g, at)
+	mapWinter := mostlyWinter(g, at)
 	for l := range g.Lines {
 		width := g.Width
 		if l&1 == 1 {
@@ -89,6 +93,10 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 		for col := range width {
 			c := hexgrid.Coord{Line: l, Col: col}
 			h := at(c)
+			winter := mapWinter
+			if h.Season != "" {
+				winter = h.Season == Winter
+			}
 			cell := &s.Cells[l][col]
 			cell.Background = baseTile(h.Terrain, l, col, has)
 			if ground, ok := hangarGround(h, l, col, has); ok {
