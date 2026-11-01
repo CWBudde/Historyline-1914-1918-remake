@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Venom",
+	"season": "summer",
 	"map": {
 		"line1": [["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ["rBridge36", "road36"]], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["grass", "path346"], ["hills", ""], ["mountain", ""], ["forest", ""]],

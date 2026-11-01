@@ -48,6 +48,44 @@ func TestBindScenarios(t *testing.T) {
 	}
 }
 
+// A scenario's season is the rules season: winter hexes on a summer map are
+// a look and keep the summer rules; a winter map plays by the winter rules.
+func TestBindScenarioSeason(t *testing.T) {
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for month, winter := range map[string]bool{"1914-08": false, "1916-12": true} {
+		f, err := scenario.Load(filepath.Join(levelsDir, month))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !winter {
+			seasons := map[hexgrid.Coord]string{}
+			for col := range f.Map[0] {
+				seasons[hexgrid.Coord{Col: col}] = "winter"
+			}
+			if err := f.SetSeasons(f.Season, seasons); err != nil {
+				t.Fatal(err)
+			}
+		}
+		lv, err := f.Level(scenario.CP)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !winter && lv.Lines[0][1].Terrain != "forest" {
+			t.Fatalf("%s: a hex drawn in winter plays as %s", month, lv.Lines[0][1].Terrain)
+		}
+		b, err := dosbind.Bind(lv, set)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if b.Winter != winter {
+			t.Errorf("%s: winter %v", month, b.Winter)
+		}
+	}
+}
+
 // A setup's credits and builds (level.Extra) are the buildings' energy and
 // what factories build, in place of records.json: Pulse binds as map 00
 // did with the table's credits for mapNo 1.

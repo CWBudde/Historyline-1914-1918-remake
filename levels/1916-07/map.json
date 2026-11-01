@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Plate",
+	"season": "summer",
 	"map": {
 		"line1": [["mud", ""], ["mud", ""], ["forest", ""], ["mud", ""], ["forest", ""], ["mud", ""], ["mud", ""], ["mud", ""], ["mud", ""], ["mud", ""], ["mud", ""], ["mud", ""]],
 		"line2": [["forest", ""], ["mud", ""], ["forest", ""], ["stone", ""], ["mud", ""], ["stone", ""], ["mud", ""], ["mud", ""], ["mud", ""], ["mud", ""], ["mud", ""]],

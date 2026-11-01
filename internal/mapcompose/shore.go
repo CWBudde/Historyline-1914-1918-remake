@@ -71,8 +71,12 @@ func selectShoreOutlet(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coo
 
 // winterCoast reports whether water hex c lies on a winter coast: most of its
 // land neighbours are winter terrain, or, without land around it, most of the
-// map's land is (winter).
+// map's land is (winter). A hex drawn in its own season (Hex.Season) is on a
+// coast of that season.
 func winterCoast(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool) bool {
+	if s := at(c).Season; s != "" {
+		return s == Winter
+	}
 	votes := 0
 	for _, n := range hexgrid.Around(c) {
 		if !g.Contains(n) {

@@ -17,7 +17,8 @@ import (
 )
 
 // This private candidate leaves all active grass exports intact; its report goes to
-// build/review/grass-refdesign-detail-v1/grass-variations.json.
+// build/review/grass-refdesign-detail-v1/grass-variations.json. It also writes the
+// seasonal forms (grass-detail-NN_au) of every season with an edit of the base meadow.
 // go test -tags grassgfx ./tools/art-review -run TestGenerateGrassDetailCandidate -count=1 -v
 func TestGenerateGrassDetailCandidate(t *testing.T) {
 	root := filepath.Join("..", "..")
@@ -63,7 +64,8 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 	base, baseHash := read(basePath, "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b")
 	materials := map[string]*image.NRGBA{"base": base}
 	materialPins := map[string]any{"base": map[string]any{"source": basePath, "source_sha256": baseHash, "source_dimensions": []int{768, 480}}}
-	for _, spec := range []struct{ id, hash string }{{"flowers", "368607bd87ee0b7ecbe39fc87b970982b001d6d3eeaabc3d9ee4f36e811cac89"}, {"worn", "d0a4b7a2eec6551a246581d961f139f434ad9f3f9694d8a54fdbec5a48b77078"}} {
+	details := []struct{ id, hash string }{{"flowers", "368607bd87ee0b7ecbe39fc87b970982b001d6d3eeaabc3d9ee4f36e811cac89"}, {"worn", "d0a4b7a2eec6551a246581d961f139f434ad9f3f9694d8a54fdbec5a48b77078"}}
+	for _, spec := range details {
 		masterPath := "art/terrain/grass/grass-" + spec.id + "-painting-summer-v1.png"
 		master, _ := read(masterPath, spec.hash)
 		material, err := resizeLanczos(master, 768, 480)
@@ -127,6 +129,57 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 	recipe := map[string]any{"schema_version": 1, "id": "grass-variations"}
 	recipe["detail_materials"] = materialPins
 	recipe["variants"] = variants
+	// Seasonal forms: the seasonal edit of the base meadow and of each detail
+	// painting (seasonRef), the painting projected and mean-matched to the
+	// seasonal base; a detail without an edit phases the seasonal base.
+	seasons := map[string]any{}
+	defer func() { exportSeason = "" }()
+	for _, season := range []string{"autumn", "spring"} {
+		exportSeason = season
+		ref, ok, err := seasonRef(root, connectionMaterial{basePath, baseHash})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !ok {
+			continue
+		}
+		seasonBase, _ := read(ref.Source, ref.SourceSHA256)
+		seasonMaterials := map[string]*image.NRGBA{"base": seasonBase, "flowers": seasonBase, "worn": seasonBase}
+		seasonPins := map[string]any{"base": map[string]any{"source": ref.Source, "source_sha256": ref.SourceSHA256}}
+		for _, spec := range details {
+			edit, ok, err := seasonRef(root, connectionMaterial{"art/terrain/grass/grass-" + spec.id + "-painting-summer-v1.png", spec.hash})
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !ok {
+				continue
+			}
+			painting, _ := read(edit.Source, edit.SourceSHA256)
+			if seasonMaterials[spec.id], err = grassSeasonDetailMaterial(seasonBase, painting); err != nil {
+				t.Fatal(err)
+			}
+			seasonPins[spec.id] = map[string]any{"master_source": edit.Source, "master_sha256": edit.SourceSHA256, "projection": "Lanczos3 to the seasonal base's 768x480, each channel's mean shifted to the seasonal base's."}
+		}
+		var seasonVariants []map[string]any
+		for index, id := range selection {
+			next, err := renderGrassDetailVariation(seasonBase, seasonMaterials[id], index)
+			if err != nil {
+				t.Fatal(err)
+			}
+			runtimeID := seasonID(fmt.Sprintf("grass-detail-%02d", index))
+			var outputs []packOutput
+			for _, d := range []int{2, 4} {
+				name := fmt.Sprintf("%s-%dx.png", runtimeID, d)
+				pin := write(filepath.Join(directory, "exports", name), next[d])
+				pin.Path = "assets/terrain/grass/" + name
+				outputs = append(outputs, pin)
+			}
+			seasonVariants = append(seasonVariants, map[string]any{"runtime_id": runtimeID, "index": index, "detail_material": id, "outputs": outputs})
+		}
+		seasons[season] = map[string]any{"detail_materials": seasonPins, "variants": seasonVariants}
+	}
+	exportSeason = ""
+	recipe["seasons"] = seasons
 	recipe["generation_command"] = "go test -tags grassgfx ./tools/art-review -run TestGenerateGrassDetailCandidate -count=1 -v"
 	recipe["profile"] = "Sixteen authored material/phase variants: four unchanged phased canonical meadow, six wildflower/pebble/weed and six subtly worn meadow. Detail masters precisely edit canonical grass and project the complete output to768x480 with existing alpha-aware antialiased Lanczos3, retaining relative feature scale. Interior paint is65percent authored detail material plus35percent the existing phased canonical meadow. Canonical source and sampler unchanged through8worldpixels from everyedge; cubic smoothstep8..18 to interior paint. Unmasked416x352 opaque4x overscan, existing whole-image Lanczos3 to208x176, crop4worldpixels then complementary final half-open ownership. All final6worldpixel guards exactly match canonical exports at2x/4x. New botanical/pebble details are imagegen-authored, never drawn procedurally."
 	encoded, err := json.MarshalIndent(recipe, "", "  ")

@@ -101,7 +101,7 @@ func seasonAudit(t *testing.T, have map[string]bool, season Season) (summer map[
 			continue
 		}
 		audited++
-		s := ComposeSeason(g, at, func(id string) bool { return have[id] }, season)
+		s := ComposeSeason(g, at, func(id string) bool { return have[id] }, Everywhere(season))
 		if season != Winter {
 			for id, n := range s.Fallbacks {
 				count(IDFamily(id), name, n)

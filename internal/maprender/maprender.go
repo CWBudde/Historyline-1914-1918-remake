@@ -140,7 +140,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}
 	grid := lvl.Grid()
 	field := mapmaterial.New(lvl)
-	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.LevelSeason(lvl))
+	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.SeasonAt(lvl))
 	depth := waterdepth.New(lvl, &scene)
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}

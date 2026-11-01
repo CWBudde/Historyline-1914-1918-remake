@@ -295,7 +295,7 @@ func terrainGaps(dir string, w io.Writer) error {
 	for _, sh := range shipped {
 		name, l := sh.Name, sh.Level
 		season := mapcompose.LevelSeason(l)
-		s := mapcompose.ComposeSeason(l.Grid(), mapcompose.LevelHex(l), func(id string) bool { return have[id] }, season)
+		s := mapcompose.ComposeSeason(l.Grid(), mapcompose.LevelHex(l), func(id string) bool { return have[id] }, mapcompose.SeasonAt(l))
 		selected, count := 0, map[mapcompose.Reason]int{}
 		for _, line := range s.Cells {
 			for _, c := range line {

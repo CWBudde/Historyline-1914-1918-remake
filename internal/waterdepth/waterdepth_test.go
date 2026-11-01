@@ -222,7 +222,7 @@ func TestSeasonalWater(t *testing.T) {
 		}
 	}
 	l, summer := sea("waterSea", nil, nil, []hexgrid.Coord{{Line: 7, Col: 4}})
-	s := mapcompose.ComposeSeason(l.Grid(), mapcompose.LevelHex(l), func(string) bool { return true }, mapcompose.Autumn)
+	s := mapcompose.ComposeSeason(l.Grid(), mapcompose.LevelHex(l), func(string) bool { return true }, mapcompose.Everywhere(mapcompose.Autumn))
 	autumn := New(l, &s)
 	for _, c := range []hexgrid.Coord{{Line: 6, Col: 3}, {Line: 7, Col: 3}, {Line: 2, Col: 2}} {
 		if a, b := autumn.Signature(c), summer.Signature(c); a != b || a == "" {

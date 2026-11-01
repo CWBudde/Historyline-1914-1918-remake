@@ -36,9 +36,21 @@ type Extra struct {
 	// terrain tiles, a picture file named relative to the scenario file's
 	// directory ("1914-08.jpg"); "" for none.
 	Backdrop string
-	// Season is the season the map is drawn in ("summer", "winter",
-	// "autumn" or "spring", scenario.File.Season); "" for the terrain's.
+	// Season is the map's season ("summer", "winter", "autumn" or
+	// "spring", scenario.File.Season), its rules season and the look of its
+	// hexes; "" for the terrain's.
 	Season string
+	// Seasons are the hexes drawn in another season than Season.
+	Seasons map[hexgrid.Coord]string
+}
+
+// SeasonAt is the season hex c is drawn in: its entry in Seasons, else
+// Season.
+func (e *Extra) SeasonAt(c hexgrid.Coord) string {
+	if s, ok := e.Seasons[c]; ok {
+		return s
+	}
+	return e.Season
 }
 
 // Hex is one [terrain, infra, unit] or [terrain, infra, unit, content] entry.

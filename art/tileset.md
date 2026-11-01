@@ -7,16 +7,17 @@ Direction and prompt rules: [direction.md](direction.md); runtime IDs and compos
 ## Seasons
 
 The original game has two tile sets, summer and winter, with one tile per terrain record (174 records),
-and each map is either a summer map or a winter map. The remake follows this. Winter terrain is named with
-`_w` (`grass_w`, `forest_w`) and has the same rules as its summer terrain. On a mostly winter map
-(`mapcompose.mostlyWinter`), roads, water and infrastructure, which carry no season in the level, draw their
-`_w` form.
+and each map is either a summer map or a winter map. The remake follows this. A winter hex draws its
+terrain's winter form (`grass_w`, `forest_w`; hills, mud and stone take the original's rough, shelled and
+stony ground, `rough_w`, `shelled_w`, `stoney_w`). On a mostly winter map (`mapcompose.mostlyWinter`), roads,
+water and infrastructure, which carry no season in the level, draw their `_w` form.
 
 Autumn and spring are new. They change only how a map looks, never the rules:
 
-- **Season of a map.** A winter map stays winter. Any other map takes its month's season: March to May is
-  spring, September to November is autumn, the other months are summer. An optional `season` in a
-  level's `map.json` overrides this.
+- **Season of a map.** Every `map.json` sets its `season`; new campaign folders get their month's season
+  (March to May spring, September to November autumn, otherwise summer), or winter where the original map
+  is winter. The optional `seasons` draws single hexes in another season
+  ([runtime-assets.md](../docs/runtime-assets.md#seasons)).
 - **IDs.** The autumn form of every drawn ID is its summer ID plus `_au`, the spring form plus `_sp`
   (`tile/road36_au`; a context tile keeps its summer key: `context/forest/<key>_au`). Cast shadows have no
   season. Neutral families (see the table) keep their summer ID in every season.
@@ -69,7 +70,8 @@ Each strip is painted with meadow verges, so the verges must match the season's 
 | --- | --- | --- | --- | --- | --- |
 | road | 16 | 16 | new | new | Verges; A: wet carriageway with leaves; Sp: mud in the tracks |
 | path | 14 | 14 | new | new | Verges |
-| rail, cross | 12, 4 | 12, 4 | new | new | Verges and ballast weeds |
+| rail | 12 | 12 | neutral | neutral | Ballast, sleepers and steel only; the verge is the hex background |
+| cross | 4 | 4 | new | new | The path layer under the rail |
 | stream | 11 | 11 | new | new | Bank vegetation, reeds |
 | trench (transparent over the hex background) | 54 | 54 | neutral | neutral | The tiles hold no grass: an autumn export is byte-identical to summer |
 | bridge, rBridge decks | 2+2, 3+4 | 2+2, 4 | neutral | neutral | — |
@@ -81,7 +83,7 @@ Each strip is painted with meadow verges, so the verges must match the season's 
 | --- | --- | --- | --- | --- | --- |
 | shore | 72 | 49 | new | new | Bank meadow and reeds (A: golden reeds) |
 | lakeside | 33 | 11 | new | new | As shore |
-| water, sea, surf, shoal, skerry | 1, 8, 1, 4, 3 | same | opt | neutral | A: darker, cooler water |
+| water, sea, surf, shoal, skerry | 1, 8, 1, 4, 3 | same | new | neutral | A: darker, cooler water (pack grade); skerry moss olive-ochre |
 | waterStones, waterRocks | 1, 1 | 1, 1 | opt | neutral | Moss colour |
 | quay | 3 | 3 | neutral | neutral | — |
 
@@ -96,8 +98,9 @@ Each compound is one painting with its grounds: lawns, trees and verges.
 | factory | 4 | yes | yes | new | new |
 | mount (massif) | 4 | yes | yes | new | new |
 | house | 6 | yes | yes | new | new |
-| airfield: apron, runway, hangar | 2 + 1 + 1 | yes | yes | new | new |
-| harbour | 3 | yes | yes | opt | opt |
+| airfield: apron, runway | 2 + 1 | yes | yes | new | new |
+| hangar tent (standing) | 1 | yes | yes | neutral | neutral |
+| harbour (setts and kit, no grounds) | 3 + 3 | yes | yes | neutral | neutral |
 
 ### No season
 
@@ -118,13 +121,15 @@ Each compound is one painting with its grounds: lawns, trees and verges.
    6. stamps (trenches are neutral);
    7. compounds: hq, cmp/ruin, factory, mount, house, airfield;
    8. optional: mud, water, rocks, harbour.
-   Autumn status: grass (base and detail tiles, meadow props), stone, forest (crowns, floor, contexts,
-   copses), hills, mountain, road, path, cross, stream, shore, lakeside, the boulder, knoll and crater
-   stamps and every compound but the harbour are installed; road, path, rail, stream and cross verges
-   are the hex background, so only their surfaces and the stream bank are painted. Compound and stamp
-   edits are registered onto the summer master and keep its alpha and its non-vegetation pixels. Open:
-   the detail tiles' flowers and worn patches (they are phases of the autumn base), rail (summer reads
-   fine), mud, water, harbour.
+   Autumn status: every family drawn on an autumn map is installed or neutral (`hl assets terrain-gaps`
+   reports no autumn fallback): grass (base, detail tiles with worn patches and asters, meadow props),
+   stone, forest (crowns, floor, contexts, copses), hills, mountain, road, path, cross, stream, shore,
+   lakeside, water, sea, surf, shoals, skerries, the boulder, knoll and crater stamps and the compounds;
+   rail, the harbour and the hangar's tent hold no vegetation and are neutral. Road, path, rail, stream
+   and cross verges are the hex background, so only their surfaces and the stream bank are painted.
+   Compound and stamp edits are registered onto the summer master and keep its alpha and its
+   non-vegetation pixels. Autumn water is the summer pixels; the pack grade turns the water of every
+   `_au` tile to a cooler slate teal. Open: mud and waterStones/waterRocks (on no autumn map).
 3. **Spring**, in the same order.
 
 Each step is accepted on one autumn (or spring) map in the game before the next family follows.

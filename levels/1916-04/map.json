@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Plane",
+	"season": "spring",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["grass", "road24"], ["lakeside3456", ""], ["lakeside16", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["lakeside3456", ""], ["lakeside16", ""], ["forest", ""], ["grass", "road24"], ["hills", ""], ["grass", "road24"], ["hills", ""], ["hills", ""]],
 		"line2": [["forest", ""], ["mud", ""], ["forest", ""], ["forest", ""], ["grass", "rail36"], ["grass", "road14"], ["grass", "road25"], ["lakeside34", ""], ["lakeside123", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["lakeside34", ""], ["lakeside123", ""], ["grass", "road14"], ["grass", "road25"], ["grass", "road14"], ["grass", "road25"], ["hills", ""]],

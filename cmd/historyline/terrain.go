@@ -107,7 +107,7 @@ func (a *terrainArt) present(id string) error {
 // scene stays.
 func (a *terrainArt) compose(lvl *level.Level) error {
 	has := func(id string) bool { return a.present(id) == nil }
-	s := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), has, mapcompose.LevelSeason(lvl))
+	s := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), has, mapcompose.SeasonAt(lvl))
 	var ids []string
 	for _, line := range s.Cells {
 		for _, c := range line {

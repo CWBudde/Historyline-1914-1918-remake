@@ -4,7 +4,7 @@ title: Meadow
 kind: terrain
 status: approved
 runtime_ids: grass, grass_w, grass-detail-00, grass-detail-01, grass-detail-02, grass-detail-03, grass-detail-04, grass-detail-05, grass-detail-06, grass-detail-07, grass-detail-08, grass-detail-09, grass-detail-10, grass-detail-11, grass-detail-12, grass-detail-13, grass-detail-14, grass-detail-15
-masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png, grass-autumn-v1.png, grass-props-autumn-v1.png
+masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png, grass-autumn-v1.png, grass-props-autumn-v1.png, grass-worn-painting-autumn-v1.png, grass-flowers-painting-autumn-v1.png
 ---
 
 ## Look
@@ -41,6 +41,55 @@ their base.
 
 ## Post
 
+### Autumn wildflower-meadow detail edit (2026-11-01)
+`grass-flowers-painting-autumn-v1.png` (exec-d20df9b8, native 1586×992 RGB, unchanged) is the autumn form of
+`grass-flowers-painting-summer-v1.png`, the source of the six flower autumn detail tiles (`grass-detail-01_au`,
+`-03`, `-06`, `-08`, `-11`, `-13`). Same layout; each summer flower spot became a small loose cluster of
+muted lilac wild asters or dry brown and buff seed heads, the weed tufts dry seed-grass clumps with a fallen
+leaf beside some, the grey gravel unchanged. Mean RGB 119,89,38, L\* 39.3, a\* 6.5, b\* 33.0. A first try
+(exec-12911c2f) kept the summer speck size and did not read in the tiles. Exported as the worn edit above
+(mean matched to `grass-autumn-v1.png`, 65 percent over the phased autumn base, canonical edge band
+unchanged). Attachments: image 1 `grass-flowers-painting-summer-v1.png`, image 2 `grass-autumn-v1.png`
+(palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal edit. Image 1 is a selected summer meadow detail material of a top-down WWI strategy map (opaque, landscape, 8:5 aspect, strict nadir view; the canvas spans about 300 m by 190 m of ground; a single grass tuft is 6 to 20 px). It is an open meadow with about 40 tiny yellow and white wildflower specks, a few pale-grey gravel clusters and some small dark weed tufts. Repaint image 1 as the same meadow in early October on the Western Front, tracing it stroke by stroke: every tuft, blade, flower speck, gravel cluster, weed tuft and soil fleck stays exactly at its outline, size and position, with the same short straight blades and the same light from the upper left.
+Grass colour as in image 2, the selected autumn form of the plain meadow: drier late-season grass, straw-gold and olive-ochre, lit blade tips near RGB 160,146,88, mid grass near RGB 112,104,52, shaded tufts and hollows near RGB 60,62,30, with a faded olive green near RGB 82,92,40 left in about a quarter of the area and in the dark tuft centres. Overall mean close to RGB 123,96,41, the same as image 2, and the same lightness as image 1.
+The wildflowers become late-season flowers centred at the same spots, each spot grown into a small loose cluster about twice the size of the summer specks around it (25 to 50 px across, about 1/40 of the canvas width): about a third of the specks become tiny muted lilac-violet wild asters (petals near RGB 150,132,160, a pinhead ochre centre), the rest become small dry seed heads, dark brown near RGB 75,55,35 and pale buff near RGB 175,155,110, with a few bleached stalks. Each dark weed tuft becomes a clump of dry seed-bearing grass stems, dull olive-brown near RGB 80,70,35 with buff seed tips, and one or two tiny fallen leaves (4 to 8 px, dull rust and ochre) lie beside about half of them. The pale-grey gravel clusters keep their colours. A previous try kept every flower at its summer speck size: the asters and seed heads were too small to read on the map. Add nothing else.
+Output: one opaque image, LANDSCAPE, 1536x960 (the 8:5 aspect of image 1), filled edge to edge.
+Avoid: moved or new flower spots, clusters over 60 px, bright or saturated purple, pink, white or yellow flowers, leaf piles, an orange or red-brown overall cast, uniform flat straw colour, a finer or busier texture than image 1, curly tangled threads, bright green, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer wildflower-meadow material (the image to repaint: keep its layout exactly); image 2 is the selected autumn plain meadow (palette and grass finish only, not its layout).
+```
+
+
+### Autumn worn-meadow detail edit (2026-11-01)
+`grass-worn-painting-autumn-v1.png` (exec-ab9b31de, native 1586×992 RGB, unchanged) is the autumn form of
+`grass-worn-painting-summer-v1.png`, the source of the six worn autumn detail tiles (`grass-detail-02_au`,
+`-04`, `-07`, `-09`, `-12`, `-14`). Same layout; the summer's dry thin patches became soft trampled patches
+of damp umber earth at the same centres, grown to about twice their size, with a few fallen leaves on
+about half of them; weed tufts dull olive-brown. Mean RGB 112,83,37, L\* 36.8, a\* 6.6, b\* 30.4. The
+leaves are a little orange. A first try (exec-133abc5c) kept the summer patch size: in the tiles it was
+indistinguishable from the plain autumn base. Exported like summer (`renderGrassDetailVariation`): Lanczos3
+to 768×480, each channel's mean shifted to `grass-autumn-v1.png`'s, 65 percent over the phased autumn base,
+canonical edge band unchanged (the tiles' outer 7 world px are byte-identical to the base-phase tiles).
+Both autumn paintings are taken by `hl export generate grass-detail-candidate` (each painting's newest
+autumn edit and `grass-autumn-v1.png` in place of summer's, `grassSeasonDetailMaterial`), which writes the
+`_au` tiles beside summer's; `grass-variations` installs them.
+Attachments: image 1 `grass-worn-painting-summer-v1.png`, image 2 `grass-autumn-v1.png` (palette only).
+The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal edit. Image 1 is a selected summer meadow detail material of a top-down WWI strategy map (opaque, landscape, 8:5 aspect, strict nadir view; the canvas spans about 300 m by 190 m of ground; a single grass tuft is 6 to 20 px). It is an open meadow with about 15 small worn, thinner patches with earthy flecks, a few dark weed tufts and sparse yellow flower specks. Repaint image 1 as the same meadow in early October on the Western Front, tracing it stroke by stroke: every tuft, blade, worn patch, soil fleck, weed tuft and pebble stays exactly at its outline, size and position, with the same short straight blades and the same light from the upper left.
+Grass colour as in image 2, the selected autumn form of the plain meadow: drier late-season grass, straw-gold and olive-ochre, lit blade tips near RGB 160,146,88, mid grass near RGB 112,104,52, shaded tufts and hollows near RGB 60,62,30, with a faded olive green near RGB 82,92,40 left in about a quarter of the area and in the dark tuft centres. Overall mean close to RGB 123,96,41, the same as image 2, and the same lightness as image 1.
+The worn patches become trampled patches of damp, darker earth: each stays centred exactly where it is in image 1 but grows to about twice its summer size, 70 to 130 px across (about 1/15 of the canvas width), an irregular soft-edged patch of flattened, thinned grass with moist dark umber soil near RGB 72,54,34 showing through in its middle and a few darker wet spots near RGB 50,38,24, flattened pale straw blades lying across its rim; on about half of them lie two to five small fallen leaves, each 6 to 12 px, dull rust near RGB 130,70,35 and ochre near RGB 150,115,50. A previous try kept the patches at their summer size: they were too small to read on the map. The dark weed tufts become dull dark olive and brown near RGB 70,62,30. The yellow flower specks become small dry brown seed heads. Add nothing else: no new patches, no puddles, no paths.
+Output: one opaque image, LANDSCAPE, 1536x960 (the 8:5 aspect of image 1), filled edge to edge.
+Avoid: moved, merged or new patches, patches joined into paths, rings or bare islands, standing water, mud puddles, an orange or red-brown overall cast, uniform flat straw colour, a finer or busier texture than image 1, curly tangled threads, bright green, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer worn-meadow material (the image to repaint: keep its layout exactly); image 2 is the selected autumn plain meadow (palette and grass finish only, not its layout).
+```
+
+
 ### Autumn meadow prop sheet edit (2026-10-31)
 `grass-props-autumn-v1.png` (exec-28aac019) is the autumn form of `grass-props-summer-v1.png`: the
 edit's colours on the summer sheet's alpha (1254×1254 RGBA). The edit kept every item in place but
@@ -49,7 +98,10 @@ against 2.3 %), so its colours were carried onto the summer silhouettes in code:
 sheet's, each pixel takes the edit's colour or, where the edit is transparent, its alpha-weighted mean
 within 6 px. Tufts dry straw and olive-ochre with olive centres, the flowers dry seed heads, soil, straw
 and pebbles nearly unchanged; mean RGB 137,108,63, L\* 46.4, a\* 6.6, b\* 28.9. A first try was a
-brighter golden orange (a\* 8.4) with mats as well. Attachments: image 1 `grass-props-summer-v1.png`,
+brighter golden orange (a\* 8.4) with mats as well. The sheet export grades the soil flecks to RGB 104,84,44
+(warm earth, darker than the meadow) and the straw patches to 166,134,74 (straw-gold, lighter); the
+summer targets they first copied read grey-blue and pale green on the autumn meadow. Attachments: image 1
+`grass-props-summer-v1.png`,
 image 2 `grass-autumn-v1.png` (palette only). The prompt was:
 
 ```text

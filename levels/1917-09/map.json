@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Spell",
+	"season": "autumn",
 	"map": {
 		"line1": [["forest", ""], ["grass", "path36"], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "rail24"], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],

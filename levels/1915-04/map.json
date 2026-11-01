@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Noise",
+	"season": "spring",
 	"map": {
 		"line1": [["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["lakeside23", ""], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["lakeside3456", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""]],
 		"line2": [["water", ""], ["waterStones", ""], ["lakeside23", ""], ["lakeside23", ""], ["lakeside23", ""], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", "path36"], ["hills", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""]],

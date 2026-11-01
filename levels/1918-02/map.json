@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Rhein",
+	"season": "summer",
 	"map": {
 		"line1": [["lakeside3456", ""], ["waterDeep", ""], ["waterDeep", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", "road36"], ["lakeside156", ""], ["waterDeep", ""], ["waterSea", ""]],
 		"line2": [["lakeside34", ""], ["waterDeep", ""], ["lakeside123", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["forest", ""], ["grass", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["lakeside56", ""], ["waterDeep", ""], ["waterSea", ""]],

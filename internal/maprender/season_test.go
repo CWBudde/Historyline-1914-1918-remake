@@ -12,36 +12,37 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// withAutumn gives r an autumn form of every terrain asset but the cast
-// shadows: the same file under the ID with _au.
-func withAutumn(r *Renderer) {
+// withSpring gives r a spring form of every terrain asset but the cast
+// shadows: the same file under the ID with _sp.
+func withSpring(r *Renderer) {
 	for key, e := range r.files {
 		id := e.ID
 		if strings.HasPrefix(id, "unit/") || strings.HasPrefix(id, "standing/shadow/") {
 			continue
 		}
-		au := e
-		au.ID = mapcompose.SeasonalID(id, mapcompose.Autumn)
-		r.files[strings.TrimSuffix(key, id)+au.ID] = au
+		sp := e
+		sp.ID = mapcompose.SeasonalID(id, mapcompose.Spring)
+		r.files[strings.TrimSuffix(key, id)+sp.ID] = sp
 		if r.has[id] {
-			r.has[au.ID] = true
+			r.has[sp.ID] = true
 		}
 	}
 }
 
-// A map drawn in autumn with an autumn form of every asset that is the summer
+// A map drawn in spring with a spring form of every asset that is the summer
 // file draws, grades, shades, casts and measures as in summer: every renderer
-// classification of a drawn ID ignores its season.
-func TestAutumnFormsDrawAsSummer(t *testing.T) {
+// classification of a drawn ID ignores its season. (Autumn grades its water
+// darker, internal/terraingrade, so spring has the exact summer render.)
+func TestSpringFormsDrawAsSummer(t *testing.T) {
 	summer, err := New(os.DirFS("../../assets"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	autumn, err := New(os.DirFS("../../assets"))
+	spring, err := New(os.DirFS("../../assets"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	withAutumn(autumn)
+	withSpring(spring)
 	lvl, err := scenario.ShippedLevel("1918-02", scenario.CP) // sea, forest, stones and mountains
 	if err != nil {
 		t.Fatal(err)
@@ -53,37 +54,37 @@ func TestAutumnFormsDrawAsSummer(t *testing.T) {
 		l.Extra = &extra
 		return &l
 	}
-	scene := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return autumn.has[id] }, mapcompose.Autumn)
-	if len(scene.Fallbacks) != 0 || !strings.HasSuffix(scene.Cells[0][0].Background, "_au") {
-		t.Fatalf("autumn scene: %s, fallbacks %v", scene.Cells[0][0].Background, scene.Fallbacks)
+	scene := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return spring.has[id] }, mapcompose.Everywhere(mapcompose.Spring))
+	if len(scene.Fallbacks) != 0 || !strings.HasSuffix(scene.Cells[0][0].Background, "_sp") {
+		t.Fatalf("spring scene: %s, fallbacks %v", scene.Cells[0][0].Background, scene.Fallbacks)
 	}
 	want, err := summer.Render(in(mapcompose.Summer), 2, false)
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := autumn.Render(in(mapcompose.Autumn), 2, false)
+	got, err := spring.Render(in(mapcompose.Spring), 2, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(got.Image.Pix, want.Image.Pix) {
-		t.Error("the autumn render differs from the summer one")
+		t.Error("the spring render differs from the summer one")
 	}
 	wantCanopy, err := summer.VisibleCanopy(in(mapcompose.Summer), 2)
 	if err != nil {
 		t.Fatal(err)
 	}
-	gotCanopy, err := autumn.VisibleCanopy(in(mapcompose.Autumn), 2)
+	gotCanopy, err := spring.VisibleCanopy(in(mapcompose.Spring), 2)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(gotCanopy.Coverage.Pix, wantCanopy.Coverage.Pix) || !reflect.DeepEqual(gotCanopy.Unsupported, wantCanopy.Unsupported) {
-		t.Errorf("autumn canopy differs: %d unsupported, summer %d", len(gotCanopy.Unsupported), len(wantCanopy.Unsupported))
+		t.Errorf("spring canopy differs: %d unsupported, summer %d", len(gotCanopy.Unsupported), len(wantCanopy.Unsupported))
 	}
 	wantPairs, err := summer.CastShadowPairs(in(mapcompose.Summer), 2)
 	if err != nil {
 		t.Fatal(err)
 	}
-	gotPairs, err := autumn.CastShadowPairs(in(mapcompose.Autumn), 2)
+	gotPairs, err := spring.CastShadowPairs(in(mapcompose.Spring), 2)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -92,7 +93,7 @@ func TestAutumnFormsDrawAsSummer(t *testing.T) {
 	}
 	for i, p := range gotPairs.Pairs {
 		w := wantPairs.Pairs[i]
-		if p.Reason != w.Reason || p.Offset != w.Offset || p.Shadow.ID != w.Shadow.ID || p.Standing.ID != mapcompose.SeasonalID(w.Standing.ID, mapcompose.Autumn) {
+		if p.Reason != w.Reason || p.Offset != w.Offset || p.Shadow.ID != w.Shadow.ID || p.Standing.ID != mapcompose.SeasonalID(w.Standing.ID, mapcompose.Spring) {
 			t.Fatalf("pair %d: %s %s %v %s, summer %s %s %v %s", i, p.Standing.ID, p.Shadow.ID, p.Offset, p.Reason, w.Standing.ID, w.Shadow.ID, w.Offset, w.Reason)
 		}
 	}

@@ -71,7 +71,8 @@ just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin
   `internal/origview` draws it (a look per terrain record, `looks.json`); `-level original/NN` plays it
   exactly.
 - `internal/scenario`: the level folders below `levels/`, a folder per campaign month (`levels/1914-08/`).
-  A folder holds the map shared by every mode (`map.json`), a file per setup (`cp.json`, `ec.json`,
+  A folder holds the map shared by every mode (`map.json`: terrain without a season, the map's `season`,
+  which is also the rules season, and optional per-hex look `seasons`, `docs/runtime-assets.md`), a file per setup (`cp.json`, `ec.json`,
   `2p.json`) with units, building owners, credits, builds and the code word, the month's newspaper front
   page (`news.json`, `internal/campaign`) and optionally its backdrop, a painting of the whole ground
   (`backdrop.jpg`) that the game draws in place of the terrain tiles (painted in stitched sections,

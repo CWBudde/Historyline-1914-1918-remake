@@ -246,19 +246,29 @@ their layouts leave the unit foot point clear. Rebuild with the pinned
 
 ### Seasons
 
-A map is drawn in one season (`scenario.File.Season`, carried in `level.Extra.Season`): `winter` when its
-terrain has `_w` IDs; otherwise the `"season"` of its `map.json` (`summer`, `autumn` or `spring`; not
-allowed on a winter map) where set, else its month's: March to May spring, September to November autumn,
-the other months and folders without a month summer. Levels without a scenario (PULSE, `original/NN`)
-are winter when mostly winter, else summer. `hl levels campaign` keeps a `map.json` season.
+A map's `map.json` names its terrain without a season (`grass` and `hills`, never `grass_w` or `rough_w`) and sets its `"season"`
+(`summer`, `autumn`, `spring` or `winter`; `scenario.File.Season`, carried in `level.Extra.Season`). The
+season is also the rules season: winter plays by the original's winter tables (`dosbind.Board.Winter`). The
+optional `"seasons"` draws single hexes in another season, a string per map line with a character per hex
+(`.` the map's season, `s` summer, `a` autumn, `p` spring, `w` winter; `level.Extra.Seasons`,
+`mapcompose.SeasonAt`); it changes the look only. A winter map's level holds each terrain's winter form
+(`data.InSeason`: `grass_w`, and the original's winter look of hills, mud and stone, `rough_w`, `shelled_w` and
+`stoney_w`, on the same terrain records). A hex in another season keeps the map's terrain in the level, so
+both rule sets play it as before; `mapcompose.LevelHex` draws it in its season (`Hex.Season`), and its shores,
+roads and standing items follow the hex instead of the map. Hexes switch
+season at their edges: there are no transition tiles between seasons yet. Levels without a scenario
+(PULSE, `original/NN`) are winter when mostly winter, else summer. `hl levels campaign` writes winter where
+the original map is winter, else the month's season (`scenario.MonthSeason`: March to May spring,
+September to November autumn, otherwise summer), and keeps a folder's non-winter season and its `seasons`.
 
 Autumn and spring change the look only. `mapcompose.ComposeSeason` composes the map as in summer, then
 swaps every drawn ID for its seasonal form, the summer ID plus `_au` or `_sp` (`tile/road36_au`,
 `context/forest/<key>_au`: the summer descriptor's key plus the suffix), where the catalog has it.
 Missing forms draw in summer and are counted in `Scene.Fallbacks`; `hl assets terrain-gaps` prints them per
-map and per season by family. Cast shadows have no season: a seasonal item casts its summer shadow
-(`ShadowID`). Open water, sea and surf follow the background's suffix and fall back to summer, the grade
-takes the season's meadow (`tile/grass_au`, `tile/grass_sp`) and falls back to the summer one, and only
+map and per season by family. The season-neutral families (`SeasonNeutral`: trench, rail, bridge, rBridge,
+barbedWire, quay, the harbour and the hangar's tent) hold no vegetation, so their summer form is no fallback. Cast shadows have no season: a seasonal item casts its summer shadow
+(`ShadowID`). Open water, sea and surf follow the background's suffix and fall back to summer; the grade
+darkens the water of every `_au` tile to a cooler slate teal, and takes the season's meadow (`tile/grass_au`, `tile/grass_sp`) and falls back to the summer one, and only
 summer backgrounds sample the world materials. Seasonal scattered crowns and meadow props are their own sheets in
 `art/pipeline/world-kits-v1.json` (`kit/forest/crowns-autumn`, `kit/grass/props-autumn`), since `hl export
 kits -install` owns every `standing/scatter/` entry. `TestWinterMapsDrawNoSummerInfrastructure` fails when a

@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Skull",
+	"season": "spring",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["mountain", ""], ["hills", ""], ["hills", ""], ["grass", ["road36", "runway36"]], ["hills", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mud", ""], ["grass", ""], ["stone", ""], ["hills", ""], ["hills", ""], ["house", "hangar"], ["hills", ""]],

@@ -6,12 +6,14 @@
 //	levels/1914-08/map.json
 //	{
 //		"format": "historyline-scenario",
-//		"version": 2,
+//		"version": 3,
 //		"name": "Pulse",
+//		"season": "summer",
 //		"map": {
 //			"line1": [["hills", ""], ["grass", "road236"], …],
 //			…
-//		}
+//		},
+//		"seasons": {"line7": "....aaa....", …}
 //	}
 //
 //	levels/1914-08/cp.json
@@ -26,17 +28,23 @@
 //	{"from": "cp", "code": "…"}
 //
 // The map holds the hexes of the legacy level format (internal/level)
-// without units and content: [terrain, infrastructure], line1… as there.
-// Units and building entrances ("at") are [line, column], both counted from
-// 1 as the map's line keys. A building's owner is "cp", "ec" or absent
-// (none); its credits are per cycle. A setup with "from" reuses that
-// setup's units, buildings and builds under its own code. A folder is
-// named by its campaign month, which gives the map's look its season
-// (File.Season); the map's optional "season" after "name" ("summer",
-// "autumn" or "spring", never on a winter map) overrides it. Its
-// backdrop.jpg is a painting of the whole map's ground, drawn in place of
-// the terrain tiles; backdrop.png beside it is its lossless source, which
-// the game does not ship.
+// without units and content: [terrain, infrastructure], line1… as there,
+// the terrain a kind without a season ("grass" and "hills", never
+// "grass_w" or "rough_w"). The map's "season" ("summer", "autumn",
+// "spring" or "winter") sets the rules season (winter plays by the
+// original's winter tables) and the look of every hex; in winter the level
+// holds each terrain's winter form (data.InSeason: "grass_w", hills
+// "rough_w"). The optional "seasons" changes the look of single hexes only:
+// a string per line that has any, a character per hex, "." for the map's
+// season, "s" summer, "a" autumn, "p" spring, "w" winter
+// (mapcompose.LevelHex draws them). Units and building entrances ("at") are [line,
+// column], both counted from 1 as the map's line keys. A building's owner
+// is "cp", "ec" or absent (none); its credits are per cycle. A setup with
+// "from" reuses that setup's units, buildings and builds under its own
+// code. A folder is named by its campaign month. Its backdrop.jpg is a
+// painting of the whole map's ground, drawn in place of the terrain tiles;
+// backdrop.png beside it is its lossless source, which the game does not
+// ship.
 package scenario
 
 import (
@@ -46,6 +54,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"maps"
 	"os"
 	"path"
 	"path/filepath"
@@ -54,6 +63,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
@@ -62,7 +72,7 @@ import (
 // Format and Version name the file format.
 const (
 	Format  = "historyline-scenario"
-	Version = 2
+	Version = 3
 )
 
 // The files of a level folder besides the setups (SetupFile).
@@ -102,15 +112,19 @@ func SetupFile(m Mode) string { return string(m) + ".json" }
 type File struct {
 	Month string // "1914-08", the folder's name
 	Name  string // "Pulse"
-	// MapSeason is the season map.json sets for the map's look ("summer",
-	// "autumn" or "spring"); "" for the month's (Season).
-	MapSeason string
+	// Season is the map's season, "summer", "autumn", "spring" or
+	// "winter": the rules season and the look of every hex Seasons leaves.
+	Season string
+	// Seasons are the hexes drawn in another season than Season, by hex.
+	Seasons map[hexgrid.Coord]string
 	// Backdrop is the painting of the map's ground drawn in place of the
 	// terrain tiles: BackdropFile when the folder has one, covering the
 	// map's world rectangle as maprender draws it; "" for none.
 	Backdrop string
-	Map      [][]level.Hex // Map[line][col]: terrain and infrastructure only
-	Setups   map[Mode]*Setup
+	// Map[line][col] is terrain and infrastructure only, the terrain in
+	// the map's season (data.InSeason): Seasons changes the look only.
+	Map    [][]level.Hex
+	Setups map[Mode]*Setup
 }
 
 // Setup is the units and buildings of one mode.
@@ -197,6 +211,7 @@ type mapJSON struct {
 	Name    string                         `json:"name"`
 	Season  string                         `json:"season"`
 	Map     map[string][][]json.RawMessage `json:"map"`
+	Seasons map[string]string              `json:"seasons"`
 }
 
 type setupJSON struct {
@@ -235,9 +250,11 @@ func strict(raw []byte, v any) error {
 // Decode checks and decodes the files of a level folder by name (MapFile
 // and a SetupFile per setup): unknown files or keys, gaps in the map lines,
 // hexes off the map, two units on a hex, a building entrance that is no
-// building, an unknown owner, a "from" chain, a code used twice, an unknown
-// season and a season on a winter map are errors. The month and the backdrop
-// are the folder's, not its files'.
+// building, an unknown owner, a "from" chain, a code used twice, a missing or
+// unknown season, a "seasons" line that does not fit its map line, a terrain
+// with a season suffix and a terrain the terrain table lacks in its hex's
+// season are errors. The month and the backdrop are the folder's, not its
+// files'.
 func Decode(files map[string][]byte) (*File, error) {
 	var mj mapJSON
 	raw, ok := files[MapFile]
@@ -269,28 +286,122 @@ func Decode(files map[string][]byte) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := f.setSeason(mj.Season); err != nil {
+	if err := f.setSeasons(mj.Season, mj.Seasons); err != nil {
 		return nil, fmt.Errorf("%s: %w", MapFile, err)
 	}
 	return f, nil
 }
 
-// mapSeasons are the seasons map.json may set; winter comes from the terrain.
-var mapSeasons = []string{"summer", "autumn", "spring"}
+// seasonNames are the seasons of a map and its hexes.
+var seasonNames = []string{"summer", "autumn", "spring", "winter"}
 
-// setSeason sets the map's season s from map.json, "" for none.
-func (f *File) setSeason(s string) error {
-	if s == "" {
-		return nil
+// seasonChars are the characters of a "seasons" line, by season.
+var seasonChars = map[byte]string{'s': "summer", 'a': "autumn", 'p': "spring", 'w': "winter"}
+
+// MonthSeason is the season of campaign month "1915-04", the default of a
+// new map: spring from March to May, autumn from September to November,
+// summer otherwise. Winter maps say so, since winter changes the rules.
+func MonthSeason(month string) string {
+	if m := monthRE.FindStringSubmatch(month); m != nil {
+		switch m[2] {
+		case "03", "04", "05":
+			return "spring"
+		case "09", "10", "11":
+			return "autumn"
+		}
 	}
-	if !slices.Contains(mapSeasons, s) {
-		return fmt.Errorf("season %q, want summer, autumn or spring", s)
+	return "summer"
+}
+
+// setSeasons sets the map's season and the hexes' seasons from map.json
+// (SetSeasons). The terrain is a kind (data.Kind): "hills", never "hills_w"
+// or "rough_w".
+func (f *File) setSeasons(season string, lines map[string]string) error {
+	for i, line := range f.Map {
+		for col, h := range line {
+			kind := data.Kind(h.Terrain)
+			if !data.HasTerrain(kind) && data.HasTerrain(h.Terrain+"_w") {
+				kind = data.Kind(h.Terrain + "_w") // "rough" names the winter form of "hills"
+			}
+			switch {
+			case !data.HasTerrain(kind):
+				return fmt.Errorf("map: line%d[%d]: unknown terrain %q", i+1, col, h.Terrain)
+			case kind != h.Terrain:
+				return fmt.Errorf("map: line%d[%d]: terrain %q: write %q, the season comes from season and seasons", i+1, col, h.Terrain, kind)
+			}
+		}
 	}
-	if f.Winter() {
-		return fmt.Errorf("season %q on a winter map", s)
+	var seasons map[hexgrid.Coord]string
+	for key, line := range lines {
+		i, err := strconv.Atoi(strings.TrimPrefix(key, "line"))
+		if err != nil || !strings.HasPrefix(key, "line") || i < 1 || i > len(f.Map) || key != "line"+strconv.Itoa(i) {
+			return fmt.Errorf("seasons: %s is no map line", key)
+		}
+		if len(line) != len(f.Map[i-1]) {
+			return fmt.Errorf("seasons: %s has %d hexes, the map line %d", key, len(line), len(f.Map[i-1]))
+		}
+		for col := range len(line) {
+			s, ok := seasonChars[line[col]]
+			switch {
+			case line[col] == '.':
+			case !ok:
+				return fmt.Errorf("seasons: %s[%d]: %q, want ., s, a, p or w", key, col, line[col])
+			default:
+				if seasons == nil {
+					seasons = map[hexgrid.Coord]string{}
+				}
+				seasons[hexgrid.Coord{Line: i - 1, Col: col}] = s
+			}
+		}
 	}
-	f.MapSeason = s
+	return f.SetSeasons(season, seasons)
+}
+
+// SetSeasons sets the map's season and the hexes drawn in another one
+// (entries in the map's season are dropped) and puts every hex's terrain in
+// the map's season (data.InSeason): the seasons of single hexes change their
+// look only. An unknown season and a terrain the terrain table lacks in the
+// map's season or its hex's are errors.
+func (f *File) SetSeasons(season string, seasons map[hexgrid.Coord]string) error {
+	if !slices.Contains(seasonNames, season) {
+		return fmt.Errorf("season %q, want summer, autumn, spring or winter", season)
+	}
+	f.Season, f.Seasons = season, nil
+	for c, s := range seasons {
+		switch {
+		case !slices.Contains(seasonNames, s):
+			return fmt.Errorf("season %q at [%d, %d]", s, c.Line+1, c.Col+1)
+		case !f.Grid().Contains(c):
+			return fmt.Errorf("season %s at [%d, %d]: off the map", s, c.Line+1, c.Col+1)
+		case s != season:
+			if f.Seasons == nil {
+				f.Seasons = map[hexgrid.Coord]string{}
+			}
+			f.Seasons[c] = s
+		}
+	}
+	for i, line := range f.Map {
+		for col := range line {
+			h := &line[col]
+			kind := data.Kind(h.Terrain)
+			h.Terrain = data.InSeason(kind, season)
+			for _, s := range []string{season, f.HexSeason(hexgrid.Coord{Line: i, Col: col})} {
+				if !data.HasTerrain(data.InSeason(kind, s)) {
+					return fmt.Errorf("map: line%d[%d]: no terrain %q in %s", i+1, col, kind, s)
+				}
+			}
+		}
+	}
 	return nil
+}
+
+// HexSeason is the season hex c is drawn in: its entry in Seasons, else
+// Season.
+func (f *File) HexSeason(c hexgrid.Coord) string {
+	if s, ok := f.Seasons[c]; ok {
+		return s
+	}
+	return f.Season
 }
 
 // build checks and makes the file of a map and its setups.
@@ -468,46 +579,15 @@ func (f *File) Setup(m Mode) *Setup {
 	return &src
 }
 
-// Winter reports whether the map carries winter terrain.
-func (f *File) Winter() bool {
-	for _, line := range f.Map {
-		for _, h := range line {
-			if strings.HasSuffix(h.Terrain, "_w") {
-				return true
-			}
-		}
-	}
-	return false
-}
-
-// Season is the season the map is drawn in: "winter" for a winter map,
-// else MapSeason where set, else its month's: "spring" from March to May,
-// "autumn" from September to November, "summer" otherwise and without a
-// month. It changes the look only, never the rules.
-func (f *File) Season() string {
-	switch {
-	case f.Winter():
-		return "winter"
-	case f.MapSeason != "":
-		return f.MapSeason
-	}
-	if m := monthRE.FindStringSubmatch(f.Month); m != nil {
-		switch m[2] {
-		case "03", "04", "05":
-			return "spring"
-		case "09", "10", "11":
-			return "autumn"
-		}
-	}
-	return "summer"
-}
+// Winter reports whether the map plays by the winter rules.
+func (f *File) Winter() bool { return f.Season == "winter" }
 
 // Level is a setup as a level of the legacy format: the map with the
 // setup's units and building content, Player the mode's first human side,
 // MapName the setup's code word (the file's name without one: the game info
 // and the best scores go by it), MapNo 0, and Extra the setup's credits and
-// builds and the file's backdrop and Season. A unit on a building's content
-// hex is an error.
+// builds and the file's backdrop, Season and Seasons. A unit on a
+// building's content hex is an error.
 func (f *File) Level(m Mode) (*level.Level, error) {
 	s := f.Setup(m)
 	if s == nil {
@@ -519,7 +599,10 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	}
 	lv := &level.Level{
 		MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
-		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop, Season: f.Season()},
+		Extra: &level.Extra{
+			Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop,
+			Season: f.Season, Seasons: maps.Clone(f.Seasons),
+		},
 	}
 	for i, line := range f.Map {
 		lv.Lines[i] = make([]level.Hex, len(line))
@@ -544,9 +627,11 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	return lv, nil
 }
 
-// Files encodes the folder's files by name: MapFile, its season only where
-// set and a map line per row, and a SetupFile per setup in Modes order, a
-// unit and a building per row in hex order.
+// Files encodes the folder's files by name: MapFile, its season, a map line
+// per row with the terrain without its season and a "seasons" line per row
+// with hexes in another season, and a SetupFile per setup in Modes order, a
+// unit and a building per row in hex order. A terrain that is not in the
+// map's season (data.InSeason) is an error.
 func (f *File) Files() (map[string][]byte, error) {
 	var b bytes.Buffer
 	str := func(s string) {
@@ -566,19 +651,31 @@ func (f *File) Files() (map[string][]byte, error) {
 	out := map[string][]byte{}
 	fmt.Fprintf(&b, "{\n\t\"format\": %q,\n\t\"version\": %d,\n\t\"name\": ", Format, Version)
 	str(f.Name)
-	if f.MapSeason != "" {
-		b.WriteString(",\n\t\"season\": ")
-		str(f.MapSeason)
-	}
+	b.WriteString(",\n\t\"season\": ")
+	str(f.Season)
 	b.WriteString(",\n\t\"map\": {\n")
+	var seasons []string
 	for i, line := range f.Map {
 		fmt.Fprintf(&b, "\t\t\"line%d\": [", i+1)
+		chars, mixed := make([]byte, len(line)), false
 		for col, h := range line {
+			c := hexgrid.Coord{Line: i, Col: col}
+			chars[col] = '.'
+			if s, ok := f.Seasons[c]; ok && s != f.Season {
+				chars[col], mixed = s[0], true
+				if s == "spring" {
+					chars[col] = 'p'
+				}
+			}
+			kind := data.Kind(h.Terrain)
+			if data.InSeason(kind, f.Season) != h.Terrain {
+				return nil, fmt.Errorf("scenario: line%d[%d]: terrain %q on a %s map", i+1, col, h.Terrain, f.Season)
+			}
 			if col > 0 {
 				b.WriteString(", ")
 			}
 			b.WriteString("[")
-			str(h.Terrain)
+			str(kind)
 			b.WriteString(", ")
 			switch {
 			case h.Infra.List || len(h.Infra.IDs) > 1:
@@ -595,8 +692,15 @@ func (f *File) Files() (map[string][]byte, error) {
 			b.WriteString(",")
 		}
 		b.WriteString("\n")
+		if mixed {
+			seasons = append(seasons, fmt.Sprintf("\t\t\"line%d\": %q", i+1, chars))
+		}
 	}
-	b.WriteString("\t}\n}\n")
+	b.WriteString("\t}")
+	if len(seasons) > 0 {
+		fmt.Fprintf(&b, ",\n\t\"seasons\": {\n%s\n\t}", strings.Join(seasons, ",\n"))
+	}
+	b.WriteString("\n}\n")
 	out[MapFile] = slices.Clone(b.Bytes())
 	for _, m := range Modes {
 		s := f.Setups[m]

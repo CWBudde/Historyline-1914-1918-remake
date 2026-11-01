@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Ypres",
+	"season": "autumn",
 	"map": {
 		"line1": [["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""]],
 		"line2": [["grass", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", "stream36"], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""]],

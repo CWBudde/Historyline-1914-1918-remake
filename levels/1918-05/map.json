@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Scout",
+	"season": "spring",
 	"map": {
 		"line1": [["house", ""], ["hills", ""], ["mountW", ""], ["mountE", ""], ["forest", ""], ["mountN", ""], ["mountain", ""], ["hills", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["hills", ""], ["forest", ""], ["mountS", ""], ["forest", ""], ["mountW", ""], ["mountE", ""], ["grass", "road24"], ["hills", ""], ["grass", "road24"], ["forest", ""], ["forest", ""]],

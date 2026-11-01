@@ -73,6 +73,14 @@ func TestSeasonalIDs(t *testing.T) {
 			t.Errorf("IDFamily(%s) = %s, want %s", id, got, want)
 		}
 	}
+	for id, want := range map[string]bool{
+		"tile/trench-s12": true, "standing/rBridge25": true, "tile/barbedWire": true,
+		"tile/rail14": true, "standing/harbourW": true, "standing/hangar": true, "tile/hangar": false, "tile/road36": false, "tile/cross14": false, "tile/water": false, "tile/hqNE": false,
+	} {
+		if got := SeasonNeutral(id); got != want {
+			t.Errorf("SeasonNeutral(%s) = %v", id, got)
+		}
+	}
 }
 
 func TestLevelSeason(t *testing.T) {
@@ -118,7 +126,8 @@ func drawnIDs(s Scene) []string {
 }
 
 // Summer and winter compose as Compose; autumn and spring without seasonal art
-// draw the summer scene and count every drawn ID as a fallback; with every
+// draw the summer scene and count every drawn ID but the season-neutral ones
+// as a fallback; with every
 // seasonal form they draw it in that form, the shadows and the layers
 // unchanged.
 func TestComposeSeason(t *testing.T) {
@@ -129,7 +138,7 @@ func TestComposeSeason(t *testing.T) {
 		g, at := l.Grid(), LevelHex(l)
 		base := Compose(g, at, summerHas)
 		for _, season := range []Season{Summer, Winter} {
-			if s := ComposeSeason(g, at, summerHas, season); !reflect.DeepEqual(s, base) {
+			if s := ComposeSeason(g, at, summerHas, Everywhere(season)); !reflect.DeepEqual(s, base) {
 				t.Errorf("%s in %s differs from Compose", name, season)
 			}
 		}
@@ -137,10 +146,10 @@ func TestComposeSeason(t *testing.T) {
 			continue
 		}
 		for _, season := range []Season{Autumn, Spring} {
-			s := ComposeSeason(g, at, summerHas, season)
+			s := ComposeSeason(g, at, summerHas, Everywhere(season))
 			drawn := 0
 			for _, id := range drawnIDs(base) {
-				if id != "" {
+				if id != "" && !SeasonNeutral(id) {
 					drawn++
 				}
 			}
@@ -160,7 +169,7 @@ func TestComposeSeason(t *testing.T) {
 			all := func(id string) bool {
 				return have[id] || have[strings.TrimSuffix(id, sfx)] && strings.HasSuffix(id, sfx)
 			}
-			s = ComposeSeason(g, at, all, season)
+			s = ComposeSeason(g, at, all, Everywhere(season))
 			if len(s.Fallbacks) != 0 {
 				t.Errorf("%s in %s with every seasonal form: fallbacks %v", name, season, s.Fallbacks)
 			}
@@ -191,6 +200,75 @@ func TestComposeSeason(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+// A level's Seasons draw single hexes in their season (SeasonAt): only those
+// hexes take their autumn forms.
+func TestComposeHexSeasons(t *testing.T) {
+	have := indexIDs(t)
+	all := func(id string) bool {
+		return have[id] || have[strings.TrimSuffix(id, "_au")] && strings.HasSuffix(id, "_au")
+	}
+	l := campaignLevel(t, "1915-08:cp")
+	autumn := map[hexgrid.Coord]bool{{Line: 4, Col: 3}: true, {Line: 4, Col: 4}: true, {Line: 5, Col: 3}: true}
+	l.Extra.Seasons = map[hexgrid.Coord]string{}
+	for c := range autumn {
+		l.Extra.Seasons[c] = string(Autumn)
+	}
+	g, at := l.Grid(), LevelHex(l)
+	base := Compose(g, at, all)
+	s := ComposeSeason(g, at, all, SeasonAt(l))
+	if len(s.Fallbacks) != 0 {
+		t.Errorf("fallbacks %v", s.Fallbacks)
+	}
+	for line := range s.Cells {
+		for col, c := range s.Cells[line] {
+			want := base.Cells[line][col].Background
+			if autumn[hexgrid.Coord{Line: line, Col: col}] {
+				want = SeasonalID(want, Autumn)
+			}
+			if c.Background != want {
+				t.Errorf("[%d, %d]: %s, want %s", line, col, c.Background, want)
+			}
+		}
+	}
+	if got := SeasonAt(l)(hexgrid.Coord{}); got != Summer {
+		t.Errorf("an unlisted hex is in %s", got)
+	}
+}
+
+// A hex drawn in winter on a summer level takes the winter look of its
+// terrain, hills, mud and stone the original's rough, shelled and stony
+// ground, and its shores, roads and standing items follow it.
+func TestLevelHexWinter(t *testing.T) {
+	l := campaignLevel(t, "1915-08:cp")
+	l.Extra.Seasons = map[hexgrid.Coord]string{}
+	want := map[string]string{"hills": "rough_w", "mud": "shelled_w", "stone": "stoney_w", "grass": "grass_w", "water": "water"}
+	at := LevelHex(l)
+	seen := map[string]bool{}
+	for li, line := range l.Lines {
+		for col, h := range line {
+			c := hexgrid.Coord{Line: li, Col: col}
+			w, ok := want[h.Terrain]
+			if !ok || seen[h.Terrain] {
+				continue
+			}
+			seen[h.Terrain] = true
+			l.Extra.Seasons[c] = string(Winter)
+			if got := at(c); got.Terrain != w || got.Season != Winter {
+				t.Errorf("%s at %v in winter: %s (%s)", h.Terrain, c, got.Terrain, got.Season)
+			}
+			if l.Lines[li][col].Terrain != h.Terrain {
+				t.Errorf("the level's terrain at %v changed", c)
+			}
+		}
+	}
+	if len(seen) < 4 {
+		t.Fatalf("1915-08 has only %v", seen)
+	}
+	if got := at(hexgrid.Coord{}); got.Season != "" {
+		t.Errorf("a hex in the map's season has Season %q", got.Season)
 	}
 }
 

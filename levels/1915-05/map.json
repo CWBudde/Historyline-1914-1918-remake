@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Track",
+	"season": "spring",
 	"map": {
 		"line1": [["forest", ""], ["grass", ""], ["hills", ""], ["hills", ""], ["hills", ""], ["grass", "road36"], ["hills", ""], ["hills", ""], ["hills", ""], ["forest", ""], ["grass", "path346"], ["hills", ""]],
 		"line2": [["hills", ""], ["grass", ""], ["hills", ""], ["hills", ""], ["grass", "stream36"], ["hills", ""], ["hills", ""], ["hills", ""], ["forest", ""], ["grass", "path14"], ["grass", ""]],

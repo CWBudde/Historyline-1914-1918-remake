@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Skill",
+	"season": "spring",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["forest", ""], ["grass", "rail36"], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mountN", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["grass", "rail24"], ["mountain", ""], ["mountain", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["hills", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "rail24"], ["grass", "rail24"], ["grass", "rail24"], ["forest", ""], ["forest", ""], ["forest", ""], ["mountW", ""], ["mountE", ""], ["mountW", ""], ["mountE", ""], ["grass", "rail14"], ["grass", "rail25"], ["mountain", ""], ["mountain", ""], ["mountW", ""], ["mountE", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],

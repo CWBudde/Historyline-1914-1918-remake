@@ -45,6 +45,36 @@ func renderGrassDetailVariation(src, detail *image.NRGBA, variant int) (map[int]
 	return grassTilesFromRaw(raw4)
 }
 
+// grassSeasonDetailMaterial projects a seasonal edit of a detail painting
+// onto its seasonal base's grid as summer does (Lanczos3) and shifts each
+// channel's mean to the base's, so the edit adds its details without moving
+// the meadow's tone off the seasonal base the tiles blend it into.
+func grassSeasonDetailMaterial(base, painting *image.NRGBA) (*image.NRGBA, error) {
+	material, err := resizeLanczos(painting, base.Bounds().Dx(), base.Bounds().Dy())
+	if err != nil {
+		return nil, err
+	}
+	mean := func(m *image.NRGBA) (s [3]float64) {
+		for i := 0; i < len(m.Pix); i += 4 {
+			for c := range 3 {
+				s[c] += float64(m.Pix[i+c])
+			}
+		}
+		for c := range 3 {
+			s[c] /= float64(len(m.Pix) / 4)
+		}
+		return s
+	}
+	have, want := mean(material), mean(base)
+	for i := 0; i < len(material.Pix); i += 4 {
+		for c := range 3 {
+			v := float64(material.Pix[i+c]) + want[c] - have[c]
+			material.Pix[i+c] = uint8(max(0, min(255, v+.5)))
+		}
+	}
+	return material, nil
+}
+
 func grassTilesFromRaw(raw4 *image.NRGBA) (map[int]*image.NRGBA, error) {
 	g := sharedConnectionGeometry()
 	raw2, err := resizeLanczos(raw4, 208, 176)

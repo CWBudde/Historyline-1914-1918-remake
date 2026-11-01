@@ -29,7 +29,7 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 		return CanopyMap{}, fmt.Errorf("density %d: runtime art exists at 2x and 4x", density)
 	}
 	grid := lvl.Grid()
-	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.LevelSeason(lvl))
+	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.SeasonAt(lvl))
 	w, h := Size(grid)
 	m := CanopyMap{
 		Coverage: image.NewAlpha(image.Rect(0, 0, w*density, h*density)),

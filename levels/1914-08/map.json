@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Pulse",
+	"season": "summer",
 	"map": {
 		"line1": [["hills", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["hills", ""], ["forest", ""]],
 		"line2": [["grass", "road236"], ["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["house", ""], ["hills", ""]],
