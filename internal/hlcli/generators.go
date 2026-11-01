@@ -53,7 +53,10 @@ func generatorCommands() command {
 func (g generator) run(ctx context.Context, args []string, in io.Reader, out, errs io.Writer) error {
 	f := flag.NewFlagSet("hl export generate "+g.name, flag.ContinueOnError)
 	f.SetOutput(errs)
-	var family, manifest, profiles, bundle string
+	var family, manifest, profiles, bundle, mouths string
+	if g.name == "campaign-shores" {
+		f.StringVar(&mouths, "shore-mouths", "", "export only the named new shoreline mouths (comma-separated runtime tile names)")
+	}
 	if g.tag == "retainedgfx" {
 		f.StringVar(&family, "context-family", "", "ground, forest, or hills (required)")
 		f.StringVar(&manifest, "context-manifest", "", "current pinned input manifest (required)")
@@ -66,6 +69,11 @@ func (g generator) run(ctx context.Context, args []string, in io.Reader, out, er
 	if f.NArg() != 0 {
 		return fmt.Errorf("unexpected positional arguments: %v", f.Args())
 	}
+	var emptyMouths bool
+	f.Visit(func(v *flag.Flag) { emptyMouths = emptyMouths || v.Name == "shore-mouths" && mouths == "" })
+	if emptyMouths {
+		return fmt.Errorf("-shore-mouths requires at least one tile name")
+	}
 	if g.tag == "retainedgfx" && (family == "" || manifest == "" || profiles == "" || bundle == "") {
 		return fmt.Errorf("all four context flags are required")
 	}
@@ -76,6 +84,9 @@ func (g generator) run(ctx context.Context, args []string, in io.Reader, out, er
 	testArgs := []string{"test", "-timeout", "40m", "-tags", g.tag, "./tools/" + g.pkg, "-run", "^" + g.test + "$", "-count=1", "-v"}
 	if g.tag == "retainedgfx" {
 		testArgs = append(testArgs, "-args", "-context-family", family, "-context-manifest", manifest, "-context-profiles", profiles, "-context-bundle", bundle)
+	}
+	if mouths != "" {
+		testArgs = append(testArgs, "-args", "-shore-mouths", mouths)
 	}
 	return runProcess(ctx, root, "go", testArgs, in, out, errs)
 }

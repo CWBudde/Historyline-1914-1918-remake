@@ -134,6 +134,8 @@ Flanders (`1918-10`, 6342×5414) ships a tile-render placeholder at 1.41 image p
 with its border notches filled from the ground beside them. All seven factory approaches meet the
 east cell's northeast gate; no road enters another factory edge. Painted, it takes 56 sections:
 PAUSE's columns and CANDL's rows.
+Its western river mouth opens into the sea, and the inland source pool joins its stream through
+registered shoreline outlets; the map's watercourses and bridge positions are preserved.
 
 Ypres (`1914-11`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable

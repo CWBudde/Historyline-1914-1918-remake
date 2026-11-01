@@ -15,6 +15,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"image"
 	"image/png"
@@ -27,8 +28,14 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 )
 
+var campaignShoreMouths = flag.String("shore-mouths", "", "export only these new shoreline mouth tile names, comma-separated")
+
 func TestGenerateCampaignShores(t *testing.T) {
 	root := filepath.Join("..", "..")
+	if *campaignShoreMouths != "" {
+		generateShoreMouths(t, root, strings.Split(*campaignShoreMouths, ","))
+		return
+	}
 	manifest := filepath.Join(root, "art/pipeline/shore-terrain-v2.json")
 	if *campaignSeason != "" {
 		n, err := campaignSeasonExport(root, *campaignSeason, *campaignSeasonOut, []string{"tile/lakeside", "tile/shore-"}, func() (func(string) (map[int]*image.NRGBA, error), error) {
@@ -189,9 +196,101 @@ func campaignShoreTiles(summer, winter shoreInputs, id string) (map[int]*image.N
 		}
 		return exportShoreMouthOnBase(in, v, port, canonical)
 	}
-	shape, ok := mapcompose.ParseShore(base)
-	if !ok || port != 0 {
+	shape, ok := mapcompose.ParseShore(shore)
+	if !ok {
 		return nil, fmt.Errorf("unknown shore %s", id)
 	}
+	if port != 0 {
+		return exportShoreMouth(in, shoreVariant{ID: shore}, port)
+	}
 	return exportShoreShapeTiles(in, shape)
+}
+
+// generateShoreMouths adds only explicitly requested new variants. Preflight
+// the entire set, retain every existing export, and detect concurrent index edits.
+func generateShoreMouths(t *testing.T, root string, ids []string) {
+	t.Helper()
+	index := filepath.Join(root, "assets/index.json")
+	before, err := os.ReadFile(index)
+	if err != nil {
+		t.Fatal(err)
+	}
+	entries, installed, err := readCampaignIndex(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	seen := map[string]bool{}
+	for _, id := range ids {
+		base := strings.TrimSuffix(strings.TrimSuffix(id, "_au"), "_sp")
+		base = strings.TrimSuffix(base, "_w")
+		shore, tail, ok := strings.Cut(base, "-outlet")
+		shape, valid := mapcompose.ParseShore(shore)
+		var port int
+		if !ok || !valid || seen[id] || (id != base && id != base+"_au" && id != base+"_sp" && id != base+"_w") {
+			t.Fatalf("invalid or duplicate shore mouth %q", id)
+		}
+		if _, err := fmt.Sscanf(tail, "%d", &port); err != nil || port < 1 || port > 6 || base != fmt.Sprintf("%s-outlet%d", shore, port) ||
+			shape.Land&(1<<(port%6)) == 0 || shape.Land&(1<<((port+1)%6)) == 0 {
+			t.Fatalf("%s is not a mouth on a land edge", id)
+		}
+		seen[id] = true
+		for _, d := range []int{2, 4} {
+			if _, ok := installed[campaignExportKey("tile/"+id, d)]; ok {
+				t.Fatalf("refusing to replace installed %s at %dx", id, d)
+			}
+			path := filepath.Join(root, "assets/terrain/lakeside", fmt.Sprintf("%s-%dx.png", id, d))
+			if _, err := os.Lstat(path); !os.IsNotExist(err) {
+				t.Fatalf("refusing existing or inaccessible output %s: %v", path, err)
+			}
+		}
+	}
+	previous := exportSeason
+	defer func() { exportSeason = previous }()
+	for _, id := range ids {
+		exportSeason = ""
+		base, manifest := id, "art/pipeline/shore-terrain-v2.json"
+		switch {
+		case strings.HasSuffix(id, "_au"):
+			exportSeason, base = "autumn", strings.TrimSuffix(id, "_au")
+		case strings.HasSuffix(id, "_sp"):
+			exportSeason, base = "spring", strings.TrimSuffix(id, "_sp")
+		case strings.HasSuffix(id, "_w"):
+			manifest = "art/pipeline/shore-terrain-winter-v1.json"
+		}
+		in, err := loadShoreInputs(filepath.Join(root, manifest))
+		if err != nil {
+			t.Fatal(err)
+		}
+		tiles, err := campaignShoreTiles(in, in, base)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, d := range []int{2, 4} {
+			path := fmt.Sprintf("terrain/lakeside/%s-%dx.png", id, d)
+			var data bytes.Buffer
+			if err := png.Encode(&data, tiles[d]); err != nil {
+				t.Fatal(err)
+			}
+			f, err := os.OpenFile(filepath.Join(root, "assets", path), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+			if err != nil {
+				t.Fatal(err)
+			}
+			_, writeErr := f.Write(data.Bytes())
+			closeErr := f.Close()
+			if writeErr != nil || closeErr != nil {
+				t.Fatalf("write %s: %v; close: %v", path, writeErr, closeErr)
+			}
+			sum := sha256.Sum256(data.Bytes())
+			raw, err := json.Marshal(campaignEntry{ID: "tile/" + id, Pack: fmt.Sprintf("terrain-backgrounds-%dx", d), Density: d, Path: path, SHA256: hex.EncodeToString(sum[:]), Width: 96 * d, Height: 80 * d, Anchor: [2]float64{48, 40}, Art: "terrain/lakeside"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			entries = append(entries, raw)
+		}
+	}
+	current, err := os.ReadFile(index)
+	if err != nil || !bytes.Equal(current, before) {
+		t.Fatalf("runtime index changed during export: %v", err)
+	}
+	writeWinterIndex(t, root, entries)
 }

@@ -31,7 +31,7 @@ var shoreLandVertices = map[string][]int{
 // only the summer one exists.
 func selectShoreOutlet(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, terrain string, has func(string) bool) (string, *Gap) {
 	base, winter := strings.CutSuffix(terrain, "_w")
-	land, shore := shoreLandVertices[base]
+	shape, shore := ParseShore(base)
 	if !shore {
 		return "", nil
 	}
@@ -53,10 +53,15 @@ func selectShoreOutlet(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coo
 			break
 		}
 	}
-	if port == 0 || !slices.Contains(land, port%6) || !slices.Contains(land, (port+1)%6) {
+	if port == 0 || shape.Land&(1<<(port%6)) == 0 || shape.Land&(1<<((port+1)%6)) == 0 {
 		return "", nil
 	}
 	id := fmt.Sprintf("%s-outlet%d", base, port)
+	if _, roster := shoreLandVertices[base]; !roster && winter && !has(TileID(id+"_w")) {
+		// Derived mouths are optional exports. A new summer mouth must not
+		// change an existing winter coast until its winter export is installed.
+		return "", nil
+	}
 	if !has(TileID(id)) {
 		return "", nil
 	}

@@ -206,9 +206,11 @@ road tile (`entry_road`), so the road runs on into the gate (`TestGenerateCompou
 (`TestCompoundEntryStreetMeetsTheRoad`). The ruin, which has no fence, fades out towards its outer edge along
 an irregular line (`edge_feather`).
 For one adjacent stream facing a fully-land shore edge, the compositor selects
-`tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
-retain the corner states and meet the stream's port profile. Missing variants or several facing streams
-keep the canonical shore; multi-mouth and mixed-edge contexts remain open.
+`tile/<shore>-outlet<port>`, including derived `shore-*` shapes. The mouth shares the ordinary bank
+and water materials, retains the corner states and meets the stream's port profile. Missing variants
+or several facing streams keep the base shore; multi-mouth and mixed-edge contexts remain open.
+`hl export generate campaign-shores -shore-mouths <comma-separated tile names>` adds only explicitly
+named new mouth exports and refuses existing ones; `_au` and `_sp` use the seasonal source edits.
 
 Drawing order: all backgrounds, cluster stamps, overlays, cast shadows, standing items (line, then column), owner bars,
 units. Unseen hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing

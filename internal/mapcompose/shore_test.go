@@ -113,3 +113,30 @@ func TestShoreWithMultipleFacingStreamsKeepsBase(t *testing.T) {
 		t.Errorf("multiple mouths silently selected %s", got)
 	}
 }
+
+func TestDerivedShoreOutletSelection(t *testing.T) {
+	for _, shore := range []string{"shore-3e", "shore-3f"} {
+		t.Run(shore, func(t *testing.T) {
+			g := hexgrid.Grid{Width: 5, Lines: 7}
+			c := hexgrid.Coord{Line: 3, Col: 2}
+			stream := hexgrid.Around(c)[1]
+			at := func(p hexgrid.Coord) Hex {
+				if p == stream {
+					return Hex{Terrain: "grass", Infra: []string{"stream25"}}
+				}
+				return Hex{Terrain: "water"}
+			}
+			want := "tile/" + shore + "-outlet2"
+			got, gap := selectShoreOutlet(g, at, c, shore, func(id string) bool { return id == want })
+			if got != want || gap != nil {
+				t.Fatalf("derived shore mouth = %q, %v; want %s", got, gap, want)
+			}
+			if got, gap := selectShoreOutlet(g, at, c, shore+"_w", func(id string) bool { return id == want }); got != "" || gap != nil {
+				t.Fatalf("summer-only export changed the winter coast: %q, %v", got, gap)
+			}
+			if got, gap := selectShoreOutlet(g, at, c, shore+"_w", func(id string) bool { return id == want || id == want+"_w" }); got != want+"_w" || gap != nil {
+				t.Fatalf("winter mouth = %q, %v; want %s_w", got, gap, want)
+			}
+		})
+	}
+}

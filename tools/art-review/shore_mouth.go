@@ -7,6 +7,9 @@ import (
 	"image/draw"
 	"math"
 	"slices"
+	"strings"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 )
 
 type shoreMouthReport struct {
@@ -35,7 +38,7 @@ func shoreMouthEdgeDistance(p connectionPoint, edge int) float64 {
 // The target is derived from this tile's water mask, never from a map position
 // or a particular lake silhouette. A cubic leaves the fixed stream port normal
 // and reaches the closest wet interior, where its round end merges into water.
-func shoreMouthRoute(v shoreVariant, port int, curve shoreCurve) (connectionRoute, error) {
+func shoreMouthRoute(id string, port int, coast func(connectionPoint) float64) (connectionRoute, error) {
 	g := sharedConnectionGeometry()
 	p := g.Ports[port-1]
 	n := g.Neighbors[port-1].mul(-1 / g.Neighbors[port-1].length())
@@ -51,7 +54,7 @@ func shoreMouthRoute(v shoreVariant, port int, curve shoreCurve) (connectionRout
 					break
 				}
 			}
-			if !inside || shoreFieldWithCurve(v, q, &curve) > -1 {
+			if !inside || coast(q) > -1 {
 				continue
 			}
 			d := q.sub(a).length()
@@ -61,7 +64,7 @@ func shoreMouthRoute(v shoreVariant, port int, curve shoreCurve) (connectionRout
 		}
 	}
 	if math.IsInf(best, 1) {
-		return connectionRoute{}, fmt.Errorf("%s has no wet interior for outlet%d", v.ID, port)
+		return connectionRoute{}, fmt.Errorf("%s has no wet interior for outlet%d", id, port)
 	}
 	r := connectionRoute{segments: []connectionSegment{{p.sub(n.mul(20)), a}}}
 	h := min(12., best/2)
@@ -83,8 +86,8 @@ func shoreMouthOver(background, feature color.NRGBA) color.NRGBA {
 	return color.NRGBA{mix(background.R, feature.R), mix(background.G, feature.G), mix(background.B, feature.B), 255}
 }
 
-func shoreMouthColor(in shoreInputs, v shoreVariant, port int, curve shoreCurve, c connectionInputs, f connectionFamily, route connectionRoute, p connectionPoint) color.NRGBA {
-	coast := shoreFieldWithCurve(v, p, &curve)
+func shoreMouthColor(in shoreInputs, port int, c connectionInputs, f connectionFamily, route connectionRoute, p connectionPoint, field func(connectionPoint) float64) color.NRGBA {
+	coast := field(p)
 	original := shoreMaterialColor(in, p, coast)
 	other := math.Inf(1)
 	for edge := range 6 {
@@ -109,6 +112,14 @@ func shoreMouthColor(in shoreInputs, v shoreVariant, port int, curve shoreCurve,
 }
 
 func exportShoreMouth(in shoreInputs, v shoreVariant, port int) (map[int]*image.NRGBA, error) {
+	if shape, ok := mapcompose.ParseShore(v.ID); ok && strings.HasPrefix(v.ID, "shore-") {
+		canonical, err := exportShoreShapeTiles(in, shape)
+		if err != nil {
+			return nil, err
+		}
+		field := newShoreShapeField(shape)
+		return exportShoreMouthWithField(in, v.ID, port, canonical, field.field)
+	}
 	canonical, err := exportShoreTiles(in, v)
 	if err != nil {
 		return nil, err
@@ -118,7 +129,13 @@ func exportShoreMouth(in shoreInputs, v shoreVariant, port int) (map[int]*image.
 
 func exportShoreMouthOnBase(in shoreInputs, v shoreVariant, port int, canonical map[int]*image.NRGBA) (map[int]*image.NRGBA, error) {
 	curve := shoreCurveFor(v)
-	route, err := shoreMouthRoute(v, port, curve)
+	return exportShoreMouthWithField(in, v.ID, port, canonical, func(p connectionPoint) float64 {
+		return shoreFieldWithCurve(v, p, &curve)
+	})
+}
+
+func exportShoreMouthWithField(in shoreInputs, id string, port int, canonical map[int]*image.NRGBA, field func(connectionPoint) float64) (map[int]*image.NRGBA, error) {
+	route, err := shoreMouthRoute(id, port, field)
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +144,7 @@ func exportShoreMouthOnBase(in shoreInputs, v shoreVariant, port int, canonical 
 	for y := range 352 {
 		for x := range 416 {
 			p := connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}
-			raw.SetNRGBA(x, y, shoreMouthColor(in, v, port, curve, c, f, route, p))
+			raw.SetNRGBA(x, y, shoreMouthColor(in, port, c, f, route, p, field))
 		}
 	}
 	raw2, err := resizeLanczos(raw, 208, 176)

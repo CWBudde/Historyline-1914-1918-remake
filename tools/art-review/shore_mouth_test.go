@@ -6,9 +6,59 @@ import (
 	"image"
 	"image/draw"
 	"math"
+	"os"
+	"path/filepath"
 	"slices"
+	"strings"
 	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
+
+func TestFlandersRiverMouthsUseInstalledExports(t *testing.T) {
+	root := filepath.Join("..", "..")
+	lv, err := scenario.LoadLevel(filepath.Join(root, "levels/1918-10"), scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	raw, err := os.ReadFile(filepath.Join(root, "assets/index.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var index struct {
+		Assets []struct {
+			ID      string `json:"id"`
+			Density int    `json:"density"`
+		} `json:"assets"`
+	}
+	if err := json.Unmarshal(raw, &index); err != nil {
+		t.Fatal(err)
+	}
+	installed := map[string]uint8{}
+	for _, e := range index.Assets {
+		switch e.Density {
+		case 2:
+			installed[e.ID] |= 1
+		case 4:
+			installed[e.ID] |= 2
+		}
+	}
+	has := func(id string) bool { return installed[id] == 3 }
+	s := mapcompose.ComposeSeason(lv.Grid(), mapcompose.LevelHex(lv), has, mapcompose.SeasonAt(lv))
+	for _, tc := range []struct {
+		at   hexgrid.Coord
+		want string
+	}{
+		{hexgrid.Coord{Line: 49, Col: 6}, "tile/shore-3e-outlet2_au"},
+		{hexgrid.Coord{Line: 65, Col: 12}, "tile/shore-3f-outlet2_au"},
+	} {
+		if got := s.Cells[tc.at.Line][tc.at.Col].Background; got != tc.want {
+			t.Errorf("Flanders line %d col %d draws %s, want %s", tc.at.Line+1, tc.at.Col+1, got, tc.want)
+		}
+	}
+}
 
 func TestShoreMouthExportsEveryLandEdge(t *testing.T) {
 	path, _ := shoreTestFixture(t)
@@ -97,7 +147,7 @@ func TestShoreMouthSharedStreamGuardsAndConnectedWater(t *testing.T) {
 	for _, tc := range []struct {
 		id   string
 		port int
-	}{{"lakeside12", 1}, {"lakeside23", 2}, {"lakeside126", 6}, {"lakeside3456", 3}, {"lakeside23", 4}, {"lakeside56", 5}} {
+	}{{"lakeside12", 1}, {"lakeside23", 2}, {"lakeside126", 6}, {"lakeside3456", 3}, {"lakeside23", 4}, {"lakeside56", 5}, {"shore-3e", 2}, {"shore-3f", 2}} {
 		t.Run(fmt.Sprintf("%s-outlet%d", tc.id, tc.port), func(t *testing.T) {
 			v := shoreVariant{tc.id, profiles[tc.id]}
 			mouth, err := exportShoreMouth(in, v, tc.port)
@@ -105,6 +155,9 @@ func TestShoreMouthSharedStreamGuardsAndConnectedWater(t *testing.T) {
 				t.Fatal(err)
 			}
 			original, err := exportShoreTiles(in, v)
+			if shape, derived := mapcompose.ParseShore(tc.id); derived && strings.HasPrefix(tc.id, "shore-") {
+				original, err = exportShoreShapeTiles(in, shape)
+			}
 			if err != nil {
 				t.Fatal(err)
 			}
