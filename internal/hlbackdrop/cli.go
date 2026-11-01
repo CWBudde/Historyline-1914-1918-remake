@@ -36,6 +36,8 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	var sections string
 	var stitch string
 	var inspect string
+	var finish string
+	var lightness string
 	if args[0] == "jpeg" {
 		f.IntVar(&q, "q", 0, "JPEG quality (default: the existing JPEG's own, 95 for a new one)")
 		f.BoolVar(&placeholder, "placeholder", false, "create missing sources from unit-free terrain; refuse existing backdrops")
@@ -43,13 +45,15 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		f.StringVar(&sections, "sections", "", "prepare registered guide crops from a section-plan JSON instead of encoding JPEGs")
 		f.StringVar(&stitch, "stitch", "", "stitch selected paintings from a section-plan JSON instead of encoding JPEGs")
 		f.StringVar(&inspect, "inspect", "", "export full-resolution joins with registered hex grids from a section-plan JSON")
+		f.StringVar(&finish, "finish", "", "apply registered feathered crops and a colour grade from a finishing-plan JSON")
+		f.StringVar(&lightness, "lightness", "", "compare registered image regions in CIE L* and report uneven brightness")
 	}
 	if err := f.Parse(args[1:]); err != nil {
 		return err
 	}
 	var emptyMode string
 	f.Visit(func(v *flag.Flag) {
-		if (v.Name == "sections" || v.Name == "stitch" || v.Name == "inspect") && v.Value.String() == "" {
+		if (v.Name == "sections" || v.Name == "stitch" || v.Name == "inspect" || v.Name == "finish" || v.Name == "lightness") && v.Value.String() == "" {
 			emptyMode = v.Name
 		}
 	})
@@ -67,6 +71,18 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	}
 	if q < 0 || q > 100 {
 		return fmt.Errorf("JPEG quality must be 1 through 100, or 0 for the default")
+	}
+	if lightness != "" {
+		if placeholder || q != 0 || sections != "" || stitch != "" || inspect != "" || finish != "" || f.NArg() != 1 {
+			return fmt.Errorf("lightness requires exactly one level and cannot combine with other authoring modes, placeholder or q")
+		}
+		return auditLightness(lightness, stdout)
+	}
+	if finish != "" {
+		if placeholder || q != 0 || sections != "" || stitch != "" || inspect != "" || f.NArg() != 1 {
+			return fmt.Errorf("finish requires exactly one level and cannot combine with other authoring modes, placeholder or q")
+		}
+		return finishPainting(*levels, f.Arg(0), finish, stdout)
 	}
 	if inspect != "" {
 		if placeholder || q != 0 || sections != "" || stitch != "" || f.NArg() != 1 {
@@ -138,6 +154,371 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		}
 	}
 	return nil
+}
+
+// auditLightness compares the same registered ground on both sides of an edit
+// or section overlap. Whole-map averages conflate lighting with geography.
+// The 31-pixel box filter suppresses detail; regional means expose local shifts
+// that cancel in a single overlap/ring RGB mean. Findings request visual review,
+// since changed materials and registration errors can also change lightness.
+func auditLightness(planPath string, stdout io.Writer) error {
+	type pair struct {
+		ID, A, B     string
+		RectA, RectB [4]float64 // normalized x, y, width, height; zero means whole image
+		GainA, GainB [3]float64
+		Canvas       [2]int
+		Ring         *struct {
+			Center [2]float64
+			Radii  [2]float64
+		}
+	}
+	plan := struct {
+		Report                 string
+		MeanLimit, RegionLimit float64
+		Pairs                  []pair
+	}{MeanLimit: 2.5, RegionLimit: 5}
+	data, err := os.ReadFile(planPath)
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(data, &plan); err != nil {
+		return err
+	}
+	if plan.Report == "" || len(plan.Pairs) == 0 || plan.MeanLimit <= 0 || plan.RegionLimit <= 0 {
+		return fmt.Errorf("lightness plan requires report, pairs and positive L* limits")
+	}
+	if _, err := os.Lstat(plan.Report); err == nil {
+		return fmt.Errorf("refusing to replace lightness report %s", plan.Report)
+	} else if !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+	var linear [256]float64
+	for i := range linear {
+		v := float64(i) / 255
+		linear[i] = v / 12.92
+		if v > .04045 {
+			linear[i] = math.Pow((v+.055)/1.055, 2.4)
+		}
+	}
+	// Retain only the last image in each lane. Repeated building comparisons
+	// reuse the large assembled source without retaining every section image.
+	var paths [2]string
+	var images [2]image.Image
+	field := func(lane int, path string, rect [4]float64, gain [3]float64, size [2]int) ([]float64, error) {
+		if path != paths[lane] || images[lane] == nil {
+			f, err := os.Open(path)
+			if err != nil {
+				return nil, err
+			}
+			im, _, decodeErr := image.Decode(f)
+			if err := errors.Join(decodeErr, f.Close()); err != nil {
+				return nil, err
+			}
+			paths[lane], images[lane] = path, im
+		}
+		im := images[lane]
+		if rect == [4]float64{} {
+			rect = [4]float64{0, 0, 1, 1}
+		}
+		if rect[0] < 0 || rect[1] < 0 || rect[2] <= 0 || rect[3] <= 0 || rect[0]+rect[2] > 1.000001 || rect[1]+rect[3] > 1.000001 {
+			return nil, fmt.Errorf("invalid normalized comparison rectangle")
+		}
+		bounds := im.Bounds()
+		x := func(v float64) int { return bounds.Min.X + int(math.Round(v*float64(bounds.Dx()))) }
+		y := func(v float64) int { return bounds.Min.Y + int(math.Round(v*float64(bounds.Dy()))) }
+		src := image.Rect(x(rect[0]), y(rect[1]), x(rect[0]+rect[2]), y(rect[1]+rect[3]))
+		if src.Empty() || !src.In(bounds) {
+			return nil, fmt.Errorf("empty or out-of-bounds comparison rectangle")
+		}
+		if gain == [3]float64{} {
+			gain = [3]float64{1, 1, 1}
+		}
+		for _, g := range gain {
+			if g <= 0 || g > 4 {
+				return nil, fmt.Errorf("comparison gains must be in (0,4]")
+			}
+		}
+		w, h := size[0], size[1]
+		canvas := image.NewNRGBA(image.Rect(0, 0, w, h))
+		xdraw.CatmullRom.Scale(canvas, canvas.Bounds(), im, src, xdraw.Src, nil)
+		integral := make([]float64, (w+1)*(h+1))
+		for py := range h {
+			var row float64
+			for px := range w {
+				p := canvas.PixOffset(px, py)
+				if canvas.Pix[p+3] != 255 {
+					return nil, fmt.Errorf("lightness comparisons require opaque images")
+				}
+				var rgb [3]int
+				for c := range 3 {
+					rgb[c] = int(math.Round(min(255, float64(canvas.Pix[p+c])*gain[c])))
+				}
+				lum := .2126729*linear[rgb[0]] + .7151522*linear[rgb[1]] + .0721750*linear[rgb[2]]
+				lstar := (24389.0 / 27) * lum
+				if lum > 216.0/24389 {
+					lstar = 116*math.Cbrt(lum) - 16
+				}
+				row += lstar
+				integral[(py+1)*(w+1)+px+1] = integral[py*(w+1)+px+1] + row
+			}
+		}
+		out := make([]float64, w*h)
+		for py := range h {
+			for px := range w {
+				x0, x1, y0, y1 := max(0, px-15), min(w, px+16), max(0, py-15), min(h, py+16)
+				out[py*w+px] = (integral[y1*(w+1)+x1] - integral[y0*(w+1)+x1] - integral[y1*(w+1)+x0] + integral[y0*(w+1)+x0]) / float64((x1-x0)*(y1-y0))
+			}
+		}
+		return out, nil
+	}
+	type measurement struct {
+		Pair                             pair
+		Samples                          int
+		MeanDelta, RMSDelta, WorstRegion float64
+		Regions                          [16]float64
+		NeedsReview                      bool
+	}
+	var measurements []measurement
+	issues := 0
+	seen := map[string]bool{}
+	for _, p := range plan.Pairs {
+		w, h := p.Canvas[0], p.Canvas[1]
+		if p.ID == "" || seen[p.ID] || w < 32 || h < 32 || w > 2048 || h > 2048 {
+			return fmt.Errorf("comparison %q must have a unique ID and canvas dimensions in [32,2048]", p.ID)
+		}
+		seen[p.ID] = true
+		if p.Ring != nil && (p.Ring.Radii[0] < 0 || p.Ring.Radii[1] <= p.Ring.Radii[0] || p.Ring.Center[0]-p.Ring.Radii[1] < 0 || p.Ring.Center[1]-p.Ring.Radii[1] < 0 || p.Ring.Center[0]+p.Ring.Radii[1] > float64(w) || p.Ring.Center[1]+p.Ring.Radii[1] > float64(h)) {
+			return fmt.Errorf("invalid comparison ring %s", p.ID)
+		}
+		a, err := field(0, p.A, p.RectA, p.GainA, p.Canvas)
+		if err != nil {
+			return fmt.Errorf("%s: %w", p.ID, err)
+		}
+		b, err := field(1, p.B, p.RectB, p.GainB, p.Canvas)
+		if err != nil {
+			return fmt.Errorf("%s: %w", p.ID, err)
+		}
+		m := measurement{Pair: p}
+		var counts [16]int
+		for y := 0; y < h; y += 4 {
+			for x := 0; x < w; x += 4 {
+				region := min(3, y*4/h)*4 + min(3, x*4/w)
+				if p.Ring != nil {
+					dx, dy := float64(x)+.5-p.Ring.Center[0], float64(y)+.5-p.Ring.Center[1]
+					d := math.Hypot(dx, dy)
+					if d < p.Ring.Radii[0] || d >= p.Ring.Radii[1] {
+						continue
+					}
+					region = min(7, int((math.Atan2(dy, dx)+math.Pi)*4/math.Pi))
+				}
+				delta := b[y*w+x] - a[y*w+x]
+				m.MeanDelta += delta
+				m.RMSDelta += delta * delta
+				m.Regions[region] += delta
+				counts[region]++
+				m.Samples++
+			}
+		}
+		if m.Samples == 0 {
+			return fmt.Errorf("comparison %s has no samples", p.ID)
+		}
+		m.MeanDelta /= float64(m.Samples)
+		m.RMSDelta = math.Sqrt(m.RMSDelta / float64(m.Samples))
+		for i, n := range counts {
+			if n > 0 {
+				m.Regions[i] /= float64(n)
+				m.WorstRegion = max(m.WorstRegion, math.Abs(m.Regions[i]))
+			}
+		}
+		m.NeedsReview = math.Abs(m.MeanDelta) > plan.MeanLimit || m.WorstRegion > plan.RegionLimit
+		if m.NeedsReview {
+			issues++
+		}
+		measurements = append(measurements, m)
+	}
+	report := struct {
+		MeanLimit, RegionLimit float64
+		BlurPixels             int
+		Issues                 int
+		Comparisons            []measurement
+	}{plan.MeanLimit, plan.RegionLimit, 31, issues, measurements}
+	data, err = json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		return err
+	}
+	f, err := os.OpenFile(plan.Report, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+	if err != nil {
+		return err
+	}
+	_, writeErr := f.Write(append(data, '\n'))
+	if err := errors.Join(writeErr, f.Close()); err != nil {
+		return errors.Join(err, os.Remove(plan.Report))
+	}
+	if _, err := fmt.Fprintf(stdout, "%s: %d registered comparisons, %d need lightness review (mean >%g or regional >%g L*)\n", plan.Report, len(measurements), issues, plan.MeanLimit, plan.RegionLimit); err != nil {
+		return errors.Join(err, os.Remove(plan.Report))
+	}
+	if issues > 0 {
+		return fmt.Errorf("%d registered regions exceed lightness review limits; see %s", issues, plan.Report)
+	}
+	return nil
+}
+
+// finishPainting registers each edited square crop back onto its original
+// rectangle. Only its circular feather mask contributes pixels; crops are never
+// rotated or transposed. Ring means match colour before the global grade.
+func finishPainting(levels, name, planPath string, stdout io.Writer) error {
+	plan := struct {
+		World            [2]int
+		Output           [2]int // optional final size, after registered source-pixel edits
+		Source, Finished string
+		Saturation       float64
+		Gain             [3]float64
+		Patches          []struct {
+			ID, Painting string
+			Rectangle    [4]int     // x, y, width, height in source-image pixels
+			Center       [2]float64 // relative to Rectangle
+			Radii        [2]float64 // solid inner radius, transparent outer radius
+		}
+	}{Saturation: 1, Gain: [3]float64{1, 1, 1}}
+	data, err := os.ReadFile(planPath)
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(data, &plan); err != nil {
+		return err
+	}
+	b, err := find(levels, name)
+	if err != nil {
+		return err
+	}
+	lvl, err := scenario.LoadLevel(filepath.Dir(b.src), scenario.CP)
+	if err != nil {
+		return err
+	}
+	w, h := maprender.Size(lvl.Grid())
+	if plan.World != [2]int{w, h} || plan.Source == "" || plan.Finished == "" || plan.Saturation < 0 || plan.Saturation > 2 {
+		return fmt.Errorf("finishing plan must match the map, name source/finished paths and use saturation in [0,2]")
+	}
+	for _, gain := range plan.Gain {
+		if gain <= 0 || gain > 2 {
+			return fmt.Errorf("finishing gains must be in (0,2]")
+		}
+	}
+	if _, err := os.Lstat(plan.Finished); err == nil {
+		return fmt.Errorf("refusing to replace finished painting %s", plan.Finished)
+	} else if !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+	decode := func(path string) (image.Image, error) {
+		f, err := os.Open(path)
+		if err != nil {
+			return nil, err
+		}
+		im, _, decodeErr := image.Decode(f)
+		return im, errors.Join(decodeErr, f.Close())
+	}
+	im, err := decode(plan.Source)
+	if err != nil {
+		return err
+	}
+	bounds := im.Bounds()
+	if bounds.Dx() > 64_000_000/max(1, bounds.Dy()) || math.Abs(float64(bounds.Dx())/float64(bounds.Dy())-float64(w)/float64(h)) > .002 {
+		return fmt.Errorf("source must match world aspect and be at most 64 megapixels")
+	}
+	canvas := image.NewNRGBA(image.Rect(0, 0, bounds.Dx(), bounds.Dy()))
+	draw.Draw(canvas, canvas.Bounds(), im, bounds.Min, draw.Src)
+	seen := map[string]bool{}
+	for _, patch := range plan.Patches {
+		r := patch.Rectangle
+		dest := image.Rect(r[0], r[1], r[0]+r[2], r[1]+r[3])
+		cx, cy, inner, outer := patch.Center[0], patch.Center[1], patch.Radii[0], patch.Radii[1]
+		if patch.ID == "" || seen[patch.ID] || dest.Empty() || !dest.In(canvas.Bounds()) || inner < 0 || outer <= inner || cx-outer < 0 || cy-outer < 0 || cx+outer > float64(r[2]) || cy+outer > float64(r[3]) {
+			return fmt.Errorf("invalid finishing patch %q or feather mask", patch.ID)
+		}
+		seen[patch.ID] = true
+		edit, err := decode(patch.Painting)
+		if err != nil {
+			return err
+		}
+		if math.Abs(float64(edit.Bounds().Dx())/float64(edit.Bounds().Dy())-float64(r[2])/float64(r[3])) > .02 {
+			return fmt.Errorf("patch %s changes crop aspect", patch.ID)
+		}
+		crop := image.NewNRGBA(image.Rect(0, 0, r[2], r[3]))
+		xdraw.CatmullRom.Scale(crop, crop.Bounds(), edit, edit.Bounds(), xdraw.Src, nil)
+		var baseSum, editSum [3]float64
+		for y := range r[3] {
+			for x := range r[2] {
+				p := crop.PixOffset(x, y)
+				if crop.Pix[p+3] != 255 {
+					return fmt.Errorf("finishing patch %s must be opaque", patch.ID)
+				}
+				d := math.Hypot(float64(x)+.5-cx, float64(y)+.5-cy)
+				if d < inner || d >= outer {
+					continue
+				}
+				q := canvas.PixOffset(x+r[0], y+r[1])
+				for c := range 3 {
+					baseSum[c] += float64(canvas.Pix[q+c])
+					editSum[c] += float64(crop.Pix[p+c])
+				}
+			}
+		}
+		var gains [3]float64
+		for c := range 3 {
+			if editSum[c] == 0 {
+				return fmt.Errorf("patch %s has an empty or black matching ring", patch.ID)
+			}
+			gains[c] = baseSum[c] / editSum[c]
+		}
+		for y := range r[3] {
+			for x := range r[2] {
+				d := math.Hypot(float64(x)+.5-cx, float64(y)+.5-cy)
+				if d >= outer {
+					continue
+				}
+				t := min(1, max(0, (outer-d)/(outer-inner)))
+				alpha := t * t * (3 - 2*t)
+				p, q := crop.PixOffset(x, y), canvas.PixOffset(x+r[0], y+r[1])
+				for c := range 3 {
+					v := float64(crop.Pix[p+c]) * gains[c]
+					canvas.Pix[q+c] = uint8(math.Round(min(255, max(0, float64(canvas.Pix[q+c])*(1-alpha)+v*alpha))))
+				}
+			}
+		}
+		if _, err := fmt.Fprintf(stdout, "%s: crop %v, mask %v at %v, RGB gain %v\n", patch.ID, r, patch.Radii, patch.Center, gains); err != nil {
+			return err
+		}
+	}
+	for p := 0; p < len(canvas.Pix); p += 4 {
+		y := .2126*float64(canvas.Pix[p]) + .7152*float64(canvas.Pix[p+1]) + .0722*float64(canvas.Pix[p+2])
+		for c := range 3 {
+			v := (y + (float64(canvas.Pix[p+c])-y)*plan.Saturation) * plan.Gain[c]
+			canvas.Pix[p+c] = uint8(math.Round(min(255, max(0, v))))
+		}
+	}
+	if plan.Output != [2]int{} {
+		ow, oh := plan.Output[0], plan.Output[1]
+		if ow <= 0 || oh <= 0 || ow > 64_000_000/oh || math.Abs(float64(ow)*float64(h)-float64(oh)*float64(w)) > float64(max(w, h)) {
+			return fmt.Errorf("finishing output must preserve world aspect within one pixel and be at most 64 megapixels")
+		}
+		resized := image.NewNRGBA(image.Rect(0, 0, ow, oh))
+		xdraw.CatmullRom.Scale(resized, resized.Bounds(), canvas, canvas.Bounds(), xdraw.Src, nil)
+		canvas = resized
+	}
+	out, err := os.OpenFile(plan.Finished, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+	if err != nil {
+		return err
+	}
+	encoder := png.Encoder{CompressionLevel: png.BestCompression}
+	encodeErr := encoder.Encode(out, canvas)
+	if err := errors.Join(encodeErr, out.Close()); err != nil {
+		return errors.Join(err, os.Remove(plan.Finished))
+	}
+	_, err = fmt.Fprintf(stdout, "%s: %dx%d, saturation %g, RGB gain %v\n", plan.Finished, canvas.Bounds().Dx(), canvas.Bounds().Dy(), plan.Saturation, plan.Gain)
+	if err != nil {
+		return errors.Join(err, os.Remove(plan.Finished))
+	}
+	return err
 }
 
 // inspectPainting exports unchanged native-resolution join crops beside their
@@ -308,6 +689,7 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 		SectionWorld      [2]int `json:"section_world"`
 		Columns, Rows     []int
 		Painted, Stitched string
+		Balance           string
 		Sections          []paintedSection
 	}
 	data, err := os.ReadFile(planPath)
@@ -316,6 +698,9 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 	}
 	if err := json.Unmarshal(data, &plan); err != nil {
 		return err
+	}
+	if plan.Balance != "" && plan.Balance != "all-overlaps" {
+		return fmt.Errorf("unknown painting balance %q", plan.Balance)
 	}
 	b, err := find(levels, name)
 	if err != nil {
@@ -412,6 +797,11 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 			runtime.GC()
 		}
 	}
+	if plan.Balance == "all-overlaps" {
+		if err := balancePainting(plan.Sections, len(plan.Columns)); err != nil {
+			return err
+		}
+	}
 	var meanGain [3]float64
 	for _, s := range plan.Sections {
 		for c, g := range s.Gain {
@@ -470,7 +860,8 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 	report, err := json.MarshalIndent(struct {
 		Sections []paintedSection `json:"sections"`
 		Seams    []paintedSeam    `json:"seams"`
-	}{plan.Sections, seams}, "", "  ")
+		Balance  string           `json:"balance,omitempty"`
+	}{plan.Sections, seams, plan.Balance}, "", "  ")
 	if err != nil {
 		return err
 	}
@@ -492,6 +883,81 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 	_, writeErr := f.Write(append(report, '\n'))
 	if err := errors.Join(writeErr, f.Close()); err != nil {
 		return errors.Join(err, os.Remove(plan.Stitched), os.Remove(plan.Stitched+".json"))
+	}
+	return nil
+}
+
+// balancePainting solves weighted least squares in log RGB gain across every
+// horizontal and vertical neighbour. Chained gains can accumulate into a jump
+// at an unconstrained row boundary. The first section fixes the arbitrary gauge;
+// the caller normalizes arithmetic mean gain to one after solving.
+func balancePainting(sections []paintedSection, columns int) error {
+	type neighbour struct {
+		index  int
+		weight float64
+		delta  [3]float64
+	}
+	adjacent := make([][]neighbour, len(sections))
+	for i := range sections {
+		var previous []int
+		if i%columns != 0 {
+			previous = append(previous, i-1)
+		}
+		if i >= columns {
+			previous = append(previous, i-columns)
+		}
+		for _, j := range previous {
+			a, b := sections[i].image, sections[j].image
+			overlap := a.Bounds().Intersect(b.Bounds())
+			if overlap.Empty() {
+				return fmt.Errorf("no balancing overlap between %s and %s", sections[i].ID, sections[j].ID)
+			}
+			ma, mb := paintingMean(a, overlap), paintingMean(b, overlap)
+			weight := float64(overlap.Dx()) * float64(overlap.Dy())
+			forward, reverse := neighbour{index: j, weight: weight}, neighbour{index: i, weight: weight}
+			for c := range 3 {
+				if ma[c] <= 0 || mb[c] <= 0 {
+					return fmt.Errorf("black balancing overlap at %s", sections[i].ID)
+				}
+				forward.delta[c] = math.Log(mb[c] / ma[c])
+				reverse.delta[c] = -forward.delta[c]
+			}
+			adjacent[i] = append(adjacent[i], forward)
+			adjacent[j] = append(adjacent[j], reverse)
+		}
+	}
+	logs := make([][3]float64, len(sections))
+	for iteration := 0; ; iteration++ {
+		change := 0.0
+		for i := 1; i < len(sections); i++ {
+			var sum [3]float64
+			var weight float64
+			for _, n := range adjacent[i] {
+				weight += n.weight
+				for c := range 3 {
+					sum[c] += n.weight * (logs[n.index][c] + n.delta[c])
+				}
+			}
+			if weight == 0 {
+				return fmt.Errorf("unconnected painting %s", sections[i].ID)
+			}
+			for c := range 3 {
+				next := sum[c] / weight
+				change = max(change, math.Abs(next-logs[i][c]))
+				logs[i][c] = next
+			}
+		}
+		if change < 1e-10 {
+			break
+		}
+		if iteration == 9999 {
+			return fmt.Errorf("painting exposure balance did not converge")
+		}
+	}
+	for i := range sections {
+		for c := range 3 {
+			sections[i].Gain[c] = math.Exp(logs[i][c])
+		}
 	}
 	return nil
 }

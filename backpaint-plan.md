@@ -23,6 +23,11 @@ Keep all additional scripts and code for backpaint work in
 `internal/hlbackdrop/cli.go`, exposed through the unified `hl` CLI; do not add
 standalone tools.
 
+Use the backdrop CLI's `-lightness` comparison plans to screen registered section
+overlaps and building blend rings. Record and investigate local warnings before
+marking the joins and grade complete; a matching whole-overlap average can hide
+uneven brightness. See the comparison format in the creation instructions above.
+
 ## Missing backpaints
 
 None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
@@ -47,13 +52,13 @@ separate approval under the standing scope rules.
   - [x] Record world/output dimensions and aspect, canvas sizes, origins and overlaps for the documented 56-section layout; confirm complete coverage against the current map. `section-layout.json` records full coverage, 7737×6605 output and minimum 189×208 world-pixel overlaps.
   - [x] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration. All 56 crops in `sections/`, 1252×1250 each, via `hl levels backdrop jpeg -sections build/review/backdrops/1918-10/section-layout.json 1918-10`.
   - [x] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style. All 56 prompts in `prompts/`; peripheral fields included in the approved brief.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide. All 56 initial paintings and five targeted corrections are saved; detailed registration review and finishing remain pending.
+  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide. All 56 initial paintings, seven targeted corrections and eighteen individual building edits are saved; detailed registration and runtime review remain pending.
   - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [x] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends. `build/review/backdrops/1918-10/stitched.png` and its JSON record 56 sections and 55 joins; placement and gain fixtures passed. This assembly still awaits join review, grading and finishing.
-  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
-  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
+  - [x] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends. `stitched-balanced.png` and its JSON record 56 selected sections and 55 joins, with gains balanced across all 97 neighbouring overlaps after the lightness audit exposed chained drift; placement and gain fixtures passed. This assembly still awaits final join and runtime review.
+  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors. Initial 55 pairs and native row windows inspected; two missing rail stretches corrected. `join-review.md` records findings. New balanced joins are in `joins-balanced/`; 39 local lightness warnings still require visual review.
+  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections. `finished-balanced-corrected.png` is the current review source (7640×6522, below 100 MiB). Worst overlap average improved from 11.25 to 1.54 L*; all 97 means pass, while 39 local warnings remain in `lightness-balanced.json`.
   - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
-  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
+  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips. All eighteen edits are generated, inspected and composited through registered circular masks; `buildings/`, `finishing-balanced-corrected-plan.json` and `finish-balanced-corrected.log` record them. The lightness check caught one stale field texture in a building crop after rebalancing; that edit was refreshed from the current source. Final composite and runtime review remain pending.
   - [ ] Save the finished lossless source to `levels/1918-10/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
   - [ ] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1918-10`.
   - [ ] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.

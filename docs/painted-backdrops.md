@@ -242,8 +242,22 @@ along y. Check the joins at full resolution and with a hex-grid overlay for regi
 without replacing installed art. The section plan additionally names `output`,
 `columns`, `rows`, `painted` and `stitched`; each section can override its selected
 `painting` path. It writes an exclusive PNG and a JSON record of gains and seams.
+For maps with several rows, set `balance` to `"all-overlaps"` to solve RGB exposure gains across every
+horizontal and vertical neighbour together, then normalize their arithmetic mean to 1. This avoids
+the exposure drift a long row-by-row gain chain can produce. Omitting it keeps chained gains.
 `-inspect <plan.json>` exports native-resolution join crops and hex-grid overlays
 to the plan's `review` directory. Both modes refuse existing output files.
+
+`hl levels backdrop jpeg -lightness <plan.json> <month>` screens registered section overlaps and
+building blend rings for uneven brightness without editing images. The JSON names an exclusive
+`report`, optional `meanLimit`/`regionLimit` (2.5/5 CIE L* by default), and `pairs`. Each pair names
+`id`, image paths `a`/`b`, `canvas` `[width,height]`, optional normalized `rectA`/`rectB`
+`[x,y,width,height]` and RGB `gainA`/`gainB`. Omitted rectangles use the full image and omitted gains
+use 1. A building pair can restrict sampling with `ring: {"center":[x,y],"radii":[inner,outer]}` in
+canvas pixels. After sRGB linearization and a 31-pixel box filter, it compares mean L* and sixteen
+regional means (eight sectors for rings). It saves the measurements and exits nonzero when limits
+are exceeded. Findings require visual review: different materials or registration errors can also
+change L*. Compare matching ground, rather than whole-map averages with different geography.
 
 ## 5. Finishing
 
@@ -256,6 +270,13 @@ to the plan's `review` directory. Both modes refuse existing output files.
 - Individual buildings: edit a square crop of the stitched painting around each HQ, factory or depot
   ("same image, change only the complex in the middle") and paste it back with a round, feathered blend.
   Where two crops overlap, keep the radii tight and paste the more important building last.
+- `hl levels backdrop jpeg -finish <plan.json> <month>` applies these crops and the grade without
+  replacing installed art. The JSON names `world`, `source`, `finished`, optional `saturation` and RGB
+  `gain` (both default to 1), and ordered `patches`. Each patch names `id`, `painting`, its original
+  image-pixel `rectangle` `[x,y,width,height]`, a crop-relative `center`, and `radii` `[solid,transparent]`.
+  The feather ring matches RGB means before a circular smoothstep blend. An optional `output`
+  `[width,height]` resizes once after compositing and grading, preserving world aspect within one
+  pixel; use it when needed to keep the source below 100 MiB. Existing output paths are refused.
 - Save the painting as its source PNG, write the JPEG next to the scenario file (`just backdrop-jpeg`) and
   set `backdrop`; check it in the game with units on top at
   normal and close zoom.
