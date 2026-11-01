@@ -88,8 +88,22 @@ func ComposeSeason(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id strin
 	return s
 }
 
+// neutralFamilies are the IDFamily groups whose summer form serves every
+// season: they hold no vegetation, so a summer ID drawn for them is no
+// fallback.
+var neutralFamilies = map[string]bool{
+	"tile/trench": true, "tile/bridge": true, "standing/bridge": true, "tile/rBridge": true,
+	"standing/rBridge": true, "tile/barbedWire": true, "tile/quay": true, "tile/rail": true,
+	"tile/harbour": true, "standing/harbour": true, "standing/hangar": true,
+}
+
+// SeasonNeutral reports whether drawn asset ID id belongs to a family whose
+// summer form serves autumn and spring.
+func SeasonNeutral(id string) bool { return neutralFamilies[IDFamily(id)] }
+
 // inSeason swaps every drawn ID of the scene but the cast shadows for its form
-// in season where has it, counting the others in Fallbacks. Winter IDs stay.
+// in season where has it, counting the others in Fallbacks but those of the
+// season-neutral families. Winter IDs stay.
 func (s *Scene) inSeason(season Season, has func(string) bool) {
 	s.Fallbacks = map[string]int{}
 	swap := func(id *string) {
@@ -100,7 +114,9 @@ func (s *Scene) inSeason(season Season, has func(string) bool) {
 			*id = form
 			return
 		}
-		s.Fallbacks[*id]++
+		if !SeasonNeutral(*id) {
+			s.Fallbacks[*id]++
+		}
 	}
 	for l := range s.Cells {
 		for col := range s.Cells[l] {

@@ -4,7 +4,7 @@ title: Water
 kind: terrain
 status: approved
 runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w, sea-00, sea-00_w, sea-02, sea-02_w, sea-20, sea-20_w, sea-22, sea-22_w, sea-11, sea-11_w, sea-13, sea-13_w, sea-31, sea-31_w, sea-33, sea-33_w, shoal1, shoal1_w, shoal2, shoal2_w, shoal3, shoal3_w, shoal4, shoal4_w, skerry1, skerry1_w, skerry2, skerry2_w, skerry3, skerry3_w, surf, surf_w
-masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png, water-rocks-winter-v1.png, water-seakit-winter-v1.png
+masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png, water-rocks-winter-v1.png, water-seakit-winter-v1.png, water-seakit-autumn-v1.png
 ---
 
 ## Look
@@ -34,6 +34,23 @@ The water material is periodic on the world lattice, so lake hexes form one cont
 and stream tiles use the same material, so water matches across all of them.
 
 ## Post
+
+### Autumn sea kit (2026-11-01)
+`water-seakit-autumn-v1.png` (native 1536×1024 RGBA, no image generation) is `water-seakit-shared-v1.png`
+graded in code: in the skerry row (y ≥ 680), pixels of Lab hue 90–155°, b\* > 0 and chroma 12 and more
+(the yellow-green moss and weed; weighted up over chroma 12–22 and over 10° at each hue end) are turned
+towards olive-ochre by up to 22° of hue, chroma × 0.9 and L\* − 1; the grey-brown rock, the foam, the
+water and the shoal row keep their pixels and the alpha is the summer's (13 % of the row's opaque pixels
+touched). A first try that caught chroma from 5 turned the whole rock golden. It is the autumn
+skerries `tile/skerry1_au` to `tile/skerry3_au`; the autumn shoals, open water, sea and surf are the
+summer pixels.
+
+The autumn open water, sea, surf and shoals (`tile/water_au`, `tile/sea-00_au` to `tile/sea-33_au`,
+`tile/surf_au`, `tile/shoal1_au` to `tile/shoal4_au`) are no new painting but the summer tiles' pixels,
+as in winter: the autumn shores, lakesides and streams carry the summer water material, so open water
+keeps meeting them as one material; the pack build grades the water of every `_au` tile 3 darker to a
+cooler slate teal of chroma about 17 (`internal/terraingrade`). `TestGenerateSeasonalWater` (tag campaigngfx, `-season autumn -season-out <dir>`) writes
+them and the skerries.
 
 ### Look 8 I3 winter skerry candidate (2026-10-25)
 

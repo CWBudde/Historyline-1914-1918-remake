@@ -256,9 +256,10 @@ Autumn and spring change the look only. `mapcompose.ComposeSeason` composes the 
 swaps every drawn ID for its seasonal form, the summer ID plus `_au` or `_sp` (`tile/road36_au`,
 `context/forest/<key>_au`: the summer descriptor's key plus the suffix), where the catalog has it.
 Missing forms draw in summer and are counted in `Scene.Fallbacks`; `hl assets terrain-gaps` prints them per
-map and per season by family. Cast shadows have no season: a seasonal item casts its summer shadow
-(`ShadowID`). Open water, sea and surf follow the background's suffix and fall back to summer, the grade
-takes the season's meadow (`tile/grass_au`, `tile/grass_sp`) and falls back to the summer one, and only
+map and per season by family. The season-neutral families (`SeasonNeutral`: trench, rail, bridge, rBridge,
+barbedWire, quay, the harbour and the hangar's tent) hold no vegetation, so their summer form is no fallback. Cast shadows have no season: a seasonal item casts its summer shadow
+(`ShadowID`). Open water, sea and surf follow the background's suffix and fall back to summer; the grade
+darkens the water of every `_au` tile to a cooler slate teal, and takes the season's meadow (`tile/grass_au`, `tile/grass_sp`) and falls back to the summer one, and only
 summer backgrounds sample the world materials. Seasonal scattered crowns and meadow props are their own sheets in
 `art/pipeline/world-kits-v1.json` (`kit/forest/crowns-autumn`, `kit/grass/props-autumn`), since `hl export
 kits -install` owns every `standing/scatter/` entry. `TestWinterMapsDrawNoSummerInfrastructure` fails when a

@@ -52,6 +52,18 @@ type seaKitPart struct {
 	mirror  bool
 }
 
+// seaKitOverlays places the kit's elements on each overlay: the shoals'
+// elements index seaKitShoals, the skerries' seaKitSkerries.
+var seaKitOverlays = map[string][]seaKitPart{
+	"shoal1":  {{0, [2]float64{-6, 2}, 1, false}},
+	"shoal2":  {{1, [2]float64{5, -2}, 1, false}},
+	"shoal3":  {{0, [2]float64{6, -3}, 1, true}},
+	"shoal4":  {{1, [2]float64{-5, 3}, 1, true}},
+	"skerry1": {{0, [2]float64{-13, -7}, 0.7, false}, {1, [2]float64{12, 9}, 0.7, false}},
+	"skerry2": {{1, [2]float64{-11, 8}, 0.7, true}, {2, [2]float64{13, -6}, 0.7, false}},
+	"skerry3": {{2, [2]float64{-12, -5}, 0.7, true}, {0, [2]float64{11, 10}, 0.7, true}},
+}
+
 func TestGenerateSeaKit(t *testing.T) {
 	root := filepath.Join("..", "..")
 	kit := loadSeaKit(t, filepath.Join(root, "art/terrain/water/water-seakit-shared-v1.png"))
@@ -61,15 +73,7 @@ func TestGenerateSeaKit(t *testing.T) {
 	}
 	shoals, skerries := seaKitElements(t, kit, seaKitShoals), seaKitElements(t, kit, seaKitSkerries)
 	winterSkerries := seaKitElements(t, winterKit, seaKitSkerries)
-	overlays := map[string][]seaKitPart{
-		"shoal1":  {{0, [2]float64{-6, 2}, 1, false}},
-		"shoal2":  {{1, [2]float64{5, -2}, 1, false}},
-		"shoal3":  {{0, [2]float64{6, -3}, 1, true}},
-		"shoal4":  {{1, [2]float64{-5, 3}, 1, true}},
-		"skerry1": {{0, [2]float64{-13, -7}, 0.7, false}, {1, [2]float64{12, 9}, 0.7, false}},
-		"skerry2": {{1, [2]float64{-11, 8}, 0.7, true}, {2, [2]float64{13, -6}, 0.7, false}},
-		"skerry3": {{2, [2]float64{-12, -5}, 0.7, true}, {0, [2]float64{11, 10}, 0.7, true}},
-	}
+	overlays := seaKitOverlays
 	entries, _, err := readCampaignIndex(root)
 	if err != nil {
 		t.Fatal(err)

@@ -73,6 +73,14 @@ func TestSeasonalIDs(t *testing.T) {
 			t.Errorf("IDFamily(%s) = %s, want %s", id, got, want)
 		}
 	}
+	for id, want := range map[string]bool{
+		"tile/trench-s12": true, "standing/rBridge25": true, "tile/barbedWire": true,
+		"tile/rail14": true, "standing/harbourW": true, "standing/hangar": true, "tile/hangar": false, "tile/road36": false, "tile/cross14": false, "tile/water": false, "tile/hqNE": false,
+	} {
+		if got := SeasonNeutral(id); got != want {
+			t.Errorf("SeasonNeutral(%s) = %v", id, got)
+		}
+	}
 }
 
 func TestLevelSeason(t *testing.T) {
@@ -118,7 +126,8 @@ func drawnIDs(s Scene) []string {
 }
 
 // Summer and winter compose as Compose; autumn and spring without seasonal art
-// draw the summer scene and count every drawn ID as a fallback; with every
+// draw the summer scene and count every drawn ID but the season-neutral ones
+// as a fallback; with every
 // seasonal form they draw it in that form, the shadows and the layers
 // unchanged.
 func TestComposeSeason(t *testing.T) {
@@ -140,7 +149,7 @@ func TestComposeSeason(t *testing.T) {
 			s := ComposeSeason(g, at, summerHas, season)
 			drawn := 0
 			for _, id := range drawnIDs(base) {
-				if id != "" {
+				if id != "" && !SeasonNeutral(id) {
 					drawn++
 				}
 			}

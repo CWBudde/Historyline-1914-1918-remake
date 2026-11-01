@@ -29,19 +29,30 @@ func TestGenerateGrassVariations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	type variants []struct {
+		Outputs []packOutput `json:"outputs"`
+	}
 	var pins struct {
-		Variants []struct {
-			Outputs []packOutput `json:"outputs"`
-		} `json:"variants"`
+		Variants variants `json:"variants"`
+		Seasons  map[string]struct {
+			Variants variants `json:"variants"`
+		} `json:"seasons"`
 	}
 	if err := json.Unmarshal(data, &pins); err != nil {
 		t.Fatal(err)
+	}
+	all := pins.Variants
+	for season, s := range pins.Seasons {
+		if len(s.Variants) != 16 {
+			t.Fatalf("expected sixteen %s grass variants", season)
+		}
+		all = append(all, s.Variants...)
 	}
 	if len(pins.Variants) != 16 {
 		t.Fatal("expected sixteen selected grass variants")
 	}
 	seen := map[string]bool{}
-	for _, variant := range pins.Variants {
+	for _, variant := range all {
 		if len(variant.Outputs) != 2 {
 			t.Fatal("every grass variant requires two densities")
 		}

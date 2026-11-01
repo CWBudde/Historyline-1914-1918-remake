@@ -202,7 +202,8 @@ func TestShippedBuildings(t *testing.T) {
 		}
 		var n, painted, graded float64
 		for _, f := range files {
-			if strings.HasSuffix(f, "_w-2x.png") || family == "house" && filepath.Base(f) != "house-2x.png" {
+			if seasonal := strings.TrimSuffix(f, "-2x.png"); strings.HasSuffix(seasonal, "_w") || strings.HasSuffix(seasonal, "_au") ||
+				strings.HasSuffix(seasonal, "_sp") || family == "house" && filepath.Base(f) != "house-2x.png" {
 				continue
 			}
 			src := Grade(load(filepath.Join(family, filepath.Base(f))), "x", "none", nil)
@@ -295,6 +296,22 @@ func TestWinterWater(t *testing.T) {
 	snow := color.NRGBA{226, 230, 236, 255}
 	if got := Grade(flat(snow, 2, 2), "tile/shore-3f_w", "terrain/shore", nil).NRGBAAt(0, 0); got != snow {
 		t.Errorf("snow in a winter shore %v → %v", snow, got)
+	}
+
+	// In an autumn tile (_au) open water is about 3 darker than in summer and a
+	// cooler slate teal between the summer blue and the winter grey; a spring
+	// tile keeps the summer water.
+	l, sd, c = stats(Grade(src, "tile/water_au", "terrain/water", nil))
+	t.Logf("autumn L* %.2f σ %.2f chroma %.2f", l, sd, c)
+	if d := summerL - l; d < 2 || d > 4 || c < 12 || c > summerC-4 {
+		t.Errorf("autumn water L* %.2f (summer %.2f), chroma %.2f (summer %.2f): want 2–4 darker, chroma 12 to summer's less 4",
+			l, summerL, c, summerC)
+	}
+	if sd < summerSD*0.8 {
+		t.Errorf("autumn water σL* %.2f against summer %.2f: the ripples are gone", sd, summerSD)
+	}
+	if l, _, c := stats(Grade(src, "tile/water_sp", "terrain/water", nil)); l != summerL || c != summerC {
+		t.Errorf("spring water L* %.2f chroma %.2f, summer %.2f %.2f", l, c, summerL, summerC)
 	}
 }
 

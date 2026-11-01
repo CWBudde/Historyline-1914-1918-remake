@@ -120,7 +120,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]int{
-		"backgrounds": 273, "backgrounds-2": 155, "infrastructure": 273, "infrastructure-2": 46,
+		"backgrounds": 273, "backgrounds-2": 164, "infrastructure": 273, "infrastructure-2": 54,
 		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 273,
 		"context-ground-5": 273, "context-ground-6": 117,
 		"context-forest": 194,
@@ -459,7 +459,8 @@ func TestTerrainGapsReport(t *testing.T) {
 		}
 	}
 	// Autumn and spring maps draw the summer forms the catalog has no seasonal
-	// form of: each map counts them, and each season totals them by family.
+	// form of: each map counts them (autumn has none left), and each season
+	// totals them by family.
 	seasonal := map[mapcompose.Season]int{}
 	for _, sh := range shipped {
 		if season := mapcompose.LevelSeason(sh.Level); season == mapcompose.Autumn || season == mapcompose.Spring {
@@ -470,11 +471,11 @@ func TestTerrainGapsReport(t *testing.T) {
 		if seasonal[season] == 0 {
 			t.Fatalf("no shipped %s map", season)
 		}
-		if n := len(regexp.MustCompile(`(?m)^  `+string(season)+` fallbacks: [1-9]\d* summer IDs drawn, [1-9]\d* distinct$`).FindAllString(s, -1)); n != seasonal[season] {
+		if n := len(regexp.MustCompile(`(?m)^  `+string(season)+` fallbacks: \d+ summer IDs drawn, \d+ distinct$`).FindAllString(s, -1)); n != seasonal[season] {
 			t.Errorf("%d %s maps report fallbacks, want %d", n, season, seasonal[season])
 		}
-		total := regexp.MustCompile(`(?m)^` + string(season) + ` fallbacks: (\d+) maps, [1-9]\d* summer IDs drawn, [1-9]\d* distinct\n((?:  .*\n)+)`).FindStringSubmatch(s)
-		if total == nil || total[1] != strconv.Itoa(seasonal[season]) || !regexp.MustCompile(`(?m)^  [a-z]+/[A-Za-z/]+: `).MatchString(total[2]) {
+		total := regexp.MustCompile(`(?m)^` + string(season) + ` fallbacks: (\d+) maps, (\d+) summer IDs drawn, \d+ distinct\n((?:  .*\n)*)`).FindStringSubmatch(s)
+		if total == nil || total[1] != strconv.Itoa(seasonal[season]) || (total[2] != "0") != regexp.MustCompile(`(?m)^  [a-z]+/[A-Za-z/]+: `).MatchString(total[3]) {
 			t.Errorf("%s total %q", season, total)
 		}
 	}

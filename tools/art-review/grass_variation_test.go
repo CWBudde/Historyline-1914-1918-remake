@@ -151,3 +151,48 @@ func TestGrassDetailMaterialChangesInteriorAndKeepsCanonicalBoundary(t *testing.
 		}
 	}
 }
+
+// A seasonal detail painting comes at the painting's size and its own tone:
+// projected onto the seasonal base and matched to its mean, it adds details
+// without tinting the detail tiles against the base-phase tiles.
+func TestGrassSeasonDetailMaterialMatchesBaseSizeAndMean(t *testing.T) {
+	base, painting := image.NewNRGBA(image.Rect(0, 0, 768, 480)), image.NewNRGBA(image.Rect(0, 0, 1586, 992))
+	for y := range 480 {
+		for x := range 768 {
+			base.SetNRGBA(x, y, color.NRGBA{uint8(110 + x%30), uint8(85 + y%20), 40, 255})
+		}
+	}
+	for y := range 992 {
+		for x := range 1586 {
+			c := color.NRGBA{140, 70, 30, 255}
+			if (x/40+y/40)%7 == 0 {
+				c = color.NRGBA{70, 50, 30, 255}
+			}
+			painting.SetNRGBA(x, y, c)
+		}
+	}
+	material, err := grassSeasonDetailMaterial(base, painting)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if material.Bounds() != base.Bounds() {
+		t.Fatalf("material is %v, base %v", material.Bounds(), base.Bounds())
+	}
+	mean := func(m *image.NRGBA) (s [3]float64) {
+		for i := 0; i < len(m.Pix); i += 4 {
+			for c := range 3 {
+				s[c] += float64(m.Pix[i+c]) / float64(len(m.Pix)/4)
+			}
+		}
+		return s
+	}
+	got, want := mean(material), mean(base)
+	for c := range 3 {
+		if math.Abs(got[c]-want[c]) > .5 {
+			t.Fatalf("channel %d mean %.2f, base %.2f", c, got[c], want[c])
+		}
+	}
+	if a, b := material.NRGBAAt(20, 20), material.NRGBAAt(2, 2); a == b {
+		t.Fatal("projection lost the painting's details")
+	}
+}
