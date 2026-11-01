@@ -62,6 +62,7 @@ type compoundSceneReport struct {
 	EntryRoad    *connectionMaterial      `json:"entry_road,omitempty"`
 	EdgeFeather  float64                  `json:"edge_feather,omitempty"`
 	EdgeKeep     [][]connectionPoint      `json:"edge_keep,omitempty"`
+	SlopeFade    float64                  `json:"slope_fade,omitempty"`
 	Transform    compoundTransform        `json:"transform"`
 	Profile      string                   `json:"profile"`
 	Guard        compoundGuardReport      `json:"guard"`
@@ -201,7 +202,13 @@ func compoundRenderPatch(p compoundPatch, ground *image.NRGBA, tiles map[string]
 // into the road, framed, and (with edge_feather) feathered. framed is the
 // artwork before the feather.
 func compoundSceneArtwork(in compoundInputs, s compoundSceneInput, layout compoundLayout) (framed, art4 *image.NRGBA, tr compoundTransform, guard compoundGuardReport, err error) {
-	raw, tr, err := compoundAffine(in.Artwork[s.ID].Image, layout, s.Inset, s.fit())
+	src := in.Artwork[s.ID].Image
+	if s.SlopeFade != 0 {
+		// Slope fade excludes fill, so the artwork is letterboxed at this scale.
+		scale := min(float64(layout.Width)/float64(src.Rect.Dx()), float64(layout.Height)/float64(src.Rect.Dy())) * s.Inset
+		src = compoundSlopeFade(src, scale, s.SlopeFade)
+	}
+	raw, tr, err := compoundAffine(src, layout, s.Inset, s.fit())
 	if err != nil {
 		return nil, nil, tr, guard, err
 	}
@@ -292,7 +299,10 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 				profile += fmt.Sprintf(" Inside its %d keep polygons (edge_keep) the artwork keeps its alpha exactly; within %g world px outside them the feather eases back in by smoothstep.", len(s.EdgeKeep), compoundKeepRamp)
 			}
 		}
-		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Zoom: s.Zoom, EntryRoad: s.EntryRoad, EdgeFeather: s.EdgeFeather, EdgeKeep: s.EdgeKeep, Transform: tr, Profile: profile, Guard: guard}
+		if s.SlopeFade != 0 {
+			profile += fmt.Sprintf(" Slope fade: before scaling, the artwork's alpha is faded towards its own outline over about %g world px: scaled by smoothstep of the smaller of (b-0.5)/0.3 and (b-e+0.1)/0.2, b the alpha blurred twice by a box of %g world px, e between 0.45 and 0.9 by two octaves of value noise (cells %g and %g world px).", s.SlopeFade, s.SlopeFade/2, compoundSlopeCell, compoundSlopeCell2)
+		}
+		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Zoom: s.Zoom, EntryRoad: s.EntryRoad, EdgeFeather: s.EdgeFeather, EdgeKeep: s.EdgeKeep, SlopeFade: s.SlopeFade, Transform: tr, Profile: profile, Guard: guard}
 		for _, density := range []int{2, 4} {
 			art := art4
 			if density == 2 {

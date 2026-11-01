@@ -3,8 +3,8 @@
 package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCompoundTiles -count=1 -v
-// Renders the selected HQ, depot and factory scenes and replaces their
-// installed tile PNGs (tile/hq*, cmp*, factory*, both seasons) in place,
+// Renders the selected HQ, depot, factory and massif scenes and replaces their
+// installed tile PNGs (tile/hq*, cmp*, factory*, mount*, mountain*, both seasons) in place,
 // updating each file's hash in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards. A manifest whose summer artwork has an autumn or spring edit
 // also writes that season's tiles (summer ID + _au/_sp beside the summer
@@ -39,7 +39,7 @@ func TestGenerateCompoundTiles(t *testing.T) {
 	defer func() { exportSeason = "" }()
 	for _, season := range []string{"", "autumn", "spring"} {
 		exportSeason = season
-		for _, manifest := range []string{"compound-hq-v4.json", "compound-depot-v6.json", "compound-factory-v6.json", "compound-factory-summer-v4.json"} {
+		for _, manifest := range []string{"compound-hq-v4.json", "compound-depot-v6.json", "compound-factory-v6.json", "compound-factory-summer-v4.json", "compound-mountain-v3.json"} {
 			replaced += generateCompoundTiles(t, root, manifest, &entries, exported, at)
 		}
 	}
