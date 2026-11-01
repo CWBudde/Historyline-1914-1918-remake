@@ -7,7 +7,9 @@ package artreview
 // runtime index lacks is rendered with the shore-terrain-v2 materials (winter
 // forms, suffix _w, with shore-terrain-winter-v1), written to
 // assets/terrain/lakeside/ and added to assets/index.json; run
-// `go run ./cmd/hl art index` afterwards.
+// `go run ./cmd/hl art index` afterwards. With -args -season autumn -season-out
+// <dir> it writes the seasonal form of every installed summer tile instead
+// (campaign_season_test.go).
 import (
 	"bytes"
 	"crypto/sha256"
@@ -27,7 +29,27 @@ import (
 
 func TestGenerateCampaignShores(t *testing.T) {
 	root := filepath.Join("..", "..")
-	in, err := loadShoreInputs(filepath.Join(root, "art/pipeline/shore-terrain-v2.json"))
+	manifest := filepath.Join(root, "art/pipeline/shore-terrain-v2.json")
+	if *campaignSeason != "" {
+		n, err := campaignSeasonExport(root, *campaignSeason, *campaignSeasonOut, []string{"tile/lakeside", "tile/shore-"}, func() (func(string) (map[int]*image.NRGBA, error), error) {
+			if err := seasonPreflight(manifest); err != nil {
+				return nil, err
+			}
+			in, err := loadShoreInputs(manifest)
+			if err != nil {
+				return nil, err
+			}
+			return func(id string) (map[int]*image.NRGBA, error) {
+				return campaignShoreTiles(in, shoreInputs{}, id)
+			}, nil
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Logf("%s shore tiles: %d", *campaignSeason, n)
+		return
+	}
+	in, err := loadShoreInputs(manifest)
 	if err != nil {
 		t.Fatal(err)
 	}

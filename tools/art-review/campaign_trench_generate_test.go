@@ -6,7 +6,9 @@ package artreview
 // Every derived trench tile the levels select (mapcompose.TrenchShape) that
 // the runtime index lacks is rendered with the connected-trench-v2 manifest,
 // written to assets/terrain/trench/ and added to assets/index.json; run
-// `go run ./cmd/hl art index` afterwards.
+// `go run ./cmd/hl art index` afterwards. With -args -season autumn -season-out
+// <dir> it writes the seasonal form of every installed summer tile instead
+// (campaign_season_test.go).
 import (
 	"bytes"
 	"crypto/sha256"
@@ -26,7 +28,38 @@ import (
 
 func TestGenerateCampaignTrenches(t *testing.T) {
 	root := filepath.Join("..", "..")
-	in, err := loadConnectionInputs(filepath.Join(root, "art/pipeline/connected-trench-v2.json"))
+	manifest := filepath.Join(root, "art/pipeline/connected-trench-v2.json")
+	if *campaignSeason != "" {
+		n, err := campaignSeasonExport(root, *campaignSeason, *campaignSeasonOut, []string{"tile/trench"}, func() (func(string) (map[int]*image.NRGBA, error), error) {
+			if err := seasonPreflight(manifest); err != nil {
+				return nil, err
+			}
+			in, err := loadConnectionInputs(manifest)
+			if err != nil {
+				return nil, err
+			}
+			f := in.manifest.Families[0]
+			return func(id string) (map[int]*image.NRGBA, error) {
+				for _, v := range f.Variants {
+					if v.ID == id {
+						return exportConnectionTiles(in, &f, &v)
+					}
+				}
+				shape, ok := mapcompose.ParseTrench(id)
+				if !ok {
+					return nil, fmt.Errorf("unknown trench %s", id)
+				}
+				v := derivedTrenchVariant(f.Variants, shape)
+				return exportConnectionTiles(in, &f, &v)
+			}, nil
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Logf("%s trench tiles: %d", *campaignSeason, n)
+		return
+	}
+	in, err := loadConnectionInputs(manifest)
 	if err != nil {
 		t.Fatal(err)
 	}

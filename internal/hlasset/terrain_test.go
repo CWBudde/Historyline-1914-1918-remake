@@ -120,7 +120,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]int{
-		"backgrounds": 273, "backgrounds-2": 20, "infrastructure": 273, "infrastructure-2": 42,
+		"backgrounds": 273, "backgrounds-2": 155, "infrastructure": 273, "infrastructure-2": 46,
 		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 273,
 		"context-ground-5": 273, "context-ground-6": 117,
 		"context-forest": 194,

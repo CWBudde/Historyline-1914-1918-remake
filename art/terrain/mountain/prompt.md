@@ -4,7 +4,7 @@ title: Rocky knoll
 kind: terrain
 status: approved
 runtime_ids: mountain, mountain_w, stamp/knoll/1/1, standing/stamp/knoll/1/1, stamp/knoll/3_-1.1_-2.2/1, standing/stamp/knoll/3_-1.1_-2.2/1, stamp/knoll_w/1/1, standing/stamp/knoll_w/1/1, stamp/knoll_w/3_-1.1_-2.2/1, standing/stamp/knoll_w/3_-1.1_-2.2/1, stamp/knoll_w/3_2.0_1.1/1, standing/stamp/knoll_w/3_2.0_1.1/1, stamp/knoll_w/4_1.1_0.2_0.4/1, standing/stamp/knoll_w/4_1.1_0.2_0.4/1
-masters: mountain-knoll-single-summer-v1.png, mountain-knoll-group-summer-v1.png, mountain-knoll-single-winter-v1.png, mountain-knoll-group-sw-three-winter-v1.png, mountain-knoll-group-triangle-three-winter-v1.png, mountain-knoll-group-vertical-four-winter-v1.png
+masters: mountain-knoll-single-summer-v1.png, mountain-knoll-group-summer-v1.png, mountain-knoll-single-winter-v1.png, mountain-knoll-group-sw-three-winter-v1.png, mountain-knoll-group-triangle-three-winter-v1.png, mountain-knoll-group-vertical-four-winter-v1.png, mountain-knoll-single-autumn-v1.png, mountain-knoll-group-autumn-v1.png
 ---
 
 ## Look
@@ -48,6 +48,56 @@ painting. Summer and winter ground stamp layers are transparent; winter groups u
 standing paintings. Unknown winter shapes retain the compound exports below.
 
 ## Post
+
+### Autumn knoll-group edit (2026-11-01)
+
+`mountain-knoll-group-autumn-v1.png` (`exec-8d9dfe8d`, native 1536×1024 RGBA) is the autumn edit of
+`mountain-knoll-group-summer-v1.png`: both crests, bushes and pebbles in place, the grass straw-gold, the
+bushes russet. Graded in code from hue 74 (a\* −4.5, b\* +4.5, by chroma) and carried onto the summer
+alpha: whole RGB 121,96,44 (L\* 41.6, a\* +3.8, hue 83). Selected: the autumn terrain-stamps export takes
+it for `standing/stamp/knoll/3_-1.1_-2.2/1_au`. Attached: `mountain-knoll-group-summer-v1.png` and
+`grass-autumn-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, two low grassy rocky knolls joined by a scrubby meadow strip, seen from straight above (strict nadir, 1536x1024 RGBA cut-out, transparent outside the grassy apron): change the season from summer to a dry late-September/early-October day on the Western Front and nothing else. Keep the canvas size (1536x1024, 3:2 LANDSCAPE), the outline of the grassy skirt, the transparent area and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes and the skirt becomes the same dry autumn meadow as image 2: straw-gold and olive-ochre with faded olive green left in the tuft centres; lit blade tips pale straw near RGB 184,148,75, mid grass olive-ochre near RGB 120,92,36, shaded grass near RGB 67,51,18. The tiny yellow and white flowers become dry brown seed heads.
+- The dark green bushes and scrub clumps turn to autumn: most russet and rust brown (lit leaves about RGB 150,88,40, shaded about RGB 70,40,20), some dull bronze-olive (about 105,85,35), a few still dark olive; keep them darker than the grass, as now. A few tiny fallen leaves (2 to 4 px) in the grass near the bushes.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns olive-ochre.
+- Lightness of every part stays as in image 1; only the hue of the vegetation changes from green to straw-ochre and russet. Overall average of the grass about RGB 120,95,42.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the apron outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, bright orange, red or yellow foliage, snow, frost, a golden cast on the rocks, green grass left anywhere.
+
+Image 1 is the selected summer knoll-group cut-out (mountain-knoll-group-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Autumn single-knoll edit (2026-11-01)
+
+`mountain-knoll-single-autumn-v1.png` (`exec-972bd5cc`, native 1374×1145 RGBA) is the autumn edit of
+`mountain-knoll-single-summer-v1.png`: every rock, bush and pebble in place, the grass the dry olive-gold
+of `grass-autumn-v1`, the bushes russet and bronze. The generated edit came out orange (hue 71, a\* +9.3);
+it was graded in code (a\* −6, b\* +5, L\* +1.5, weighted by chroma so the grey rock stays) and its
+colours were carried onto the summer alpha. Whole RGB 119,95,44 (L\* 41.1, a\* +3.9, hue 83). Selected:
+`hl export terrain-stamps -season autumn -manifest art/pipeline/feature-stamps-v1.json` takes it for
+`standing/stamp/knoll/1/1_au`. Attached: `mountain-knoll-single-summer-v1.png` and `grass-autumn-v1.png`.
+The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a low grassy rocky knoll seen from straight above (strict nadir, 1374x1145 RGBA cut-out, transparent outside the knoll's grassy skirt): change the season from summer to a dry late-September/early-October day on the Western Front and nothing else. Keep the canvas size (1374x1145, 6:5 LANDSCAPE), the outline of the grassy skirt, the transparent area and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes and the skirt becomes the same dry autumn meadow as image 2: straw-gold and olive-ochre with faded olive green left in the tuft centres; lit blade tips pale straw near RGB 184,148,75, mid grass olive-ochre near RGB 120,92,36, shaded grass near RGB 67,51,18. The tiny yellow and white flowers become dry brown seed heads.
+- The dark green bushes and scrub clumps turn to autumn: most russet and rust brown (lit leaves about RGB 150,88,40, shaded about RGB 70,40,20), some dull bronze-olive (about 105,85,35), a few still dark olive; keep them darker than the grass, as now. A few tiny fallen leaves (2 to 4 px) in the grass near the bushes.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns olive-ochre.
+- Lightness of every part stays as in image 1; only the hue of the vegetation changes from green to straw-ochre and russet. Overall average of the grass about RGB 120,95,42.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the knoll outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, bright orange, red or yellow foliage, snow, frost, a golden cast on the rocks, green grass left anywhere.
+
+Image 1 is the selected summer knoll cut-out (mountain-knoll-single-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
 Derived from the mount masters (`art/terrain/mount/`): `art-review -compound
 art/pipeline/compound-mountain-v1.json` places the single-cell scene for both seasons. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 

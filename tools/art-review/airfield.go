@@ -5,7 +5,52 @@ import (
 	"image"
 	"image/color"
 	"math"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
 )
+
+// airfieldSuffix is the runtime ID suffix of each season.
+var airfieldSuffix = map[string]string{"summer": "", "winter": "_w", "autumn": "_au", "spring": "_sp"}
+
+// airfieldSeasonOf is the season of an airfield runtime ID, by its suffix.
+func airfieldSeasonOf(id string) string {
+	for season, suffix := range airfieldSuffix {
+		if suffix != "" && strings.HasSuffix(id, suffix) {
+			return season
+		}
+	}
+	return "summer"
+}
+
+// airfieldSource is the painting of piece (runway, hangar) for season in
+// dir: v1 for summer and winter, for autumn and spring the newest seasonal
+// edit airfield-<piece>-<season>-v<N>.png, or "" when there is none (that
+// piece then keeps its summer form).
+func airfieldSource(dir, piece, season string) (string, error) {
+	if season == "summer" || season == "winter" {
+		return filepath.Join(dir, "airfield-"+piece+"-"+season+"-v1.png"), nil
+	}
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return "", err
+	}
+	best, version := "", 0
+	for _, e := range entries {
+		m := seasonSourceName.FindStringSubmatch(e.Name())
+		if m == nil || m[1] != "airfield-"+piece || m[2] != season {
+			continue
+		}
+		if v, _ := strconv.Atoi(m[3]); v > version {
+			best, version = e.Name(), v
+		}
+	}
+	if best == "" {
+		return "", nil
+	}
+	return filepath.Join(dir, best), nil
+}
 
 // An airfield (art/terrain/airfield) is a runway strip and a hangar. The
 // runway is painted once as an opaque horizontal strip and turned to the

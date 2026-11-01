@@ -43,6 +43,10 @@ using Lanczos3 from crop to 4× and then 2×. Ordinary standing items may overha
 cluster stamps can span their cluster. Transparent entries omit source, pin and crop. A standing cluster
 stamp needs a matching ground stamp ID for selection; the explicit transparent entry supplies it.
 
+`-season autumn|spring` exports only the stamps whose source has a seasonal edit beside it (the newest
+`<stem>-<season>-v<N>.png` of the same size), with IDs and paths suffixed `_au` or `_sp`; a transparent
+ground stamp follows its standing stamp. `report.json` lists the substituted sources.
+
 Outputs mirror each `path` below the output directory, adding `-2x.png` and `-4x.png`.
 `index-entries.json` contains runtime index entries with hashes; `report.json` pins the export manifest.
 Promotion into `assets/`, merging its index, updating prompts and checking the composed map remain separate.

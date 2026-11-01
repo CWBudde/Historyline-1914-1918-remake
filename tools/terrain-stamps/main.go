@@ -57,6 +57,7 @@ func Run(args []string, log, stderr io.Writer) (resultErr error) {
 	fs.SetOutput(stderr)
 	manifestPath := fs.String("manifest", "", "pinned source manifest; source paths are relative to the working directory")
 	out := fs.String("out", "", "new output directory")
+	season := fs.String("season", "", "autumn or spring: export the stamps with a seasonal edit of their source, IDs and files suffixed _au or _sp")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
@@ -84,6 +85,12 @@ func Run(args []string, log, stderr io.Writer) (resultErr error) {
 	}
 	if m.SchemaVersion != 1 || len(m.Assets) == 0 {
 		return errors.New("requires schema_version 1 and assets")
+	}
+	var seasonSources map[string]string
+	if *season != "" {
+		if m.Assets, seasonSources, err = seasonAssets(m.Assets, *season); err != nil {
+			return err
+		}
 	}
 	type output struct {
 		path string
@@ -142,11 +149,14 @@ func Run(args []string, log, stderr io.Writer) (resultErr error) {
 	outputs = append(outputs, output{"index-entries.json", append(index, '\n')})
 	manifestHash := sha256.Sum256(b)
 	report, err := json.MarshalIndent(struct {
-		SchemaVersion  int    `json:"schema_version"`
-		ManifestSHA256 string `json:"manifest_sha256"`
-		Resampling     string `json:"resampling"`
-		Assets         int    `json:"assets"`
-	}{1, hex.EncodeToString(manifestHash[:]), "pinned RGBA crop -> 4x -> 2x, alpha-aware Lanczos3; no enlargement", len(m.Assets)}, "", "  ")
+		SchemaVersion  int               `json:"schema_version"`
+		ManifestSHA256 string            `json:"manifest_sha256"`
+		Resampling     string            `json:"resampling"`
+		Assets         int               `json:"assets"`
+		Season         string            `json:"season,omitempty"`
+		IDSuffix       string            `json:"id_suffix,omitempty"`
+		SeasonSources  map[string]string `json:"season_sources,omitempty"`
+	}{1, hex.EncodeToString(manifestHash[:]), "pinned RGBA crop -> 4x -> 2x, alpha-aware Lanczos3; no enlargement", len(m.Assets), *season, seasonSuffixes[*season], seasonSources}, "", "  ")
 	if err != nil {
 		return err
 	}
@@ -176,7 +186,7 @@ func Run(args []string, log, stderr io.Writer) (resultErr error) {
 }
 
 var (
-	stampID    = regexp.MustCompile(`^(standing/)?stamp/(crater|crater_w|boulders|boulders_w|knoll|knoll_w|lake)/[0-9][0-9_.-]*/[1-8]$`)
+	stampID    = regexp.MustCompile(`^(standing/)?stamp/(crater|crater_w|boulders|boulders_w|knoll|knoll_w|lake)/[0-9][0-9_.-]*/[1-8](_au|_sp)?$`)
 	standingID = regexp.MustCompile(`^standing/[A-Za-z][A-Za-z0-9_-]*$`)
 )
 

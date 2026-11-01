@@ -4,7 +4,8 @@ package artreview
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateRuinTiles -count=1 -v
 // Cuts the destroyed depot (art/pipeline/compound-ruin-v2.json) into tile/ruinN,
-// ruinW, ruinE and ruinS in both seasons through the compound pipeline, writes
+// ruinW, ruinE and ruinS in both seasons (and in autumn and spring where the
+// summer ruin has an edit, suffix _au/_sp) through the compound pipeline, writes
 // them to assets/terrain/ruin/, replacing earlier exports, and lists them in
 // assets/index.json; run `go run ./cmd/hl art index` afterwards.
 import (
@@ -33,6 +34,27 @@ func TestGenerateRuinTiles(t *testing.T) {
 	for _, a := range bundle.artifacts {
 		files[a.name] = a.data
 	}
+	suffixes := []string{"", "_w"}
+	defer func() { exportSeason = "" }()
+	for _, season := range []string{"autumn", "spring"} {
+		exportSeason = season
+		in, err := loadCompoundInputs(filepath.Join(root, "art/pipeline/compound-ruin-v2.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !compoundSeasonEdited(in) {
+			continue
+		}
+		b, err := buildCompoundBundle(in)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, a := range b.artifacts {
+			files[a.name] = a.data
+		}
+		suffixes = append(suffixes, seasonSuffixes[season])
+	}
+	exportSeason = ""
 	entries, _, err := readCampaignIndex(root)
 	if err != nil {
 		t.Fatal(err)
@@ -45,7 +67,7 @@ func TestGenerateRuinTiles(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, d := range []int{2, 4} {
-		for _, sfx := range []string{"", "_w"} {
+		for _, sfx := range suffixes {
 			for _, p := range []string{"E", "N", "S", "W"} {
 				id := "ruin" + p + sfx
 				data, ok := files[fmt.Sprintf("tiles/%s-%dx.png", id, d)]

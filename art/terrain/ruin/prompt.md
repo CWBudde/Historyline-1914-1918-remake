@@ -4,7 +4,7 @@ title: Destroyed depot
 kind: terrain
 status: approved
 runtime_ids: ruinE, ruinE_w, ruinN, ruinN_w, ruinS, ruinS_w, ruinW, ruinW_w
-masters: ruin-summer-v1.png, ruin-winter-v1.png
+masters: ruin-summer-v1.png, ruin-winter-v1.png, ruin-autumn-v1.png
 ---
 
 ## Look
@@ -34,6 +34,26 @@ The scene is sliced into four hex crops with shared placements like the depot; t
 regular road tile at the north port.
 
 ## Post
+
+### Autumn edit (2026-11-01)
+`ruin-autumn-v1.png` (exec-a6ad8629) is the autumn form of `ruin-summer-v1.png` (native 1536x1024 RGBA): the imagegen season edit kept every
+outline and position (registration shift 0,0, alpha IoU 0.934; it also repainted the rubble darker, which is not kept), and was fitted in code onto the summer
+master: the alpha is the summer's, and the edit's colours replace only the summer vegetation (green hue
+92–175°, C\* ≥ 12, dilated 3 px and softened over 5 px); masonry, roofs, streets, water and metal keep
+the summer pixels. Tufts and fringe straw-gold and olive-ochre, the shrubs ochre and rust. Mean RGB 109,86,63, L\* 37.6, a\* 6.2, hue 70. `-season autumn` swaps it in for `ruin-summer-v1.png`; the
+ground ring is the autumn meadow. Attachments: image 1 `ruin-summer-v1.png`, image 2 `grass-autumn-v1.png` (palette
+only). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a shelled and destroyed army supply depot seen from straight above (strict nadir roof plan, 1536x1024 RGBA, true alpha; transparent outside the depot): change the season from summer to early October on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: the cracked grey asphalt street, the broken barrier and its posts, the broken fence and its stone posts, the collapsed sheds and the burnt-out south hall with their rubble, beams and brick dust, the torn tents, the crates and barrels, the shell craters and the trodden earth. Preserve every outline and position.
+Autumn changes only the vegetation: the olive-green meadow tufts between the rubble and the soft green meadow fringe at the outline become dry straw-gold and olive-ochre grass (lit near RGB 175,145,80, mid near RGB 120,95,40, shaded near RGB 65,52,20), with some faded olive green left in the tuft centres, matching image 2. The small green star-shaped shrubs with red berries become dry autumn shrubs, dull ochre and rust brown (near RGB 145,100,45). The trodden earth and the craters are slightly darker and wetter, with a few tiny fallen leaves (2 to 4 px) near the shrubs.
+Unchanged: every brick, beam, plank, canvas, metal, the street and the barrier's red-and-white paint, the light from the upper left, the strict nadir view.
+Outside the depot outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing or adding anything, bright orange or red foliage, snow, frost, fire, smoke, a golden cast on rubble or the street, perspective, green grass left anywhere.
+
+Image 1 is the selected summer ruin (ruin-summer-v1): change season only, preserve every outline and position. Image 2 is the selected autumn meadow of the map: take only its grass colours for the tufts and fringe; do not copy its texture or layout.
+```
+
 
 `art-review -compound art/pipeline/compound-ruin-v2.json` places both seasons on the seasonal meadow and
 slices the four cells (scenes `ruin-summer` and `ruin-winter`, reference-layout framing: the scene fills the

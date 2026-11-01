@@ -298,7 +298,12 @@ func trackTiles(t *testing.T, root string) map[string]string {
 			t.Fatal(err)
 		}
 		for _, m := range matches {
-			tiles[strings.TrimSuffix(filepath.Base(m), "-4x.png")] = m
+			id := strings.TrimSuffix(filepath.Base(m), "-4x.png")
+			// Autumn and spring forms repaint a summer tile on its geometry.
+			if strings.HasSuffix(id, "_au") || strings.HasSuffix(id, "_sp") {
+				continue
+			}
+			tiles[id] = m
 		}
 	}
 	if len(tiles) != 52 {

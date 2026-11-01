@@ -4,7 +4,7 @@ title: Factory
 kind: terrain
 status: approved
 runtime_ids: factoryE, factoryN, factoryS, factoryW, factoryE_w, factoryN_w, factoryS_w, factoryW_w
-masters: factory-summer-v4.png, factory-winter-v6.png, factory-summer-v3.png, factory-winter-v5.png, factory-summer-v2.png, factory-winter-v4.png, factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png
+masters: factory-summer-v4.png, factory-winter-v6.png, factory-summer-v3.png, factory-winter-v5.png, factory-summer-v2.png, factory-winter-v4.png, factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png, factory-autumn-v1.png
 ---
 
 ## Look
@@ -37,6 +37,26 @@ Sliced into four hex crops with shared placements; the east street meets the reg
 its port.
 
 ## Post
+
+### Autumn edit (2026-11-01)
+`factory-autumn-v1.png` (exec-dd28cf6d) is the autumn form of `factory-summer-v4.png` (native 1536x1024 RGBA): the imagegen season edit kept every
+outline and position (registration shift 0,0, alpha IoU 0.992), and was fitted in code onto the summer
+master: the alpha is the summer's, and the edit's colours replace only the summer vegetation (green hue
+92–175°, C\* ≥ 12, dilated 3 px and softened over 5 px); masonry, roofs, streets, water and metal keep
+the summer pixels. Tree crowns oak and beech copper and russet, birch and lime butter yellow, about one in five a dark green conifer. Mean RGB 121,94,64, L\* 41.4, a\* 7.5, hue 70. `-season autumn` swaps it in for `factory-summer-v4.png`; the
+ground ring is the autumn meadow. Attachments: image 1 `factory-summer-v4.png`, image 2 `grass-autumn-v1.png` (palette
+only). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a small factory compound seen from straight above (strict nadir roof plan, 1536x1024 RGBA, true alpha; transparent outside the compound): change the season from summer to early October on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: every roof, shed, chimney vent, the copper pipes, the water basin, the three dark boiler cylinders, the turquoise tanks, the concrete pads, the grey streets with their white dashes, and the pale slanted concrete gantry that crosses the east street. Every tree crown and shrub keeps exactly its outline, size and position. Preserve every outline and position.
+Autumn changes only the vegetation: the deciduous tree crowns and bushes that ring the compound and fill the gaps between the buildings turn autumn colours, as a natural mix: most crowns oak and beech copper and russet (lit near RGB 190,120,55, shaded near RGB 85,45,20), some birch and lime crowns butter yellow (near RGB 200,170,70), about one crown in five stays a dark conifer or evergreen green (near RGB 55,70,35), and a few crowns are still half green turning yellow. Keep each crown's lit upper-left side and shaded lower-right side as in image 1. Any grass between the shrubs becomes dry straw-gold and olive-ochre as in image 2. A few fallen leaves (2 to 4 px) on the concrete pads and streets next to the trees.
+Unchanged: every roof, wall, metal, pipe, tank, the water, the streets and their markings, the light from the upper left, the strict nadir view.
+Outside the compound outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing, merging or adding any crown or building, bare leafless trees, uniform orange, saturated red, snow, frost, a golden cast on roofs, concrete or streets, perspective.
+
+Image 1 is the selected summer factory (factory-summer-v4): change season only, preserve every outline and position. Image 2 is the selected autumn meadow of the map: take only its grass colours; do not copy its texture or layout.
+```
+
 Selected sources are `factory-winter-v6.png` and `factory-summer-v4.png` (1536x1024, true alpha):
 `factory-winter-v4.png` and `factory-summer-v2.png` with the north-west hall moved and the two east
 sheds of the top row shortened inside the hex edge

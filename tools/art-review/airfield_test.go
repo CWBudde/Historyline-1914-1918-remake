@@ -4,6 +4,8 @@ import (
 	"image"
 	"image/color"
 	"math"
+	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -83,5 +85,39 @@ func TestHangarSprite(t *testing.T) {
 	}
 	if _, _, err := hangarSprite(uniform(1536, 1024, color.NRGBA{})); err == nil {
 		t.Error("an empty painting makes a hangar")
+	}
+}
+
+// Summer and winter take the v1 paintings; a seasonal export takes the newest
+// edit of each piece and none where a piece has no edit.
+func TestAirfieldSeasonSources(t *testing.T) {
+	dir := t.TempDir()
+	for _, name := range []string{"airfield-runway-summer-v1.png", "airfield-runway-autumn-v1.png", "airfield-runway-autumn-v2.png", "airfield-runwayx-autumn-v3.png", "airfield-hangar-summer-v1.png"} {
+		if err := os.WriteFile(filepath.Join(dir, name), nil, 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	for _, c := range []struct{ piece, season, want string }{
+		{"runway", "summer", "airfield-runway-summer-v1.png"},
+		{"runway", "winter", "airfield-runway-winter-v1.png"},
+		{"runway", "autumn", "airfield-runway-autumn-v2.png"},
+		{"runway", "spring", ""},
+		{"hangar", "autumn", ""},
+	} {
+		got, err := airfieldSource(dir, c.piece, c.season)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if c.want != "" {
+			c.want = filepath.Join(dir, c.want)
+		}
+		if got != c.want {
+			t.Errorf("%s %s: %q, want %q", c.piece, c.season, got, c.want)
+		}
+	}
+	for id, want := range map[string]string{"tile/runway36": "summer", "tile/apron-nw_w": "winter", "standing/hangar_au": "autumn", "tile/hangar_sp": "spring"} {
+		if got := airfieldSeasonOf(id); got != want {
+			t.Errorf("airfieldSeasonOf(%s) = %s, want %s", id, got, want)
+		}
 	}
 }

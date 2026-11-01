@@ -4,7 +4,7 @@ title: House
 kind: terrain
 status: approved
 runtime_ids: house, house_w, house2, house2_w, house3, house3_w, house4, house4_w, house5, house5_w, house6, house6_w
-masters: house-summer-v2.png, house-winter-v2.png, house-summer-v1.png, house-winter-v1.png, house-longhouse-summer-v1.png, house-longhouse-winter-v1.png, house-cottage-summer-v1.png, house-cottage-winter-v1.png, house-stonefarm-summer-v1.png, house-stonefarm-winter-v1.png, house-courtyard-summer-v1.png, house-courtyard-winter-v1.png, house-windmill-summer-v1.png, house-windmill-winter-v1.png
+masters: house-summer-v2.png, house-winter-v2.png, house-summer-v1.png, house-winter-v1.png, house-longhouse-summer-v1.png, house-longhouse-winter-v1.png, house-cottage-summer-v1.png, house-cottage-winter-v1.png, house-stonefarm-summer-v1.png, house-stonefarm-winter-v1.png, house-courtyard-summer-v1.png, house-courtyard-winter-v1.png, house-windmill-summer-v1.png, house-windmill-winter-v1.png, house-autumn-v1.png, house-longhouse-autumn-v1.png, house-cottage-autumn-v1.png, house-stonefarm-autumn-v1.png, house-courtyard-autumn-v1.png, house-windmill-autumn-v1.png
 ---
 
 ## Look
@@ -48,6 +48,128 @@ The building sits inside the hex with meadow around it; only the shared seasonal
 hex edges.
 
 ## Post
+
+### Autumn house variant house6 edit (2026-11-01)
+`house-windmill-autumn-v1.png` (exec-d24305a8) is the autumn form of `house-windmill-summer-v1.png`: the edit (native 1536×1024
+RGBA, registered: scale 1.000, shift 1,0 px) taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; buildings, roofs, walls, yard, track and objects keep their summer pixels) with the summer alpha,
+its vegetation graded towards the meadow to a\* 6, b\* 31. Meadow straw-gold, trees and bushes ochre,
+copper and russet, roof moss olive-brown; whole RGB 115,89,47 (L\* 39.0, a\* 5.7). Selected: `-season autumn -compound
+art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house6_au`. Attachments: image 1
+`house-windmill-summer-v1.png`, image 2 `grass-autumn-v1.png` (grass palette). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a timber post windmill with four long lattice sails in an X on a low grassy mound, beside a whitewashed cottage with a grey-brown thatched roof, a sack cart and flour sacks, bushes and a meadow around.
+Recolour image 1 for early October on the Western Front. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 157 to 1403 and y 87 to 935 (1246x848 px, 48 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush turns autumn: leaves ochre-yellow, dull copper and russet with some olive left, shaded undersides dark brown; willows turn yellow-olive; conifers stay dark green; vegetable-plot leaves turn yellow-brown. The lawn and meadow become dry late-season grass, straw-gold and olive-ochre with faded olive green left in the tuft centres: lit blade tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded grass near RGB 67,51,18 (image 2 is this grass); white and yellow wildflowers become dry brown seed heads. Green moss on the roofs becomes dull olive-brown moss. A very sparse scatter of tiny fallen leaves, 4 to 8 px, rust and ochre, on the grass only. Keep it dull and earthy: the previous sibling edit came out too orange (mean a* 12 where the meadow has 4); stay near the meadow's straw-gold.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, enlarged or added objects, changed roof or wall colours, orange or red overall cast, bright green, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected autumn meadow material: palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Autumn house variant house5 edit (2026-11-01)
+`house-courtyard-autumn-v1.png` (exec-0b8ac859) is the autumn form of `house-courtyard-summer-v1.png`: the edit (native 1536×1024
+RGBA, registered: scale 1.001, no shift) taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; buildings, roofs, walls, yard, track and objects keep their summer pixels) with the summer alpha,
+its vegetation graded towards the meadow to a\* 6, b\* 31. Meadow straw-gold, trees and bushes ochre,
+copper and russet, roof moss olive-brown; whole RGB 103,78,42 (L\* 34.4, a\* 6.6). Selected: `-season autumn -compound
+art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house5_au`. Attachments: image 1
+`house-courtyard-summer-v1.png`, image 2 `grass-autumn-v1.png` (grass palette). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a Flemish courtyard farm, four low brick wings with dark red-brown pantile roofs, one thatched in grey-brown straw, round a square cobbled yard with a dung heap, a dovecote and two pollard willows outside, bushes and a meadow around.
+Recolour image 1 for early October on the Western Front. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 234 to 1374 and y 66 to 919 (1140x853 px, 47 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush turns autumn: leaves ochre-yellow, dull copper and russet with some olive left, shaded undersides dark brown; willows turn yellow-olive; conifers stay dark green; vegetable-plot leaves turn yellow-brown. The lawn and meadow become dry late-season grass, straw-gold and olive-ochre with faded olive green left in the tuft centres: lit blade tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded grass near RGB 67,51,18 (image 2 is this grass); white and yellow wildflowers become dry brown seed heads. Green moss on the roofs becomes dull olive-brown moss. A very sparse scatter of tiny fallen leaves, 4 to 8 px, rust and ochre, on the grass only. Keep it dull and earthy: the previous sibling edit came out too orange (mean a* 12 where the meadow has 4); stay near the meadow's straw-gold.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, enlarged or added objects, changed roof or wall colours, orange or red overall cast, bright green, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected autumn meadow material: palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Autumn house variant house4 edit (2026-11-01)
+`house-stonefarm-autumn-v1.png` (exec-11dbd41e) is the autumn form of `house-stonefarm-summer-v1.png`: the edit (native 1536×1024, on an opaque black ground
+RGBA, registered: scale 1.000, no shift) taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; buildings, roofs, walls, yard, track and objects keep their summer pixels) with the summer alpha,
+its vegetation graded towards the meadow to a\* 6, b\* 31. Meadow straw-gold, trees and bushes ochre,
+copper and russet, roof moss olive-brown; whole RGB 107,83,46 (L\* 36.2, a\* 5.7). Selected: `-season autumn -compound
+art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house4_au`. Attachments: image 1
+`house-stonefarm-summer-v1.png`, image 2 `grass-autumn-v1.png` (grass palette). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a grey stone house and barn in an L with weathered grey-brown tile roofs, a dry-stone wall closing the yard, a cart and a woodpile, trees, bushes and a meadow around.
+Recolour image 1 for early October on the Western Front. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 196 to 1363 and y 57 to 973 (1167x916 px, 51 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush turns autumn: leaves ochre-yellow, dull copper and russet with some olive left, shaded undersides dark brown; willows turn yellow-olive; conifers stay dark green; vegetable-plot leaves turn yellow-brown. The lawn and meadow become dry late-season grass, straw-gold and olive-ochre with faded olive green left in the tuft centres: lit blade tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded grass near RGB 67,51,18 (image 2 is this grass); white and yellow wildflowers become dry brown seed heads. Green moss on the roofs becomes dull olive-brown moss. A very sparse scatter of tiny fallen leaves, 4 to 8 px, rust and ochre, on the grass only. Keep it dull and earthy: the previous sibling edit came out too orange (mean a* 12 where the meadow has 4); stay near the meadow's straw-gold.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, enlarged or added objects, changed roof or wall colours, orange or red overall cast, bright green, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected autumn meadow material: palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Autumn house variant house3 edit (2026-11-01)
+`house-cottage-autumn-v1.png` (exec-1142346c) is the autumn form of `house-cottage-summer-v1.png`: the edit (native 1374×1145
+RGBA, registered: scale 1.001, shift 1,0 px) taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; buildings, roofs, walls, yard, track and objects keep their summer pixels) with the summer alpha,
+its vegetation graded towards the meadow to a\* 6, b\* 31. Meadow straw-gold, trees and bushes ochre,
+copper and russet, roof moss olive-brown; whole RGB 106,84,48 (L\* 36.6, a\* 5.0). Selected: `-season autumn -compound
+art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house3_au`. Attachments: image 1
+`house-cottage-summer-v1.png`, image 2 `grass-autumn-v1.png` (grass palette). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1374x1145, strict nadir roof plan: a whitewashed Flemish cottage with a grey slate hipped roof and a chimney, a tarred barn with a cart and a log pile, a straw haystack, two pollard willows by a small ditch with duckweed at the top, a fenced vegetable plot at the lower left, a large bush at the left, a forked cart track and a meadow around.
+Recolour image 1 for early October on the Western Front. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1374x1145, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 44 to 1332 and y 34 to 1099 (1288x1065 px, 61 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush turns autumn: leaves ochre-yellow, dull copper and russet with some olive left, shaded undersides dark brown; willows turn yellow-olive; conifers stay dark green; vegetable-plot leaves turn yellow-brown. The lawn and meadow become dry late-season grass, straw-gold and olive-ochre with faded olive green left in the tuft centres: lit blade tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded grass near RGB 67,51,18 (image 2 is this grass); white and yellow wildflowers become dry brown seed heads. Green moss on the roofs becomes dull olive-brown moss. A very sparse scatter of tiny fallen leaves, 4 to 8 px, rust and ochre, on the grass only. Keep it dull and earthy: the previous sibling edit came out too orange (mean a* 12 where the meadow has 4); stay near the meadow's straw-gold.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, enlarged or added objects, changed roof or wall colours, orange or red overall cast, bright green, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected autumn meadow material: palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Autumn house variant house2 edit (2026-11-01)
+`house-longhouse-autumn-v1.png` (exec-018e445d) is the autumn form of `house-longhouse-summer-v1.png`:
+the edit (native 1536×1024 RGBA, registered: scale 1.001, no shift) taken where the summer pixel is
+vegetation (a green-hue mask, dilated 3 px and softened; roof, walls, trough, yard and track keep their
+summer pixels) with the summer alpha, its vegetation graded from a\* 11.6, b\* 32.4 to a\* 6, b\* 31 (the
+edit came out orange). Meadow straw-gold, bushes copper and ochre, the apple tree yellow with its red
+apples; whole RGB 115,86,47 (L\* 38.2, a\* 7.4). Selected: `-season autumn -compound
+art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house2_au`. Attachments: image 1
+`house-longhouse-summer-v1.png`, image 2 `grass-autumn-v1.png` (grass palette). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a Lorraine longhouse, dwelling and barn under one long red-brown Roman tile roof with a chimney, a stone trough, a dung heap behind a rail fence, a cart track curving to the lower left, an apple tree with red apples, bushes and a meadow around.
+Recolour image 1 for early October on the Western Front. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 116 to 1452 and y 120 to 952 (1336x832 px, 50 percent of the canvas); the long roof spans about x 415 to 1210 and y 240 to 570; keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. The apple tree turns autumn: leaves ochre-yellow and dull copper with some olive left, the red apples stay. The bushes turn dull copper, russet and ochre, a few keep dark olive green; shaded undersides dark brown. The lawn and meadow become dry late-season grass, straw-gold and olive-ochre with faded olive green left in the tuft centres: lit blade tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded grass near RGB 67,51,18 (image 2 is this grass); white and yellow wildflowers become dry brown seed heads. Green moss on the roofs becomes dull olive-brown moss. A very sparse scatter of tiny fallen leaves, 4 to 8 px, rust and ochre, on the grass only.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, enlarged or added objects, changed roof or wall colours, orange or red overall cast, bright green, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected autumn meadow material: palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Autumn house edit (2026-11-01)
+`house-autumn-v1.png` (exec-d1298fb5) is the autumn form of `house-summer-v2.png`: the edit (native
+1315×1197 RGBA, scene about 3 % larger than the summer one) registered onto the summer master (scale
+1.034, shift −1,0 px), taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; house, roof, shed, logs and stones keep their summer pixels) with the summer alpha. Lawn dry
+straw-gold, shrubs copper, russet and ochre, roof moss olive-brown; vegetation L\* 32.5, a\* 6.4, b\* 23.6,
+whole RGB 103,83,62. A first try zoomed the scene 1.3 times. Selected: `-season autumn -compound
+art/pipeline/compound-hamlet-v1.json` takes it for `tile/house_au`. Attachments: image 1
+`house-summer-v2.png`, image 2 `grass-autumn-v1.png` (grass palette). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer house cut-out of a top-down WWI strategy map: a transparent RGBA image 1315x1197, strict nadir roof plan, one square timber house with a grey-brown shingle hipped roof and a chimney, a small woodshed with stacked logs on the right, threshold stones and pebbles, a fringe of lawn and leafy shrubs around them, a soft dark shadow halo.
+Recolour image 1 for early October on the Western Front. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1315x1197, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 281 to 1060 and y 279 to 919 (779x640 px, 23 percent of the canvas); the main roof spans about x 345 to 815 and y 295 to 740; the woodshed roof x 835 to 997 and y 597 to 752. Keep exactly these spans. A previous try failed: it zoomed the whole scene 1.3 times (cut-out 1017x826 px, 41 percent of the canvas) and grew the lawn. Do not do that.
+Only the colours of the vegetation change. The house, roof, shingles, ridges, chimney, woodshed, logs, stones and pebbles keep their colours. The lawn and grass fringe become dry late-season grass, straw-gold and olive-ochre with faded olive green left in the tuft centres: lit blade tips near RGB 184,148,75, mid grass near RGB 120,92,36, shaded grass near RGB 67,51,18 (image 2 is this grass). The leafy shrubs turn autumn: some dull copper and russet (near RGB 140,80,40), some ochre-yellow (near RGB 170,130,50), a few keep a dark olive green. The green moss on the roof becomes dull olive-brown moss. A very sparse scatter of tiny fallen leaves, 4 to 8 px, rust and ochre, on the grass only.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft dark shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, enlarged or added objects, changed roof or wall colours, orange or red overall cast, bright green, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected autumn meadow material: palette of the grass only, never paint it as a ground plate.
+```
+
 
 ### Look 8 H4–H6 house variant house6, winter (2026-10-31)
 `house-windmill-winter-v1.png` (exec-eb1e7ecb), native 1536×1024 RGBA: a seasonal edit of the summer

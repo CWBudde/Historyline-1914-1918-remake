@@ -71,7 +71,7 @@ Each strip is painted with meadow verges, so the verges must match the season's 
 | path | 14 | 14 | new | new | Verges |
 | rail, cross | 12, 4 | 12, 4 | new | new | Verges and ballast weeds |
 | stream | 11 | 11 | new | new | Bank vegetation, reeds |
-| trench (generated from the ground backgrounds) | 54 | 54 | new | new | Regenerate after grass; parapet grass |
+| trench (transparent over the hex background) | 54 | 54 | neutral | neutral | The tiles hold no grass: an autumn export is byte-identical to summer |
 | bridge, rBridge decks | 2+2, 3+4 | 2+2, 4 | neutral | neutral | — |
 | barbedWire | 1 shared | shared | neutral | neutral | — |
 
@@ -115,14 +115,16 @@ Each compound is one painting with its grounds: lawns, trees and verges.
    3. hills, then stone;
    4. road, path, rail and cross verges, then stream banks;
    5. shore and lakeside;
-   6. trenches (regenerate), stamps;
+   6. stamps (trenches are neutral);
    7. compounds: hq, cmp/ruin, factory, mount, house, airfield;
    8. optional: mud, water, rocks, harbour.
    Autumn status: grass (base and detail tiles, meadow props), stone, forest (crowns, floor, contexts,
-   copses), hills, road, path, cross and stream are installed; road, path, rail, stream and cross verges
-   are the hex background, so only their surfaces and the stream bank are painted. Open: the detail
-   tiles' flowers and worn patches (they are phases of the autumn base), rail (summer reads fine),
-   shore and lakeside, trenches, stamps, compounds, mud.
+   copses), hills, mountain, road, path, cross, stream, shore, lakeside, the boulder, knoll and crater
+   stamps and every compound but the harbour are installed; road, path, rail, stream and cross verges
+   are the hex background, so only their surfaces and the stream bank are painted. Compound and stamp
+   edits are registered onto the summer master and keep its alpha and its non-vegetation pixels. Open:
+   the detail tiles' flowers and worn patches (they are phases of the autumn base), rail (summer reads
+   fine), mud, water, harbour.
 3. **Spring**, in the same order.
 
 Each step is accepted on one autumn (or spring) map in the game before the next family follows.

@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: approved
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png, ground-boulders-five-autumn-v1.png, ground-boulders-four-autumn-v1.png, ground-boulders-single-autumn-v1.png, ground-crater-autumn-v1.png, ground-crater-pair-autumn-v1.png
 ---
 
 ## Look
@@ -84,6 +84,126 @@ Summer boulder stamps replace per-hex stone art across their complete clusters, 
 gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
+
+### Autumn crater-pair edit (2026-11-01)
+
+`ground-crater-pair-autumn-v1.png` (`exec-64202176`, native 1374×1145 RGBA) is the autumn edit of
+`ground-crater-pair-summer-v1.png`, as the single crater: grass straw-gold, earth damper. Graded (L\* +3,
+a\* −2.5, b\* +3, by chroma), registered onto the summer master (shift −2,−2 px) and carried onto the
+summer alpha: whole RGB 110,85,53 (L\* 37.4, hue 75). Selected: `-season autumn -manifest art/pipeline/crater-pair-v1.json` takes it for
+`stamp/crater/4_-1.1_1.1_0.2/2_au`. Attached: `ground-crater-pair-summer-v1.png` and `grass-autumn-v1.png`.
+The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, two joined shell craters seen from straight above (strict nadir RGBA cut-out on transparency with a soft fading margin; keep the canvas size and aspect of image 1 exactly): a ring of cracked, blocky brown earth walls around a grassy crater floor, with spiky grass tufts, pebbles and stones scattered on the rim. Change the season from summer to a wet late-September/early-October day on the Western Front and nothing else. Keep the outline, the soft margin, the transparent area and every wall block, crack, stone, pebble and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass of the crater floor and the green spiky tufts on the rim become dry autumn grass as in image 2: straw-gold and olive-ochre (lit near RGB 184,148,75, mid near RGB 120,92,36, shaded near RGB 67,51,18), with a little faded olive left in the tuft centres; the tiny red flowers become dark brown seed heads.
+- The brown earth walls and the rim soil turn a little darker and damper (about 8 percent darker), the same brown hue; a few tiny fallen leaves (2 to 4 px) on the floor.
+- The grey stones and pebbles stay exactly as they are.
+- Grass hue about 83 degrees, never orange; lightness of the grass as in image 1.
+Outside the crater: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, water in the crater, bright orange, red or yellow foliage, snow, frost, green grass left anywhere.
+
+Image 1 is the selected summer crater cut-out (ground-crater-pair-summer-v1, 1374x1145, two joined craters) to edit: keep its layout, wall blocks, cracks, stones and tufts, sizes and transparency exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Autumn crater edit (2026-11-01)
+
+`ground-crater-autumn-v1.png` (`exec-f25a5d5a`, native 1536×1024 RGBA) is the autumn edit of
+`ground-crater-summer-v1.png`: every wall block, crack, stone and tuft in place, the floor grass and rim
+tufts dry straw-gold, the earth walls damper and darker, a few fallen leaves. Graded in code from L\* 34.6,
+hue 66 (L\* +3, a\* −2.5, b\* +3, by chroma), registered onto the summer master (the edit came out 7.5 %
+larger: scale 0.93, shift 12,−10 px) and carried onto the summer alpha: whole RGB 109,83,52 (L\* 36.5,
+hue 73). Selected: the autumn terrain-stamps export takes it for
+`stamp/crater/4_-1.1_1.1_0.2/1_au`. Attached: `ground-crater-summer-v1.png` and `grass-autumn-v1.png`.
+The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a shell crater seen from straight above (strict nadir RGBA cut-out on transparency with a soft fading margin; keep the canvas size and aspect of image 1 exactly): a ring of cracked, blocky brown earth walls around a grassy crater floor, with spiky grass tufts, pebbles and stones scattered on the rim. Change the season from summer to a wet late-September/early-October day on the Western Front and nothing else. Keep the outline, the soft margin, the transparent area and every wall block, crack, stone, pebble and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass of the crater floor and the green spiky tufts on the rim become dry autumn grass as in image 2: straw-gold and olive-ochre (lit near RGB 184,148,75, mid near RGB 120,92,36, shaded near RGB 67,51,18), with a little faded olive left in the tuft centres; the tiny red flowers become dark brown seed heads.
+- The brown earth walls and the rim soil turn a little darker and damper (about 8 percent darker), the same brown hue; a few tiny fallen leaves (2 to 4 px) on the floor.
+- The grey stones and pebbles stay exactly as they are.
+- Grass hue about 83 degrees, never orange; lightness of the grass as in image 1.
+Outside the crater: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, water in the crater, bright orange, red or yellow foliage, snow, frost, green grass left anywhere.
+
+Image 1 is the selected summer crater cut-out (ground-crater-summer-v1, 1536x1024 LANDSCAPE) to edit: keep its layout, wall blocks, cracks, stones and tufts, sizes and transparency exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Autumn boulder-scatter edit (2026-11-01)
+
+`ground-boulders-single-autumn-v1.png` (`exec-7aa5df84`, native 1373×1145 RGBA, resampled to the summer
+1374×1145) is the autumn edit of `ground-boulders-single-summer-v1.png`: the three stone clusters in place,
+the tufts dry straw, the shrubs russet. The first try (`exec-a752c91d`) enlarged and shifted the clusters;
+the second, told so, kept them. Graded in code from hue 74 (a\* −2.5, b\* +3, by chroma), registered (shift 2 px)
+and carried onto the summer alpha: whole RGB 124,107,78 (L\* 45.0, hue 80). Selected: the autumn terrain-stamps export
+takes it for `stamp/boulders/1/1_au`. Attached: `ground-boulders-single-summer-v1.png` and
+`grass-autumn-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a scatter of grey boulders and pebbles on patches of thin ground with small grass tufts and low shrubs, seen from straight above (strict nadir, RGBA cut-out on transparency; keep the canvas size and aspect of image 1 exactly): change the season from summer to a dry late-September/early-October day on the Western Front and nothing else. Keep the outline of every ground patch, the transparent gaps between the patches, the soft semi-transparent fringe, and every boulder, pebble, tuft and shrub exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass tufts and the olive-green ground fringe become dry autumn grass as in image 2: straw-gold and olive-ochre (lit near RGB 184,148,75, mid near RGB 120,92,36, shaded near RGB 67,51,18), with a little faded olive left in the tuft centres.
+- The small green shrubs turn russet and dull bronze-olive (lit about RGB 150,88,40, shaded about RGB 70,40,20); the bare ground between stones a little darker and damper brown-grey.
+- The moss on the boulders turns olive-ochre; the grey boulders and pebbles themselves stay exactly as they are, with their colour and shading.
+- Lightness of every part stays as in image 1; only the hue of the vegetation changes from green to straw-ochre and russet: hue about 83 degrees, never orange.
+Outside the patches: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, filling the transparent gaps, bright orange, red or yellow foliage, snow, frost, green grass left anywhere.
+Correction from the measured previous edit: it enlarged the three clusters by about 10 percent and shifted them outward (the right cluster reached the canvas edge), and it hardened the soft semi-transparent ground fringe into an opaque plate. This time trace image 1 exactly: every stone at the same pixel position and size, the clusters the same size, the canvas margins as wide as in image 1, the ground fringe as soft and semi-transparent as in image 1. Recolour only.
+
+Image 1 is the selected summer boulder-scatter cut-out (ground-boulders-single-summer-v1, 1374x1145, three stone clusters) to edit: keep its layout, stone and tuft positions, sizes and transparency exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Autumn four-boulder edit (2026-11-01)
+
+`ground-boulders-four-autumn-v1.png` (`exec-abb779ec`, native 1536×1024 RGBA) is the autumn edit of
+`ground-boulders-four-summer-v1.png`: every boulder and tuft in place, the soft ground plate straw-brown
+instead of olive. Graded in code from hue 73 (a\* −2.5, b\* +3, by chroma) and carried onto the summer
+alpha (the edit's plate came out denser): whole RGB 131,116,91 (L\* 48.7, hue 80). Selected: the autumn
+terrain-stamps export takes it for `stamp/boulders/4_2.0_1.1_0.2/1_au`. Attached:
+`ground-boulders-four-summer-v1.png` and `grass-autumn-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a scatter of grey boulders and pebbles on patches of thin ground with small grass tufts and low shrubs, seen from straight above (strict nadir, RGBA cut-out on transparency; keep the canvas size and aspect of image 1 exactly): change the season from summer to a dry late-September/early-October day on the Western Front and nothing else. Keep the outline of every ground patch, the transparent gaps between the patches, the soft semi-transparent fringe, and every boulder, pebble, tuft and shrub exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass tufts and the olive-green ground fringe become dry autumn grass as in image 2: straw-gold and olive-ochre (lit near RGB 184,148,75, mid near RGB 120,92,36, shaded near RGB 67,51,18), with a little faded olive left in the tuft centres.
+- The small green shrubs turn russet and dull bronze-olive (lit about RGB 150,88,40, shaded about RGB 70,40,20); the bare ground between stones a little darker and damper brown-grey.
+- The moss on the boulders turns olive-ochre; the grey boulders and pebbles themselves stay exactly as they are, with their colour and shading.
+- Lightness of every part stays as in image 1; only the hue of the vegetation changes from green to straw-ochre and russet: hue about 83 degrees, never orange.
+Outside the patches: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, filling the transparent gaps, bright orange, red or yellow foliage, snow, frost, green grass left anywhere.
+
+Image 1 is the selected summer boulder-scatter cut-out (ground-boulders-four-summer-v1, 1536x1024 LANDSCAPE, stones on a soft semi-transparent ground plate with a fading margin) to edit: keep its layout, stone and tuft positions, sizes and transparency exactly, and keep the soft semi-transparent ground plate as it is, only recoloured from olive to dry straw-brown; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Autumn five-boulder edit (2026-11-01)
+
+`ground-boulders-five-autumn-v1.png` (`exec-c20c380b`, native 1373×1145 RGBA, resampled to the summer
+1374×1145) is the autumn edit of `ground-boulders-five-summer-v1.png`: every boulder, pebble and tuft in
+place, the tufts and ground fringe dry straw-brown, the shrubs russet. Graded in code from hue 76
+(a\* −2, b\* +3, by chroma), registered (shift 2 px) and carried onto the summer alpha: whole RGB
+121,106,78 (L\* 44.6, hue 82).
+Selected: the autumn terrain-stamps export takes it for `stamp/boulders/5_-1.1_0.2_-1.3_1.3/1_au`.
+Attached: `ground-boulders-five-summer-v1.png` and `grass-autumn-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a scatter of grey boulders and pebbles on patches of thin ground with small grass tufts and low shrubs, seen from straight above (strict nadir, RGBA cut-out on transparency; keep the canvas size and aspect of image 1 exactly): change the season from summer to a dry late-September/early-October day on the Western Front and nothing else. Keep the outline of every ground patch, the transparent gaps between the patches, the soft semi-transparent fringe, and every boulder, pebble, tuft and shrub exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass tufts and the olive-green ground fringe become dry autumn grass as in image 2: straw-gold and olive-ochre (lit near RGB 184,148,75, mid near RGB 120,92,36, shaded near RGB 67,51,18), with a little faded olive left in the tuft centres.
+- The small green shrubs turn russet and dull bronze-olive (lit about RGB 150,88,40, shaded about RGB 70,40,20); the bare ground between stones a little darker and damper brown-grey.
+- The moss on the boulders turns olive-ochre; the grey boulders and pebbles themselves stay exactly as they are, with their colour and shading.
+- Lightness of every part stays as in image 1; only the hue of the vegetation changes from green to straw-ochre and russet: hue about 83 degrees, never orange.
+Outside the patches: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, filling the transparent gaps, bright orange, red or yellow foliage, snow, frost, green grass left anywhere.
+
+Image 1 is the selected summer boulder-scatter cut-out (ground-boulders-five-summer-v1, 1374x1145) to edit: keep its layout, stone and tuft positions, sizes and transparency exactly; change only the season. Image 2 is the selected autumn meadow (grass-autumn-v1), for the palette of the grass only; do not copy its layout.
+```
+
 
 ### Autumn stone edit (2026-10-31)
 `ground-stone-autumn-v1.png` (exec-81e1964e) is the autumn form of `ground-stone-summer-v2.png`: an

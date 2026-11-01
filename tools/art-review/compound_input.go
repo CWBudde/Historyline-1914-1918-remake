@@ -71,6 +71,21 @@ type compoundInputs struct {
 	EntryRoads map[string]connectionInputs
 }
 
+// compoundSeasonEdited reports whether a scene artwork of in is an edit of the
+// export season. A seasonal export whose ground alone has an edit would cut
+// summer buildings and lawns onto a seasonal meadow; the generators skip it.
+func compoundSeasonEdited(in compoundInputs) bool {
+	if !seasonActive() {
+		return false
+	}
+	for _, a := range in.Artwork {
+		if m := seasonSourceName.FindStringSubmatch(filepath.Base(filepath.FromSlash(a.Ref.Source))); m != nil && m[2] == exportSeason {
+			return true
+		}
+	}
+	return false
+}
+
 // encoding/json accepts case aliases. Inspect exact schema keys independently,
 // after the shared duplicate-key/exactly-one-document validation.
 func decodeCompoundManifest(b []byte, m *compoundManifest) error {

@@ -4,7 +4,7 @@ title: Depot
 kind: terrain
 status: approved
 runtime_ids: cmpE, cmpE_w, cmpN, cmpN_w, cmpS, cmpS_w, cmpW, cmpW_w
-masters: cmp-summer-v4.png, cmp-winter-v5.png, cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png
+masters: cmp-summer-v4.png, cmp-winter-v5.png, cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png, cmp-autumn-v1.png
 ---
 
 ## Look
@@ -35,6 +35,26 @@ The scene is sliced into four hex crops with shared placements; the entrance roa
 road tile at the north port.
 
 ## Post
+
+### Autumn edit (2026-11-01)
+`cmp-autumn-v1.png` (exec-eac1b9ba) is the autumn form of `cmp-summer-v4.png` (native 1536x1024 RGBA): the imagegen season edit kept every
+outline and position (registration shift 0,0, alpha IoU 0.819: the edit made the soft halo and the south-west notch opaque), and was fitted in code onto the summer
+master: the alpha is the summer's, and the edit's colours replace only the summer vegetation (green hue
+92–175°, C\* ≥ 12, dilated 3 px and softened over 5 px); masonry, roofs, streets, water and metal keep
+the summer pixels. Lawn patches straw-ochre, the star shrubs dull ochre and rust with dark berries. Mean RGB 122,100,76, L\* 43.2, a\* 5.8, hue 71. `-season autumn` swaps it in for `cmp-summer-v4.png`; the
+ground ring is the autumn meadow. Attachments: image 1 `cmp-summer-v4.png`, image 2 `grass-autumn-v1.png` (palette
+only). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a fenced army supply depot seen from straight above (strict nadir roof plan, 1536x1024 RGBA, true alpha; transparent outside the depot): change the season from summer to early October on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: the grey asphalt street with its white dashed centre line, the barrier gate posts and the red-and-white barrier pole, the fence and its stone posts, the sheds, the two red lorries, the white tents, the crates and barrels, the dirt yards and the south hall with its circle marker. Preserve every outline and position.
+Autumn changes only the vegetation: the olive-green lawns between the buildings and the soft green meadow fringe at the outline become dry straw-gold and olive-ochre grass (lit near RGB 175,145,80, mid near RGB 120,95,40, shaded near RGB 65,52,20), with some faded olive green left in patches, matching image 2. The small green star-shaped shrubs with red berries become dry autumn shrubs, dull ochre and rust brown (near RGB 150,105,45), and the berries dark red-brown. A few tiny fallen leaves (2 to 4 px) on the dirt yards near the shrubs; the dirt yards slightly darker and damper.
+Unchanged: every roof, plank, canvas, metal, the lorries' red paint, the fence, the street and its markings, the light from the upper left, the strict nadir view.
+Outside the depot outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing or adding anything, bright orange or red foliage, snow, frost, a golden cast on roofs, tents or the street, perspective, green grass left anywhere.
+
+Image 1 is the selected summer depot (cmp-summer-v4): change season only, preserve every outline and position. Image 2 is the selected autumn meadow of the map: take only its grass colours for the lawns and fringe; do not copy its texture or layout.
+```
+
 Selected sources are `cmp-summer-v4.png` and `cmp-winter-v5.png` (1536x1024, true alpha):
 `cmp-summer-v2.png` and `cmp-winter-v3.png` with the south-west shed moved and the north-west shed
 shortened inside the hex edge (below).
