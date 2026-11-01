@@ -4,7 +4,7 @@ title: Airfield
 kind: terrain
 status: approved
 runtime_ids: runway36, runway36_w, hangar, hangar_w, apron-sw, apron-sw_w, apron-nw, apron-nw_w, standing/hangar, standing/hangar_w, standing/shadow/hangar, standing/shadow/hangar_w
-masters: airfield-runway-summer-v1.png, airfield-runway-winter-v1.png, airfield-hangar-summer-v1.png, airfield-hangar-winter-v1.png, airfield-runway-autumn-v1.png
+masters: airfield-runway-summer-v1.png, airfield-runway-winter-v1.png, airfield-hangar-summer-v1.png, airfield-hangar-winter-v1.png, airfield-runway-autumn-v1.png, airfield-runway-spring-v1.png
 ---
 
 ## Look
@@ -38,6 +38,27 @@ split over the three hexes it touches. The hangar is scaled to 56 world px long,
 code-made shadow 2.5 world px toward the lower right.
 
 ## Post
+
+### Spring runway edit (2026-11-01)
+`airfield-runway-spring-v1.png` (exec-faafc290), native 1536×1024 RGB: the spring edit of `airfield-runway-summer-v1.png`
+(registered, shift 0,0), graded in Lab (dL\* −2.7) and taken only where the summer pixel is vegetation, so the runway earth, the worn
+bands and every boundary stone are the summer pixels (the edit's damp earth is not taken). The meadow and the tufts on the runway fresh
+late-April yellow-green with pale dead-grass bases, dandelion and daisy specks; vegetation L\* 37.5, hue 104.5 (summer 37.3, 106.4);
+seams as summer. Whole RGB 106,96,44 (L\* 40.2, hue 95; summer 105,96,37, L\* 40.2, hue 98). Selected:
+`go test -tags campaigngfx ./tools/art-review -run TestGenerateAirfieldTiles -args -airfield-season spring`
+takes it for `tile/runway36_sp` and the aprons (`tile/hangar_sp`, `apron-sw_sp`, `apron-nw_sp`); the
+hangar has no vegetation and keeps its summer form. Attachments: image 1 `airfield-runway-summer-v1.png`,
+image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer airfield runway strip of a top-down WWI strategy map: an opaque 1536x1024 LANDSCAPE image, strict nadir view, a straight packed-earth runway with two darker wheel-worn bands running left to right across the middle (from about y 300 to y 705), a row of white boundary stones along each edge (about y 288 and y 717, about 375 px apart), and meadow above and below it.
+Recolour image 1 for a mild late-April day on the Western Front: change the season from summer to spring and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom; the runway edges, the worn bands, every boundary stone, pebble and grass tuft keep their outline, size and position. The runway must stay straight and horizontal, filled edge to edge, seamless left-right as in image 1.
+Colour: the meadow and the grass tufts on the runway become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white wildflowers stay as small dandelion-yellow and daisy-white specks. The packed earth becomes slightly damp (a little darker, the same brown hue), the worn bands as now. Boundary stones stay pale grey-white. Lightness of the grass stays as in image 1; only the hue and freshness of the vegetation change.
+Avoid: moved, added or removed stones, curved or shifted runway, puddles, mud ruts, standing water, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer image to edit; change the season only, preserve every outline and position. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
 
 ### Autumn runway edit (2026-11-01)
 `airfield-runway-autumn-v1.png` (exec-9840eca9), native 1536×1024 RGB, unchanged: the autumn edit of

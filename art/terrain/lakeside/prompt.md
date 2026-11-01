@@ -4,7 +4,7 @@ title: Lake shore
 kind: terrain
 status: approved
 runtime_ids: lakeside12, lakeside123, lakeside126, lakeside156, lakeside16, lakeside23, lakeside34, lakeside3456, lakeside56
-masters: lakeside-bank-shared-v3.png, lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png, lakeside-lake-summer-v3.png, lakeside-bank-autumn-v1.png
+masters: lakeside-bank-shared-v3.png, lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png, lakeside-lake-summer-v3.png, lakeside-bank-autumn-v1.png, lakeside-bank-spring-v1.png
 ---
 
 ## Look
@@ -44,6 +44,31 @@ When one neighbouring stream points into a fully-land edge, the compositor selec
 edge's land corners and all other edge guards intact. The same variant works at any map position.
 
 ## Post
+
+### Spring bank material edit (2026-11-01)
+
+`lakeside-bank-spring-v1.png` (`exec-9c38cc04`, native 1254×1254 RGB) is the spring edit of
+`lakeside-bank-shared-v3.png` (registered, shift 0,0), graded in Lab (dL\* −5, dh +10) and taken only where the summer pixel is
+vegetation: stones and earth are the summer pixels, so the lighter stones of the raw edit are not taken. Weeds, moss and reeds fresh
+green with daisy and dandelion specks; the pale dead reed stalks survive only where the summer pixel was green. Vegetation L\* 28.7,
+hue 104.7 (summer 28.4, 92.4); seams as summer. Whole RGB 114,98,61 (L\* 41.1, hue 86; summer 117,97,61, L\* 41.0, hue 82). Selected:
+`-season spring` exports take it wherever the bank material is sampled, as the reed bank of the spring streams, shores and lakesides:
+the stream banks (`-connected art/pipeline/connected-terrain-v2.json`, `tile/stream*_sp`) and the shore and lakeside banks
+(`TestGenerateCampaignShores -args -season spring`, `tile/lakeside*_sp`, `tile/shore-*_sp`). Attachments: image 1
+`lakeside-bank-shared-v3.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Seasonal edit of the supplied stony river-bank material: change the season to a mild late-April day on the Western Front only, preserve every outline and position. Keep the square canvas exactly as supplied (1254x1254, opaque, full-bleed, seamless left-right and top-bottom, strict vertical plan view).
+Every boulder, stone, pebble, crack and plant tuft stays exactly where it is, with its size and outline; the stones keep their colours and lightness. Change only:
+- The reeds and spiky tufts become fresh green spring shoots coming up through last year's pale straw-coloured dead reed stalks: young yellow-green shoots (lit about RGB 160,170,85, shaded about 48,56,20) with a few pale dead stalks (about RGB 170,155,110) at their bases.
+- The low weeds and bank grass become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; a few dandelion-yellow and daisy-white specks.
+- The moss on the stones turns a fresh green (about RGB 105,115,45), never emerald.
+- The earth between the stones is slightly damp (a little darker), the same brown, not black.
+- Lightness of the plants stays as in image 1; only the hue and freshness of the vegetation change.
+No snow, no water, no new stones, no fallen leaves, no blossom, no saturated emerald or neon green, no golden or straw cast over the whole, no autumn colours, no text, no vignette, no visible tiling.
+
+Image 1 is the selected summer bank material (lakeside-bank-shared-v3) to edit: keep its layout, every stone's position and size, and its scale; change only the season as described. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
 
 ### Autumn bank material edit (2026-10-31)
 

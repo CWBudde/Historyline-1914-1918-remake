@@ -4,7 +4,7 @@ title: Massif
 kind: terrain
 status: approved
 runtime_ids: mountE, mountE_w, mountN, mountN_w, mountS, mountS_w, mountW, mountW_w
-masters: mount-summer-v2.png, mount-winter-v2.png, mount-summer-v1.png, mount-winter-v1.png, mount-autumn-v1.png, mount-autumn-v2.png
+masters: mount-summer-v2.png, mount-winter-v2.png, mount-summer-v1.png, mount-winter-v1.png, mount-autumn-v1.png, mount-autumn-v2.png, mount-spring-v1.png
 ---
 
 ## Look
@@ -32,6 +32,30 @@ Sliced into four hex crops with shared placements; slopes fade into the seasonal
 outer edges of the diamond.
 
 ## Post
+
+### Spring massif edit (2026-11-01)
+`mount-spring-v1.png` (exec-8c14ebf7) is the spring form of `mount-summer-v2.png`. The edit (native
+1536×1024 RGBA) lies on the summer master (transparent area 42.3 % against 40.2 %) and came out 1.7 L\*
+lighter (L\* 47.4, hue 102); it was graded in code (L\* −1.7, hue +2°, chroma ×1.03) and its colours
+carried onto the summer alpha (dilation 6). Whole RGB 114,112,56 (L\* 45.7, hue 104; summer 120,110,48,
+L\* 45.7, hue 97). Selected: `-season spring -compound art/pipeline/compound-mountain-v3.json` takes the
+newest edit for `tile/mountN_sp`, `mountE_sp`, `mountS_sp`, `mountW_sp`. Attachments: image 1
+`mount-summer-v2.png`, image 2 `grass-spring-v1.png` (grass palette). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a broad, low grassy massif with long rounded slopes, darker scrub bands in the folds and a crest of weathered grey-beige rock slabs seen from straight above (strict nadir, 1536x1024 RGBA cut-out on transparency): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size (1536x1024, 3:2 LANDSCAPE), every outline, the transparent area, the soft semi-transparent fringe and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes, the skirt and every tuft becomes the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white flowers stay as small dandelion-yellow and daisy-white specks.
+- The dark green bushes and scrub clumps turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns a fresh green.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer cut-out (mount-summer-v2) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
 
 ### Autumn massif edit, registered (2026-11-01)
 `mount-autumn-v2.png` (exec-af65f997) is the autumn form of `mount-summer-v2.png`, replacing

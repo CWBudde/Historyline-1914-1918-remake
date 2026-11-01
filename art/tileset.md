@@ -131,5 +131,12 @@ Each compound is one painting with its grounds: lawns, trees and verges.
    non-vegetation pixels. Autumn water is the summer pixels; the pack grade turns the water of every
    `_au` tile to a cooler slate teal. Open: mud and waterStones/waterRocks (on no autumn map).
 3. **Spring**, in the same order.
+   Spring status: grass (base, detail tiles with dandelions, daisies and straw patches, meadow props),
+   stone, forest (crowns, floor, contexts, copses), hills, mountain, mount, stream, shore, lakeside, the
+   boulder, knoll and crater stamps, the compounds (hq, cmp, ruin, factory, the houses) and the airfield
+   are installed, made like autumn's: edits registered onto the summer master that keep its alpha and its
+   non-vegetation pixels. Spring water is the summer pixels without a pack grade. Open: the road, path and
+   cross surfaces draw their summer form (their verges are the spring meadow), and
+   waterStones/waterRocks.
 
 Each step is accepted on one autumn (or spring) map in the game before the next family follows.

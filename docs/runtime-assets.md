@@ -288,7 +288,7 @@ barbedWire, quay, the harbour and the hangar's tent) hold no vegetation, so thei
 (`ShadowID`). Open water, sea and surf follow the background's suffix and fall back to summer; the grade
 darkens the water of every `_au` tile to a cooler slate teal, and takes the season's meadow (`tile/grass_au`, `tile/grass_sp`) and falls back to the summer one, and only
 summer backgrounds sample the world materials. Seasonal scattered crowns and meadow props are their own sheets in
-`art/pipeline/world-kits-v1.json` (`kit/forest/crowns-autumn`, `kit/grass/props-autumn`), since `hl export
+`art/pipeline/world-kits-v1.json` (`kit/forest/crowns-autumn`, `kit/grass/props-autumn`, `kit/forest/crowns-spring`, `kit/grass/props-spring`), since `hl export
 kits -install` owns every `standing/scatter/` entry. `TestWinterMapsDrawNoSummerInfrastructure` fails when a
 family with forms of a map's season still draws in summer. The tile families and their order:
 [art/tileset.md](../art/tileset.md).

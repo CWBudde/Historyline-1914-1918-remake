@@ -4,7 +4,7 @@ title: Headquarters
 kind: terrain
 status: approved
 runtime_ids: hqC, hqC_w, hqN, hqN_w, hqNE, hqNE_w, hqNW, hqNW_w, hqS, hqS_w, hqSE, hqSE_w, hqSW, hqSW_w
-masters: hq-winter-v4.png, hq-summer-v3.png, hq-winter-v3.png, hq-summer-v2.png, hq-winter-v2.png, hq-summer-v1.png, hq-winter-v1.png, hq-autumn-v1.png
+masters: hq-winter-v4.png, hq-summer-v3.png, hq-winter-v3.png, hq-summer-v2.png, hq-winter-v2.png, hq-summer-v1.png, hq-winter-v1.png, hq-autumn-v1.png, hq-spring-v1.png
 ---
 
 ## Look
@@ -37,6 +37,32 @@ The scene is sliced into seven hex crops with shared placements, so pieces join 
 road meets the regular road tile at the north port.
 
 ## Post
+
+### Spring edit (2026-11-01)
+`hq-spring-v1.png` (exec-8a6aec4f) is the spring form of `hq-summer-v3.png` (native 1254x1254 RGBA): the imagegen season edit kept every
+outline and position (registration shift 0,0, alpha IoU 0.993; it also repainted the masonry, which is not kept), and was fitted in code onto the summer
+master: the alpha is the summer's, and the edit's colours replace only the summer vegetation (a green-hue mask, dilated 3 px and softened
+over 5 px); masonry, roofs, streets, water and metal keep the summer pixels. The vegetation is then graded in Lab, weighted by the same
+mask, to L\* 32.8, hue 103 (dL\* −2.6, dh +4; summer vegetation L\* 32.4, hue 100). Verges and shrubs fresh late-April yellow-green with
+sparse dandelion and daisy specks, subtle because the summer HQ green is already yellowish. Mean RGB 124,106,79, L\* 45.0, hue 78
+(summer 124,105,80, L\* 45.0, hue 76). `hl review art -season spring -compound art/pipeline/compound-hq-v4.json` swaps it in for
+`hq-summer-v3.png` and writes `hqC_sp`, `hqN_sp`, `hqNE_sp`, `hqSE_sp`, `hqS_sp`, `hqSW_sp` and `hqNW_sp`; the ground ring is the
+spring meadow (`grass-spring-v1.png`). Attachments: image 1 `hq-summer-v3.png`, image 2 `grass-spring-v1.png` (grass palette only). The
+prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a walled fortress seen from straight above on a 1254x1254 RGBA canvas (transparent outside the fortress): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: the north asphalt road with its white dashed centre line, the moat bridge and its two parapets, the moat water, the boulders, the four round towers with their dark slate cones, the curtain walls and wall walks, the red-tiled gatehouse, the courtyard and its carts, crates, barrels and well, the red-roofed south hall and the bushes. Preserve every outline and position.
+Spring changes only the vegetation:
+- The green grass verges, tufts and moss along the walls, on the moat banks and in the courtyard become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. A few tiny dandelion-yellow and daisy-white specks in the verges.
+- The small palm-like green shrubs and the two bushes behind the south wall turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The moss in the cracks of the walls turns a fresh green. The courtyard earth is slightly damp.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: every stone, wall, tower, roof tile, slate, timber, cart, crate, barrel, the road and its markings, the moat water colour, the light from the upper left, the strict nadir view.
+Outside the fortress outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing or adding anything, blossom clouds, saturated emerald or neon green, a golden or straw cast, autumn colours, snow, frost, a different road, perspective.
+
+Image 1 is the selected summer fortress (hq-summer-v3): change season only, preserve every outline and position. Image 2 is the selected spring meadow of the map: take only its grass colours for the verges and tufts; do not copy its texture or layout.
+```
 
 ### Autumn edit (2026-11-01)
 `hq-autumn-v1.png` (exec-3a700dca) is the autumn form of `hq-summer-v3.png` (native 1254x1254 RGBA): the imagegen season edit kept every

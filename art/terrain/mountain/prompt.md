@@ -4,7 +4,7 @@ title: Rocky knoll
 kind: terrain
 status: approved
 runtime_ids: mountain, mountain_w, stamp/knoll/1/1, standing/stamp/knoll/1/1, stamp/knoll/3_-1.1_-2.2/1, standing/stamp/knoll/3_-1.1_-2.2/1, stamp/knoll_w/1/1, standing/stamp/knoll_w/1/1, stamp/knoll_w/3_-1.1_-2.2/1, standing/stamp/knoll_w/3_-1.1_-2.2/1, stamp/knoll_w/3_2.0_1.1/1, standing/stamp/knoll_w/3_2.0_1.1/1, stamp/knoll_w/4_1.1_0.2_0.4/1, standing/stamp/knoll_w/4_1.1_0.2_0.4/1
-masters: mountain-knoll-single-summer-v1.png, mountain-knoll-group-summer-v1.png, mountain-knoll-single-winter-v1.png, mountain-knoll-group-sw-three-winter-v1.png, mountain-knoll-group-triangle-three-winter-v1.png, mountain-knoll-group-vertical-four-winter-v1.png, mountain-knoll-single-autumn-v1.png, mountain-knoll-group-autumn-v1.png
+masters: mountain-knoll-single-summer-v1.png, mountain-knoll-group-summer-v1.png, mountain-knoll-single-winter-v1.png, mountain-knoll-group-sw-three-winter-v1.png, mountain-knoll-group-triangle-three-winter-v1.png, mountain-knoll-group-vertical-four-winter-v1.png, mountain-knoll-single-autumn-v1.png, mountain-knoll-group-autumn-v1.png, mountain-knoll-single-spring-v1.png, mountain-knoll-group-spring-v1.png
 ---
 
 ## Look
@@ -48,6 +48,57 @@ painting. Summer and winter ground stamp layers are transparent; winter groups u
 standing paintings. Unknown winter shapes retain the compound exports below.
 
 ## Post
+
+### Spring knoll-group edit (2026-11-01)
+
+`mountain-knoll-group-spring-v1.png` (`exec-8277920a`, native 1536×1024 RGBA) is the spring edit of
+`mountain-knoll-group-summer-v1.png`: rocks, bushes and pebbles in place (its alpha matches summer's), the
+vegetation in late-April colours. The edit came out 6 L\* lighter than summer (L\* 47.2); it was graded in
+code (L\* −5.5, hue +2°, chroma ×1.03) and its colours carried onto the summer alpha (dilation 6): whole
+RGB 105,102,43 (L\* 41.7, hue 103; summer 102,101,44, L\* 41.2, hue 104). Selected: the spring
+terrain-stamps export takes it for `standing/stamp/knoll/3_-1.1_-2.2/1_sp`. Attached:
+`mountain-knoll-group-summer-v1.png` and `grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a group of low grassy rocky knolls seen from straight above (strict nadir, 1536x1024 RGBA cut-out on transparency): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size (1536x1024, 3:2 LANDSCAPE), every outline, the transparent area, the soft semi-transparent fringe and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes, the skirt and every tuft becomes the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white flowers stay as small dandelion-yellow and daisy-white specks.
+- The dark green bushes and scrub clumps turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns a fresh green.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer cut-out (mountain-knoll-group-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring single-knoll edit (2026-11-01)
+
+`mountain-knoll-single-spring-v1.png` (`exec-48af1205`, native 1374×1145 RGBA) is the spring edit of
+`mountain-knoll-single-summer-v1.png`: every rock, bush and pebble in place (its alpha matches summer's),
+the vegetation in late-April colours. The edit came out 2 L\* lighter than summer (L\* 43.6, hue 101); it
+was graded in code (L\* −2, hue +2°, chroma ×1.03) and its colours were carried onto the summer alpha
+(dilation 6). Whole RGB 104,102,48 (L\* 41.6, hue 103; summer 104,102,42, L\* 41.4, hue 104). Selected:
+`hl export terrain-stamps -season spring -manifest art/pipeline/feature-stamps-v1.json` takes it for
+`standing/stamp/knoll/1/1_sp`. Attached: `mountain-knoll-single-summer-v1.png` and `grass-spring-v1.png`.
+The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a low grassy rocky knoll seen from straight above (strict nadir, 1374x1145 RGBA cut-out on transparency): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size (1374x1145, 6:5 LANDSCAPE), every outline, the transparent area, the soft semi-transparent fringe and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes, the skirt and every tuft becomes the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white flowers stay as small dandelion-yellow and daisy-white specks.
+- The dark green bushes and scrub clumps turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns a fresh green.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer cut-out (mountain-knoll-single-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
 
 ### Autumn knoll-group edit (2026-11-01)
 

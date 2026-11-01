@@ -4,7 +4,7 @@ title: Depot
 kind: terrain
 status: approved
 runtime_ids: cmpE, cmpE_w, cmpN, cmpN_w, cmpS, cmpS_w, cmpW, cmpW_w
-masters: cmp-summer-v4.png, cmp-winter-v5.png, cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png, cmp-autumn-v1.png
+masters: cmp-summer-v4.png, cmp-winter-v5.png, cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png, cmp-autumn-v1.png, cmp-spring-v1.png
 ---
 
 ## Look
@@ -35,6 +35,32 @@ The scene is sliced into four hex crops with shared placements; the entrance roa
 road tile at the north port.
 
 ## Post
+
+### Spring edit (2026-11-01)
+`cmp-spring-v1.png` (exec-38ae3193) is the spring form of `cmp-summer-v4.png` (native 1536x1024 RGBA): the imagegen season edit kept every
+outline and position (registration shift 0,0, alpha IoU 0.793: the edit filled the soft halo and the notch), and was fitted in code onto the summer
+master: the alpha is the summer's, and the edit's colours replace only the summer vegetation (a green-hue mask, dilated 3 px and softened
+over 5 px); masonry, roofs, streets, water and metal keep the summer pixels. The vegetation is then graded in Lab, weighted by the same
+mask, to L\* 39.1, hue 103 (dL\* +2.7, dh +6; summer vegetation L\* 39.4, hue 98). Lawn patches fresh late-April yellow-green, the star
+shrubs in fresh leaf with the red berries mostly gone; the open lawns are transparent in the master and show the ground ring. A first try
+that named an army depot was refused by the image tool; the prompt calls it a farm and goods yard. Mean RGB 116,105,77, L\* 44.1, hue 89
+(summer 118,105,77, L\* 44.1, hue 86). `hl review art -season spring -compound art/pipeline/compound-depot-v6.json` swaps it in for
+`cmp-summer-v4.png` and writes `cmpN_sp`, `cmpE_sp`, `cmpS_sp` and `cmpW_sp`; the ground ring is the spring meadow
+(`grass-spring-v1.png`). Attachments: image 1 `cmp-summer-v4.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a fenced supply depot (a farm and goods yard) seen from straight above (strict nadir roof plan, 1536x1024 RGBA, true alpha; transparent outside the depot): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: the grey asphalt street with its white dashed centre line, the barrier gate posts and the red-and-white barrier pole, the fence and its stone posts, the sheds, the two red lorries, the white tents, the crates and barrels, the dirt yards and the south hall with its circle marker. Preserve every outline and position.
+Spring changes only the vegetation:
+- The olive-green lawns between the buildings and the soft green meadow fringe at the outline become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. A few tiny dandelion-yellow and daisy-white specks in the lawns.
+- The small green star-shaped shrubs turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside; keep them darker than the grass, as now; the red berries become small dark buds.
+- The dirt yards are slightly damp.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: every roof, plank, canvas, metal, the lorries' red paint, the fence, the street and its markings, the light from the upper left, the strict nadir view.
+Outside the depot outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing or adding anything, blossom clouds, saturated emerald or neon green, a golden or straw cast, autumn colours, snow, frost, perspective.
+
+Image 1 is the selected summer depot (cmp-summer-v4): change season only, preserve every outline and position. Image 2 is the selected spring meadow of the map: take only its grass colours for the lawns and fringe; do not copy its texture or layout.
+```
 
 ### Autumn edit (2026-11-01)
 `cmp-autumn-v1.png` (exec-eac1b9ba) is the autumn form of `cmp-summer-v4.png` (native 1536x1024 RGBA): the imagegen season edit kept every

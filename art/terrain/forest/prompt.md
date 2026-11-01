@@ -4,7 +4,7 @@ title: Forest
 kind: terrain
 status: approved
 runtime_ids: forest, forest_w
-masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png, forest-crowns-winter-v4.png, forest-crowns-autumn-v1.png, forest-floor-autumn-v1.png, forest-oak-autumn-v1.png, forest-beech-autumn-v1.png, forest-birch-autumn-v1.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png, forest-crowns-winter-v4.png, forest-crowns-autumn-v1.png, forest-floor-autumn-v1.png, forest-oak-autumn-v1.png, forest-beech-autumn-v1.png, forest-birch-autumn-v1.png, forest-crowns-spring-v1.png, forest-oak-spring-v1.png, forest-beech-spring-v1.png, forest-birch-spring-v1.png
 ---
 
 ## Look
@@ -35,6 +35,89 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Spring birch atlas edit (2026-11-01)
+
+`forest-birch-spring-v1.png` (`exec-76fa5919`, native 1254×1254 RGBA, unchanged) is the spring edit of
+`forest-birch-summer-v4.png`: the same four crowns in light yellow-green leaf; mean 98,101,43, L\* 40.1, hue 108 (summer 36.2, hue 113); coverage 161,621 px (summer 183,689).
+The seasonal `-forest-layered` export reads it for `standing/context/forest/<key>_sp` and
+`standing/props/trees/<n>_sp`. Selected; first try.
+Attached: the summer atlas as the edit target and a crop of the 1918-04 backdrop for colour only.
+The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 2x2 crown atlas (image 1); keep its 1254x1254 canvas, its four cells, every crown centre, every outline and footprint exactly, and the alpha-zero space around the crowns. Change the season only: late April on the Western Front, the same four broadleaf crowns in fresh spring leaf, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+All four crowns are birch: small fresh leaves, light yellow-green sprays with a hint of lime, a little more open than in summer; mean about RGB 100,110,48, lit sprays about RGB 180,190,95, shade about RGB 36,42,18.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the shaded half and the recesses between lobes deep and dark; the crowns may be up to 5 L* lighter overall than image 1, not more. Muted, painted, natural spring colours, yellower and lighter than summer.
+Avoid: blossom, pink or white flowers, saturated or neon lime, emerald or blue-green, uniform colour per crown, autumn colours, red, orange, fully bare trees, branches outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer birch crown atlas (the edit target): keep its 1254x1254 RGBA canvas, its 2x2 cells, every crown centre and outline footprint and the alpha-zero space; change the season only. Image 2 is a crop of a painted spring map of the same game, for the light fresh green of its broadleaf crowns only; ignore its conifers, its ground, its water and its arrangement.
+```
+
+
+### Spring beech atlas edit (2026-11-01)
+
+`forest-beech-spring-v1.png` (`exec-629ebfa0`, native 1254×1254 RGBA, unchanged) is the spring edit of
+`forest-beech-summer-v4.png`: the same four crowns in fresh yellow-green leaf; mean 99,106,38, L\* 41.9, hue 110 (summer 32.0, hue 113); coverage 291,733 px (summer 284,443).
+Fault: 10 L\* lighter than summer, above the asked 5.
+The seasonal `-forest-layered` export reads it for `standing/context/forest/<key>_sp` and
+`standing/props/trees/<n>_sp`. Selected; first try.
+Attached: the summer atlas as the edit target and a crop of the 1918-04 backdrop for colour only.
+The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 2x2 crown atlas (image 1); keep its 1254x1254 canvas, its four cells, every crown centre, every outline and footprint exactly, and the alpha-zero space around the crowns. Change the season only: late April on the Western Front, the same four broadleaf crowns in fresh spring leaf, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+All four crowns are beech: fresh new beech leaves, light clear yellow-green, luminous but muted, not neon; mean about RGB 92,108,40, lit lobes about RGB 170,190,85, shade about RGB 30,40,14.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the shaded half and the recesses between lobes deep and dark; the crowns may be up to 5 L* lighter overall than image 1, not more. Muted, painted, natural spring colours, yellower and lighter than summer.
+Avoid: blossom, pink or white flowers, saturated or neon lime, emerald or blue-green, uniform colour per crown, autumn colours, red, orange, fully bare trees, branches outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer beech crown atlas (the edit target): keep its 1254x1254 RGBA canvas, its 2x2 cells, every crown centre and outline footprint and the alpha-zero space; change the season only. Image 2 is a crop of a painted spring map of the same game, for the light fresh green of its broadleaf crowns only; ignore its conifers, its ground, its water and its arrangement.
+```
+
+
+### Spring oak atlas edit (2026-11-01)
+
+`forest-oak-spring-v1.png` (`exec-d200f716`, native 1254×1254 RGBA, unchanged) is the spring edit of
+`forest-oak-summer-v4.png`: the same four crowns in khaki-bronze young leaves; mean 93,86,38, L\* 35.3, hue 98 (summer 35.2, hue 114); coverage 316,997 px (summer 314,260).
+The seasonal `-forest-layered` export reads it for `standing/context/forest/<key>_sp` and
+`standing/props/trees/<n>_sp`. Selected; first try.
+Attached: the summer atlas as the edit target and a crop of the 1918-04 backdrop for colour only.
+The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 2x2 crown atlas (image 1); keep its 1254x1254 canvas, its four cells, every crown centre, every outline and footprint exactly, and the alpha-zero space around the crowns. Change the season only: late April on the Western Front, the same four broadleaf crowns in fresh spring leaf, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+All four crowns are oak; oaks leaf out late. Thin young leaves, soft olive-bronze and khaki with some yellow-green, the crown a little more open, with small grey-brown gaps of bare twigs showing inside the crown (never outside the outline); mean about RGB 82,80,44, lit lobes about RGB 150,140,80, shade about RGB 30,30,16.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the shaded half and the recesses between lobes deep and dark; the crowns may be up to 5 L* lighter overall than image 1, not more. Muted, painted, natural spring colours, yellower and lighter than summer.
+Avoid: blossom, pink or white flowers, saturated or neon lime, emerald or blue-green, uniform colour per crown, autumn colours, red, orange, fully bare trees, branches outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer oak crown atlas (the edit target): keep its 1254x1254 RGBA canvas, its 2x2 cells, every crown centre and outline footprint and the alpha-zero space; change the season only. Image 2 is a crop of a painted spring map of the same game, for the light fresh green of its broadleaf crowns only; ignore its conifers, its ground, its water and its arrangement.
+```
+
+
+### Spring crown sheet edit (2026-11-01)
+
+`forest-crowns-spring-v1.png` (`exec-04968eaa`, native 1254×1254 RGBA, unchanged) is the spring edit of the
+F2 sheet `forest-crowns-summer-v6.png`: the nine crowns in spring leaf, the species apart by hue (oak row
+102–104, beech 110–112, birch 107–109). Mean 87,90,37, L\* 36.1, hue 108; the summer sheet 64,72,34,
+L\* 28.4, hue 116, so 8 L\* lighter, more than the asked 5. `hl export kits` grades it (sheet 68,72,29, oak
+cells 65,63,29, beech cells 66,73,26, birch cells 74,77,32) for the spring scatter kit
+`kit/forest/crowns-spring` (`standing/scatter/crown/<species>-<size>_sp`). Fault: the crowns grew
+(coverage 283,542 px against 229,800, +23 %; the small birch cell 3.4×), and the master keeps the edit's
+own alpha. Selected; first try. Attached: the summer sheet as the edit target and a meadow and tree crop
+of the 1918-04 backdrop for colour only. The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 3x3 crown sheet (image 1); keep its 1254x1254 canvas, its cells, every crown centre, every outline and footprint exactly, and the alpha-zero gutters. Change the season only: late April on the Western Front, the same nine broadleaf crowns in fresh spring leaf, seen strictly from above, same leaf masses, same lobes and notches, same upper-left light and the same dark shaded lower-right half.
+The three species must differ clearly, as they leaf out at different times.
+Row 1 (oak): oaks leaf out late. Thin young leaves, soft olive-bronze and khaki with some yellow-green, the crown a little more open, with small grey-brown gaps of bare twigs showing inside the crown (never outside the outline); mean about RGB 82,80,44, lit lobes about RGB 150,140,80, shade about RGB 30,30,16.
+Row 2 (beech): fresh new beech leaves, light clear yellow-green, the most luminous of the three, but muted, not neon; mean about RGB 92,108,40, lit lobes about RGB 170,190,85, shade about RGB 30,40,14.
+Row 3 (birch): small fresh leaves, light yellow-green sprays with a hint of lime, a little more open than in summer; mean about RGB 100,110,48, lit sprays about RGB 180,190,95, shade about RGB 36,42,18.
+Each crown is mixed, not one flat colour: neighbouring lobes differ in tone. Keep the shaded half and the recesses between lobes deep and dark; the crowns may be up to 5 L* lighter overall than image 1 (image 1 averages RGB 64,72,34), not more. Muted, painted, natural spring colours, yellower and lighter than summer.
+Avoid: blossom, pink or white flowers, saturated or neon lime, emerald or blue-green, uniform colour per crown, autumn colours, red, orange, fully bare trees, branches outside the crowns, conifers, changed outlines, moved or resized crowns, ground, shadow mats, halos, glow, checkerboard, text.
+
+Image 1 is the selected summer crown sheet (the edit target): keep its 1254x1254 RGBA canvas, its 3x3 cells, every crown centre and outline footprint and the alpha-zero gutters; change the season only. Image 2 is a crop of a painted spring map of the same game, for the light fresh green of its broadleaf crowns only; ignore its conifers, its ground, its water and its arrangement.
+```
+
 
 ### Look 8 autumn birch atlas v1 (2026-10-31)
 
