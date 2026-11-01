@@ -11,10 +11,31 @@ JPEG with `just hl levels backdrop jpeg <month>`. Run `just hl levels backdrop c
 and review the painting in the game with units at normal and close zoom before
 ticking its box.
 
+For a missing pair, create a tile-render placeholder with
+`just hl levels backdrop jpeg -placeholder <month>`. It renders the current CP
+ground without units at 1.72 image pixels per world pixel (1.41 for maps that would
+exceed 40 megapixels) and writes both backdrop files; it refuses to replace either
+existing file. Keep sources below GitHub's 100 MiB file limit. Verify the PNG/JPEG with
+`just hl levels backdrop check`, then move the month's unchecked item to the bottom
+placeholder section. A placeholder still awaits painting; keep its box unchecked.
+
+Keep all additional scripts and code for backpaint work in
+`internal/hlbackdrop/cli.go`, exposed through the unified `hl` CLI; do not add
+standalone tools.
+
 ## Missing backpaints
 
-These 24 levels have neither `backdrop.png` nor `backdrop.jpg`.
+None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
+## Placeholders awaiting painting
+
+These 25 backpaints are tile-render placeholders, still awaiting painting and
+in-game review. The 24 newly added pairs passed the source/JPEG check; their
+dimensions match their current maps and every source is below 100 MiB.
+`1918-07` and `1918-11` use 1.41 image pixels per world pixel; the others use 1.72.
+
+- [ ] [1918-10](levels/1918-10/) — the existing Flanders placeholder described in
+      [Painted backdrops](docs/painted-backdrops.md).
 - [ ] [1915-03](levels/1915-03/)
 - [ ] [1915-05](levels/1915-05/)
 - [ ] [1915-07](levels/1915-07/)
@@ -39,8 +60,3 @@ These 24 levels have neither `backdrop.png` nor `backdrop.jpg`.
 - [ ] [1918-08](levels/1918-08/)
 - [ ] [1918-09](levels/1918-09/)
 - [ ] [1918-11](levels/1918-11/)
-
-## Placeholder awaiting painting
-
-- [ ] [1918-10](levels/1918-10/) — both backdrop files exist, but contain the tile-render
-  placeholder described in [Painted backdrops](docs/painted-backdrops.md).
