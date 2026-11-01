@@ -4,6 +4,8 @@ import (
 	"slices"
 	"strings"
 	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 )
 
 var sharedShoreTestIDs = []string{
@@ -46,9 +48,30 @@ func TestWinterMaterialContextsBesideSharedShores(t *testing.T) {
 	}
 }
 
-func TestWinterBoundaryRejectsUnknownAndMixedSeasonNeighbors(t *testing.T) {
+// A summer neighbour of a winter hex, a hex drawn in another season, reaches
+// it as its winter form.
+func TestWinterBoundaryContinuesSummerNeighbors(t *testing.T) {
+	descriptor := func(terrain, neighbor string) string {
+		g, at := grid(terrain+" "+neighbor, terrain, terrain+" "+terrain)
+		for _, gap := range Compose(g, at, none).Gaps {
+			if gap.At.Line == 1 {
+				return gap.Descriptor
+			}
+		}
+		return ""
+	}
 	for _, terrain := range []string{"rough_w", "forest_w"} {
-		for _, neighbor := range []string{"grass", "house", "forest", "lakeside999", "lakeside12_w"} {
+		for neighbor, winter := range map[string]string{"grass": "grass_w", "house": data.InSeason("house", "winter"), "forest": "forest_w"} {
+			if got, want := descriptor(terrain, neighbor), descriptor(terrain, winter); got == "" || got != want {
+				t.Errorf("%s beside %s: %q, beside %s %q", terrain, neighbor, got, winter, want)
+			}
+		}
+	}
+}
+
+func TestWinterBoundaryRejectsUnknownNeighbors(t *testing.T) {
+	for _, terrain := range []string{"rough_w", "forest_w"} {
+		for _, neighbor := range []string{"lakeside999", "lakeside12_w"} {
 			t.Run(terrain+"/"+neighbor, func(t *testing.T) {
 				g, at := grid(terrain+" "+neighbor, terrain, terrain+" "+terrain)
 				s := Compose(g, at, none)

@@ -55,21 +55,11 @@ func (r *Renderer) RenderBackdrop(lvl *level.Level, density int, backdrop image.
 			}
 			bg, _, overlays, _ := scene.Layers(at, all)
 			if bg != "" {
-				terrain := lvl.Lines[line][col].Terrain
-				switch {
-				case depth.Signature(at) != "":
-					if err := r.drawDeep(m.Image, bg, at, density, depth); err != nil {
-						return Map{}, err
-					}
-				case r.materials[density] != nil && materialGround(terrain, bg):
-					if err := r.drawMaterial(m.Image, bg, at, density, field); err != nil {
-						return Map{}, err
-					}
-				default:
-					if err := r.draw(m.Image, bg, at, density); err != nil {
-						return Map{}, err
-					}
+				p, err := r.ground(bg, at, density, depth, field, lvl.Lines[line][col].Terrain)
+				if err != nil {
+					return Map{}, err
 				}
+				drawPart(m.Image, p)
 			}
 			for _, id := range overlays {
 				if err := r.draw(m.Image, id, at, density); err != nil {

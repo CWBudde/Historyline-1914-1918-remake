@@ -97,7 +97,8 @@ just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin
   (`docs/runtime-assets.md`). `internal/maprender` draws a whole level with the runtime art (the art book's
   PULSE map, the PULSE study of `hl review gallery`). `internal/waterdepth` shades open water by the original's depths
   (`water`, `waterDeep`, `waterSea`) as one smooth field, blends in the open sea's material and lays surf
-  along sea coasts, in the game and in `maprender`.
+  along sea coasts, in the game and in `maprender`. `internal/seasonblend` blends the borders between hexes
+  drawn in different seasons by a noisy weight field, in the game and in `maprender`.
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
   tool tests. `hl review gallery` (`internal/hlgallery`) is the local comparison desk (`just gfx-game-review`). `tools/candidate-review`

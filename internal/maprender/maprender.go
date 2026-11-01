@@ -22,6 +22,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/seasonblend"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
@@ -122,10 +123,11 @@ func New(assets fs.FS) (*Renderer, error) {
 }
 
 // materialGround reports whether background id of a hex of terrain samples the
-// world material: a summer meadow or hills background, not its autumn or
-// spring form.
+// world material: a summer meadow or hills background, not its autumn,
+// spring or winter form, also on a hex drawn in summer on a winter map.
 func materialGround(terrain, id string) bool {
-	return mapcompose.IDSeason(id) == mapcompose.Summer && (terrain == "grass" || terrain == "hills")
+	kind := data.Kind(terrain)
+	return mapcompose.IDSeason(id) == mapcompose.Summer && (kind == "grass" || kind == "hills")
 }
 
 // Size returns the logical (1x) pixel size of a grid's map.
@@ -142,6 +144,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	field := mapmaterial.New(lvl)
 	scene := mapcompose.ComposeSeason(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] }, mapcompose.SeasonAt(lvl))
 	depth := waterdepth.New(lvl, &scene)
+	blend := seasonblend.New(lvl, func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
 	// Backgrounds, cluster stamps with the ground props, infrastructure, shadows and
@@ -151,12 +154,22 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 		for line, cells := range scene.Cells {
 			for col := range cells {
 				at := hexgrid.Coord{Line: line, Col: col}
-				bg, stamp, overlays, standing := scene.Layers(at, all)
-				var shadows []string
-				if pass == 3 {
-					shadows = scene.ShadowsAt(at, all)
+				terrain := lvl.Lines[line][col].Terrain
+				layer := func(s *mapcompose.Scene) ([]seasonblend.Part, error) {
+					bg, _, overlays, standing := s.Layers(at, all)
+					var parts []seasonblend.Part
+					for _, id := range [5][]string{{bg}, nil, overlays, nil, standing}[pass] {
+						if id == "" {
+							continue
+						}
+						p, err := r.part(id, at, density, pass == 0, depth, field, terrain)
+						if err != nil {
+							return nil, err
+						}
+						parts = append(parts, p)
+					}
+					return parts, nil
 				}
-				ids := [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass]
 				var scattered []mapcompose.Placed
 				switch pass {
 				case 1:
@@ -166,25 +179,38 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 				case 4:
 					scattered = scene.ScatterAt(at, all)
 				}
-				for _, id := range ids {
-					if id == "" {
-						continue
-					}
-					if pass == 0 && depth.Signature(at) != "" {
-						if err := r.drawDeep(m.Image, id, at, density, depth); err != nil {
+				if seasons := blend.Seasons(at); seasons != nil && pass != 1 && pass != 3 {
+					layers := make([][]seasonblend.Part, len(seasons))
+					for i, s := range seasons {
+						var err error
+						if layers[i], err = layer(blend.Scenes[s]); err != nil {
 							return Map{}, err
 						}
-						continue
 					}
-					terrain := lvl.Lines[line][col].Terrain
-					if pass == 0 && r.materials[density] != nil && materialGround(terrain, id) {
-						if err := r.drawMaterial(m.Image, id, at, density, field); err != nil {
+					if mixed := blend.Mix(at, layers, density); mixed != nil {
+						drawPart(m.Image, seasonblend.Part{Image: mixed, At: mixed.Bounds().Min})
+					}
+					if pass == 4 {
+						scattered, _ = blend.Scattered(at, func(s *mapcompose.Scene) []mapcompose.Placed { return s.ScatterAt(at, all) })
+					}
+				} else {
+					if pass == 1 && blend.Seasons(at) != nil {
+						scattered, _ = blend.Scattered(at, func(s *mapcompose.Scene) []mapcompose.Placed { return s.GroundAt(at, all) })
+					}
+					bg, stamp, overlays, standing := scene.Layers(at, all)
+					var shadows []string
+					if pass == 3 {
+						shadows = scene.ShadowsAt(at, all)
+					}
+					for _, id := range [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass] {
+						if id == "" {
+							continue
+						}
+						p, err := r.part(id, at, density, pass == 0, depth, field, terrain)
+						if err != nil {
 							return Map{}, err
 						}
-						continue
-					}
-					if err := r.draw(m.Image, id, at, density); err != nil {
-						return Map{}, err
+						drawPart(m.Image, p)
 					}
 				}
 				for _, p := range scattered {
@@ -293,6 +319,24 @@ func (r *Renderer) source(e Entry) (image.Image, error) {
 	}
 	r.cache[e.Path] = im
 	return im, nil
+}
+
+// part is drawn ID id of hex at, a background (ground) as ground draws it.
+func (r *Renderer) part(id string, at hexgrid.Coord, density int, background bool, depth *waterdepth.Field, field *mapmaterial.Field, terrain string) (seasonblend.Part, error) {
+	if background {
+		return r.ground(id, at, density, depth, field, terrain)
+	}
+	e, im, err := r.assetImage(id, density)
+	if err != nil {
+		return seasonblend.Part{}, err
+	}
+	return seasonblend.Part{Image: im, At: origin(e, at, density)}, nil
+}
+
+// drawPart draws p over dst.
+func drawPart(dst draw.Image, p seasonblend.Part) {
+	b := p.Image.Bounds()
+	draw.Draw(dst, b.Sub(b.Min).Add(p.At), p.Image, b.Min, draw.Over)
 }
 
 func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int) error {

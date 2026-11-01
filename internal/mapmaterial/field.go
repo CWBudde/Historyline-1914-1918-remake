@@ -6,6 +6,7 @@ import (
 	"math"
 	"strings"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
@@ -36,7 +37,7 @@ func New(lvl *level.Level) *Field {
 	}
 	for line, row := range lvl.Lines {
 		for col, h := range row {
-			if h.Terrain == "hills" {
+			if data.Kind(h.Terrain) == "hills" { // also rough_w, for a hex drawn in summer on a winter map
 				f.hills[hexgrid.Coord{Line: line, Col: col}] = true
 			}
 		}

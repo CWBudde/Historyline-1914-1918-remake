@@ -81,8 +81,10 @@ func TestMaterialBackgroundEligibility(t *testing.T) {
 	for _, terrain := range []string{"grass", "hills", "grass_w", "hills_w", "water", "forest"} {
 		m := &terrainMaterials{level: &level.Level{Lines: [][]level.Hex{{{Terrain: terrain}}}}}
 		c := hexgrid.Coord{}
-		want := terrain == "grass" || terrain == "hills"
-		if m.eligible(c, "background") != want {
+		// A summer background samples the material also on a winter map's
+		// hex drawn in summer; a winter background never does.
+		want := terrain != "water" && terrain != "forest"
+		if m.eligible(c, "background") != want || m.eligible(c, "background_w") {
 			t.Fatalf("terrain %s", terrain)
 		}
 		if m.eligible(c, mapcompose.TileID("unseen")) {

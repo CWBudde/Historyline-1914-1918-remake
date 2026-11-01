@@ -13,6 +13,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/seasonblend"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -40,6 +41,7 @@ type terrainArt struct {
 	*artPacks
 	materials *terrainMaterials
 	depth     *depthTiles // the water backgrounds shaded by depth
+	blend     *blendTiles // the layers mixed at season borders; nil in one season
 	scene     mapcompose.Scene
 	group     map[string]string // asset ID → pack group
 	// dim holds the remembered look of each texture drawn dimmed so far.
@@ -108,6 +110,34 @@ func (a *terrainArt) present(id string) error {
 func (a *terrainArt) compose(lvl *level.Level) error {
 	has := func(id string) bool { return a.present(id) == nil }
 	s := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), has, mapcompose.SeasonAt(lvl))
+	if err := a.drawable(&s); err != nil {
+		return err
+	}
+	blend := seasonblend.New(lvl, has)
+	if blend != nil {
+		for _, scene := range blend.Scenes {
+			if err := a.drawable(scene); err != nil {
+				return err
+			}
+		}
+	}
+	a.scene = s
+	if a.depth != nil {
+		a.depth.release(a)
+	}
+	a.depth = &depthTiles{field: waterdepth.New(lvl, &a.scene), tiles: map[depthKey]*ebiten.Image{}}
+	if a.blend != nil {
+		a.blend.release(a)
+		a.blend = nil
+	}
+	if blend != nil {
+		a.blend = &blendTiles{blend: blend, tiles: map[blendKey]blendTile{}}
+	}
+	return nil
+}
+
+// drawable checks that the catalog has every ID scene s draws.
+func (a *terrainArt) drawable(s *mapcompose.Scene) error {
 	var ids []string
 	for _, line := range s.Cells {
 		for _, c := range line {
@@ -125,11 +155,6 @@ func (a *terrainArt) compose(lvl *level.Level) error {
 			return err
 		}
 	}
-	a.scene = s
-	if a.depth != nil {
-		a.depth.release(a)
-	}
-	a.depth = &depthTiles{field: waterdepth.New(lvl, &a.scene), tiles: map[depthKey]*ebiten.Image{}}
 	return nil
 }
 
@@ -283,7 +308,9 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 	for _, c := range cells {
 		bg, _, _, _, dim := terrainLayers(s, c, g.fogOf)
 		sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
-		g.drawTerrainTile(dst, bg, sx, sy, dim, g.materialHex(c), false)
+		if !g.drawBlended(dst, c, 0, sx, sy, false) {
+			g.drawTerrainTile(dst, bg, sx, sy, dim, g.materialHex(c), false)
+		}
 	}
 	for pass := range 5 {
 		for _, c := range cells {
@@ -293,17 +320,23 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 				shadows, _ = terrainShadows(s, c, g.fogOf)
 			}
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
-			for _, id := range [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass] {
-				if id != "" {
-					var at *hexgrid.Coord
-					if pass == 0 {
-						at = g.materialHex(c)
+			if pass == 1 || pass == 3 || !g.drawBlended(dst, c, pass, sx, sy, true) {
+				for _, id := range [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass] {
+					if id != "" {
+						var at *hexgrid.Coord
+						if pass == 0 {
+							at = g.materialHex(c)
+						}
+						g.drawTerrainTile(dst, id, sx, sy, dim, at, true)
 					}
-					g.drawTerrainTile(dst, id, sx, sy, dim, at, true)
 				}
 			}
 			if layer := scatterLayers[pass]; layer != nil {
 				scattered, dim := terrainScatter(s, c, g.fogOf, layer)
+				if pass != 3 && g.blendSeasons(c) != nil {
+					known := knownClusters(g.fogOf)
+					scattered, _ = g.terrain.blend.blend.Scattered(c, func(s *mapcompose.Scene) []mapcompose.Placed { return layer(s, c, known) })
+				}
 				cx, cy := hexgrid.Center(c)
 				for _, p := range scattered {
 					px, py := g.cam.WorldToScreen(cx+p.X, cy+p.Y)

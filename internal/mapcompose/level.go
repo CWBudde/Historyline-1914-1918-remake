@@ -25,3 +25,14 @@ func LevelHex(l *level.Level) func(hexgrid.Coord) Hex {
 		return out
 	}
 }
+
+// LevelHexIn reads the hexes of l as LevelHex does, every hex in season s:
+// the scene a season border blends into (internal/seasonblend).
+func LevelHexIn(l *level.Level, s Season) func(hexgrid.Coord) Hex {
+	at := LevelHex(l)
+	return func(c hexgrid.Coord) Hex {
+		out := at(c)
+		out.Terrain, out.Season = data.InSeason(data.Kind(out.Terrain), string(s)), s
+		return out
+	}
+}
