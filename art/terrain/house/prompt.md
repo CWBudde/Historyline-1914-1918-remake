@@ -4,7 +4,7 @@ title: House
 kind: terrain
 status: approved
 runtime_ids: house, house_w, house2, house2_w, house3, house3_w, house4, house4_w, house5, house5_w, house6, house6_w
-masters: house-summer-v2.png, house-winter-v2.png, house-summer-v1.png, house-winter-v1.png, house-longhouse-summer-v1.png, house-longhouse-winter-v1.png, house-cottage-summer-v1.png, house-cottage-winter-v1.png, house-stonefarm-summer-v1.png, house-stonefarm-winter-v1.png, house-courtyard-summer-v1.png, house-courtyard-winter-v1.png, house-windmill-summer-v1.png, house-windmill-winter-v1.png, house-autumn-v1.png, house-longhouse-autumn-v1.png, house-cottage-autumn-v1.png, house-stonefarm-autumn-v1.png, house-courtyard-autumn-v1.png, house-windmill-autumn-v1.png
+masters: house-summer-v2.png, house-winter-v2.png, house-summer-v1.png, house-winter-v1.png, house-longhouse-summer-v1.png, house-longhouse-winter-v1.png, house-cottage-summer-v1.png, house-cottage-winter-v1.png, house-stonefarm-summer-v1.png, house-stonefarm-winter-v1.png, house-courtyard-summer-v1.png, house-courtyard-winter-v1.png, house-windmill-summer-v1.png, house-windmill-winter-v1.png, house-autumn-v1.png, house-longhouse-autumn-v1.png, house-cottage-autumn-v1.png, house-stonefarm-autumn-v1.png, house-courtyard-autumn-v1.png, house-windmill-autumn-v1.png, house-spring-v1.png, house-longhouse-spring-v1.png, house-cottage-spring-v1.png, house-stonefarm-spring-v1.png, house-courtyard-spring-v1.png, house-windmill-spring-v1.png
 ---
 
 ## Look
@@ -48,6 +48,130 @@ The building sits inside the hex with meadow around it; only the shared seasonal
 hex edges.
 
 ## Post
+
+### Spring house variant house6 edit (2026-11-01)
+`house-windmill-spring-v1.png` (exec-0c53ed20) is the spring form of `house-windmill-summer-v1.png`: the edit (native 1536×1024
+RGBA, registered: scale 0.999, no shift), its vegetation graded in Lab to the summer lightness (dL\* −2.0, dh +7, chroma 1.1, with a floor
+for dark haze pixels), taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and softened; buildings, roofs, walls,
+yard, track and objects keep their summer pixels) with the summer alpha. Meadow and mound fresh late-April yellow-green, trees and bushes
+in light new leaf; vegetation L\* 37.5, hue 103.2 (summer 37.6, 102.8); whole RGB 101,96,45 (L\* 39.5, hue 100; summer 102,96,44,
+L\* 39.6). The mound's light relief is a little flatter than in summer. Selected: `-season spring -compound
+art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house6_sp`. Attachments: image 1
+`house-windmill-summer-v1.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a timber post windmill with four long lattice sails in an X on a low grassy mound, beside a whitewashed cottage with a grey-brown thatched roof, a sack cart and flour sacks, bushes and a meadow around.
+Change the season of image 1 from summer to a mild late-April day on the Western Front and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 157 to 1403 and y 87 to 935 (1246x848 px, 48 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush gets fresh light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the crown; keep them darker than the grass, as now. Willows get pale yellow-green new leaves; conifers stay dark green; vegetable-plot leaves become small fresh green seedlings on slightly damp earth. The lawn, the grassy mound and the meadow become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; the white and yellow wildflowers stay as a few small dandelion-yellow and daisy-white specks. Green moss on the roofs becomes a fresh green moss. Bare earth slightly damp. Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, resized, enlarged or added objects, changed roof or wall colours, blossom or blossom clouds, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit (house-windmill-summer-v1); change the season only, preserve every outline and position. Image 2 is the selected spring meadow material (grass-spring-v1): palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Spring house variant house5 edit (2026-11-01)
+`house-courtyard-spring-v1.png` (exec-d7ff8903) is the spring form of `house-courtyard-summer-v1.png`: the edit (native 1536×1024
+RGBA with a hazy edge, alpha IoU 0.91; registered: scale 1.001, no shift), its vegetation graded in Lab to the summer lightness
+(dL\* −5.2, dh +5, with a floor for dark haze pixels), taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; buildings, roofs, walls, yard, track and objects keep their summer pixels) with the summer alpha. Meadow fresh late-April
+yellow-green, willows and bushes in light new leaf; vegetation L\* 33.3, hue 103.1 (summer 33.5, 102.8); whole RGB 92,80,42 (L\* 33.8,
+hue 91; summer 93,80,43, L\* 33.9). Selected: `-season spring -compound art/pipeline/compound-hamlet-variants-v1.json` takes it for
+`tile/house5_sp`. Attachments: image 1 `house-courtyard-summer-v1.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt
+was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a Flemish courtyard farm, four low brick wings with dark red-brown pantile roofs, one thatched in grey-brown straw, round a square cobbled yard with a dung heap, a dovecote and two pollard willows outside, bushes and a meadow around.
+Change the season of image 1 from summer to a mild late-April day on the Western Front and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 234 to 1374 and y 66 to 919 (1140x853 px, 47 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush gets fresh light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the crown; keep them darker than the grass, as now. Willows get pale yellow-green new leaves; conifers stay dark green; vegetable-plot leaves become small fresh green seedlings on slightly damp earth. The lawn and meadow become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; the white and yellow wildflowers stay as a few small dandelion-yellow and daisy-white specks. Green moss on the roofs becomes a fresh green moss. Bare earth slightly damp. Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, resized, enlarged or added objects, changed roof or wall colours, blossom or blossom clouds, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit (house-courtyard-summer-v1); change the season only, preserve every outline and position. Image 2 is the selected spring meadow material (grass-spring-v1): palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Spring house variant house4 edit (2026-11-01)
+`house-stonefarm-spring-v1.png` (exec-17c11e66) is the spring form of `house-stonefarm-summer-v1.png`: the edit (native 1536×1024
+RGBA on an opaque haze ground, registered: scale 1.001, no shift), its vegetation graded in Lab to the summer lightness (dL\* −4.6,
+dh +6, chroma 1.05, with a floor for dark haze pixels), taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; buildings, roofs, walls, yard, track and objects keep their summer pixels) with the summer alpha. Meadow fresh late-April
+yellow-green, trees in new leaf with sparse grey-brown twigs; vegetation L\* 34.5, hue 103.0 (summer 34.4, 103.3); whole RGB 97,88,46
+(L\* 36.7, hue 95; summer 97,88,46, L\* 36.6). Selected: `-season spring -compound art/pipeline/compound-hamlet-variants-v1.json` takes
+it for `tile/house4_sp`. Attachments: image 1 `house-stonefarm-summer-v1.png`, image 2 `grass-spring-v1.png` (grass palette only). The
+prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a grey stone house and barn in an L with weathered grey-brown tile roofs, a dry-stone wall closing the yard, a cart and a woodpile, trees, bushes and a meadow around.
+Change the season of image 1 from summer to a mild late-April day on the Western Front and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 196 to 1363 and y 57 to 973 (1167x916 px, 51 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush gets fresh light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the crown; keep them darker than the grass, as now. Willows get pale yellow-green new leaves; conifers stay dark green; vegetable-plot leaves become small fresh green seedlings on slightly damp earth. The lawn and meadow become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; the white and yellow wildflowers stay as a few small dandelion-yellow and daisy-white specks. Green moss on the roofs and the dry-stone wall becomes a fresh green moss. Bare earth slightly damp. Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, resized, enlarged or added objects, changed roof or wall colours, blossom or blossom clouds, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit (house-stonefarm-summer-v1); change the season only, preserve every outline and position. Image 2 is the selected spring meadow material (grass-spring-v1): palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Spring house variant house3 edit (2026-11-01)
+`house-cottage-spring-v1.png` (exec-f731d0d2) is the spring form of `house-cottage-summer-v1.png`: the edit (native 1374×1145
+RGBA, registered: scale 1.001, shift 1,0 px), its vegetation graded in Lab to the summer lightness (dL\* −3.6, dh +1, with a floor for
+dark haze pixels), taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and softened; buildings, roofs, walls,
+yard, track and objects keep their summer pixels) with the summer alpha. Meadow fresh late-April yellow-green, willows pale new leaf,
+seedlings in the plot; vegetation L\* 35.2, hue 103.4 (summer 35.2, 104.3); whole RGB 91,87,48 (L\* 36.0, hue 100; summer 91,87,49,
+L\* 36.0). Selected: `-season spring -compound art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house3_sp`.
+Attachments: image 1 `house-cottage-summer-v1.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1374x1145, strict nadir roof plan: a whitewashed Flemish cottage with a grey slate hipped roof and a chimney, a tarred barn with a cart and a log pile, a straw haystack, two pollard willows by a small ditch with duckweed at the top, a fenced vegetable plot at the lower left, a large bush at the left, a forked cart track and a meadow around.
+Change the season of image 1 from summer to a mild late-April day on the Western Front and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1374x1145, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 44 to 1332 and y 34 to 1099 (1288x1065 px, 61 percent of the canvas); keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. Every deciduous tree and bush gets fresh light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the crown; keep them darker than the grass, as now. Willows get pale yellow-green new leaves; conifers stay dark green; vegetable-plot leaves become small fresh green seedlings on slightly damp earth. The lawn and meadow become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; the white and yellow wildflowers stay as a few small dandelion-yellow and daisy-white specks. Green moss on the roofs becomes a fresh green moss. Bare earth slightly damp; water unchanged. Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, resized, enlarged or added objects, changed roof or wall colours, blossom or blossom clouds, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit (house-cottage-summer-v1); change the season only, preserve every outline and position. Image 2 is the selected spring meadow material (grass-spring-v1): palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Spring house variant house2 edit (2026-11-01)
+`house-longhouse-spring-v1.png` (exec-2df50c48) is the spring form of `house-longhouse-summer-v1.png`: the edit (native 1536×1024
+RGBA with 32 % partial alpha in its haze, registered: scale 0.999, no shift), its vegetation graded in Lab to the summer lightness
+(dL\* −4.8, dh +5, with a floor for dark haze pixels), taken where the summer pixel is vegetation (a green-hue mask, dilated 3 px and
+softened; roof, walls, trough, yard and track keep their summer pixels) with the summer alpha. Meadow fresh late-April yellow-green,
+apple tree and bushes in light new leaf; the red apples stay (summer pixels outside the green mask), odd for April but small. Vegetation
+L\* 36.1, hue 102.6 (summer 36.2, 101.8); whole RGB 101,87,44 (L\* 37.0, hue 90; summer 102,87,43, L\* 37.1). Selected: `-season spring
+-compound art/pipeline/compound-hamlet-variants-v1.json` takes it for `tile/house2_sp`. Attachments: image 1
+`house-longhouse-summer-v1.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer farmstead cut-out of a top-down WWI strategy map: a transparent RGBA image 1536x1024, strict nadir roof plan: a Lorraine longhouse, dwelling and barn under one long red-brown Roman tile roof with a chimney, a stone trough, a dung heap behind a rail fence, a cart track curving to the lower left, an apple tree with red apples, bushes and a meadow around.
+Change the season of image 1 from summer to a mild late-April day on the Western Front and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1536x1024, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 116 to 1452 and y 120 to 952 (1336x832 px, 50 percent of the canvas); the long roof spans about x 415 to 1210 and y 240 to 570; keep exactly this span. Do not zoom in or grow the ground: an earlier edit of a sibling image zoomed the scene 1.3 times; another drifted 3 percent.
+Only the colours of the vegetation change. Every building, roof, tile, ridge, wall, chimney, yard, track, cart, fence, stone and object keeps its outline, position and colour. The apple tree gets fresh light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), still a little sparse with grey-brown twigs showing; its small red dots keep their colour. The bushes get the same fresh light yellow-green new leaves, some still sparse with grey-brown twigs showing inside the clump; keep trees and bushes darker than the grass, as now. The lawn and meadow become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; a few small dandelion-yellow and daisy-white specks. Green moss on the roofs becomes a fresh green moss. Bare earth slightly damp. Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft edge and shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, resized, enlarged or added objects, changed roof or wall colours, blossom or blossom clouds, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit (house-longhouse-summer-v1); change the season only, preserve every outline and position. Image 2 is the selected spring meadow material (grass-spring-v1): palette of the grass only, never paint it as a ground plate.
+```
+
+
+### Spring house edit (2026-11-01)
+`house-spring-v1.png` (exec-2e3d683d) is the spring form of `house-summer-v2.png`: the edit (native 1315×1197 RGBA, cut-out 788x649
+against the summer's 779x640) registered onto the summer master (scale 1.002, shift 1,0 px), its vegetation graded in Lab to the summer
+lightness (dL\* −6.1, dh +7, with a floor for dark haze pixels), taken where the summer pixel is vegetation (a green-hue mask, dilated
+3 px and softened; house, roof, shed, logs and stones keep their summer pixels) with the summer alpha. Lawn fresh late-April yellow-green
+with dandelion and daisy specks, shrubs lighter new leaf; vegetation L\* 27.2, hue 101.8 (summer 27.4, 100.3); whole RGB 94,81,58
+(L\* 34.5, hue 84; summer 95,82,58, L\* 34.8). Selected: `-season spring -compound art/pipeline/compound-hamlet-v1.json` takes it for
+`tile/house_sp`. Attachments: image 1 `house-summer-v2.png`, image 2 `grass-spring-v1.png` (grass palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY, pixel-registered. Image 1 is the selected summer house cut-out of a top-down WWI strategy map: a transparent RGBA image 1315x1197, strict nadir roof plan, one square timber house with a grey-brown shingle hipped roof and a chimney, a small woodshed with stacked logs on the right, threshold stones and pebbles, a fringe of lawn and leafy shrubs around them, a soft dark shadow halo.
+Change the season of image 1 from summer to a mild late-April day on the Western Front and nothing else. This is a recolour, not a redraw: the output must lie exactly on top of image 1, same canvas 1315x1197, same zoom, nothing moved or scaled. In image 1 the opaque cut-out spans x 281 to 1060 and y 279 to 919 (779x640 px, 23 percent of the canvas); the main roof spans about x 345 to 815 and y 295 to 740; the woodshed roof x 835 to 997 and y 597 to 752. Keep exactly these spans. An earlier edit of this image failed: it zoomed the whole scene 1.3 times (cut-out 1017x826 px, 41 percent of the canvas) and grew the lawn; another came out 3 percent larger. Do not do that.
+Only the colours of the vegetation change. The house, roof, shingles, ridges, chimney, woodshed, logs, stones and pebbles keep their colours. The lawn and grass fringe become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20; a few small dandelion-yellow and daisy-white specks. The leafy shrubs get fresh light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now. The green moss on the roof becomes a fresh green moss. Bare earth slightly damp. Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Transparency exactly as in image 1: alpha zero outside the cut-out, the same soft dark shadow halo, no ground plate, no extra meadow, no checkerboard.
+Avoid: zoom, scale change, moved, resized, enlarged or added objects, changed roof or wall colours, blossom or blossom clouds, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost, puddles, people, text.
+
+Image 1 is the selected summer image to edit (house-summer-v2); change the season only, preserve every outline and position. Image 2 is the selected spring meadow material (grass-spring-v1): palette of the grass only, never paint it as a ground plate.
+```
+
 
 ### Autumn house variant house6 edit (2026-11-01)
 `house-windmill-autumn-v1.png` (exec-d24305a8) is the autumn form of `house-windmill-summer-v1.png`: the edit (native 1536×1024

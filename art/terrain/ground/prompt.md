@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: approved
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png, ground-boulders-five-autumn-v1.png, ground-boulders-four-autumn-v1.png, ground-boulders-single-autumn-v1.png, ground-crater-autumn-v1.png, ground-crater-pair-autumn-v1.png
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png, ground-boulders-five-autumn-v1.png, ground-boulders-four-autumn-v1.png, ground-boulders-single-autumn-v1.png, ground-crater-autumn-v1.png, ground-crater-pair-autumn-v1.png, ground-boulders-five-spring-v1.png, ground-boulders-four-spring-v1.png, ground-boulders-single-spring-v1.png, ground-crater-spring-v1.png, ground-crater-pair-spring-v1.png
 ---
 
 ## Look
@@ -84,6 +84,128 @@ Summer boulder stamps replace per-hex stone art across their complete clusters, 
 gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
+
+### Spring crater-pair edit (2026-11-01)
+
+`ground-crater-pair-spring-v1.png` (`exec-05532bb4`, native 1374×1145 RGBA) is the spring edit of
+`ground-crater-pair-summer-v1.png`, fitted as the single crater (the edit sat 1 px off, shift −1,0,
+corrected; graded L\* −3.3, hue +11°): floor and rim tufts fresh green, the red-brown tuft centres the
+summer's. Whole RGB 124,101,58 (L\* 43.2, hue 82; summer 128,99,59, L\* 43.2, hue 76); vegetation L\* 41.3,
+hue 103. Selected: `-season spring -manifest art/pipeline/crater-pair-v1.json` takes it for
+`stamp/crater/4_-1.1_1.1_0.2/2_sp`. Attached: `ground-crater-pair-summer-v1.png` and `grass-spring-v1.png`.
+The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, two joined shell craters seen from straight above (strict nadir RGBA cut-out on transparency with a soft fading margin; keep the canvas size and aspect of image 1 exactly): a ring of cracked, blocky brown earth walls around a grassy crater floor, with spiky grass tufts, pebbles and stones scattered on the rim. Change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the outline, the soft margin, the transparent area and every wall block, crack, stone, pebble and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass of the crater floor and the green spiky tufts on the rim become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny red flowers become small dandelion-yellow and daisy-white specks.
+- The brown earth walls and the rim soil turn slightly damp (a little darker), the same brown hue.
+- The grey stones and pebbles stay exactly as they are.
+- Lightness of the grass stays as in image 1; only the hue and freshness of the vegetation change.
+Outside the crater: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, water in the crater, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer crater cut-out (ground-crater-pair-summer-v1, 1374x1145, two joined craters) to edit: keep its layout, wall blocks, cracks, stones and tufts, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring crater edit (2026-11-01)
+
+`ground-crater-spring-v1.png` (`exec-b1a4fc16`, native 1536×1024 RGBA) is the spring edit of
+`ground-crater-summer-v1.png`: the floor grass and rim tufts fresh green. The edit lay on the summer master
+(scale 1.002, shift 0,0); it was graded in Lab (L\* −4, hue +10°) and fitted onto the summer master: the
+summer alpha, the edit's colour where the summer pixel is vegetation and the summer pixel everywhere else,
+so every wall block, crack and stone is the summer's. Whole RGB 115,96,59 (L\* 41.2, hue 85; summer
+118,96,60, L\* 41.4, hue 79); vegetation L\* 39.6, hue 104. The small red flower specks are not vegetation
+and keep their summer red. Selected: the spring terrain-stamps export takes it for
+`stamp/crater/4_-1.1_1.1_0.2/1_sp`. Attached: `ground-crater-summer-v1.png` and `grass-spring-v1.png`.
+The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a shell crater seen from straight above (strict nadir RGBA cut-out on transparency with a soft fading margin; keep the canvas size and aspect of image 1 exactly): a ring of cracked, blocky brown earth walls around a grassy crater floor, with spiky grass tufts, pebbles and stones scattered on the rim. Change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the outline, the soft margin, the transparent area and every wall block, crack, stone, pebble and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The green grass of the crater floor and the green spiky tufts on the rim become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny red flowers become small dandelion-yellow and daisy-white specks.
+- The brown earth walls and the rim soil turn slightly damp (a little darker), the same brown hue.
+- The grey stones and pebbles stay exactly as they are.
+- Lightness of the grass stays as in image 1; only the hue and freshness of the vegetation change.
+Outside the crater: alpha zero, no ground plate, no checkerboard, no background colour, no halo.
+Avoid: moving, resizing or adding anything, water in the crater, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer crater cut-out (ground-crater-summer-v1, 1536x1024 LANDSCAPE) to edit: keep its layout, wall blocks, cracks, stones and tufts, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring boulder-scatter edit (2026-11-01)
+
+`ground-boulders-single-spring-v1.png` (`exec-7f90226e`, native 1374×1145 RGBA) is the spring edit of
+`ground-boulders-single-summer-v1.png`. The edit painted a meadow plate under the stones (opaque area
+22.8 % against 5.5 %), so only its colours are used, carried onto the summer alpha (dilation 6): whole RGB
+119,111,73 (L\* 46.0, hue 97; summer 113,104,76, L\* 43.2, hue 91). Selected: the spring terrain-stamps
+export takes it for `stamp/boulders/1/1_sp`. Attached: `ground-boulders-single-summer-v1.png` and
+`grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a single cluster of grey boulders and pebbles on a patch of thin ground with small grass tufts and low shrubs seen from straight above (strict nadir, 1374x1145 RGBA cut-out on transparency): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size (1374x1145, 6:5 LANDSCAPE), every outline, the transparent area, the soft semi-transparent fringe and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes, the skirt and every tuft becomes the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white flowers stay as small dandelion-yellow and daisy-white specks.
+- The dark green bushes and scrub clumps turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns a fresh green.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer cut-out (ground-boulders-single-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring four-boulder edit (2026-11-01)
+
+`ground-boulders-four-spring-v1.png` (`exec-880cc395`, native 1536×1024 RGBA) is the spring edit of
+`ground-boulders-four-summer-v1.png`. The edit painted a full meadow plate (opaque area 60 % against 4 %),
+so only its colours are used, carried onto the summer alpha (dilation 6): whole RGB 139,129,103 (L\* 53.2,
+mostly stones, hue 89; summer 125,117,92, L\* 48.4, hue 93). Selected: the spring terrain-stamps export
+takes it for `stamp/boulders/4_2.0_1.1_0.2/1_sp`. Attached: `ground-boulders-four-summer-v1.png` and
+`grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a scatter of four groups of grey boulders and pebbles on patches of thin ground with small grass tufts and low shrubs seen from straight above (strict nadir, 1536x1024 RGBA cut-out on transparency): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size (1536x1024, 3:2 LANDSCAPE), every outline, the transparent area, the soft semi-transparent fringe and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes, the skirt and every tuft becomes the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white flowers stay as small dandelion-yellow and daisy-white specks.
+- The dark green bushes and scrub clumps turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns a fresh green.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer cut-out (ground-boulders-four-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring five-boulder edit (2026-11-01)
+
+`ground-boulders-five-spring-v1.png` (`exec-62bf7d68`, native 1374×1145 RGBA) is the spring edit of
+`ground-boulders-five-summer-v1.png`. The edit filled the gaps with meadow (opaque area 33.5 % against
+4.4 %), so only its colours are used, carried onto the summer alpha (dilation 6): whole RGB 128,125,93
+(L\* 50.8, hue 102; summer 111,103,75, L\* 42.9, hue 94).
+Selected: the spring terrain-stamps export takes it for `stamp/boulders/5_-1.1_0.2_-1.3_1.3/1_sp`.
+Attached: `ground-boulders-five-summer-v1.png` and `grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a scatter of five groups of grey boulders and pebbles on patches of thin ground with small grass tufts and low shrubs seen from straight above (strict nadir, 1374x1145 RGBA cut-out on transparency): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size (1374x1145, 6:5 LANDSCAPE), every outline, the transparent area, the soft semi-transparent fringe and every rock, slab, pebble, bush and tuft exactly where it is, with its size and outline. Preserve every outline and position.
+Change only the colours:
+- The grass of the slopes, the skirt and every tuft becomes the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. The tiny yellow and white flowers stay as small dandelion-yellow and daisy-white specks.
+- The dark green bushes and scrub clumps turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside the clump; keep them darker than the grass, as now.
+- The grey-beige rock slabs, boulders and pebbles stay exactly as they are, with their colour and shading; only the moss in their cracks turns a fresh green.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: the rocks, the soft upper-left light and short shadows, the strict nadir view.
+Outside the outline: alpha zero, no ground plate, no halo, no checkerboard, no background colour.
+Avoid: moving, resizing or adding anything, blossom, saturated emerald or neon green, golden or straw cast, autumn colours, snow, frost.
+
+Image 1 is the selected summer cut-out (ground-boulders-five-summer-v1) to edit: keep its layout, rock and bush positions, sizes and transparency exactly; change only the season. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
 
 ### Autumn crater-pair edit (2026-11-01)
 

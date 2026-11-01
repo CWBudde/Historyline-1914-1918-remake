@@ -120,12 +120,13 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]int{
-		"backgrounds": 273, "backgrounds-2": 168, "infrastructure": 273, "infrastructure-2": 54,
+		"backgrounds": 273, "backgrounds-2": 273, "backgrounds-3": 53, "infrastructure": 273, "infrastructure-2": 69,
 		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 273,
-		"context-ground-5": 273, "context-ground-6": 117,
-		"context-forest": 194,
+		"context-ground-5": 273, "context-ground-6": 273, "context-ground-7": 273, "context-ground-8": 36,
+		"context-forest": 258,
 		"context-hills":  273, "context-hills-2": 273, "context-hills-3": 273, "context-hills-4": 273,
-		"context-hills-5": 273, "context-hills-6": 273, "context-hills-7": 273, "context-hills-8": 29,
+		"context-hills-5": 273, "context-hills-6": 273, "context-hills-7": 273, "context-hills-8": 273,
+		"context-hills-9": 273, "context-hills-10": 273, "context-hills-11": 180,
 	}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {

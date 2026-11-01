@@ -4,7 +4,7 @@ title: Meadow
 kind: terrain
 status: approved
 runtime_ids: grass, grass_w, grass-detail-00, grass-detail-01, grass-detail-02, grass-detail-03, grass-detail-04, grass-detail-05, grass-detail-06, grass-detail-07, grass-detail-08, grass-detail-09, grass-detail-10, grass-detail-11, grass-detail-12, grass-detail-13, grass-detail-14, grass-detail-15
-masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png, grass-autumn-v1.png, grass-props-autumn-v1.png, grass-worn-painting-autumn-v1.png, grass-flowers-painting-autumn-v1.png
+masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png, grass-autumn-v1.png, grass-props-autumn-v1.png, grass-worn-painting-autumn-v1.png, grass-flowers-painting-autumn-v1.png, grass-spring-v1.png, grass-props-spring-v1.png, grass-worn-painting-spring-v1.png, grass-flowers-painting-spring-v1.png
 ---
 
 ## Look
@@ -40,6 +40,94 @@ Seams to forest, ground and hills are handled by those families' contexts, which
 their base.
 
 ## Post
+
+### Spring wildflower-meadow detail edit (2026-11-01)
+`grass-flowers-painting-spring-v1.png` (exec-8e2a5ebf, native 1586×992 RGB, graded) is the spring form of
+`grass-flowers-painting-summer-v1.png`, the source of the six flower spring detail tiles (`grass-detail-01_sp`,
+`-03`, `-06`, `-08`, `-11`, `-13`). Same layout; fresh spring grass, and at each summer flower spot dandelions
+and daisies with a few lilac cuckooflowers, which read at map scale. The edit came out slightly olive
+(RGB 106,101,35, L\* 41.4, hue 101) and is graded in code (hue +4°, chroma ×1.08) to the hue of
+`grass-spring-v1.png`: mean RGB 101,103,29, L\* 41.4, hue 105 (the summer painting 92,100,19, L\* 39.8,
+hue 109). First try. Exported as the worn edit below. Attachments: image 1
+`grass-flowers-painting-summer-v1.png`, image 2 `grass-spring-v1.png` (palette only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal edit. Image 1 is a selected summer meadow detail material of a top-down WWI strategy map (opaque, landscape, 8:5 aspect, strict nadir view; the canvas spans about 300 m by 190 m of ground; a single grass tuft is 6 to 20 px). It is an open meadow with about 40 tiny yellow and white wildflower specks, a few pale-grey gravel clusters and some small dark weed tufts. Repaint image 1 as the same meadow in late April on the Western Front, tracing it stroke by stroke: every tuft, blade, flower speck, gravel cluster, weed tuft and soil fleck stays exactly at its outline, size and position, with the same short straight blades and the same light from the upper left.
+Grass colour as in image 2, the selected spring form of the plain meadow: fresh young yellow-green spring grass with a little of last year's pale dead grass in the tuft bases, lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded tufts and hollows near RGB 48,56,20. Overall mean close to RGB 100,102,33, the same as image 2, and the same lightness as image 1.
+The wildflowers become spring meadow flowers centred at the same spots, each spot grown into a small loose cluster about twice the size of the summer specks around it (25 to 50 px across, about 1/40 of the canvas width), so they read on the map: about half are dandelions, bright but not neon yellow near RGB 230,195,45, the rest white daisies near RGB 235,232,220 with tiny yellow centres, a few pale lilac cuckooflowers near RGB 190,175,205. Each dark weed tuft becomes a fresh dark-green rosette near RGB 55,70,28. The pale-grey gravel clusters keep their colours. Add nothing else.
+Output: one opaque image, LANDSCAPE, 1536x960 (the 8:5 aspect of image 1), filled edge to edge.
+Avoid: moved or new flower spots, clusters over 60 px, flower carpets, red or pink or orange flowers, a golden or straw cast, saturated emerald or blue-green, uniform flat colour, a finer or busier texture than image 1, curly tangled threads, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer wildflower-meadow material (the image to repaint: keep its layout exactly); image 2 is the selected spring plain meadow (palette and grass finish only, not its layout).
+```
+
+
+### Spring worn-meadow detail edit (2026-11-01)
+`grass-worn-painting-spring-v1.png` (exec-0b39459b, native 1586×992 RGB, graded) is the spring form of
+`grass-worn-painting-summer-v1.png`, the source of the six worn spring detail tiles (`grass-detail-02_sp`,
+`-04`, `-07`, `-09`, `-12`, `-14`). Same layout; the summer's worn patches became last year's flattened
+straw with fresh shoots coming through. The edit (RGB 109,103,43, L\* 42.5, hue 101) is graded in code
+(hue +5°, chroma ×1.12): mean RGB 104,105,35, L\* 42.5, hue 106 (the summer painting 94,102,18, L\* 40.4,
+hue 109). First try. Exported as the autumn edits (`renderGrassDetailVariation`): Lanczos3 to 768×480, each
+channel's mean shifted to `grass-spring-v1.png`'s, 65 percent over the phased spring base, canonical edge
+band unchanged. Both spring paintings are taken by `hl export generate grass-detail-candidate` (each
+painting's newest spring edit and `grass-spring-v1.png` in place of summer's), which writes the `_sp` tiles
+beside summer's; `grass-variations` installs them.
+Attachments: image 1 `grass-worn-painting-summer-v1.png`, image 2 `grass-spring-v1.png` (palette only).
+The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal edit. Image 1 is a selected summer meadow detail material of a top-down WWI strategy map (opaque, landscape, 8:5 aspect, strict nadir view; the canvas spans about 300 m by 190 m of ground; a single grass tuft is 6 to 20 px). It is an open meadow with about 15 small worn, thinner patches with earthy flecks, a few dark weed tufts and sparse yellow flower specks. Repaint image 1 as the same meadow in late April on the Western Front, tracing it stroke by stroke: every tuft, blade, worn patch, soil fleck, weed tuft and pebble stays exactly at its outline, size and position, with the same short straight blades and the same light from the upper left.
+Grass colour as in image 2, the selected spring form of the plain meadow: fresh young yellow-green spring grass with a little of last year's pale dead grass in the tuft bases, lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded tufts and hollows near RGB 48,56,20. Overall mean close to RGB 100,102,33, the same as image 2, and the same lightness as image 1.
+The worn patches become damp spring patches: each stays centred exactly where it is in image 1 but grows to about twice its summer size, 70 to 130 px across (about 1/15 of the canvas width), an irregular soft-edged patch of last year's flattened pale dead grass, buff and grey-beige near RGB 150,140,100, with moist dark earth near RGB 70,58,38 showing in its middle and short fresh green shoots coming through it. The dark weed tufts become fresh dark-green rosettes near RGB 55,70,28. The yellow flower specks stay as small dandelion specks near RGB 230,195,45. Add nothing else: no new patches, no puddles, no paths.
+Output: one opaque image, LANDSCAPE, 1536x960 (the 8:5 aspect of image 1), filled edge to edge.
+Avoid: moved, merged or new patches, patches joined into paths, rings or bare islands, standing water, mud puddles, a golden or orange cast, saturated emerald or blue-green, uniform flat colour, a finer or busier texture than image 1, curly tangled threads, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer worn-meadow material (the image to repaint: keep its layout exactly); image 2 is the selected spring plain meadow (palette and grass finish only, not its layout).
+```
+
+
+### Spring meadow prop sheet edit (2026-11-01)
+`grass-props-spring-v1.png` (exec-0e2729b2) is the spring form of `grass-props-summer-v1.png`: the
+edit's colours on the summer sheet's alpha (1254×1254 RGBA). The edit gave the flowers dandelion yellow
+and daisy white, the tufts fresh green, the soil damp and the straw pale dead grass, but its items grew
+(opaque area 5.2 % against 2.3 %), so its colours were carried onto the summer silhouettes in code as in
+autumn (within 6 px). Mean RGB 130,117,78, L\* 48.7, hue 92 (summer 139,119,67, L\* 49.9, hue 88). The
+straw patches went grey-white; the sheet export grades them to RGB 150,142,104 and the soil flecks to
+84,70,46 for the spring meadow kit `kit/grass/props-spring` (`standing/scatter/meadow/<item>_sp`). First
+try. Attachments: image 1 `grass-props-summer-v1.png`. The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY. Image 1 is the selected summer meadow prop sheet of a top-down WWI strategy map: a transparent 1254x1254 RGBA sheet, 4x4 grid, strict nadir view, ten canvas px per world px. Recolour it for late April on the Western Front. Change the colours of the existing pixels only: every item keeps exactly its outline, size, position and silhouette, every thin blade stays a separate thin blade, and every transparent gap between blades, between flowers, around each pebble and between straw stalks stays fully transparent (alpha zero), exactly as in image 1. No ground plate, mat, disc or backing under any item, no halo, no checkerboard, no cast shadow.
+Per item: the grass tufts (row 1 and the blades around the other items) turn fresh young spring grass, light yellow-green: lit tips near RGB 175,185,95, mid blades near RGB 115,125,50, blade bases near RGB 55,65,25, with a few pale dead blades from last year (near RGB 150,140,95) at the tuft bases. The three wildflower patches (row 2, columns 1 to 3) keep their blades and petal positions; their petals become spring meadow flowers: about half bright dandelion yellow (near RGB 235,200,40) and half white daisies with a small yellow centre (near RGB 240,238,225), so they read clearly as flowers. The bare-soil flecks become damp dark earth (near RGB 80,66,44). The straw patches (row 3, columns 3 and 4, and row 4, column 1) become last year's flattened pale dead grass, buff and grey-beige (near RGB 160,150,110), not golden. The pebble clusters keep their colours; only green blades on them change as the tufts.
+Output: one transparent RGBA image, 1254x1254, the same 4x4 layout as image 1.
+Avoid: filled gaps, mats or discs under items, thicker or merged blades, moved, enlarged or added items, more flowers than in image 1, pink or purple or red flowers, golden or orange cast, saturated emerald or blue-green, snow, frost, halos, light outlines, semi-transparent haze in the gutters, text.
+
+Image 1 is the selected summer prop sheet (the image to recolour: keep every item, blade gap and the transparency exactly).
+```
+
+
+### Spring meadow edit (2026-11-01)
+`grass-spring-v1.png` (exec-4eb7ce2b) is the spring form of `grass-summer-v1.png`: an edit of it,
+generated at 1586×992, reduced to the summer source's 768×480 and graded in Lab (L\* −3, hue +4°,
+chroma ×1.15). Early-May grass: fresh olive yellow-green like the meadows of the 1916-04 and 1917-04
+backdrops, last year's dead straw under a tenth of the area; the tuft layout follows the summer source.
+The edit measured RGB 112,107,49, L\* 44.1, hue 101; graded, mean RGB 100,102,33, L\* 41.1, hue 105
+(summer 96,104,31, L\* 41.4, hue 109). A first try (exec-5543244a, mid April, a quarter of the area dead
+straw) read busy and washed out. `-season spring` exports take it in place of `grass-summer-v1.png`: the
+plain meadow (`tile/grass_sp`), the ground contexts and the hills; compound exports put it under the
+buildings. Attachments: image 1 `grass-summer-v1.png`, images 2 and 3 meadow crops of the 1916-04 and
+1917-04 backdrops (grass colours only). The prompt was:
+
+```text
+Use case: precise-object-edit, seasonal recolour ONLY. Image 1 is the selected summer meadow material of a top-down WWI strategy map (opaque, landscape, 8:5 aspect, strict nadir view; the canvas spans about 300 m by 190 m of ground; a single grass tuft is 3 to 10 px). Repaint image 1 as the same meadow in early May on the Western Front, tracing it stroke by stroke: every tuft, dark tuft centre, blade, straw scratch, soil fleck, pebble and flower speck stays exactly at its outline, size and position, with the same short straight blades and the same light from the upper left. Only the colours of the grass change.
+Colour: early-spring grass, new growth coming through last year's matted grass. Most of the area is fresh young yellow-green: lit blade tips pale spring green near RGB 168,170,92, mid grass yellow-green near RGB 112,114,48, shaded tufts and hollows deep olive near RGB 52,60,24. Only a little last year's dead grass remains, pale buff straw near RGB 138,124,82, in the tuft bases and a few small soft patches, under a tenth of the area. The ground is damp: the soil flecks a little darker and cooler than in image 1. Overall mean close to RGB 108,114,46 and the same lightness as image 1 (image 1 averages RGB 96,104,31): less saturated and a little yellower than image 1, never bluish, never red-brown. The yellow wildflower specks stay as a very sparse scatter of tiny spring flowers, 2 to 3 px, mostly pale yellow with a few white, under 1 percent of the canvas. Images 2 and 3 are crops of the painted spring maps: take their mix of yellow-green new grass and pale dead straw only, not their stones, roads, trees, water or layout.
+Output: one opaque image, LANDSCAPE, 1536x960 (the 8:5 aspect of image 1), filled edge to edge.
+Avoid: moved or new tufts, curly or tangled threads, a finer or busier texture than image 1, saturated lawn green, emerald or blue-green, golden or orange cast, uniform flat colour, large flowers or flower carpets, bushes, trees, puddles, mud, bare soil patches, snow, frost, vignette, border, text.
+
+Image 1 is the selected summer meadow (the image to recolour: keep its layout exactly); images 2 and 3 are crops of the painted spring maps (their grass colours only).
+```
+
 
 ### Autumn wildflower-meadow detail edit (2026-11-01)
 `grass-flowers-painting-autumn-v1.png` (exec-d20df9b8, native 1586×992 RGB, unchanged) is the autumn form of
