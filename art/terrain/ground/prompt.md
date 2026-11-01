@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: approved
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png, ground-boulders-five-autumn-v1.png, ground-boulders-four-autumn-v1.png, ground-boulders-single-autumn-v1.png, ground-crater-autumn-v1.png, ground-crater-pair-autumn-v1.png, ground-boulders-five-spring-v1.png, ground-boulders-four-spring-v1.png, ground-boulders-single-spring-v1.png, ground-crater-spring-v1.png, ground-crater-pair-spring-v1.png
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png, ground-stone-autumn-v1.png, ground-boulders-five-autumn-v1.png, ground-boulders-four-autumn-v1.png, ground-boulders-single-autumn-v1.png, ground-crater-autumn-v1.png, ground-crater-pair-autumn-v1.png, ground-boulders-five-spring-v1.png, ground-boulders-four-spring-v1.png, ground-boulders-single-spring-v1.png, ground-crater-spring-v1.png, ground-crater-pair-spring-v1.png, ground-boulders-single-spring-v2.png, ground-boulders-four-spring-v2.png, ground-boulders-five-spring-v2.png
 ---
 
 ## Look
@@ -84,6 +84,81 @@ Summer boulder stamps replace per-hex stone art across their complete clusters, 
 gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
+
+### Spring boulder-scatter bloom edit (2026-11-01)
+
+`ground-boulders-single-spring-v2.png` (`exec-3fa57416`, native 1374×1145 RGBA) is the flowering spring form of
+`ground-boulders-single-summer-v1.png` and replaces `-spring-v1` in the export. The edit adds cushions of yellow
+cowslips, white anemones, violets and pink thrift in the tufts at the stones' feet. It painted a meadow plate
+again (opaque 22.8 % against 5.5 %) and drifted (registered at scale 1.156, shift 24,12), so it is laid onto the summer cut-out: inside the
+summer alpha the edit's colour where either image is vegetation or the edit is a flower on summer vegetation,
+the summer pixel elsewhere; outside it only flowers within 36 px of the summer alpha (267 px). Whole RGB 118,109,78, L\* 45.1, hue 94
+(summer 113,104,76, L\* 43.2, hue 91). Selected: the spring terrain-stamps export takes it for `stamp/boulders/1/1_sp`. Attached:
+`ground-boulders-single-summer-v1.png` and `grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a cluster of grey boulders and pebbles with small grass tufts seen from straight above (strict nadir, 1374x1145 RGBA cut-out on transparency): turn it into the same spot in late April in full spring bloom. Keep the canvas size (1374x1145, 6:5 LANDSCAPE), the transparent area and every rock, slab and pebble exactly where it is, with its size and outline. Preserve every outline and position.
+Changes:
+- Spring wildflowers, the main change: at the foot of every larger boulder and in most grass tufts, add a low flowering cushion hugging the stone: clusters of yellow cowslips and primroses (about RGB 240,205,55), white wood anemones and daisies (about RGB 240,238,225), violet wild violets (about RGB 135,95,170) and a few pink thrift cushions (about RGB 215,125,160). Each cushion about 20 to 60 px across (1/25 to 1/60 of the canvas width), each flower head 4 to 8 px, clear dots of colour on fresh green leaves, not a haze. About 50 cushions in total, most beside the big stones; small pebbles get none or a single flower; nothing away from the stones.
+- Grass tufts and low shrubs: fresh young yellow-green spring grass as image 2 (lit blade tips near RGB 160,170,85, shaded near RGB 48,56,20).
+- Rocks: keep their shape and shading, tone the stone slightly darker and cooler (lit near RGB 170,166,152, shaded near RGB 85,84,78), with fresh bright green moss in the cracks and on the shaded sides.
+Unchanged: the soft upper-left light and short shadows, the strict nadir view.
+Transparency: alpha zero everywhere except the rocks, the tufts and the new flower cushions. No meadow plate or ground between the stones, no halo, no checkerboard, no background colour.
+Avoid: moving or resizing any rock, flowers floating away from the stones, a carpet of flowers over the whole canvas, saturated emerald or neon green, golden or straw cast, autumn colours, snow.
+
+Image 1 is the selected summer cut-out (ground-boulders-single-summer-v1) to edit: keep its layout, rock positions, sizes and transparency exactly. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring four-boulder bloom edit (2026-11-01)
+
+`ground-boulders-four-spring-v2.png` (`exec-46336a17`, native 1536×1024 RGBA) is the flowering spring form of
+`ground-boulders-four-summer-v1.png` and replaces `-spring-v1` in the export. The edit adds cushions of yellow
+cowslips, white anemones, violets and pink thrift in the tufts at the stones' feet. It painted a meadow plate
+again (opaque 11.0 % against 4.1 %) and drifted (registered at scale 1.125, shift 27,14), so it is laid onto the summer cut-out: inside the
+summer alpha the edit's colour where either image is vegetation or the edit is a flower on summer vegetation,
+the summer pixel elsewhere; outside it only flowers within 36 px of the summer alpha (0 px). Whole RGB 127,119,91, L\* 49.2, hue 94
+(summer 125,117,92, L\* 48.4, hue 93). Selected: the spring terrain-stamps export takes it for `stamp/boulders/4_2.0_1.1_0.2/1_sp`. Attached:
+`ground-boulders-four-summer-v1.png` and `grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a cluster of grey boulders and pebbles with small grass tufts seen from straight above (strict nadir, 1536x1024 RGBA cut-out on transparency): turn it into the same spot in late April in full spring bloom. Keep the canvas size (1536x1024, 3:2 LANDSCAPE), the transparent area and every rock, slab and pebble exactly where it is, with its size and outline. Preserve every outline and position.
+Changes:
+- Spring wildflowers, the main change: at the foot of every larger boulder and in most grass tufts, add a low flowering cushion hugging the stone: clusters of yellow cowslips and primroses (about RGB 240,205,55), white wood anemones and daisies (about RGB 240,238,225), violet wild violets (about RGB 135,95,170) and a few pink thrift cushions (about RGB 215,125,160). Each cushion about 20 to 60 px across (1/25 to 1/60 of the canvas width), each flower head 4 to 8 px, clear dots of colour on fresh green leaves, not a haze. About 50 cushions in total, most beside the big stones; small pebbles get none or a single flower; nothing away from the stones.
+- Grass tufts and low shrubs: fresh young yellow-green spring grass as image 2 (lit blade tips near RGB 160,170,85, shaded near RGB 48,56,20).
+- Rocks: keep their shape and shading, tone the stone slightly darker and cooler (lit near RGB 170,166,152, shaded near RGB 85,84,78), with fresh bright green moss in the cracks and on the shaded sides.
+Unchanged: the soft upper-left light and short shadows, the strict nadir view.
+Transparency: alpha zero everywhere except the rocks, the tufts and the new flower cushions. No meadow plate or ground between the stones, no halo, no checkerboard, no background colour.
+Avoid: moving or resizing any rock, flowers floating away from the stones, a carpet of flowers over the whole canvas, saturated emerald or neon green, golden or straw cast, autumn colours, snow.
+
+Image 1 is the selected summer cut-out (ground-boulders-four-summer-v1) to edit: keep its layout, rock positions, sizes and transparency exactly. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
+
+### Spring five-boulder bloom edit (2026-11-01)
+
+`ground-boulders-five-spring-v2.png` (`exec-59d2f958`, native 1374×1145 RGBA) is the flowering spring form of
+`ground-boulders-five-summer-v1.png` and replaces `-spring-v1` in the export. The edit adds cushions of yellow
+cowslips, white anemones, violets and pink thrift in the tufts at the stones' feet. It painted a meadow plate
+again (opaque 31.5 % against 4.4 %) and drifted (registered at scale 1.006, shift 7,-1), so it is laid onto the summer cut-out: inside the
+summer alpha the edit's colour where either image is vegetation or the edit is a flower on summer vegetation,
+the summer pixel elsewhere; outside it only flowers within 36 px of the summer alpha (16 px). Whole RGB 117,111,76, L\* 45.8, hue 98, with fresh moss on the stones
+(summer 111,103,75, L\* 42.9, hue 94). Selected: the spring terrain-stamps export takes it for `stamp/boulders/5_-1.1_0.2_-1.3_1.3/1_sp`. Attached:
+`ground-boulders-five-summer-v1.png` and `grass-spring-v1.png`. The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a cluster of grey boulders and pebbles with small grass tufts seen from straight above (strict nadir, 1374x1145 RGBA cut-out on transparency): turn it into the same spot in late April in full spring bloom. Keep the canvas size (1374x1145, 6:5 LANDSCAPE), the transparent area and every rock, slab and pebble exactly where it is, with its size and outline. Preserve every outline and position.
+Changes:
+- Spring wildflowers, the main change: at the foot of every larger boulder and in most grass tufts, add a low flowering cushion hugging the stone: clusters of yellow cowslips and primroses (about RGB 240,205,55), white wood anemones and daisies (about RGB 240,238,225), violet wild violets (about RGB 135,95,170) and a few pink thrift cushions (about RGB 215,125,160). Each cushion about 20 to 60 px across (1/25 to 1/60 of the canvas width), each flower head 4 to 8 px, clear dots of colour on fresh green leaves, not a haze. About 50 cushions in total, most beside the big stones; small pebbles get none or a single flower; nothing away from the stones.
+- Grass tufts and low shrubs: fresh young yellow-green spring grass as image 2 (lit blade tips near RGB 160,170,85, shaded near RGB 48,56,20).
+- Rocks: keep their shape and shading, tone the stone slightly darker and cooler (lit near RGB 170,166,152, shaded near RGB 85,84,78), with fresh bright green moss in the cracks and on the shaded sides.
+Unchanged: the soft upper-left light and short shadows, the strict nadir view.
+Transparency: alpha zero everywhere except the rocks, the tufts and the new flower cushions. No meadow plate or ground between the stones, no halo, no checkerboard, no background colour.
+Avoid: moving or resizing any rock, flowers floating away from the stones, a carpet of flowers over the whole canvas, saturated emerald or neon green, golden or straw cast, autumn colours, snow.
+
+Image 1 is the selected summer cut-out (ground-boulders-five-summer-v1) to edit: keep its layout, rock positions, sizes and transparency exactly. Image 2 is the selected spring meadow (grass-spring-v1), for the palette of the grass only; do not copy its layout.
+```
+
 
 ### Spring crater-pair edit (2026-11-01)
 

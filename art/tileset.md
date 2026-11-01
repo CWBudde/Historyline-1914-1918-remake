@@ -133,7 +133,7 @@ Each compound is one painting with its grounds: lawns, trees and verges.
 3. **Spring**, in the same order.
    Spring status: grass (base, detail tiles with dandelions, daisies and straw patches, meadow props),
    stone, forest (crowns, floor, contexts, copses), hills, mountain, mount, stream, shore, lakeside, the
-   boulder, knoll and crater stamps, the compounds (hq, cmp, ruin, factory, the houses) and the airfield
+   boulder (with flower cushions at the stones' feet), knoll and crater stamps, the compounds (hq, cmp, ruin, factory, the houses) and the airfield
    are installed, made like autumn's: edits registered onto the summer master that keep its alpha and its
    non-vegetation pixels. Spring water is the summer pixels without a pack grade. Open: the road, path and
    cross surfaces draw their summer form (their verges are the spring meadow), and
