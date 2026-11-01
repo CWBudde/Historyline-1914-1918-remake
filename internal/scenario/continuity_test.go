@@ -77,6 +77,56 @@ func TestAuthoredLinesAreContinuous(t *testing.T) {
 	}
 }
 
+// The factory artwork has one street: through the E piece's NE port.
+// Merely touching any of its four building hexes does not connect that gate.
+func TestFlandersFactoryRoadsMeetGates(t *testing.T) {
+	f, err := Load(filepath.Join(levelsDir, "1918-10"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	factories := 0
+	for l, line := range f.Map {
+		for col, h := range line {
+			if !strings.HasPrefix(h.Terrain, "factory") {
+				continue
+			}
+			c := hexgrid.Coord{Line: l, Col: col}
+			gate := hexgrid.Around(c)[0]
+			if h.Terrain == "factoryE" {
+				factories++
+				connected := false
+				for _, id := range f.Map[gate.Line][gate.Col].Infra.IDs {
+					for _, s := range strands(id) {
+						connected = connected || s.kind == "road" && slices.Contains(s.ports, 4)
+					}
+				}
+				if !connected {
+					t.Errorf("factory E at line %d col %d: gate needs a road's SW port at line %d col %d",
+						l+1, col+1, gate.Line+1, gate.Col+1)
+				}
+			}
+			for _, n := range f.Grid().Neighbors(c) {
+				for _, id := range f.Map[n.Line][n.Col].Infra.IDs {
+					for _, s := range strands(id) {
+						if s.kind != "road" {
+							continue
+						}
+						for _, p := range s.ports {
+							if hexgrid.Around(n)[p-1] == c && (h.Terrain != "factoryE" || n != gate) {
+								t.Errorf("%s at line %d col %d enters %s at line %d col %d away from its gate",
+									id, n.Line+1, n.Col+1, h.Terrain, l+1, col+1)
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if factories != 7 {
+		t.Fatalf("checked %d factories, want all seven", factories)
+	}
+}
+
 // joins reports whether a strand of kind a continues into one of kind b: the
 // same kind, or a path and a road.
 func joins(a, b string) bool {

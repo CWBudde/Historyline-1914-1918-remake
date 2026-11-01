@@ -32,7 +32,7 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 These 25 backpaints are tile-render placeholders, still awaiting painting and
 in-game review. The 24 newly added pairs passed the source/JPEG check; their
 dimensions match their current maps and every source is below 100 MiB.
-`1918-07` and `1918-11` use 1.41 image pixels per world pixel; the others use 1.72.
+`1918-07`, `1918-10` and `1918-11` use 1.41 image pixels per world pixel; the others use 1.72.
 
 Work through each month's subtasks in order. Keep command results and visual review
 evidence under `build/review/backdrops/<month>/`. Tick the month only when all its
@@ -41,8 +41,8 @@ separate approval under the standing scope rules.
 
 - [ ] [1918-10](levels/1918-10/) — the existing Flanders placeholder described in
       [Painted backdrops](docs/painted-backdrops.md).
-  - [ ] Audit `levels/1918-10/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [ ] Audit `levels/1918-10/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. Repeat the audit and guide after the factory approach corrections; painting is paused.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User approved the October 1915 style, wet autumn ground and cool diffuse light; brief: `build/review/backdrops/1918-10/brief.md`.
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-10:cp -out build/review/backdrops/1918-10/guide`.
   - [ ] Record world/output dimensions and aspect, canvas sizes, origins and overlaps for the documented 56-section layout; confirm complete coverage against the current map.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
