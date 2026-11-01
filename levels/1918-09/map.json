@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Grand",
+	"season": "autumn",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["mountW", ""], ["mountE", ""], ["mountain", ""], ["mountS", ""], ["forest", ""], ["forest", ""], ["mountW", ""], ["mountE", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "path24"], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["waterDeep", ""], ["water", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["stone", ""], ["forest", ""], ["forest", ""], ["mountN", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["hills", ""], ["stone", ""], ["mountS", ""], ["mountain", ""], ["mountain", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["mountS", ""], ["grass", "rail36"], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "path13"], ["grass", "path25"], ["stone", ""], ["stone", ""], ["hills", ""], ["grass", ""], ["lakeside3456", ""], ["waterDeep", ""], ["lakeside123", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["stone", ""], ["forest", ""], ["grass", "path24"], ["mountW", ""], ["mountE", ""]],

@@ -48,8 +48,16 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	slices.Sort(names)
 	for _, name := range names {
 		folder := out.folders[name]
-		if old, err := scenario.Load(filepath.Join(*dir, name)); err == nil && !folder.Winter() {
-			folder.MapSeason = old.MapSeason
+		// A folder keeps its hexes' seasons and, when neither is winter, its
+		// season: winter is the original map's.
+		if old, err := scenario.Load(filepath.Join(*dir, name)); err == nil {
+			season := folder.Season
+			if !folder.Winter() && !old.Winter() {
+				season = old.Season
+			}
+			if err := folder.SetSeasons(season, old.Seasons); err != nil {
+				return fmt.Errorf("%s: %w", name, err)
+			}
 		}
 		if err := folder.Write(filepath.Join(*dir, name)); err != nil {
 			return fmt.Errorf("%s: %w", name, err)

@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Flanders",
+	"season": "autumn",
 	"map": {
 		"line1": [["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterDeep", ""], ["waterDeep", ""], ["waterDeep", ""], ["waterDeep", ""], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["forest", ""]],
 		"line2": [["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterDeep", ""], ["waterDeep", ""], ["waterDeep", ""], ["waterDeep", ""], ["water", ""], ["water", ""], ["water", ""], ["grass", ""], ["grass", ""]],

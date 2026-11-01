@@ -108,7 +108,7 @@ func mustRecords(b []byte) *Records {
 // Board is a level bound to the original records.
 type Board struct {
 	Width, Height int
-	Winter        bool                       // the winter season: winter terrain (names ending in _w), an original map's mission
+	Winter        bool                       // the winter season: a scenario level's season, else winter terrain (names ending in _w), an original map's mission
 	Terrain       []int                      // the terrain record of every cell
 	Units         map[int]dosrules.Placement // every unit by live record; a held unit's Cell is its container's
 	IDs           map[int]string             // the remake unit id of every unit (FromOriginal: where the remake has one)
@@ -364,12 +364,16 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 			}
 		}
 	}
-	// A level with any winter terrain is a winter level: transcriptions
-	// carry the winter suffix only where a seasonal form exists (a winter
-	// map can hold a few hundred winter hexes among thousands), so neither
-	// all-or-nothing nor a majority can decide. Authored summer levels
-	// carry none.
+	// A scenario level states its season; its winter terrain may be a
+	// look of single hexes. Otherwise a level with any winter terrain is a
+	// winter level: transcriptions carry the winter suffix only where a
+	// seasonal form exists (a winter map can hold a few hundred winter
+	// hexes among thousands), so neither all-or-nothing nor a majority can
+	// decide.
 	b.Winter = winter > 0
+	if lv.Extra != nil && lv.Extra.Season != "" {
+		b.Winter = lv.Extra.Season == "winter"
+	}
 	if err := b.placeUnits(lv, set); err != nil {
 		return nil, err
 	}

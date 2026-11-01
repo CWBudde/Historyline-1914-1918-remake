@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Uboot",
+	"season": "summer",
 	"map": {
 		"line1": [["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterDeep", ""], ["lakeside123", ""], ["house", ""], ["house", ""], ["forest", ""], ["grass", ""], ["forest", ""], ["house", ""]],
 		"line2": [["waterSea", ""], ["waterSea", ""], ["waterSea", ""], ["waterDeep", ""], ["waterStones", ""], ["house", ""], ["factoryN", ""], ["grass", "path24"], ["grass", "path24"], ["grass", "path24"], ["grass", ""]],

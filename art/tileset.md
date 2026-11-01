@@ -7,16 +7,16 @@ Direction and prompt rules: [direction.md](direction.md); runtime IDs and compos
 ## Seasons
 
 The original game has two tile sets, summer and winter, with one tile per terrain record (174 records),
-and each map is either a summer map or a winter map. The remake follows this. Winter terrain is named with
-`_w` (`grass_w`, `forest_w`) and has the same rules as its summer terrain. On a mostly winter map
-(`mapcompose.mostlyWinter`), roads, water and infrastructure, which carry no season in the level, draw their
-`_w` form.
+and each map is either a summer map or a winter map. The remake follows this. A winter hex draws its
+terrain's `_w` form (`grass_w`, `forest_w`). On a mostly winter map (`mapcompose.mostlyWinter`), roads,
+water and infrastructure, which carry no season in the level, draw their `_w` form.
 
 Autumn and spring are new. They change only how a map looks, never the rules:
 
-- **Season of a map.** A winter map stays winter. Any other map takes its month's season: March to May is
-  spring, September to November is autumn, the other months are summer. An optional `season` in a
-  level's `map.json` overrides this.
+- **Season of a map.** Every `map.json` sets its `season`; new campaign folders get their month's season
+  (March to May spring, September to November autumn, otherwise summer), or winter where the original map
+  is winter. The optional `seasons` draws single hexes in another season
+  ([runtime-assets.md](../docs/runtime-assets.md#seasons)).
 - **IDs.** The autumn form of every drawn ID is its summer ID plus `_au`, the spring form plus `_sp`
   (`tile/road36_au`; a context tile keeps its summer key: `context/forest/<key>_au`). Cast shadows have no
   season. Neutral families (see the table) keep their summer ID in every season.

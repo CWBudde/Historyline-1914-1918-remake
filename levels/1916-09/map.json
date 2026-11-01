@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Droid",
+	"season": "autumn",
 	"map": {
 		"line1": [["forest", ""], ["hills", ""], ["forest", ""], ["house", ""], ["grass", "path24"], ["grass", "path24"], ["forest", ""], ["house", ""], ["stone", ""], ["mud", ""], ["mud", ""], ["mud", ""]],
 		"line2": [["forest", ""], ["grass", "path24"], ["grass", "path24"], ["grass", "path14"], ["grass", "path15"], ["grass", "path25"], ["grass", "path24"], ["mountain", ""], ["mud", ""], ["mud", ""], ["mud", ""]],

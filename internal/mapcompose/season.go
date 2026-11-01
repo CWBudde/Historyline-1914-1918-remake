@@ -76,15 +76,36 @@ func LevelSeason(l *level.Level) Season {
 	return Summer
 }
 
-// ComposeSeason composes g as Compose does and draws it in season: in autumn
-// and spring every drawn ID but the cast shadows takes its seasonal form
-// where has it, and Scene.Fallbacks counts the summer IDs still drawn. Summer
-// and winter compose as Compose; winter comes from the terrain.
-func ComposeSeason(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) bool, season Season) Scene {
-	s := Compose(g, at, has)
-	if season == Autumn || season == Spring {
-		s.inSeason(season, has)
+// SeasonAt is the season each hex of l is drawn in: its entry in the
+// scenario's Seasons, else LevelSeason.
+func SeasonAt(l *level.Level) func(hexgrid.Coord) Season {
+	all := LevelSeason(l)
+	if l.Extra == nil || len(l.Extra.Seasons) == 0 {
+		return Everywhere(all)
 	}
+	seasons := l.Extra.Seasons
+	return func(c hexgrid.Coord) Season {
+		if s, ok := seasons[c]; ok {
+			return Season(s)
+		}
+		return all
+	}
+}
+
+// Everywhere is season s on every hex.
+func Everywhere(s Season) func(hexgrid.Coord) Season {
+	return func(hexgrid.Coord) Season { return s }
+}
+
+// ComposeSeason composes g as Compose does and draws each hex in its
+// season: on an autumn or spring hex every drawn ID but the cast shadows
+// takes its seasonal form where has it, a cluster's in the season of its
+// anchor (Cells[0]), and Scene.Fallbacks counts the summer IDs still drawn
+// there. Summer and winter hexes compose as Compose; winter comes from the
+// terrain.
+func ComposeSeason(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) bool, season func(hexgrid.Coord) Season) Scene {
+	s := Compose(g, at, has)
+	s.inSeason(season, has)
 	return s
 }
 
@@ -101,14 +122,18 @@ var neutralFamilies = map[string]bool{
 // summer form serves autumn and spring.
 func SeasonNeutral(id string) bool { return neutralFamilies[IDFamily(id)] }
 
-// inSeason swaps every drawn ID of the scene but the cast shadows for its form
-// in season where has it, counting the others in Fallbacks but those of the
-// season-neutral families. Winter IDs stay.
-func (s *Scene) inSeason(season Season, has func(string) bool) {
-	s.Fallbacks = map[string]int{}
+// inSeason swaps every drawn ID of an autumn or spring hex but the cast
+// shadows for its form in that season where has it, counting the others in
+// Fallbacks but those of the season-neutral families; nil Fallbacks when no
+// hex is in autumn or spring. Winter IDs stay.
+func (s *Scene) inSeason(seasonAt func(hexgrid.Coord) Season, has func(string) bool) {
+	var season Season
 	swap := func(id *string) {
-		if *id == "" || strings.HasSuffix(*id, "_w") {
+		if season != Autumn && season != Spring || *id == "" || strings.HasSuffix(*id, "_w") {
 			return
+		}
+		if s.Fallbacks == nil {
+			s.Fallbacks = map[string]int{}
 		}
 		if form := SeasonalID(*id, season); has(form) {
 			*id = form
@@ -120,6 +145,7 @@ func (s *Scene) inSeason(season Season, has func(string) bool) {
 	}
 	for l := range s.Cells {
 		for col := range s.Cells[l] {
+			season = seasonAt(hexgrid.Coord{Line: l, Col: col})
 			c := &s.Cells[l][col]
 			swap(&c.Background)
 			swap(&c.Under)
@@ -136,6 +162,7 @@ func (s *Scene) inSeason(season Season, has func(string) bool) {
 		}
 	}
 	for i := range s.Clusters {
+		season = seasonAt(s.Clusters[i].Cells[0])
 		swap(&s.Clusters[i].Stamp)
 		swap(&s.Clusters[i].Standing)
 	}

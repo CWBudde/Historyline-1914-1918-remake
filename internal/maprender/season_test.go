@@ -54,7 +54,7 @@ func TestSpringFormsDrawAsSummer(t *testing.T) {
 		l.Extra = &extra
 		return &l
 	}
-	scene := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return spring.has[id] }, mapcompose.Spring)
+	scene := mapcompose.ComposeSeason(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return spring.has[id] }, mapcompose.Everywhere(mapcompose.Spring))
 	if len(scene.Fallbacks) != 0 || !strings.HasSuffix(scene.Cells[0][0].Background, "_sp") {
 		t.Fatalf("spring scene: %s, fallbacks %v", scene.Cells[0][0].Background, scene.Fallbacks)
 	}

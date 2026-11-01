@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Elite",
+	"season": "summer",
 	"map": {
 		"line1": [["mountain", ""], ["mountN", ""], ["forest", ""], ["hills", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["mountW", ""], ["mountE", ""], ["grass", "road36"], ["grass", ["road36", "runway36"]], ["hills", ""], ["grass", "stream36"], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],

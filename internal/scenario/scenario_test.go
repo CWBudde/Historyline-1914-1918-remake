@@ -120,8 +120,9 @@ func TestShippedMonths(t *testing.T) {
 var small = map[string]string{
 	MapFile: `{
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Test",
+	"season": "summer",
 	"map": {
 		"line1": [["grass", ""], ["hqN", ""], ["forest", ["stream25", "bridge36"]]],
 		"line2": [["grass", "road25"], ["hqC", ""]],
@@ -217,7 +218,7 @@ func TestLevel(t *testing.T) {
 
 func TestParseErrors(t *testing.T) {
 	for name, edit := range map[string][3]string{
-		"version":          {MapFile, `"version": 2`, `"version": 1`},
+		"version":          {MapFile, `"version": 3`, `"version": 2`},
 		"unknown key":      {MapFile, `"name": "Test",`, `"name": "Test", "extra": 1,`},
 		"line gap":         {MapFile, `"line3"`, `"line4"`},
 		"line width":       {MapFile, `["hqC", ""]]`, `["hqC", ""], ["grass", ""]]`},
@@ -287,32 +288,55 @@ func TestWrite(t *testing.T) {
 	}
 }
 
-// A map's season: winter from its terrain, else map.json's, else its month's.
-func TestSeason(t *testing.T) {
+// MonthSeason is a new map's default season by its month.
+func TestMonthSeason(t *testing.T) {
 	for month, want := range map[string]string{
 		"1914-08": "summer", "1914-09": "autumn", "1914-11": "autumn", "1914-12": "summer",
 		"1915-02": "summer", "1915-03": "spring", "1915-05": "spring", "1915-06": "summer", "": "summer",
 	} {
-		f := &File{Month: month}
-		if got := f.Season(); got != want {
+		if got := MonthSeason(month); got != want {
 			t.Errorf("month %q: %s, want %s", month, got, want)
 		}
 	}
-	winter := func(files map[string]string) {
-		files[MapFile] = strings.Replace(files[MapFile], `["forest", ["stream25"`, `["forest_w", ["stream25"`, 1)
-	}
+}
+
+// A map's season puts every hex's terrain in its season, the winter rules
+// with it; "seasons" changes single hexes' look only.
+func TestSeason(t *testing.T) {
 	season := func(s string) func(map[string]string) {
 		return func(files map[string]string) {
-			files[MapFile] = strings.Replace(files[MapFile], `"name": "Test",`, `"name": "Test",`+"\n\t\"season\": \""+s+"\",", 1)
+			files[MapFile] = strings.Replace(files[MapFile], `"season": "summer"`, `"season": "`+s+`"`, 1)
 		}
 	}
-	f, err := Read(smallFS(winter), "1914-08")
-	if err != nil || f.Season() != "winter" {
-		t.Fatalf("winter map: %v", err)
+	seasons := func(line string) func(map[string]string) {
+		return func(files map[string]string) {
+			files[MapFile] = strings.Replace(files[MapFile], "\n\t}\n}", "\n\t},\n\t\"seasons\": {\n\t\t"+line+"\n\t}\n}", 1)
+		}
 	}
-	for _, s := range []string{"summer", "autumn", "spring"} {
-		edit := season(s)
-		f, err := Read(smallFS(edit), "1914-08")
+	read := func(edits ...func(map[string]string)) (*File, error) {
+		return Read(smallFS(func(files map[string]string) {
+			for _, e := range edits {
+				e(files)
+			}
+		}), "1914-08")
+	}
+	roundTrip := func(name string, f *File, edits ...func(map[string]string)) {
+		t.Helper()
+		files, err := f.Files()
+		if err != nil {
+			t.Fatalf("%s: %v", name, err)
+		}
+		want := map[string]string{MapFile: small[MapFile]}
+		for _, e := range edits {
+			e(want)
+		}
+		if string(files[MapFile]) != want[MapFile] {
+			t.Errorf("%s: encodes\n%s", name, files[MapFile])
+		}
+	}
+
+	for _, s := range []string{"summer", "autumn", "spring", "winter"} {
+		f, err := read(season(s))
 		if err != nil {
 			t.Fatalf("%s: %v", s, err)
 		}
@@ -320,32 +344,64 @@ func TestSeason(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if f.MapSeason != s || f.Season() != s || lv.Extra.Season != s {
-			t.Errorf("%s: map %q, season %q, level %q", s, f.MapSeason, f.Season(), lv.Extra.Season)
+		forest, hq, wantForest, wantHQ := lv.Lines[0][2].Terrain, lv.Lines[0][1].Terrain, "forest", "hqN"
+		if s == "winter" {
+			wantForest, wantHQ = "forest_w", "hqN_w"
 		}
-		files, err := f.Files()
-		if err != nil {
-			t.Fatal(err)
+		if f.Season != s || lv.Extra.Season != s || f.Winter() != (s == "winter") || forest != wantForest || hq != wantHQ {
+			t.Errorf("%s: season %q, level %q, winter %v, terrain %s %s", s, f.Season, lv.Extra.Season, f.Winter(), forest, hq)
 		}
-		want := map[string]string{MapFile: small[MapFile]}
-		edit(want)
-		if string(files[MapFile]) != want[MapFile] {
-			t.Errorf("%s: encodes\n%s", s, files[MapFile])
+		roundTrip(s, f, season(s))
+	}
+
+	mixed := seasons(`"line3": ".wa"`)
+	f, err := read(mixed)
+	if err != nil {
+		t.Fatal(err)
+	}
+	lv, err := f.Level(CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := map[hexgrid.Coord]string{{Line: 2, Col: 1}: "winter", {Line: 2, Col: 2}: "autumn"}
+	if f.Winter() || !reflect.DeepEqual(f.Seasons, want) || !reflect.DeepEqual(lv.Extra.Seasons, want) ||
+		lv.Extra.SeasonAt(hexgrid.Coord{Line: 2, Col: 2}) != "autumn" || lv.Extra.SeasonAt(hexgrid.Coord{Line: 2}) != "summer" {
+		t.Errorf("seasons %v, level %v", f.Seasons, lv.Extra.Seasons)
+	}
+	if got := []string{lv.Lines[2][0].Terrain, lv.Lines[2][1].Terrain, lv.Lines[2][2].Terrain}; !slices.Equal(got, []string{"grass", "grass_w", "grass"}) {
+		t.Errorf("line3 terrain %v", got)
+	}
+	roundTrip("seasons", f, mixed)
+	if f, err := read(seasons(`"line3": ".s."`)); err != nil || f.Seasons != nil {
+		t.Errorf("a hex in the map's season is an override: %v %v", f.Seasons, err)
+	}
+
+	f.Map[0][0].Terrain = "grass_w"
+	if _, err := f.Files(); err == nil {
+		t.Error("winter terrain on a summer hex encodes")
+	}
+
+	for name, edits := range map[string][]func(map[string]string){
+		"no season": {season("")},
+		"unknown":   {season("fall")},
+		"winter suffix": {func(files map[string]string) {
+			files[MapFile] = strings.Replace(files[MapFile], `["forest", ["stream25"`, `["forest_w", ["stream25"`, 1)
+		}},
+		"winter only": {func(files map[string]string) {
+			files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["rough", "road25"]`, 1)
+		}},
+		"seasons line":  {seasons(`"line4": "..."`)},
+		"seasons key":   {seasons(`"3": "..."`)},
+		"seasons width": {seasons(`"line3": ".."`)},
+		"seasons char":  {seasons(`"line3": ".x."`)},
+	} {
+		if _, err := read(edits...); err == nil {
+			t.Errorf("%s reads", name)
 		}
 	}
-	for name, edits := range map[string][]func(map[string]string){
-		"winter":           {season("winter")},
-		"unknown":          {season("fall")},
-		"on a winter map":  {winter, season("autumn")},
-		"summer on winter": {winter, season("summer")},
-	} {
-		fsys := smallFS(func(files map[string]string) {
-			for _, e := range edits {
-				e(files)
-			}
-		})
-		if _, err := Read(fsys, "1914-08"); err == nil {
-			t.Errorf("season %s reads", name)
-		}
+	if _, err := read(season("winter"), func(files map[string]string) {
+		files[MapFile] = strings.Replace(files[MapFile], `["grass", "road25"]`, `["rough", "road25"]`, 1)
+	}); err != nil {
+		t.Errorf("rough in winter: %v", err)
 	}
 }

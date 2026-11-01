@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Green",
+	"season": "summer",
 	"map": {
 		"line1": [["mountN", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mountN", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mud", ""], ["lakeside3456", ""], ["water", ""], ["lakeside123", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["forest", ""], ["mountain", ""], ["mountN", ""], ["mountain", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["mountE", ""], ["forest", ""], ["mountN", ""], ["forest", ""], ["grass", "road24"], ["mountW", ""], ["mountE", ""], ["mountW", ""], ["mountE", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "trench14"], ["grass", "road24"], ["water", ""], ["water", ""], ["hills", ""], ["forest", ""], ["hills", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["mountN", ""], ["mountW", ""], ["mountE", ""], ["grass", "road24"], ["grass", "road24"], ["mountW", ""], ["mountE", ""], ["forest", ""], ["forest", ""]],

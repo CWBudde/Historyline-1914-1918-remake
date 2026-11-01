@@ -156,7 +156,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			}
 			m := mapLevel{
 				name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
-				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), season: f.Season(), month: f.Month,
+				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), season: f.Season, month: f.Month,
 				article: pages[f.Month], issue: issues[f.Month],
 			}
 			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.season)

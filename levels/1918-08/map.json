@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Troll",
+	"season": "summer",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["grass", "stream14"], ["grass", "road24"], ["grass", "road24"], ["grass", ""], ["grass", ""], ["grass", ""]],
 		"line2": [["forest", ""], ["grass", "stream14"], ["grass", "road13"], ["grass", "road135"], ["grass", "road35"], ["grass", ""], ["forest", ""]],

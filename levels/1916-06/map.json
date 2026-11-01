@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Flame",
+	"season": "summer",
 	"map": {
 		"line1": [["hills", ""], ["hills", ""], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["grass", ""], ["water", ""], ["water", ""], ["waterSea", ""], ["waterSea", ""], ["waterSea", ""]],
 		"line2": [["grass", ["road36", "runway36"]], ["hills", ""], ["hills", ""], ["grass", ""], ["grass", ""], ["stone", ""], ["lakeside3456", ""], ["water", ""], ["waterDeep", ""], ["waterSea", ""], ["waterSea", ""]],

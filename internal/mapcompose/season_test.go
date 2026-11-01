@@ -138,7 +138,7 @@ func TestComposeSeason(t *testing.T) {
 		g, at := l.Grid(), LevelHex(l)
 		base := Compose(g, at, summerHas)
 		for _, season := range []Season{Summer, Winter} {
-			if s := ComposeSeason(g, at, summerHas, season); !reflect.DeepEqual(s, base) {
+			if s := ComposeSeason(g, at, summerHas, Everywhere(season)); !reflect.DeepEqual(s, base) {
 				t.Errorf("%s in %s differs from Compose", name, season)
 			}
 		}
@@ -146,7 +146,7 @@ func TestComposeSeason(t *testing.T) {
 			continue
 		}
 		for _, season := range []Season{Autumn, Spring} {
-			s := ComposeSeason(g, at, summerHas, season)
+			s := ComposeSeason(g, at, summerHas, Everywhere(season))
 			drawn := 0
 			for _, id := range drawnIDs(base) {
 				if id != "" && !SeasonNeutral(id) {
@@ -169,7 +169,7 @@ func TestComposeSeason(t *testing.T) {
 			all := func(id string) bool {
 				return have[id] || have[strings.TrimSuffix(id, sfx)] && strings.HasSuffix(id, sfx)
 			}
-			s = ComposeSeason(g, at, all, season)
+			s = ComposeSeason(g, at, all, Everywhere(season))
 			if len(s.Fallbacks) != 0 {
 				t.Errorf("%s in %s with every seasonal form: fallbacks %v", name, season, s.Fallbacks)
 			}
@@ -200,6 +200,41 @@ func TestComposeSeason(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+// A level's Seasons draw single hexes in their season (SeasonAt): only those
+// hexes take their autumn forms.
+func TestComposeHexSeasons(t *testing.T) {
+	have := indexIDs(t)
+	all := func(id string) bool {
+		return have[id] || have[strings.TrimSuffix(id, "_au")] && strings.HasSuffix(id, "_au")
+	}
+	l := campaignLevel(t, "1915-08:cp")
+	autumn := map[hexgrid.Coord]bool{{Line: 4, Col: 3}: true, {Line: 4, Col: 4}: true, {Line: 5, Col: 3}: true}
+	l.Extra.Seasons = map[hexgrid.Coord]string{}
+	for c := range autumn {
+		l.Extra.Seasons[c] = string(Autumn)
+	}
+	g, at := l.Grid(), LevelHex(l)
+	base := Compose(g, at, all)
+	s := ComposeSeason(g, at, all, SeasonAt(l))
+	if len(s.Fallbacks) != 0 {
+		t.Errorf("fallbacks %v", s.Fallbacks)
+	}
+	for line := range s.Cells {
+		for col, c := range s.Cells[line] {
+			want := base.Cells[line][col].Background
+			if autumn[hexgrid.Coord{Line: line, Col: col}] {
+				want = SeasonalID(want, Autumn)
+			}
+			if c.Background != want {
+				t.Errorf("[%d, %d]: %s, want %s", line, col, c.Background, want)
+			}
+		}
+	}
+	if got := SeasonAt(l)(hexgrid.Coord{}); got != Summer {
+		t.Errorf("an unlisted hex is in %s", got)
 	}
 }
 

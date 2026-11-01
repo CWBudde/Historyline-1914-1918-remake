@@ -109,6 +109,9 @@ func generate(all []*finmap.Level, set *data.Set) (*output, error) {
 			return nil, fmt.Errorf("map %02d: %w", k, err)
 		}
 		f.Month = Month(k)
+		if err := setSeason(f); err != nil {
+			return nil, fmt.Errorf("%s: %w", f.Month, err)
+		}
 		for _, r := range report {
 			out.report = append(out.report, f.Month+": "+r)
 		}
@@ -132,12 +135,29 @@ func generate(all []*finmap.Level, set *data.Set) (*output, error) {
 		if out.folders[name] != nil {
 			return nil, fmt.Errorf("map %s: %s is taken", m.Source.Map, name)
 		}
+		if err := setSeason(f); err != nil {
+			return nil, fmt.Errorf("%s: %w", name, err)
+		}
 		if err := check(f, set); err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
 		}
 		out.folders[name] = f
 	}
 	return out, nil
+}
+
+// setSeason sets the season of f: winter where the original map carries
+// winter terrain, its month's (scenario.MonthSeason) otherwise.
+func setSeason(f *scenario.File) error {
+	season := scenario.MonthSeason(f.Month)
+	for _, line := range f.Map {
+		for _, h := range line {
+			if strings.HasSuffix(h.Terrain, "_w") {
+				season = "winter"
+			}
+		}
+	}
+	return f.SetSeasons(season, nil)
 }
 
 // title is a code word as a name: "PULSE" is "Pulse".

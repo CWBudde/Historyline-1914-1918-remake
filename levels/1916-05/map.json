@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Virus",
+	"season": "spring",
 	"map": {
 		"line1": [["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road36"], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["lakeside16", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["forest", ""], ["forest", ""], ["forest", ""], ["water", ["rBridge36", "road36"]], ["water", ""], ["water", ""], ["water", ""], ["water", ""], ["lakeside16", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road36"], ["forest", ""]],

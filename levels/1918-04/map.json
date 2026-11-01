@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Candl",
+	"season": "spring",
 	"map": {
 		"line1": [["mountain", ""], ["grass", ""], ["lakeside34", ""], ["waterDeep", ""], ["lakeside123", ""], ["forest", ""], ["waterDeep", ""], ["waterDeep", ""], ["grass", ""], ["mountN", ""], ["forest", ""], ["grass", ""], ["grass", ""], ["grass", "rail14"], ["mud", ""], ["mud", ""]],
 		"line2": [["mountN", ""], ["grass", "rail236"], ["lakeside34", ""], ["waterDeep", ""], ["grass", ""], ["lakeside3456", ""], ["waterDeep", ""], ["lakeside123", ""], ["mountW", ""], ["mountE", ""], ["grass", ""], ["grass", ""], ["grass", "rail14"], ["mud", ""], ["mud", ""]],

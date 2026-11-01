@@ -246,11 +246,17 @@ their layouts leave the unit foot point clear. Rebuild with the pinned
 
 ### Seasons
 
-A map is drawn in one season (`scenario.File.Season`, carried in `level.Extra.Season`): `winter` when its
-terrain has `_w` IDs; otherwise the `"season"` of its `map.json` (`summer`, `autumn` or `spring`; not
-allowed on a winter map) where set, else its month's: March to May spring, September to November autumn,
-the other months and folders without a month summer. Levels without a scenario (PULSE, `original/NN`)
-are winter when mostly winter, else summer. `hl levels campaign` keeps a `map.json` season.
+A map's `map.json` names its terrain without a season (`grass`, never `grass_w`) and sets its `"season"`
+(`summer`, `autumn`, `spring` or `winter`; `scenario.File.Season`, carried in `level.Extra.Season`). The
+season is also the rules season: winter plays by the original's winter tables (`dosbind.Board.Winter`). The
+optional `"seasons"` draws single hexes in another season, a string per map line with a character per hex
+(`.` the map's season, `s` summer, `a` autumn, `p` spring, `w` winter; `level.Extra.Seasons`,
+`mapcompose.SeasonAt`); it changes the look only. A hex drawn in winter takes its terrain's `_w` form
+(`scenario.TerrainIn`) where `internal/data` has one, so the level keeps the `_w` terrain names. Hexes switch
+season at their edges: there are no transition tiles between seasons yet. Levels without a scenario
+(PULSE, `original/NN`) are winter when mostly winter, else summer. `hl levels campaign` writes winter where
+the original map is winter, else the month's season (`scenario.MonthSeason`: March to May spring,
+September to November autumn, otherwise summer), and keeps a folder's non-winter season and its `seasons`.
 
 Autumn and spring change the look only. `mapcompose.ComposeSeason` composes the map as in summer, then
 swaps every drawn ID for its seasonal form, the summer ID plus `_au` or `_sp` (`tile/road36_au`,

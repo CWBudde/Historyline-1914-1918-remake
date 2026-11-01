@@ -1,7 +1,8 @@
 {
 	"format": "historyline-scenario",
-	"version": 2,
+	"version": 3,
 	"name": "Light",
+	"season": "summer",
 	"map": {
 		"line1": [["mountW", ""], ["mountE", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["water", ""], ["lakeside123", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
 		"line2": [["mountS", ""], ["stone", ""], ["house", ""], ["forest", ""], ["lakeside3456", ""], ["water", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""]],
