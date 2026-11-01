@@ -431,9 +431,15 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 5.2 The level format lacks transporter cargo, ship rears and terrain records that share a look (the
       original rules keep the exact binding through `dosbind.FromOriginal`); scenario setups carry credits
       and builds. CIVIL's mountains, for one, bind the default mountain record, not the original's 71-77.
-- [ ] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
+- [x] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
       in cell order (MOUSE's factories swap), and takes adjacent buildings of one family for one: PARTS'
       two touching camps bind as one, the second camp's six units are dropped (`TestDroppedContent`).
+      (2026-11-01) — Bind stamps each building from its N piece (`level.Compounds`) and numbers depots and
+      factories by entrance cell; PARTS' camps bind apart, and Bind matches `FromOriginal` on every shipped
+      original map (MOUSE, PLANE, INFRA, GREEN no longer swap).
+- [ ] 5.3a `addRear` places the rears of two EC destroyers of PARTS' `ec` and `2p` setups (1916-02, [39,16] and
+      [42,15]) on one cell (670); it skips the level's units but not rears already placed. Then drop
+      `knownStacked` in `internal/dosbind/dosbind_test.go`.
 - [ ] 5.4 Monthly campaign: remaining work.
       - a balance pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`;
       - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);
