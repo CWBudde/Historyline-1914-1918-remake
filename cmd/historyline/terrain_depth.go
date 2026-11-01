@@ -64,22 +64,10 @@ func (a *terrainArt) depthImage(c hexgrid.Coord, signature, id string, d int, ba
 	if err != nil {
 		return nil, e, err
 	}
-	var with waterdepth.Tiles
-	for _, w := range []struct {
-		id  string
-		set *image.Image
-	}{{waterdepth.SeaTile(c, id), &with.Sea}, {waterdepth.WaterTile(id), &with.Water}, {waterdepth.SurfTile(id), &with.Surf}} {
-		if a.group[w.id] == "" {
-			w.id = mapcompose.SummerID(w.id) // an autumn or spring form the catalog lacks
-		}
-		if a.group[w.id] == "" {
-			continue
-		}
-		if *w.set, err = a.packs[packKey{a.group[w.id], d}].Image(w.id, d); err != nil {
-			return nil, e, err
-		}
+	shaded, err := a.shadeDepth(c, id, tile, e, d)
+	if err != nil {
+		return nil, e, err
 	}
-	shaded := t.field.Shade(tile, with, materialOrigin(c, e, d), d)
 	w, h := shaded.Bounds().Dx()+2*tilePad, shaded.Bounds().Dy()+2*tilePad
 	img := ebiten.NewImage(w, h)
 	img.WritePixels(padded(shaded, tilePad, !bare))
@@ -96,4 +84,27 @@ func (a *terrainArt) depthImage(c hexgrid.Coord, signature, id string, d int, ba
 	t.order = append(t.order, key)
 	t.bytes += w * h * 4
 	return img, e, nil
+}
+
+// shadeDepth is water background tile, id of entry e on hex c at density d,
+// shaded by depth with the open sea's material and surf where the catalog has
+// them.
+func (a *terrainArt) shadeDepth(c hexgrid.Coord, id string, tile image.Image, e assets.Entry, d int) (image.Image, error) {
+	var err error
+	var with waterdepth.Tiles
+	for _, w := range []struct {
+		id  string
+		set *image.Image
+	}{{waterdepth.SeaTile(c, id), &with.Sea}, {waterdepth.WaterTile(id), &with.Water}, {waterdepth.SurfTile(id), &with.Surf}} {
+		if a.group[w.id] == "" {
+			w.id = mapcompose.SummerID(w.id) // an autumn or spring form the catalog lacks
+		}
+		if a.group[w.id] == "" {
+			continue
+		}
+		if *w.set, err = a.packs[packKey{a.group[w.id], d}].Image(w.id, d); err != nil {
+			return nil, err
+		}
+	}
+	return a.depth.field.Shade(tile, with, materialOrigin(c, e, d), d), nil
 }

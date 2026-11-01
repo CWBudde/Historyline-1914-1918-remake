@@ -18,8 +18,9 @@ var boundaryTerrains = sync.OnceValue(func() map[string]data.Terrain {
 // boundaryTerrain recognizes same-season terrain outside the active material
 // family. Each family retreats to its seasonal base at such a boundary. Known
 // water and shores have no seasonal suffix and are valid in both seasons.
-// Unknown IDs and mixed seasons remain visible errors instead of silently
-// acquiring a context.
+// Unknown IDs remain visible errors instead of silently acquiring a context;
+// a neighbour drawn in another season reaches it as its terrain in the
+// centre's season (selectContext).
 func boundaryTerrain(id, season string) bool {
 	if _, ok := boundaryTerrains()[id]; !ok {
 		return false

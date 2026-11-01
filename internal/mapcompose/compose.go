@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -195,6 +196,11 @@ func selectContext(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, 
 			continue
 		}
 		neighbors[i] = at(n).Terrain
+		if t := neighbors[i]; strings.HasSuffix(t, "_w") != (season == "winter") && !Wet(t) {
+			// A neighbour drawn in another season continues the material as
+			// its terrain in the centre's season.
+			neighbors[i] = data.InSeason(data.Kind(t), season)
+		}
 		if s, _, ok := member(f, neighbors[i]); !ok || s != season {
 			if boundaryTerrain(neighbors[i], season) {
 				neighbors[i] = base

@@ -272,6 +272,43 @@ func TestLevelHexWinter(t *testing.T) {
 	}
 }
 
+// A context next to a hex drawn in another season continues as if that hex
+// were in its own season: a winter east adds no undefined context, and
+// LevelHexIn draws every hex in its season.
+func TestContextAcrossSeasons(t *testing.T) {
+	have := indexIDs(t)
+	has := func(id string) bool { return have[id] }
+	l := campaignLevel(t, "1915-08:cp")
+	undefined := func() int {
+		n := 0
+		for _, gap := range Compose(l.Grid(), LevelHex(l), has).Gaps {
+			if gap.Reason == Undefined {
+				n++
+			}
+		}
+		return n
+	}
+	before := undefined()
+	l.Extra.Seasons = map[hexgrid.Coord]string{}
+	for li, line := range l.Lines {
+		for col := range line {
+			if col >= 8 {
+				l.Extra.Seasons[hexgrid.Coord{Line: li, Col: col}] = string(Winter)
+			}
+		}
+	}
+	if got := undefined(); got != before {
+		t.Errorf("%d undefined contexts with a winter east, %d without", got, before)
+	}
+	at := LevelHexIn(l, Winter)
+	if h := at(hexgrid.Coord{Line: 4, Col: 2}); h.Season != Winter || (h.Terrain != "water" && !strings.HasSuffix(h.Terrain, "_w")) {
+		t.Errorf("a summer hex in winter: %+v", h)
+	}
+	if h := LevelHexIn(l, Summer)(hexgrid.Coord{Line: 4, Col: 9}); h.Season != Summer || strings.HasSuffix(h.Terrain, "_w") {
+		t.Errorf("a winter hex in summer: %+v", h)
+	}
+}
+
 // summerIDs joins ids in their summer form.
 func summerIDs(ids ...string) string {
 	out := make([]string, len(ids))

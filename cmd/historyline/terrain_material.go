@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -46,6 +47,9 @@ func (a *terrainArt) release() {
 	}
 	if a.depth != nil {
 		a.depth.release(a)
+	}
+	if a.blend != nil {
+		a.blend.release(a)
 	}
 	for _, d := range a.dim {
 		d.Deallocate()
@@ -121,8 +125,8 @@ func (m *terrainMaterials) eligible(c hexgrid.Coord, id string) bool {
 	if m == nil || m.level == nil || c.Line < 0 || c.Line >= len(m.level.Lines) || c.Col < 0 || c.Col >= len(m.level.Lines[c.Line]) {
 		return false
 	}
-	terrain := m.level.Lines[c.Line][c.Col].Terrain
-	return id != "" && id != "tile/unseen" && mapcompose.IDSeason(id) == mapcompose.Summer && (terrain == "grass" || terrain == "hills")
+	kind := data.Kind(m.level.Lines[c.Line][c.Col].Terrain) // also a hex drawn in summer on a winter map
+	return id != "" && id != "tile/unseen" && mapcompose.IDSeason(id) == mapcompose.Summer && (kind == "grass" || kind == "hills")
 }
 
 func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int, bare bool) (*ebiten.Image, assets.Entry, error) {

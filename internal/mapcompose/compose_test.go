@@ -85,11 +85,24 @@ func TestContextSelectedWhenExported(t *testing.T) {
 }
 
 func TestUndefinedContexts(t *testing.T) {
-	for _, neighbor := range []string{"grass_w", "unknown"} {
+	g, at := grid("forest grass", "unknown", "grass grass")
+	s := Compose(g, at, none)
+	if len(s.Gaps) != 1 || s.Gaps[0].Reason != Undefined || !strings.Contains(s.Gaps[0].Detail, "unknown") {
+		t.Errorf("unsupported boundary: %+v", s.Gaps)
+	}
+	// A neighbour drawn in another season continues the material as its
+	// terrain in the centre's season.
+	g, at = grid("forest grass", "grass", "grass grass")
+	want := Compose(g, at, none).Gaps
+	for _, neighbor := range []string{"grass_w", "forest_w"} {
 		g, at := grid("forest grass", neighbor, "grass grass")
-		s := Compose(g, at, none)
-		if len(s.Gaps) != 1 || s.Gaps[0].Reason != Undefined || !strings.Contains(s.Gaps[0].Detail, neighbor) {
-			t.Errorf("unsupported boundary %s: %+v", neighbor, s.Gaps)
+		got := Compose(g, at, none).Gaps
+		if neighbor == "forest_w" {
+			g, at = grid("forest grass", "forest", "grass grass")
+			want = Compose(g, at, none).Gaps
+		}
+		if len(got) == 0 || got[0].Reason != Missing || got[0].Descriptor != want[0].Descriptor {
+			t.Errorf("winter neighbour %s: %+v, want %+v", neighbor, got, want)
 		}
 	}
 }

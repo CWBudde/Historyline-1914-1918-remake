@@ -380,3 +380,45 @@ func TestBackgroundsHaveBareTextures(t *testing.T) {
 		t.Errorf("terrain densities %v draw %dx at zoom 1", terrainDensities, terrainDensity(1))
 	}
 }
+
+// A level with hexes drawn in another season mixes the layers of the hexes at
+// the border once per layer, anchored on the hex centre, and releases them.
+func TestTerrainBlendsSeasonBorders(t *testing.T) {
+	l := testLevel(t)
+	l.Extra.Seasons = map[hexgrid.Coord]string{}
+	for li, line := range l.Lines {
+		for col := range line {
+			if col >= 4 {
+				l.Extra.Seasons[hexgrid.Coord{Line: li, Col: col}] = string(mapcompose.Spring)
+			}
+		}
+	}
+	a, err := openTerrainArt(terrainCatalog(t, l, ""), assets.Options{AllowCandidates: true}, l)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if a.blend == nil {
+		t.Fatal("no blend at the season border")
+	}
+	c := hexgrid.Coord{Line: 10, Col: 4}
+	if a.blend.blend.Seasons(c) == nil {
+		t.Fatalf("%v mixes no seasons", c)
+	}
+	all := func(*mapcompose.Cluster) bool { return true }
+	for _, d := range terrainDensities {
+		img, e, err := a.blendImage(c, 0, d, true, all)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if w, h := img.Bounds().Dx(), img.Bounds().Dy(); w != 96*d+2*tilePad || h != 80*d+2*tilePad || e.Anchor != [2]float64{48, 40} {
+			t.Errorf("%dx: %dx%d anchored at %v", d, w, h, e.Anchor)
+		}
+		if again, _, _ := a.blendImage(c, 0, d, true, all); again != img {
+			t.Errorf("%dx: the mixed background is made twice", d)
+		}
+	}
+	a.release()
+	if len(a.blend.tiles) != 0 || a.blend.bytes != 0 {
+		t.Error("release kept mixed textures")
+	}
+}

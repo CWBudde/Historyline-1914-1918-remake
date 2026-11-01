@@ -3,12 +3,12 @@ package maprender
 import (
 	"fmt"
 	"image"
-	"image/draw"
 	"math"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/seasonblend"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
@@ -59,31 +59,44 @@ func (r *Renderer) loadMaterials() error {
 	return nil
 }
 
-func (r *Renderer) drawMaterial(dst draw.Image, id string, at hexgrid.Coord, density int, field *mapmaterial.Field) error {
-	e, mask, err := r.assetImage(id, density)
-	if err != nil {
-		return err
-	}
+// origin is the top-left corner, in map pixels at density, of an image of
+// entry e placed on hex at.
+func origin(e Entry, at hexgrid.Coord, density int) image.Point {
 	x, y := hexgrid.Center(at)
-	origin := image.Pt(int(math.Round((x-e.Anchor[0])*float64(density))), int(math.Round((y-e.Anchor[1])*float64(density))))
-	tile, err := r.materials[density].Tile(mask, origin, field.Weight)
-	if err != nil {
-		return err
-	}
-	draw.Draw(dst, tile.Bounds().Add(origin), tile, image.Point{}, draw.Over)
-	return nil
+	return image.Pt(int(math.Round((x-e.Anchor[0])*float64(density))), int(math.Round((y-e.Anchor[1])*float64(density))))
 }
 
-// drawDeep draws background id on hex at with its water shaded by the sea's
-// depth (waterdepth), the open sea's material blended in and surf along a coast
-// by the sea where the catalog has them.
-func (r *Renderer) drawDeep(dst draw.Image, id string, at hexgrid.Coord, density int, field *waterdepth.Field) error {
+// ground is background id of hex at as drawn, placed at its top-left corner:
+// water shaded by depth, a summer meadow or hills background sampled from the
+// world material, any other as painted.
+func (r *Renderer) ground(id string, at hexgrid.Coord, density int, depth *waterdepth.Field, field *mapmaterial.Field, terrain string) (seasonblend.Part, error) {
+	if depth != nil && depth.Signature(at) != "" {
+		return r.deep(id, at, density, depth)
+	}
 	e, im, err := r.assetImage(id, density)
 	if err != nil {
-		return err
+		return seasonblend.Part{}, err
 	}
-	x, y := hexgrid.Center(at)
-	origin := image.Pt(int(math.Round((x-e.Anchor[0])*float64(density))), int(math.Round((y-e.Anchor[1])*float64(density))))
+	o := origin(e, at, density)
+	if r.materials[density] != nil && materialGround(terrain, id) {
+		tile, err := r.materials[density].Tile(im, o, field.Weight)
+		if err != nil {
+			return seasonblend.Part{}, err
+		}
+		return seasonblend.Part{Image: tile, At: o}, nil
+	}
+	return seasonblend.Part{Image: im, At: o}, nil
+}
+
+// deep is background id on hex at with its water shaded by the sea's depth
+// (waterdepth), the open sea's material blended in and surf along a coast by
+// the sea where the catalog has them.
+func (r *Renderer) deep(id string, at hexgrid.Coord, density int, field *waterdepth.Field) (seasonblend.Part, error) {
+	e, im, err := r.assetImage(id, density)
+	if err != nil {
+		return seasonblend.Part{}, err
+	}
+	o := origin(e, at, density)
 	var with waterdepth.Tiles
 	for _, t := range []struct {
 		id  string
@@ -96,7 +109,5 @@ func (r *Renderer) drawDeep(dst draw.Image, id string, at hexgrid.Coord, density
 			*t.set = im
 		}
 	}
-	tile := field.Shade(im, with, origin, density)
-	draw.Draw(dst, tile.Bounds().Add(origin), tile, image.Point{}, draw.Over)
-	return nil
+	return seasonblend.Part{Image: field.Shade(im, with, o, density), At: o}, nil
 }

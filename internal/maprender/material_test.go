@@ -107,9 +107,11 @@ func TestMaterialDrawUsesGlobalOriginAndMask(t *testing.T) {
 			r.files[fmt.Sprintf("%d/%s", d, id)] = Entry{Path: path, Anchor: [2]float64{48, 40}}
 			r.cache[path] = mask
 			dst := image.NewNRGBA(image.Rect(0, 0, 400*d, 200*d))
-			if err := r.drawMaterial(dst, id, at, d, mapmaterial.New(nil)); err != nil {
+			p, err := r.ground(id, at, d, nil, mapmaterial.New(nil), "grass")
+			if err != nil {
 				t.Fatal(err)
 			}
+			drawPart(dst, p)
 			x, y := hexgrid.Center(at)
 			origin := image.Pt(int((x-48)*float64(d)), int((y-40)*float64(d)))
 			expected, err := r.materials[d].Tile(mask, origin, nil)

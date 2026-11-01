@@ -7,9 +7,11 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/seasonblend"
 )
 
 // withSpring gives r a spring form of every terrain asset but the cast
@@ -26,6 +28,52 @@ func withSpring(r *Renderer) {
 		if r.has[id] {
 			r.has[sp.ID] = true
 		}
+	}
+}
+
+// A summer map with its west drawn in spring, every spring form the summer
+// file, draws as in summer: the layers mixed at the season border
+// (seasonblend) keep every pixel in place, its value up to rounding.
+func TestSeasonBorderKeepsPixels(t *testing.T) {
+	r, err := New(os.DirFS("../../assets"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	withSpring(r)
+	lvl, err := scenario.ShippedLevel("1918-02", scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want, err := r.Render(lvl, 2, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	lvl.Extra.Seasons = map[hexgrid.Coord]string{}
+	for li, line := range lvl.Lines {
+		for col := range line {
+			if col < lvl.Grid().Width/2 {
+				lvl.Extra.Seasons[hexgrid.Coord{Line: li, Col: col}] = string(mapcompose.Spring)
+			}
+		}
+	}
+	if seasonblend.New(lvl, func(id string) bool { return r.has[id] }) == nil {
+		t.Fatal("no season border")
+	}
+	got, err := r.Render(lvl, 2, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	worst, diff := 0, 0
+	for i := range got.Image.Pix {
+		if d := int(got.Image.Pix[i]) - int(want.Image.Pix[i]); d != 0 {
+			diff++
+			worst = max(worst, d, -d)
+		}
+	}
+	// A layer mixed in its own buffer rounds differently from one drawn
+	// straight onto the map.
+	if worst > 2 {
+		t.Errorf("%d bytes differ, at most by %d", diff, worst)
 	}
 }
 

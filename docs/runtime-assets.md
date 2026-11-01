@@ -255,8 +255,22 @@ optional `"seasons"` draws single hexes in another season, a string per map line
 (`data.InSeason`: `grass_w`, and the original's winter look of hills, mud and stone, `rough_w`, `shelled_w` and
 `stoney_w`, on the same terrain records). A hex in another season keeps the map's terrain in the level, so
 both rule sets play it as before; `mapcompose.LevelHex` draws it in its season (`Hex.Season`), and its shores,
-roads and standing items follow the hex instead of the map. Hexes switch
-season at their edges: there are no transition tiles between seasons yet. Levels without a scenario
+roads and standing items follow the hex instead of the map. A context beside a hex in another season reads
+that hex as its terrain in the context's season, so woodland and ground shapes continue across the border.
+
+Season borders blend (`internal/seasonblend`, in `maprender` and the game) instead of switching at the hex
+outline. A level drawn in more than one season is also composed once per season present with every hex in
+that season (`mapcompose.LevelHexIn`, `Blend.Scenes`). A weight field gives every map point its share of
+each season: each hex centre spreads its season over a radius of 112 world px, the point is first warped
+by two octaves of value noise (30 px at a 110 px wavelength, 9 px at 30 px) so the border leaves the hex
+lattice, and per-season noise of a 14 px wavelength breaks the band into patches (snow lies in patches at
+its edge). A hex the band reaches (`Blend.Seasons`) draws its background, its overlays and its standing
+items each as one image mixed per pixel from that layer in every season there (`Blend.Mix`: a background as
+drawn, water shaded by depth, a summer meadow sampled from the material). Each of its scattered crowns and
+ground props comes from the season its point falls to, by the weights there and a fixed draw per point
+(`Blend.Scattered`), so crowns of both seasons mingle along a wood. Cluster stamps and cast shadows stay in
+the hex's own season. The game makes each mixed layer once and keeps it within a 96 MB budget. A level in
+one season has no blend and draws exactly as composed. Levels without a scenario
 (PULSE, `original/NN`) are winter when mostly winter, else summer. `hl levels campaign` writes winter where
 the original map is winter, else the month's season (`scenario.MonthSeason`: March to May spring,
 September to November autumn, otherwise summer), and keeps a folder's non-winter season and its `seasons`.
