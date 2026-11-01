@@ -72,8 +72,14 @@ func TestLayeredForestCLIRejectsUnsafeOrIncompleteInputs(t *testing.T) {
 
 func TestLayeredForestOwnsWholeCrownsAndSeparateShadows(t *testing.T) {
 	r := layeredTestRenderer(t)
-	interior, _ := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "forest", "forest"})
-	edge, _ := newForestContext("forest", []string{"grass", "grass", "grass", "grass", "grass", "grass"})
+	interior, err := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "forest", "forest"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	edge, err := newForestContext("forest", []string{"grass", "grass", "grass", "grass", "grass", "grass"})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if got := len(r.crowns); got != 12 {
 		t.Fatalf("crowns %d, want 12", got)
 	}
@@ -114,7 +120,10 @@ func TestLayeredForestOwnsWholeCrownsAndSeparateShadows(t *testing.T) {
 
 func TestLayeredForestFloorMasksAndPropFootClearance(t *testing.T) {
 	r := layeredTestRenderer(t)
-	edge, _ := newForestContext("forest", []string{"grass", "forest", "forest", "forest", "forest", "forest"})
+	edge, err := newForestContext("forest", []string{"grass", "forest", "forest", "forest", "forest", "forest"})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if r.floorMask(edge, connectionPoint{90, 20}) > .15 {
 		t.Fatal("floor does not blend toward NE meadow")
 	}
@@ -139,8 +148,14 @@ func TestLayeredForestFloorMasksAndPropFootClearance(t *testing.T) {
 
 func TestLayeredForestVertexMasksAgreeAcrossForestNeighbours(t *testing.T) {
 	r := layeredTestRenderer(t)
-	a, _ := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "forest", "grass"})
-	b, _ := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "grass", "forest"})
+	a, err := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "forest", "grass"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "grass", "forest"})
+	if err != nil {
+		t.Fatal(err)
+	}
 	delta := sharedConnectionGeometry().Neighbors[0]
 	for i := 1; i < 10; i++ {
 		time := float64(i) / 10
@@ -153,7 +168,10 @@ func TestLayeredForestVertexMasksAgreeAcrossForestNeighbours(t *testing.T) {
 
 func TestLayeredForestGroundFiltersBeforeFinalOwnership(t *testing.T) {
 	r := layeredTestRenderer(t)
-	c, _ := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "forest", "forest"})
+	c, err := newForestContext("forest", []string{"forest", "forest", "forest", "forest", "forest", "forest"})
+	if err != nil {
+		t.Fatal(err)
+	}
 	raw := r.layers(c)[0]
 	for _, density := range []int{1, 2, 4} {
 		tile, err := layeredGroundTile(raw, density)

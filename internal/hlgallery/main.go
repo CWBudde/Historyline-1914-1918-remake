@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	_ "embed"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"image"
@@ -77,7 +78,7 @@ type collector struct {
 }
 
 // Run builds the local art comparison desk, composer and PULSE study.
-func Run(args []string, stdout, stderr io.Writer) error {
+func Run(args []string, stdout, stderr io.Writer) (err error) {
 	f := flag.NewFlagSet("hl review gallery", flag.ContinueOnError)
 	f.SetOutput(stderr)
 	root := f.String("root", ".", "repository root")
@@ -97,7 +98,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = r.Close() }()
+	defer func() { err = errors.Join(err, r.Close()) }()
 	if err := r.MkdirAll(*out, 0o755); err != nil {
 		return err
 	}
@@ -105,7 +106,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = w.Close() }()
+	defer func() { err = errors.Join(err, w.Close()) }()
 	c := &collector{root: r, out: w, seen: map[string]picture{}}
 	if err := w.MkdirAll("media", 0o755); err != nil {
 		return err
@@ -159,7 +160,7 @@ func roadUnitComparisonTemplate() string {
 	return strings.Replace(html, "</script></body>", "$('view').value='side';$('grid').value='no';render();\n</script></body>", 1)
 }
 
-func (c *collector) read(p string) ([]byte, error) {
+func (c *collector) read(p string) (_ []byte, err error) {
 	if !local(p) {
 		return nil, fmt.Errorf("nonlocal input %q", p)
 	}
@@ -167,7 +168,7 @@ func (c *collector) read(p string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	b, err := io.ReadAll(io.LimitReader(f, 32<<20+1))
 	if err != nil {
 		return nil, err

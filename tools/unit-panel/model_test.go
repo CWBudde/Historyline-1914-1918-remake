@@ -43,12 +43,21 @@ func TestRealFixtures(t *testing.T) {
 	if !reflect.DeepEqual(fs[7].Panel, fs[8].Panel) {
 		t.Fatal("hidden data leak")
 	}
-	set, _ := data.Load()
-	u, _ := game.NewUnit(set, "CP_infantry")
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	u, err := game.NewUnit(set, "CP_infantry")
+	if err != nil {
+		t.Fatal(err)
+	}
 	u.Def.Name = "SECRET"
 	u.Fuel = 987
 	hidden := panelFor(u, false)
-	raw, _ := json.Marshal(hidden)
+	raw, err := json.Marshal(hidden)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if string(raw) == "" || !reflect.DeepEqual(hidden, panelFor(nil, true)) {
 		t.Fatalf("guard leaks %s", raw)
 	}

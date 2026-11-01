@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"image"
 	"io"
 	"os"
@@ -90,7 +91,10 @@ func TestBundleDeterministicAndSafe(t *testing.T) {
 		if d.IsDir() {
 			return nil
 		}
-		rel, _ := filepath.Rel(a, path)
+		rel, err := filepath.Rel(a, path)
+		if err != nil {
+			return err
+		}
 		raw, e := os.ReadFile(path)
 		if e != nil {
 			return e
@@ -162,7 +166,11 @@ func TestUnicodeFitAndVectorGrammar(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = face.Close() }()
+	defer func() {
+		if err := face.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	got := fitText(face, "Übersetzung 日本語 très longue désignation", 80)
 	if !utf8.ValidString(got) || !strings.HasSuffix(got, "…") || textWidth(face, got) > 80 {
 		t.Fatalf("bad ellipsis %q", got)
@@ -176,7 +184,7 @@ func TestUnicodeFitAndVectorGrammar(t *testing.T) {
 		d := xml.NewDecoder(strings.NewReader(s))
 		for {
 			tok, e := d.Token()
-			if e == io.EOF {
+			if errors.Is(e, io.EOF) {
 				break
 			}
 			if e != nil {
@@ -223,7 +231,9 @@ func TestRollbackKeepsReplacement(t *testing.T) {
 	if e = os.WriteFile(sentinel, []byte("replacement"), 0o644); e != nil {
 		t.Fatal(e)
 	}
-	cleanupOwned(out, owned)
+	if err := cleanupOwned(out, owned); err != nil {
+		t.Fatal(err)
+	}
 	if _, e = os.Stat(sentinel); e != nil {
 		t.Fatal("replacement removed", e)
 	}
@@ -231,14 +241,18 @@ func TestRollbackKeepsReplacement(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	cleanupOwned(out, current)
+	if err := cleanupOwned(out, current); err != nil {
+		t.Fatal(err)
+	}
 	if _, e = os.Stat(out); !os.IsNotExist(e) {
 		t.Fatal("owned directory not removed")
 	}
 	if e = os.Symlink(filepath.Join(root, "old"), out); e != nil {
 		t.Fatal(e)
 	}
-	cleanupOwned(out, owned)
+	if err := cleanupOwned(out, owned); err != nil {
+		t.Fatal(err)
+	}
 	if _, e = os.Lstat(out); e != nil {
 		t.Fatal("replacement symlink removed", e)
 	}

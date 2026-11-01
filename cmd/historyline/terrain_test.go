@@ -413,7 +413,11 @@ func TestTerrainBlendsSeasonBorders(t *testing.T) {
 		if w, h := img.Bounds().Dx(), img.Bounds().Dy(); w != 96*d+2*tilePad || h != 80*d+2*tilePad || e.Anchor != [2]float64{48, 40} {
 			t.Errorf("%dx: %dx%d anchored at %v", d, w, h, e.Anchor)
 		}
-		if again, _, _ := a.blendImage(c, 0, d, true, all); again != img {
+		again, _, err := a.blendImage(c, 0, d, true, all)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if again != img {
 			t.Errorf("%dx: the mixed background is made twice", d)
 		}
 	}

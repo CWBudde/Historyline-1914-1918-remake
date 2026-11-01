@@ -150,8 +150,14 @@ func TestWaterLoaderPinsGeometryAndWritesVerifiedPreview(t *testing.T) {
 	if err != nil || got.Available || got.Reason != "independent_water_annotations_unavailable" {
 		t.Fatalf("missing annotations: %+v, %v", got, err)
 	}
-	lv, _ := p.level.Marshal()
-	reg, _ := json.Marshal(p.ref.Registration)
+	lv, err := p.level.Marshal()
+	if err != nil {
+		t.Fatal(err)
+	}
+	reg, err := json.Marshal(p.ref.Registration)
+	if err != nil {
+		t.Fatal(err)
+	}
 	a := waterAnnotations{Schema: 1, Coordinates: "world pixel centres", LevelSHA256: fmt.Sprintf("%x", sha256.Sum256(lv)), RegistrationSHA256: fmt.Sprintf("%x", sha256.Sum256(reg)), Sources: []waterSourceAnnotation{source}}
 	write := func() {
 		t.Helper()
@@ -178,7 +184,9 @@ func TestWaterLoaderPinsGeometryAndWritesVerifiedPreview(t *testing.T) {
 		t.Fatal(err)
 	}
 	preview, err := png.Decode(f)
-	_ = f.Close()
+	if err := f.Close(); err != nil {
+		t.Fatal(err)
+	}
 	if err != nil || preview.Bounds().Empty() || fmt.Sprintf("%x", sha256.Sum256(encoded)) != got.PreviewSHA256 {
 		t.Fatalf("preview provenance: %v", err)
 	}
@@ -190,7 +198,10 @@ func TestWaterLoaderPinsGeometryAndWritesVerifiedPreview(t *testing.T) {
 			} else {
 				bad.RegistrationSHA256 = "stale"
 			}
-			raw, _ := json.Marshal(bad)
+			raw, err := json.Marshal(bad)
+			if err != nil {
+				t.Fatal(err)
+			}
 			if err := os.WriteFile(path, raw, 0o644); err != nil {
 				t.Fatal(err)
 			}
@@ -219,10 +230,19 @@ func TestWaterLoaderRejectsTrailingData(t *testing.T) {
 		t.Fatal(err)
 	}
 	im, source := syntheticWater()
-	lv, _ := p.level.Marshal()
-	reg, _ := json.Marshal(p.ref.Registration)
+	lv, err := p.level.Marshal()
+	if err != nil {
+		t.Fatal(err)
+	}
+	reg, err := json.Marshal(p.ref.Registration)
+	if err != nil {
+		t.Fatal(err)
+	}
 	a := waterAnnotations{Schema: 1, LevelSHA256: fmt.Sprintf("%x", sha256.Sum256(lv)), RegistrationSHA256: fmt.Sprintf("%x", sha256.Sum256(reg)), Sources: []waterSourceAnnotation{source}}
-	raw, _ := json.Marshal(a)
+	raw, err := json.Marshal(a)
+	if err != nil {
+		t.Fatal(err)
+	}
 	path := filepath.Join(filepath.Dir(p.targetsPath), "water_annotations.json")
 	for _, tail := range []string{" unexpected", " {}"} {
 		if err := os.WriteFile(path, append(append([]byte{}, raw...), []byte(tail)...), 0o644); err != nil {

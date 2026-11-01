@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/draw"
@@ -17,10 +18,11 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 	"github.com/gen2brain/webp"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
 // Qualities of the compressed catalogs.
@@ -37,13 +39,13 @@ type liteStats struct {
 // an opaque image as a JPEG, any other as a lossy WebP with its alpha, and the
 // PNG where that is smaller anyway. Periodic world materials always retain
 // lossless PNG pixels. IDs, sizes and anchors stay.
-func liteCatalog(dir, out string) (liteStats, error) {
+func liteCatalog(dir, out string) (_ liteStats, err error) {
 	var st liteStats
 	r, err := os.OpenRoot(dir)
 	if err != nil {
 		return st, err
 	}
-	defer func() { _ = r.Close() }()
+	defer func() { err = errors.Join(err, r.Close()) }()
 	var manifests []string
 	if err := fs.WalkDir(r.FS(), ".", func(p string, d fs.DirEntry, err error) error {
 		if err == nil && !d.IsDir() && d.Name() == "manifest.json" {
@@ -60,7 +62,7 @@ func liteCatalog(dir, out string) (liteStats, error) {
 	if err != nil {
 		return st, err
 	}
-	defer o.close()
+	defer func() { err = errors.Join(err, o.close()) }()
 	for _, d := range manifests {
 		sub, err := fs.Sub(r.FS(), d)
 		if err != nil {

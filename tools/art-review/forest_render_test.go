@@ -120,7 +120,10 @@ func forestTestSharedLocalFieldsAndCrossingCrowns(t *testing.T, profile string) 
 			// Every final quiet-band pixel equals the unchanged textured base, including
 			// the 2x Lanczos result rather than merely raw 4x samples.
 			if scenario == "frontier" {
-				centerContext, _ := newForestContext(scene.Cells[0].RuntimeID, scene.Cells[0].NeighborIDs[:])
+				centerContext, err := newForestContext(scene.Cells[0].RuntimeID, scene.Cells[0].NeighborIDs[:])
+				if err != nil {
+					t.Fatal(err)
+				}
 				tiles, err := renderer.tiles(centerContext)
 				if err != nil {
 					t.Fatal(err)
@@ -129,7 +132,10 @@ func forestTestSharedLocalFieldsAndCrossingCrowns(t *testing.T, profile string) 
 				if season == "winter" {
 					base = "grass_w"
 				}
-				baseContext, _ := newForestContext(base, []string{base, base, base, base, base, base})
+				baseContext, err := newForestContext(base, []string{base, base, base, base, base, base})
+				if err != nil {
+					t.Fatal(err)
+				}
 				bases, err := renderer.tiles(baseContext)
 				if err != nil {
 					t.Fatal(err)

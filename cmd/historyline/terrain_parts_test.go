@@ -83,10 +83,19 @@ func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 	fsys["4x/context-ground-2/manifest.json"] = manifest
 	for _, d := range terrainDensities {
 		base := fmt.Sprintf("%dx/context-ground/manifest.json", d)
-		m, _ := assets.ParseManifest(fsys[base].Data)
-		part, _ := assets.ParseManifest(fsys[fmt.Sprintf("%dx/context-ground-2/manifest.json", d)].Data)
+		m, err := assets.ParseManifest(fsys[base].Data)
+		if err != nil {
+			t.Fatal(err)
+		}
+		part, err := assets.ParseManifest(fsys[fmt.Sprintf("%dx/context-ground-2/manifest.json", d)].Data)
+		if err != nil {
+			t.Fatal(err)
+		}
 		m.Entries = append(m.Entries, part.Entries...)
-		b, _ := json.Marshal(m)
+		b, err := json.Marshal(m)
+		if err != nil {
+			t.Fatal(err)
+		}
 		fsys[base] = &fstest.MapFile{Data: b}
 	}
 	if _, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l); err == nil || !strings.Contains(err.Error(), "duplicate") {
@@ -114,12 +123,21 @@ func TestHTTPTerrainPackParts(t *testing.T) {
 func TestOpenTerrainArtRejectsDuplicateInHigherDensity(t *testing.T) {
 	f, l, _ := terrainPartFixture(t)
 	name := "4x/context-ground/manifest.json"
-	m, _ := assets.ParseManifest(f[name].Data)
-	part, _ := assets.ParseManifest(f["4x/context-ground-2/manifest.json"].Data)
+	m, err := assets.ParseManifest(f[name].Data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	part, err := assets.ParseManifest(f["4x/context-ground-2/manifest.json"].Data)
+	if err != nil {
+		t.Fatal(err)
+	}
 	e := part.Entries[0]
 	e.Path = "images/duplicate.png"
 	m.Entries = append(m.Entries, e)
-	b, _ := json.Marshal(m)
+	b, err := json.Marshal(m)
+	if err != nil {
+		t.Fatal(err)
+	}
 	f[name] = &fstest.MapFile{Data: b}
 	f["4x/context-ground/"+e.Path] = f["4x/context-ground-2/"+part.Entries[0].Path]
 	if _, err := openTerrainArt(f, assets.Options{AllowCandidates: true}, l); err == nil || !strings.Contains(err.Error(), "duplicate") {
@@ -132,13 +150,19 @@ func TestOpenTerrainArtRejectsUnpairedPartEntries(t *testing.T) {
 		t.Run(change, func(t *testing.T) {
 			f, l, _ := terrainPartFixture(t)
 			name := "4x/context-ground-2/manifest.json"
-			m, _ := assets.ParseManifest(f[name].Data)
+			m, err := assets.ParseManifest(f[name].Data)
+			if err != nil {
+				t.Fatal(err)
+			}
 			if change == "id" {
 				m.Entries[0].ID += "-extra"
 			} else {
 				m.Entries[0].Anchor[0]++
 			}
-			b, _ := json.Marshal(m)
+			b, err := json.Marshal(m)
+			if err != nil {
+				t.Fatal(err)
+			}
 			f[name] = &fstest.MapFile{Data: b}
 			if _, err := openTerrainArt(f, assets.Options{AllowCandidates: true}, l); err == nil {
 				t.Fatal("accepted unmatched part entries")

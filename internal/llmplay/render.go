@@ -1,6 +1,7 @@
 package llmplay
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/png"
@@ -52,9 +53,8 @@ func RenderReplay(dir string, r *maprender.Renderer, o RenderOptions) (int, erro
 	if err := os.MkdirAll(framesDir, 0o755); err != nil {
 		return 0, err
 	}
-	write := func(n int) error {
+	write := func(n int) (err error) {
 		var img *image.NRGBA
-		var err error
 		if o.Backdrop != nil {
 			img, err = RenderFrameBackdrop(r, s, o.Density, o.Backdrop)
 		} else {
@@ -67,7 +67,7 @@ func RenderReplay(dir string, r *maprender.Renderer, o RenderOptions) (int, erro
 		if err != nil {
 			return err
 		}
-		defer func() { _ = f.Close() }()
+		defer func() { err = errors.Join(err, f.Close()) }()
 		return png.Encode(f, Downscale(img, o.Div))
 	}
 	n := 0

@@ -355,10 +355,10 @@ func ParseShore(id string) (ShoreShape, bool) {
 		return ShoreShape{Land: mask(land)}, true
 	}
 	var s ShoreShape
-	if n, _ := fmt.Sscanf(id, "shore-%02x-c%02x", &s.Land, &s.Channels); n == 2 && s.ID() == id {
+	if n, err := fmt.Sscanf(id, "shore-%02x-c%02x", &s.Land, &s.Channels); err == nil && n == 2 && s.ID() == id {
 		return s, true
 	}
-	if n, _ := fmt.Sscanf(id, "shore-%02x", &s.Land); n == 1 && s.Channels == 0 && s.ID() == id {
+	if n, err := fmt.Sscanf(id, "shore-%02x", &s.Land); err == nil && n == 1 && s.Channels == 0 && s.ID() == id {
 		return s, true
 	}
 	return ShoreShape{}, false

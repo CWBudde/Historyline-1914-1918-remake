@@ -2,6 +2,7 @@ package dosrules
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"maps"
 	"slices"
@@ -71,7 +72,7 @@ func TestLiveFields(t *testing.T) {
 
 func TestNoMovementTables(t *testing.T) {
 	p := Profile{Name: "dos-0.1", Tables: &Tables{}}
-	if _, err := p.Move(&Movement{}, MoveOrder{}); err != ErrNoMovement {
+	if _, err := p.Move(&Movement{}, MoveOrder{}); !errors.Is(err, ErrNoMovement) {
 		t.Fatalf("Move without tables: %v", err)
 	}
 }

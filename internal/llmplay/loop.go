@@ -57,7 +57,9 @@ func (d FileDriver) Orders(prompt string) (string, error) {
 	}
 	for {
 		if raw, err := os.ReadFile(o); err == nil && len(strings.TrimSpace(string(raw))) > 0 {
-			_ = os.Remove(o)
+			if err := os.Remove(o); err != nil {
+				return "", err
+			}
 			return string(raw), nil
 		}
 		if !deadline.IsZero() && time.Now().After(deadline) {
@@ -168,7 +170,7 @@ func (g *Game) Step(ordersText string) (rejected []string, evs []dosplay.Event, 
 	if !fallback {
 		orders, perr := ParseOrders(ordersText)
 		if perr != nil {
-			return []string{perr.Error()}, nil, nil
+			return []string{perr.Error()}, nil, nil //nolint:nilerr // Parse errors reject the orders without failing the game.
 		}
 		_, errs, aerr := Apply(s, g.Side, orders)
 		if aerr != nil {

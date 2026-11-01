@@ -2,6 +2,7 @@ package hlart
 
 import (
 	"encoding/json"
+	"errors"
 	"image"
 	"image/png"
 	"os"
@@ -95,8 +96,7 @@ func writePNG(path string, img image.Image) error {
 		return err
 	}
 	if err := png.Encode(w, img); err != nil {
-		_ = w.Close()
-		return err
+		return errors.Join(err, w.Close())
 	}
 	return w.Close()
 }

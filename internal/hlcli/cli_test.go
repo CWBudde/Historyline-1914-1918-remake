@@ -3,11 +3,44 @@ package hlcli
 import (
 	"bytes"
 	"context"
+	"errors"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 )
+
+type failingWriter struct{}
+
+func (failingWriter) Write([]byte) (int, error) { return 0, errors.New("output unavailable") }
+
+func TestOutputFailureReturnsFailure(t *testing.T) {
+	for _, args := range [][]string{nil, {"art"}, {"web", "--help"}, {"unknown"}, {"help", "web", "extra"}} {
+		t.Run(strings.Join(args, " "), func(t *testing.T) {
+			if code := Run(t.Context(), args, strings.NewReader(""), failingWriter{}, failingWriter{}); code != 1 {
+				t.Fatalf("output failure returned exit %d, want 1", code)
+			}
+		})
+	}
+}
+
+func TestHelpReturnsFailureAfterPartialOutput(t *testing.T) {
+	w := &failAfterWriter{remaining: 1}
+	if code := Run(t.Context(), nil, strings.NewReader(""), w, io.Discard); code != 1 {
+		t.Fatalf("partial help output returned exit %d, want 1", code)
+	}
+}
+
+type failAfterWriter struct{ remaining int }
+
+func (w *failAfterWriter) Write(p []byte) (int, error) {
+	if w.remaining == 0 {
+		return 0, io.ErrClosedPipe
+	}
+	w.remaining--
+	return len(p), nil
+}
 
 func invoke(args ...string) (int, string, string) {
 	var out, errs bytes.Buffer

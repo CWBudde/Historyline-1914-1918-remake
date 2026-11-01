@@ -153,7 +153,7 @@ func TestParseCell(t *testing.T) {
 			t.Errorf("parseCell(%q) = %v, %v", s, c, err)
 		}
 	}
-	for _, s := range []string{"r0c1", "r01c1", "c1r1", "r1c", "r1c1 "} {
+	for _, s := range []string{"r0c1", "r01c1", "c1r1", "r1c", "r1c1 ", "r999999999999999999999999999999c1", "r1c999999999999999999999999999999"} {
 		if _, err := parseCell(s); err == nil {
 			t.Errorf("parseCell(%q) accepted", s)
 		}
@@ -260,7 +260,11 @@ func TestRender(t *testing.T) {
 	if err := p.render(out); err != nil {
 		t.Fatal(err)
 	}
-	if again, _ := os.ReadFile(filepath.Join(out, "index.html")); !bytes.Equal(first, again) {
+	again, err := os.ReadFile(filepath.Join(out, "index.html"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(first, again) {
 		t.Error("index.html differs between two renders")
 	}
 }

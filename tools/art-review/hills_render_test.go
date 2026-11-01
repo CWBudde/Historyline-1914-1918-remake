@@ -56,7 +56,10 @@ func TestHillsAllMasksFinalQuietAndRelief(t *testing.T) {
 		t.Fatal(err)
 	}
 	r := newHillsRenderer(in.Sources["grass"].Image, in.Sources["height"].Image)
-	base, _ := newHillsContext("grass", []string{"grass", "grass", "grass", "grass", "grass", "grass"}, connectionPoint{})
+	base, err := newHillsContext("grass", []string{"grass", "grass", "grass", "grass", "grass", "grass"}, connectionPoint{})
+	if err != nil {
+		t.Fatal(err)
+	}
 	grass, err := r.tiles(base)
 	if err != nil {
 		t.Fatal(err)
@@ -77,7 +80,10 @@ func TestHillsAllMasksFinalQuietAndRelief(t *testing.T) {
 				neighbors[i] = "hills"
 			}
 		}
-		c, _ := newHillsContext("hills", neighbors, connectionPoint{})
+		c, err := newHillsContext("hills", neighbors, connectionPoint{})
+		if err != nil {
+			t.Fatal(err)
+		}
 		tiles, err := r.tiles(c)
 		if err != nil {
 			t.Fatal(err)
@@ -133,7 +139,10 @@ func TestHillsIsolatedCuePhaseAndFade(t *testing.T) {
 		}
 	}
 	neighbors := []string{"grass", "grass", "grass", "grass", "grass", "grass"}
-	c, _ := newHillsContext("hills", neighbors, connectionPoint{71, 40})
+	c, err := newHillsContext("hills", neighbors, connectionPoint{71, 40})
+	if err != nil {
+		t.Fatal(err)
+	}
 	cue := hillsCueFor(flat, c)
 	if !cue.Enabled || cue.A != 6 || math.Abs(cue.S) > 1e-14 || math.Abs(cue.Theta-4*math.Pi*(3-math.Sqrt(5))) > 1e-14 {
 		t.Fatalf("flat cue %#v", cue)
@@ -146,7 +155,10 @@ func TestHillsIsolatedCuePhaseAndFade(t *testing.T) {
 		if id == "hills" {
 			n[2] = "hills"
 		}
-		mixed, _ := newHillsContext(id, n, connectionPoint{71, 40})
+		mixed, err := newHillsContext(id, n, connectionPoint{71, 40})
+		if err != nil {
+			t.Fatal(err)
+		}
 		q := hillsCueFor(flat, mixed)
 		if q.Enabled || q.A != 0 || q.S != 0 || q.Theta != 0 {
 			t.Fatal("cue enabled outside isolated hills")
@@ -165,7 +177,10 @@ func TestHillsIsolatedCuePhaseAndFade(t *testing.T) {
 	for line := range 8 {
 		for col := range 4 {
 			p := connectionPoint{float64(142*col + 71*(line%2)), float64(40 * line)}
-			c, _ := newHillsContext("hills", neighbors, p)
+			c, err := newHillsContext("hills", neighbors, p)
+			if err != nil {
+				t.Fatal(err)
+			}
 			q := hillsCueFor(height, c)
 			sum := 0.
 			for _, d := range []connectionPoint{{0, 0}, {12, 0}, {-12, 0}, {0, 12}, {0, -12}, {8, 8}, {8, -8}, {-8, 8}, {-8, -8}} {
@@ -200,14 +215,20 @@ func TestHillsAll32IsolatedPhaseWitness(t *testing.T) {
 	}
 	r := newHillsRenderer(in.Sources["grass"].Image, in.Sources["height"].Image)
 	n := []string{"grass", "grass", "grass", "grass", "grass", "grass"}
-	base, _ := newHillsContext("grass", n, connectionPoint{})
+	base, err := newHillsContext("grass", n, connectionPoint{})
+	if err != nil {
+		t.Fatal(err)
+	}
 	grass, err := r.tiles(base)
 	if err != nil {
 		t.Fatal(err)
 	}
 	for line := range 8 {
 		for col := range 4 {
-			c, _ := newHillsContext("hills", n, connectionPoint{float64(142*col + 71*(line%2)), float64(40 * line)})
+			c, err := newHillsContext("hills", n, connectionPoint{float64(142*col + 71*(line%2)), float64(40 * line)})
+			if err != nil {
+				t.Fatal(err)
+			}
 			tiles, err := r.tiles(c)
 			if err != nil {
 				t.Fatal(err)
@@ -263,7 +284,10 @@ func TestHillsGrassSlopeGateProduct(t *testing.T) {
 	}
 	r := newHillsRenderer(in.Sources["grass"].Image, in.Sources["height"].Image)
 	n := []string{"grass", "grass", "hills", "hills", "hills", "hills"}
-	c, _ := newHillsContext("hills", n, connectionPoint{})
+	c, err := newHillsContext("hills", n, connectionPoint{})
+	if err != nil {
+		t.Fatal(err)
+	}
 	raw := r.raw(c)
 	for _, at := range []image.Point{{336, 176}, {320, 176}, {352, 176}, {336, 192}} {
 		p := connectionPoint{(float64(at.X)+.5)/4 - 4, (float64(at.Y)+.5)/4 - 4}

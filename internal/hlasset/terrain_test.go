@@ -29,7 +29,11 @@ func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = r.Close() }()
+	defer func() {
+		if err := r.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	p, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
 	if err != nil {
 		t.Fatal(err)

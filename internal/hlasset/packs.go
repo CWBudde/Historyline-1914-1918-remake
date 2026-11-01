@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -78,7 +79,7 @@ func screenInputs(assetsDir, artDir string) ([]byte, error) {
 		}
 		h := sha256.New()
 		_, err = io.Copy(h, f)
-		_ = f.Close()
+		err = errors.Join(err, f.Close())
 		if err != nil {
 			return nil, err
 		}
@@ -93,7 +94,7 @@ func screenInputs(assetsDir, artDir string) ([]byte, error) {
 
 // executableSum is the sha256 of the running hlasset, so a change to any code
 // it links rebuilds the catalogs.
-func executableSum() ([]byte, error) {
+func executableSum() (_ []byte, err error) {
 	exe, err := os.Executable()
 	if err != nil {
 		return nil, err
@@ -102,7 +103,7 @@ func executableSum() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	h := sha256.New()
 	if _, err := io.Copy(h, f); err != nil {
 		return nil, err
@@ -152,8 +153,7 @@ func updatePacks(out string, builder []byte, cs []catalog, only []string, w io.W
 			return err
 		}
 		if err := c.build(tmp); err != nil {
-			_ = os.RemoveAll(tmp)
-			return fmt.Errorf("%s: %w", c.name, err)
+			return fmt.Errorf("%s: %w", c.name, errors.Join(err, os.RemoveAll(tmp)))
 		}
 		if err := os.WriteFile(filepath.Join(tmp, stampName), []byte(key), 0o644); err != nil {
 			return err

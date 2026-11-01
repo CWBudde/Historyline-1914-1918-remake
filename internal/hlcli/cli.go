@@ -30,13 +30,19 @@ func Run(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.
 	node, path := &root, "hl"
 	for len(node.children) > 0 {
 		if len(args) == 0 || isHelp(args[0]) {
-			showHelp(stdout, path, node)
+			if err := showHelp(stdout, path, node); err != nil {
+				return 1
+			}
 			return 0
 		}
 		i := slices.IndexFunc(node.children, func(c command) bool { return c.name == args[0] })
 		if i < 0 {
-			_, _ = fmt.Fprintf(stderr, "%s: unknown command %q\n\n", path, args[0])
-			showHelp(stderr, path, node)
+			if _, err := fmt.Fprintf(stderr, "%s: unknown command %q\n\n", path, args[0]); err != nil {
+				return 1
+			}
+			if err := showHelp(stderr, path, node); err != nil {
+				return 1
+			}
 			return 2
 		}
 		node = &node.children[i]
@@ -45,25 +51,33 @@ func Run(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.
 	}
 	if help {
 		if len(args) != 0 {
-			_, _ = fmt.Fprintf(stderr, "%s: unexpected help arguments: %v\n", path, args)
+			if _, err := fmt.Fprintf(stderr, "%s: unexpected help arguments: %v\n", path, args); err != nil {
+				return 1
+			}
 			return 2
 		}
 		args = []string{"--help"}
 	}
 	if err := ctx.Err(); err != nil {
-		_, _ = fmt.Fprintln(stderr, "hl:", err)
+		if _, writeErr := fmt.Fprintln(stderr, "hl:", err); writeErr != nil {
+			return 1
+		}
 		return 1
 	}
 	errWriter := stderr
 	if len(args) == 1 && isHelp(args[0]) {
-		_, _ = fmt.Fprintf(stdout, "%s\n\nUsage: %s [flags]\n\n", node.summary, path)
+		if _, err := fmt.Fprintf(stdout, "%s\n\nUsage: %s [flags]\n\n", node.summary, path); err != nil {
+			return 1
+		}
 		errWriter = stdout
 	}
 	err := node.run(ctx, args, stdin, stdout, errWriter)
 	if err == nil || errors.Is(err, flag.ErrHelp) {
 		return 0
 	}
-	_, _ = fmt.Fprintf(stderr, "%s: %v\n", path, err)
+	if _, writeErr := fmt.Fprintf(stderr, "%s: %v\n", path, err); writeErr != nil {
+		return 1
+	}
 	var coded interface{ ExitCode() int }
 	if errors.As(err, &coded) && coded.ExitCode() > 0 {
 		return coded.ExitCode()
@@ -73,12 +87,17 @@ func Run(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.
 
 func isHelp(s string) bool { return s == "-h" || s == "--help" }
 
-func showHelp(w io.Writer, path string, c *command) {
-	_, _ = fmt.Fprintf(w, "%s\n\nUsage: %s <command> [flags]\n\nCommands:\n", c.summary, path)
-	for _, child := range c.children {
-		_, _ = fmt.Fprintf(w, "  %-18s %s\n", child.name, child.summary)
+func showHelp(w io.Writer, path string, c *command) error {
+	if _, err := fmt.Fprintf(w, "%s\n\nUsage: %s <command> [flags]\n\nCommands:\n", c.summary, path); err != nil {
+		return err
 	}
-	_, _ = fmt.Fprintf(w, "\nRun '%s <command> --help' for command details.\n", path)
+	for _, child := range c.children {
+		if _, err := fmt.Fprintf(w, "  %-18s %s\n", child.name, child.summary); err != nil {
+			return err
+		}
+	}
+	_, err := fmt.Fprintf(w, "\nRun '%s <command> --help' for command details.\n", path)
+	return err
 }
 
 func tool(fn func([]string, io.Writer, io.Writer) error, prefix ...string) handler {
@@ -96,9 +115,17 @@ func leaf(name, summary string, run handler) command {
 }
 
 func actions(names string, fn func([]string, io.Writer, io.Writer) error, summaries ...string) []command {
+	return contextActions(names, func(_ context.Context, args []string, out, errs io.Writer) error {
+		return fn(args, out, errs)
+	}, summaries...)
+}
+
+func contextActions(names string, fn func(context.Context, []string, io.Writer, io.Writer) error, summaries ...string) []command {
 	var children []command
 	for i, name := range strings.Fields(names) {
-		children = append(children, leaf(name, summaries[i], tool(fn, name)))
+		children = append(children, leaf(name, summaries[i], func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
+			return fn(ctx, append([]string{name}, args...), out, errs)
+		}))
 	}
 	return children
 }

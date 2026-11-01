@@ -115,11 +115,7 @@ func (g *game) origAvailable() string {
 	}
 	if g.orig == nil {
 		g.orig = &origArt{}
-		if a, err := loadOrigArt(); err != nil {
-			g.orig.err = err.Error()
-		} else {
-			g.orig.tiles, g.orig.units = a.tiles, a.units
-		}
+		g.orig.load()
 	}
 	return g.orig.err
 }

@@ -41,7 +41,9 @@ func Run(args []string, stdout, stderr io.Writer) error {
 			return err
 		}
 		for _, p := range problems {
-			say(stderr, "warning: %s\n", p)
+			if err := say(stderr, "warning: %s\n", p); err != nil {
+				return err
+			}
 		}
 		raw, err := encode(idx)
 		if err != nil {
@@ -50,21 +52,21 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		if err := os.WriteFile(filepath.Join(*root, "art", "index.json"), raw, 0o644); err != nil {
 			return err
 		}
-		say(stdout, "art/index.json: %d families\n", len(idx.Assets))
-		return nil
+		return say(stdout, "art/index.json: %d families\n", len(idx.Assets))
 	case "check":
 		problems, err := check(*root)
 		if err != nil {
 			return err
 		}
 		for _, p := range problems {
-			say(stdout, "%s\n", p)
+			if err := say(stdout, "%s\n", p); err != nil {
+				return err
+			}
 		}
 		if len(problems) > 0 {
 			return fmt.Errorf("%d problems", len(problems))
 		}
-		say(stdout, "art: ok\n")
-		return nil
+		return say(stdout, "art: ok\n")
 	case "thumbs":
 		if *out == "" {
 			return fmt.Errorf("thumbs needs -out")
@@ -77,8 +79,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		if err != nil {
 			return err
 		}
-		say(stdout, "%s: %d thumbnails written\n", *out, n)
-		return nil
+		return say(stdout, "%s: %d thumbnails written\n", *out, n)
 	case "pulse":
 		if *out == "" {
 			return fmt.Errorf("pulse needs -out")
@@ -86,8 +87,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		if err := pulse(*root, *out); err != nil {
 			return err
 		}
-		say(stdout, "%s: PULSE map rendered\n", *out)
-		return nil
+		return say(stdout, "%s: PULSE map rendered\n", *out)
 	case "map":
 		if *out == "" || *levelPath == "" {
 			return fmt.Errorf("map needs -level and -out")
@@ -95,12 +95,12 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		if err := renderLevel(*root, *out, *levelPath, "map", true); err != nil {
 			return err
 		}
-		say(stdout, "%s: %s rendered\n", *out, *levelPath)
-		return nil
+		return say(stdout, "%s: %s rendered\n", *out, *levelPath)
 	}
 	return fmt.Errorf("unknown command %q, want index, check, thumbs, pulse or map", args[0])
 }
 
-func say(w io.Writer, format string, args ...any) {
-	_, _ = fmt.Fprintf(w, format, args...)
+func say(w io.Writer, format string, args ...any) error {
+	_, err := fmt.Fprintf(w, format, args...)
+	return err
 }

@@ -88,7 +88,7 @@ func seasonRef(base string, ref connectionMaterial) (connectionMaterial, bool, e
 		if em == nil || em[1] != m[1] || em[2] != exportSeason {
 			continue
 		}
-		if v, _ := strconv.Atoi(em[3]); v > version {
+		if v, err := strconv.Atoi(em[3]); err == nil && v > version {
 			edit, version = e.Name(), v
 		}
 	}

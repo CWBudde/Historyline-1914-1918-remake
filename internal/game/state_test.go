@@ -164,7 +164,10 @@ func TestUnitDefaults(t *testing.T) {
 	if *set.Weapons["lugerp08"].Ammo != 5 {
 		t.Fatal("unit ammo shares memory with the weapon table")
 	}
-	other, _ := NewUnit(set, "CP_infantry")
+	other, err := NewUnit(set, "CP_infantry")
+	if err != nil {
+		t.Fatal(err)
+	}
 	if *other.Ammo[1] != 5 {
 		t.Fatal("two units share ammo")
 	}

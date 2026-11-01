@@ -104,7 +104,7 @@ func TestFogCLIActualBundle(t *testing.T) {
 	path, manifest := fogTestFixture(t)
 	out := filepath.Join(filepath.Dir(path), "bundle")
 	// Exercise the actual CLI, including main's exit behavior and flag routing.
-	cmd := exec.Command("go", "run", "../../cmd/hl", "review", "art", "-fog", path, "-out", out)
+	cmd := exec.CommandContext(t.Context(), "go", "run", "../../cmd/hl", "review", "art", "-fog", path, "-out", out)
 	if b, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("fog CLI: %v\n%s", err, b)
 	}

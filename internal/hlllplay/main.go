@@ -22,6 +22,7 @@
 package hlllplay
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"image"
@@ -86,7 +87,7 @@ func preamble(s *dosplay.Session, lessons string) string {
 	return b.String()
 }
 
-func (c *command) cmdNew(args []string) error {
+func (c *command) cmdNew(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay new", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
 	level := fs.String("level", "1918-02:cp", "shipped level ref MONTH:cp|ec")
@@ -114,7 +115,7 @@ func (c *command) cmdNew(args []string) error {
 		return err
 	}
 	g.Frames = hook
-	defer func() { _ = g.Close() }()
+	defer func() { err = errors.Join(err, g.Close()) }()
 	pre := preamble(s, *lessons)
 	if err := os.WriteFile(filepath.Join(dir, "preamble.txt"), []byte(pre), 0o644); err != nil {
 		return err
@@ -159,7 +160,7 @@ func loadGame(dir string) (*llmplay.Game, error) {
 	return llmplay.ResumeGame(s, dir)
 }
 
-func (c *command) cmdPrompt(args []string) error {
+func (c *command) cmdPrompt(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay prompt", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
 	dir := fs.String("dir", "", "game dir")
@@ -173,7 +174,7 @@ func (c *command) cmdPrompt(args []string) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = g.Close() }()
+	defer func() { err = errors.Join(err, g.Close()) }()
 	// The digest is not persisted in the save; rebuild it from the last
 	// transcript line's events is left to the step output, so a resumed
 	// prompt starts clean. Events for this step came from `step` stdout.
@@ -187,7 +188,7 @@ func (c *command) cmdPrompt(args []string) error {
 	return os.WriteFile(filepath.Join(*dir, "prompt.txt"), []byte(p), 0o644)
 }
 
-func (c *command) cmdStep(args []string) error {
+func (c *command) cmdStep(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay step", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
 	dir := fs.String("dir", "", "game dir")
@@ -203,7 +204,7 @@ func (c *command) cmdStep(args []string) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = g.Close() }()
+	defer func() { err = errors.Join(err, g.Close()) }()
 	hook, err := frameHook(*dir, *frames)
 	if err != nil {
 		return err
@@ -243,7 +244,7 @@ func (c *command) cmdStep(args []string) error {
 	return os.WriteFile(filepath.Join(*dir, "prompt.txt"), []byte(p), 0o644)
 }
 
-func (c *command) cmdRun(args []string) error {
+func (c *command) cmdRun(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay run", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
 	level := fs.String("level", "1918-02:cp", "shipped level ref")
@@ -271,7 +272,7 @@ func (c *command) cmdRun(args []string) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = g.Close() }()
+	defer func() { err = errors.Join(err, g.Close()) }()
 	hook, err := frameHook(dir, *frames)
 	if err != nil {
 		return err
@@ -462,7 +463,7 @@ func (c *command) cmdRender(args []string) error {
 		return nil
 	}
 	mp4 := filepath.Join(*dir, "game.mp4")
-	cmd := exec.Command(ffmpeg, "-y",
+	cmd := exec.CommandContext(c.ctx, ffmpeg, "-y",
 		"-framerate", fmt.Sprint(max(*fps, 1)),
 		"-pattern_type", "glob", "-i", filepath.Join(*dir, "frames", "*.png"),
 		"-vf", fmt.Sprintf("scale=%d:-2", *width),

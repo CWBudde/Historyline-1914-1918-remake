@@ -45,7 +45,7 @@ func commands() command {
 			leaf("campaign", "Write campaign folders from original maps (overwrites setups)", tool(hlcampaign.Run)),
 			group("backdrop", "Encode or check painted backdrop JPEGs", actions("jpeg check", hlbackdrop.Run,
 				"Encode the named levels' JPEGs from lossless sources", "Check all backdrop sources against their JPEGs")...)),
-		group("llmplay", "Play, record and review games with an external agent", actions("new prompt step run replay render review gif", hlllplay.Run,
+		group("llmplay", "Play, record and review games with an external agent", contextActions("new prompt step run replay render review gif", hlllplay.RunContext,
 			"Start a recorded game", "Print the current phase prompt", "Apply one atomic batch of orders", "Play a recorded game through a driver", "Verify every replay state hash", "Render replay frames and video", "Write the game review and counted lessons", "Encode recorded frames as a GIF")...),
 		group("preview", "Native graphics previews", leaf("effects", "Preview unit movement and effects (requires a graphics display)", previewEffects)),
 		leaf("serve", "Serve the local web demo", webServer),

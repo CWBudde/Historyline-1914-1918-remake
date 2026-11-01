@@ -477,7 +477,7 @@ func inFrozen(d *dosControl, index int) (dosplay.UnitView, bool) {
 
 func TestBattleDrop(t *testing.T) {
 	d := newDosTest(t, "1914-08:cp", passPlanner{})
-	atk, def := battleOn(t, d)
+	_, def := battleOn(t, d)
 	f := d.fight
 	if def.Size < 2 {
 		t.Fatalf("defender of size %d", def.Size)
@@ -528,7 +528,7 @@ func TestBattleDrop(t *testing.T) {
 	// Skipping the battle, or its end, lands it all and drops the destroyed
 	// unit at once.
 	d = newDosTest(t, "1914-08:cp", passPlanner{})
-	atk, def = battleOn(t, d)
+	atk, def := battleOn(t, d)
 	d.SkipScene()
 	if _, ok := inFrozen(d, def.Index); ok || d.stage != stageNone {
 		t.Errorf("skipped: the destroyed unit stays (%v), stage %v", ok, d.stage)

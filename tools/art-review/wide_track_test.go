@@ -31,6 +31,7 @@ func trackTileHash(t *testing.T, im *image.NRGBA) string {
 // sample of their tiles still renders byte for byte as before the profiles
 // were derived from the family width.
 func TestEarlierTrackManifestsRenderUnchanged(t *testing.T) {
+	t.Parallel()
 	root := filepath.Join("..", "..")
 	connected := []struct{ manifest, id, x2, x4 string }{
 		{"connected-rail-v1.json", "rail14", "75ef860f167248b7c459f6d27c7e00f3ed2de8a8189e3f8e2cf1833a2eed52e8", "3714d1be86654746ee1b64c9a78ffb39906e45643b8519142802898ee7f4a465"},

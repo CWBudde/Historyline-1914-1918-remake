@@ -66,8 +66,14 @@ func parseCell(s string) (cell, error) {
 	if m == nil {
 		return cell{}, fmt.Errorf("cell %q is not of the form r<row>c<col>", s)
 	}
-	r, _ := strconv.Atoi(m[1])
-	c, _ := strconv.Atoi(m[2])
+	r, err := strconv.Atoi(m[1])
+	if err != nil {
+		return cell{}, fmt.Errorf("cell %q row: %w", s, err)
+	}
+	c, err := strconv.Atoi(m[2])
+	if err != nil {
+		return cell{}, fmt.Errorf("cell %q column: %w", s, err)
+	}
 	return cell{r, c}, nil
 }
 

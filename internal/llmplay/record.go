@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -98,12 +99,12 @@ func StateHash(s *dosplay.Session) (string, error) {
 }
 
 // ReadTranscript parses a game dir's transcript.
-func ReadTranscript(dir string) (Header, []Line, error) {
+func ReadTranscript(dir string) (_ Header, _ []Line, err error) {
 	f, err := os.Open(filepath.Join(dir, "transcript.jsonl"))
 	if err != nil {
 		return Header{}, nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	var h Header
 	var lines []Line
 	sc := bufio.NewScanner(f)

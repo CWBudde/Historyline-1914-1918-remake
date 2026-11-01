@@ -297,8 +297,14 @@ func TestTargetsSorted(t *testing.T) {
 
 func TestCounterWeaponTie(t *testing.T) {
 	set := loadSet(t)
-	a, _ := NewUnit(set, "CP_infantry")
-	d, _ := NewUnit(set, "EC_infantry")
+	a, err := NewUnit(set, "CP_infantry")
+	if err != nil {
+		t.Fatal(err)
+	}
+	d, err := NewUnit(set, "EC_infantry")
+	if err != nil {
+		t.Fatal(err)
+	}
 	d.Weapons[1] = d.Weapons[2] // two leeEnfields: the first of equal power wins
 	if counter, _, _ := resolve(a, d, 0, 1, 4, 4, func() int { return 0 }); counter != 1 {
 		t.Errorf("counter = %d, want slot 1", counter)

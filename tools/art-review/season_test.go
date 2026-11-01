@@ -146,6 +146,26 @@ func seasonTestOutputs(outputs []packOutput) []string {
 	return paths
 }
 
+func TestSeasonRefSkipsOverflowingVersions(t *testing.T) {
+	root := t.TempDir()
+	im := uniform(8, 8, color.NRGBA{90, 120, 80, 255})
+	ref := seasonTestPNG(t, root, "grass-summer-v1.png", im)
+	want := seasonTestPNG(t, root, "grass-autumn-v2.png", im)
+	if err := os.WriteFile(filepath.Join(root, "grass-autumn-v999999999999999999999999.png"), []byte("invalid PNG"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	previous := exportSeason
+	exportSeason = "autumn"
+	defer func() { exportSeason = previous }()
+	got, replaced, err := seasonRef(root, ref)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !replaced || got != want {
+		t.Fatalf("seasonal source = %+v, replaced %v; want %+v", got, replaced, want)
+	}
+}
+
 func TestSeasonConnectedRoad(t *testing.T) {
 	root := t.TempDir()
 	materials := map[string]connectionMaterial{}

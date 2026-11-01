@@ -195,7 +195,10 @@ func TestBindMatchesOriginalMaps(t *testing.T) {
 		}
 		mr := Table.Maps[strconv.Itoa(lv.MapNo)]
 		if !maps.Equal(mr.Credits, credits) || !slices.Equal(mr.Builds, builds) {
-			j, _ := json.Marshal(MapRecords{Credits: credits, Builds: builds})
+			j, err := json.Marshal(MapRecords{Credits: credits, Builds: builds})
+			if err != nil {
+				t.Fatal(err)
+			}
 			t.Errorf("%s: records.json maps %d differs from the original: %s", lv.MapName, lv.MapNo, j)
 		}
 	}

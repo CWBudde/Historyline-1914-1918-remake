@@ -223,7 +223,7 @@ func (p *project) renderMetrics(render *image.NRGBA) map[string]metrics {
 func (p *project) exemplars(f family) []cell {
 	var out []cell
 	for _, s := range f.Exemplars {
-		c, _ := parseCell(s)
+		c, _ := parseCell(s) //nolint:errcheck // Project validation has checked every exemplar and feature cell.
 		out = append(out, c)
 	}
 	return out
@@ -307,7 +307,7 @@ func (p *project) compare(src image.Image, out string, format imageFormat) (*com
 		var cells []cell
 		r := image.Rectangle{}
 		for _, s := range ft.Cells {
-			c, _ := parseCell(s)
+			c, _ := parseCell(s) //nolint:errcheck // Project validation has checked every exemplar and feature cell.
 			cells = append(cells, c)
 			ox, oy := tileOrigin(c.Row-1, c.Col-1)
 			r = r.Union(image.Rect(ox, oy, ox+hexgrid.HexWidth, oy+hexgrid.HexHeight))

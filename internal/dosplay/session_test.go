@@ -438,7 +438,10 @@ func TestBattles(t *testing.T) {
 func TestAttackOrders(t *testing.T) {
 	s := session(t, shipped(t)[0], Options{})
 	for n := 0; n < 20; n++ {
-		a, _ := s.Game.Action()
+		a, err := s.Game.Action()
+		if err != nil {
+			t.Fatal(err)
+		}
 		for _, i := range own(s, a) {
 			ts := Coords(s.Targets(a, i))
 			if len(ts) == 0 {

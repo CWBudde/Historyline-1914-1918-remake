@@ -228,7 +228,7 @@ func wrapScreenText(f font.Face, text string, width int) []string {
 	return lines
 }
 
-func renderScreenScroll(im *image.NRGBA, s ScreenScroll, f *opentype.Font) error {
+func renderScreenScroll(im *image.NRGBA, s ScreenScroll, f *opentype.Font) (resultErr error) {
 	if s.Rect[2] <= 0 || s.Rect[3] <= 0 || s.LineHeight < 14 || s.Offset < 0 {
 		return errors.New("invalid scroll region")
 	}
@@ -240,7 +240,7 @@ func renderScreenScroll(im *image.NRGBA, s ScreenScroll, f *opentype.Font) error
 	if e != nil {
 		return e
 	}
-	defer func() { _ = face.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, face.Close()) }()
 	lines := wrapScreenText(face, s.Text, s.Rect[2]*2)
 	if s.SingleLine {
 		lines = []string{s.Text}

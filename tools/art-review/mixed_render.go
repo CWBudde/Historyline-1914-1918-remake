@@ -244,12 +244,12 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 					postAcross := math.Abs(across) - (inner+outer)/2
 					post := connectionRamp(.8-math.Abs(postAlong), .25) * connectionRamp((outer-inner)/2-math.Abs(postAcross), .25)
 					if math.Abs(nearest) <= 24 && post > 0 {
-						cap := mixedWood(in.merged.materials["timber"], p, 4.5)
-						cap = connectionTrenchShade(cap, 1.4)
+						postCap := mixedWood(in.merged.materials["timber"], p, 4.5)
+						postCap = connectionTrenchShade(postCap, 1.4)
 						if postAlong > .45 {
-							cap = connectionTrenchShade(cap, .5)
+							postCap = connectionTrenchShade(postCap, .5)
 						}
-						wood = connectionBlend(wood, cap, post)
+						wood = connectionBlend(wood, postCap, post)
 					}
 					wood.A = uint8(math.Floor(255*beam + .5))
 					c = mixedOver(c, wood)

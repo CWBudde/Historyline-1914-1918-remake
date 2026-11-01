@@ -186,7 +186,11 @@ func TestShippedBuildings(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		defer func() { _ = f.Close() }()
+		defer func() {
+			if err := f.Close(); err != nil {
+				t.Error(err)
+			}
+		}()
 		im, err := png.Decode(f)
 		if err != nil {
 			t.Fatal(err)
@@ -264,7 +268,11 @@ func TestWinterWater(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = f.Close() }()
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	src, err := png.Decode(f)
 	if err != nil {
 		t.Fatal(err)

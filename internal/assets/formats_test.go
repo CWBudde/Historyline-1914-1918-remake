@@ -68,10 +68,10 @@ func TestCompressedFormats(t *testing.T) {
 			if im.Bounds() != image.Rect(0, 0, 8*d, 8*d) {
 				t.Fatalf("%s %dx: bounds %v", c.ext, d, im.Bounds())
 			}
-			clear := color.NRGBAModel.Convert(im.At(0, 0)).(color.NRGBA)
+			transparent := color.NRGBAModel.Convert(im.At(0, 0)).(color.NRGBA)
 			solid := color.NRGBAModel.Convert(im.At(4*d, 4*d)).(color.NRGBA)
-			if c.alpha && (clear.A != 0 || solid.A != 255) {
-				t.Errorf("%s %dx: alpha %d and %d", c.ext, d, clear.A, solid.A)
+			if c.alpha && (transparent.A != 0 || solid.A != 255) {
+				t.Errorf("%s %dx: alpha %d and %d", c.ext, d, transparent.A, solid.A)
 			}
 			if solid.R < 120 || solid.R > 136 {
 				t.Errorf("%s %dx: colour %v", c.ext, d, solid)

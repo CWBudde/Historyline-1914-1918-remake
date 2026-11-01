@@ -17,11 +17,11 @@ type Minimap struct {
 	Inset  camera.Point
 }
 
-// Fit returns a minimap of world that fits in max (keeping the aspect ratio),
+// Fit returns a minimap of world that fits in limit (keeping the aspect ratio),
 // anchored to the bottom-right corner of a view of the given size with margin.
-func Fit(world, max, view camera.Size, margin float64) Minimap {
-	scale := max.W / world.W
-	if s := max.H / world.H; s < scale {
+func Fit(world, limit, view camera.Size, margin float64) Minimap {
+	scale := limit.W / world.W
+	if s := limit.H / world.H; s < scale {
 		scale = s
 	}
 	m := Minimap{World: world, Scale: scale}

@@ -518,7 +518,10 @@ func (f *File) parseSetup(sj *setupJSON) (*Setup, error) {
 		var id string
 		if len(raw) != 3 || json.Unmarshal(raw[0], &line) != nil || json.Unmarshal(raw[1], &col) != nil ||
 			json.Unmarshal(raw[2], &id) != nil || id == "" {
-			b, _ := json.Marshal(raw)
+			b, err := json.Marshal(raw)
+			if err != nil {
+				return nil, fmt.Errorf("invalid unit: %w", err)
+			}
 			return nil, fmt.Errorf("unit %s: want [line, column, id]", b)
 		}
 		c, err := f.at(line, col)
@@ -635,7 +638,7 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 func (f *File) Files() (map[string][]byte, error) {
 	var b bytes.Buffer
 	str := func(s string) {
-		q, _ := json.Marshal(s)
+		q, _ := json.Marshal(s) //nolint:errcheck // A string always has a JSON representation.
 		b.Write(q)
 	}
 	strs := func(ss []string) {

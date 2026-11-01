@@ -83,12 +83,12 @@ func all(levels string) ([]backdrop, error) {
 }
 
 // encode returns the backdrop's source encoded at quality q.
-func encode(b backdrop, q int) ([]byte, error) {
+func encode(b backdrop, q int) (_ []byte, err error) {
 	f, err := os.Open(b.src)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	im, _, err := image.Decode(f)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", b.src, err)
@@ -140,13 +140,13 @@ func check(levels string) []error {
 	if err != nil {
 		return []error{err}
 	}
-	errs := make([]error, len(bs))
+	results := make([]error, len(bs))
 	jobs := make(chan int)
 	var wg sync.WaitGroup
 	for range workers {
 		wg.Go(func() {
 			for i := range jobs {
-				errs[i] = checkOne(bs[i])
+				results[i] = checkOne(bs[i])
 			}
 		})
 	}
@@ -155,19 +155,25 @@ func check(levels string) []error {
 	}
 	close(jobs)
 	wg.Wait()
-	errs = slices.DeleteFunc(errs, func(err error) bool { return err == nil })
+	errs := slices.DeleteFunc(results, func(err error) bool { return err == nil })
 
 	named := map[string]bool{}
 	for _, b := range bs {
 		named[filepath.Clean(b.src)] = true
 	}
-	_ = filepath.WalkDir(levels, func(p string, d fs.DirEntry, err error) error {
-		if err == nil && !d.IsDir() && d.Name() == scenario.BackdropSource && !named[filepath.Clean(p)] {
-			errs = append(errs, fmt.Errorf("%s: not in a level folder", p))
+	var sourceErrs []error
+	if err := filepath.WalkDir(levels, func(p string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() && d.Name() == scenario.BackdropSource && !named[filepath.Clean(p)] {
+			sourceErrs = append(sourceErrs, fmt.Errorf("%s: not in a level folder", p))
 		}
 		return nil
-	})
-	return errs
+	}); err != nil {
+		sourceErrs = append(sourceErrs, err)
+	}
+	return slices.Concat(errs, sourceErrs)
 }
 
 func checkOne(b backdrop) error {

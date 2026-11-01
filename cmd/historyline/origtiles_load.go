@@ -16,6 +16,15 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+func (a *origArt) load() {
+	loaded, err := loadOrigArt()
+	if err != nil {
+		a.err = err.Error()
+		return
+	}
+	a.tiles, a.units = loaded.tiles, loaded.units
+}
+
 // loadOrigArt reads the original terrain tiles, summer (LIB/PARTS) and winter
 // (LIB/PARTW), one per terrain record, and the unit sprites (LIB/UNIT) from
 // the local original/ folder above the working directory. Only builds with

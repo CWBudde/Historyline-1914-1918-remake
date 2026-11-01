@@ -174,7 +174,10 @@ func TestDosSelectMoveConfirm(t *testing.T) {
 	}
 	u := d.own().Units[at]
 	d.Click(at)
-	want, _ := d.s.Destinations(0, u.Index)
+	want, err := d.s.Destinations(0, u.Index)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if !d.selected || d.unit != u.Index || !maps.Equal(d.moves, want) {
 		t.Fatalf("selection of %v: selected %v unit %d, %d blue hexes, want %d", at, d.selected, d.unit, len(d.moves), len(want))
 	}

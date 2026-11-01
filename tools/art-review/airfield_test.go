@@ -92,7 +92,7 @@ func TestHangarSprite(t *testing.T) {
 // edit of each piece and none where a piece has no edit.
 func TestAirfieldSeasonSources(t *testing.T) {
 	dir := t.TempDir()
-	for _, name := range []string{"airfield-runway-summer-v1.png", "airfield-runway-autumn-v1.png", "airfield-runway-autumn-v2.png", "airfield-runwayx-autumn-v3.png", "airfield-hangar-summer-v1.png"} {
+	for _, name := range []string{"airfield-runway-summer-v1.png", "airfield-runway-autumn-v1.png", "airfield-runway-autumn-v2.png", "airfield-runway-autumn-v999999999999999999999999.png", "airfield-runwayx-autumn-v3.png", "airfield-hangar-summer-v1.png"} {
 		if err := os.WriteFile(filepath.Join(dir, name), nil, 0o644); err != nil {
 			t.Fatal(err)
 		}

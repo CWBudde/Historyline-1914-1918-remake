@@ -51,7 +51,7 @@ func hillsSceneFor(scenario string, parity int) (hillsScene, error) {
 		front = next
 	}
 	for p := range world {
-		hill := false
+		var hill bool
 		switch scenario {
 		case "isolated":
 			hill = p == center

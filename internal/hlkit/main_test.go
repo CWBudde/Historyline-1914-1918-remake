@@ -112,7 +112,11 @@ func TestRunPreparesSizedGradedSprites(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = f.Close() }()
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	im, err := png.Decode(f)
 	if err != nil {
 		t.Fatal(err)
@@ -226,7 +230,11 @@ func TestInstallWritesSpritesShadowsAndIndex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = f.Close() }()
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	im, err := png.Decode(f)
 	if err != nil {
 		t.Fatal(err)
@@ -250,7 +258,11 @@ func TestInstallRefusesAFailingSheet(t *testing.T) {
 	if err := install(p, "out", "assets"); err == nil {
 		t.Fatal("installed a sheet whose checks fail")
 	}
-	if b, _ := os.ReadFile("assets/index.json"); string(b) != testIndex {
+	b, err := os.ReadFile("assets/index.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(b) != testIndex {
 		t.Fatal("a failed install changed the index")
 	}
 }

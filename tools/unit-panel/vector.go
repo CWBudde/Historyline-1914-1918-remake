@@ -103,7 +103,10 @@ func (v Vector) svg() string {
 }
 
 func rgba(s string) color.RGBA {
-	n, _ := strconv.ParseUint(strings.TrimPrefix(s, "#"), 16, 32)
+	n, err := strconv.ParseUint(strings.TrimPrefix(s, "#"), 16, 32)
+	if err != nil {
+		return color.RGBA{A: 255}
+	}
 	return color.RGBA{uint8(n >> 16), uint8(n >> 8), uint8(n), 255}
 }
 

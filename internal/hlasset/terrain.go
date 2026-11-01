@@ -3,6 +3,7 @@ package hlasset
 import (
 	"bytes"
 	"cmp"
+	"errors"
 	"fmt"
 	"image"
 	"image/png"
@@ -194,8 +195,7 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 	}
 	derived, err := deriveTerrain(out, packs)
 	if err != nil {
-		_ = os.RemoveAll(out)
-		return nil, err
+		return nil, errors.Join(err, os.RemoveAll(out))
 	}
 	packs = append(derived, packs...)
 	if err := os.WriteFile(filepath.Join(out, "grade"), []byte(terraingrade.Version+"\n"+terrainlight.Version+"\n"), 0o644); err != nil {
@@ -254,13 +254,13 @@ func terrainRecoder(assetsDir string, entries []indexEntry) (recoder, error) {
 // a default tile instead of its context, plus stray compound pieces, for the
 // art track. On an autumn or spring map it counts the summer IDs drawn for want
 // of their seasonal form, and totals them per season and family at the end.
-func terrainGaps(dir string, w io.Writer) error {
+func terrainGaps(dir string, w io.Writer) (err error) {
 	have := map[string]bool{}
 	root, err := os.OpenRoot(dir)
 	if err != nil {
 		return err
 	}
-	defer func() { _ = root.Close() }()
+	defer func() { err = errors.Join(err, root.Close()) }()
 	groups, err := assets.PackGroups(root.FS(), terrainGroups, optionalGroups, terrainDensities)
 	if err != nil {
 		return err

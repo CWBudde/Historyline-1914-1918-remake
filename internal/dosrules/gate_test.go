@@ -165,7 +165,10 @@ func gateRepeatable(t *testing.T, p Profile, cs []CasualtyFixture) {
 		first[i] = CasualtyResult(p.Casualties(a, d, c))
 	}
 	for i := len(cs) - 1; i >= 0; i-- {
-		a, d, c, _ := cs[i].Inputs(p.Tables)
+		a, d, c, err := cs[i].Inputs(p.Tables)
+		if err != nil {
+			t.Fatal(err)
+		}
 		if got := CasualtyResult(p.Casualties(a, d, c)); got != first[i] {
 			t.Errorf("%s: %+v, then %+v", cs[i].ID, first[i], got)
 		}
@@ -314,7 +317,10 @@ func gateDivideError(t *testing.T, p Profile, cs []CasualtyFixture) {
 		if cs[i].Expected.Error != "divide-error" {
 			t.Errorf("%s: recorded error %q", cs[i].ID, cs[i].Expected.Error)
 		}
-		a, d, c, _ := cs[i].Inputs(p.Tables)
+		a, d, c, err := cs[i].Inputs(p.Tables)
+		if err != nil {
+			t.Fatal(err)
+		}
 		if _, err := p.Casualties(a, d, c); !errors.Is(err, ErrDivideError) {
 			t.Errorf("%s: resolver %v, want ErrDivideError", cs[i].ID, err)
 		}

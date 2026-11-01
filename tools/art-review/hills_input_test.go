@@ -106,7 +106,10 @@ func TestHillsStrictInputs(t *testing.T) {
 	ref := in.Manifest.Materials["height"]
 	ref.Source = "escaped.png"
 	in.Manifest.Materials["height"] = ref
-	data, _ := json.Marshal(in.Manifest)
+	data, err := json.Marshal(in.Manifest)
+	if err != nil {
+		t.Fatal(err)
+	}
 	groundTestWrite(t, path, data)
 	if _, err := loadHillsInputs(path); err == nil {
 		t.Fatal("escaped symlink accepted")
@@ -151,7 +154,10 @@ func TestHillsContextPhaseIdentity(t *testing.T) {
 				n[i] = "hills"
 			}
 		}
-		c, _ := newHillsContext("hills", n, connectionPoint{})
+		c, err := newHillsContext("hills", n, connectionPoint{})
+		if err != nil {
+			t.Fatal(err)
+		}
 		if seen[c.key()] {
 			t.Fatal("merged ordered mask")
 		}
@@ -161,10 +167,16 @@ func TestHillsContextPhaseIdentity(t *testing.T) {
 	for line := range 8 {
 		for col := range 4 {
 			p := connectionPoint{float64(142*col + 71*(line%2)), float64(40 * line)}
-			a, _ := newHillsContext("hills", all, p)
+			a, err := newHillsContext("hills", all, p)
+			if err != nil {
+				t.Fatal(err)
+			}
 			phases[a.Phase] = true
 			for _, d := range []connectionPoint{{568, 0}, {0, 320}, {-568, -320}} {
-				b, _ := newHillsContext("hills", all, p.add(d))
+				b, err := newHillsContext("hills", all, p.add(d))
+				if err != nil {
+					t.Fatal(err)
+				}
 				if a.key() != b.key() {
 					t.Fatal("period key")
 				}
@@ -174,13 +186,25 @@ func TestHillsContextPhaseIdentity(t *testing.T) {
 	if len(phases) != 32 {
 		t.Fatal("phase cosets", len(phases))
 	}
-	base, _ := newHillsContext("grass", []string{"hills", "hills", "hills", "hills", "hills", "hills"}, connectionPoint{71, 40})
-	canonical, _ := newHillsContext("grass", all, connectionPoint{})
+	base, err := newHillsContext("grass", []string{"hills", "hills", "hills", "hills", "hills", "hills"}, connectionPoint{71, 40})
+	if err != nil {
+		t.Fatal(err)
+	}
+	canonical, err := newHillsContext("grass", all, connectionPoint{})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if base.key() != canonical.key() {
 		t.Fatal("grass normalization")
 	}
-	a, _ := newHillsContext("hills", all, connectionPoint{})
-	b, _ := newHillsContext("hills", all, connectionPoint{71, 40})
+	a, err := newHillsContext("hills", all, connectionPoint{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := newHillsContext("hills", all, connectionPoint{71, 40})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if a.key() == b.key() || !a.canonical() || b.canonical() {
 		t.Fatal("phase identity/canonical")
 	}

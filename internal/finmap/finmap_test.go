@@ -51,13 +51,13 @@ func TestDecodeMapRejects(t *testing.T) {
 
 // shp builds an SHP file: the locked types, then 12-byte records.
 func shp(locked []int, recs ...[12]byte) []byte {
-	b := make([]byte, TypeCount+1)
+	b := make([]byte, TypeCount+1+12*len(recs))
 	for _, t := range locked {
 		b[t] = 1
 	}
 	b[TypeCount] = byte(len(recs))
-	for _, r := range recs {
-		b = append(b, r[:]...)
+	for i, r := range recs {
+		copy(b[TypeCount+1+12*i:], r[:])
 	}
 	return b
 }
@@ -229,7 +229,7 @@ func TestBuild(t *testing.T) {
 		{Cell: [2]int{3, 2}, Type: 2, Side: 0, Rear: &[2]int{2, 2}},
 	}
 	if !reflect.DeepEqual(l.Units, wantUnits) {
-		t.Fatalf("units %s", js(l.Units))
+		t.Fatalf("units %s", js(t, l.Units))
 	}
 	wantBuildings := []Building{
 		{Kind: "hq", Cell: [2]int{0, 1}, Owner: 0, Container: 70},
@@ -238,7 +238,7 @@ func TestBuild(t *testing.T) {
 		{Kind: "depot", Cell: [2]int{3, 3}, Owner: 0, Container: 72},
 	}
 	if !reflect.DeepEqual(l.Buildings, wantBuildings) {
-		t.Fatalf("buildings %s", js(l.Buildings))
+		t.Fatalf("buildings %s", js(t, l.Buildings))
 	}
 	wantContainers := []Container{
 		{Container: 70, Kind: "hq", Index: 0, Side: 0, Energy: 5, ComputerValue: 50, Units: []Cargo{{Type: 0}}, Holder: "building"},
@@ -251,7 +251,7 @@ func TestBuild(t *testing.T) {
 		{Container: 72, Kind: "hq", Index: 2, Side: 0, Units: []Cargo{}, Holder: "building"},
 	}
 	if !reflect.DeepEqual(l.Containers, wantContainers) {
-		t.Fatalf("containers %s", js(l.Containers))
+		t.Fatalf("containers %s", js(t, l.Containers))
 	}
 	wantProducible := []int{1}
 	for ty := 3; ty < TypeCount; ty++ {
@@ -388,8 +388,12 @@ func mustMap(b []byte) *Map {
 	return m
 }
 
-func js(v any) string {
-	b, _ := json.Marshal(v)
+func js(t *testing.T, v any) string {
+	t.Helper()
+	b, err := json.Marshal(v)
+	if err != nil {
+		t.Fatal(err)
+	}
 	return string(b)
 }
 

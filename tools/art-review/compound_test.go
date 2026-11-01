@@ -84,7 +84,10 @@ func TestCompoundAffineUniformCentersAndAlpha(t *testing.T) {
 			src.SetNRGBA(x, y, color.NRGBA{210, 70, 25, 255})
 		}
 	}
-	l, _ := compoundLayoutFor("depot-summer")
+	l, err := compoundLayoutFor("depot-summer")
+	if err != nil {
+		t.Fatal(err)
+	}
 	got, tr, err := compoundAffine(src, l, .9, compoundFit{})
 	if err != nil {
 		t.Fatal(err)
@@ -119,7 +122,10 @@ func TestCompoundAffineUniformCentersAndAlpha(t *testing.T) {
 }
 
 func TestCompoundGuardRejectsArchitectureAndPreservesInternalRoof(t *testing.T) {
-	l, _ := compoundLayoutFor("depot-summer")
+	l, err := compoundLayoutFor("depot-summer")
+	if err != nil {
+		t.Fatal(err)
+	}
 	raw := image.NewNRGBA(image.Rect(0, 0, 952, 640))
 	raw.SetNRGBA(119*4, 1*4, color.NRGBA{100, 80, 50, 255})
 	if _, _, err := compoundGuard(raw, l); err == nil {
@@ -209,7 +215,10 @@ func TestCompoundActualPNGBundle(t *testing.T) {
 	}
 	// All comparisons use decoded exported bytes, independently blitted with Over.
 	for _, id := range []string{"depot-summer", "depot-winter", "hq-summer", "hq-winter", "factory-winter"} {
-		l, _ := compoundLayoutFor(id)
+		l, err := compoundLayoutFor(id)
+		if err != nil {
+			t.Fatal(err)
+		}
 		edges := compoundBoundary(l)
 		for _, density := range []int{2, 4} {
 			full, err := loadPNG(filepath.Join(out, fmt.Sprintf("%s-scene-%dx.png", id, density)))
@@ -583,7 +592,10 @@ func TestCompoundAffineTallSourceScalarReference(t *testing.T) {
 			src.SetNRGBA(x, y, color.NRGBA{uint8(x*17 + y*3), uint8(y * 7), uint8(x + y), uint8((x*9 + y*5) % 256)})
 		}
 	}
-	l, _ := compoundLayoutFor("depot-summer")
+	l, err := compoundLayoutFor("depot-summer")
+	if err != nil {
+		t.Fatal(err)
+	}
 	got, tr, err := compoundAffine(src, l, .9, compoundFit{})
 	if err != nil {
 		t.Fatal(err)

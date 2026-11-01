@@ -59,7 +59,9 @@ func TestHTTPCatalogTimesAndPauses(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_ = f.Close()
+	if err := f.Close(); err != nil {
+		t.Fatal(err)
+	}
 	if _, err := fs.ReadFile(fsys, "2x/a/manifest.json"); err != nil {
 		t.Fatal(err)
 	}

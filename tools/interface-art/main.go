@@ -168,7 +168,7 @@ func (b *Builder) densities(id, family string, anchor [2]float64, master *image.
 	return nil
 }
 
-func export(manifestPath, out string) error {
+func export(manifestPath, out string) (resultErr error) {
 	raw, e := os.ReadFile(manifestPath)
 	if e != nil {
 		return e
@@ -193,7 +193,7 @@ func export(manifestPath, out string) error {
 	if e != nil {
 		return e
 	}
-	defer func() { _ = root.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, root.Close()) }()
 	if e = validateBindings(m); e != nil {
 		return e
 	}
@@ -224,7 +224,7 @@ func export(manifestPath, out string) error {
 	}
 	defer func() {
 		if filepath.Dir(stage) == parent && strings.HasPrefix(filepath.Base(stage), ".interface-art-") {
-			_ = os.RemoveAll(stage)
+			resultErr = errors.Join(resultErr, os.RemoveAll(stage))
 		}
 	}()
 	b := Builder{Dir: stage, Report: Report{SchemaVersion: 1, Profile: m.Profile, ManifestSHA256: hash(raw), Acceptance: "offline candidates; reference likeness, native mapping, responsive flows and runtime acceptance pending", Filter: "native 4x vector raster or source crop -> 4x -> 2x -> 1x; signed premultiplied byte-RGB Lanczos3, no upscaling"}}

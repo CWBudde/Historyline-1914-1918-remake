@@ -125,7 +125,10 @@ func TestCompareAndTargets(t *testing.T) {
 	if err := p.writeTargets(cmp); err != nil {
 		t.Fatal(err)
 	}
-	first, _ := os.ReadFile(p.targetsPath)
+	first, err := os.ReadFile(p.targetsPath)
+	if err != nil {
+		t.Fatal(err)
+	}
 	tg, err := p.loadTargets()
 	if err != nil || tg == nil {
 		t.Fatalf("loadTargets: %v %v", tg, err)
@@ -148,7 +151,11 @@ func TestCompareAndTargets(t *testing.T) {
 	if err := p.writeTargets(cmp); err != nil {
 		t.Fatal(err)
 	}
-	if again, _ := os.ReadFile(p.targetsPath); !bytes.Equal(first, again) {
+	again, err := os.ReadFile(p.targetsPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(first, again) {
 		t.Error("targets.json differs between two writes")
 	}
 

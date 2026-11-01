@@ -117,8 +117,14 @@ func TestWoodlandLoaderPinsAndPreview(t *testing.T) {
 	if err != nil || got.Available || got.Reason != "independent_woodland_annotations_unavailable" {
 		t.Fatalf("missing annotations: %+v %v", got, err)
 	}
-	lv, _ := p.level.Marshal()
-	reg, _ := json.Marshal(p.ref.Registration)
+	lv, err := p.level.Marshal()
+	if err != nil {
+		t.Fatal(err)
+	}
+	reg, err := json.Marshal(p.ref.Registration)
+	if err != nil {
+		t.Fatal(err)
+	}
 	a := woodlandAnnotations{Schema: 1, LevelSHA256: fmt.Sprintf("%x", sha256.Sum256(lv)), RegistrationSHA256: fmt.Sprintf("%x", sha256.Sum256(reg)), Sources: []woodlandSourceAnnotation{source}}
 	path := filepath.Join(filepath.Dir(p.targetsPath), "woodland_annotations.json")
 	write := func(value woodlandAnnotations, tail string) {
@@ -147,7 +153,9 @@ func TestWoodlandLoaderPinsAndPreview(t *testing.T) {
 		t.Fatal(err)
 	}
 	preview, err := png.Decode(f)
-	_ = f.Close()
+	if err := f.Close(); err != nil {
+		t.Fatal(err)
+	}
 	if err != nil || preview.Bounds().Empty() || fmt.Sprintf("%x", sha256.Sum256(data)) != got.PreviewSHA256 {
 		t.Fatalf("preview provenance: %v", err)
 	}

@@ -47,7 +47,11 @@ func seasonEdit(a asset, season string) (string, string, error) {
 		if em == nil || em[1] != m[1] || em[2] != season {
 			continue
 		}
-		if v, _ := strconv.Atoi(em[3]); v > version {
+		v, err := strconv.Atoi(em[3])
+		if err != nil {
+			return "", "", fmt.Errorf("season edit %s version: %w", e.Name(), err)
+		}
+		if v > version {
 			edit, version = e.Name(), v
 		}
 	}

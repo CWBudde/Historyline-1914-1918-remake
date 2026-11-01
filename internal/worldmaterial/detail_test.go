@@ -86,7 +86,11 @@ func TestGrade(t *testing.T) {
 	if math.Abs(m1-m0) > 0.3 || math.Abs(s1/s0-1.5) > 0.02 {
 		t.Fatalf("mean %v→%v, sigma %v→%v", m0, m1, s0, s1)
 	}
-	if same, _ := Grade(src, 1, [3]float64{}); same.NRGBAAt(3, 4) != src.NRGBAAt(3, 4) {
+	same, err := Grade(src, 1, [3]float64{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if same.NRGBAAt(3, 4) != src.NRGBAAt(3, 4) {
 		t.Fatal("an empty grade changed the image")
 	}
 	// A b* offset moves the mean b* and leaves L*.

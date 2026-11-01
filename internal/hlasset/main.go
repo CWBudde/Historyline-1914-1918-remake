@@ -5,6 +5,7 @@ package hlasset
 import (
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -18,7 +19,7 @@ import (
 )
 
 // Run builds, compresses, reports on or validates runtime art packs.
-func Run(args []string, stdout, stderr io.Writer) error {
+func Run(args []string, stdout, stderr io.Writer) (err error) {
 	if len(args) == 0 {
 		return fmt.Errorf("usage: hl assets build|build-units|build-terrain|build-screens|packs|lite|terrain-gaps|validate [flags]")
 	}
@@ -173,7 +174,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		if err != nil {
 			return err
 		}
-		defer func() { _ = r.Close() }()
+		defer func() { err = errors.Join(err, r.Close()) }()
 		p, err := assets.Open(r.FS(), *manifest, assets.Options{AllowCandidates: *candidates})
 		if err != nil {
 			return err
@@ -253,24 +254,25 @@ func newOutput(dir string) (*output, error) {
 	}
 	r, err := os.OpenRoot(dir)
 	if err != nil {
-		_ = os.Remove(dir)
-		return nil, err
+		return nil, errors.Join(err, os.Remove(dir))
 	}
 	return &output{dir: dir, root: r}, nil
 }
 
 func (o *output) done() { o.complete = true }
 
-func (o *output) close() {
+func (o *output) close() error {
+	var errs []error
 	if !o.complete {
 		for i := len(o.created) - 1; i >= 0; i-- {
-			_ = o.root.Remove(filepath.FromSlash(o.created[i]))
+			errs = append(errs, o.root.Remove(filepath.FromSlash(o.created[i])))
 		}
 	}
-	_ = o.root.Close()
+	errs = append(errs, o.root.Close())
 	if !o.complete {
-		_ = os.Remove(o.dir)
+		errs = append(errs, os.Remove(o.dir))
 	}
+	return errors.Join(errs...)
 }
 
 // mkdirAll creates the missing directories of the slash path dir.
@@ -341,14 +343,9 @@ func writeNew(root *os.Root, name string, write func(io.Writer) error) error {
 	if err != nil {
 		return err
 	}
-	err = write(f)
-	closeErr := f.Close()
+	err = errors.Join(write(f), f.Close())
 	if err != nil {
-		_ = root.Remove(name)
-		return err
+		return errors.Join(err, root.Remove(name))
 	}
-	if closeErr != nil {
-		_ = root.Remove(name)
-	}
-	return closeErr
+	return nil
 }

@@ -390,7 +390,9 @@ func writeFixture(t *testing.T, dir, name string, img image.Image) string {
 		t.Fatal(err)
 	}
 	if err := png.Encode(f, img); err != nil {
-		_ = f.Close()
+		if closeErr := f.Close(); closeErr != nil {
+			t.Error(closeErr)
+		}
 		t.Fatal(err)
 	}
 	if err := f.Close(); err != nil {

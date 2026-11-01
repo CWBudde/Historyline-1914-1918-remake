@@ -61,7 +61,11 @@ func TestLiteMaterialsPreservePeriodicPixels(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			defer o.close()
+			defer func() {
+				if err := o.close(); err != nil {
+					t.Error(err)
+				}
+			}()
 			var st liteStats
 			if err = o.writeLitePack("materials", src, p, &st); err != nil {
 				t.Fatal(err)

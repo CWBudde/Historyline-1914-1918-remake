@@ -35,7 +35,9 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 			t.Fatal(err)
 		}
 		pack, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
-		_ = r.Close()
+		if err := r.Close(); err != nil {
+			t.Fatal(err)
+		}
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -67,7 +69,11 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = r.Close() }()
+	defer func() {
+		if err := r.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	pack, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
 	if err != nil {
 		t.Fatal(err)

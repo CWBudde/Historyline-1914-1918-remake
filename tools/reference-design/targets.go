@@ -62,7 +62,10 @@ func (p *project) writeTargets(cmp *comparison) error {
 	}
 	var b bytes.Buffer
 	b.WriteString("{\n  \"image_sha256\": ")
-	sha, _ := json.Marshal(t.Image)
+	sha, err := json.Marshal(t.Image)
+	if err != nil {
+		return err
+	}
 	b.Write(sha)
 	b.WriteString(",\n  \"families\": [\n")
 	for i, f := range t.Families {

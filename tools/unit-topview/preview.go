@@ -1,6 +1,7 @@
 package unittopview
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/draw"
@@ -128,8 +129,7 @@ func writeScaled(dir, name string, im image.Image) error {
 			return err
 		}
 		if err := png.Encode(f, dst); err != nil {
-			_ = f.Close()
-			return err
+			return errors.Join(err, f.Close())
 		}
 		if err := f.Close(); err != nil {
 			return err
@@ -138,11 +138,11 @@ func writeScaled(dir, name string, im image.Image) error {
 	return nil
 }
 
-func readPNG(path string) (image.Image, error) {
+func readPNG(path string) (_ image.Image, resultErr error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, f.Close()) }()
 	return png.Decode(f)
 }

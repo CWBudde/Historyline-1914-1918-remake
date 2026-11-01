@@ -133,13 +133,13 @@ func unitValidateAtlas(im *image.NRGBA) error {
 		return errors.New("unit atlas requires six square cells, 2 columns by 3 rows, cell size 384..2048")
 	}
 	for face := range 6 {
-		opaque, clear, key := 0, 0, 0
+		opaque, transparent, key := 0, 0, 0
 		ox, oy := face%2*cell, face/2*cell
 		for y := range cell {
 			for x := range cell {
 				p := im.NRGBAAt(ox+x, oy+y)
 				if p.A == 0 {
-					clear++
+					transparent++
 				}
 				if p.A >= 250 {
 					if x == 0 || y == 0 || x == cell-1 || y == cell-1 {
@@ -152,11 +152,11 @@ func unitValidateAtlas(im *image.NRGBA) error {
 				}
 			}
 		}
-		if opaque < 64 || clear < 64 || key < 64 {
+		if opaque < 64 || transparent < 64 || key < 64 {
 			return fmt.Errorf("unit panel %d requires substantial opaque art, transparent region and magenta key cloth (64 pixels each)", face)
 		}
-		if clear < cell*cell/4 {
-			return fmt.Errorf("unit panel %d requires fully transparent background covering at least 25%% of its cell; got %d clear pixels", face, clear)
+		if transparent < cell*cell/4 {
+			return fmt.Errorf("unit panel %d requires fully transparent background covering at least 25%% of its cell; got %d clear pixels", face, transparent)
 		}
 	}
 	return nil

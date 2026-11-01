@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"context"
+	"errors"
 	"fmt"
 	"io"
 	"io/fs"
@@ -33,7 +35,11 @@ func openArtDir(dir string, m *meter) (fsys fs.FS, done func(), err error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	return r.FS(), func() { _ = r.Close() }, nil
+	return r.FS(), func() {
+		if err := r.Close(); err != nil {
+			log.Printf("close art directory: %v", err)
+		}
+	}, nil
 }
 
 // meter counts the bytes a load fetches over HTTP for a progress bar: total
@@ -169,12 +175,18 @@ func (h *httpFS) url(name string) string {
 	return u.String()
 }
 
-func httpGet(addr string) ([]byte, error) {
-	resp, err := http.Get(addr)
+func httpGet(addr string) (_ []byte, resultErr error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, addr, nil)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = resp.Body.Close() }()
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { resultErr = errors.Join(resultErr, resp.Body.Close()) }()
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("%s: %s", addr, resp.Status)
 	}
@@ -187,7 +199,10 @@ func (h *httpFS) Open(name string) (fs.File, error) {
 		return nil, &fs.PathError{Op: "open", Path: name, Err: fs.ErrNotExist}
 	}
 	if fi.IsDir() {
-		entries, _ := h.ReadDir(name)
+		entries, err := h.ReadDir(name)
+		if err != nil {
+			return nil, err
+		}
 		return &httpDir{info: fi.(httpInfo), entries: entries}, nil
 	}
 	if h.pause != nil {

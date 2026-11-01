@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/png"
@@ -17,8 +18,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"golang.org/x/image/draw"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 )
 
 // screenDensities are the densities of the screen catalog: the backdrop and
@@ -163,7 +165,7 @@ func surfaceSize(src string, d int) (w, h int, err error) {
 	if err != nil {
 		return 0, 0, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	c, err := png.DecodeConfig(f)
 	if err != nil {
 		return 0, 0, fmt.Errorf("%s: %w", src, err)
@@ -174,12 +176,12 @@ func surfaceSize(src string, d int) (w, h int, err error) {
 // scaleTile scales the image at src down to w×h. Each texel is the
 // area-weighted mean of the source it covers, alpha premultiplied, which
 // never reaches across the image's edge, so a seamless tile stays seamless.
-func scaleTile(src string, w, h int) ([]byte, error) {
+func scaleTile(src string, w, h int) (_ []byte, err error) {
 	f, err := os.Open(src)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	im, err := png.Decode(io.LimitReader(f, 64<<20))
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", src, err)
@@ -242,12 +244,12 @@ func taps(from, n int) [][]tap {
 
 // scalePainting trims one pixel from each edge of the painting at src (the
 // sources are 1586×992, a hair wider than 16:10) and scales it to w×h.
-func scalePainting(src string, w, h int) ([]byte, error) {
+func scalePainting(src string, w, h int) (_ []byte, err error) {
 	f, err := os.Open(src)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	im, err := png.Decode(io.LimitReader(f, 64<<20))
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", src, err)
@@ -270,7 +272,7 @@ func scalePainting(src string, w, h int) ([]byte, error) {
 // one), so each stays inside the loader's decoded-image budget. Every pack is
 // loaded and fully validated before the build counts as done; a failed build
 // leaves nothing behind.
-func buildScreens(assetsDir, artDir, out string) ([]assets.Manifest, error) {
+func buildScreens(assetsDir, artDir, out string) (_ []assets.Manifest, err error) {
 	entries, err := readIndex(assetsDir)
 	if err != nil {
 		return nil, err
@@ -285,7 +287,7 @@ func buildScreens(assetsDir, artDir, out string) ([]assets.Manifest, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer o.close()
+	defer func() { err = errors.Join(err, o.close()) }()
 	var written []assets.Manifest
 	for i, d := range screenDensities {
 		var families []string

@@ -24,7 +24,11 @@ func rhein(t *testing.T) *Game {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Cleanup(func() { _ = g.Close() })
+	t.Cleanup(func() {
+		if err := g.Close(); err != nil {
+			t.Error(err)
+		}
+	})
 	return g
 }
 
@@ -49,7 +53,10 @@ func TestObserveRhein(t *testing.T) {
 // A batch with one illegal order applies nothing.
 func TestOrdersAtomic(t *testing.T) {
 	g := rhein(t)
-	before, _ := StateHash(g.S)
+	before, err := StateHash(g.S)
+	if err != nil {
+		t.Fatal(err)
+	}
 	rej, _, err := g.Step("{\"op\":\"move\",\"unit\":49,\"to\":[26,23]}\n{\"op\":\"move\",\"unit\":9999,\"to\":[1,1]}\n")
 	if err != nil {
 		t.Fatal(err)
@@ -57,7 +64,10 @@ func TestOrdersAtomic(t *testing.T) {
 	if len(rej) == 0 {
 		t.Fatal("expected rejection")
 	}
-	after, _ := StateHash(g.S)
+	after, err := StateHash(g.S)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if before != after {
 		t.Error("rejected batch changed the state")
 	}

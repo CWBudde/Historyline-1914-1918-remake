@@ -40,7 +40,11 @@ func TestScreenStateWrappingAndClipContainment(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	defer func() { _ = face.Close() }()
+	defer func() {
+		if err := face.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	strip := func(s string) string {
 		return strings.Map(func(r rune) rune {
 			if unicode.IsSpace(r) {

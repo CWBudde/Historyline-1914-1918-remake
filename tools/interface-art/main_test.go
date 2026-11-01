@@ -115,7 +115,11 @@ func TestPinnedInputRejectsEscapeLegacyAndTampering(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	defer func() { _ = root.Close() }()
+	defer func() {
+		if err := root.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	valid := Input{ID: "weapon/bayonet", Source: "art.png", SHA256: hash(b.Bytes())}
 	if _, e = loadInput(root, valid, true); e != nil {
 		t.Fatal(e)

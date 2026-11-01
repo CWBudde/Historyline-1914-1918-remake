@@ -256,7 +256,10 @@ func TestMixedLoadAndSchemaValidation(t *testing.T) {
 	}
 	// Canonical schema also accepts the complete roster in any declared order.
 	m.Variants[0], m.Variants[1] = m.Variants[1], m.Variants[0]
-	b, _ := json.Marshal(m)
+	b, err := json.Marshal(m)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if _, err := decodeMixedManifest(b); err != nil {
 		t.Fatal(err)
 	}
@@ -454,9 +457,15 @@ func TestMixedBundleDeterministicAndActualPNGAssembly(t *testing.T) {
 		if pass == 0 {
 			first = report
 		} else {
-			a, _ := json.Marshal(first)
+			a, err := json.Marshal(first)
+			if err != nil {
+				t.Fatal(err)
+			}
 			if !bytes.Equal(a, bytes.TrimSpace(b)) { // report is indented; compare semantic canonical JSON.
-				canonical, _ := json.Marshal(report)
+				canonical, err := json.Marshal(report)
+				if err != nil {
+					t.Fatal(err)
+				}
 				if !bytes.Equal(a, canonical) {
 					t.Fatal("nondeterministic report")
 				}

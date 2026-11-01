@@ -116,7 +116,7 @@ func (p *project) render(out string) error {
 		}
 		var exemplars []cell
 		for _, s := range f.Exemplars {
-			c, _ := parseCell(s)
+			c, _ := parseCell(s) //nolint:errcheck // Project validation has checked every exemplar and feature cell.
 			exemplars = append(exemplars, c)
 			fv.Exemplars = append(fv.Exemplars, p.tileView(c))
 		}
@@ -153,7 +153,7 @@ func (p *project) featureView(ft feature) featureView {
 	var cells []cell
 	minX, minY, maxX, maxY := 1<<30, 1<<30, -1<<30, -1<<30
 	for _, s := range ft.Cells {
-		c, _ := parseCell(s)
+		c, _ := parseCell(s) //nolint:errcheck // Project validation has checked every exemplar and feature cell.
 		cells = append(cells, c)
 		x, y := tileOrigin(c.Row-1, c.Col-1)
 		minX, minY, maxX, maxY = min(minX, x), min(minY, y), max(maxX, x), max(maxY, y)

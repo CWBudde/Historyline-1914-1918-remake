@@ -28,7 +28,11 @@ func TestPulseRejectsInvalidCaptureCollection(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			defer func() { _ = r.Close() }()
+			defer func() {
+				if err := r.Close(); err != nil {
+					t.Error(err)
+				}
+			}()
 			if err := r.MkdirAll("build/captures/media", 0o755); err != nil {
 				t.Fatal(err)
 			}
@@ -55,7 +59,11 @@ func TestPulseRejectsInvalidCaptureCollection(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			defer func() { _ = out.Close() }()
+			defer func() {
+				if err := out.Close(); err != nil {
+					t.Error(err)
+				}
+			}()
 			c := collector{root: r, out: out, seen: map[string]picture{}}
 			if err := c.pulseCaptures(&pulseStudy{}, "build/captures", lvl); err == nil {
 				t.Fatal("invalid capture collection was accepted")

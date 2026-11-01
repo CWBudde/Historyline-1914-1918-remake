@@ -1,6 +1,7 @@
 package unitsquad
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"image"
@@ -31,7 +32,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		return err
 	}
 	im, err := png.Decode(file)
-	_ = file.Close()
+	err = errors.Join(err, file.Close())
 	if err != nil {
 		return err
 	}
@@ -54,8 +55,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 		return err
 	}
 	if err := png.Encode(o, res); err != nil {
-		_ = o.Close()
-		return err
+		return errors.Join(err, o.Close())
 	}
 	return o.Close()
 }

@@ -153,7 +153,11 @@ func TestInstallRepinsOnlyItsEntries(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = f.Close() }()
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	if _, err := png.Decode(f); err != nil {
 		t.Fatal(err)
 	}

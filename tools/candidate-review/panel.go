@@ -33,7 +33,9 @@ func (r *renderer) panelBase() (*image.NRGBA, error) {
 	out := filepath.Join(r.work, "panel")
 	file := filepath.Join(out, "fixtures", "cp-ready-2x.png")
 	if _, err := os.Stat(file); err != nil {
-		_ = os.RemoveAll(out)
+		if err := os.RemoveAll(out); err != nil {
+			return nil, err
+		}
 		if err := unitpanel.Run([]string{"-manifest", filepath.Join(r.o.root, "art/pipeline/unit-panel-v1.json"), "-out", out}, io.Discard, io.Discard); err != nil {
 			return nil, fmt.Errorf("unit-panel: %w", err)
 		}
@@ -65,7 +67,10 @@ func (r *renderer) inPanel(portrait image.Image, unit image.Image) (*image.NRGBA
 }
 
 func (r *renderer) portraits(g *group) error {
-	unit, _ := loadPNG(filepath.Join(r.o.root, "assets", "units", g.Family, "cp", "n-normal-2x.png"))
+	unit, err := loadPNG(filepath.Join(r.o.root, "assets", "units", g.Family, "cp", "n-normal-2x.png"))
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
 	if installed, err := loadPNG(filepath.Join(r.o.root, "assets", "portraits", g.Family, "portrait-2x.png")); err == nil {
 		p, err := r.inPanel(installed, unit)
 		if err != nil {
@@ -218,12 +223,17 @@ func (r *renderer) backdrop(g *group, c *candidate) error {
 			b := m["backdrop"].(map[string]any)
 			b["source"], b["sha256"], b["crop"] = source, sum, cropRect
 		}
-		_ = os.RemoveAll(out)
+		if err := os.RemoveAll(out); err != nil {
+			return "", err
+		}
 		if err := os.MkdirAll(r.work, 0o755); err != nil {
 			return "", err
 		}
 		file := filepath.Join(r.work, "screens-"+name+".json")
-		data, _ := json.MarshalIndent(m, "", "  ")
+		data, err := json.MarshalIndent(m, "", "  ")
+		if err != nil {
+			return "", err
+		}
 		if err := os.WriteFile(file, data, 0o644); err != nil {
 			return "", err
 		}
@@ -255,7 +265,7 @@ func (r *renderer) backdrop(g *group, c *candidate) error {
 	cand, err := render(c.Exec, filepath.ToSlash(rel), sum, []int{x0, y0, w, h})
 	if err != nil {
 		c.Verdict = err.Error()
-		return nil
+		return nil //nolint:nilerr // Candidate export failures are review verdicts; keep rendering the other candidates.
 	}
 	v := &view{Label: "as the menu backdrop", Media: map[string]string{}}
 	iv := &view{Label: "as the menu backdrop", Media: map[string]string{}}

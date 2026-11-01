@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/jpeg"
@@ -284,12 +285,12 @@ func (p *Pack) Validate() error {
 	return nil
 }
 
-func readBounded(fsys fs.FS, name string, limit int) ([]byte, error) {
+func readBounded(fsys fs.FS, name string, limit int) (_ []byte, err error) {
 	f, err := fsys.Open(name)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	b, err := io.ReadAll(io.LimitReader(f, int64(limit)+1))
 	if err != nil {
 		return nil, err

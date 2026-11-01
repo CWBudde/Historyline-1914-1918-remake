@@ -53,7 +53,7 @@ func groundTestWrite(t *testing.T, path string, data []byte) {
 func TestGroundCLIActualBundle(t *testing.T) {
 	path, _ := groundTestFixture(t)
 	out := filepath.Join(filepath.Dir(path), "bundle")
-	cmd := exec.Command("go", "run", "../../cmd/hl", "review", "art", "-ground", path, "-out", out)
+	cmd := exec.CommandContext(t.Context(), "go", "run", "../../cmd/hl", "review", "art", "-ground", path, "-out", out)
 	if b, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("ground CLI: %v\n%s", err, b)
 	}

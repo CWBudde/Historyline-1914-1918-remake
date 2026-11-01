@@ -1,17 +1,24 @@
 package hlllplay
 
 import (
+	"context"
 	"fmt"
 	"io"
 )
 
 type command struct {
+	ctx            context.Context
 	stdout, stderr io.Writer
 }
 
 // Run manages a recorded LLM game session. Rejected orders return exit code 2.
 func Run(args []string, stdout, stderr io.Writer) error {
-	c := command{stdout: stdout, stderr: stderr}
+	return RunContext(context.Background(), args, stdout, stderr)
+}
+
+// RunContext manages a recorded LLM session and cancels its external renderer with ctx.
+func RunContext(ctx context.Context, args []string, stdout, stderr io.Writer) error {
+	c := command{ctx: ctx, stdout: stdout, stderr: stderr}
 	if len(args) == 0 {
 		return fmt.Errorf("usage: hl llmplay new|prompt|step|run|replay|render|review|gif [flags]")
 	}

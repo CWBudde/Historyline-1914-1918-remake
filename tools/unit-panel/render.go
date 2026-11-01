@@ -1,6 +1,7 @@
 package unitpanel
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/draw"
@@ -47,19 +48,19 @@ func newFace(f *opentype.Font, size float64, d int) (font.Face, error) {
 	return opentype.NewFace(f, &opentype.FaceOptions{Size: size * float64(d), DPI: 72, Hinting: font.HintingNone})
 }
 func textWidth(f font.Face, s string) float64 { return float64(font.MeasureString(f, s)) / 64 }
-func fitText(f font.Face, s string, max float64) string {
-	if textWidth(f, s) <= max {
+func fitText(f font.Face, s string, maxWidth float64) string {
+	if textWidth(f, s) <= maxWidth {
 		return s
 	}
 	r := []rune(s)
 	for len(r) > 0 {
 		r = r[:len(r)-1]
 		v := strings.TrimSpace(string(r)) + "…"
-		if textWidth(f, v) <= max {
+		if textWidth(f, v) <= maxWidth {
 			return v
 		}
 	}
-	if textWidth(f, "…") <= max {
+	if textWidth(f, "…") <= maxWidth {
 		return "…"
 	}
 	return ""
@@ -93,20 +94,20 @@ func compose(in *Inputs, p Panel, d int, assets map[string]Asset) ([]Draw, error
 		a := assets[path]
 		records = append(records, Draw{Kind: "image", Path: path, Input: input, SHA256: a.SHA256, X: x, Y: y, Width: w, Height: h, Density: d, Bounds: [4]float64{x, y, x + w, y + h}, Clip: [4]float64{x, y, x + w, y + h}})
 	}
-	text := func(s, full, fontName string, size, x, baseline, max float64, c string) error {
+	text := func(s, full, fontName string, size, x, baseline, maxWidth float64, c string) (resultErr error) {
 		f, e := newFace(in.Fonts[fontName], size, 1)
 		if e != nil {
 			return e
 		}
-		defer func() { _ = f.Close() }()
-		s = fitText(f, s, max)
+		defer func() { resultErr = errors.Join(resultErr, f.Close()) }()
+		s = fitText(f, s, maxWidth)
 		bounds, _ := font.BoundString(f, s)
 		left := float64(bounds.Min.X) / 64
 		right := float64(bounds.Max.X) / 64
 		if left < 0 {
 			x -= left
 		}
-		if right-left > max {
+		if right-left > maxWidth {
 			return fmt.Errorf("glyph ink exceeds text region: %q", s)
 		}
 		// Ink bounds are measured again at native density for independent pixel reassembly.
@@ -114,14 +115,14 @@ func compose(in *Inputs, p Panel, d int, assets map[string]Asset) ([]Draw, error
 		if e != nil {
 			return e
 		}
-		defer func() { _ = native.Close() }()
+		defer func() { resultErr = errors.Join(resultErr, native.Close()) }()
 		nb, _ := font.BoundString(native, s)
 		den := 64 * float64(d)
 		b := [4]float64{x + float64(nb.Min.X)/den, baseline + float64(nb.Min.Y)/den, x + float64(nb.Max.X)/den, baseline + float64(nb.Max.Y)/den}
 		item := in.item(fontName)
 		metrics := f.Metrics()
 		top := baseline - (size+float64(metrics.Ascent-metrics.Descent)/64)/2
-		records = append(records, Draw{Kind: "text", Text: s, Full: full, Font: fontName, FontPath: item.Output, FontSHA256: item.SHA256, Size: size, X: x, Y: baseline - size, Baseline: baseline, HTMLTop: top, Color: c, Density: d, Bounds: b, Clip: [4]float64{x, baseline - size - 2, x + max, baseline + size*.3}})
+		records = append(records, Draw{Kind: "text", Text: s, Full: full, Font: fontName, FontPath: item.Output, FontSHA256: item.SHA256, Size: size, X: x, Y: baseline - size, Baseline: baseline, HTMLTop: top, Color: c, Density: d, Bounds: b, Clip: [4]float64{x, baseline - size - 2, x + maxWidth, baseline + size*.3}})
 		return nil
 	}
 	var first error
@@ -149,7 +150,9 @@ func compose(in *Inputs, p Panel, d int, assets map[string]Asset) ([]Draw, error
 		return nil, e
 	}
 	line1, line2 := titleLines(f, p.Title)
-	_ = f.Close()
+	if err := f.Close(); err != nil {
+		return nil, err
+	}
 	tx(line1, p.Title, "bold", 18, 16, 26, 368, cream)
 	if line2 != "" {
 		tx(line2, p.Title, "bold", 18, 16, 46, 368, cream)
@@ -231,7 +234,9 @@ func renderPanel(in *Inputs, records []Draw, images map[string]image.Image, d in
 			}
 			dr := font.Drawer{Dst: out, Src: image.NewUniform(rgba(r.Color)), Face: f, Dot: fixed.Point26_6{X: fixed.Int26_6(math.Round(r.X * float64(d) * 64)), Y: fixed.Int26_6(math.Round(r.Baseline * float64(d) * 64))}}
 			dr.DrawString(r.Text)
-			_ = f.Close()
+			if err := f.Close(); err != nil {
+				return nil, err
+			}
 		}
 	}
 	return out, nil

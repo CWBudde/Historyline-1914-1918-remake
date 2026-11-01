@@ -126,13 +126,13 @@ func replayMovement(p Profile, f MovementFixture) error {
 	}
 	for _, c := range x.Codes {
 		if got, err := tab.EndCode(g, c[0]); err != nil || got != c[1] {
-			return fmt.Errorf("end code of cell %d is %#x (%v), recorded %#x", c[0], got, err, c[1])
+			return fmt.Errorf("end code of cell %d is %#x (%w), recorded %#x", c[0], got, err, c[1])
 		}
 	}
 	if x.Destinations != nil {
 		got, err := tab.Destinations(g, bits)
 		if err != nil || !slices.Equal(got, x.Destinations) {
-			return fmt.Errorf("destinations %v (%v), recorded %v", got, err, x.Destinations)
+			return fmt.Errorf("destinations %v (%w), recorded %v", got, err, x.Destinations)
 		}
 	}
 	if len(x.Paths) != len(f.Goals) {
@@ -141,7 +141,7 @@ func replayMovement(p Profile, f MovementFixture) error {
 	for k, goal := range f.Goals {
 		got, err := tab.Path(g, buf, bits, goal)
 		if err != nil || !slices.Equal(got, x.Paths[k]) || (got == nil) != (x.Paths[k] == nil) {
-			return fmt.Errorf("route to %d is %v (%v), recorded %v", goal, got, err, x.Paths[k])
+			return fmt.Errorf("route to %d is %v (%w), recorded %v", goal, got, err, x.Paths[k])
 		}
 	}
 	return nil

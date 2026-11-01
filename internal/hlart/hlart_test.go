@@ -2,10 +2,12 @@ package hlart
 
 import (
 	"bytes"
+	"errors"
 	"flag"
 	"fmt"
 	"image"
 	"image/color"
+	"io"
 	"io/fs"
 	"os"
 	"os/exec"
@@ -18,6 +20,17 @@ import (
 var update = flag.Bool("update", false, "rewrite testdata/repo/art/index.json")
 
 const fixture = "testdata/repo"
+
+type failingWriter struct{ err error }
+
+func (w failingWriter) Write([]byte) (int, error) { return 0, w.err }
+
+func TestCheckReportsOutputFailure(t *testing.T) {
+	want := errors.New("output failed")
+	if err := Run([]string{"check", "-root", fixture}, failingWriter{want}, io.Discard); !errors.Is(err, want) {
+		t.Fatalf("check error = %v, want %v", err, want)
+	}
+}
 
 func TestFixtureIndexIsCurrent(t *testing.T) {
 	if *update {
@@ -331,7 +344,10 @@ func copyFixture(t *testing.T) string {
 		if err != nil {
 			return err
 		}
-		rel, _ := filepath.Rel(fixture, p)
+		rel, err := filepath.Rel(fixture, p)
+		if err != nil {
+			t.Fatal(err)
+		}
 		dst := filepath.Join(root, rel)
 		if d.IsDir() {
 			return os.MkdirAll(dst, 0o755)
@@ -376,7 +392,7 @@ func appendTo(t *testing.T, root, rel, s string) {
 	}
 }
 
-func replace(t *testing.T, root, rel, old, new string) {
+func replace(t *testing.T, root, rel, old, replacement string) {
 	t.Helper()
 	p := filepath.Join(root, rel)
 	raw, err := os.ReadFile(p)
@@ -386,7 +402,7 @@ func replace(t *testing.T, root, rel, old, new string) {
 	if !bytes.Contains(raw, []byte(old)) {
 		t.Fatalf("%s lacks %q", rel, old)
 	}
-	if err := os.WriteFile(p, bytes.Replace(raw, []byte(old), []byte(new), 1), 0o644); err != nil {
+	if err := os.WriteFile(p, bytes.Replace(raw, []byte(old), []byte(replacement), 1), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -398,7 +414,7 @@ func TestArtbookCompiles(t *testing.T) {
 		t.Skip("typst not installed")
 	}
 	out := filepath.Join(t.TempDir(), "artbook.pdf")
-	cmd := exec.Command(typst, "compile", "--root", ".", "--font-path", "docs/manual/fonts",
+	cmd := exec.CommandContext(t.Context(), typst, "compile", "--root", ".", "--font-path", "docs/manual/fonts",
 		"--input", "base=/internal/hlart/"+fixture, "--input", "style=false",
 		"docs/artbook/artbook.typ", out)
 	cmd.Dir = filepath.Join("..", "..")

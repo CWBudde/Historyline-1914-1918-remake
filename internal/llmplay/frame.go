@@ -2,6 +2,7 @@ package llmplay
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -207,7 +208,7 @@ func Downscale(img image.Image, factor int) *image.NRGBA {
 // the game dir, downscaled by div. Renderer construction (assets tree)
 // is the caller's.
 func FrameRecorder(dir string, r *maprender.Renderer, density, div int) func(*dosplay.Session, int) (string, error) {
-	return func(s *dosplay.Session, resolution int) (string, error) {
+	return func(s *dosplay.Session, resolution int) (_ string, err error) {
 		full, err := RenderFrame(r, s, density)
 		if err != nil {
 			return "", err
@@ -221,7 +222,7 @@ func FrameRecorder(dir string, r *maprender.Renderer, density, div int) func(*do
 		if err != nil {
 			return "", err
 		}
-		defer func() { _ = f.Close() }()
+		defer func() { err = errors.Join(err, f.Close()) }()
 		if err := png.Encode(f, img); err != nil {
 			return "", err
 		}
@@ -232,7 +233,7 @@ func FrameRecorder(dir string, r *maprender.Renderer, density, div int) func(*do
 // WriteGIF stitches the frame PNGs of a game dir into game.gif at
 // delayCS centiseconds per frame, downscaling by factor (1 = full size).
 // Stdlib only: the repo has no ffmpeg dependency.
-func WriteGIF(dir string, delayCS, factor int) (int, error) {
+func WriteGIF(dir string, delayCS, factor int) (_ int, err error) {
 	paths, err := filepath.Glob(filepath.Join(dir, "frames", "*.png"))
 	if err != nil || len(paths) == 0 {
 		return 0, fmt.Errorf("llmplay: no frames in %s", dir)
@@ -245,7 +246,7 @@ func WriteGIF(dir string, delayCS, factor int) (int, error) {
 			return 0, err
 		}
 		img, err := png.Decode(f)
-		_ = f.Close()
+		err = errors.Join(err, f.Close())
 		if err != nil {
 			return 0, err
 		}
@@ -256,7 +257,7 @@ func WriteGIF(dir string, delayCS, factor int) (int, error) {
 	if err != nil {
 		return 0, err
 	}
-	defer func() { _ = out.Close() }()
+	defer func() { err = errors.Join(err, out.Close()) }()
 	if err := gif.EncodeAll(out, g); err != nil {
 		return 0, err
 	}

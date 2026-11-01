@@ -3,6 +3,7 @@ package candidatereview
 import (
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -175,7 +176,9 @@ func (r *renderer) group(g *group) error {
 		kept := c.Views[:0]
 		for _, v := range c.Views {
 			if strings.HasPrefix(v.Label, "raw ") {
-				_ = os.Remove(filepath.Join(r.o.out, filepath.FromSlash(v.Media["img"])))
+				if err := os.Remove(filepath.Join(r.o.out, filepath.FromSlash(v.Media["img"]))); err != nil && !os.IsNotExist(err) {
+					return err
+				}
 				continue
 			}
 			kept = append(kept, v)
@@ -330,11 +333,16 @@ func (r *renderer) exportUnit(family string, c *candidate) (string, string) {
 	if _, err := os.Stat(filepath.Join(sprites, "cp", "se-normal-2x.png")); err == nil {
 		return sprites, ""
 	}
-	_ = os.RemoveAll(dir)
+	if err := os.RemoveAll(dir); err != nil {
+		return "", err.Error()
+	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return "", err.Error()
 	}
-	data, _ := json.MarshalIndent(m, "", "  ")
+	data, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		return "", err.Error()
+	}
 	if err := os.WriteFile(filepath.Join(dir, "manifest.json"), data, 0o644); err != nil {
 		return "", err.Error()
 	}
@@ -344,12 +352,12 @@ func (r *renderer) exportUnit(family string, c *candidate) (string, string) {
 	return sprites, ""
 }
 
-func fileSHA(file string) (string, error) {
+func fileSHA(file string) (_ string, resultErr error) {
 	f, err := os.Open(file)
 	if err != nil {
 		return "", err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, f.Close()) }()
 	h := sha256.New()
 	if _, err := io.Copy(h, f); err != nil {
 		return "", err

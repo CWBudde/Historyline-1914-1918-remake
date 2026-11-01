@@ -44,7 +44,8 @@ func TestLightModelShadows(t *testing.T) {
 				if p.Reason != "" {
 					continue
 				}
-				d, tolerance := 0.0, 0.05
+				var d float64
+				tolerance := 0.05
 				if size, ok := strings.CutPrefix(p.Standing.ID, "standing/scatter/crown/"); ok {
 					if d, err = strconv.ParseFloat(size[strings.LastIndex(size, "-")+1:], 64); err != nil {
 						t.Fatal(err)
@@ -78,7 +79,11 @@ func diameter(t *testing.T, path string, density int) float64 {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = f.Close() }()
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	im, err := png.Decode(f)
 	if err != nil {
 		t.Fatal(err)

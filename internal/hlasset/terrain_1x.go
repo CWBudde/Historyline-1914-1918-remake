@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/draw"
@@ -28,12 +29,12 @@ const derivedDensity = 1
 // deriveTerrain writes out/1x/<group>/ next to every written 2x pack: the same
 // entries in the same parts, each 1x texel the alpha-weighted area average of
 // its 2×2 graded 2x texels in linear light (halve).
-func deriveTerrain(out string, packs []terrainPack) ([]terrainPack, error) {
+func deriveTerrain(out string, packs []terrainPack) (_ []terrainPack, err error) {
 	root, err := os.OpenRoot(out)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = root.Close() }()
+	defer func() { err = errors.Join(err, root.Close()) }()
 	var derived []terrainPack
 	for _, src := range packs {
 		if src.Density != 2*derivedDensity {

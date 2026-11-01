@@ -294,7 +294,10 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 				neighbors[i] = "forest"
 			}
 		}
-		c, _ := newForestContext("forest", neighbors[:])
+		c, err := newForestContext("forest", neighbors[:])
+		if err != nil {
+			return err
+		}
 		key := c.key()
 		layers := r.layers(c)
 		for i, group := range []string{"context-forest", "standing", "standing"} {
@@ -337,7 +340,10 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 	for edge := range 6 {
 		neighbors := [6]string{"forest", "forest", "forest", "forest", "forest", "forest"}
 		neighbors[edge] = "grass"
-		c, _ := newForestContext("forest", neighbors[:])
+		c, err := newForestContext("forest", neighbors[:])
+		if err != nil {
+			return err
+		}
 		im := image.NewNRGBA(image.Rect(0, 0, 384, 320))
 		for y := range 320 {
 			for x := range 384 {

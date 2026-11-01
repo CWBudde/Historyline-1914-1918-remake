@@ -59,7 +59,10 @@ func linkTree(src, dst string) error {
 		if err != nil {
 			return err
 		}
-		rel, _ := filepath.Rel(src, p)
+		rel, err := filepath.Rel(src, p)
+		if err != nil {
+			return err
+		}
 		to := filepath.Join(dst, rel)
 		if d.IsDir() {
 			return os.MkdirAll(to, 0o755)
@@ -71,7 +74,7 @@ func linkTree(src, dst string) error {
 	})
 }
 
-func copyFile(src, dst string) error {
+func copyFile(src, dst string) (err error) {
 	if err := os.MkdirAll(filepath.Dir(dst), 0o755); err != nil {
 		return err
 	}
@@ -79,14 +82,13 @@ func copyFile(src, dst string) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = in.Close() }()
+	defer func() { err = errors.Join(err, in.Close()) }()
 	out, err := os.Create(dst)
 	if err != nil {
 		return err
 	}
 	if _, err := io.Copy(out, in); err != nil {
-		_ = out.Close()
-		return err
+		return errors.Join(err, out.Close())
 	}
 	return out.Close()
 }
@@ -102,7 +104,10 @@ func writeFileList(dir string) error {
 		if err != nil {
 			return err
 		}
-		rel, _ := filepath.Rel(dir, p)
+		rel, err := filepath.Rel(dir, p)
+		if err != nil {
+			return err
+		}
 		lines = append(lines, fmt.Sprintf("%d %s\n", info.Size(), filepath.ToSlash(rel)))
 		return nil
 	})
@@ -121,7 +126,10 @@ func contentVersion(root string, paths ...string) (string, error) {
 	for _, p := range paths {
 		err := filepath.WalkDir(filepath.Join(root, p), func(f string, d fs.DirEntry, err error) error {
 			if err == nil && !d.IsDir() {
-				rel, _ := filepath.Rel(root, f)
+				rel, err := filepath.Rel(root, f)
+				if err != nil {
+					return err
+				}
 				files = append(files, filepath.ToSlash(rel))
 			}
 			return err
@@ -138,7 +146,7 @@ func contentVersion(root string, paths ...string) (string, error) {
 			return "", err
 		}
 		h := sha256.Sum256(raw)
-		_, _ = fmt.Fprintf(sum, "%x  %s\n", h, f)
+		sum.Write(fmt.Appendf(nil, "%x  %s\n", h, f))
 	}
 	return hex.EncodeToString(sum.Sum(nil))[:16], nil
 }
@@ -208,7 +216,9 @@ func webBuild(ctx context.Context, args []string, _ io.Reader, out, errs io.Writ
 			}
 		}
 	}
-	_ = os.Remove("build/web/version.txt")
+	if err := os.Remove("build/web/version.txt"); err != nil && !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
 	version, err := contentVersion("build/web", "historyline.wasm", "wasm_exec.js", "packs")
 	if err != nil {
 		return err

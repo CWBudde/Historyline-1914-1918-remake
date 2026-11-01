@@ -78,7 +78,10 @@ func TestForestContextAndPeriodicWholeCrowns(t *testing.T) {
 	if len(instances) != 252 {
 		t.Fatalf("homogeneous instances %d", len(instances))
 	}
-	winter, _ := newForestContext("forest_w", []string{"forest_w", "forest_w", "forest_w", "forest_w", "forest_w", "forest_w"})
+	winter, err := newForestContext("forest_w", []string{"forest_w", "forest_w", "forest_w", "forest_w", "forest_w", "forest_w"})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if !reflect.DeepEqual(instances, forestInstances(winter)) {
 		t.Fatal("seasonal positions/species moved")
 	}
@@ -114,7 +117,10 @@ func TestForestWholeCrownGateAndFinalQuietBand(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c, _ := newForestContext("forest", []string{"grass", "forest", "forest", "forest", "forest", "forest"})
+	c, err := newForestContext("forest", []string{"grass", "forest", "forest", "forest", "forest", "forest"})
+	if err != nil {
+		t.Fatal(err)
+	}
 	instances := forestInstances(c)
 	for _, instance := range instances {
 		if groundTestDistance(instance.Center[0]-71, instance.Center[1]+40) <= math.Hypot(12, 12)+4+1.5*math.Sqrt2 {

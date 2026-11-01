@@ -127,7 +127,11 @@ func TestCommandsOnClone(t *testing.T) {
 	if _, err := c.Resolve(); err != nil {
 		t.Fatal(err)
 	}
-	if again, _ := s.Save(); string(again) != string(raw) || s.Version() != v || s.Mark() != mark {
+	again, err := s.Save()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(again) != string(raw) || s.Version() != v || s.Mark() != mark {
 		t.Error("planning on the clone changed the session")
 	}
 	if cmds, err := p.Commands(s, 2); err == nil || cmds != nil {

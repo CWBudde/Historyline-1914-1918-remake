@@ -1,6 +1,7 @@
 package hlart
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/draw"
@@ -49,7 +50,7 @@ func thumb(src, dst string, limit int) error {
 		return err
 	}
 	img, _, err := image.Decode(f)
-	_ = f.Close()
+	err = errors.Join(err, f.Close())
 	if err != nil {
 		return err
 	}
@@ -63,8 +64,7 @@ func thumb(src, dst string, limit int) error {
 	}
 	enc := png.Encoder{CompressionLevel: png.BestSpeed}
 	if err := enc.Encode(w, out); err != nil {
-		_ = w.Close()
-		return err
+		return errors.Join(err, w.Close())
 	}
 	return w.Close()
 }

@@ -34,12 +34,16 @@ func sourceBase(path string) string {
 	return filepath.Dir(path)
 }
 
-func isRepoRoot(dir string) bool {
+func isRepoRoot(dir string) (found bool) {
 	f, err := os.Open(filepath.Join(dir, "go.mod"))
 	if err != nil {
 		return false
 	}
-	defer func() { _ = f.Close() }()
+	defer func() {
+		if err := f.Close(); err != nil {
+			found = false
+		}
+	}()
 	s := bufio.NewScanner(f)
 	return s.Scan() && strings.TrimSpace(s.Text()) == "module "+repoModule
 }

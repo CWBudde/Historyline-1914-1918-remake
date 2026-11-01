@@ -2,10 +2,7 @@
 
 package main
 
-import "errors"
-
-// loadOrigArt is unavailable without -tags origtiles: the original art is a
-// local comparison aid and never ships.
-func loadOrigArt() (*origArt, error) {
-	return nil, errors.New("build with -tags origtiles (just play-original)")
+// load reports why the local comparison art is unavailable in this build.
+func (a *origArt) load() {
+	a.err = "build with -tags origtiles (just play-original)"
 }

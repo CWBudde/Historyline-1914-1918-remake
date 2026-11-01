@@ -40,7 +40,11 @@ func TestRecordKeepsTheBest(t *testing.T) {
 		t.Errorf("CIVIL best %d, want 0", got)
 	}
 	// A first record of 0 still counts as recorded.
-	if beat, _ := again.Record("MOUSE", 0); !beat {
+	beat, err := again.Record("MOUSE", 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !beat {
 		t.Error("a first score of 0 is not recorded")
 	}
 }

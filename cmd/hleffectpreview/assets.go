@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/png"
@@ -48,7 +49,7 @@ func loadAssets(repo string) (*assets, error) {
 // loadFamilyAssets reads the interface frames, one unit family and the grass
 // tile from the runtime assets of repo, each checked against assets/index.json.
 // Family slugs come from the closed unitsprite table, never from paths.
-func loadFamilyAssets(repo, family string) (*assets, error) {
+func loadFamilyAssets(repo, family string) (_ *assets, resultErr error) {
 	if !slices.Contains(unitsprite.Families(), family) {
 		return nil, fmt.Errorf("unknown unit family %q", family)
 	}
@@ -56,7 +57,7 @@ func loadFamilyAssets(repo, family string) (*assets, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = r.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, r.Close()) }()
 	a := &assets{images: make(map[string]image.Image), hashes: make(map[string]string), family: family}
 	read := func(path, want string) ([]byte, error) {
 		if !filepath.IsLocal(path) {

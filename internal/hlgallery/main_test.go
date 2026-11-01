@@ -58,13 +58,21 @@ func TestCurrentGameSelection(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = r.Close() }()
+	defer func() {
+		if err := r.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	dir := t.TempDir()
 	w, err := os.OpenRoot(dir)
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = w.Close() }()
+	defer func() {
+		if err := w.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	if err := w.Mkdir("media", 0o755); err != nil {
 		t.Fatal(err)
 	}
@@ -239,7 +247,11 @@ func TestSnapshotRejectsStalePinAndBadGeometry(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { _ = r.Close() }()
+	defer func() {
+		if err := r.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	if err := r.Mkdir("media", 0o755); err != nil {
 		t.Fatal(err)
 	}

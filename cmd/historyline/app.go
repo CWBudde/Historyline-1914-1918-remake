@@ -148,7 +148,7 @@ func (a *app) Update() error {
 		if r.err != nil {
 			s.open(pageMain)
 			s.note = [2]string{"The battle cannot start:", r.err.Error()}
-			return nil
+			return nil //nolint:nilerr // Report load failures in the menu and keep the application running.
 		}
 		a.battle, a.ended = r.gm, false
 		if a.base.units != nil {

@@ -1,6 +1,7 @@
 package llmplay
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -168,7 +169,7 @@ var lessonText = map[string]string{
 
 // AppendLessons appends one dated, evidence-linked bullet per class
 // counted at least twice. The game preamble re-reads this file.
-func (r *Report) AppendLessons(path string) error {
+func (r *Report) AppendLessons(path string) (err error) {
 	var bullets []string
 	classes := make([]string, 0, len(r.Counts))
 	for c := range r.Counts {
@@ -199,7 +200,7 @@ func (r *Report) AppendLessons(path string) error {
 	if err != nil {
 		return err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	_, err = f.WriteString(strings.Join(bullets, ""))
 	return err
 }

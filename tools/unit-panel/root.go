@@ -1,7 +1,7 @@
 package unitpanel
 
 import (
-	"bufio"
+	"bytes"
 	"os"
 	"path/filepath"
 	"strings"
@@ -27,11 +27,10 @@ func sourceBase(path string) string {
 }
 
 func isRepoRoot(dir string) bool {
-	f, err := os.Open(filepath.Join(dir, "go.mod"))
+	b, err := os.ReadFile(filepath.Join(dir, "go.mod"))
 	if err != nil {
 		return false
 	}
-	defer func() { _ = f.Close() }()
-	s := bufio.NewScanner(f)
-	return s.Scan() && strings.TrimSpace(s.Text()) == "module "+repoModule
+	first, _, _ := bytes.Cut(b, []byte{'\n'})
+	return strings.TrimSpace(string(first)) == "module "+repoModule
 }

@@ -42,7 +42,9 @@ func TestLatticeGroundTilesAreNotMirrored(t *testing.T) {
 			t.Fatal(err)
 		}
 		im, err := png.Decode(f)
-		_ = f.Close()
+		if closeErr := f.Close(); closeErr != nil {
+			t.Error(closeErr)
+		}
 		if err != nil {
 			t.Fatal(err)
 		}

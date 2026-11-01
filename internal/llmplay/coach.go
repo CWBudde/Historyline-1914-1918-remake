@@ -945,7 +945,7 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 		// A destroyed cargo record can linger in a hold; its Costs
 		// refuse with "no such unit". Staying put must not abort the
 		// whole phase (coach v2/v3 died at resolution 17 on this).
-		return from, false, nil
+		return from, false, nil //nolint:nilerr // Unavailable movement costs mean the unit holds position.
 	}
 	best, bestScore := from, p.scoreDest(u, from, from, f)
 	for _, c := range dosplay.Coords(dests) {
@@ -1199,7 +1199,7 @@ func (p *coachPlan) moveCarrier(u dosplay.UnitView) ([]dosplay.Event, error) {
 	}
 	f, err := p.field(cargo, p.goalFor(cargo))
 	if err != nil {
-		return nil, nil // destroyed cargo record: hold position
+		return nil, nil //nolint:nilerr // Destroyed cargo records hold position instead of aborting the phase.
 	}
 	best, bestScore := u.At, -1<<30
 	for _, c := range dosplay.Coords(dests) {

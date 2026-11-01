@@ -479,7 +479,10 @@ func gateForeign(t *testing.T) {
 			t.Fatal(err)
 		}
 		for _, imp := range f.Imports {
-			path, _ := strconv.Unquote(imp.Path.Value)
+			path, err := strconv.Unquote(imp.Path.Value)
+			if err != nil {
+				t.Fatal(err)
+			}
 			if first, _, _ := strings.Cut(path, "/"); strings.Contains(first, ".") {
 				t.Errorf("%s imports %s", name, path)
 			}

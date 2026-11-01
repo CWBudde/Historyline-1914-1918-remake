@@ -502,12 +502,12 @@ func run(args []string, log io.Writer) error {
 	return err
 }
 
-func loadPNG(path string) (*image.NRGBA, error) {
+func loadPNG(path string) (out *image.NRGBA, err error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	config, err := png.DecodeConfig(f)
 	if err != nil {
 		return nil, err

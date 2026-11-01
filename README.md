@@ -41,6 +41,10 @@ just clean      # delete all generated output under build/
 All developer tools use the [`hl` CLI](docs/cli.md), for example
 `just hl art check`, `just hl review gallery` and `just hl llmplay new`.
 
+Lint checks production code and tests, including discarded errors, resource cleanup and context usage.
+The rules in [`.golangci.yml`](.golangci.yml) have no directory or test exclusions; any `nolint`
+directive must name its linter, explain the exception and suppress an actual finding.
+
 The game opens with a main menu laid out like the original's: start (country selection, then the battle),
 the map code (a month's code word for its side, PULSE or BATLE to start; a victory sets the next month),
 game values (full or short battles, the computer or a passive opponent, a move limit), control

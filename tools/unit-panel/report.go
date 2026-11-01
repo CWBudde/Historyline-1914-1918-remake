@@ -3,6 +3,7 @@ package unitpanel
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/png"
@@ -78,7 +79,7 @@ func exportBundle(in *Inputs, out string) (err error) {
 	}
 	defer func() {
 		if err != nil {
-			cleanupOwned(out, owned)
+			err = errors.Join(err, cleanupOwned(out, owned))
 		}
 	}()
 	write := func(path string, b []byte) error {
@@ -185,9 +186,13 @@ func exportBundle(in *Inputs, out string) (err error) {
 }
 
 // A competing process may replace a failed export's path. Only remove our directory.
-func cleanupOwned(path string, owned os.FileInfo) {
+func cleanupOwned(path string, owned os.FileInfo) error {
 	current, err := os.Lstat(path)
 	if err == nil && current.Mode()&os.ModeSymlink == 0 && os.SameFile(owned, current) {
-		_ = os.RemoveAll(path)
+		return os.RemoveAll(path)
 	}
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	return nil
 }

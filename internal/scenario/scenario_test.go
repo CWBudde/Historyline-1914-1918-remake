@@ -108,7 +108,11 @@ func TestShippedMonths(t *testing.T) {
 	if !slices.Equal(disk, emb) || len(emb) == 0 || emb[0] != "1914-08" || emb[len(emb)-1] != "1918-11" {
 		t.Errorf("embedded %v, on disk %v", emb, disk)
 	}
-	if src, _ := fs.Glob(levels.Levels, "*/"+BackdropSource); len(src) > 0 {
+	src, err := fs.Glob(levels.Levels, "*/"+BackdropSource)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(src) > 0 {
 		t.Errorf("embedded backdrop sources %v", src)
 	}
 	all, err := Shipped(CP)

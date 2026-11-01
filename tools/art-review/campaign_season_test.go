@@ -11,7 +11,6 @@ package artreview
 import (
 	"bytes"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"image"
 	"image/color"
@@ -22,11 +21,6 @@ import (
 	"sort"
 	"strings"
 	"testing"
-)
-
-var (
-	campaignSeason    = flag.String("season", "", "campaign generators: autumn or spring, render the seasonal form of every installed summer tile")
-	campaignSeasonOut = flag.String("season-out", "", "campaign generators: new directory for the seasonal tiles of -season")
 )
 
 var campaignSeasonal = regexp.MustCompile(`_(w|au|sp)$`)

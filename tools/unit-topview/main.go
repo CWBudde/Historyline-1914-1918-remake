@@ -133,7 +133,9 @@ func build(root string, m manifest, base *image.NRGBA, log io.Writer) (map[strin
 				sq = 1
 			}
 			master, note = inlay(base, edit, f.centreX, f.centreY+o.DY*f.scale, r, sq, 10)
-			_, _ = fmt.Fprintf(log, "%s inlay: %s\n", p, note)
+			if _, err := fmt.Fprintf(log, "%s inlay: %s\n", p, note); err != nil {
+				return nil, err
+			}
 		}
 		for _, d := range m.Densities {
 			normal := render(master, f, d)

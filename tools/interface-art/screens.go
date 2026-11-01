@@ -24,7 +24,7 @@ type ScreenManifest struct {
 	Fonts         []Input `json:"fonts"`
 }
 
-func screenInputs(manifestPath string, raw []byte) (ScreenManifest, []Loaded, error) {
+func screenInputs(manifestPath string, raw []byte) (_ ScreenManifest, _ []Loaded, resultErr error) {
 	var m ScreenManifest
 	if e := decodeStrict(raw, &m); e != nil {
 		return m, nil, e
@@ -46,7 +46,7 @@ func screenInputs(manifestPath string, raw []byte) (ScreenManifest, []Loaded, er
 	if e != nil {
 		return m, nil, e
 	}
-	defer func() { _ = root.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, root.Close()) }()
 	var inputs []Loaded
 	for _, s := range append([]Input{m.Backdrop}, m.Fonts...) {
 		in, err := loadInput(root, s, s.ID == m.Backdrop.ID)
@@ -67,7 +67,7 @@ func screenBackdrop(in Loaded) (*image.NRGBA, error) {
 	return resizeLanczos(in.Image.SubImage(r).(*image.NRGBA), 1280, 800)
 }
 
-func exportScreens(manifestPath, out string, raw []byte) error {
+func exportScreens(manifestPath, out string, raw []byte) (resultErr error) {
 	m, inputs, e := screenInputs(manifestPath, raw)
 	if e != nil {
 		return e
@@ -104,7 +104,7 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 	}
 	defer func() {
 		if filepath.Dir(stage) == parent && strings.HasPrefix(filepath.Base(stage), ".screen-art-") {
-			_ = os.RemoveAll(stage)
+			resultErr = errors.Join(resultErr, os.RemoveAll(stage))
 		}
 	}()
 	b := Builder{Dir: stage, Report: Report{SchemaVersion: 1, Profile: m.Profile, ManifestSHA256: hash(raw), Acceptance: "offline artwork and layout fixtures; gameplay flows, original correspondence and runtime acceptance pending", Filter: "native 4x vectors -> 2x -> 1x signed premultiplied byte-RGB Lanczos3; painted backdrop 2x/1x only, no upscaling"}}
@@ -259,12 +259,13 @@ func screenPreview(s Screen, backdrop *image.NRGBA, fonts map[string]*opentype.F
 		bounds, _ := font.BoundString(face, t.Text)
 		ink := bounds.Add(fixed.P(t.X*2, t.Y*2))
 		if ink.Min.X < 0 || ink.Min.Y < 0 || ink.Max.X > fixed.I(1280) || ink.Max.Y > fixed.I(800) {
-			_ = face.Close()
-			return nil, fmt.Errorf("text outside screen: %q", t.Text)
+			return nil, errors.Join(fmt.Errorf("text outside screen: %q", t.Text), face.Close())
 		}
 		d := font.Drawer{Dst: im, Src: image.NewUniform(colour(t.Color)), Face: face, Dot: fixed.P(t.X*2, t.Y*2)}
 		d.DrawString(t.Text)
-		_ = face.Close()
+		if err := face.Close(); err != nil {
+			return nil, err
+		}
 	}
 	if s.Scroll != nil {
 		if e := renderScreenScroll(im, *s.Scroll, fonts["font/regular"]); e != nil {

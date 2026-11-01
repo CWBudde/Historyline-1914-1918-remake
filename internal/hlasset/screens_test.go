@@ -48,7 +48,9 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 				t.Fatal(err)
 			}
 			p, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
-			_ = r.Close()
+			if err := r.Close(); err != nil {
+				t.Fatal(err)
+			}
 			if err != nil {
 				t.Fatal(err)
 			}

@@ -23,7 +23,11 @@ func TestFull(t *testing.T) {
 		t.Fatal(err)
 	}
 	l.Units = nil
-	if again, _ := Map("05"); len(again.Units) == 0 {
+	again, err := Map("05")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(again.Units) == 0 {
 		t.Error("Map shares its levels")
 	}
 	if _, err := Map("99"); err == nil {

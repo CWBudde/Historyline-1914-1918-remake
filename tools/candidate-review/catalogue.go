@@ -2,6 +2,7 @@ package candidatereview
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -38,12 +39,12 @@ type candidate struct {
 }
 
 // readCatalogue reads the inventory TSV and keeps the rows that are not installed.
-func readCatalogue(file, rawDir string) ([]*candidate, error) {
+func readCatalogue(file, rawDir string) (_ []*candidate, resultErr error) {
 	f, err := os.Open(file)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { resultErr = errors.Join(resultErr, f.Close()) }()
 	sc := bufio.NewScanner(f)
 	sc.Buffer(make([]byte, 1<<20), 1<<24)
 	var cols map[string]int
@@ -72,7 +73,14 @@ func readCatalogue(file, rawDir string) ([]*candidate, error) {
 			continue
 		}
 		exec := strings.TrimSuffix(path.Base(get("path")), ".png")
-		dist, _ := strconv.ParseFloat(get("near_dist"), 64)
+		var dist float64
+		if s := get("near_dist"); s != "" {
+			var err error
+			dist, err = strconv.ParseFloat(s, 64)
+			if err != nil {
+				return nil, fmt.Errorf("candidate %s near_dist: %w", exec, err)
+			}
+		}
 		c := &candidate{
 			Exec: exec, Session: get("session"), Kind: get("subject"), Family: get("family"), Type: get("type"),
 			Size: get("size"), SHA256: get("sha256"), Date: get("date"), Prompt: get("prompt_excerpt"), Near: get("near_master"),

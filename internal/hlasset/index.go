@@ -2,6 +2,7 @@ package hlasset
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -30,12 +31,12 @@ type indexEntry struct {
 }
 
 // readIndex reads dir/index.json.
-func readIndex(dir string) ([]indexEntry, error) {
+func readIndex(dir string) (_ []indexEntry, err error) {
 	f, err := os.Open(filepath.Join(dir, "index.json"))
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = f.Close() }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 	b, err := io.ReadAll(io.LimitReader(f, maxIndex+1))
 	if err != nil {
 		return nil, err
@@ -102,12 +103,12 @@ func loadPack(root *os.Root, m assets.Manifest, use func(*assets.Pack) error) er
 // writePacks validates every pack, then writes each to dirOf(pack) under the new
 // directory out, its images as recode encodes them (nil: as snapshotted).
 // Nothing is created when a pack is invalid.
-func writePacks(assetsDir, out string, packs []assets.Manifest, dirOf func(int) string, recode recoder) ([]assets.Manifest, error) {
+func writePacks(assetsDir, out string, packs []assets.Manifest, dirOf func(int) string, recode recoder) (_ []assets.Manifest, err error) {
 	r, err := os.OpenRoot(assetsDir)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = r.Close() }()
+	defer func() { err = errors.Join(err, r.Close()) }()
 	for _, m := range packs {
 		if err := loadPack(r, m, func(p *assets.Pack) error { return p.Validate() }); err != nil {
 			return nil, err
@@ -117,7 +118,7 @@ func writePacks(assetsDir, out string, packs []assets.Manifest, dirOf func(int) 
 	if err != nil {
 		return nil, err
 	}
-	defer o.close()
+	defer func() { err = errors.Join(err, o.close()) }()
 	written := make([]assets.Manifest, len(packs))
 	for i, m := range packs {
 		if err := loadPack(r, m, func(p *assets.Pack) error {

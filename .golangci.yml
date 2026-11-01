@@ -2,6 +2,39 @@ version: "2"
 
 linters:
   default: standard
+  # Add correctness checks without imposing arbitrary size or complexity limits.
+  enable:
+    - asasalint
+    - bidichk
+    - bodyclose
+    - copyloopvar
+    - durationcheck
+    - errorlint
+    - fatcontext
+    - gocheckcompilerdirectives
+    - makezero
+    - nilerr
+    - nilnesserr
+    - noctx
+    - nolintlint
+    - nosprintfhostport
+    - predeclared
+    - tparallel
+    - wastedassign
+  settings:
+    errcheck:
+      # An explicit discard must not hide a failed operation, including in tests.
+      check-blank: true
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+  exclusions:
+    warn-unused: true
+
+issues:
+  # Report the entire backlog rather than truncating repeated diagnostics.
+  max-issues-per-linter: 0
+  max-same-issues: 0
 
 formatters:
   enable:

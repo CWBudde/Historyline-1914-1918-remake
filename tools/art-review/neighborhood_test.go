@@ -161,7 +161,10 @@ func TestNeighborhoodRejectsInputsBeforeWriting(t *testing.T) {
 		t.Run(kind, func(t *testing.T) {
 			dir, config, _ := neighborhoodFixture(t, false)
 			csvPath := filepath.Join(dir, "cells.csv")
-			raw, _ := os.ReadFile(csvPath)
+			raw, err := os.ReadFile(csvPath)
+			if err != nil {
+				t.Fatal(err)
+			}
 			lines := strings.Split(strings.TrimSpace(string(raw)), "\n")
 			switch kind {
 			case "missing neighbor":
@@ -198,13 +201,19 @@ func TestNeighborhoodRejectsInputsBeforeWriting(t *testing.T) {
 				}
 				writeFixture(t, dir, "candidate-2x.png", img)
 			case "empty scenes":
-				data, _ := os.ReadFile(config)
+				data, err := os.ReadFile(config)
+				if err != nil {
+					t.Fatal(err)
+				}
 				var c map[string]any
 				if err := json.Unmarshal(data, &c); err != nil {
 					t.Fatal(err)
 				}
 				c["scenes"] = []any{}
-				data, _ = json.Marshal(c)
+				data, err = json.Marshal(c)
+				if err != nil {
+					t.Fatal(err)
+				}
 				if err := os.WriteFile(config, data, 0o600); err != nil {
 					t.Fatal(err)
 				}
@@ -229,12 +238,15 @@ func TestNeighborhoodRejectsInputsBeforeWriting(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			err := run(args, &bytes.Buffer{})
+			err = run(args, &bytes.Buffer{})
 			if err == nil {
 				t.Fatal("invalid inputs accepted")
 			}
 			if kind == "nonempty output" {
-				entries, _ := os.ReadDir(out)
+				entries, err := os.ReadDir(out)
+				if err != nil {
+					t.Fatal(err)
+				}
 				if len(entries) != 1 {
 					t.Fatal("wrote into nonempty output")
 				}

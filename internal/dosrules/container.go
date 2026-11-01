@@ -165,7 +165,10 @@ func (s *moveState) endCheck(cell int) (int, Action, error) {
 	if base >= 0 {
 		// A cell no record lists (-1) reads the record before the table.
 		a.Index, a.Hold = idx, base+idx
-		h, _ := s.hold(a.Hold)
+		h, err := s.hold(a.Hold)
+		if err != nil {
+			return 0, a, err
+		}
 		slot := FreeSlot(h, side)
 		if hf := word(h, 0x19); !Owns(hf, side) || hf&2 != 0 {
 			a.Kind = 4

@@ -11,6 +11,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"image"
 	"image/png"
@@ -21,6 +22,11 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+)
+
+var (
+	campaignSeason    = flag.String("season", "", "campaign generators: autumn or spring, render the seasonal form of every installed summer tile")
+	campaignSeasonOut = flag.String("season-out", "", "campaign generators: new directory for the seasonal tiles of -season")
 )
 
 func TestGenerateCampaignContexts(t *testing.T) {

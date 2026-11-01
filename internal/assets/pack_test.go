@@ -9,6 +9,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"io"
 	"io/fs"
 	"math"
 	"strings"
@@ -16,6 +17,46 @@ import (
 	"testing"
 	"testing/fstest"
 )
+
+type closeErrorFS struct {
+	fs.FS
+	closeErr error
+	readErr  error
+}
+
+func (f closeErrorFS) Open(name string) (fs.File, error) {
+	file, err := f.FS.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	return closeErrorFile{File: file, closeErr: f.closeErr, readErr: f.readErr}, nil
+}
+
+type closeErrorFile struct {
+	fs.File
+	closeErr error
+	readErr  error
+}
+
+func (f closeErrorFile) Read(b []byte) (int, error) {
+	if f.readErr != nil {
+		return 0, f.readErr
+	}
+	return f.File.Read(b)
+}
+
+func (f closeErrorFile) Close() error { return errors.Join(f.File.Close(), f.closeErr) }
+
+func TestReadBoundedReportsReadAndCloseFailures(t *testing.T) {
+	closeErr := errors.New("close failed")
+	for _, readErr := range []error{nil, io.ErrUnexpectedEOF} {
+		f := closeErrorFS{FS: fstest.MapFS{"data": {Data: []byte("ok")}}, closeErr: closeErr, readErr: readErr}
+		_, err := readBounded(f, "data", 16)
+		if !errors.Is(err, closeErr) || readErr != nil && !errors.Is(err, readErr) {
+			t.Fatalf("read error %v: got %v", readErr, err)
+		}
+	}
+}
 
 func fixture(t *testing.T, c color.NRGBA) (fstest.MapFS, Manifest) {
 	t.Helper()
@@ -103,8 +144,14 @@ func TestExactVariantsSnapshotCacheAndPackSwitch(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	a, _ := p.Image("unit/fixture/cp/n-normal", 1)
-	b, _ := other.Image("unit/fixture/cp/n-normal", 1)
+	a, err := p.Image("unit/fixture/cp/n-normal", 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := other.Image("unit/fixture/cp/n-normal", 1)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if a == b || a.At(0, 0) == b.At(0, 0) {
 		t.Fatal("pack switch reused the prior pack's cache")
 	}

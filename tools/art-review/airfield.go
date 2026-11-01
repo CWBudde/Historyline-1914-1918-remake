@@ -42,7 +42,7 @@ func airfieldSource(dir, piece, season string) (string, error) {
 		if m == nil || m[1] != "airfield-"+piece || m[2] != season {
 			continue
 		}
-		if v, _ := strconv.Atoi(m[3]); v > version {
+		if v, err := strconv.Atoi(m[3]); err == nil && v > version {
 			best, version = e.Name(), v
 		}
 	}

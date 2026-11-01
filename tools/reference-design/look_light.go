@@ -1,7 +1,6 @@
 package referencedesign
 
 import (
-	"encoding/json"
 	"fmt"
 	"math"
 
@@ -104,7 +103,11 @@ func summarizeLight(pairs []lookLightPair) lookLightSummary {
 
 func (p *project) lightFromPairs(raw maprender.ShadowPairs) lookLight {
 	result := lookLight{Density: raw.Density, AllSelected: len(raw.Pairs), Gaps: len(raw.Gaps), Issues: len(raw.Issues), Pairs: []lookLightPair{}, Unmeasured: []lookLightOmission{}, GlobalReason: "separate crown/cast-shadow alpha displacement only; embedded shadows, painted form shading, other families and global illumination remain unmeasured", Definition: "every selected baked or scattered crown with its own cast shadow (a scattered crown at its site offset from the hex centre); complete unoccluded hash-verified paired source alpha, weighted pixel-centre centroids placed with runtime density/anchors/rounding; vector is shadow minus crown; magnitude is centroid displacement, not physical shadow length; compass north=0 east=90 clockwise, bearing atan2(dx,-dy); unavailable pairs have null values; both instance and unique SHA+anchor pair summaries use unweighted circular unit-vector means; no independent evidence is inferred from repeated contexts; global light acceptance is not asserted"}
-	seen, shadowHashes := map[string]bool{}, map[string]bool{}
+	type pairKey struct {
+		Standing, Shadow             string
+		StandingAnchor, ShadowAnchor [2]float64
+	}
+	seen, shadowHashes := map[pairKey]bool{}, map[string]bool{}
 	var unique []lookLightPair
 	for _, pair := range raw.Pairs {
 		if p.excluded[pair.At.Line+1] {
@@ -126,9 +129,9 @@ func (p *project) lightFromPairs(raw maprender.ShadowPairs) lookLight {
 		if clean {
 			result.Clean++
 		}
-		key, _ := json.Marshal([]any{pair.Standing.SHA, pair.Standing.Anchor, pair.Shadow.SHA, pair.Shadow.Anchor})
-		if !seen[string(key)] {
-			seen[string(key)] = true
+		key := pairKey{pair.Standing.SHA, pair.Shadow.SHA, pair.Standing.Anchor, pair.Shadow.Anchor}
+		if !seen[key] {
+			seen[key] = true
 			unique = append(unique, v)
 		}
 		if pair.Shadow.SHA != "" {

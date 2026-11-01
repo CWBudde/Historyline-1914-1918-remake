@@ -283,7 +283,10 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 	var sprites []prepared
 	byName := map[string]prepared{}
 	for _, c := range s.Cells {
-		at, _ := parseCell(c.Cell, s.Grid)
+		at, err := parseCell(c.Cell, s.Grid)
+		if err != nil {
+			return rep, nil, nil, err
+		}
 		listed[at] = true
 		ir := itemReport{Cell: c.Cell}
 		it, ok := byCell[at]
