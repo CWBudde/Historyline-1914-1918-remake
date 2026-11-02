@@ -119,6 +119,16 @@ Moselle château with four octagonal slate-roofed towers as the HQs; an ironwork
 glassworks, a munitions works and a cement works; a harbour supply depot, an ammunition dump, a field
 bakery and an engineer park.
 
+ARRAS (`1918-03`, 3829×4403) has late-March early spring under clear cool morning light: a greening
+meadow with patches of last year's straw grass, leafless grey-brown woods with dark conifers and
+white blackthorn at their edges, clear blue lakes and a sea coast with sand and shingle beaches,
+pale gravel roads and small chalk ridges. Shell-torn ground with a ragged edge fills the north-west
+field and the south-east front, whose sandbagged trenches lie only on the trench hexes. Two mown
+grass airstrips have ribbed canvas Bessonneau hangars. Its HQs are a grey sandstone castle with a
+square donjon and a dry ditch, and a red-brick château with slate domes, a moat and a gravel
+court. Its factories are a colliery pithead, a flax spinning mill and a chalk lime works; its four
+depots hold ammunition, forage, engineer stores and rations.
+
 CANDL/ORDER (`1918-04`, 3829×6605) has fresh spring meadow, budding woodland and breezy blue
 water under clear April afternoon light. Small clearings and rocky ledges support the starting crews.
 One registered railway retains its destroyed intervals; closed spurs have timber buffers and broken
@@ -250,7 +260,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
-STERN (2226×2560) uses sixteen: columns at x 0, 499, 999, 1498 and rows at y 0, 611, 1222, 1833.
+STERN and ARRAS (2226×2560) use sixteen: columns at x 0, 499, 999, 1498 and rows at y 0, 611, 1222, 1833.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water
