@@ -165,12 +165,15 @@ Flemish brick castle with stepped gables, a kitchen garden and willows at the ga
 a steam sawmill and a brickworks; its two houses are post windmills with cottages.
 
 GRAND (`1918-09`, 7737×4403) uses the same density, with early-September greenery: lush green meadow,
-woods still in full leaf with an occasional yellowing crown, limestone outcrops, a clear river and
-lakes, and churned shell-torn ground under warm afternoon light. It was painted from a summer-tile
-guide, so the map's autumn rules season does not brown it. Its HQs are a dark basalt castle with a
-square keep, an L-shaped red-tiled hall and a dry ditch, and a pale limestone château-fort with slate
-cones, a moat and a parterre. Its factories are a sugar refinery, a brewery, a lakeside paper mill, a
-cotton spinning mill and an iron foundry; its nine depots each hold different stores.
+woods still in full leaf with an occasional yellowing crown, a clear river and lakes under warm
+afternoon light. Its rock hexes form continuous limestone hill country of ridges, crags and gullies
+with forest on the slopes, and its mud fields are fused into ragged shell-torn battlefields that thin
+out into the meadow, the largest around the south-east depot, factory and town. It was painted from a
+summer-tile guide, so the map's autumn rules season does not brown it. Its HQs are a dark basalt
+castle with a square keep, an L-shaped red-tiled hall and a dry ditch, and a pale limestone
+château-fort with slate cones, a moat and a parterre. Its factories are a sugar refinery, a brewery, a
+lakeside paper mill, a cotton spinning mill and an iron foundry; its nine depots each hold different
+stores.
 
 Flanders (`1918-10`, 7640×6522) has wet October ground, copper/rust foliage and peripheral
 harvested and ploughed fields around an open central fighting area. Its 56 registered sections
