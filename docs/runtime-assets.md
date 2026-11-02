@@ -136,8 +136,10 @@ sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of
 painting, and `TestRegenerateLatticeGroundContexts` re-renders every context they touch.
 Unstamped crater fields thus draw one continuous shell-hole field instead of a crater per hex.
 Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
-hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is destroyed and draws
-`tile/ruinN`, `ruinW`, `ruinE`, `ruinS` (and `_w`) instead, when the catalog has all four.
+hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is the original's half depot,
+which binds to the half depot's records, and draws the construction site `tile/siteN`, `siteW`,
+`siteE`, `siteS` (and `_w`) instead, when the catalog has all four; a battle's depots draw the same way
+(`dosplay.Session.Reworked`). The destroyed depot `tile/ruin*` is no longer drawn.
 
 Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
 transparent infrastructure patch for either seasonal ground; sapper placement and removal are not bound yet.
@@ -199,11 +201,11 @@ coming in from the S uncovered for a stretch) and its building or cargo with a c
 Roads and road level crossings carry no season in the level: on a mostly winter map they draw their winter
 form (`tile/road*_w`, `cross2_w`, `cross3_w`: packed snow, slush ruts, snow shoulders, no painted lines;
 `art/pipeline/connected-road-winter-v1.json`, exported by `TestGenerateWinterRoads`), also on bridges and
-quays. Compound scenes (HQ, depot, ruin, factory) fill their scene box and crop the excess, so their
+quays. Compound scenes (HQ, depot, construction site, ruin, factory) fill their scene box and crop the excess, so their
 streets reach the hex edge at the gate, and the first 10 world px of the street blend into the season's
 road tile (`entry_road`), so the road runs on into the gate (`TestGenerateCompoundTiles` and
-`TestGenerateRuinTiles` re-export them). The painted street lies within 1 world px of that road
-(`TestCompoundEntryStreetMeetsTheRoad`). The ruin, which has no fence, fades out towards its outer edge along
+`TestGenerateRuinTiles`, `TestGenerateSiteTiles` re-export them). The painted street lies within 1 world px of that road
+(`TestCompoundEntryStreetMeetsTheRoad`). The ruin and the site fade out towards their outer edges along
 an irregular line (`edge_feather`). The massif (`tile/mountN`, `mountE`, `mountS`, `mountW`) fills its four
 hexes and fades its lower slopes towards its own outline in noisy patches (`slope_fade`,
 `art/pipeline/compound-mountain-v3.json`), so it runs out into the meadow instead of ending at a rim.

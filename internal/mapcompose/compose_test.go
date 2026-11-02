@@ -132,8 +132,10 @@ func TestCompoundGroups(t *testing.T) {
 	}
 }
 
-func TestDestroyedDepotDrawsRuin(t *testing.T) {
-	ruins := func(id string) bool { return strings.HasPrefix(id, "tile/ruin") }
+// A depot whose entrance has no content is the half depot: it draws the
+// construction site where the catalog has it.
+func TestHalfDepotDrawsSite(t *testing.T) {
+	sites := func(id string) bool { return strings.HasPrefix(id, "tile/site") }
 	cells := map[string]hexgrid.Coord{"N": {Line: 0, Col: 1}, "W": {Line: 1, Col: 0}, "E": {Line: 1, Col: 1}, "S": {Line: 2, Col: 1}}
 	for _, sfx := range []string{"", "_w"} {
 		g, plain := grid(
@@ -152,9 +154,9 @@ func TestDestroyedDepotDrawsRuin(t *testing.T) {
 			has    func(string) bool
 			prefix string
 		}{
-			{"destroyed", vacant, ruins, "ruin"},
-			{"held", plain, ruins, "cmp"},
-			{"no ruin art", vacant, none, "cmp"},
+			{"half", vacant, sites, "site"},
+			{"held", plain, sites, "cmp"},
+			{"no site art", vacant, none, "cmp"},
 		} {
 			s := Compose(g, tc.at, tc.has)
 			if len(s.Issues) != 0 {
@@ -169,30 +171,30 @@ func TestDestroyedDepotDrawsRuin(t *testing.T) {
 	}
 }
 
-// The destroyed depot of level 10 (PARTS) at line59[11]: its entrance has no
+// The half depot of level 10 (PARTS) at line59[11]: its entrance has no
 // content, the held depot beside it has.
-func TestLevelDestroyedDepot(t *testing.T) {
+func TestLevelHalfDepot(t *testing.T) {
 	l, err := campaignLevelErr("1916-02:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
-	s := Compose(l.Grid(), LevelHex(l), func(id string) bool { return strings.HasPrefix(id, "tile/ruin") })
+	s := Compose(l.Grid(), LevelHex(l), func(id string) bool { return strings.HasPrefix(id, "tile/site") })
 	n := 0
 	for line, cells := range s.Cells {
 		for col, c := range cells {
-			if strings.HasPrefix(c.Background, "tile/ruin") {
+			if strings.HasPrefix(c.Background, "tile/site") {
 				n++
 				if !strings.HasSuffix(c.Background, "_w") {
-					t.Errorf("line%d[%d]: summer ruin %s on a winter map", line+1, col, c.Background)
+					t.Errorf("line%d[%d]: summer site %s on a winter map", line+1, col, c.Background)
 				}
 			}
 		}
 	}
-	if got := s.Cells[58][11].Background; got != "tile/ruinN_w" {
-		t.Errorf("line59[11] drawn as %s, want tile/ruinN_w", got)
+	if got := s.Cells[58][11].Background; got != "tile/siteN_w" {
+		t.Errorf("line59[11] drawn as %s, want tile/siteN_w", got)
 	}
 	if n != 4 {
-		t.Errorf("%d ruin pieces, want one depot of 4", n)
+		t.Errorf("%d site pieces, want one depot of 4", n)
 	}
 }
 

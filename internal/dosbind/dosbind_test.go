@@ -374,7 +374,7 @@ func TestBindNumbersByEntrance(t *testing.T) {
 
 // TestTouchingCampsBindApart binds PARTS, whose depot at line 60 touches
 // the camp at line 59: each takes its own four hexes. The camp without
-// content is a ruin (no container record), the depot holds its six units.
+// content is a half depot (no container record), the depot holds its six units.
 func TestTouchingCampsBindApart(t *testing.T) {
 	b := bind(t, shippedLevel(t, "1916-02", scenario.CP))
 	cells := func(cs ...hexgrid.Coord) []int {
@@ -424,18 +424,18 @@ func TestTouchingCampsBindApart(t *testing.T) {
 	if _, ok := b.Holds[dosrules.HoldFlag100+2]; ok {
 		t.Error("a third depot record")
 	}
-	ruin := cells(hexgrid.Coord{Line: 58, Col: 11}, hexgrid.Coord{Line: 59, Col: 10}, hexgrid.Coord{Line: 59, Col: 11}, hexgrid.Coord{Line: 60, Col: 11})
+	half := cells(hexgrid.Coord{Line: 58, Col: 11}, hexgrid.Coord{Line: 59, Col: 10}, hexgrid.Coord{Line: 59, Col: 11}, hexgrid.Coord{Line: 60, Col: 11})
 	for k, rec := range []int{Table.Terrain["cmpN@-"], Table.Terrain["cmpW@-"], Table.Terrain["cmpE@-"], Table.Terrain["cmpS@-"]} {
-		cell := ruin[k]
+		cell := half[k]
 		if b.Terrain[cell] != rec {
-			t.Errorf("ruin cell %d: record %d, want %d", cell, b.Terrain[cell], rec)
+			t.Errorf("half depot cell %d: record %d, want %d", cell, b.Terrain[cell], rec)
 		}
 		if e, ok := b.Parts[cell]; ok {
-			t.Errorf("ruin cell %d is part of the building at %d", cell, e)
+			t.Errorf("half depot cell %d is part of the building at %d", cell, e)
 		}
 		for i, h := range b.Holds {
 			if i >= dosrules.HoldFlag40 && slices.Contains(h.Cells[:], 2*cell) {
-				t.Errorf("ruin cell %d in record %d", cell, i)
+				t.Errorf("half depot cell %d in record %d", cell, i)
 			}
 		}
 	}
