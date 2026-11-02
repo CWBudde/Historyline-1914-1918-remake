@@ -6438,8 +6438,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1915-03.png",
+          "sha256": "0c9a3fc5e8ebba7a9f6b5c0fbd0a2ef79b56cddde7148b01956c71f57a8487f9",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1915-04.png",
           "sha256": "26939b28727a7933a6341ef6e75bd816ede1cd01174118b412d2921259fe42a5",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-05.png",
+          "sha256": "5842ffabd1d480231911434d44f2311c7705f3c2e98b7b873dcd5e7c6e8177ea",
           "width": 1536,
           "height": 1024
         },
@@ -6450,8 +6462,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1915-07.png",
+          "sha256": "60a84b4a19614a10b6cb57b54744da8c2c3698dcfa2af497e9c56621790c1e60",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1915-08.png",
           "sha256": "e56ccc24a812328aeceda6dd419a8236e00b729d2b2aaf0e4baf16a6a2b1e301",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1915-09.png",
+          "sha256": "f910d9c7b5bb20e6d2a769296b94f964608457fbb6d8e2b0594c3ae579e34736",
           "width": 1536,
           "height": 1024
         },
@@ -6462,8 +6486,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1915-11.png",
+          "sha256": "44576f2e78c231573947eccd2b79baae3eb797147777642b946b2fb531c30f02",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1915-12.png",
           "sha256": "1ca793571acbec3b1c4c7534436d9ae9d68f4dff0a03330c2dfcc9a8c267e3bb",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-01.png",
+          "sha256": "46bfa808ddca8da4a349025d994bfa6a4769e6b556e933690e9a409d1d9076b8",
           "width": 1536,
           "height": 1024
         },
@@ -6474,8 +6510,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1916-03.png",
+          "sha256": "13066a51cd2b30aabf0adc1b46abc986ca49775a5695ff7843c06c1aa4876fbd",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1916-04.png",
           "sha256": "b95bc534da0739a308f9f1cd918a067f51e8a6916b137b45f644fdc185a6e85f",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-05.png",
+          "sha256": "d406948d42915dd476d78624f0a598c68f35d735637c37b59be0be766230a8cd",
           "width": 1536,
           "height": 1024
         },
@@ -6486,8 +6534,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1916-07.png",
+          "sha256": "16b667693646bc54c0c6bfe69e1fba75de02aeccea38ad4212a4e52b5f849b42",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1916-08.png",
           "sha256": "a518400fa0c8a6415b79080bc28f75e80476f01f949d0bad90993a5dacf54d21",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1916-09.png",
+          "sha256": "e83b9ce4656c85ed5525cb9a53d1af2f7bf31ac300f019d3babf23ecc1725611",
           "width": 1536,
           "height": 1024
         },
@@ -6498,8 +6558,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1916-11.png",
+          "sha256": "4e3a055adfdfa6c596194c6feff6b57c932b89e4347203cd145e6c69e7e9adad",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1916-12.png",
           "sha256": "bf3f55de5c2be2e7a0043d5461789c3bac4f995d4078ba1a2bbccd66a9805bad",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-01.png",
+          "sha256": "07e35e9397b3099580d9a9a2d183199938abb636ab862fb01121e0560375081c",
           "width": 1536,
           "height": 1024
         },
@@ -6510,8 +6582,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1917-03.png",
+          "sha256": "644628f9c53f9636e0fcdd6d4006a4b8829096a63d59d8da5dc6ceeec31567e3",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1917-04.png",
           "sha256": "2374fd080fec944454e5433769007f2fd9c5016cb0430be0e4deeb6a919e0a6e",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-05.png",
+          "sha256": "7288616c2a8399c778748111b69872921813208e3d45d419acd8c7268b762b64",
           "width": 1536,
           "height": 1024
         },
@@ -6522,8 +6606,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1917-07.png",
+          "sha256": "f3643b9ed3c85fd5f0998268a283ec010d0f4bb9601e33bff07bea45c5a05ede",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1917-08.png",
           "sha256": "1a7fd146e1e74725de697ce89a5dab057a8f345fafb89d72fccc7893fd852927",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1917-09.png",
+          "sha256": "dc199845cae30720cb1754a36b5d06682b3037edaba18a22a4d971599e64622e",
           "width": 1536,
           "height": 1024
         },
@@ -6534,8 +6630,20 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1917-11.png",
+          "sha256": "b1ca71a349c2c32cc0239873bae787616c888854db651276e278710bb7b409ae",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1917-12.png",
           "sha256": "8db271fd84a9d0506ea31c7312c2e7fb1e372d63d8151100d96f927342faee7f",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-01.png",
+          "sha256": "5cd6b29cf674f6a465756ce799a1c36be3c1ece0e12ca3bedde86e5365fb63ad",
           "width": 1536,
           "height": 1024
         },
@@ -6546,14 +6654,56 @@
           "height": 1024
         },
         {
+          "path": "art/screens/news/1918-03.png",
+          "sha256": "c2919113b2125f5871f31a222b929ca363646ba14ca4afd3b08835dabb43f1e2",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1918-04.png",
           "sha256": "b8ecc08284ff283f2b17aa4fc69e2ab3c11ac76ec3af1a92bd6285f51256acb6",
           "width": 1536,
           "height": 1024
         },
         {
+          "path": "art/screens/news/1918-05.png",
+          "sha256": "b7b3ffc4a4e72dc4b53d73f5fe762ddcafd4a8654e59f15b86b22a77cc125d14",
+          "width": 1536,
+          "height": 1024
+        },
+        {
           "path": "art/screens/news/1918-06.png",
           "sha256": "956d5ea6e0c4125b5a87bc67bf81f908c37c638dc0377276a635a500cdaf1a34",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-07.png",
+          "sha256": "9c2b7efdad0a01cefd79cfef8a401e238113d0b7ed64f5b7b851563f8ca16237",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-08.png",
+          "sha256": "78cb9c135f98a1391745e6e27932a3e9d059d1d7e526ccb8f8d542ef309bdfd1",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-09.png",
+          "sha256": "82664e2801b42bdba8c80a64a1954a0f31bc6d18c10eec13905b0a2043d368ae",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-10.png",
+          "sha256": "e7995a3e9712e2ccf438be172fee62a5c848de948a62daa5bb8d2f00194e3f61",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/news/1918-11.png",
+          "sha256": "013d7c16d100fd62232ef1e54948085758d2cd93882e73aa14bfe7ad52ff2866",
           "width": 1536,
           "height": 1024
         }
@@ -6597,9 +6747,19 @@
           "delta": "`news-07` (exec-b0c090a6), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1915-03",
+          "runtime_ids": [],
+          "delta": "`news-29` (exec-333c4318), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1915-04",
           "runtime_ids": [],
           "delta": "`news-08` (exec-ad7877cb), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-05",
+          "runtime_ids": [],
+          "delta": "`news-30b` (exec-918979d6), 1536x1024 opaque: the second try, the base prompt and the scene below."
         },
         {
           "variant": "1915-06",
@@ -6607,9 +6767,19 @@
           "delta": "`news-09` (exec-68d47959), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1915-07",
+          "runtime_ids": [],
+          "delta": "`news-31b` (exec-618f143f), 1536x1024 opaque: the second try, the base prompt and the scene below."
+        },
+        {
           "variant": "1915-08",
           "runtime_ids": [],
           "delta": "`news-10` (exec-0d7f5437), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1915-09",
+          "runtime_ids": [],
+          "delta": "`news-32` (exec-6dbfe087), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
           "variant": "1915-10",
@@ -6617,9 +6787,19 @@
           "delta": "`news-11` (exec-02f46a39), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1915-11",
+          "runtime_ids": [],
+          "delta": "`news-33` (exec-be1a4b26), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1915-12",
           "runtime_ids": [],
           "delta": "`news-12` (exec-ef3d41f3), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-01",
+          "runtime_ids": [],
+          "delta": "`news-34b` (exec-2be5a91b), 1536x1024 opaque: the second try, the base prompt and the scene below."
         },
         {
           "variant": "1916-02",
@@ -6627,9 +6807,19 @@
           "delta": "`news-13` (exec-6fe80639), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1916-03",
+          "runtime_ids": [],
+          "delta": "`news-35b` (exec-4b52e829), 1536x1024 opaque: the second try, the base prompt and the scene below."
+        },
+        {
           "variant": "1916-04",
           "runtime_ids": [],
           "delta": "`news-14` (exec-a9ad13a6), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-05",
+          "runtime_ids": [],
+          "delta": "`news-36` (exec-8d749da2), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
           "variant": "1916-06",
@@ -6637,9 +6827,19 @@
           "delta": "`news-15` (exec-5d9513ea), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1916-07",
+          "runtime_ids": [],
+          "delta": "`news-37d` (exec-9e276ce9), 1536x1024 opaque: the fourth try, the base prompt and the scene below."
+        },
+        {
           "variant": "1916-08",
           "runtime_ids": [],
           "delta": "`news-16` (exec-0c0ad80f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1916-09",
+          "runtime_ids": [],
+          "delta": "`news-38c` (exec-85ee258d), 1536x1024 opaque: the third try, the base prompt and the scene below."
         },
         {
           "variant": "1916-10",
@@ -6647,9 +6847,19 @@
           "delta": "`news-17` (exec-116fc91f), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1916-11",
+          "runtime_ids": [],
+          "delta": "`news-39` (exec-b6facc3e), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1916-12",
           "runtime_ids": [],
           "delta": "`news-18` (exec-f8d3423f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-01",
+          "runtime_ids": [],
+          "delta": "`news-40` (exec-fde7a201), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
           "variant": "1917-02",
@@ -6657,9 +6867,19 @@
           "delta": "`news-19` (exec-40f02d0b), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1917-03",
+          "runtime_ids": [],
+          "delta": "`news-41` (exec-eb9c58f0), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1917-04",
           "runtime_ids": [],
           "delta": "`news-20` (exec-324e369f), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-05",
+          "runtime_ids": [],
+          "delta": "`news-42` (exec-167b6eff), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
           "variant": "1917-06",
@@ -6667,9 +6887,19 @@
           "delta": "`news-28` (exec-8120ef01), 1536x1024 opaque: a second try (the first, `news-21`, painted the mines as small tree-like puffs), the base prompt and the scene below."
         },
         {
+          "variant": "1917-07",
+          "runtime_ids": [],
+          "delta": "`news-43` (exec-cb312a2e), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1917-08",
           "runtime_ids": [],
           "delta": "`news-22` (exec-f230c1c4), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1917-09",
+          "runtime_ids": [],
+          "delta": "`news-44` (exec-ba7e4426), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
           "variant": "1917-10",
@@ -6677,9 +6907,19 @@
           "delta": "`news-23` (exec-0dc4fce2), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1917-11",
+          "runtime_ids": [],
+          "delta": "`news-45b` (exec-5f9987c2), 1536x1024 opaque: the second try, the base prompt and the scene below."
+        },
+        {
           "variant": "1917-12",
           "runtime_ids": [],
           "delta": "`news-24` (exec-9d65ffd6), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-01",
+          "runtime_ids": [],
+          "delta": "`news-46c` (exec-4c602487), 1536x1024 opaque: the third try, the base prompt and the scene below."
         },
         {
           "variant": "1918-02",
@@ -6687,14 +6927,49 @@
           "delta": "`news-25` (exec-98d41ea8), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1918-03",
+          "runtime_ids": [],
+          "delta": "`news-47` (exec-3b9bce1d), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1918-04",
           "runtime_ids": [],
           "delta": "`news-26` (exec-2be2f544), 1536x1024 opaque: the base prompt and the scene below."
         },
         {
+          "variant": "1918-05",
+          "runtime_ids": [],
+          "delta": "`news-48` (exec-658f05b9), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
           "variant": "1918-06",
           "runtime_ids": [],
           "delta": "`news-27` (exec-de7a8aef), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-07",
+          "runtime_ids": [],
+          "delta": "`news-49c` (exec-356b5ab5), 1536x1024 opaque: the third try, the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-08",
+          "runtime_ids": [],
+          "delta": "`news-50` (exec-01ed5e40), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-09",
+          "runtime_ids": [],
+          "delta": "`news-51` (exec-a0f00489), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-10",
+          "runtime_ids": [],
+          "delta": "`news-52` (exec-ee36934b), 1536x1024 opaque: the base prompt and the scene below."
+        },
+        {
+          "variant": "1918-11",
+          "runtime_ids": [],
+          "delta": "`news-53` (exec-3d298c11), 1536x1024 opaque: the base prompt and the scene below."
         }
       ],
       "edges": "",

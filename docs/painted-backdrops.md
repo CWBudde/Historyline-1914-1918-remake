@@ -139,6 +139,34 @@ support the unchanged starting units. Both airfields, routes and building approa
 Its runtime JPEG uses quality 95; prompts and visual/lightness checks are recorded under
 `build/review/backdrops/1915-03/` (`verification.md`, `used-prompts.json`).
 
+GREEN (`1918-07`, 7100×6061, 1.58 image px per world px so that its source stays below GitHub's
+file limit) has July high summer: lush meadow with field flowers, woods in full dark-green leaf,
+limestone hills, a clear winding river crossed by long timber road bridges, and earth roads under
+warm late-morning light. Three mown grass airstrips have canvas hangars beside them. The large
+central shell field has a ragged edge of single craters running out into the meadow, and its
+sandbagged trenches cut through green grass. Its HQs are a Champagne castle of banded red brick and
+chalk with slate cones, a round donjon, a gate tower and a dry ditch, and a moated ochre château with
+red-tiled cones, a lily-pad moat, a spired gatehouse and four lindens. Its factories are a flour
+mill, a champagne house with grassed cellars, an aircraft repair park, a tannery, a wire works, a
+dairy, a tile works and a distillery; its eight depots each hold different stores.
+
+TROLL (`1918-08`, 1875×2202) uses the same density, with mid-August greenery: lush green meadow
+with field flowers, woods in full dark-green leaf, limestone hills, one limestone massif in the
+south-west corner, a clear stream and earth roads, under bright morning light. Its three fronts are
+each one shell-torn zone of mud and craters with barbed wire, the sandbagged trenches and their saps
+cut through it. Its HQs
+are an ochre sandstone Lorraine fortress with a donjon, a barbican and a courtyard chapel, and a
+Flemish brick castle with stepped gables, a kitchen garden and willows at the gate. Its factories are
+a steam sawmill and a brickworks; its two houses are post windmills with cottages.
+
+GRAND (`1918-09`, 7737×4403) uses the same density, with early-September greenery: lush green meadow,
+woods still in full leaf with an occasional yellowing crown, limestone outcrops, a clear river and
+lakes, and churned shell-torn ground under warm afternoon light. It was painted from a summer-tile
+guide, so the map's autumn rules season does not brown it. Its HQs are a dark basalt castle with a
+square keep, an L-shaped red-tiled hall and a dry ditch, and a pale limestone château-fort with slate
+cones, a moat and a parterre. Its factories are a sugar refinery, a brewery, a lakeside paper mill, a
+cotton spinning mill and an iron foundry; its nine depots each hold different stores.
+
 Flanders (`1918-10`, 7640×6522) has wet October ground, copper/rust foliage and peripheral
 harvested and ploughed fields around an open central fighting area. Its 56 registered sections
 use PAUSE's columns and CANDL's rows; all-overlap RGB balancing prevents chained exposure drift.
@@ -204,6 +232,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 
 MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
+TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water
@@ -236,6 +265,9 @@ CANDL/ORDER uses twenty-eight sections at x 0, 499, 998, 1498 and y 0, 518, 1037
 
 PAUSE/SIGMA and RHEIN/MOSEL use twenty-four of those sections: columns at x 0, 538, 1077, 1615,
 2154, 2692, 3231, 3770 and rows at y 0, 596, 1193.
+GRAND uses thirty-two: the same columns and rows at y 0, 611, 1222, 1833.
+GREEN uses Flanders' fifty-six: the same columns and CANDL's rows. It is stitched at Flanders'
+density (7640×6522) and scaled to its output size in finishing.
 
 WATER/TRUCE uses thirty-five 888×887 world-pixel sections on 1252×1250 canvases, at the output
 density: columns at x 0, 619, 1237, 1856, 2474 and rows at y 0, 706, 1411, 2117, 2822, 3528, 4233.
@@ -329,7 +361,7 @@ change L*. Compare matching ground, rather than whole-map averages with differen
   Then give enclosed harbour basins the same sea (`bdp basin`, `bdp harbour`) and, where coastal
   shallows carry a pattern copied from the guide, keep their painted colour field but take the fine
   detail from the sea texture (`bdp shallows`); check that no sea hex is painted as land (`bdp
-  sealand`). WATER, PARTS (1916-02) and 1915-08 have one sea this way.
+sealand`). WATER, PARTS (1916-02) and 1915-08 have one sea this way.
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
   unit overlays can hide hull collisions with shores and piers.
 
