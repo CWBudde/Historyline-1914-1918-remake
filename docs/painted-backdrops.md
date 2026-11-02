@@ -133,6 +133,15 @@ on the map's trench hexes. The central HQ is a battered chalk-stone fortress wit
 and a wired dry ditch; the south-west HQ is a red-brick manor castle with a lily-pad moat. The depots
 are an ammunition store and an engineer park.
 
+TRACK/TOMMY (`1915-05`, 2852×3302) has fresh May meadow and light-green woodland under
+bright diffuse light after rain, with damp gravel roads and a clear stream. A broad
+Exerzierplatz connects the western red-brick fort to its street; gravel approaches join
+the river bridges and paths. The eastern HQ is a pale limestone château-fort with slate
+towers, the factory a brick machine works, and the depot an engineer supply yard.
+Three small woodland clearings and two natural rocky ledges support the unchanged
+starting units. Prompts and visual/lightness checks are recorded under
+`build/review/backdrops/1915-05/` (`verification.md`, `used-prompts.json`).
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
