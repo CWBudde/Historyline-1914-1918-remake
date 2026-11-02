@@ -144,7 +144,9 @@ pollard willows, drainage ditches, a flooded meadow, a ruined farmstead and an o
 
 WATER/TRUCE (`1918-11`, 4740×7219) uses 1.41 image px per world px: eight North Sea islands under a
 thin, wind-scoured first snow with dun dune grass and heather, snow-dusted pines and a cold
-whitecapped sea under low overcast light. A pale turquoise lagoon with sandy shoals fills the shallows
+whitecapped sea under low overcast light. The open sea is one texture quilted from PARTS's open sea,
+so both winter sea maps share its deep blue chop; the painted surf and turquoise shallows stay along
+the coasts. A pale turquoise lagoon with sandy shoals fills the shallows
 between the central islands; timber piers on piles end in open water and causeways reach the two
 factories. Its HQs are two coastal forts: one of red brick with four round slate-capped towers, a dry
 ditch, a gatehouse and casemate mounds, one of grey granite with four square towers, a twin-turret
@@ -304,6 +306,12 @@ change L*. Compare matching ground, rather than whole-map averages with differen
 - Save the painting as its source PNG, write the JPEG next to the scenario file (`just backdrop-jpeg`) and
   set `backdrop`; check it in the game with units on top at
   normal and close zoom.
+- On a sea map, review the whole map scaled down to about a quarter: sections paint the open sea in
+  different hues and wave scales, a patchwork that the balance evens in colour but not in texture.
+  Replace it with one sea: quilt a texture from a finished map's open sea (scaled to this map's image
+  px per world px) and lay it over the sea hexes with a noisy, feathered border a little inside them,
+  shifting the kept coastal water to the texture's mean colour (`bdp quilt`, `bdp sea` in the
+  backdrop-patch skill).
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
   unit overlays can hide hull collisions with shores and piers.
 
