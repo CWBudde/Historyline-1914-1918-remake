@@ -143,8 +143,9 @@ GREEN (`1918-07`, 7100×6061, 1.58 image px per world px so that its source stay
 file limit) has July high summer: lush meadow with field flowers, woods in full dark-green leaf,
 limestone massifs whose crests and ravines run through the woods, a clear winding river crossed by
 long timber road bridges, and earth roads under warm late-morning light. Three mown grass airstrips
-have canvas hangars beside them. The large central shell field has a ragged edge of single craters
-running out into the meadow, and its sandbagged trenches cut through green grass. Its HQs are a
+have canvas hangars beside them. Mud and trenches form torn front zones: the large shell field is
+one cratered battlefield cut by a zigzag fire trench, and shell-torn ground with sandbagged trenches
+wraps both HQs, the north airstrip and the factory in the south-east. Its HQs are a
 Champagne castle of banded red brick and chalk with slate cones, a round donjon, a gate tower and a
 dry ditch, and a moated ochre château with red-tiled cones, a lily-pad moat, a spired gatehouse and
 four lindens. Its factories are a flour mill, a champagne house with grassed cellars, an aircraft
