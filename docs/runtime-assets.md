@@ -138,7 +138,7 @@ Unstamped crater fields thus draw one continuous shell-hole field instead of a c
 Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
 hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is the original's half depot,
 which binds to the half depot's records, and draws the construction site `tile/siteN`, `siteW`,
-`siteE`, `siteS` (and `_w`) instead, when the catalog has all four; a battle's depots draw the same way
+`siteE`, `siteS` (and `_w`, `_sp`, `_au`) instead, when the catalog has all four; a battle's depots draw the same way
 (`dosplay.Session.Reworked`). The destroyed depot `tile/ruin*` is no longer drawn.
 
 Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
