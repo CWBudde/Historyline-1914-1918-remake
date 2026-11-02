@@ -337,7 +337,7 @@ change L*. Compare matching ground, rather than whole-map averages with differen
   Then give enclosed harbour basins the same sea (`bdp basin`, `bdp harbour`) and, where coastal
   shallows carry a pattern copied from the guide, keep their painted colour field but take the fine
   detail from the sea texture (`bdp shallows`); check that no sea hex is painted as land (`bdp
-  sealand`). WATER, PARTS (1916-02) and 1915-08 have one sea this way.
+sealand`). WATER, PARTS (1916-02) and 1915-08 have one sea this way.
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
   unit overlays can hide hull collisions with shores and piers.
 
