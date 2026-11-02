@@ -20,14 +20,14 @@ import (
 	"slices"
 	"strings"
 
-	xdraw "golang.org/x/image/draw"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	xdraw "golang.org/x/image/draw"
 )
 
 // Run prepares painting sections and joins, or encodes/checks backdrop JPEGs.
@@ -690,7 +690,14 @@ type paintedSection struct {
 	Origin   [2]int     `json:"origin"`
 	Painting string     `json:"painting"`
 	Gain     [3]float64 `json:"gain"`
-	image    *image.NRGBA
+	// Offset is the open-sea balance's RGB shift of the section's water.
+	Offset [3]float64 `json:"offset,omitzero"`
+	image  *image.NRGBA
+	// water weighs Offset per pixel: 1 on water, 0 on land, sampled every
+	// waterStep output pixels; nil for the gain balances.
+	water     []float32
+	waterStep int
+	seaLuma   float64 // the luma of the section's open-sea mean
 }
 
 type paintedSeam struct {
@@ -708,6 +715,7 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 		Columns, Rows     []int
 		Painted, Stitched string
 		Balance           string
+		Balanced          string // optional directory for each section as balanced, at output scale
 		Sections          []paintedSection
 	}
 	data, err := os.ReadFile(planPath)
@@ -717,7 +725,7 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 	if err := json.Unmarshal(data, &plan); err != nil {
 		return err
 	}
-	if plan.Balance != "" && plan.Balance != "all-overlaps" {
+	if plan.Balance != "" && plan.Balance != "all-overlaps" && plan.Balance != "open-sea" {
 		return fmt.Errorf("unknown painting balance %q", plan.Balance)
 	}
 	b, err := find(levels, name)
@@ -820,6 +828,11 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 			return err
 		}
 	}
+	if plan.Balance == "open-sea" {
+		if err := balanceOpenSea(plan.Sections, lvl.Lines, lvl.Grid(), float64(w)/float64(ow), float64(h)/float64(oh)); err != nil {
+			return err
+		}
+	}
 	var meanGain [3]float64
 	for _, s := range plan.Sections {
 		for c, g := range s.Gain {
@@ -835,8 +848,24 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 			if s.image.Pix[p+3] != 255 {
 				return fmt.Errorf("transparent painting %s", s.ID)
 			}
+			if s.water != nil {
+				q, dx := p/4, s.image.Bounds().Dx()
+				wt := float64(s.water[q/dx/s.waterStep*(dx/s.waterStep+1)+q%dx/s.waterStep])
+				px := s.image.Pix[p : p+3 : p+3]
+				k := wt * seaShift(luma([3]float64{float64(px[0]), float64(px[1]), float64(px[2])}), s.seaLuma)
+				for c, o := range s.Offset {
+					px[c] = uint8(math.Round(math.Max(0, math.Min(255, float64(px[c])+k*o))))
+				}
+				continue
+			}
 			for c, g := range s.Gain {
 				s.image.Pix[p+c] = uint8(math.Round(math.Min(255, float64(s.image.Pix[p+c])*g)))
+			}
+		}
+		if plan.Balanced != "" {
+			// For lightness checks of the overlaps as they are stitched.
+			if err := writeExclusivePNG(filepath.Join(plan.Balanced, s.ID+".png"), s.image); err != nil {
+				return err
 			}
 		}
 	}
@@ -1541,4 +1570,151 @@ func auditLevel(levels, name, outPath string, stdout io.Writer) error {
 	}
 	_, err = fmt.Fprintln(stdout, outPath)
 	return err
+}
+
+// balanceOpenSea shifts each section's water so that the mean of its open sea,
+// the pixels on sea hexes whose neighbours are all sea, is the mean of all
+// sections' open sea. Sea maps differ in the sea's hue from section to section;
+// chained or solved overlap gains then tint whole islands, and gains turn white
+// crests pink. The shift is additive, weighted by the water weights and faded
+// towards white (seaShift); land, shores and piers keep their paint. sx and sy
+// scale output pixels to world pixels.
+func balanceOpenSea(sections []paintedSection, lines [][]level.Hex, grid hexgrid.Grid, sx, sy float64) error {
+	open := map[hexgrid.Coord]bool{}
+	sea := func(c hexgrid.Coord) bool {
+		if !grid.Contains(c) {
+			return true
+		}
+		t := lines[c.Line][c.Col].Terrain
+		return t == "waterSea" || t == "waterDeep"
+	}
+	for line := range lines {
+		for col := range lines[line] {
+			c := hexgrid.Coord{Line: line, Col: col}
+			if lines[line][col].Terrain != "waterSea" {
+				continue
+			}
+			open[c] = true
+			for _, n := range grid.Neighbors(c) {
+				if !sea(n) {
+					open[c] = false
+				}
+			}
+		}
+	}
+	for i := range sections {
+		s := &sections[i]
+		var sum [3]float64
+		n := 0
+		b := s.image.Bounds()
+		for y := b.Min.Y; y < b.Max.Y; y += 3 {
+			for x := b.Min.X; x < b.Max.X; x += 3 {
+				c, ok := grid.PixelToHex((float64(x)+0.5)*sx, (float64(y)+0.5)*sy)
+				if !ok || !open[c] {
+					continue
+				}
+				p := s.image.PixOffset(x, y)
+				for k := range sum {
+					sum[k] += float64(s.image.Pix[p+k])
+				}
+				n++
+			}
+		}
+		if n < 1000 {
+			return fmt.Errorf("section %s has too little open sea to balance (%d samples)", s.ID, n)
+		}
+		for k := range sum {
+			s.Offset[k] = sum[k] / float64(n) // the section's sea mean until the target is known
+		}
+		s.Gain = [3]float64{1, 1, 1}
+		s.water, s.waterStep = waterWeights(s.image.Bounds(), lines, grid, sx, sy), waterStep
+	}
+	var target [3]float64
+	for _, s := range sections {
+		for k, m := range s.Offset {
+			target[k] += m / float64(len(sections))
+		}
+	}
+	for i := range sections {
+		s := &sections[i]
+		s.seaLuma = luma(s.Offset)
+		for k := range s.Offset {
+			s.Offset[k] = target[k] - s.Offset[k]
+		}
+	}
+	return nil
+}
+
+func luma(c [3]float64) float64 { return 0.299*c[0] + 0.587*c[1] + 0.114*c[2] }
+
+// seaShift is how much of a section's sea offset a pixel of luma l takes: all
+// of it at the section's sea mean, none at white.
+func seaShift(l, seaLuma float64) float64 {
+	return math.Max(0, math.Min(1.5, (255-l)/(255-seaLuma)))
+}
+
+// waterStep and waterBlur are the sampling step and the box-blur radius of the
+// water weights, in output pixels and samples: the shift fades out over about
+// a third of a hex from the shore.
+const (
+	waterStep = 6
+	waterBlur = 6
+)
+
+// waterWeights samples the hexes under bounds every waterStep output pixels:
+// 1 on water hexes, 0 on shore, land and pier hexes, blurred twice.
+func waterWeights(bounds image.Rectangle, lines [][]level.Hex, grid hexgrid.Grid, sx, sy float64) []float32 {
+	cols, rows := bounds.Dx()/waterStep+1, bounds.Dy()/waterStep+1
+	w := make([]float32, cols*rows)
+	for y := range rows {
+		for x := range cols {
+			px, py := float64(bounds.Min.X+x*waterStep)+0.5, float64(bounds.Min.Y+y*waterStep)+0.5
+			c, ok := grid.PixelToHex(px*sx, py*sy)
+			if !ok {
+				w[y*cols+x] = 1
+				continue
+			}
+			if h := lines[c.Line][c.Col]; strings.HasPrefix(h.Terrain, "water") && len(h.Infra.IDs) == 0 {
+				w[y*cols+x] = 1
+			}
+		}
+	}
+	blur := func(w []float32, n, m, stride, step int) []float32 {
+		// n lines of m samples; samples step apart within a line, lines stride apart.
+		out := make([]float32, len(w))
+		for i := range n {
+			for j := range m {
+				var sum float32
+				k := 0
+				for d := max(0, j-waterBlur); d <= min(m-1, j+waterBlur); d++ {
+					sum += w[i*stride+d*step]
+					k++
+				}
+				out[i*stride+j*step] = sum / float32(k)
+			}
+		}
+		return out
+	}
+	for range 2 {
+		w = blur(w, rows, cols, cols, 1)
+		w = blur(w, cols, rows, 1, cols)
+	}
+	return w
+}
+
+// writeExclusivePNG writes im to a new file at path, creating its directory;
+// it refuses an existing file and removes a partial one.
+func writeExclusivePNG(path string, im image.Image) error {
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return err
+	}
+	out, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+	if err != nil {
+		return err
+	}
+	encodeErr := png.Encode(out, im)
+	if err := errors.Join(encodeErr, out.Close()); err != nil {
+		return errors.Join(err, os.Remove(path))
+	}
+	return nil
 }

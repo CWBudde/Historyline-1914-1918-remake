@@ -21,7 +21,8 @@ import (
 )
 
 func commands() command {
-	return group("hl", "Historyline developer tools",
+	return group(
+		"hl", "Historyline developer tools",
 		group("art", "Art catalogue, thumbnails and map renders", actions("index check thumbs pulse map", hlart.Run,
 			"Write the art catalogue", "Check prompts, masters, runtime files and catalogue", "Write catalogue thumbnails", "Render the PULSE reference map", "Render a level and detail crop")...),
 		group("assets", "Build and validate runtime art packs", actions("build build-units build-terrain build-screens packs lite terrain-gaps validate", hlasset.Run,

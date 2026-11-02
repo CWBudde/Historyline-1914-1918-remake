@@ -12,6 +12,8 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 )
 
 func TestQuality(t *testing.T) {
@@ -156,5 +158,44 @@ func TestAudit(t *testing.T) {
 				t.Errorf("%s: %s head %v rear %v on %v", mode, sh.ID, sh.Head, sh.Rear, sh.Terrain)
 			}
 		}
+	}
+}
+
+// TestOpenSeaWeights weighs the open-sea shift at output scale: full on open
+// water, none inside an island, less on a pier hex, and none for white crests.
+func TestOpenSeaWeights(t *testing.T) {
+	grid := hexgrid.Grid{Width: 9, Lines: 19}
+	lines := make([][]level.Hex, grid.Lines)
+	for l := range lines {
+		lines[l] = make([]level.Hex, grid.Width-l%2)
+		for c := range lines[l] {
+			lines[l][c].Terrain = "waterSea"
+		}
+	}
+	island := hexgrid.Coord{Line: 9, Col: 4}
+	for _, c := range append(grid.Neighbors(island), island) {
+		lines[c.Line][c.Col].Terrain = "grass"
+	}
+	lines[3][2] = level.Hex{Terrain: "water", Infra: level.Infra{IDs: []string{"rBridge36"}}}
+	const scale = 1.41
+	w, h := maprender.Size(grid)
+	w, h = int(float64(w)*scale), int(float64(h)*scale)
+	weights := waterWeights(image.Rect(0, 0, w, h), lines, grid, 1/scale, 1/scale)
+	at := func(c hexgrid.Coord) float32 {
+		x, y := hexgrid.Center(c)
+		x, y = x*scale, y*scale
+		return weights[int(y)/waterStep*(w/waterStep+1)+int(x)/waterStep]
+	}
+	if got := at(hexgrid.Coord{Line: 15, Col: 6}); got < 0.99 {
+		t.Errorf("open sea weight %.2f, want 1", got)
+	}
+	if got := at(island); got > 0.01 {
+		t.Errorf("island weight %.2f, want 0", got)
+	}
+	if got := at(hexgrid.Coord{Line: 3, Col: 2}); got > 0.5 {
+		t.Errorf("pier weight %.2f, want under 0.5", got)
+	}
+	if seaShift(80, 80) != 1 || seaShift(255, 80) != 0 {
+		t.Errorf("sea shift %.2f at the sea mean, %.2f at white", seaShift(80, 80), seaShift(255, 80))
 	}
 }
