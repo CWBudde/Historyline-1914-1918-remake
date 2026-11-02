@@ -157,6 +157,10 @@ go run ./cmd/hl art map -level levels/1914-10:cp -out build/review/painted-civil
 The render is the layout every section must follow; the tiles' flat look, hex-shaped patches and black
 border notches are not to be copied.
 
+`hl levels backdrop audit -o <audit.json> <month>` records what the painting must keep: terrain and
+overlay counts, every route, bridge, harbour, runway and hangar hex, the buildings with their entrances
+and contents per setup, the starting units and each linked ship's head, rear, midpoint and facing.
+
 For large guides, `hl levels backdrop jpeg -sections <plan.json> <month>` prepares
 registered PNG crops without changing the installed backdrop. The JSON names
 `guide`, `directory`, `world`, `section_world`, `canvas` and `sections` (each with

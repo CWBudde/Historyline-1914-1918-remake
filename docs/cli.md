@@ -35,7 +35,7 @@ The existing `just` shortcuts use `hl` too.
 | `review gallery` | Comparison desk, composer and PULSE study | `gfx-game-review`, `gfx-study` |
 | `levels extract` | Extract the local original maps as level JSON | |
 | `levels campaign` | Write the campaign folders from the original maps; overwrites setups, keeps backdrops and front pages | `levels-campaign` |
-| `levels backdrop jpeg` / `check` | Encode `backdrop.png` to `backdrop.jpg`; check the backdrops | `backdrop-jpeg` |
+| `levels backdrop jpeg` / `check` / `audit` | Encode `backdrop.png` to `backdrop.jpg`; check the backdrops; record what a painting must keep | `backdrop-jpeg` |
 | `llmplay new` / `prompt` / `step` / `run` | Start a recorded game; print the phase prompt; apply one batch of orders; drive a game ([llmplay](llmplay.md)) | `llmplay` |
 | `llmplay replay` / `render` / `review` / `gif` | Verify state hashes; frames and video; lessons; GIF | |
 | `preview effects` | Unit movement and effects preview (needs a display) | |

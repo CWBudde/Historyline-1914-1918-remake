@@ -2,6 +2,7 @@ package hlbackdrop
 
 import (
 	"bytes"
+	"encoding/json"
 	"image"
 	"image/jpeg"
 	"image/png"
@@ -9,6 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 func TestQuality(t *testing.T) {
@@ -117,5 +120,41 @@ func TestShipped(t *testing.T) {
 	}
 	for _, err := range check(filepath.Join("..", "..", "levels")) {
 		t.Error(err)
+	}
+}
+
+// TestAudit records WATER (1918-11): its buildings, every setup's units
+// and the two-cell ships with both halves on neighbouring water hexes.
+func TestAudit(t *testing.T) {
+	out := filepath.Join(t.TempDir(), "audit.json")
+	var log bytes.Buffer
+	if err := Run([]string{"audit", "-levels", filepath.Join("..", "..", "levels"), "-o", out, "1918-11"}, &log, &log); err != nil {
+		t.Fatal(err)
+	}
+	b, err := os.ReadFile(out)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var audit struct {
+		Season    string
+		Buildings []auditBuilding
+		Setups    map[string]auditSetup
+	}
+	if err := json.Unmarshal(b, &audit); err != nil {
+		t.Fatal(err)
+	}
+	if audit.Season != "winter" || len(audit.Buildings) != 7 || len(audit.Setups) != 3 {
+		t.Fatalf("season %q, %d buildings, %d setups", audit.Season, len(audit.Buildings), len(audit.Setups))
+	}
+	for mode, s := range audit.Setups {
+		if len(s.Units) != 101 || len(s.Ships) != 31 {
+			t.Errorf("%s: %d units, %d ships", mode, len(s.Units), len(s.Ships))
+		}
+		for _, sh := range s.Ships {
+			d := hexgrid.Distance(hexgrid.Coord{Line: sh.Head[0] - 1, Col: sh.Head[1] - 1}, hexgrid.Coord{Line: sh.Rear[0] - 1, Col: sh.Rear[1] - 1})
+			if d != 1 || !strings.HasPrefix(sh.Terrain[0], "water") || !strings.HasPrefix(sh.Terrain[1], "water") {
+				t.Errorf("%s: %s head %v rear %v on %v", mode, sh.ID, sh.Head, sh.Rear, sh.Terrain)
+			}
+		}
 	}
 }
