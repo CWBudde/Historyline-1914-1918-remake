@@ -125,10 +125,13 @@ One registered railway retains its destroyed intervals; closed spurs have timber
 bridge stubs keep their missing spans. Worn approaches finish the supply paths. Four ships and two
 land units start on adjacent hexes clear of banks and roofs.
 
-STERN/SODOM (`1918-06`, 3829×4403) has full June greenery, damp shell-torn earth and soft
-daylight after overnight rain, at the same density. Both path loops stay continuous; unmarked gravel
-joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
-support the starting units, with all scenario placements preserved.
+STERN/SODOM (`1918-06`, 3829×4403) has June greenery under bright late-morning light: lush meadow
+with field flowers and woods in fresh green leaf. A vast ring of shell-torn ground surrounds the
+central HQ: one cratered battlefield with wire, stumps and duckboards and a ragged edge that thins
+into the meadow. Both path loops run through it in green corridors, and sandbagged trenches lie only
+on the map's trench hexes. The central HQ is a battered chalk-stone fortress with sandbagged towers
+and a wired dry ditch; the south-west HQ is a red-brick manor castle with a lily-pad moat. The depots
+are an ammunition store and an engineer park.
 
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
@@ -235,6 +238,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
+STERN (2226×2560) uses sixteen: columns at x 0, 499, 999, 1498 and rows at y 0, 611, 1222, 1833.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water
