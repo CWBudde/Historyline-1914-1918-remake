@@ -130,6 +130,17 @@ daylight after overnight rain, at the same density. Both path loops stay continu
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
+GREEN (`1918-07`, 7100×6061, 1.58 image px per world px so that its source stays below GitHub's
+file limit) has July high summer: lush meadow with field flowers, woods in full dark-green leaf,
+limestone hills, a clear winding river crossed by long timber road bridges, and earth roads under
+warm late-morning light. Three mown grass airstrips have canvas hangars beside them. The large
+central shell field has a ragged edge of single craters running out into the meadow, and its
+sandbagged trenches cut through green grass. Its HQs are a Champagne castle of banded red brick and
+chalk with slate cones, a round donjon, a gate tower and a dry ditch, and a moated ochre château with
+red-tiled cones, a lily-pad moat, a spired gatehouse and four lindens. Its factories are a flour
+mill, a champagne house with grassed cellars, an aircraft repair park, a tannery, a wire works, a
+dairy, a tile works and a distillery; its eight depots each hold different stores.
+
 TROLL (`1918-08`, 1875×2202) uses the same density, with mid-August greenery: lush green meadow
 with field flowers, woods in full dark-green leaf, limestone hills, one limestone massif in the
 south-west corner, a clear stream and earth roads, under bright morning light. Its three fronts are
@@ -246,6 +257,8 @@ CANDL/ORDER uses twenty-eight sections at x 0, 499, 998, 1498 and y 0, 518, 1037
 PAUSE/SIGMA and RHEIN/MOSEL use twenty-four of those sections: columns at x 0, 538, 1077, 1615,
 2154, 2692, 3231, 3770 and rows at y 0, 596, 1193.
 GRAND uses thirty-two: the same columns and rows at y 0, 611, 1222, 1833.
+GREEN uses Flanders' fifty-six: the same columns and CANDL's rows. It is stitched at Flanders'
+density (7640×6522) and scaled to its output size in finishing.
 
 WATER/TRUCE uses thirty-five 888×887 world-pixel sections on 1252×1250 canvases, at the output
 density: columns at x 0, 619, 1237, 1856, 2474 and rows at y 0, 706, 1411, 2117, 2822, 3528, 4233.
