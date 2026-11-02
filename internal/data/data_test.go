@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-// python is testdata/python.json, written by testdata/gen_python.py from
+// python is testdata/python.json, a frozen golden of the Python remake's
 // hlrData.py: the data tables and the results of the infrastructure loop in
 // HexSquare.__init__.
 type python struct {
