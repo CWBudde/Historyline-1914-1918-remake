@@ -130,6 +130,14 @@ daylight after overnight rain, at the same density. Both path loops stay continu
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
+GRAND (`1918-09`, 7737×4403) uses the same density, with early-September greenery: lush green meadow,
+woods still in full leaf with an occasional yellowing crown, limestone outcrops, a clear river and
+lakes, and churned shell-torn ground under warm afternoon light. It was painted from a summer-tile
+guide, so the map's autumn rules season does not brown it. Its HQs are a dark basalt castle with a
+square keep, an L-shaped red-tiled hall and a dry ditch, and a pale limestone château-fort with slate
+cones, a moat and a parterre. Its factories are a sugar refinery, a brewery, a lakeside paper mill, a
+cotton spinning mill and an iron foundry; its nine depots each hold different stores.
+
 Flanders (`1918-10`, 7640×6522) has wet October ground, copper/rust foliage and peripheral
 harvested and ploughed fields around an open central fighting area. Its 56 registered sections
 use PAUSE's columns and CANDL's rows; all-overlap RGB balancing prevents chained exposure drift.
@@ -227,6 +235,7 @@ CANDL/ORDER uses twenty-eight sections at x 0, 499, 998, 1498 and y 0, 518, 1037
 
 PAUSE/SIGMA and RHEIN/MOSEL use twenty-four of those sections: columns at x 0, 538, 1077, 1615,
 2154, 2692, 3231, 3770 and rows at y 0, 596, 1193.
+GRAND uses thirty-two: the same columns and rows at y 0, 611, 1222, 1833.
 
 WATER/TRUCE uses thirty-five 888×887 world-pixel sections on 1252×1250 canvases, at the output
 density: columns at x 0, 619, 1237, 1856, 2474 and rows at y 0, 706, 1411, 2117, 2822, 3528, 4233.
