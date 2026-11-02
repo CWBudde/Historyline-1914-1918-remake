@@ -45,7 +45,7 @@ evidence under `build/review/backdrops/<month>/`. Tick the month only when all i
 subtasks have evidence. Extra candidates, new variants or map/setup changes require
 separate approval under the standing scope rules.
 
-- [ ] [1918-10](levels/1918-10/) — the Flanders painting described in
+- [x] [1918-10](levels/1918-10/) — the Flanders painting described in
       [Painted backdrops](docs/painted-backdrops.md).
   - [x] Audit `levels/1918-10/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. Repeated after the factory and shoreline corrections: `build/review/backdrops/1918-10/current-audit.json`; binding and scenario checks passed. User approved the corrected map and resumed painting, adding fields outside the centre to the brief.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User approved the October 1915 style, wet autumn ground and cool diffuse light; brief: `build/review/backdrops/1918-10/brief.md`.
@@ -65,7 +65,7 @@ separate approval under the standing scope rules.
   - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Global check passed; `installed-global-check.log`, `installed-sha256.txt`. Map/setup/style hashes are unchanged (`installed-map-baseline-check.log`).
   - [x] Review `1918-10:cp`, `1918-10:ec` and `1918-10:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. All three modes produced 33 opening/zoom frames each with zero terrain gaps/compound issues. All 196 inherited starts were swept in 45 groups at normal/close zoom (`game-pan/`), with dedicated views of all 14 linked hulls. The approved transport bank correction was checked at both zooms; all other pixels outside the local mask bounds are unchanged.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `build/review/backdrops/1918-10/verification.md` indexes the results, prompts and runtime captures; targeted scenario, binding, backdrop and CLI tests pass.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `c19c2b75`, integrated with concurrent main changes in `8e925526`; push succeeded. All four targeted packages and the global backdrop check passed again after integration.
 
 - [ ] [1915-03](levels/1915-03/)
   - [ ] Audit `levels/1915-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
