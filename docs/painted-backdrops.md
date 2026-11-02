@@ -131,8 +131,10 @@ joins the HQ and compound approaches. Compacted-earth pockets and small woodland
 support the starting units, with all scenario placements preserved.
 
 TROLL (`1918-08`, 1875×2202) uses the same density, with mid-August greenery: lush green meadow
-with field flowers, woods in full dark-green leaf, limestone hills, a clear stream, earth roads and
-two lines of sandbagged trenches between shell-torn mud fields, under bright morning light. Its HQs
+with field flowers, woods in full dark-green leaf, limestone hills, one limestone massif in the
+south-west corner, a clear stream and earth roads, under bright morning light. Its three fronts are
+each one shell-torn zone of mud and craters with barbed wire, the sandbagged trenches and their saps
+cut through it. Its HQs
 are an ochre sandstone Lorraine fortress with a donjon, a barbican and a courtyard chapel, and a
 Flemish brick castle with stepped gables, a kitchen garden and willows at the gate. Its factories are
 a steam sawmill and a brickworks; its two houses are post windmills with cottages.
