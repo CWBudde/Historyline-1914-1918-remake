@@ -11,7 +11,7 @@ import (
 
 // Hex is the terrain of one map hex: its background ID and its infrastructure
 // IDs in stored (drawing) order. Vacant marks a hex the level gives no building
-// content: a depot whose entrance is vacant is destroyed (LevelHex sets it).
+// content: a depot whose entrance is vacant is half built (LevelHex sets it).
 // Season is the season a hex is drawn in when it differs from the map's; its
 // shores, overlays and standing items then follow it instead of the map
 // (mostlyWinter). "" for the map's.
@@ -238,14 +238,15 @@ func seasonalOverlay(id string, winter bool, has func(string) bool) string {
 	return id
 }
 
-// ruinPrefix names the pieces of a destroyed depot: tile/ruinN, ruinW, ruinE and
-// ruinS with the depot's season suffix.
-const ruinPrefix = "ruin"
+// sitePrefix names the pieces of a half depot, the construction site:
+// tile/siteN, siteW, siteE and siteS with the depot's season suffix.
+const sitePrefix = "site"
 
 // registerCompounds checks that every compound piece belongs to a complete group
 // of the same season. A mountain quarter outside a group is shown as a whole
 // mountain (display only); any other stray piece is an Issue. A complete depot
-// whose entrance is vacant draws the ruin pieces where the catalog has all four.
+// whose entrance is vacant (the half depot) draws the site pieces where the
+// catalog has all four.
 func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) bool) {
 	g := s.Grid
 	claimed := map[hexgrid.Coord]bool{}
@@ -272,7 +273,7 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) b
 				claimed[x] = true
 			}
 			if group != nil && cp.Prefix == "cmp" && at(c).Vacant {
-				s.ruin(group, sfx, has)
+				s.site(group, sfx, has)
 			}
 		}
 	}
@@ -294,15 +295,15 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) b
 	}
 }
 
-// ruin draws a destroyed depot group (piece → hex) with the ruin pieces of its
+// site draws a half depot group (piece → hex) with the site pieces of its
 // season, or leaves the intact pieces when the catalog lacks any of them.
-func (s *Scene) ruin(group map[string]hexgrid.Coord, sfx string, has func(string) bool) {
+func (s *Scene) site(group map[string]hexgrid.Coord, sfx string, has func(string) bool) {
 	for p := range group {
-		if !has(TileID(ruinPrefix + p + sfx)) {
+		if !has(TileID(sitePrefix + p + sfx)) {
 			return
 		}
 	}
 	for p, x := range group {
-		s.Cells[x.Line][x.Col].Background = TileID(ruinPrefix + p + sfx)
+		s.Cells[x.Line][x.Col].Background = TileID(sitePrefix + p + sfx)
 	}
 }

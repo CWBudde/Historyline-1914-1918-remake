@@ -27,17 +27,24 @@ const (
 	plain ground = iota
 	trench
 	filled
-	depotN // a depot's pieces, half or complete
+	depotN // a complete depot's pieces
 	depotE
 	depotS
 	depotW
+	halfN // a half depot's pieces
+	halfE
+	halfS
+	halfW
 )
 
-// depotGround are the depot records, half (21-24) and complete (15-20).
+// depotGround are the depot records, complete (15-20) and half (21-24).
 var depotGround = map[int]ground{
 	15: depotN, 16: depotN, 17: depotN, 18: depotS, 19: depotW, 20: depotE,
-	21: depotN, 22: depotS, 23: depotW, 24: depotE,
+	21: halfN, 22: halfS, 23: halfW, 24: halfE,
 }
+
+// depotOwner is the owner of a complete depot by its N piece's record.
+var depotOwner = map[int]int{15: 2, 16: 0, 17: 1}
 
 func groundOf(rec int) ground {
 	switch {
@@ -101,8 +108,10 @@ func (s *Session) Work(side, unit int, to hexgrid.Coord) (hexes []hexgrid.Coord,
 // units changed, as the current terrain records make them: a dug hex is
 // grass with a trench whose ports lead to its trench neighbours, a filled one
 // grass without its trench (its record, 0x51, plays as grass), a depot's hex,
-// half or complete, the depot's piece without infrastructure. The other hexes
-// are the level's.
+// half or complete, the depot's piece without infrastructure. A complete
+// depot's N piece holds its owner as content; a half depot has none, which
+// the map draws as the construction site (a depot the level gives no content
+// binds to the half depot's records). The other hexes are the level's.
 func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 	out := map[hexgrid.Coord]level.Hex{}
 	m := s.Game.Maps[0]
@@ -114,8 +123,12 @@ func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 		}
 		h := s.Level.Lines[c.Line][c.Col]
 		if g := groundOf(rec); g >= depotN {
-			h.Terrain = s.season("cmp" + string("NESW"[g-depotN]))
+			h.Terrain = s.season("cmp" + string("NESW"[(g-depotN)%4]))
 			h.Infra = level.Infra{}
+			h.Content = nil
+			if side, ok := depotOwner[rec]; ok {
+				h.Content = &level.Content{Owner: int(s.Faction(side))}
+			}
 			out[c] = h
 			continue
 		}

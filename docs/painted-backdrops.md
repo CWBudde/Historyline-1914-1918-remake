@@ -146,6 +146,18 @@ November meadow, rust-brown woods and churned clay tracks under flat overcast li
 middle stays plain; the map edges, where no units start, carry the invention: ploughland, hedgerows,
 pollard willows, drainage ditches, a flooded meadow, a ruined farmstead and an orchard.
 
+WATER/TRUCE (`1918-11`, 4740×7219) uses 1.41 image px per world px: eight North Sea islands under a
+thin, wind-scoured first snow with dun dune grass and heather, snow-dusted pines and a cold
+whitecapped sea under low overcast light. The open sea is one texture quilted from PARTS's open sea,
+so both winter sea maps share its deep blue chop; the painted surf and turquoise shallows stay along
+the coasts. A pale turquoise lagoon with sandy shoals fills the shallows
+between the central islands; timber piers on piles end in open water and causeways reach the two
+factories. Its HQs are two coastal forts: one of red brick with four round slate-capped towers, a dry
+ditch, a gatehouse and casemate mounds, one of grey granite with four square towers, a twin-turret
+gatehouse, a glacis and an L-shaped hall. The factories are a seaplane works with twin arched sheds
+and a naval dockyard with a saw-tooth machine hall; the depots are a fenced coal depot and an
+ammunition depot with magazines in horseshoe traverses. All linked ships start on open water.
+
 Imagegen outputs are about 1.57 megapixels (1536×1024 or 1254×1254), far less than a whole map. A
 backdrop is therefore painted in overlapping sections, each registered to a render of the level, and
 stitched.
@@ -160,6 +172,10 @@ go run ./cmd/hl art map -level levels/1914-10:cp -out build/review/painted-civil
 
 The render is the layout every section must follow; the tiles' flat look, hex-shaped patches and black
 border notches are not to be copied.
+
+`hl levels backdrop audit -o <audit.json> <month>` records what the painting must keep: terrain and
+overlay counts, every route, bridge, harbour, runway and hangar hex, the buildings with their entrances
+and contents per setup, the starting units and each linked ship's head, rear, midpoint and facing.
 
 For large guides, `hl levels backdrop jpeg -sections <plan.json> <month>` prepares
 registered PNG crops without changing the installed backdrop. The JSON names
@@ -212,6 +228,11 @@ CANDL/ORDER uses twenty-eight sections at x 0, 499, 998, 1498 and y 0, 518, 1037
 PAUSE/SIGMA and RHEIN/MOSEL use twenty-four of those sections: columns at x 0, 538, 1077, 1615,
 2154, 2692, 3231, 3770 and rows at y 0, 596, 1193.
 
+WATER/TRUCE uses thirty-five 888×887 world-pixel sections on 1252×1250 canvases, at the output
+density: columns at x 0, 619, 1237, 1856, 2474 and rows at y 0, 706, 1411, 2117, 2822, 3528, 4233.
+Its edge crops have their border notches filled (`bdp fill`): unfilled, the tool re-framed three edge
+sections by 50 to 130 px.
+
 ## 3. Painting a section
 
 One `/gfx-imagegen` run per section (`gen.sh`, prompt from `assemble.sh terrain`):
@@ -249,6 +270,11 @@ without replacing installed art. The section plan additionally names `output`,
 For maps with several rows, set `balance` to `"all-overlaps"` to solve RGB exposure gains across every
 horizontal and vertical neighbour together, then normalize their arithmetic mean to 1. This avoids
 the exposure drift a long row-by-row gain chain can produce. Omitting it keeps chained gains.
+On a sea map set `"open-sea"`: each section's water is shifted additively to the mean of all sections'
+open sea (sea hexes with only sea around them), weighted by a blurred mask of the water hexes without
+piers and faded towards white, so land, shores, piers and whitecaps keep their paint; overlap gains
+there tint whole islands, because the sections' seas differ in hue. `balanced` names an optional
+directory for each section as balanced, for `-lightness` checks of the overlaps.
 `-inspect <plan.json>` exports native-resolution join crops and hex-grid overlays
 to the plan's `review` directory. Both modes refuse existing output files.
 
@@ -284,6 +310,12 @@ change L*. Compare matching ground, rather than whole-map averages with differen
 - Save the painting as its source PNG, write the JPEG next to the scenario file (`just backdrop-jpeg`) and
   set `backdrop`; check it in the game with units on top at
   normal and close zoom.
+- On a sea map, review the whole map scaled down to about a quarter: sections paint the open sea in
+  different hues and wave scales, a patchwork that the balance evens in colour but not in texture.
+  Replace it with one sea: quilt a texture from a finished map's open sea (scaled to this map's image
+  px per world px) and lay it over the sea hexes with a noisy, feathered border a little inside them,
+  shifting the kept coastal water to the texture's mean colour (`bdp quilt`, `bdp sea` in the
+  backdrop-patch skill).
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
   unit overlays can hide hull collisions with shores and piers.
 

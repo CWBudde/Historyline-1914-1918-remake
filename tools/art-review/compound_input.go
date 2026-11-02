@@ -30,7 +30,7 @@ type compoundSceneInput struct {
 	// EntryRoad pins the connected-road manifest whose straight road through
 	// the entry port the entry street blends into at the gate.
 	EntryRoad *connectionMaterial `json:"entry_road,omitempty"`
-	// EdgeFeather (world px; HQ, depot, ruined depot and factory with an entry
+	// EdgeFeather (world px; HQ, depot, ruined depot, construction site and factory with an entry
 	// road) fades the artwork out along an irregular line towards the outer
 	// boundary, beside the entry corridor.
 	EdgeFeather float64 `json:"edge_feather,omitempty"`

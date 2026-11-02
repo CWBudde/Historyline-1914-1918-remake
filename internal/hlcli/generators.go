@@ -33,6 +33,7 @@ var generators = []generator{
 	{"ruin-tiles", "campaigngfx", "TestGenerateRuinTiles", "art-review", "Install ruin terrain"},
 	{"sea-kit", "campaigngfx", "TestGenerateSeaKit", "art-review", "Install sea kit items"},
 	{"sea-tiles", "campaigngfx", "TestGenerateSeaTiles", "art-review", "Install open sea terrain"},
+	{"site-tiles", "campaigngfx", "TestGenerateSiteTiles", "art-review", "Install depot construction site terrain"},
 	{"surf", "campaigngfx", "TestGenerateSurf", "art-review", "Install surf terrain"},
 	{"water-rocks", "campaigngfx", "TestGenerateWaterRocks", "art-review", "Install rocks in water"},
 	{"winter-paths-and-rails", "campaigngfx", "TestGenerateWinterPathsAndRails", "art-review", "Install winter paths and rails"},

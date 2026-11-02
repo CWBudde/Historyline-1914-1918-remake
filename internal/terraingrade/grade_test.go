@@ -199,7 +199,7 @@ func TestShippedBuildings(t *testing.T) {
 	}
 	meadow := load("grass/grass-2x.png")
 	m := Grade(meadow, "x", "none", nil)
-	for _, family := range []string{"house", "hq", "cmp", "factory"} {
+	for _, family := range []string{"house", "hq", "cmp", "site", "factory"} {
 		files, err := filepath.Glob(filepath.Join("../../assets/terrain", family, "*-2x.png"))
 		if err != nil || len(files) == 0 {
 			t.Fatalf("%s: no tiles (%v)", family, err)
@@ -340,6 +340,29 @@ func TestSeasonalForms(t *testing.T) {
 			if got := Grade(flat(c, 2, 2), id+sfx, "terrain/forest", nil).NRGBAAt(0, 0); got != summer {
 				t.Errorf("%s%s grades to %v, its summer form to %v", id, sfx, got, summer)
 			}
+		}
+	}
+}
+
+// The construction site's offset follows the yellow: its snow and grey stone
+// grade as on a family without a row, its yellow dirt loses b*.
+func TestSiteOffsetFollowsYellow(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		c     color.NRGBA
+		id    string
+		shift bool
+	}{
+		{"snow", color.NRGBA{205, 208, 212, 255}, "tile/siteN_w", false},
+		{"stone", color.NRGBA{138, 138, 138, 255}, "tile/siteN", false},
+		{"dirt", color.NRGBA{170, 135, 80, 255}, "tile/siteN", true},
+	} {
+		site := Grade(flat(tc.c, 2, 2), tc.id, "terrain/site", nil).NRGBAAt(0, 0)
+		plain := Grade(flat(tc.c, 2, 2), tc.id, "terrain/grass", nil).NRGBAAt(0, 0)
+		_, _, bs := lab(site)
+		_, _, bp := lab(plain)
+		if tc.shift != (bs < bp-1) || !tc.shift && math.Abs(bs-bp) > 0.5 {
+			t.Errorf("%s: b* %.2f on the site, %.2f without a row", tc.name, bs, bp)
 		}
 	}
 }

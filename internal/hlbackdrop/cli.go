@@ -1,6 +1,7 @@
 package hlbackdrop
 
 import (
+	"cmp"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -10,26 +11,43 @@ import (
 	"image/draw"
 	"image/png"
 	"io"
+	"maps"
 	"math"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
+	"slices"
+	"strings"
 
-	xdraw "golang.org/x/image/draw"
-
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	xdraw "golang.org/x/image/draw"
 )
 
 // Run prepares painting sections and joins, or encodes/checks backdrop JPEGs.
 func Run(args []string, stdout, stderr io.Writer) error {
-	if len(args) == 0 || (args[0] != "jpeg" && args[0] != "check") {
-		return fmt.Errorf("usage: hl levels backdrop jpeg|check [flags]")
+	if len(args) == 0 || (args[0] != "jpeg" && args[0] != "check" && args[0] != "audit") {
+		return fmt.Errorf("usage: hl levels backdrop jpeg|check|audit [flags]")
 	}
 	f := flag.NewFlagSet("hl levels backdrop "+args[0], flag.ContinueOnError)
 	f.SetOutput(stderr)
 	levels := f.String("levels", "levels", "the levels directory")
+	if args[0] == "audit" {
+		out := f.String("o", "", "write the audit JSON to this file instead of stdout; refuses an existing file")
+		if err := f.Parse(args[1:]); err != nil {
+			return err
+		}
+		if f.NArg() != 1 {
+			return fmt.Errorf("audit requires exactly one level name")
+		}
+		return auditLevel(*levels, f.Arg(0), *out, stdout)
+	}
 	var q int
 	var placeholder bool
 	var assets string
@@ -672,7 +690,14 @@ type paintedSection struct {
 	Origin   [2]int     `json:"origin"`
 	Painting string     `json:"painting"`
 	Gain     [3]float64 `json:"gain"`
-	image    *image.NRGBA
+	// Offset is the open-sea balance's RGB shift of the section's water.
+	Offset [3]float64 `json:"offset,omitzero"`
+	image  *image.NRGBA
+	// water weighs Offset per pixel: 1 on water, 0 on land, sampled every
+	// waterStep output pixels; nil for the gain balances.
+	water     []float32
+	waterStep int
+	seaLuma   float64 // the luma of the section's open-sea mean
 }
 
 type paintedSeam struct {
@@ -690,6 +715,7 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 		Columns, Rows     []int
 		Painted, Stitched string
 		Balance           string
+		Balanced          string // optional directory for each section as balanced, at output scale
 		Sections          []paintedSection
 	}
 	data, err := os.ReadFile(planPath)
@@ -699,7 +725,7 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 	if err := json.Unmarshal(data, &plan); err != nil {
 		return err
 	}
-	if plan.Balance != "" && plan.Balance != "all-overlaps" {
+	if plan.Balance != "" && plan.Balance != "all-overlaps" && plan.Balance != "open-sea" {
 		return fmt.Errorf("unknown painting balance %q", plan.Balance)
 	}
 	b, err := find(levels, name)
@@ -802,6 +828,11 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 			return err
 		}
 	}
+	if plan.Balance == "open-sea" {
+		if err := balanceOpenSea(plan.Sections, lvl.Lines, lvl.Grid(), float64(w)/float64(ow), float64(h)/float64(oh)); err != nil {
+			return err
+		}
+	}
 	var meanGain [3]float64
 	for _, s := range plan.Sections {
 		for c, g := range s.Gain {
@@ -817,8 +848,24 @@ func stitchSections(levels, name, planPath string, stdout io.Writer) error {
 			if s.image.Pix[p+3] != 255 {
 				return fmt.Errorf("transparent painting %s", s.ID)
 			}
+			if s.water != nil {
+				q, dx := p/4, s.image.Bounds().Dx()
+				wt := float64(s.water[q/dx/s.waterStep*(dx/s.waterStep+1)+q%dx/s.waterStep])
+				px := s.image.Pix[p : p+3 : p+3]
+				k := wt * seaShift(luma([3]float64{float64(px[0]), float64(px[1]), float64(px[2])}), s.seaLuma)
+				for c, o := range s.Offset {
+					px[c] = uint8(math.Round(math.Max(0, math.Min(255, float64(px[c])+k*o))))
+				}
+				continue
+			}
 			for c, g := range s.Gain {
 				s.image.Pix[p+c] = uint8(math.Round(math.Min(255, float64(s.image.Pix[p+c])*g)))
+			}
+		}
+		if plan.Balanced != "" {
+			// For lightness checks of the overlaps as they are stitched.
+			if err := writeExclusivePNG(filepath.Join(plan.Balanced, s.ID+".png"), s.image); err != nil {
+				return err
 			}
 		}
 	}
@@ -1308,6 +1355,366 @@ func fillPlaceholderEdges(im *image.NRGBA, grid hexgrid.Grid) error {
 		a := uint32(src.A)
 		mix := func(f, b uint8) uint8 { return uint8((uint32(f)*a + uint32(b)*(255-a) + 127) / 255) }
 		im.SetNRGBA(p%w, p/w, color.NRGBA{R: mix(src.R, bg.R), G: mix(src.G, bg.G), B: mix(src.B, bg.B), A: 255})
+	}
+	return nil
+}
+
+// auditHex is a hex in setup-file form: [line, column], both from 1.
+type auditHex [2]int
+
+func auditAt(c hexgrid.Coord) auditHex { return auditHex{c.Line + 1, c.Col + 1} }
+
+type auditInfra struct {
+	At      auditHex `json:"at"`
+	ID      string   `json:"id"`
+	Terrain string   `json:"terrain"`
+}
+
+type auditBuilding struct {
+	Kind      string                         `json:"kind"`
+	Hexes     []auditHex                     `json:"hexes"`
+	Entrances map[scenario.Mode]auditHex     `json:"entrances,omitempty"`
+	Content   map[scenario.Mode]auditContent `json:"content,omitempty"`
+}
+
+type auditContent struct {
+	Owner   string   `json:"owner"`
+	Credits int      `json:"credits"`
+	Units   []string `json:"units,omitempty"`
+}
+
+type auditUnit struct {
+	At      auditHex `json:"at"`
+	ID      string   `json:"id"`
+	Terrain string   `json:"terrain"`
+	Infra   []string `json:"infra,omitempty"`
+}
+
+// auditShip is a two-cell ship as the game draws it: its long sprite at the
+// midpoint between the hex centres, facing from the rear to the head.
+type auditShip struct {
+	ID       string     `json:"id"`
+	Head     auditHex   `json:"head"`
+	Rear     auditHex   `json:"rear"`
+	Midpoint [2]float64 `json:"midpoint_world"`
+	Facing   string     `json:"facing"`
+	Terrain  [2]string  `json:"terrain"`
+}
+
+type auditSetup struct {
+	From  scenario.Mode `json:"from,omitempty"`
+	Code  string        `json:"code,omitempty"`
+	Units []auditUnit   `json:"units"`
+	Ships []auditShip   `json:"linked_ships"`
+}
+
+// auditLevel records what a painting of a level must keep: terrain, routes,
+// waterways, buildings, airfields, the starting units of every setup and the
+// linked ships' hulls.
+func auditLevel(levels, name, outPath string, stdout io.Writer) error {
+	b, err := find(levels, name)
+	if err != nil {
+		return err
+	}
+	file, err := scenario.Load(filepath.Dir(b.src))
+	if err != nil {
+		return err
+	}
+	set, err := data.Load()
+	if err != nil {
+		return err
+	}
+	var audit struct {
+		Level          string                       `json:"level"`
+		Name           string                       `json:"name"`
+		Season         string                       `json:"season"`
+		SeasonHexes    map[string]int               `json:"season_hexes,omitempty"`
+		Hexes          [2]int                       `json:"hexes"`
+		World          [2]int                       `json:"world"`
+		Terrain        map[string]int               `json:"terrain"`
+		Infrastructure map[string][]auditInfra      `json:"infrastructure"`
+		Buildings      []auditBuilding              `json:"buildings"`
+		Houses         []auditHex                   `json:"houses"`
+		Setups         map[scenario.Mode]auditSetup `json:"setups"`
+	}
+	audit.Level, audit.Name, audit.Season = name, file.Name, file.Season
+	audit.Terrain = map[string]int{}
+	audit.Infrastructure = map[string][]auditInfra{}
+	audit.Setups = map[scenario.Mode]auditSetup{}
+	for _, s := range file.Seasons {
+		if audit.SeasonHexes == nil {
+			audit.SeasonHexes = map[string]int{}
+		}
+		audit.SeasonHexes[s]++
+	}
+	buildingKind := regexp.MustCompile(`^(hq|factory|cmp|mount)[A-Z]`)
+	kindOf := map[hexgrid.Coord]string{}
+	for line, hexes := range file.Map {
+		for col, h := range hexes {
+			c := hexgrid.Coord{Line: line, Col: col}
+			kind := data.Kind(h.Terrain)
+			audit.Terrain[kind]++
+			for _, id := range h.Infra.IDs {
+				name := strings.TrimRight(id, "0123456789")
+				audit.Infrastructure[name] = append(audit.Infrastructure[name], auditInfra{auditAt(c), id, kind})
+			}
+			if m := buildingKind.FindStringSubmatch(kind); m != nil {
+				kindOf[c] = m[1]
+			}
+			if kind == "house" {
+				audit.Houses = append(audit.Houses, auditAt(c))
+			}
+		}
+	}
+	lvl, err := file.Level(scenario.CP)
+	if err != nil {
+		return err
+	}
+	grid := lvl.Grid()
+	audit.Hexes = [2]int{len(file.Map[0]), len(file.Map)}
+	audit.World[0], audit.World[1] = maprender.Size(grid)
+	// A building is a connected group of hexes of one kind.
+	group := map[hexgrid.Coord]int{}
+	for _, c := range slices.SortedFunc(maps.Keys(kindOf), func(a, b hexgrid.Coord) int {
+		return cmp.Or(cmp.Compare(a.Line, b.Line), cmp.Compare(a.Col, b.Col))
+	}) {
+		if _, ok := group[c]; ok {
+			continue
+		}
+		bd := auditBuilding{Kind: kindOf[c]}
+		group[c] = len(audit.Buildings)
+		for queue := []hexgrid.Coord{c}; len(queue) > 0; queue = queue[1:] {
+			bd.Hexes = append(bd.Hexes, auditAt(queue[0]))
+			for _, n := range grid.Neighbors(queue[0]) {
+				if _, seen := group[n]; !seen && kindOf[n] == bd.Kind {
+					group[n] = len(audit.Buildings)
+					queue = append(queue, n)
+				}
+			}
+		}
+		slices.SortFunc(bd.Hexes, func(a, b auditHex) int { return cmp.Or(cmp.Compare(a[0], b[0]), cmp.Compare(a[1], b[1])) })
+		audit.Buildings = append(audit.Buildings, bd)
+	}
+	for _, m := range scenario.Modes {
+		setup, ok := file.Setups[m]
+		if !ok {
+			continue
+		}
+		own := setup
+		if setup.From != "" {
+			own = file.Setups[setup.From]
+		}
+		for _, bc := range own.Buildings {
+			i, ok := group[bc.At]
+			if !ok {
+				return fmt.Errorf("%s: building entrance %v is no building hex", m, auditAt(bc.At))
+			}
+			bd := &audit.Buildings[i]
+			if bd.Entrances == nil {
+				bd.Entrances, bd.Content = map[scenario.Mode]auditHex{}, map[scenario.Mode]auditContent{}
+			}
+			bd.Entrances[m] = auditAt(bc.At)
+			bd.Content[m] = auditContent{Owner: bc.Owner.String(), Credits: bc.Credits, Units: bc.Units}
+		}
+		lv, err := file.Level(m)
+		if err != nil {
+			return err
+		}
+		as := auditSetup{From: setup.From, Code: setup.Code, Units: []auditUnit{}, Ships: []auditShip{}}
+		for line, hexes := range lv.Lines {
+			for col, h := range hexes {
+				if h.Unit != "" {
+					as.Units = append(as.Units, auditUnit{auditAt(hexgrid.Coord{Line: line, Col: col}), h.Unit, data.Kind(h.Terrain), h.Infra.IDs})
+				}
+			}
+		}
+		s, err := dosplay.New(lv, set, dosplay.Options{})
+		if err != nil {
+			return fmt.Errorf("%s: %w", m, err)
+		}
+		for c, u := range s.TrueView().Units {
+			if u.Rear == nil {
+				continue
+			}
+			r := *u.Rear
+			hx, hy := hexgrid.Center(c)
+			rx, ry := hexgrid.Center(r)
+			facing, _ := unitsprite.Toward(hx-rx, hy-ry)
+			as.Ships = append(as.Ships, auditShip{
+				ID: u.ID, Head: auditAt(c), Rear: auditAt(r),
+				Midpoint: [2]float64{(hx + rx) / 2, (hy + ry) / 2}, Facing: facing.String(),
+				Terrain: [2]string{data.Kind(lv.Lines[c.Line][c.Col].Terrain), data.Kind(lv.Lines[r.Line][r.Col].Terrain)},
+			})
+		}
+		slices.SortFunc(as.Ships, func(a, b auditShip) int {
+			return cmp.Or(cmp.Compare(a.Head[0], b.Head[0]), cmp.Compare(a.Head[1], b.Head[1]))
+		})
+		audit.Setups[m] = as
+	}
+	out, err := json.MarshalIndent(audit, "", "\t")
+	if err != nil {
+		return err
+	}
+	out = append(out, '\n')
+	if outPath == "" {
+		_, err := stdout.Write(out)
+		return err
+	}
+	f, err := os.OpenFile(outPath, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+	if err != nil {
+		return err
+	}
+	_, writeErr := f.Write(out)
+	if err := errors.Join(writeErr, f.Close()); err != nil {
+		return errors.Join(err, os.Remove(outPath))
+	}
+	_, err = fmt.Fprintln(stdout, outPath)
+	return err
+}
+
+// balanceOpenSea shifts each section's water so that the mean of its open sea,
+// the pixels on sea hexes whose neighbours are all sea, is the mean of all
+// sections' open sea. Sea maps differ in the sea's hue from section to section;
+// chained or solved overlap gains then tint whole islands, and gains turn white
+// crests pink. The shift is additive, weighted by the water weights and faded
+// towards white (seaShift); land, shores and piers keep their paint. sx and sy
+// scale output pixels to world pixels.
+func balanceOpenSea(sections []paintedSection, lines [][]level.Hex, grid hexgrid.Grid, sx, sy float64) error {
+	open := map[hexgrid.Coord]bool{}
+	sea := func(c hexgrid.Coord) bool {
+		if !grid.Contains(c) {
+			return true
+		}
+		t := lines[c.Line][c.Col].Terrain
+		return t == "waterSea" || t == "waterDeep"
+	}
+	for line := range lines {
+		for col := range lines[line] {
+			c := hexgrid.Coord{Line: line, Col: col}
+			if lines[line][col].Terrain != "waterSea" {
+				continue
+			}
+			open[c] = true
+			for _, n := range grid.Neighbors(c) {
+				if !sea(n) {
+					open[c] = false
+				}
+			}
+		}
+	}
+	for i := range sections {
+		s := &sections[i]
+		var sum [3]float64
+		n := 0
+		b := s.image.Bounds()
+		for y := b.Min.Y; y < b.Max.Y; y += 3 {
+			for x := b.Min.X; x < b.Max.X; x += 3 {
+				c, ok := grid.PixelToHex((float64(x)+0.5)*sx, (float64(y)+0.5)*sy)
+				if !ok || !open[c] {
+					continue
+				}
+				p := s.image.PixOffset(x, y)
+				for k := range sum {
+					sum[k] += float64(s.image.Pix[p+k])
+				}
+				n++
+			}
+		}
+		if n < 1000 {
+			return fmt.Errorf("section %s has too little open sea to balance (%d samples)", s.ID, n)
+		}
+		for k := range sum {
+			s.Offset[k] = sum[k] / float64(n) // the section's sea mean until the target is known
+		}
+		s.Gain = [3]float64{1, 1, 1}
+		s.water, s.waterStep = waterWeights(s.image.Bounds(), lines, grid, sx, sy), waterStep
+	}
+	var target [3]float64
+	for _, s := range sections {
+		for k, m := range s.Offset {
+			target[k] += m / float64(len(sections))
+		}
+	}
+	for i := range sections {
+		s := &sections[i]
+		s.seaLuma = luma(s.Offset)
+		for k := range s.Offset {
+			s.Offset[k] = target[k] - s.Offset[k]
+		}
+	}
+	return nil
+}
+
+func luma(c [3]float64) float64 { return 0.299*c[0] + 0.587*c[1] + 0.114*c[2] }
+
+// seaShift is how much of a section's sea offset a pixel of luma l takes: all
+// of it at the section's sea mean, none at white.
+func seaShift(l, seaLuma float64) float64 {
+	return math.Max(0, math.Min(1.5, (255-l)/(255-seaLuma)))
+}
+
+// waterStep and waterBlur are the sampling step and the box-blur radius of the
+// water weights, in output pixels and samples: the shift fades out over about
+// a third of a hex from the shore.
+const (
+	waterStep = 6
+	waterBlur = 6
+)
+
+// waterWeights samples the hexes under bounds every waterStep output pixels:
+// 1 on water hexes, 0 on shore, land and pier hexes, blurred twice.
+func waterWeights(bounds image.Rectangle, lines [][]level.Hex, grid hexgrid.Grid, sx, sy float64) []float32 {
+	cols, rows := bounds.Dx()/waterStep+1, bounds.Dy()/waterStep+1
+	w := make([]float32, cols*rows)
+	for y := range rows {
+		for x := range cols {
+			px, py := float64(bounds.Min.X+x*waterStep)+0.5, float64(bounds.Min.Y+y*waterStep)+0.5
+			c, ok := grid.PixelToHex(px*sx, py*sy)
+			if !ok {
+				w[y*cols+x] = 1
+				continue
+			}
+			if h := lines[c.Line][c.Col]; strings.HasPrefix(h.Terrain, "water") && len(h.Infra.IDs) == 0 {
+				w[y*cols+x] = 1
+			}
+		}
+	}
+	blur := func(w []float32, n, m, stride, step int) []float32 {
+		// n lines of m samples; samples step apart within a line, lines stride apart.
+		out := make([]float32, len(w))
+		for i := range n {
+			for j := range m {
+				var sum float32
+				k := 0
+				for d := max(0, j-waterBlur); d <= min(m-1, j+waterBlur); d++ {
+					sum += w[i*stride+d*step]
+					k++
+				}
+				out[i*stride+j*step] = sum / float32(k)
+			}
+		}
+		return out
+	}
+	for range 2 {
+		w = blur(w, rows, cols, cols, 1)
+		w = blur(w, cols, rows, 1, cols)
+	}
+	return w
+}
+
+// writeExclusivePNG writes im to a new file at path, creating its directory;
+// it refuses an existing file and removes a partial one.
+func writeExclusivePNG(path string, im image.Image) error {
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return err
+	}
+	out, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
+	if err != nil {
+		return err
+	}
+	encodeErr := png.Encode(out, im)
+	if err := errors.Join(encodeErr, out.Close()); err != nil {
+		return errors.Join(err, os.Remove(path))
 	}
 	return nil
 }
