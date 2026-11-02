@@ -130,12 +130,16 @@ daylight after overnight rain, at the same density. Both path loops stay continu
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
-Flanders (`1918-10`, 6342×5414) ships a tile-render placeholder at 1.41 image px per world px,
-with its border notches filled from the ground beside them. All seven factory approaches meet the
-east cell's northeast gate; no road enters another factory edge. Painted, it takes 56 sections:
-PAUSE's columns and CANDL's rows.
-Its western river mouth opens into the sea, and the inland source pool joins its stream through
-registered shoreline outlets; the map's watercourses and bridge positions are preserved.
+Flanders (`1918-10`, 7640×6522) has wet October ground, copper/rust foliage and peripheral
+harvested and ploughed fields around an open central fighting area. Its 56 registered sections
+use PAUSE's columns and CANDL's rows; all-overlap RGB balancing prevents chained exposure drift.
+Two HQs, seven factories and nine depots have individual Flemish masonry and roof finishes.
+Every factory approach meets the east cell's northeast gate. The western river mouth opens to
+the sea; a small approved bank recess keeps the transport ship at `[27,26]` wholly on water.
+Roads, rails, bridges, airstrips, building footprints and all starting positions are preserved.
+The lossless source is below 100 MiB and its runtime JPEG uses quality 95. Section/join,
+lightness and normal/close runtime evidence, with the imagegen prompts, is under
+`build/review/backdrops/1918-10/` (`verification.md`, `used-prompts-with-water.json`).
 
 Ypres (`1914-11`, 3137×1466, six sections in a 3×2 grid at x 0, 568, 1136 and y 0, 313) has sodden
 November meadow, rust-brown woods and churned clay tracks under flat overcast light. The playable
