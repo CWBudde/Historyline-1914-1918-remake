@@ -68,6 +68,8 @@ separate approval under the standing scope rules.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `c19c2b75`, integrated with concurrent main changes in `8e925526`; push succeeded. All four targeted packages and the global backdrop check passed again after integration.
 
 - [ ] [1915-03](levels/1915-03/)
+      Painting requirement: fuse the southwestern mountain groups into one larger, continuous massif with connected ridges, gullies and scree, preserving routes, passes, forest edges, HQ access and starting positions.
+      Fuse the central mud and trenches into one continuous battlefield; allow freer, varied ground textures across hex boundaries while preserving trench courses and connections, surrounding terrain features and starting positions.
   - [x] Audit `levels/1915-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1915-03/audit.json` records the winter map, 2226×1920 world pixels, six building compounds, both airfields, all routes and 83 starting units inherited by EC and two-player; no linked ships. Scenario and binding tests pass (`audit-tests.log`); `baseline-sha256.txt` records the unchanged map, setups, placeholder pair and proposed style reference.
   - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1915-03:cp -out build/review/backdrops/1915-03/guide`.
