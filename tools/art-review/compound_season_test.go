@@ -43,7 +43,7 @@ func TestCompoundAutumnManifests(t *testing.T) {
 		"compound-hq-v4.json":             true,
 		"compound-depot-v6.json":          true,
 		"compound-ruin-v2.json":           true,
-		"compound-site-v1.json":           false,
+		"compound-site-v1.json":           true,
 		"compound-factory-summer-v4.json": true,
 		"compound-factory-v6.json":        false,
 	} {

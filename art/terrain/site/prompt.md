@@ -3,8 +3,8 @@ id: terrain/site
 title: Depot construction site
 kind: terrain
 status: approved
-runtime_ids: siteE, siteE_w, siteN, siteN_w, siteS, siteS_w, siteW, siteW_w
-masters: site-summer-v1.png, site-winter-v1.png
+runtime_ids: siteE, siteE_au, siteE_sp, siteE_w, siteN, siteN_au, siteN_sp, siteN_w, siteS, siteS_au, siteS_sp, siteS_w, siteW, siteW_au, siteW_sp, siteW_w
+masters: site-summer-v1.png, site-winter-v1.png, site-spring-v1.png, site-autumn-v1.png
 ---
 
 ## Look
@@ -24,11 +24,13 @@ diamond outline (238x160 world pixels).
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| cell N | siteN, siteN_w | Slice of the site scene at the N cell of the diamond. |
-| cell E | siteE, siteE_w | Slice of the site scene at the E cell of the diamond. |
-| cell S | siteS, siteS_w | Slice of the site scene at the S cell of the diamond. |
-| cell W | siteW, siteW_w | Slice of the site scene at the W cell of the diamond. |
+| cell N | siteN, siteN_w, siteN_sp, siteN_au | Slice of the site scene at the N cell of the diamond. |
+| cell E | siteE, siteE_w, siteE_sp, siteE_au | Slice of the site scene at the E cell of the diamond. |
+| cell S | siteS, siteS_w, siteS_sp, siteS_au | Slice of the site scene at the S cell of the diamond. |
+| cell W | siteW, siteW_w, siteW_sp, siteW_au | Slice of the site scene at the W cell of the diamond. |
 | winter | siteE_w, siteN_w, siteS_w, siteW_w | Season edit of the summer master: trampled snow, snow on the timber, the packed-snow street of the winter depot. |
+| spring | siteE_sp, siteN_sp, siteS_sp, siteW_sp | Season edit of the summer master: fresh spring lawns and shrubs in new leaf; timber, stone, dirt and street are the summer pixels. |
+| autumn | siteE_au, siteN_au, siteS_au, siteW_au | Season edit of the summer master: straw-ochre lawns, rust and ochre shrubs; timber, stone, dirt and street are the summer pixels. |
 
 ## Edges & joins
 The scene is sliced into four hex crops with shared placements like the depot; the entrance road meets the
@@ -42,7 +44,7 @@ so the north street reaches the hex edge and its first 10 world px blend into th
 (`entry_road`), and `edge_feather: 9`, so the worked ground fades out within 9 world px of the diamond's
 outer edge along an irregular line. The offline generator
 `go test -tags campaigngfx ./tools/art-review -run TestGenerateSiteTiles` writes the 2x and 4x tiles to
-`assets/terrain/site/` and lists them in `assets/index.json`. Spring and autumn draw the summer tiles.
+`assets/terrain/site/` and lists them in `assets/index.json`; `site-spring-v1.png` and `site-autumn-v1.png` stand in for the summer master in spring and autumn (`_sp`, `_au`) on the season's meadow.
 
 ### Construction site summer (2026-11-02)
 
@@ -93,6 +95,51 @@ Outside the yard outline: alpha zero, no ground plate, no halo, no checkerboard.
 Avoid: moving, resizing or adding anything, a blue cast, deep snow hiding the frames, falling snow, people, perspective, green grass left anywhere.
 
 Image 1 is the selected summer construction site: change season only, preserve every outline and position. Image 2 is the installed winter form of the finished yard: take only its snow, frozen ground, dormant shrubs and packed-snow street; do not copy its buildings or layout.
+```
+
+### Construction site spring (2026-11-02)
+
+`site-spring-v1.png` (`exec-eb2b6f5d`, 1536×1024 RGBA) is the spring form of `site-summer-v1.png`: the
+imagegen season edit kept every outline and position (registration shift 0,0) but darkened the whole yard
+(L\* 45.9 against 50.9), so it was graded in Lab (+4.4 L\*, +6° hue) and fitted in code onto the summer
+master like the depot's spring edit: the alpha is the summer's, and the edit's colours replace only the
+summer vegetation (a green-hue mask, dilated 3 px and softened over 5 px); timber, stone, dirt, canvas,
+the lorries and the street keep the summer pixels. Vegetation L\* 45.6, hue 103 (summer 46.1, hue 96):
+fresh yellow-green lawns, the shrubs in new leaf, the red berries gone. Mean RGB 138,119,76, L\* 50.5.
+Selected. Attached: image 1 `site-summer-v1.png`, image 2 `art/terrain/grass/grass-spring-v1.png` (grass
+palette only). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a fenced farm and goods yard under construction seen from straight above (strict nadir roof plan, 1536x1024 RGBA, true alpha; transparent outside the yard): change the season from summer to a mild late-April day on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: the grey asphalt street with its white dashed centre line, the stone gate posts and the red-and-white barrier pole, the stone fence posts and the few fence rails, the bare timber frames of the north-west shed and the half-raised south hall with its scaffold, the stone foundations, the two red lorries with their timber loads, the white tent, the stacked planks, crates, barrels and stone heaps, the worked dirt yards with their sawdust and wheel ruts. Preserve every outline and position.
+Spring changes only the vegetation:
+- The olive-green lawn patches and the soft green meadow fringe at the outline become the same fresh spring meadow as image 2: young yellow-green grass with a little of last year's pale dead grass in the tuft bases; lit blade tips near RGB 160,170,85, mid grass near RGB 100,106,40, shaded grass near RGB 48,56,20. A few tiny dandelion-yellow and daisy-white specks in the lawns.
+- The small green star-shaped shrubs turn to fresh spring leaf: light yellow-green new leaves (lit about RGB 150,165,70, shaded about RGB 40,50,18), some still sparse with grey-brown twigs showing inside; keep them darker than the grass, as now; the red berries become small dark buds.
+- The dirt yards are slightly damp.
+- Lightness of every part stays as in image 1; only the hue and freshness of the vegetation change.
+Unchanged: every timber, plank, stone, canvas, metal, the lorries' red paint, the street and its markings, the light from the upper left, the strict nadir view.
+Outside the yard outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing or adding anything, blossom clouds, saturated emerald or neon green, a golden or straw cast, autumn colours, snow, frost, people, perspective.
+
+Image 1 is the selected summer construction site: change season only, preserve every outline and position. Image 2 is the selected spring meadow of the map: take only its grass colours for the lawns and fringe; do not copy its texture or layout.
+```
+
+### Construction site autumn (2026-11-02)
+
+`site-autumn-v1.png` (`exec-d494bc62`, 1536×1024 RGBA) is the autumn form of `site-summer-v1.png`: the
+imagegen season edit grew 1.5 % about the centre and shifted 8 px west, so it was registered back (scale
+1.015, shift −8,0) and fitted onto the summer master like the spring edit; every shrub lands on its summer
+spot. Lawns straw-ochre, the shrubs rust and ochre with dark berries. Mean RGB 141,111,72, L\* 48.4, a\*
+7.0, hue 75. Selected. Attached: image 1 `site-summer-v1.png`, image 2
+`art/terrain/grass/grass-autumn-v1.png` (grass palette only). The prompt was:
+
+```text
+Seasonal edit ONLY of image 1, a fenced farm and goods yard under construction seen from straight above (strict nadir roof plan, 1536x1024 RGBA, true alpha; transparent outside the yard): change the season from summer to early October on the Western Front and nothing else. Keep the canvas size, the outline, the transparent area and every object exactly where it is, pixel for pixel: the grey asphalt street with its white dashed centre line, the stone gate posts and the red-and-white barrier pole, the stone fence posts and the few fence rails, the bare timber frames of the north-west shed and the half-raised south hall with its scaffold, the stone foundations, the two red lorries with their timber loads, the white tent, the stacked planks, crates, barrels and stone heaps, the worked dirt yards with their sawdust and wheel ruts. Preserve every outline and position.
+Autumn changes only the vegetation: the olive-green lawn patches and the soft green meadow fringe at the outline become dry straw-gold and olive-ochre grass (lit near RGB 175,145,80, mid near RGB 120,95,40, shaded near RGB 65,52,20), with some faded olive green left in patches, matching image 2. The small green star-shaped shrubs with red berries become dry autumn shrubs, dull ochre and rust brown (near RGB 150,105,45), and the berries dark red-brown. A few tiny fallen leaves (2 to 4 px) on the dirt yards near the shrubs; the dirt yards slightly darker and damper.
+Unchanged: every timber, plank, stone, canvas, metal, the lorries' red paint, the street and its markings, the light from the upper left, the strict nadir view.
+Outside the yard outline: alpha zero, no ground plate, no halo, no checkerboard.
+Avoid: moving, resizing or adding anything, bright orange or red foliage, snow, frost, a golden cast on the timber, tent or street, people, perspective, green grass left anywhere.
+
+Image 1 is the selected summer construction site: change season only, preserve every outline and position. Image 2 is the selected autumn meadow of the map: take only its grass colours for the lawns and fringe; do not copy its texture or layout.
 ```
 
 ## Avoid

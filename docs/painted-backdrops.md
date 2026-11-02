@@ -312,10 +312,15 @@ change L*. Compare matching ground, rather than whole-map averages with differen
   normal and close zoom.
 - On a sea map, review the whole map scaled down to about a quarter: sections paint the open sea in
   different hues and wave scales, a patchwork that the balance evens in colour but not in texture.
-  Replace it with one sea: quilt a texture from a finished map's open sea (scaled to this map's image
-  px per world px) and lay it over the sea hexes with a noisy, feathered border a little inside them,
-  shifting the kept coastal water to the texture's mean colour (`bdp quilt`, `bdp sea` in the
-  backdrop-patch skill).
+  Replace it with one sea: quilt a texture from an even stretch of open sea of the same season (the
+  map's own, or PARTS's for winter, scaled to this map's image px per world px), flatten its slow
+  swells, and lay it over the sea hexes with a noisy, feathered border, only where the painting is as
+  blue as its open water, so land drawn past its hexes, rocks and surf stay; the kept coastal water
+  is shifted to the texture's mean colour (`bdp quilt`, `bdp sea` in the backdrop-patch skill).
+  Then give enclosed harbour basins the same sea (`bdp basin`, `bdp harbour`) and, where coastal
+  shallows carry a pattern copied from the guide, keep their painted colour field but take the fine
+  detail from the sea texture (`bdp shallows`); check that no sea hex is painted as land (`bdp
+  sealand`). WATER, PARTS (1916-02) and 1915-08 have one sea this way.
 - Check linked ships with their runtime long sprites, at the head/rear midpoint and facing. Single-hex
   unit overlays can hide hull collisions with shores and piers.
 

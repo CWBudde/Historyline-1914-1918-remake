@@ -153,3 +153,6 @@ dmypy.json
 
 # Local reference paintings (kept out of git).
 /RefDesign*.png
+
+# A local original level for internal/tpwm (never committed)
+internal/tpwm/testdata/00.FIN
