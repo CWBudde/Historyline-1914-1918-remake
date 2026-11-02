@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 23 remain.
-`1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 21 remain.
+`1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -490,15 +490,15 @@ separate approval under the standing scope rules.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1918-07](levels/1918-07/)
-  - [ ] Audit `levels/1918-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-07:cp -out build/review/backdrops/1918-07/guide`.
-  - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
-  - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
+  - [x] Audit `levels/1918-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. GREEN, 32×95 hexes, summer: forest 860, grass 1044, hills 358, mud 118, water 104; two HQ castles, eight factories, eight depots, 23 houses (six hangars), three airstrips (12 runway hexes), 41 rail hexes, 14 road-bridge hexes over the river, 17 trench hexes on grass; cp, ec and 2p 107 units each, no linked ships (`build/review/backdrops/1918-07/audit.json`).
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. The user's request on 2026-11-02 ("Now, work on the 1918-07 map"), following GRAND's direction (green meadow, trees not brown): July high summer; style GRAND `levels/1918-09/backdrop.png` crop (`style-b.png`), `prompt-head.txt`.
+  - [x] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-07:cp -out build/review/backdrops/1918-07/guide`. 17992×15360 (`guide.log`).
+  - [x] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage. `section-layout.json`: world 4498×3840, output 7640×6522 (1.699 image px per world px, as Flanders), 56 sections of 728×727 world px on 1252×1250 canvases, Flanders' grid; full coverage.
+  - [x] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration. 56 crops in `sections/` (`section-crop.log`), edge crops notch-filled in `sections-filled/`.
+  - [x] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style. `prompts/` from `mkprompts.sh`: image 1 layout (filled guide crop with landmarks in canvas px), image 2 style only.
+  - [x] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide. 56 picks in `painted/` (`picks.txt`).
+  - [x] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval. Five sections repainted after copying the style reference's stream, rail and crater field (`b` prompts); nine repainted so the shell-torn field loses its hex-stepped outline (`m` prompts); row views `rows12.png`, `row3.png`–`row7.png`.
+  - [x] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends. `stitched.png` (7640×6522) with all-overlaps balance (`stitch.log`).
   - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
   - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
   - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
