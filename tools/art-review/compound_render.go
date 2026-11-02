@@ -31,6 +31,8 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 		l.Layout = "depot"
 	case "ruin-summer", "ruin-winter":
 		l.Layout = "ruin"
+	case "site-summer", "site-winter":
+		l.Layout = "site"
 	case "hq-summer", "hq-winter":
 		l.Layout = "hq"
 		l.Height = 240
@@ -356,9 +358,9 @@ func compoundValidateFeather(l compoundLayout, framing string, width float64, en
 		return nil
 	}
 	switch l.Layout {
-	case "hq", "depot", "ruin", "factory":
+	case "hq", "depot", "ruin", "site", "factory":
 	default:
-		return errors.New("edge_feather is restricted to the HQ, depot, ruined depot and factory")
+		return errors.New("edge_feather is restricted to the HQ, depot, ruined depot, construction site and factory")
 	}
 	if framing != "reference-layout" || !entryRoad {
 		return errors.New("edge_feather requires reference-layout framing and an entry_road")
@@ -503,10 +505,10 @@ func compoundValidateFraming(l compoundLayout, framing string) error {
 	case "":
 		return nil
 	case "reference-layout":
-		if l.Layout == "hq" || l.Layout == "depot" || l.Layout == "ruin" || l.Layout == "factory" {
+		if l.Layout == "hq" || l.Layout == "depot" || l.Layout == "ruin" || l.Layout == "site" || l.Layout == "factory" {
 			return nil
 		}
-		return errors.New("reference-layout framing is restricted to HQ, depot, ruined depot and factory")
+		return errors.New("reference-layout framing is restricted to HQ, depot, ruined depot, construction site and factory")
 	default:
 		return fmt.Errorf("unsupported compound framing %q", framing)
 	}

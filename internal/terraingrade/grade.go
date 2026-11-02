@@ -101,13 +101,18 @@ const landB = -4.5
 type row struct {
 	l, b     float64
 	building bool
+	// yellow scales a building's b* offset by how yellow the pixel is, as the
+	// land's (full from b* 8), so its grey stone and snow keep their colour.
+	yellow bool
 }
 
 // rows are the families with a grade of their own, by art key. Relief is darker
 // than grass. The summer buildings are painted at b* 17.1 (hq) to 19.8 (factory)
 // where they differ from the meadow; each is brought to the direction's 16. The
-// house variants (tile/house2 …) take the hut's offset: their gardens and yards
-// would turn grey at 16.
+// construction site's worked dirt is painted at b* 28.7 and loses its b* only where
+// it is yellow, so its snow stays white in winter. The house variants
+// (tile/house2 …) take the hut's offset: their gardens and yards would turn grey
+// at 16.
 var rows = map[string]row{
 	"terrain/hills":    {l: -3.5},
 	"terrain/mount":    {l: -12},
@@ -115,6 +120,7 @@ var rows = map[string]row{
 	"terrain/house":    {b: -1.0, building: true},
 	"terrain/hq":       {b: -0.3, building: true},
 	"terrain/cmp":      {b: -3.3, building: true},
+	"terrain/site":     {b: -14.1, building: true, yellow: true},
 	"terrain/factory":  {b: -3.5, building: true},
 }
 
@@ -203,7 +209,11 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 				}
 				l += w * r.l * clamp((85-l0)/15)
 				if r.building {
-					db = (1-w)*db + w*r.b
+					off := r.b
+					if r.yellow {
+						off *= clamp(bb / 8)
+					}
+					db = (1-w)*db + w*off
 				}
 			}
 			c := fromLab(l, a, bb+db, p[3])

@@ -8,10 +8,11 @@ masters: ruin-summer-v1.png, ruin-winter-v1.png, ruin-autumn-v1.png, ruin-spring
 ---
 
 ## Look
-The depot after heavy shelling, drawn where a level gives a depot no content (the original's destroyed
-depot). Same four-hex diamond, road, gate and building positions as the intact depot (`terrain/cmp`):
-roofless charred sheds, burnt tent patches, a caved-in south hall, rubble, three shell craters and a broken
-fence; no vehicles and no people.
+The depot after heavy shelling. Not drawn: a depot the level gives no content is the original's half
+depot and draws the construction site (`terrain/site`); the original has no destroyed depot. Same
+four-hex diamond, road, gate and building positions as the intact depot (`terrain/cmp`): roofless
+charred sheds, burnt tent patches, a caved-in south hall, rubble, three shell craters and a broken fence;
+no vehicles and no people.
 
 ## Base prompt
 Transparent whole-scene cut-out, 3:2, strict nadir roof plan: the intact depot master after heavy

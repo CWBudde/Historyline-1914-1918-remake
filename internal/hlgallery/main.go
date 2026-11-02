@@ -380,8 +380,8 @@ func legacyTile(kind, id string) string {
 	case "factoryN", "factoryE", "factoryS", "factoryW":
 		return ""
 	}
-	// Nor do the destroyed depots.
-	if strings.HasPrefix(name, "ruin") {
+	// Nor do the destroyed depots and the construction sites.
+	if strings.HasPrefix(name, "ruin") || strings.HasPrefix(name, "site") {
 		return ""
 	}
 	// Neighbour-derived shores have no tile of their own in the Python remake,

@@ -14,7 +14,7 @@ import (
 const compoundEntryBlend = 10
 
 // compoundEntryPort returns the origin of the scene's entry cell and the port
-// the road enters by: the north port of the N cell (HQ, depot, ruin) or the
+// the road enters by: the north port of the N cell (HQ, depot, ruin, site) or the
 // north-east port of the E cell (factory).
 func compoundEntryPort(l compoundLayout) (connectionPoint, int, error) {
 	port := map[string]int{"N": 6, "E": 1}[l.EntryCell]
