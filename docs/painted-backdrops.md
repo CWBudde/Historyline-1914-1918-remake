@@ -130,6 +130,13 @@ daylight after overnight rain, at the same density. Both path loops stay continu
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
+TROLL (`1918-08`, 1875×2202) uses the same density, with mid-August greenery: lush green meadow
+with field flowers, woods in full dark-green leaf, limestone hills, a clear stream, earth roads and
+two lines of sandbagged trenches between shell-torn mud fields, under bright morning light. Its HQs
+are an ochre sandstone Lorraine fortress with a donjon, a barbican and a courtyard chapel, and a
+Flemish brick castle with stepped gables, a kitchen garden and willows at the gate. Its factories are
+a steam sawmill and a brickworks; its two houses are post windmills with cottages.
+
 GRAND (`1918-09`, 7737×4403) uses the same density, with early-September greenery: lush green meadow,
 woods still in full leaf with an occasional yellowing crown, limestone outcrops, a clear river and
 lakes, and churned shell-torn ground under warm afternoon light. It was painted from a summer-tile
@@ -203,6 +210,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 
 MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
+TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water

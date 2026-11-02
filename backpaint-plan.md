@@ -510,26 +510,26 @@ separate approval under the standing scope rules.
   - [ ] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
-- [ ] [1918-08](levels/1918-08/)
-  - [ ] Audit `levels/1918-08/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-08:cp -out build/review/backdrops/1918-08/guide`.
-  - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
-  - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
-  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
-  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
-  - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
-  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
-  - [ ] Save the finished lossless source to `levels/1918-08/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
-  - [ ] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1918-08`.
-  - [ ] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.
-  - [ ] Review `1918-08:cp`, `1918-08:ec` and `1918-08:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges.
-  - [ ] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+- [x] [1918-08](levels/1918-08/)
+  - [x] Audit `levels/1918-08/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. TROLL, 8×31 hexes, summer: two HQ castles, two factories, two houses, a stream with a footbridge, mud fields and two trench lines; no airfields, no linked ships; cp 8 units, ec and 2p from cp (`build/review/backdrops/1918-08/brief.md`).
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. The user's request on 2026-11-02 ("Please do 1918-08 next"), following GRAND's direction (green meadow, trees not brown); `build/review/backdrops/1918-08/brief.md`.
+  - [x] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-08:cp -out build/review/backdrops/1918-08/guide`. 4360×5120, 0 gaps, 0 issues.
+  - [x] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage. `section-layout.json`: world 1090×1280, output 1875×2202, four 728×727 sections at x 0, 362, y 0, 553 on 1252×1250 canvases.
+  - [x] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration. `sections/`, edge crops notch-filled in `sections-filled/`.
+  - [x] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style. `prompt-head.txt`, `mkprompts.sh`, `prompts/`; style `style-a.png` (COBRA 1917-08).
+  - [x] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide. Four tries, `painted/`.
+  - [x] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval. `bdp edges` overlays `reg-*.png`; no retries needed; records in `build/review/gen-2026-11-02/trd/review.md`.
+  - [x] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends. `hl levels backdrop jpeg -stitch`, all-overlaps balance, `stitched.png`.
+  - [x] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors. `joins/` (3 joins) and `z-mid.png`: no seams or doubled features.
+  - [x] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections. Not needed: meadow L* 50–52, C 41–48, h 106–108 against GRAND's L* 48–52, C 44–47, h 106–109.
+  - [x] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition. Not needed: houses and trenches register in the sections.
+  - [x] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips. Two castles and two factories, `bdp pastediff` with gain off (`buildings/`, `gen-2026-11-02/trb/review.md`); gates and road ramps kept.
+  - [x] Save the finished lossless source to `levels/1918-08/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB. 1875×2202, 9.5 MB.
+  - [x] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1918-08`. q95, 3.0 MB.
+  - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Exit 0; `go test ./internal/hlbackdrop` ok; 1.72018/1.72031 image px per world px.
+  - [x] Review `1918-08:cp`, `1918-08:ec` and `1918-08:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. `-capture` for cp, ec, 2p: terrain gaps 0, compound issues 0; no linked ships.
+  - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `build/review/backdrops/1918-08/verification.md`; TROLL paragraph and section line.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [x] [1918-09](levels/1918-09/)
   - [x] Audit `levels/1918-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `hl levels backdrop audit -o build/review/backdrops/1918-09/audit.json 1918-09`: two HQs, five factories, nine depots, 33 houses, 77 rail and 53 stream hexes, six road and three rail bridges, two starting units per setup, no linked ships.
