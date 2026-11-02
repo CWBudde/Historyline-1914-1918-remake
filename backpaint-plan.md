@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 20 remain.
-`1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 19 remain.
+`1915-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -67,7 +67,7 @@ separate approval under the standing scope rules.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `build/review/backdrops/1918-10/verification.md` indexes the results, prompts and runtime captures; targeted scenario, binding, backdrop and CLI tests pass.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `c19c2b75`, integrated with concurrent main changes in `8e925526`; push succeeded. All four targeted packages and the global backdrop check passed again after integration.
 
-- [ ] [1915-03](levels/1915-03/)
+- [x] [1915-03](levels/1915-03/)
       Painting requirement: fuse the southwestern mountain groups into one larger, continuous massif with connected ridges, gullies and scree, preserving routes, passes, forest edges, HQ access and starting positions.
       Fuse the central mud and trenches into one continuous battlefield; allow freer, varied ground textures across hex boundaries while preserving trench courses and connections, surrounding terrain features and starting positions.
   - [x] Audit `levels/1915-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1915-03/audit.json` records the winter map, 2226×1920 world pixels, six building compounds, both airfields, all routes and 83 starting units inherited by EC and two-player; no linked ships. Scenario and binding tests pass (`audit-tests.log`); `baseline-sha256.txt` records the unchanged map, setups, placeholder pair and proposed style reference.
@@ -88,7 +88,7 @@ separate approval under the standing scope rules.
   - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Global check exits 0 (`backdrop-check.log`); map, setups and style-reference hashes match the baseline (`invariants.log`).
   - [x] Review `1915-03:cp`, `1915-03:ec` and `1915-03:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. All three opening/revealed/close captures inspected; all 83 inherited starts reviewed in 29 normal/close groups, then affected starts rechecked after local corrections (`unit-review.md`). No linked ships. Fresh embedded-JPEG build and final normal/close views pass (`installed/`).
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, lightness and runtime checks; all four targeted packages and the fresh native build pass.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `f3af9e51`, integrated with concurrent campaign art in `d94c7716`; push succeeded. Global backdrop check and all four targeted packages pass after integration.
 
 - [ ] [1915-05](levels/1915-05/)
   - [ ] Audit `levels/1915-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
