@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 18 remain.
-`1915-03`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 17 remain.
+`1915-03`, `1915-05`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -90,7 +90,7 @@ separate approval under the standing scope rules.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, lightness and runtime checks; all four targeted packages and the fresh native build pass.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `f3af9e51`, integrated with concurrent campaign art in `d94c7716`; push succeeded. Global backdrop check and all four targeted packages pass after integration.
 
-- [ ] [1915-05](levels/1915-05/)
+- [x] [1915-05](levels/1915-05/)
   - [x] Audit `levels/1915-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1915-05/audit.json`: spring, 1658×1920 world pixels, four compounds, six houses, five bridges and 45 starts inherited by EC and two-player; no airfields or linked ships. Scenario and binding tests pass (`audit-tests.log`); `baseline-sha256.txt` records the unchanged inputs. Approved painting brief: `brief.md`.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User approved the May brief (`build/review/backdrops/1915-05/brief.md`): fresh green foliage and meadow, diffuse light after rain, continuous textures and four individual compounds; map and setups unchanged.
   - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1915-05/guide/`; 1658×1920 world pixels at density 4, zero gaps and issues (`guide/map.json`, `guide-render.log`).
@@ -109,7 +109,7 @@ separate approval under the standing scope rules.
   - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Global check exits 0 (`backdrop-check.log`); source comparison and unchanged map/setup/style-reference hashes pass (`invariants.log`, `installed-sha256.txt`).
   - [x] Review `1915-05:cp`, `1915-05:ec` and `1915-05:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. All 45 starts inspected in seventeen normal groups and individually at close zoom (`units-final/`, `unit-review.md`); all three modes' fresh embedded-JPEG opening/revealed/close views pass. Each mode produced 33 frames, zero gaps and zero compound issues (`game-*/captures.json`). No linked ships; map and setups unchanged.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, local warnings, joins, compounds and runtime checks. All four targeted packages, the fresh native build and global source/JPEG check pass.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `6d07cf6d`, integrated with concurrent ARRAS art in `0690c557`; normal push succeeded. Combined global source/JPEG and formatting checks pass; independent final review found no blocking issues.
 
 - [ ] [1915-07](levels/1915-07/)
   - [ ] Audit `levels/1915-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
