@@ -130,6 +130,15 @@ daylight after overnight rain, at the same density. Both path loops stay continu
 joins the HQ and compound approaches. Compacted-earth pockets and small woodland-edge clearings
 support the starting units, with all scenario placements preserved.
 
+HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
+and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
+ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
+craters and trenches form a continuous battlefield with varied ground textures. Six compounds
+have individual stone, brick and timber designs. Small clearings and natural rocky ledges
+support the unchanged starting units. Both airfields, routes and building approaches stay open.
+Its runtime JPEG uses quality 95; prompts and visual/lightness checks are recorded under
+`build/review/backdrops/1915-03/` (`verification.md`, `used-prompts.json`).
+
 Flanders (`1918-10`, 7640×6522) has wet October ground, copper/rust foliage and peripheral
 harvested and ploughed fields around an open central fighting area. Its 56 registered sections
 use PAUSE's columns and CANDL's rows; all-overlap RGB balancing prevents chained exposure drift.
