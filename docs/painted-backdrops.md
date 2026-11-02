@@ -141,14 +141,15 @@ Its runtime JPEG uses quality 95; prompts and visual/lightness checks are record
 
 GREEN (`1918-07`, 7100×6061, 1.58 image px per world px so that its source stays below GitHub's
 file limit) has July high summer: lush meadow with field flowers, woods in full dark-green leaf,
-limestone hills, a clear winding river crossed by long timber road bridges, and earth roads under
-warm late-morning light. Three mown grass airstrips have canvas hangars beside them. The large
-central shell field has a ragged edge of single craters running out into the meadow, and its
-sandbagged trenches cut through green grass. Its HQs are a Champagne castle of banded red brick and
-chalk with slate cones, a round donjon, a gate tower and a dry ditch, and a moated ochre château with
-red-tiled cones, a lily-pad moat, a spired gatehouse and four lindens. Its factories are a flour
-mill, a champagne house with grassed cellars, an aircraft repair park, a tannery, a wire works, a
-dairy, a tile works and a distillery; its eight depots each hold different stores.
+limestone massifs whose crests and ravines run through the woods, a clear winding river crossed by
+long timber road bridges, and earth roads under warm late-morning light. Three mown grass airstrips
+have canvas hangars beside them. The large central shell field has a ragged edge of single craters
+running out into the meadow, and its sandbagged trenches cut through green grass. Its HQs are a
+Champagne castle of banded red brick and chalk with slate cones, a round donjon, a gate tower and a
+dry ditch, and a moated ochre château with red-tiled cones, a lily-pad moat, a spired gatehouse and
+four lindens. Its factories are a flour mill, a champagne house with grassed cellars, an aircraft
+repair park, a tannery, a wire works, a dairy, a tile works and a distillery; its eight depots each
+hold different stores.
 
 TROLL (`1918-08`, 1875×2202) uses the same density, with mid-August greenery: lush green meadow
 with field flowers, woods in full dark-green leaf, limestone hills, one limestone massif in the
