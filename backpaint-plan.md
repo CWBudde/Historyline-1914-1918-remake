@@ -133,24 +133,24 @@ separate approval under the standing scope rules.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `061d32da`, integrated with concurrent ARRAS refinements in `268252ab`; normal push succeeded. Combined source/JPEG and formatting checks pass; independent final review found no blocking issues.
 
 - [ ] [1915-09](levels/1915-09/)
-  - [ ] Audit `levels/1915-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1915-09:cp -out build/review/backdrops/1915-09/guide`.
-  - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
-  - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
-  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
-  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
-  - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
-  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
-  - [ ] Save the finished lossless source to `levels/1915-09/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
-  - [ ] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1915-09`.
-  - [ ] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.
-  - [ ] Review `1915-09:cp`, `1915-09:ec` and `1915-09:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges.
-  - [ ] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting.
+  - [x] Audit `levels/1915-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1915-09/audit.json`: autumn, 2226×2560 world pixels, six compounds, nine stream crossings, 70 inherited starts, no airfields/ships. Scenario and binding tests pass; input hashes match. Approved `brief.md` includes a roofless cottage floor for infantry [39,4].
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User approved `build/review/backdrops/1915-09/brief.md`: early-autumn greenery, warm hazy afternoon light, six distinct compounds and a roofless cottage floor beneath infantry [39,4].
+  - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1915-09/guide/`, 8904×10240 pixels, zero gaps/issues (`guide/map.json`, `guide-render.log`).
+  - [x] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage. `section-layout.json`: world 2226×2560, output 3829×4403, sixteen 728×727 sections, minimum overlap 228×116 world pixels; complete coverage.
+  - [x] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration. All sixteen 1252×1250 guide crops prepared through the unified CLI (`section-crops.log`).
+  - [x] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style. Sixteen prompts in `prompts/`; July is a material/style reference only, with the approved early-autumn treatment explicit.
+  - [x] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide. Sixteen production sections saved with exact prompts and sources (`used-prompts.json`).
+  - [x] Review every section against the guide and approved references; correct deviations and select the approved pick per section. All sixteen viewed; eight required border-fill corrections composited only along outer edges, preserving interior paint (`edge-corrections.json`, `edge-composite.md`). No optional comparison round.
+  - [x] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends. `stitched-final.png.json` records all-overlap gains and fifteen seams.
+  - [x] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors. All fifteen plain/grid joins viewed, including native windows of wide joins (`join-review.md`). All 24 overlap means pass; one marginal local canopy warning retained and visually reviewed.
+  - [x] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections. Unity grade preserves the approved warm early-September palette; default brightness limits remain unchanged.
+  - [x] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition. Eleven woodland pockets, three rocky shelves, roofless cottage [39,4], bridge [32,13] and northern mud footing composited locally; all 70 starts and nine crossings pass normal/close review (`unit-review.md`).
+  - [x] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips. All six final compounds inspected; actual feather rings pass default lightness limits. Local colour correction preserves the original exterior; outside-patch RGB hashes match (`colour-review.md`).
+  - [x] Save the finished lossless source to `levels/1915-09/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB. 3829×4403, 41,853,650 bytes; exact copy of verified `finished-final.png`.
+  - [x] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1915-09`. Unified CLI encoding at quality 95 (`jpeg-encode.log`).
+  - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Global check passes; both 3829×4403, source 41,853,650 bytes, JPEG 11,151,794 bytes at quality 95. Installed hashes and unchanged map/setup/reference hashes verified.
+  - [x] Review `1915-09:cp`, `1915-09:ec` and `1915-09:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. All 70 starts and nine crossings pass normal/close review. Fresh post-install native build captures all three modes without an override: 33 frames each, zero gaps/issues; key frames viewed.
+  - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, joins, retained contrast warnings, final colour/ground composites and runtime evidence. All four targeted packages, fresh native build, source/JPEG and formatting checks pass; independent final review found no blocking issues.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1915-11](levels/1915-11/)

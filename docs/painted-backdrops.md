@@ -164,6 +164,17 @@ ammunition, engineer materials, rations and coal/fuel. One woodland pocket and t
 natural rocky ledges support the unchanged starting units. Prompts, join/lightness
 reports and runtime checks are under `build/review/backdrops/1915-07/`.
 
+SCROL/CHALK (`1915-09`, 3829×4403) has early-September greenery with scattered
+ochre crowns, straw grass and clear blue-green streams under warm hazy afternoon
+light. Nine timber crossings retain their registered banks and approaches. Its
+HQs are a granite forest castle with green-copper cones and a red-brick château-fort
+with slate domes; the factories are a paper mill and furniture works, and the
+depots hold forage and engineer supplies. Eleven woodland pockets, three rocky
+shelves, a roofless cottage floor and a wider bridge deck support the unchanged
+starting units. The northern aircraft stands on its small compacted mud patch.
+Prompts, local colour/lightness reports and runtime evidence are under
+`build/review/backdrops/1915-09/`.
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
