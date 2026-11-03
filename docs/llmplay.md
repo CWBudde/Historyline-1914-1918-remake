@@ -10,6 +10,7 @@ The engine is deterministic (no RNG), so every recording replays exactly.
 ```sh
 just llmplay new -level 1918-02:cp -out build/review/llmplay/mygame [-lessons LESSONS.md]
 just llmplay prompt -dir build/review/llmplay/mygame       # state + legal orders
+just llmplay prompt -dir ... -lines 1-20,75-95 -full       # one front, every destination
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
 just llmplay replay -dir ...                               # verify every state hash
@@ -41,13 +42,19 @@ the event digest since the model's last orders (battles with before→after
 strength, captures, revealed moves, income), and the legal orders of the phase:
 
 - movement: destinations (advance/retreat samples toward the nearest foreign
-  building; any legal hex may be ordered), `CAPTURE` destinations, exits from
-  buildings and transporters (cargo is listed under its carrier);
+  building, all of them with `-full`; any legal hex may be ordered), `CAPTURE`
+  destinations, exits from buildings and transporters (cargo is listed under
+  its carrier). A destination marked `!` lies in the reach of an enemy
+  long-range gun now (it fires there without moving); `>uN` boards the own
+  carrier uN standing there;
 - action: every target with its **exact** `Profile.Engage` prediction and gain
   score, repair options, buildable types with costs.
 
-≈3.5–5.5k tokens per prompt on RHEIN (32×47). PNG frames are the human
-recording channel; orders never depend on reading them.
+≈3.5–5.5k tokens per prompt on RHEIN (32×47), ≈10k on CANDL (16×95, 145
+units). `-lines 1-20,75-95` (on `prompt` and `step`) keeps only the units,
+buildings, threats, orders and events on those map lines; header and holdings
+stay whole, omitted units hold position. PNG frames are the human recording
+channel; orders never depend on reading them.
 
 ## Act — order protocol
 
@@ -134,4 +141,5 @@ cannot play, not by rushing.
 
 `go test ./internal/llmplay/`: fair-prompt contents, atomic rejection,
 step+replay+review round trip, a 6-resolution fallback game on RHEIN, frame
-projection.
+projection, line windows and the `!` gun-reach mark against the engine's
+targets on CANDL.

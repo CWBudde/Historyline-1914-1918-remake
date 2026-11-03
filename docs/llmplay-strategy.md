@@ -147,3 +147,45 @@ treasury, is the bug (see v7/v8 below).
   EC-HQ dash after [15,26] (capturers built there, ≥2 axes in one movement
   phase) should shorten it — unproven.
 - Rail shuttles (transTrain east→west) are still unused by the coach.
+
+# CANDL (1918-04:cp) — first notes
+
+Not yet won by anyone; the coach plays it with its RHEIN logic and loses.
+
+## The situation
+
+A 16×95 vertical strip. CP 65 units / income 80, EC 80 / income 60. CP HQ
+[8,11] at the top, entrance on its north side: its doorsteps are [7,11],
+[7,12], [8,10], [8,12] (the other two neighbours are HQ hexes). EC HQ [87,13]
+at the bottom, beside EC factory [86,11] and depot [90,15]; further EC
+factories [28,8], [36,9], [44,9], [49,10]. CP holds depot [72,2] and the
+factory [93,2] next to the EC HQ, which takes several builds per action phase
+(A7V, anti-tank, cavalry, Mark IV …).
+
+## What happened
+
+- **Coach baseline**: HQ lost at resolution 18 (46 vs 56 units left).
+- **Manual game (8 resolutions, 51 vs 78)**: EC's main army (Mark IV,
+  St Chamond, Charron, infantry, cavalry, four mArtillery) starts on lines
+  15–30 and marches on the CP HQ at once; by resolution 6 EC infantry and
+  cavalry stand next to the doorsteps. Holding all four doorsteps from
+  resolution 1 kept the HQ: no capturer can reach the entrance.
+- The forward bunkers (strength 3) die in three to four resolutions: fire them
+  at the tanks (+45 each) while they live. The east group [22..29,14..16] is
+  under trainArt fire from turn 1, the mobileAA at [38,2]/[42,2] died by
+  resolution 7.
+- **The southern dash fails as played**: the river (columns 6–8, lines 79–95)
+  is crossed only by [79..81,7], and the EC hArtillery [86,8] covers it; it
+  destroyed a cavalry and an armoured car there. Three FT-17 from [86,11] stand
+  north of the EC HQ.
+
+## Lessons
+
+- Never end a move on a `!` hex (an enemy long-range gun's reach) unless the
+  same move puts the gun in your own weapon range: you attack in your action
+  phase, before its next one. Sitting in its reach without striking is death.
+- Doorsteps first, every movement phase. Unproven: when THREATS says a
+  doorstep unit dies, the hole is open for the next enemy move, so keep a
+  second ring that leaves no enemy capturer adjacent to a doorstep.
+- Moving onto your own carrier's hex boards it (`>uN`): an infantry ordered to
+  [8,3] vanished into a train.

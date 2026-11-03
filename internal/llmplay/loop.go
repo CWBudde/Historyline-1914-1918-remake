@@ -80,6 +80,9 @@ type Game struct {
 	// Clone; dosai is deterministic) to the prompt. Training games
 	// only; recorded in the header.
 	Oracle bool
+	// Window narrows the prompt (line spans, full destination lists);
+	// a view option only, never recorded.
+	Window Window
 	// Frames, if set, is called after every resolution with the
 	// omniscient session (recording only; prompts stay fair).
 	Frames         func(s *dosplay.Session, resolution int) (string, error)
@@ -131,7 +134,7 @@ func (g *Game) Close() error { return g.tr.Close() }
 
 // Prompt is the text the model gets for the current phase.
 func (g *Game) Prompt() (string, error) {
-	p := Observe(g.S, g.Side, g.digest)
+	p := Observe(g.S, g.Side, g.digest, g.Window)
 	if !g.Oracle {
 		return p, nil
 	}

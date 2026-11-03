@@ -6,8 +6,8 @@
 // Usage:
 //
 //	hl llmplay new    [-level 1918-02:cp] [-out DIR] [-oracle] [-frames] [-lessons FILE]
-//	hl llmplay prompt  -dir GAME          print the current phase prompt
-//	hl llmplay step    -dir GAME -orders FILE   validate+play one resolution (FILE "-" = fallback)
+//	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full]   print the current phase prompt
+//	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback)
 //	hl llmplay run    [-level REF] [-out DIR] [-driver fallback|file] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hl llmplay replay  -dir GAME          verify the transcript reproduces every state hash
 //	hl llmplay render  -dir GAME [-every 1] [-density 2] [-div 8] [-backdrop level|FILE] [-fps 2] [-width 1440] [-crf 28] [-gif]
@@ -164,6 +164,7 @@ func (c *command) cmdPrompt(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay prompt", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
 	dir := fs.String("dir", "", "game dir")
+	window := windowFlags(fs)
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
@@ -175,6 +176,9 @@ func (c *command) cmdPrompt(args []string) (err error) {
 		return err
 	}
 	defer func() { err = errors.Join(err, g.Close()) }()
+	if g.Window, err = window(); err != nil {
+		return err
+	}
 	// The digest is not persisted in the save; rebuild it from the last
 	// transcript line's events is left to the step output, so a resumed
 	// prompt starts clean. Events for this step came from `step` stdout.
@@ -188,12 +192,24 @@ func (c *command) cmdPrompt(args []string) (err error) {
 	return os.WriteFile(filepath.Join(*dir, "prompt.txt"), []byte(p), 0o644)
 }
 
+// windowFlags registers -lines and -full; the returned func builds the
+// prompt window after parsing.
+func windowFlags(fs *flag.FlagSet) func() (llmplay.Window, error) {
+	lines := fs.String("lines", "", "show only map lines in these 1-based spans, e.g. 1-20,75-95")
+	full := fs.Bool("full", false, "list every legal destination instead of a sample")
+	return func() (llmplay.Window, error) {
+		spans, err := llmplay.ParseLines(*lines)
+		return llmplay.Window{Lines: spans, Full: *full}, err
+	}
+}
+
 func (c *command) cmdStep(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay step", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
 	dir := fs.String("dir", "", "game dir")
 	orders := fs.String("orders", "-", "orders JSONL file, or - for the fallback")
 	frames := fs.Bool("frames", false, "render a PNG frame")
+	window := windowFlags(fs)
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
@@ -210,6 +226,9 @@ func (c *command) cmdStep(args []string) (err error) {
 		return err
 	}
 	g.Frames = hook
+	if g.Window, err = window(); err != nil {
+		return err
+	}
 	text := ""
 	if *orders != "-" {
 		raw, err := os.ReadFile(*orders)

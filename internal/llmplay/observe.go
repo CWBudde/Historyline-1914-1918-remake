@@ -121,7 +121,7 @@ func sortedCoords[V any](m map[hexgrid.Coord]V) []hexgrid.Coord {
 // Engage predictions and the dosai gain score, so the model decides on
 // numbers, not on reading sprites. lastDigest is Digest of the events
 // since the model's previous orders ("" at game start).
-func Observe(s *dosplay.Session, side int, lastDigest string) string {
+func Observe(s *dosplay.Session, side int, lastDigest string, w Window) string {
 	rew := s.Reworked()
 	v := s.View(side)
 	st := s.Stats()
@@ -132,6 +132,7 @@ func Observe(s *dosplay.Session, side int, lastDigest string) string {
 		st.Sides[side].Units, st.Sides[side].Depots, st.Sides[side].Factories,
 		st.Sides[1-side].Units, st.Sides[1-side].Depots, st.Sides[1-side].Factories,
 		st.Sides[2].Units, st.Sides[2].Depots, st.Sides[2].Factories)
+	b.WriteString(w.header())
 	if len(rew) > 0 {
 		b.WriteString("REWORKED (overrides static map):")
 		for _, c := range sortedCoords(rew) {
@@ -141,6 +142,9 @@ func Observe(s *dosplay.Session, side int, lastDigest string) string {
 	}
 	b.WriteString("BUILDINGS (entrance kind owner hold contents-if-yours):\n")
 	for _, at := range sortedCoords(v.Buildings) {
+		if !w.Keeps(at) {
+			continue
+		}
 		bv := v.Buildings[at]
 		owner := Sides[s.SideOf(bv.Owner)]
 		line := fmt.Sprintf(" %s %s %s hold%d", show(at), bv.Kind, owner, bv.Hold)
@@ -158,6 +162,9 @@ func Observe(s *dosplay.Session, side int, lastDigest string) string {
 	var mine, enemy []dosplay.UnitView
 	for _, at := range sortedCoords(v.Units) {
 		u := v.Units[at]
+		if !w.Keeps(at) {
+			continue
+		}
 		switch u.Side {
 		case side:
 			mine = append(mine, u)
@@ -181,11 +188,11 @@ func Observe(s *dosplay.Session, side int, lastDigest string) string {
 	for _, u := range enemy {
 		fmt.Fprintf(&b, " e%d %s %d/%d %s\n", u.Index, u.ID, u.Size, u.Full, show(u.At))
 	}
-	if lastDigest != "" {
-		b.WriteString("EVENTS SINCE YOUR LAST ORDERS:\n" + lastDigest)
+	if d := w.digest(lastDigest); d != "" {
+		b.WriteString("EVENTS SINCE YOUR LAST ORDERS:\n" + d)
 	}
-	b.WriteString(threats(s, side, v))
-	b.WriteString(legal(s, side, v, rew))
+	b.WriteString(threats(s, side, v, w))
+	b.WriteString(legal(s, side, v, w))
 	b.WriteString("Reply with JSONL orders only, one per line: {\"op\":\"move\",\"unit\":N,\"to\":[l,c]} | {\"op\":\"exit\",\"hold\":H,\"slot\":S,\"to\":[l,c]} | {\"op\":\"attack\",\"unit\":N,\"target\":[l,c]} | {\"op\":\"repair\",\"hold\":H,\"slot\":S} | {\"op\":\"build\",\"hold\":H,\"type\":T} | {\"op\":\"surrender\"}. Coordinates 1-based. Omitted units hold position. Whole batch is validated atomically.\n")
 	return b.String()
 }
@@ -195,7 +202,7 @@ func Observe(s *dosplay.Session, side int, lastDigest string) string {
 // on the positions as they stand NOW — a unit ordered to move away this
 // phase is still shot where it stands. It lists every enemy attack the
 // exact Engage oracle predicts to destroy or halve one of side's units.
-func threats(s *dosplay.Session, side int, v dosplay.View) string {
+func threats(s *dosplay.Session, side int, v dosplay.View, w Window) string {
 	opp := 1 - side
 	if s.Phase(opp) != dosrules.PhaseAction {
 		return ""
@@ -213,7 +220,7 @@ func threats(s *dosplay.Session, side int, v dosplay.View) string {
 		}
 		for _, t := range dosplay.Coords(s.Targets(opp, e.Index)) {
 			mine, ok := v.Units[t]
-			if !ok || mine.Side != side {
+			if !ok || mine.Side != side || !w.Keeps(t) {
 				continue
 			}
 			cell, ok := s.Board.Cell(t)
@@ -237,14 +244,16 @@ func threats(s *dosplay.Session, side int, v dosplay.View) string {
 	return "THREATS (opponent is action side; battles resolve on CURRENT positions):\n" + b.String()
 }
 
-// legal annotates this phase's legal orders, capped per unit.
-func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]level.Hex) string {
+// legal annotates this phase's legal orders, destinations sampled per
+// unit unless w.Full.
+func legal(s *dosplay.Session, side int, v dosplay.View, w Window) string {
 	var b strings.Builder
-	b.WriteString("LEGAL THIS PHASE:\n")
 	if s.Phase(side) == dosrules.PhaseMovement {
+		b.WriteString("LEGAL THIS PHASE: (destination marks: ! = inside an enemy long-range gun's reach now, it fires there without moving; >uN = boards your carrier uN)\n")
+		notes := newDestNotes(s, side, v)
 		for _, at := range sortedCoords(v.Units) {
 			u := v.Units[at]
-			if u.Side != side || u.Moved || u.Held {
+			if u.Side != side || u.Moved || u.Held || !w.Keeps(at) {
 				continue
 			}
 			dests, err := s.Destinations(side, u.Index)
@@ -258,7 +267,7 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 					caps = append(caps, show(c)+" "+bv.Kind.String())
 				}
 			}
-			fmt.Fprintf(&b, " u%d move-> %d hexes: %s", u.Index, len(cs), destSample(s, side, v, cs))
+			fmt.Fprintf(&b, " u%d move-> %d hexes: %s", u.Index, len(cs), destSample(s, side, v, cs, w.Full, func(c hexgrid.Coord) string { return notes(u, c) }))
 			if len(caps) > 0 {
 				fmt.Fprintf(&b, " CAPTURE: %s", strings.Join(caps, " "))
 			}
@@ -266,7 +275,7 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 		}
 		for _, at := range sortedCoords(v.Buildings) {
 			bv := v.Buildings[at]
-			if s.SideOf(bv.Owner) != side {
+			if s.SideOf(bv.Owner) != side || !w.Keeps(at) {
 				continue
 			}
 			hold, slots, ok := s.Contents(side, at)
@@ -279,17 +288,14 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 					continue
 				}
 				cs := dosplay.Coords(dests)
-				var sample []string
-				for _, c := range cs[:min(6, len(cs))] {
-					sample = append(sample, show(c))
-				}
-				fmt.Fprintf(&b, " hold%d slot%d (%s) exit-> %d hexes: %s%s\n", hold, u.Slot, u.ID, len(cs), strings.Join(sample, " "), more(len(cs), 6))
+				cargo := dosplay.UnitView{Index: u.Index, Type: u.Type, Domain: dosplay.TypeDomain(s.Game.Profile.Tables, u.Type)}
+				fmt.Fprintf(&b, " hold%d slot%d (%s) exit-> %d hexes: %s\n", hold, u.Slot, u.ID, len(cs), destSample(s, side, v, cs, w.Full, func(c hexgrid.Coord) string { return notes(cargo, c) }))
 			}
 		}
 		// Cargo exits from own transporters (ships, trains, trucks).
 		for _, at := range sortedCoords(v.Units) {
 			u := v.Units[at]
-			if u.Side != side || !u.Carrier {
+			if u.Side != side || !u.Carrier || !w.Keeps(at) {
 				continue
 			}
 			hold, slots, ok := s.Contents(side, at)
@@ -302,17 +308,19 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 					continue
 				}
 				cs := dosplay.Coords(dests)
-				fmt.Fprintf(&b, " hold%d slot%d (%s, cargo of u%d) exit-> %d hexes: %s\n", hold, c.Slot, c.ID, u.Index, len(cs), destSample(s, side, v, cs))
+				cargo := dosplay.UnitView{Index: c.Index, Type: c.Type, Domain: dosplay.TypeDomain(s.Game.Profile.Tables, c.Type)}
+				fmt.Fprintf(&b, " hold%d slot%d (%s, cargo of u%d) exit-> %d hexes: %s\n", hold, c.Slot, c.ID, u.Index, len(cs), destSample(s, side, v, cs, w.Full, func(c hexgrid.Coord) string { return notes(cargo, c) }))
 			}
 		}
 		return b.String()
 	}
 	// Action phase: exact Engage per target + repair/build options.
+	b.WriteString("LEGAL THIS PHASE:\n")
 	bf, err := s.Battlefield(side)
 	prof := s.Game.Profile
 	for _, at := range sortedCoords(v.Units) {
 		u := v.Units[at]
-		if u.Side != side || u.Moved || u.Held {
+		if u.Side != side || u.Moved || u.Held || !w.Keeps(at) {
 			continue
 		}
 		targets := dosplay.Coords(s.Targets(side, u.Index))
@@ -352,7 +360,7 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 	}
 	for _, at := range sortedCoords(v.Buildings) {
 		bv := v.Buildings[at]
-		if s.SideOf(bv.Owner) != side {
+		if s.SideOf(bv.Owner) != side || !w.Keeps(at) {
 			continue
 		}
 		hold, slots, _ := s.Contents(side, at)
@@ -370,19 +378,19 @@ func legal(s *dosplay.Session, side int, v dosplay.View, rew map[hexgrid.Coord]l
 	return b.String()
 }
 
-// destSample lists destinations usefully: all when few, else the six
-// closing most on the nearest enemy building (advance) plus the two
-// opening most distance (retreat). Any other legal hex may still be
-// ordered — Apply validates against the full set.
-func destSample(s *dosplay.Session, side int, v dosplay.View, cs []hexgrid.Coord) string {
+// destSample lists destinations usefully: all when few or full, else
+// the six closing most on the nearest enemy building (advance) plus the
+// two opening most distance (retreat). Any other legal hex may still be
+// ordered — Apply validates against the full set. note marks each hex.
+func destSample(s *dosplay.Session, side int, v dosplay.View, cs []hexgrid.Coord, full bool, note func(hexgrid.Coord) string) string {
 	showAll := func(list []hexgrid.Coord) string {
 		parts := make([]string, len(list))
 		for i, c := range list {
-			parts[i] = show(c)
+			parts[i] = show(c) + note(c)
 		}
 		return strings.Join(parts, " ")
 	}
-	if len(cs) <= 12 {
+	if full || len(cs) <= 12 {
 		return showAll(cs)
 	}
 	var goals []int
@@ -411,14 +419,7 @@ func destSample(s *dosplay.Session, side int, v dosplay.View, cs []hexgrid.Coord
 	slices.SortFunc(sorted, func(a, b hexgrid.Coord) int { return dist(a) - dist(b) })
 	advance := sorted[:6]
 	retreat := sorted[len(sorted)-2:]
-	return fmt.Sprintf("advance: %s retreat: %s (+%d more legal, any may be ordered)", showAll(advance), showAll(retreat), len(cs)-8)
-}
-
-func more(total, shown int) string {
-	if total > shown {
-		return fmt.Sprintf(" …+%d", total-shown)
-	}
-	return ""
+	return fmt.Sprintf("advance: %s retreat: %s (+%d more legal, any may be ordered; prompt -full lists all)", showAll(advance), showAll(retreat), len(cs)-8)
 }
 
 // Gain is dosai's attack score (dosai.go gain, private there): armour-
