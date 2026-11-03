@@ -353,10 +353,10 @@ func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
 		// Neither the barbed wire, the quays, the airfield and harbour pieces
 		// nor the neighbour-derived trenches have a Python remake tile.
-		// Nor the winter roads and crossings, nor the rocks, skerries, shoals and surf.
+		// Nor the winter, spring and autumn roads, streams and crossings, nor the rocks, skerries, shoals and surf.
 		if id == "barbedWire" || id == "waterRocks" || strings.HasPrefix(id, "shoal") || strings.HasPrefix(id, "skerry") || id == "surf" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
 			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasPrefix(id, "harbour") ||
-			strings.HasSuffix(id, "_w") {
+			strings.HasSuffix(id, "_w") || strings.HasSuffix(id, "_au") || strings.HasSuffix(id, "_sp") {
 			return ""
 		}
 		if rest, trench := strings.CutPrefix(id, "trench"); trench {
@@ -384,6 +384,10 @@ func legacyTile(kind, id string) string {
 	if strings.HasPrefix(name, "ruin") || strings.HasPrefix(name, "site") {
 		return ""
 	}
+	// Nor autumn and spring tiles: the Python remake has summer and winter ones only.
+	if strings.HasSuffix(name, "_au") || strings.HasSuffix(name, "_sp") {
+		return ""
+	}
 	// Neighbour-derived shores have no tile of their own in the Python remake,
 	// nor the phases of the open sea.
 	if strings.HasPrefix(name, "shore-") || strings.HasPrefix(name, "sea-") {
@@ -402,6 +406,9 @@ func legacyTile(kind, id string) string {
 		name = "camp" + rest
 	} else if rest, ok := strings.CutPrefix(name, "mount"); ok && !strings.HasPrefix(rest, "ain") {
 		name = "mountain" + rest
+	} else if rest, ok := strings.CutPrefix(name, "house"); ok {
+		// The farmstead variants (house2 … house6) share the one Python remake house.
+		name = "house" + strings.TrimLeft(rest, "0123456789")
 	}
 	if base, ok := strings.CutSuffix(name, "_w"); ok {
 		name = base + "_winter"
@@ -437,6 +444,10 @@ func (c *collector) tiles() error {
 		switch family := artFamily(e); {
 		case strings.HasSuffix(name, "_w"):
 			season = "winter"
+		case strings.HasSuffix(name, "_au"):
+			season = "autumn"
+		case strings.HasSuffix(name, "_sp"):
+			season = "spring"
 		case kind == "infrastructure", family == "water", family == "fog":
 			season = "shared"
 		}
