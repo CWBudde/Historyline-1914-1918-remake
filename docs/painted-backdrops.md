@@ -127,8 +127,9 @@ run from lake to lake under their bridges; the southern one opens through a wide
 onto the south coast's sand beach. Shell-torn ground with a ragged edge fills the north-west field
 and the south-east front, whose sandbagged trenches lie only on the trench hexes. Two mown grass
 airstrips have ribbed canvas Bessonneau hangars. Its HQs are a grey sandstone castle with a square
-donjon and a dry ditch, and a red-brick château with slate domes, a moat and a gravel court. Its factories
-are a colliery pithead, a flax spinning mill and a chalk lime works; its four depots hold ammunition, forage, engineer stores and rations.
+donjon and a dry ditch, and a red-brick château with slate domes, a moat and a gravel court. Its
+factories are a colliery pithead, a flax spinning mill and a chalk lime works; its four depots hold
+ammunition, forage, engineer stores and rations.
 
 CANDL/ORDER (`1918-04`, 3829×6605) has fresh spring meadow, budding woodland and breezy blue
 water under clear April afternoon light. Small clearings and rocky ledges support the starting crews.
