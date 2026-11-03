@@ -152,6 +152,16 @@ Three small woodland clearings and two natural rocky ledges support the unchange
 starting units. Prompts and visual/lightness checks are recorded under
 `build/review/backdrops/1915-05/` (`verification.md`, `used-prompts.json`).
 
+LIGHT/FLARE (`1915-07`, 3829×3302) has July greenery under warm late-morning light
+softened by thin cloud, clear blue-green river water and gravel/earth roads. Both
+long timber crossings and three short capped shoreline remnants retain their original
+positions. Two airfields and four canvas hangars stay open. Its HQs are an ochre
+sandstone castle with slate towers and a red-brick château-fort with red-tiled towers;
+its factories are a textile mill and a steam sawmill, and its four depots hold
+ammunition, engineer materials, rations and coal/fuel. One woodland pocket and two
+natural rocky ledges support the unchanged starting units. Prompts, join/lightness
+reports and runtime checks are under `build/review/backdrops/1915-07/`.
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
@@ -281,7 +291,7 @@ INFRA/ZOMBI uses thirty sections with rounded origins at x 0, 516, 1033, 1549, 2
 GOTHA/SIGNS uses twenty-five sections: the same columns and rows at y 0, 458, 917, 1375, 1833.
 ATLAS/ZORRO uses twenty-five sections at x 0, 516, 1033, 1549, 2066 and y 0, 458, 916, 1374, 1833.
 
-FRONT/LEVEL uses twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
+FRONT/LEVEL and LIGHT/FLARE use twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
 PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
 
