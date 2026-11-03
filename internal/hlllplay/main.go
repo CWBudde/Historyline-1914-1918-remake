@@ -7,6 +7,7 @@
 //
 //	hl llmplay new    [-level 1918-02:cp] [-out DIR] [-oracle] [-frames] [-lessons FILE]
 //	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full]   print the current phase prompt
+//	hl llmplay suggest -dir GAME          print the coach's action-phase orders (repairs, builds, focus fire) as JSONL
 //	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback)
 //	hl llmplay run    [-level REF] [-out DIR] [-driver fallback|file] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hl llmplay replay  -dir GAME          verify the transcript reproduces every state hash
