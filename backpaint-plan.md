@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 17 remain.
-`1915-03`, `1915-05`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 16 remain.
+`1915-03`, `1915-05`, `1915-07`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -111,7 +111,7 @@ separate approval under the standing scope rules.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, local warnings, joins, compounds and runtime checks. All four targeted packages, the fresh native build and global source/JPEG check pass.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `6d07cf6d`, integrated with concurrent ARRAS art in `0690c557`; normal push succeeded. Combined global source/JPEG and formatting checks pass; independent final review found no blocking issues.
 
-- [ ] [1915-07](levels/1915-07/)
+- [x] [1915-07](levels/1915-07/)
   - [x] Audit `levels/1915-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1915-07/audit.json`: summer, 2226×1920 world pixels, eight compounds, two airfields/four hangars, two long crossings and three short shoreline bridge segments, 56 inherited starts and no linked ships. `baseline-sha256.txt` records unchanged inputs.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User requested work on July following the presented `brief.md`: summer greenery, eight distinct compounds and three preserved shoreline bridge remnants.
   - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1915-07/guide/`, 8904×7680 pixels; manifest records zero gaps and issues.
@@ -130,7 +130,7 @@ separate approval under the standing scope rules.
   - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Global source/JPEG check passes; both installed images are 3829×3302, source below 100 MiB, maps/setups unchanged (`verification.md`, `invariants.log`).
   - [x] Review `1915-07:cp`, `1915-07:ec` and `1915-07:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. All 56 starts viewed in 22 normal groups and individually at close zoom (`unit-review.md`); cavalry [39,7] wholly on bridge decking. Each setup's fresh embedded-JPEG opening/revealed/close views pass; 33 frames per setup, zero gaps/issues. No linked ships.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, joins, retained local warnings, compounds and runtime evidence. All four targeted packages, fresh native build, source/JPEG check and formatting checks pass.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `061d32da`, integrated with concurrent ARRAS refinements in `268252ab`; normal push succeeded. Combined source/JPEG and formatting checks pass; independent final review found no blocking issues.
 
 - [ ] [1915-09](levels/1915-09/)
   - [ ] Audit `levels/1915-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships.
