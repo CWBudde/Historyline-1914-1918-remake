@@ -122,9 +122,10 @@ bakery and an engineer park.
 ARRAS (`1918-03`, 3829×4403) has late-March early spring under clear cool morning light: a greening
 meadow with patches of last year's straw grass, leafless grey-brown woods with dark conifers and
 white blackthorn at their edges, clear blue lakes and a sea coast with sand and shingle beaches,
-pale gravel roads and small chalk ridges. Shell-torn ground with a ragged edge fills the north-west
-field and the south-east front, whose sandbagged trenches lie only on the trench hexes. Two mown
-grass airstrips have ribbed canvas Bessonneau hangars. Its HQs are a grey sandstone castle with a
+pale gravel roads and small chalk ridges. Winding meadow brooks of varied width with reedy banks
+run from lake to lake under their bridges. Shell-torn ground with a ragged edge fills the
+north-west field and the south-east front, whose sandbagged trenches lie only on the trench hexes.
+Two mown grass airstrips have ribbed canvas Bessonneau hangars. Its HQs are a grey sandstone castle with a
 square donjon and a dry ditch, and a red-brick château with slate domes, a moat and a gravel
 court. Its factories are a colliery pithead, a flax spinning mill and a chalk lime works; its four
 depots hold ammunition, forage, engineer stores and rations.
