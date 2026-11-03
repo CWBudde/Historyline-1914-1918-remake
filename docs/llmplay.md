@@ -11,6 +11,7 @@ The engine is deterministic (no RNG), so every recording replays exactly.
 just llmplay new -level 1918-02:cp -out build/review/llmplay/mygame [-lessons LESSONS.md]
 just llmplay prompt -dir build/review/llmplay/mygame       # state + legal orders
 just llmplay prompt -dir ... -lines 1-20,75-95 -full       # one front, every destination
+just llmplay suggest -dir ...                              # action phase: the coach's repairs, builds, focus fire as JSONL
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
 just llmplay replay -dir ...                               # verify every state hash
@@ -53,7 +54,10 @@ strength, captures, revealed moves, income), and the legal orders of the phase:
 ≈3.5–5.5k tokens per prompt on RHEIN (32×47), ≈10k on CANDL (16×95, 145
 units). `-lines 1-20,75-95` (on `prompt` and `step`) keeps only the units,
 buildings, threats, orders and events on those map lines; header and holdings
-stay whole, omitted units hold position. PNG frames are the human recording
+stay whole, omitted units hold position. Coordinates are `[line,col]`, but lines are
+half rows: a hex touches the two hexes diagonally above and below it and the
+hexes two lines up and down (`[l±2,c]`), never `[l,c±1]` on its own line, so
+`map.txt` with its half-shifted even lines draws the true layout. PNG frames are the human recording
 channel; orders never depend on reading them.
 
 ## Act — order protocol
@@ -61,7 +65,10 @@ channel; orders never depend on reading them.
 One JSONL batch per phase; it is dry-run on `Session.Clone()` and committed via
 `Replay` only if **every** order is legal (atomic; rejection lists each failing
 line with the rules engine's reason). Ops: `move`, `exit`, `attack`, `repair`,
-`build`, `surrender`. Capture/loading are implicit in moves. After 3 bad
+`build`, `surrender`. Capture/loading are implicit in moves. `suggest` prints
+the coach's action phase for the side (repairs, builds by its doctrine, sapper
+work, sequential focus fire scored by the exact outcome) as a batch to take,
+edit or ignore; it never reads the opponent's plan. After 3 bad
 batches (or driver failure) a deterministic fallback plays the phase
 (`dosai.Planner` + repair/build service) so a game never stalls.
 
@@ -142,4 +149,4 @@ cannot play, not by rushing.
 `go test ./internal/llmplay/`: fair-prompt contents, atomic rejection,
 step+replay+review round trip, a 6-resolution fallback game on RHEIN, frame
 projection, line windows and the `!` gun-reach mark against the engine's
-targets on CANDL.
+targets on CANDL, and a `suggest` batch that `Apply` takes whole.

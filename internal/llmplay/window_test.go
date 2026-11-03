@@ -86,3 +86,31 @@ func TestObserveWindow(t *testing.T) {
 		t.Error("zero window does not give the whole prompt")
 	}
 }
+
+// SuggestAct refuses movement phases; in the action phase its JSONL is a
+// batch Apply takes whole, with the opening bunkers' attacks in it.
+func TestSuggestAct(t *testing.T) {
+	s := candl(t)
+	if _, err := SuggestAct(s, 0); err == nil {
+		t.Fatal("SuggestAct accepted a movement phase")
+	}
+	s.Confirm(0)
+	s.Confirm(1)
+	if _, err := s.Resolve(); err != nil {
+		t.Fatal(err)
+	}
+	text, err := SuggestAct(s, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(text, `"op":"attack"`) {
+		t.Fatalf("no attack suggested:\n%s", text)
+	}
+	orders, err := ParseOrders(text)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, errs, err := Apply(s, 0, orders); err != nil || len(errs) > 0 {
+		t.Fatalf("suggested batch rejected: %v %v", err, errs)
+	}
+}

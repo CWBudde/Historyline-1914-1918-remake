@@ -148,44 +148,59 @@ treasury, is the bug (see v7/v8 below).
   phase) should shorten it — unproven.
 - Rail shuttles (transTrain east→west) are still unused by the coach.
 
-# CANDL (1918-04:cp) — first notes
+# CANDL (1918-04:cp)
 
-Not yet won by anyone; the coach plays it with its RHEIN logic and loses.
+Not yet won: the coach loses the HQ at resolution 18, hand play (`candl2`,
+with `-lines`, `-full`, `suggest`) at resolution 20.
 
 ## The situation
 
-A 16×95 vertical strip. CP 65 units / income 80, EC 80 / income 60. CP HQ
-[8,11] at the top, entrance on its north side: its doorsteps are [7,11],
-[7,12], [8,10], [8,12] (the other two neighbours are HQ hexes). EC HQ [87,13]
-at the bottom, beside EC factory [86,11] and depot [90,15]; further EC
-factories [28,8], [36,9], [44,9], [49,10]. CP holds depot [72,2] and the
-factory [93,2] next to the EC HQ, which takes several builds per action phase
-(A7V, anti-tank, cavalry, Mark IV …).
+A 16×95 strip (47 hex rows: lines are half rows). CP 65 units / income 80,
+EC 80 / income 60, and EC builds. The CP HQ is the seven-hex flower around
+[10,11] with its entrance [8,11] on top; its only doorsteps are **[6,11],
+[7,11] and [7,12]**, all north of the HQ. The river (lakeside and deep water,
+impassable for ground units) runs the whole length west of the centre: the
+only ground crossing is the **land bridge at lines 12–14** ([13,5], [12,6],
+[13,6], [14,6]) beside the CP HQ. West of the river lie the CP infantry,
+trains, lArtillery and two A7V at the top, the CP depot [72,2] and the CP
+factory [93,2] with the southern group at the bottom: **none of them can reach
+the EC HQ [87,13]** except across the land bridge and down the whole east
+side. A capture of the EC HQ is therefore the end of a won battle, not a raid.
 
-## What happened
+## What happened (candl2, 20 resolutions)
 
-- **Coach baseline**: HQ lost at resolution 18 (46 vs 56 units left).
-- **Manual game (8 resolutions, 51 vs 78)**: EC's main army (Mark IV,
-  St Chamond, Charron, infantry, cavalry, four mArtillery) starts on lines
-  15–30 and marches on the CP HQ at once; by resolution 6 EC infantry and
-  cavalry stand next to the doorsteps. Holding all four doorsteps from
-  resolution 1 kept the HQ: no capturer can reach the entrance.
-- The forward bunkers (strength 3) die in three to four resolutions: fire them
-  at the tanks (+45 each) while they live. The east group [22..29,14..16] is
-  under trainArt fire from turn 1, the mobileAA at [38,2]/[42,2] died by
-  resolution 7.
-- **The southern dash fails as played**: the river (columns 6–8, lines 79–95)
-  is crossed only by [79..81,7], and the EC hArtillery [86,8] covers it; it
-  destroyed a cavalry and an armoured car there. Three FT-17 from [86,11] stand
-  north of the EC HQ.
+- EC's centre (Mark IV, Mark I, St Chamond, Charron, infantry, cavalry, four
+  mArtillery, two trainArt) reaches the HQ's west side by resolution 4 and
+  surrounds it by 16; a second wave from lines 20–30 closes the east side.
+  The cut-off east group [22..29,14..16] and the forward bunkers die to
+  trainArt and armour within 7 resolutions whatever they do.
+- West of the river the trade is good: lArtillery, armTrain and A7V killed
+  EC's whole west wing (eliteInf, two Charron, FT-17, St Chamond, infantry,
+  cavalry) and the mArtillery [20,2] by resolution 14; lArtillery at range
+  takes no return fire and scored most kills. Charrons from the south
+  (lines 47–51) and four EC aircraft follow.
+- Unit count went 65:80 → 43:61. The HQ fell when the last doorstep holder
+  died and no fresh unit was left to step in.
 
 ## Lessons
 
-- Never end a move on a `!` hex (an enemy long-range gun's reach) unless the
-  same move puts the gun in your own weapon range: you attack in your action
-  phase, before its next one. Sitting in its reach without striking is death.
-- Doorsteps first, every movement phase. Unproven: when THREATS says a
-  doorstep unit dies, the hole is open for the next enemy move, so keep a
-  second ring that leaves no enemy capturer adjacent to a doorstep.
-- Moving onto your own carrier's hex boards it (`>uN`): an infantry ordered to
-  [8,3] vanished into a train.
+- **Doorstep swap**: an attack hits the unit on its old hex even after it
+  moved. A threatened doorstep unit that moves into the HQ takes the hit there,
+  while a fresh unit exiting the HQ (or stepping over from a neighbour) holds
+  the doorstep in the same move, so no hole opens for the enemy's next move.
+  It works only while a fresh, repaired unit waits in the HQ for every
+  threatened doorstep: stock the HQ early (repair is 15) instead of banking
+  energy, which reached 600+ unused.
+- dosai captures only on its way: an empty doorstep beside its infantry was
+  stepped on but not entered while CP units were still near. Do not rely on
+  it.
+- Never end a move on a `!` hex unless the same move puts the gun in your
+  own range: the armTrain reached [18,2] and killed the mArtillery [20,2]
+  without loss.
+- The southern group and the factory output need about ten moves to reach
+  the land bridge; EC sends infantry, eliteInf, cavalry and mArtillery down
+  the west strip at the depot [72,2] around resolution 15. Start that march
+  on resolution 1.
+- Seven transTrains clog the rails of the west strip and block the infantry's
+  moves (`>uN` everywhere); move them off early or use them.
+- Moving onto your own carrier's hex boards it (`>uN`).
