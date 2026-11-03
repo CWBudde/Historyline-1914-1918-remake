@@ -691,8 +691,9 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // computer sides, 0661:3cfb). The action side's list resolves on its map, in
 // list order (ResolveOrders): each attack against the cell in the unit's
 // +0x11, with the strengths and experience it leaves, and every destroyed
-// unit taken off that map with bit 4 of its +0x14 set (02dc:2083). The
-// action pass then hands the buildings the movement side's units entered to
+// unit taken off that map with bit 4 of its +0x14 set (02dc:2083) and out
+// of every container slot, a transporter's cargo destroyed with it
+// (vacate). The action pass then hands the buildings the movement side's units entered to
 // that side (capture, EvCaptured) and carries out the sappers' work on the
 // action side's map (trench, EvDug and EvFilled) and the construction units'
 // (builder.go, EvHalfDepot and EvDepot). Then the phase change (ChangePhase)
@@ -792,7 +793,57 @@ func (g *Game) attack(a int) ([]Event, error) {
 			}
 		}
 	}
+	g.vacate(r.Gone)
 	return evs, nil
+}
+
+// vacate takes the units an attack list destroyed out of the container
+// records. The battles hit a unit at the cell the attacking side's map
+// shows, so one that went into a building or onto a transporter during the
+// movement phase is destroyed while it holds a slot; the phase change only
+// frees slots of units marked before it, so the dead unit would stay listed
+// (and repairable) for two phases. A destroyed transporter's cargo is
+// destroyed with it and its record cleared, as the destroy helper of a
+// capture does (remove).
+func (g *Game) vacate(gone []int) {
+	dead := map[int]bool{}
+	for len(gone) > 0 {
+		i := gone[0]
+		gone = gone[1:]
+		if dead[i] {
+			continue
+		}
+		dead[i] = true
+		u := g.Units[i]
+		if u.Flags4&0x4000 != 0 {
+			for r, h := range g.Holds {
+				if !slices.Contains(h.Slots[:], i) {
+					continue
+				}
+				for k, s := range h.Slots {
+					if s == i {
+						h.Slots[k] = 0xFF
+					}
+				}
+				g.Holds[r] = h
+			}
+		}
+		c, ok := g.Holds[u.Hold]
+		if u.Flags4&0x1000 == 0 || !ok || c.Flags&0x8000 != 0 {
+			continue
+		}
+		for k, s := range c.Slots {
+			if v, ok := g.Units[s]; ok && s <= SlotFree && !dead[s] {
+				v.Size = 0
+				v.Action[1] |= 4
+				g.Units[s] = v
+				gone = append(gone, s)
+			}
+			c.Slots[k] = 0xFF
+		}
+		c.Flags = 0x8000
+		g.Holds[u.Hold] = c
+	}
 }
 
 // changePhase is the phase change after side a's attacks.
