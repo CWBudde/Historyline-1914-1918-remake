@@ -1,5 +1,5 @@
-// Test-only: strict readers of the movement, step and container fixtures, as Go's UnmarshalFixtures fills the
-// types of motion_fixtures.go (unknown fields refused, absent fields zero).
+// Test-only: strict readers of the movement, step, container and visibility fixtures, as Go's UnmarshalFixtures
+// fills the types of motion_fixtures.go (unknown fields refused, absent fields zero).
 
 import type { ExitOrder } from "../container.ts";
 import {
@@ -22,6 +22,9 @@ import type {
   Pair,
   StepExpected,
   StepFixture,
+  FixtureSighted,
+  VisibilityExpected,
+  VisibilityFixture,
 } from "../motionFixtures.ts";
 import type { MoveOrder } from "../record.ts";
 import {
@@ -302,5 +305,106 @@ export function decodeContainerFixture(
     records: inputs(o, "records", what, decodeHold),
     order: decodeExitOrder(o["order"], `${what}.order`),
     expected: decodeContainerExpected(o["expected"], `${what}.expected`),
+  };
+}
+
+function decodeSighted(v: unknown, what: string): FixtureSighted {
+  const o = object(v ?? {}, what, [
+    "index",
+    "flags4",
+    "size",
+    "pos",
+    "facing",
+    "hold",
+  ]);
+  return {
+    index: intField(o, "index", what),
+    flags4: intField(o, "flags4", what),
+    size: intField(o, "size", what),
+    pos: decodePair(o["pos"] ?? null, `${what}.pos`),
+    facing: decodePair(o["facing"] ?? null, `${what}.facing`),
+    hold: intField(o, "hold", what),
+  };
+}
+
+// decodeSides reads a Go [2][]int: null and missing elements are nil.
+function decodeSides(
+  v: unknown,
+  what: string,
+): [number[] | null, number[] | null] {
+  if (v === null || v === undefined) {
+    return [null, null];
+  }
+  const a = array(v, what);
+  if (a.length > 2) {
+    throw new Error(`${what}: more than two elements`);
+  }
+  const side = (i: number): number[] | null => {
+    const s = a[i];
+    return s === null || s === undefined
+      ? null
+      : array(s, `${what}[${i}]`).map((x, k) =>
+          decodeInt(x, `${what}[${i}][${k}]`),
+        );
+  };
+  return [side(0), side(1)];
+}
+
+function decodeVisibilityExpected(
+  v: unknown,
+  what: string,
+): VisibilityExpected {
+  const o = object(v ?? {}, what, [
+    "maps",
+    "live",
+    "holds",
+    "players",
+    "orders",
+    "count",
+    "anim",
+    "messages",
+  ]);
+  return {
+    maps: decodeSides(o["maps"], `${what}.maps`),
+    live: list(o, "live", what, decodeRecord),
+    holds: list(o, "holds", what, decodeRecord),
+    players: decodeSides(o["players"], `${what}.players`),
+    orders: decodePair(o["orders"] ?? null, `${what}.orders`),
+    count: intField(o, "count", what),
+    anim: intField(o, "anim", what),
+    messages: list(o, "messages", what, decodePair),
+  };
+}
+
+/** decodeVisibilityFixture reads one record of visibility.json. */
+export function decodeVisibilityFixture(
+  v: unknown,
+  what: string,
+): VisibilityFixture {
+  const o = object(v, what, [
+    ...headerKeys,
+    "width",
+    "height",
+    "maps",
+    "units",
+    "records",
+    "attacker",
+    "phase",
+    "count",
+    "expected",
+  ]);
+  // The input maps: a nil map is an empty one, as Go ranges it.
+  const [m0, m1] = decodeSides(o["maps"], `${what}.maps`);
+  return {
+    ...decodeHeader(o, what),
+    width: intField(o, "width", what),
+    height: intField(o, "height", what),
+    maps: [m0 ?? [], m1 ?? []],
+    units: inputs(o, "units", what, decodeSighted),
+    records: inputs(o, "records", what, decodeHold),
+    attacker: intField(o, "attacker", what),
+    phase: decodePair(o["phase"] ?? null, `${what}.phase`),
+    count: intField(o, "count", what),
+    expected: decodeVisibilityExpected(o["expected"], `${what}.expected`),
   };
 }

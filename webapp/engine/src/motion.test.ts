@@ -1,6 +1,6 @@
-// Twin of internal/dosrules/motion_test.go: the recorded movement queries, move orders and container cases
-// replay through the record-level functions on the profile's movement tables; each class of case must be
-// present. TestVisibilityFixtures is visibility.ts's (L4).
+// Twin of internal/dosrules/motion_test.go: the recorded movement queries, move orders, container cases and
+// phase changes replay through the record-level functions on the profile's movement tables; each class of case
+// must be present.
 
 import { describe, expect, it } from "vitest";
 import { type ExitRun, moveExit } from "./container.ts";
@@ -14,6 +14,8 @@ import {
   mapOf,
   movementQuery,
   stepExpectedOf,
+  visibilityExpectedOf,
+  visibilityPhaseChange,
 } from "./motionFixtures.ts";
 import { endCode, moveDestinations, moveSeason, path, reach } from "./move.ts";
 import type { Profile } from "./profile.ts";
@@ -23,14 +25,17 @@ import {
   decodeContainerFixture,
   decodeMovementFixture,
   decodeStepFixture,
+  decodeVisibilityFixture,
 } from "./testing/motionFixtures.ts";
 import { Profiles, moveTables } from "./testing/tables.ts";
+import { changePhase } from "./visibility.ts";
 
 // The record counts of each build's files (the full build adds the winter cases).
 const movements = { demo: 770, full: 913 } as const;
 const steps = { demo: 743, full: 743 } as const;
 const containers = { demo: 528, full: 528 } as const;
 const winterCases = { demo: 0, full: 143 } as const;
+const phaseChanges = { demo: 148, full: 148 } as const;
 
 function replayMovement(p: Profile, f: MovementFixture): void {
   const tab = moveSeason(moveTables(p), f.winter ?? false);
@@ -154,6 +159,25 @@ replay(
   "building",
   "carry",
   "exit",
+);
+
+replay(
+  "visibility.json",
+  decodeVisibilityFixture,
+  phaseChanges,
+  (_, f) => {
+    const g = visibilityPhaseChange(f);
+    const r = changePhase(g);
+    expect(visibilityExpectedOf(g, r), f.id).toStrictEqual(f.expected);
+  },
+  "phase",
+  "sides",
+  "life",
+  "stale",
+  "ships",
+  "terrain",
+  "holds",
+  "random",
 );
 
 // MapOf is the fixture form of a movement query: it gives back the map of every recorded movement case.

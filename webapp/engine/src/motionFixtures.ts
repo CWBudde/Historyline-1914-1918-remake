@@ -1,6 +1,5 @@
-// The movement, step and container fixtures (internal/dosrules/testdata/, numbers only) use the movement tables
-// of the build's profile (Tables.move); the tests replay them (motion_fixtures.go). The visibility fixtures
-// follow with visibility.ts.
+// The movement, step, container and visibility fixtures (internal/dosrules/testdata/, numbers only) use the
+// movement tables of the build's profile (Tables.move); the tests replay them (motion_fixtures.go).
 //
 // The types mirror the JSON: omitempty fields are optional and absent when zero, and an expectation's null is
 // Go's nil slice, so a decoded record and an adapter's result compare with toStrictEqual as Go's
@@ -11,6 +10,7 @@ import {
   type ExitOrder,
   type ExitRun,
   type Hold,
+  containerRecords,
   holdBytes,
   holdRecords,
 } from "./container.ts";
@@ -19,6 +19,7 @@ import { div, rem } from "./int.ts";
 import { type Movement, type Piece, newMovement } from "./move.ts";
 import type { FixtureHeader } from "./fixtures.ts";
 import type { MoveOrder, StepRun } from "./record.ts";
+import type { PhaseChange, PhaseRun, Sighted } from "./visibility.ts";
 
 /** Pair is a Go [2]int. */
 export type Pair = [number, number];
@@ -322,6 +323,89 @@ export function containerMovement(f: ContainerFixture): Movement {
   const g = fixtureMovement(f);
   for (const p of f.held) {
     g.held.set(p.index, pieceOf(p));
+  }
+  for (const h of f.records) {
+    g.holds.set(h.index, copyHold(h));
+  }
+  return g;
+}
+
+/** FixtureSighted is a live unit of a visibility fixture. */
+export interface FixtureSighted extends Sighted {
+  index: number;
+}
+
+/**
+ * VisibilityExpected is what an executed phase change gave: both maps, the records of the listed units, the
+ * container records that changed, the per-side records, the order counts, the turn counter, the animation flags
+ * and the messages. Null is Go's nil slice.
+ */
+export interface VisibilityExpected {
+  maps: [number[] | null, number[] | null];
+  live: FixtureRecord[] | null;
+  holds: FixtureRecord[] | null;
+  players: [number[] | null, number[] | null];
+  orders: Pair;
+  count: number;
+  anim: number;
+  messages: Pair[] | null;
+}
+
+/** visibilityExpectedOf is the recorded form of a phase change. */
+export function visibilityExpectedOf(
+  g: PhaseChange,
+  r: PhaseRun,
+): VisibilityExpected {
+  return {
+    maps: [ints(r.maps[0]), ints(r.maps[1])],
+    live: [...r.live.keys()]
+      .sort((a, b) => a - b)
+      .map((i) => ({
+        index: i,
+        bytes: ints(r.live.get(i) ?? new Uint8Array(0)),
+      })),
+    holds: changedHolds(containerRecords(g.holds), r.holds),
+    players: [ints(r.players[0]), ints(r.players[1])],
+    orders: [r.orders[0], r.orders[1]],
+    count: r.count,
+    anim: r.anim,
+    messages: r.messages,
+  };
+}
+
+/** VisibilityFixture is a recorded phase change. */
+export interface VisibilityFixture extends FixtureHeader {
+  width: number;
+  height: number;
+  maps: [number[], number[]];
+  units: FixtureSighted[];
+  records: FixtureHold[];
+  attacker: number;
+  phase: Pair;
+  count: number;
+  expected: VisibilityExpected;
+}
+
+/** visibilityPhaseChange rebuilds the input of a fixture (Go's VisibilityFixture.PhaseChange). */
+export function visibilityPhaseChange(f: VisibilityFixture): PhaseChange {
+  const g: PhaseChange = {
+    width: f.width,
+    height: f.height,
+    maps: f.maps,
+    units: new Map(),
+    holds: new Map(),
+    attacker: f.attacker,
+    phase: [f.phase[0], f.phase[1]],
+    count: f.count,
+  };
+  for (const u of f.units) {
+    g.units.set(u.index, {
+      flags4: u.flags4,
+      size: u.size,
+      pos: [u.pos[0], u.pos[1]],
+      facing: [u.facing[0], u.facing[1]],
+      hold: u.hold,
+    });
   }
   for (const h of f.records) {
     g.holds.set(h.index, copyHold(h));

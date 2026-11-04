@@ -33,8 +33,8 @@ export const holdRecords = 92;
 export const holdFlag40 = 70;
 export const holdFlag100 = 72;
 export const holdFlag400 = 82;
-/** The records 0e40:1728 searches. */
-const holdTable = 10;
+/** HoldTable is the number of records 0e40:1728 searches in each building table. */
+export const holdTable = 10;
 /** A slot or map occupant above it holds no unit. */
 export const slotFree = 0xf0;
 /** The map occupant of a building cell with units in it. */

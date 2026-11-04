@@ -5,6 +5,7 @@
 
 import { readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { move, route, zeroLive } from "./board.ts";
 import { type Hold, emptyHold, holdBytes, slotFree } from "./container.ts";
 import { at, attempt, errorsIs } from "./goruntime.ts";
 import { div, int8, rem } from "./int.ts";
@@ -29,12 +30,9 @@ import {
   newMovement,
   occupants,
   owns,
-  path,
   pieceAt,
-  reach,
 } from "./move.ts";
 import type { Profile } from "./profile.ts";
-import { execute } from "./route.ts";
 import { ErrUndefined } from "./support.ts";
 import { load } from "./testing/fixtures.ts";
 import {
@@ -59,6 +57,23 @@ function gate(): Gate {
     errors: [],
   };
 }
+
+// liveWidths are the bytes each field of Live names.
+const liveWidths = new Map<string, number>([
+  ["budget", 1],
+  ["exp", 1],
+  ["size", 1],
+  ["alt", 1],
+  ["flags4", 2],
+  ["flags6", 2],
+  ["type", 1],
+  ["serial", 1],
+  ["hold", 1],
+  ["pos", 4],
+  ["facing", 2],
+  ["target", 2],
+  ["action", 7],
+]);
 
 // need is board_test.go need: no violation, and every named behaviour seen at least once.
 function need(g: Gate, ...keys: string[]): void {
@@ -592,8 +607,8 @@ describe.each(Profiles)("movement gate, %s build", (build, p) => {
 
 describe("movement gate", () => {
   // No foreign rules: the engine's code imports only its own modules, so neither the app nor another package's
-  // rules can enter it. (Go's clause also checks that Live names the 26 bytes of the original record; Live is
-  // board.go's, ported with board.ts.)
+  // rules can enter it, and a live unit is the 26 bytes of the original record and nothing else (no ammo, fuel
+  // or sight field).
   it("no foreign rules", () => {
     const dir = new URL("./", import.meta.url);
     const files = readdirSync(dir).filter(
@@ -613,13 +628,22 @@ describe("movement gate", () => {
       }
     }
     expect(foreign).toStrictEqual([]);
+    const unnamed: string[] = [];
+    let width = 0;
+    for (const field of Object.keys(zeroLive())) {
+      const w = liveWidths.get(field);
+      if (w === undefined) {
+        unnamed.push(`Live.${field} is not a field of the original record`);
+      }
+      width += w ?? 0;
+    }
+    expect(unnamed).toStrictEqual([]);
+    expect(width, "the bytes Live names").toBe(liveLen);
   });
 
   // Gated off: what the original leaves to memory that is not its own stays undefined in the profile. A path
   // search that runs dry reads past the reach-bit array (the demo's image then refused with 0x48, the full
   // build's walked), and on a map one row high the path search reads past the map; both give ErrUndefined.
-  // Go runs them through Profile.Move and Profile.Route (board.go, L4): Move is Execute, Route the path search
-  // after the reach search.
   it("gated off", () => {
     const tab = moveTables(Full);
     const infantry = 0;
@@ -645,7 +669,7 @@ describe("movement gate", () => {
     islands.terrain[40] = open;
     islands.terrain[0] = open;
     const [, moveErr] = attempt(() =>
-      execute(tab, islands, { goal: 0, retarget: -1, stale: [0] }),
+      move(Full, islands, { goal: 0, retarget: -1, stale: [0] }),
     );
     expect(
       errorsIs(moveErr, ErrUndefined),
@@ -661,10 +685,7 @@ describe("movement gate", () => {
       budget: typ.budget,
       block: 3,
     });
-    const [, routeErr] = attempt(() => {
-      const [buf, bits] = reach(tab, row);
-      return path(tab, row, buf, bits, 0);
-    });
+    const [, routeErr] = attempt(() => route(Full, row, 0));
     expect(
       errorsIs(routeErr, ErrUndefined),
       `a route on a map one row high gives ${String(routeErr)}`,
