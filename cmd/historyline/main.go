@@ -23,6 +23,7 @@ import (
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
@@ -288,6 +289,12 @@ func (g *game) Update() error {
 	}
 	if g.split != nil {
 		g.updateSplit()
+	}
+	if g.dos != nil && g.dos.replay != nil {
+		if !g.updateReplay() {
+			return ebiten.Termination
+		}
+		return nil
 	}
 	pressed := inpututil.IsKeyJustPressed
 	if g.split != nil {
@@ -764,18 +771,19 @@ type matchConfig struct {
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
-	scroll     float64        // map scroll speed, screen pixels per frame
-	units      *artPacks      // shared by every battle; nil draws placeholder dots
-	screens    *screenArt     // the screen catalog for the portraits; nil shows blank photos
-	scores     *scores.Store  // the best scores, opened once; nil keeps none
-	saves      *saves.Store   // the single saved battle; nil keeps none
-	saved      []byte         // a saved battle to resume (dos only); nil starts fresh
-	terrain    string         // terrain catalog directory, composed per level; "" draws coloured hexes
-	terrainHD  string         // full-quality terrain catalog loaded in the background of a battle; "" for none
-	candidates bool           // allow candidate terrain packs
-	backdrop   *backdropImage // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
-	noBackdrop bool           // draw the terrain even where the level has a backdrop (-backdrop off)
-	levels     string         // the directory of the level files (-levels)
+	scroll     float64         // map scroll speed, screen pixels per frame
+	units      *artPacks       // shared by every battle; nil draws placeholder dots
+	screens    *screenArt      // the screen catalog for the portraits; nil shows blank photos
+	scores     *scores.Store   // the best scores, opened once; nil keeps none
+	saves      *saves.Store    // the single saved battle; nil keeps none
+	saved      []byte          // a saved battle to resume (dos only); nil starts fresh
+	terrain    string          // terrain catalog directory, composed per level; "" draws coloured hexes
+	terrainHD  string          // full-quality terrain catalog loaded in the background of a battle; "" for none
+	candidates bool            // allow candidate terrain packs
+	backdrop   *backdropImage  // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
+	noBackdrop bool            // draw the terrain even where the level has a backdrop (-backdrop off)
+	levels     string          // the directory of the level files (-levels)
+	replay     *llmplay.Replay // a recorded llmplay game played on both sides (-replay); nil plays a battle
 }
 
 // newMatch starts the battle of c, counting the art it fetches in m.
@@ -783,6 +791,10 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 	var gm *game
 	switch c.rules {
 	case "dos":
+		if c.replay != nil {
+			gm = replayGame(c.replay, c.reveal)
+			break
+		}
 		o := dosplay.Options{Limit: c.limit}
 		var planner dosPlanner = passPlanner{}
 		if c.opponent == "ai" {
@@ -877,12 +889,18 @@ func main() {
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
+	replayDir := flag.String("replay", "", "a recorded llmplay game directory (build/review/llmplay/<game>): watch it in the battle screen, both sides played from its transcript (implies -rules dos; the level and side come from the transcript)")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")
 	}
-	direct := *capture != ""
-	flag.Visit(func(f *flag.Flag) { direct = direct || f.Name == "level" || f.Name == "player" })
+	direct := *capture != "" || *replayDir != ""
+	flag.Visit(func(f *flag.Flag) {
+		direct = direct || f.Name == "level" || f.Name == "player"
+		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent" || f.Name == "rules" && *rules != "dos") {
+			log.Fatalf("-replay takes the level, the sides and the rules from the transcript: drop -%s", f.Name)
+		}
+	})
 
 	set, err := data.Load()
 	if err != nil {
@@ -945,7 +963,12 @@ func main() {
 		return
 	}
 
-	if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
+	if *replayDir != "" {
+		if c.replay, err = llmplay.OpenReplay(*replayDir); err != nil {
+			log.Fatal(err)
+		}
+		c.lvl = c.replay.Session.Level
+	} else if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
 		log.Fatal(err)
 	}
 	if c.player, err = state.PlayerByName(c.lvl.Player); err != nil {

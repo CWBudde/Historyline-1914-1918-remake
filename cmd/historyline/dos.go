@@ -45,6 +45,7 @@ type dosControl struct {
 	s       *dosplay.Session
 	side    int        // the human side
 	planner dosPlanner // the other side
+	self    dosPlanner // plays the human side as well (a replay), nil for a human
 	reveal  bool       // dev: the frozen view is the true view
 
 	unit       int                    // live record of the selected unit, -1 none
@@ -72,6 +73,8 @@ type dosControl struct {
 
 	run *planRun      // the computer planning off the frame, nil otherwise (plan.go)
 	act *computerTurn // the computer carrying out its planned commands, nil otherwise (plan.go)
+
+	replay *transcriptPlanner // the recorded game played on both sides (replay.go), nil otherwise
 
 	ownFacing [2]map[int]unitsprite.Facing // facings only that side's map shows: its moves and orders until the phase change reveals them
 
@@ -485,30 +488,49 @@ func (d *dosControl) EndTurn() {
 
 // Tick advances the presentation by one frame. The computer side plans as
 // soon as its phase begins; once both sides have confirmed the orders are
-// resolved and the events played back, one per step.
+// resolved and the events played back, one per step. With a planner of its
+// own (a replay) the human side gives its orders first, then the other
+// side; a stopped replay gives none.
 func (d *dosControl) Tick() {
 	d.tick()
 	switch {
 	case d.over:
 	case d.busy():
 		d.step()
-	case d.s.Ended() != nil:
+	case d.s.Ended() != nil && !d.replaying():
 		d.over = true
 		d.Message = d.endText()
+	case d.replay != nil && !d.replaying():
+		// a stopped replay gives no more orders
 	default:
-		if opp := 1 - d.side; !d.s.Ready(opp) {
+		if d.self != nil && !d.s.Ready(d.side) {
+			d.planStep(d.side)
+		}
+		if opp := 1 - d.side; !d.s.Ready(opp) && (d.self == nil || d.s.Ready(d.side)) {
 			d.planStep(opp)
 		}
 		if d.s.Ready(0) && d.s.Ready(1) {
 			d.resolve()
 		}
 	}
+	if err := d.replayErr(); err != nil && !d.busy() {
+		d.Message = "replay: " + err.Error() // stays once the resolution has played
+	}
+}
+
+// plannerOf is the planner of side's orders: the human side's own (a
+// replay) or the other side's.
+func (d *dosControl) plannerOf(side int) dosPlanner {
+	if side == d.side && d.self != nil {
+		return d.self
+	}
+	return d.planner
 }
 
 // plan lets the computer give side's orders. A side the planner leaves
 // unconfirmed (after an error) is confirmed, so the battle goes on.
 func (d *dosControl) plan(side int) {
-	evs, err := d.planner.Plan(d.s, side)
+	evs, err := d.plannerOf(side).Plan(d.s, side)
 	if err != nil {
 		d.Message = "computer side: " + err.Error()
 	}
@@ -533,6 +555,7 @@ func (d *dosControl) resolve() {
 	if err != nil {
 		d.Message = "resolution: " + err.Error()
 	}
+	d.checkReplay()
 	d.frozen, d.otherFrozen, d.queue = &v, &o, evs
 	d.startStage(stageBlack, d.frames(blackFrames, blackFramesReduced))
 }

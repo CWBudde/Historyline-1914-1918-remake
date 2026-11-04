@@ -56,14 +56,14 @@ func (g *game) wellOf(side int) well {
 	switch {
 	case d.over || s.Ended() != nil:
 		w.text = d.endText()
-	case side != d.side && d.planning():
+	case d.planning() && d.run.side == side:
 		w.progress = d.planProgress()
 		if s.Phase(side) == dosrules.PhaseAction {
 			w.text = "WEIGHING THE ATTACKS"
 		} else {
 			w.text = "PLANNING THE MOVES"
 		}
-	case side != d.side && d.acting():
+	case d.acting() && d.act.side == side:
 		w.text = "CARRYING OUT ITS ORDERS"
 	case d.busy():
 		w.text = "ORDERS UNDER WAY"
