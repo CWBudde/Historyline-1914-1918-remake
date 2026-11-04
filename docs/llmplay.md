@@ -97,6 +97,14 @@ for a high-quality cut. An explicit PNG/JPEG path may replace `level`, and
 Step-by-step "live" viewing without a video: `prompt` on the game dir after
 each `step`, or open the frames in any image viewer.
 
+To watch a game in the game's own screen, `go run ./cmd/historyline -replay
+build/review/llmplay/<game>` opens the split battle screen (`-rules dos`) on the
+transcript's level, the recorded side's view on its panel: both sides carry
+out their recorded orders the way the computer side does in play (each move
+rests, turns and walks on its own panel), the recorded side first, and every
+resolution is checked against its state hash; a mismatch stops the replay with
+the error as the message. No input gives orders; Q or Esc quits.
+
 ## Learn — review and lessons
 
 `review` re-simulates the transcript and re-scores every model attack with the
