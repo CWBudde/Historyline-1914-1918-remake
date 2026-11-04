@@ -49,6 +49,10 @@ The fourteen unapproved months from `1916-01` through `1918-05` have been audite
 and their proposed briefs are collected in [Backpaint approvals](docs/backpaint-approvals.md)
 for one review. Their approval boxes remain open; guide rendering and painting
 wait for that approval. `1915-11` is complete under its separately approved brief.
+The revised briefs retain intact occupied buildings, distinguish individual HQs
+and specify a snow-free coast for `1917-01` with its summer rules unchanged.
+The approval pack's acceptance gates for `1917-01`, `1917-03` and `1917-11`
+must pass before accepting installation or completing those months.
 
 - [x] [1918-10](levels/1918-10/) — the Flanders painting described in
       [Painted backdrops](docs/painted-backdrops.md).
@@ -306,7 +310,7 @@ wait for that approval. `1915-11` is complete under its separately approved brie
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-01](levels/1917-01/)
-  - [x] Audit `levels/1917-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-01/approval-audit.json` and `.md`: summer rules season, 1658×1920, five compounds, fifteen houses, 58 inherited starts including fourteen linked ships; four runway/two hangar overlays, seven bridge overlays and all coastal routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [UBOOT/DEPTH](docs/backpaint-approvals.md#1917-01--ubootdepth), explicitly proposing winter appearance with summer rules retained, awaiting approval.
+  - [x] Audit `levels/1917-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-01/approval-audit.json` and `.md`: summer rules season, 1658×1920, five compounds, fifteen houses, 58 inherited starts including fourteen linked ships; four runway/two hangar overlays, seven bridge overlays and all coastal routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [UBOOT/DEPTH](docs/backpaint-approvals.md#1917-01--ubootdepth), snow-free cold coast with summer rules retained, awaiting approval.
   - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-01:cp -out build/review/backdrops/1917-01/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
