@@ -9,6 +9,7 @@ import {
   fullProfile,
   mustTables,
 } from "../profile.ts";
+import type { MoveTables } from "../move.ts";
 import { readJSON } from "./files.ts";
 
 /** FullTables are the tables of the full game, the build of record. */
@@ -32,3 +33,16 @@ export const Profiles: readonly (readonly [Build, Profile])[] = [
   ["demo", Demo],
   ["full", Full],
 ];
+
+/** cInfantry and cPanzer are the infantry and panzer types the scene tests place (cycle_test.go). */
+export const cInfantry = 18;
+export const cPanzer = 47;
+
+/** moveTables is motion_test.go moveTables: the profile's movement tables, which must hold all 51 types. */
+export function moveTables(p: Profile): MoveTables {
+  const m = p.tables?.move ?? null;
+  if (m === null || m.types.length !== 51 || m.terrains.length === 0) {
+    throw new Error(`${p.tables?.build ?? ""}: no movement tables`);
+  }
+  return m;
+}

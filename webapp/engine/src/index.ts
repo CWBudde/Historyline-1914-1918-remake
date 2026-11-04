@@ -51,7 +51,38 @@ export {
   type Result,
   casualties,
 } from "./casualties.ts";
-export { ErrUndefined } from "./support.ts";
+export {
+  ErrUndefined,
+  neighbours,
+  friendly,
+  pincerWeights,
+  blockStep,
+  blockCap,
+  support,
+} from "./support.ts";
+export {
+  type Unit,
+  type Battlefield,
+  type Outcome,
+  unitOf,
+  defaultClass,
+  terrainClass,
+  unitAt,
+  zeroOutcome,
+  expCap,
+  noAwardFlag,
+  award,
+  strength,
+  engage,
+} from "./engage.ts";
+export {
+  type Order,
+  type Resolution,
+  OrdersError,
+  resolveOrders,
+  shipPartner,
+  whole,
+} from "./orders.ts";
 export {
   type Source,
   type FixtureHeader,
@@ -62,4 +93,17 @@ export {
   type CasualtyFixture,
   casualtyInputs,
   casualtyResult,
+  type FixtureUnit,
+  type FixtureTerrain,
+  type EngagementExpected,
+  type EngagementFixture,
+  engagementBattlefield,
+  engagement,
+  engagementResult,
+  type OrdersExpected,
+  type OrdersFixture,
+  ordersInput,
+  ordersBattlefield,
+  ordersList,
+  ordersResult,
 } from "./fixtures.ts";

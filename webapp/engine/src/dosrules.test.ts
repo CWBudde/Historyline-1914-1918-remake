@@ -1,16 +1,26 @@
-// Twin of internal/dosrules/dosrules_test.go (the parts L1 ports: the fixture headers, TestTables,
-// TestCasualtyFixtures, TestDistanceSwitch).
+// Twin of internal/dosrules/dosrules_test.go: the fixture headers, TestTables, TestEngagementFixtures,
+// TestCasualtyFixtures, TestRepeatable, TestDistanceSwitch.
 
 import { describe, expect, it } from "vitest";
 import { casualties } from "./casualties.ts";
 import { distance } from "./distance.ts";
-import { casualtyInputs, casualtyResult, isFixtureHeader } from "./fixtures.ts";
-import { attempt } from "./goruntime.ts";
+import { engage } from "./engage.ts";
+import {
+  type EngagementExpected,
+  type EngagementFixture,
+  casualtyInputs,
+  casualtyResult,
+  engagementBattlefield,
+  engagementResult,
+  isFixtureHeader,
+} from "./fixtures.ts";
+import { at, attempt } from "./goruntime.ts";
 import { type Tables, newProfile, tablesOf } from "./profile.ts";
-import { neighbours } from "./support.ts";
+import { blockCap, neighbours } from "./support.ts";
 import { listDir, readJSON } from "./testing/files.ts";
 import {
   decodeCasualtyFixture,
+  decodeEngagementFixture,
   checkHeader,
   load,
 } from "./testing/fixtures.ts";
@@ -157,6 +167,89 @@ describe("distance switch", () => {
     expect(steps.size).toBe(w * h);
     for (const [c, s] of steps) {
       expect(distance(layout, w, 40, c), `cell ${c}`).toBe(s);
+    }
+  });
+});
+
+// The recorded engagements are the R1 controlled battles: engage must reproduce the handler's outcome field for
+// field.
+describe.each(Profiles)("engagement fixtures, %s build", (build, p) => {
+  it("every record of engagements.json", () => {
+    const fs = load(build, "engagements.json", decodeEngagementFixture);
+    expect(fs).toHaveLength(446);
+    const seen = new Set<string>();
+    let skipped = 0;
+    let noReturn = 0;
+    let pincer = 0;
+    let blocked = 0;
+    let destroyed = 0;
+    let transposed = 0;
+    let passed = 0;
+    for (const f of fs) {
+      checkHeader(p, f, seen);
+      const got = engagementResult(
+        ...attempt(() =>
+          engage(p, engagementBattlefield(f), f.attacker, f.target),
+        ),
+      );
+      expect(got, f.id).toStrictEqual(f.expected);
+      passed++;
+      const e = f.expected;
+      if (!e.battle) {
+        skipped++;
+      } else if (!e.returnFire) {
+        noReturn++;
+      }
+      if (e.pincer > 0) {
+        pincer++;
+      }
+      if (e.blocking === blockCap) {
+        blocked++;
+      }
+      if ((e.destroyed ?? []).length > 0) {
+        destroyed++;
+      }
+      const b = engagementBattlefield(f);
+      const a = b.units.get(f.attacker);
+      if (
+        a !== undefined &&
+        e.returnFire &&
+        distance(p, b.width, a.cell, f.target) !== 1
+      ) {
+        transposed++;
+      }
+    }
+    expect(passed).toBe(446);
+    // The corpus must reach the behaviours it stands for.
+    for (const [name, n] of Object.entries({
+      "skipped order": skipped,
+      ranged: noReturn,
+      pincer,
+      "blocking cap": blocked,
+      destruction: destroyed,
+      "transposed neighbour": transposed,
+    })) {
+      expect(n, `no fixture with ${name}`).toBeGreaterThan(0);
+    }
+  });
+});
+
+// Identical battle states give identical results: there is no random draw, and resolving one battle leaves no
+// state behind for the next.
+describe.each(Profiles)("repeatable, %s build", (build, p) => {
+  it("engagements resolve the same in reverse order", () => {
+    const fs = load(build, "engagements.json", decodeEngagementFixture);
+    expect(fs).toHaveLength(446);
+    const run = (f: EngagementFixture): EngagementExpected =>
+      engagementResult(
+        ...attempt(() =>
+          engage(p, engagementBattlefield(f), f.attacker, f.target),
+        ),
+      );
+    const first = fs.map(run);
+    for (let i = fs.length - 1; i >= 0; i--) {
+      const f = at(fs, i);
+      expect(run(f), `${build}/${f.id}`).toStrictEqual(first[i]);
     }
   });
 });
