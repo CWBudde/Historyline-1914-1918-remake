@@ -2,8 +2,10 @@
 
 These proposals prepare the fourteen unapproved months in
 [the backpaint plan](../backpaint-plan.md) for one review. November 1915 already
-has an approved brief and is outside this batch. Every proposal below is pending;
-preparing this document does not authorize painting or asset replacement.
+has an approved brief and is outside this batch. The user approved incorporating
+regional artistic direction into these briefs; all fourteen still await final
+painting approval. Preparing this document does not authorize painting or asset
+replacement.
 
 Approval of a month covers its appearance, references, individual architecture
 and eventual replacement of that month's existing placeholder PNG/JPEG after the
@@ -16,8 +18,31 @@ The current `map.json` is the sole layout authority, shared by CP, EC and two-pl
 Keep its rules season, all terrain footprints, routes, watercourses, crossings,
 compound bounds, entrances, airfields and every setup's starting positions.
 References supply painting detail, materials and the stated seasonal treatment;
-never copy their layout or structures. The appearance descriptions and building
-designs below are recommendations for approval, not new user requirements.
+never copy their layout or structures. The regional direction is agreed; the
+appearance descriptions and individual building designs form the final painting
+briefs awaiting approval.
+
+The regional names below describe artistic treatments, not verified battlefield
+locations. Give each month its stated ground/building palette, vegetation
+character and one signature motif. Carry the local materials through both sides'
+buildings; distinguish individual compounds through their specified construction,
+roof forms and use. Formal HQ masonry may differ from modest local cottages,
+but repeat local stone in plinths, gate surrounds or yard aggregate to tie them
+together. Installed paintings remain the style references; regional detail must
+keep their painterly scale and readability at normal zoom.
+
+Use the motifs as restrained treatments of existing features. Tree shapes and
+undergrowth stay inside woodland; exposed geology stays inside existing rocky or
+shell-torn ground. Yard contents stay within the existing compounds and leave
+access clear. Add no landmarks, structures, fences, tree rows, crops or terrain
+types to illustrate a region. Keep wear appropriate to each feature rather than
+adding battle damage across the map. Review motifs at normal zoom as well as close
+zoom so texture does not hide terrain, routes or units.
+
+Make the specified workplaces recognizable through existing roof and door
+construction and small stores in their yards: boards at sawmills, cable reels at
+cable works, and covered sacks at provision depots. Keep these subordinate to the
+building and consistent with its use; add no vehicles or extra buildings.
 
 Paint natural continuous ground textures across tile boundaries. Within existing
 rock footprints, connect neighbouring formations with ridges, gullies and scree
@@ -129,12 +154,27 @@ The current placeholders and all six referenced paintings were visually inspecte
 while preparing these proposals. Every month below includes replacement of only
 its own existing placeholder pair, after verification.
 
+For regional material inspiration, [Trentino's wood and stone traditions](https://www.visittrentino.info/en/articles/art-and-culture/forest-in-trentino)
+inform the Alpine treatment. Check reference dates: the [Somme heritage inventory](https://inventaire.hautsdefrance.fr/dossier/IA80010351)
+describes extensive postwar reconstruction, which must not become a template for
+wartime buildings. These sources inform materials and period checks, not map
+locations or additional image-generation inputs.
+
 ## 1916-01 — BISON/FROST
 
 **Proposed look:** settled but shallow January snow broken by dormant grass,
 bare trees and dark conifers; compacted grey slush on gravel, pale overcast morning
 light. Use [1915-12](../levels/1915-12/backdrop.jpg) for snow, materials and detail.
 The winter rules season stays unchanged. Keep the small pond open and dark.
+
+**Regional character:** an Ardennes-inspired railway upland: cold grey stone,
+dark slate, muted cream render and weathered railway timber. Existing woods mix
+slender bare broadleaf trunks with compact dark conifers; keep their snowy edges
+irregular without changing the woodland boundary. Repeat local grey stone in
+the two HQs' lower courses and the cottages' plinths.
+
+**Signature motif:** dark ballast and snow-dusted sleeper rhythms along the two
+existing railway corridors, carried through their switches and inward spurs.
 
 **Audit:** 1090×1920 world pixels, 76 starts, two HQs and two houses; no linked
 ships or airfield overlays. Infrastructure: 48 road, 56 rail and 24 path hexes.
@@ -160,6 +200,15 @@ snow in sheltered hollows, bare woods, dark conifers, saturated clay and puddled
 shell holes beneath flat raincloud light. Use
 [1915-03](../levels/1915-03/backdrop.jpg) for thaw, rocky relief and fine detail.
 Retain the winter rules season. Keep the northeastern lake and its landing open.
+
+**Regional character:** a Meuse-inspired thaw landscape with pale limestone,
+warm sandstone accents, charcoal slate and wet olive-brown earth. Give existing
+bare woodland fine branching crowns and dark mossy roots, with conifers in its
+present footprint. Use pale stone door surrounds and dark wet plinths to connect
+cottages, works and the two differently built HQs.
+
+**Signature motif:** pale mineral fragments showing through dark wet crater
+interiors, confined to existing shell-torn ground and echoed in rocky outcrops.
 
 **Audit:** 2226×2560 world pixels, 110 starts, seven compounds, twelve houses,
 34 mud hexes and no linked ships. Infrastructure includes 90 road, 39 rail,
@@ -195,6 +244,15 @@ Use [1915-05](../levels/1915-05/backdrop.jpg) for colour, materials and detail.
 Keep the spring rules season. Join the southern rocks as coherent formations
 within their present bounds; preserve the small southwestern trench field.
 
+**Regional character:** a Trentino-inspired mountain district: pale limestone,
+warm lime render and weathered timber, with shingle roofs on suitable existing
+cottages and sheds. Keep the formal HQ tower roofs specified below. Existing
+woods have layered conifer silhouettes with fresh broadleaf growth at their
+edges; rocky ground shows fractured faces and small scree within its bounds.
+
+**Signature motif:** stone bases beneath timber upper walls on existing modest
+buildings, with the same timber tones in the sawmill's sheds and stored boards.
+
 **Audit:** 2226×2560 world pixels, 100 starts, ten compounds, six houses, no
 airfield overlays or linked ships. Infrastructure: 120 road, 53 rail, 31 path,
 eight road-bridge, eight stream and five trench hexes, plus registered crossings
@@ -226,6 +284,15 @@ green woodland and meadow islands under warm hazy afternoon light. Use
 [1915-03](../levels/1915-03/backdrop.jpg) supplies crater detail only, without its
 snow or winter palette. Keep the summer rules season.
 
+**Regional character:** a Somme-inspired chalk-and-clay battlefield: pale exposed
+mineral soil, ochre drying clay and dark damp crater bottoms. Keep surviving woods
+leafed and green, with varied crown sizes inside their original islands. Use chalky
+stone and buff brick in existing architecture, retaining its superficial wear.
+
+**Signature motif:** pale broken rims against darker crater bowls across the
+registered shell field, interrupted by the surviving green islands. Vary the
+texture and moisture rather than adding trenches or more destruction.
+
 **Audit:** 1658×1920 world pixels, 39 starts, two HQs, one depot, 381 mud and
 62 stone hexes; no houses, waterways, airfields, rails, trench overlays or linked
 ships. The only three road hexes are compound approaches. Fuse adjacent mud into
@@ -251,6 +318,15 @@ mostly green trees with first ochre crowns, wet brown shell fields and cool
 diffuse light after rain. Use [1915-09](../levels/1915-09/backdrop.jpg) for foliage
 and fine detail; [1915-03](../levels/1915-03/backdrop.jpg) for wet crater materials
 only, without snow. Retain the autumn rules season.
+
+**Regional character:** a northern French clay-country treatment with warm brick,
+buff stone, muted lime render and dark roofing. Existing woods have broad rounded
+crowns, mostly green with a few ochre tops; keep meadow between the shell fields
+visibly grassy. Carry brick reveals and warm gravel through cottages and works,
+with different shed construction for ammunition and engineer stores.
+
+**Signature motif:** layered wet clay and dark timber revetment along the existing
+trench network, with clear junctions and distinct firm meadow lanes between fields.
 
 **Audit:** 1658×1920 world pixels, 86 starts, six compounds, eleven houses,
 263 mud hexes and three ponds; no linked ships or airfields. The 47 path and
@@ -279,6 +355,14 @@ without new airstrips.
 showing through, bare woods and dark conifers, slushy roads and cool diffuse
 daylight. Use [1915-12](../levels/1915-12/backdrop.jpg) for snow, rock and detail,
 with thinner cover exposing more dormant ground. Keep the winter rules season.
+
+**Regional character:** a central-European quarry upland with coarse grey stone,
+ochre plaster, dark timber and slate. Existing woods mix dense conifers with fine
+bare broadleaf crowns. Emphasize the central massif's fractured rock and snowy
+crevices within its footprint, keeping every meadow pass plainly open.
+
+**Signature motif:** repeated horizontal stone bedding in the existing rock faces,
+echoed in the quarry workshops' masonry and stored blocks, without new quarry cuts.
 
 **Audit:** 1658×1920 world pixels, 35 starts, two HQs, two factories and one
 house. There are 53 path and 41 road overlays, two mud hexes and a dense central
@@ -310,6 +394,16 @@ sea colour and wave texture only, without its snow, ice or bare winter vegetatio
 The current summer rules season remains unchanged. Convey the January atmosphere
 through light and sea rather than frozen ground; keep all bays and channels open.
 
+**Regional character:** a northern maritime coast with salt-weathered grey stone,
+russet brick and dark tarred timber. Existing leafed woodland has uneven,
+wind-shaped crowns rather than a bare winter silhouette. Repeat dark timber on
+the hangars, fishing cottages and marine workshops; keep the HQs' distinct stone
+and brick construction within this shared coastal palette.
+
+**Signature motif:** a consistent band of salt and moisture weathering on existing
+shore-facing masonry and timber, echoed by restrained waterline staining on
+registered banks and harbour edges. Add no quay, boat or dock furniture.
+
 **Audit:** 1658×1920 world pixels, 58 starts including fourteen linked ships,
 five compounds, fifteen houses, four runway and two hangar hexes. Infrastructure
 also includes 26 path, 13 road, seven road-bridge hexes and two harbour groups.
@@ -339,6 +433,16 @@ and dark conifers, old snow in shade, wet clay and clear cold river water beneat
 bright cloud. Use [1915-03](../levels/1915-03/backdrop.jpg) for thaw treatment and
 [1915-05](../levels/1915-05/backdrop.jpg) for fine materials, without copying its
 full May leaf. Keep the spring rules season.
+
+**Regional character:** an industrial river district inspired by the Meuse and
+Rhine: soot-dark brick, grey stone, aged iron and cold brown floodplain earth.
+Existing bare woodland has a mix of slender upright and spreading branch shapes;
+do not create riverside tree rows outside it. Connect factories and railway
+cottages through brick detailing and weathered slate, leaving the formal HQs distinct.
+
+**Signature motif:** dark ironwork against pale masonry on the existing crossings
+where their registered construction permits, echoed by factory lintels and rail
+entries. Preserve every bridge type, support, deck and channel clearance.
 
 **Audit:** 4498×1920 world pixels, 64 starts, ten compounds, eighteen houses,
 95 mud hexes and no linked ships. Infrastructure includes 190 road, 121 rail,
@@ -370,6 +474,16 @@ small puddles and soft clear morning light after rain. Use
 Retain the spring rules season. Keep the northern shell patch and other small
 mud areas confined to their map bounds; no added battlefield or trenches.
 
+**Regional character:** an Artois-inspired farming and aviation district with
+cream render, warm brick, pale stone plinths and weathered shed timber. Existing
+woods have soft young broadleaf crowns with darker conifers behind them. Keep
+cottages domestic and modest, while the existing works and hangars use larger
+plain roof surfaces and practical doors within their current footprints.
+
+**Signature motif:** dark timber door panels and exposed roof framing on existing
+aviation buildings, repeated more quietly at the aircraft-component works. Keep
+all doors, aprons and runway approaches visibly clear.
+
 **Audit:** 1658×1920 world pixels, 68 starts, four compounds, sixteen houses,
 twelve mud hexes and one pond. Infrastructure: 34 road, ten runway and six hangar
 hexes; no rails, bridges, trenches or linked ships. Keep both airstrip groups
@@ -398,6 +512,16 @@ patches, packed gravel and clear blue coastal water under warm afternoon sun.
 Use [1915-07](../levels/1915-07/backdrop.jpg) for summer colour, banks and detail.
 Retain the summer rules season. Keep the northern coast, eastern stream and
 southern lake as connected painted water without changing their map footprints.
+
+**Regional character:** a Channel-coast-inspired summer district with pale
+limestone, tawny clay, warm roof tile and grey-brown timber. Existing woods use
+full rounded crowns with a few wind-shaped coastal edges, without adding trees
+on open banks. Repeat pale stone in cottage bases, flour-mill masonry and the
+HQs' door surrounds to connect their individual designs.
+
+**Signature motif:** warm pale rock faces meeting clear blue-green water along
+existing rocky shores, with quieter stained stone at stream and lake edges.
+Keep soft banks soft; add no cliff or rock where the map has none.
 
 **Audit:** 2226×1920 world pixels, 80 starts, six compounds, thirteen houses and
 no linked ships. Infrastructure: 81 road, 21 rail, 13 path, six road-bridge,
@@ -429,6 +553,16 @@ yellow/ochre leaves, damp dark clay in the shell patches and mild sun through
 high cloud. Use [1915-09](../levels/1915-09/backdrop.jpg) for early-autumn colour,
 detail and stream banks. Keep the autumn rules season.
 
+**Regional character:** a northern French railway and workshop district with
+grey fieldstone, buff brick, pale mortar and dark weathered timber. Existing
+woodland has broad, uneven green crowns with scattered yellow leaves and light
+undergrowth. Repeat brick arches and dark roof edges in railway cottages and
+repair works, keeping the two small houses individually recognizable.
+
+**Signature motif:** dark sleeper ends and rust-brown rail edges against pale
+ballast along the two existing railway routes, echoed in the repair workshops'
+registered rail entrances. Preserve all crossings and deliberate rail ends.
+
 **Audit:** 1658×1920 world pixels, 74 starts, six compounds, two houses,
 28 mud hexes and no linked ships or airfields. Infrastructure: 63 rail, 29 road,
 28 path, fourteen trench, one stream and one road-bridge overlay, plus two
@@ -456,6 +590,16 @@ and dark conifers, slushy lanes, slate-blue open lake water and cold overcast
 daylight. Use [1915-12](../levels/1915-12/backdrop.jpg) for snow/detail and
 [1916-02](../levels/1916-02/backdrop.jpg) for cold water only. Keep the winter
 rules season and all navigation open.
+
+**Regional character:** a continental lake district with grey granite, russet
+brick and silvered timber beneath thin snow. Existing woods mix delicate bare
+crowns and dark conifers, with snow caught unevenly inside their boundaries.
+Repeat local stone at factory bases and cottage thresholds, while distinct shed
+roofs and hangar doors keep the many compounds readable.
+
+**Signature motif:** pale snow shoulders beside dark wet bridge decks across the
+existing crossings, echoed at registered road approaches. Keep deck edges and
+supports legible, without adding railings or narrowing the navigable openings.
 
 **Audit:** 2226×2560 world pixels, 106 starts, eight compounds, eighteen houses,
 no linked ships. Infrastructure: 161 road, 72 rail, 25 road-bridge, seventeen
@@ -488,6 +632,16 @@ Use [1915-03](../levels/1915-03/backdrop.jpg) for continuous battlefield materia
 and [1915-12](../levels/1915-12/backdrop.jpg) for snow/detail. Keep the winter
 rules season. The northern brook remains visibly open beneath its crossing.
 
+**Regional character:** a chalk-upland winter battlefield with pale mineral
+fragments, frozen brown clay, muted stone and weathered timber. Existing woods
+have compact bare crowns and dark conifer groups; snow lies unevenly rather
+than flattening their silhouettes. Use local pale stone in cottage plinths and
+HQ gate surrounds while keeping their masonry designs distinct.
+
+**Signature motif:** narrow pale soil exposures within the existing trench walls,
+with dark revetment and shallow snow above. Keep these readable as continuous
+earthworks, without creating new trench branches or enlarging the shell field.
+
 **Audit:** 1090×1280 world pixels, 87 starts, two HQs, four houses and 75 mud
 hexes; no linked ships or airfields. Infrastructure: 37 trench, 23 path, eleven
 road, eight stream and one bridge overlay. Fuse adjacent mud into continuous
@@ -515,15 +669,25 @@ conifers, damp pale gravel and warm late-morning light through high cloud. Use
 [1915-05](../levels/1915-05/backdrop.jpg) for greens, fine detail and material scale.
 Keep the spring rules season. Preserve the open meadow inside the broad road loop.
 
+**Regional character:** an Aisne-inspired rural district with creamy limestone,
+warm gravel, muted render and selective brick repairs. Existing woods have tall
+full broadleaf crowns, darker conifers and fresh undergrowth within their bounds.
+Carry pale stone through HQ walls, cottage bases and workshop door surrounds;
+the open road loop remains meadow rather than becoming a cultivated field.
+
+**Signature motif:** the same warm pale mineral tone in the existing northern
+rock band, road aggregate and building masonry, with material-specific texture
+so the three remain distinguishable during play.
+
 **Audit:** 1658×1280 world pixels, 76 starts, four compounds, three houses and
 67 road overlays. No water, rails, trenches, airfields or linked ships; the single
 mud hex is an existing bunker position. Preserve every fork and gate approach,
 the northern rock band and the southern woodland edge without adding fields.
 
-**Individual architecture proposed:** HQ [6,1], buff sandstone castle with four
+**Individual architecture proposed:** HQ [6,1], warm limestone castle with four
 round copper domes, brick-lined inner arches and a red-tiled hall with timber
-eaves; HQ [26,11], pale rendered brick fort with four round slate-cone towers,
-exposed brick gate jambs and a low green-copper-roofed courtyard hall.
+eaves; HQ [26,11], pale rendered limestone fort with four round slate-cone towers,
+brick-repaired gate jambs and a low green-copper-roofed courtyard hall.
 Factory [6,10], brick tractor/engine works; [29,2], timber-and-stone repair shops.
 House [1,1], brick cottage; [3,3], stone farmhouse; [17,3], timber keeper's cottage.
 Retain partial edge features without completing extra buildings beyond the map.

@@ -53,6 +53,10 @@ The revised briefs retain intact occupied buildings, distinguish individual HQs
 and specify a snow-free coast for `1917-01` with its summer rules unchanged.
 The approval pack's acceptance gates for `1917-01`, `1917-03` and `1917-11`
 must pass before accepting installation or completing those months.
+The user approved adding regional artistic direction: each brief specifies a
+shared local material palette, vegetation character and signature motif within
+existing footprints. These are artistic settings, not verified map locations;
+final painting approval remains pending.
 
 - [x] [1918-10](levels/1918-10/) — the Flanders painting described in
       [Painted backdrops](docs/painted-backdrops.md).
