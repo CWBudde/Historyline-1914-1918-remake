@@ -28,7 +28,6 @@ import (
 	"fmt"
 	"image"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -475,23 +474,15 @@ func (c *command) cmdRender(args []string) error {
 			}
 		}
 	}
-	ffmpeg, err := exec.LookPath("ffmpeg")
-	if err != nil {
-		if _, err := fmt.Fprintln(c.stdout, "ffmpeg not found: game.mp4 skipped"); err != nil {
-			return err
-		}
-		return nil
-	}
 	mp4 := filepath.Join(*dir, "game.mp4")
-	cmd := exec.CommandContext(c.ctx, ffmpeg, "-y",
-		"-framerate", fmt.Sprint(max(*fps, 1)),
-		"-pattern_type", "glob", "-i", filepath.Join(*dir, "frames", "*.png"),
-		"-vf", fmt.Sprintf("scale=%d:-2", *width),
-		"-c:v", "libx264", "-preset", "veryfast", "-crf", fmt.Sprint(*crf),
-		"-pix_fmt", "yuv420p", "-movflags", "+faststart", mp4)
-	cmd.Stderr = c.stderr
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("ffmpeg: %w", err)
+	if err := llmplay.EncodeMP4(c.ctx, filepath.Join(*dir, "frames", "*.png"), mp4, *fps, *width, *crf); err != nil {
+		if errors.Is(err, llmplay.ErrNoFFmpeg) {
+			if _, err := fmt.Fprintln(c.stdout, "ffmpeg not found: game.mp4 skipped"); err != nil {
+				return err
+			}
+			return nil
+		}
+		return err
 	}
 	if st, err := os.Stat(mp4); err == nil {
 		if _, err := fmt.Fprintf(c.stdout, "game.mp4: %s (%.1f MB)\n", mp4, float64(st.Size())/1e6); err != nil {
