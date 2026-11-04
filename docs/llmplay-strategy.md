@@ -151,7 +151,8 @@ treasury, is the bug (see v7/v8 below).
 # CANDL (1918-04:cp)
 
 Not yet won: the coach loses the HQ at resolution 18, hand play (`candl2`,
-`candl3`, with `-lines`, `-full`, `suggest`) at resolution 20 both times.
+`candl3`, with `-lines`, `-full`, `suggest`) at resolution 20 both times, and
+`candl4` (a walkthrough written for the original computer side) at resolution 12.
 
 ## The situation
 
@@ -217,3 +218,34 @@ side. A capture of the EC HQ is therefore the end of a won battle, not a raid.
   also refills the outer ring around the doorsteps.
 - At resolution 18 EC left an empty doorstep untaken while two CP holders
   stood beside it; it captured at resolution 20 when only a balloon was left.
+
+## A walkthrough for the original computer side (candl4)
+
+A published CP walkthrough says: pull the north-eastern units into the HQ
+gates and do not engage, sacrifice the south-east group on the EC trainArt,
+let the north-west group break south, and build an army of armour and
+artillery at the factory that retakes the west bank and crosses at the land
+bridge, because the original computer side stops attacking the HQ and
+streams over the bridge instead. `dosai` does not do that, and the game was
+lost at resolution 12:
+
+- EC's centre never leaves the HQ while any CP unit stands near it; it
+  attacks every unit there whenever the exact outcome favours it. The
+  south-east group's attacks took the trainArt only from 6 to 4 (armCar 6→5
+  per attack), the group was gone by resolution 4, and the trainArt then
+  shelled the doorsteps from [9,9].
+- A threatened unit that steps into the HQ dies there even when each
+  attacker alone was predicted only to halve it: the attacks add up.
+- Holding all ten hexes of the doorsteps and their outer ring
+  ([4,11] [5,11] [5,12] [6,10] [6,12] [8,10] [8,12]) leaves no unit open to
+  a pincer, but EC still destroyed two or three outer units per action phase.
+- With only the armTrain and a balloon left at [5,11]/[5,12], EC infantry
+  and cavalry stood on two doorsteps for three resolutions without entering,
+  and the armTrain killed one adjacent unit per action phase with no return
+  fire. Once the armTrain was down to 4/6, EC attacked and destroyed it, and
+  with only the balloon left it captured the HQ in its next move, as in
+  `candl3`. The capture follows the loss of the last unit EC can attack, not
+  an empty doorstep.
+- The factory builds three units per resolution (income 80 per phase
+  change), but only the four hexes beside [93,2] take exits, so the army
+  clogs the narrow west strip unless the exit hexes are cleared every move.
