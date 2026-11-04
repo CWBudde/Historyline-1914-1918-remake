@@ -111,11 +111,32 @@ wasm:
 web port="":
     go run ./cmd/hl web {{ if port != "" { "-port " + port } else { "" } }}
 
+# Install the web edition's dependencies (webapp/, pnpm; node_modules only links into pnpm's store)
+webapp-install:
+    pnpm --dir webapp install --frozen-lockfile
+
+# Serve the web edition with live reload; pass Vite options, e.g. just webapp --host --port 5173
+[positional-arguments]
+webapp *args: webapp-install
+    pnpm --dir webapp/app exec vite "$@"
+
+# Run the web edition's tests (Vitest; the engine is checked against internal/dosrules/testdata)
+webapp-test: webapp-install
+    pnpm --dir webapp run test
+
+# Build the web edition into build/webapp/site
+webapp-build: webapp-install
+    pnpm --dir webapp run build
+
+# Typecheck, lint, test and build the web edition
+webapp-check: webapp-install
+    pnpm --dir webapp run check
+
 # Everything CI checks, each test once
-ci: lint test build build-tools wasm art-check reference-check
+ci: lint test build build-tools wasm art-check reference-check webapp-check
 
 # ci without the art tools' tests, for changes outside tools/ (a few minutes)
-check: lint test-quick build build-tools wasm art-check reference-check
+check: lint test-quick build build-tools wasm art-check reference-check webapp-check
 
 # Check the art catalogue, the PULSE reference data and the art tools (no original data required)
 gfx-check: art-check reference-check

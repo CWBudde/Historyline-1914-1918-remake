@@ -1,0 +1,8 @@
+packages:
+  - engine
+  - app
+
+# node_modules holds only links into pnpm's global store. When the project's drive is not the home folder's,
+# set the store in the user config (pnpm config set store-dir ~/.local/share/pnpm/store --location=global);
+# otherwise pnpm puts it at the root of the project's drive.
+enableGlobalVirtualStore: true

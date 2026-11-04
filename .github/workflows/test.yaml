@@ -27,3 +27,6 @@ jobs:
 
   test-art:
     uses: ./.github/workflows/test-art.yaml
+
+  test-webapp:
+    uses: ./.github/workflows/test-webapp.yaml

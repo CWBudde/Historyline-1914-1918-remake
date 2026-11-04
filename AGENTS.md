@@ -16,7 +16,7 @@ in `webapp/`, the web edition's browser runtime (PLAN.md §7); its exports and g
 ## Commands
 
 ```sh
-just ci          # everything CI runs: lint, test, build, wasm, art-check, reference-check
+just ci          # everything CI runs: lint, test, build, wasm, art-check, reference-check, webapp-check
 just check       # ci without the tools/ tests (about 25 min, never cached): for changes outside tools/
 just test        # go test ./...
 go test ./internal/game -run TestName   # single test
@@ -28,6 +28,8 @@ just play-original  # just play, with F8 switching to the original tiles and uni
 just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates
 just artbook     # hl artbook: build/artbook/Historyline_Art.pdf (needs typst)
 just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin/hl + native preview helper
+just webapp     # the web edition's dev server (Vite); just webapp-check = tsc, eslint, vitest, vite build
+just webapp-test   # its tests; just webapp-build -> build/webapp/site
 ```
 
 ## Architecture
@@ -100,6 +102,11 @@ just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin
   (`water`, `waterDeep`, `waterSea`) as one smooth field, blends in the open sea's material and lays surf
   along sea coasts, in the game and in `maprender`. `internal/seasonblend` blends the borders between hexes
   drawn in different seasons by a noisy weight field, in the game and in `maprender`.
+- `webapp/` (PLAN.md §7): the web edition in TypeScript, a pnpm workspace. `webapp/engine` is the
+  rules port, pure (ESLint forbids rendering, DOM and Node imports outside tests) and checked against the Go
+  fixtures in `internal/dosrules/testdata`; `webapp/app` is the browser front end (Vite, PixiJS for the map,
+  Preact for the DOM UI). `node_modules` only links into pnpm's global store; when the project's drive is not
+  the home folder's, set `pnpm config set store-dir ~/.local/share/pnpm/store --location=global`.
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
   tool tests. `hl review gallery` (`internal/hlgallery`) is the local comparison desk (`just gfx-game-review`). `tools/candidate-review`

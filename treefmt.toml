@@ -14,6 +14,9 @@ excludes = [
   "*.json",
   "go.sum",
   "go.mod",
+  # the web edition's dependencies and lockfile
+  "**/node_modules/**",
+  "webapp/pnpm-lock.yaml",
 ]
 
 ### Misc
@@ -21,7 +24,7 @@ excludes = [
 [formatter.prettier]
 command = "prettier"
 options = ["-w"]
-includes = ["*.html", "*.css", "*.js", "*.yaml", "*.yml"]
+includes = ["*.html", "*.css", "*.js", "*.ts", "*.tsx", "*.yaml", "*.yml"]
 
 ### Go
 

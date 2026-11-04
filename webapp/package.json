@@ -1,0 +1,26 @@
+{
+  "name": "historyline-webapp",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json && tsc -p engine && tsc -p app",
+    "lint": "eslint --max-warnings 0 .",
+    "test": "vitest run",
+    "build": "pnpm --filter @historyline/app run build",
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.6.6",
+    "eslint": "10.14.0",
+    "globals": "17.14.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.5",
+    "vitest": "5.1.0"
+  }
+}

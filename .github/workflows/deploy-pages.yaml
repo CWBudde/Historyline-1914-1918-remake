@@ -32,6 +32,24 @@ jobs:
       - name: Build web demo
         run: just web
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: webapp/package.json
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: webapp/pnpm-lock.yaml
+
+      - name: Build the web edition under /next/
+        run: |
+          just webapp-build
+          mkdir -p build/web/next
+          cp -r build/webapp/site/. build/web/next/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

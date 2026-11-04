@@ -136,6 +136,9 @@ dmypy.json
 *.wasm
 /wasm_exec.js
 
+# The web edition's dependencies (webapp/, pnpm).
+node_modules/
+
 # Local original-game reference installation (never distribute).
 /original/
 
