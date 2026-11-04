@@ -11,7 +11,9 @@ import (
 	"hash/fnv"
 	"image/color"
 	"log"
+	"os"
 	"strings"
+	"time"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -897,17 +899,37 @@ func main() {
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
 	replayDir := flag.String("replay", "", "a recorded llmplay game directory (build/review/llmplay/<game>): watch it in the battle screen, both sides played from its transcript (implies -rules dos; the level and side come from the transcript)")
+	record := recordConfig{}
+	flag.StringVar(&record.out, "record", "", "with -replay: record the replay as an MP4 video of the battle screen under build/ (needs ffmpeg) and exit")
+	recordSize := flag.String("record-size", "1920x1080", "with -record: the video's size, WxH, both even")
+	flag.IntVar(&record.fps, "record-fps", 30, "with -record: video frames per second")
+	flag.IntVar(&record.speed, "record-speed", 2, "with -record: game ticks per video frame (the game runs 60 ticks a second: 2 at 30 fps is real time)")
+	flag.DurationVar(&record.tail, "record-tail", 3*time.Second, "with -record: video after the replay is done")
+	flag.IntVar(&record.crf, "record-crf", 23, "with -record: x264 quality (higher is smaller)")
+	flag.IntVar(&record.maxFrames, "record-max-frames", 0, "with -record: stop after this many video frames (0: record to the end)")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")
 	}
 	direct := *capture != "" || *replayDir != ""
+	given := map[string]bool{}
 	flag.Visit(func(f *flag.Flag) {
+		given[f.Name] = true
 		direct = direct || f.Name == "level" || f.Name == "player"
 		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent" || f.Name == "rules" && *rules != "dos") {
 			log.Fatalf("-replay takes the level, the sides and the rules from the transcript: drop -%s", f.Name)
 		}
 	})
+
+	if err := record.check(*replayDir, *capture, *reduced, given); err != nil {
+		log.Fatal(err)
+	}
+	if record.out != "" {
+		var err error
+		if record.w, record.h, err = parseRecordSize(*recordSize); err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	set, err := data.Load()
 	if err != nil {
@@ -1001,6 +1023,12 @@ func main() {
 			log.Fatal("-capture requires both -units and -terrain")
 		}
 		if err := writeReviewFrames(gm, *capture, *captureLook); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+	if record.out != "" {
+		if err := recordReplay(gm, record, os.Stdout); err != nil {
 			log.Fatal(err)
 		}
 		return
