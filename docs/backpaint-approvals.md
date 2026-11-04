@@ -1,16 +1,13 @@
-# Backpaint briefs awaiting approval
+# Approved backpaint briefs
 
-These proposals prepare the fourteen unapproved months in
-[the backpaint plan](../backpaint-plan.md) for one review. November 1915 already
-has an approved brief and is outside this batch. The user approved incorporating
-regional artistic direction into these briefs; all fourteen still await final
-painting approval. Preparing this document does not authorize painting or asset
-replacement.
+The user revised and approved all fourteen remaining briefs in
+[the backpaint plan](../backpaint-plan.md) on 2026-11-04, including their regional
+artistic direction and placeholder replacement after verification. November 1915
+is complete under its separately approved brief.
 
-Approval of a month covers its appearance, references, individual architecture
-and eventual replacement of that month's existing placeholder PNG/JPEG after the
-plan's painting and verification steps. The common requirements below apply to
-every month. You can approve the whole batch or name exceptions.
+Approval covers each month's appearance, references, individual architecture
+and replacement of its existing placeholder PNG/JPEG after the plan's painting
+and verification steps. The common requirements below apply to every month.
 
 ## Common requirements
 
@@ -19,8 +16,8 @@ Keep its rules season, all terrain footprints, routes, watercourses, crossings,
 compound bounds, entrances, airfields and every setup's starting positions.
 References supply painting detail, materials and the stated seasonal treatment;
 never copy their layout or structures. The regional direction is agreed; the
-appearance descriptions and individual building designs form the final painting
-briefs awaiting approval.
+appearance descriptions and individual building designs form the approved
+painting briefs.
 
 The regional names below describe artistic treatments, not verified battlefield
 locations. Give each month its stated ground/building palette, vegetation

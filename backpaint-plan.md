@@ -45,18 +45,17 @@ evidence under `build/review/backdrops/<month>/`. Tick the month only when all i
 subtasks have evidence. Extra candidates, new variants or map/setup changes require
 separate approval under the standing scope rules.
 
-The fourteen unapproved months from `1916-01` through `1918-05` have been audited
-and their proposed briefs are collected in [Backpaint approvals](docs/backpaint-approvals.md)
-for one review. Their approval boxes remain open; guide rendering and painting
-wait for that approval. `1915-11` is complete under its separately approved brief.
+The user revised and approved all fourteen remaining briefs from `1916-01`
+through `1918-05` on 2026-11-04. The audited briefs are collected in
+[Backpaint approvals](docs/backpaint-approvals.md); execute their painting and
+verification steps in order. `1915-11` is complete under its separately approved brief.
 The revised briefs retain intact occupied buildings, distinguish individual HQs
 and specify a snow-free coast for `1917-01` with its summer rules unchanged.
 The approval pack's acceptance gates for `1917-01`, `1917-03` and `1917-11`
 must pass before accepting installation or completing those months.
 The user approved adding regional artistic direction: each brief specifies a
 shared local material palette, vegetation character and signature motif within
-existing footprints. These are artistic settings, not verified map locations;
-final painting approval remains pending.
+existing footprints. These are artistic settings, not verified map locations.
 
 - [x] [1918-10](levels/1918-10/) — the Flanders painting described in
       [Painted backdrops](docs/painted-backdrops.md).
@@ -188,8 +187,8 @@ final painting approval remains pending.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting and necessary CLI fix: `847e90c5`; normal push `b4de7c7d..847e90c5` succeeded. Source/JPEG hashes and unchanged map/setup/reference hashes verified; independent review found no defects.
 
 - [ ] [1916-01](levels/1916-01/)
-  - [x] Audit `levels/1916-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-01/approval-audit.json` and `.md`: winter, 1090×1920, two HQs, two houses, 76 inherited starts, no linked ships or airfields; rail/road/path coordinates recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [BISON/FROST](docs/backpaint-approvals.md#1916-01--bisonfrost), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1916-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-01/approval-audit.json` and `.md`: winter, 1090×1920, two HQs, two houses, 76 inherited starts, no linked ships or airfields; rail/road/path coordinates recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [BISON/FROST](docs/backpaint-approvals.md#1916-01--bisonfrost), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-01:cp -out build/review/backdrops/1916-01/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -209,8 +208,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1916-03](levels/1916-03/)
-  - [x] Audit `levels/1916-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-03/approval-audit.json` and `.md`: winter, 2226×2560, seven compounds, twelve houses, 110 inherited starts, no linked ships, nine runway/four hangar overlays; all routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [DRUCK/MEUSE](docs/backpaint-approvals.md#1916-03--druckmeuse), including occupied cottage/hangar treatment, awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1916-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-03/approval-audit.json` and `.md`: winter, 2226×2560, seven compounds, twelve houses, 110 inherited starts, no linked ships, nine runway/four hangar overlays; all routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [DRUCK/MEUSE](docs/backpaint-approvals.md#1916-03--druckmeuse), including occupied cottage/hangar treatment, approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-03:cp -out build/review/backdrops/1916-03/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -230,8 +229,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1916-05](levels/1916-05/)
-  - [x] Audit `levels/1916-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-05/approval-audit.json` and `.md`: spring, 2226×2560, ten compounds, six houses, 100 inherited starts, no linked ships or airfields; eight bridge and eight stream overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [VIRUS/ALPIN](docs/backpaint-approvals.md#1916-05--virusalpin), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1916-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-05/approval-audit.json` and `.md`: spring, 2226×2560, ten compounds, six houses, 100 inherited starts, no linked ships or airfields; eight bridge and eight stream overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [VIRUS/ALPIN](docs/backpaint-approvals.md#1916-05--virusalpin), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-05:cp -out build/review/backdrops/1916-05/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -251,8 +250,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1916-07](levels/1916-07/)
-  - [x] Audit `levels/1916-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-07/approval-audit.json` and `.md`: summer, 1658×1920, three compounds, 39 inherited starts, no houses, water, airfields or linked ships; 381 mud hexes and three road overlays recorded, no trench overlays. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [PLATE/SOMME](docs/backpaint-approvals.md#1916-07--platesomme), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1916-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-07/approval-audit.json` and `.md`: summer, 1658×1920, three compounds, 39 inherited starts, no houses, water, airfields or linked ships; 381 mud hexes and three road overlays recorded, no trench overlays. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [PLATE/SOMME](docs/backpaint-approvals.md#1916-07--platesomme), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-07:cp -out build/review/backdrops/1916-07/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -272,8 +271,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1916-09](levels/1916-09/)
-  - [x] Audit `levels/1916-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-09/approval-audit.json` and `.md`: autumn, 1658×1920, six compounds, eleven houses, 86 inherited starts, no airfields or linked ships; 47 path and 47 trench overlays, 263 mud hexes and three ponds recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [DROID/TANKS](docs/backpaint-approvals.md#1916-09--droidtanks), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1916-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-09/approval-audit.json` and `.md`: autumn, 1658×1920, six compounds, eleven houses, 86 inherited starts, no airfields or linked ships; 47 path and 47 trench overlays, 263 mud hexes and three ponds recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [DROID/TANKS](docs/backpaint-approvals.md#1916-09--droidtanks), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-09:cp -out build/review/backdrops/1916-09/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -293,8 +292,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1916-11](levels/1916-11/)
-  - [x] Audit `levels/1916-11/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-11/approval-audit.json` and `.md`: winter, 1658×1920, four compounds, one house, 35 inherited starts, no water, airfields or linked ships; 53 path and 41 road overlays and all mountain footprints recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [ROYAL/CROWN](docs/backpaint-approvals.md#1916-11--royalcrown), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1916-11/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-11/approval-audit.json` and `.md`: winter, 1658×1920, four compounds, one house, 35 inherited starts, no water, airfields or linked ships; 53 path and 41 road overlays and all mountain footprints recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [ROYAL/CROWN](docs/backpaint-approvals.md#1916-11--royalcrown), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-11:cp -out build/review/backdrops/1916-11/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -314,8 +313,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-01](levels/1917-01/)
-  - [x] Audit `levels/1917-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-01/approval-audit.json` and `.md`: summer rules season, 1658×1920, five compounds, fifteen houses, 58 inherited starts including fourteen linked ships; four runway/two hangar overlays, seven bridge overlays and all coastal routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [UBOOT/DEPTH](docs/backpaint-approvals.md#1917-01--ubootdepth), snow-free cold coast with summer rules retained, awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1917-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-01/approval-audit.json` and `.md`: summer rules season, 1658×1920, five compounds, fifteen houses, 58 inherited starts including fourteen linked ships; four runway/two hangar overlays, seven bridge overlays and all coastal routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [UBOOT/DEPTH](docs/backpaint-approvals.md#1917-01--ubootdepth), snow-free cold coast with summer rules retained, approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-01:cp -out build/review/backdrops/1917-01/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -335,8 +334,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-03](levels/1917-03/)
-  - [x] Audit `levels/1917-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-03/approval-audit.json` and `.md`: spring, 4498×1920, ten compounds, eighteen houses, 64 inherited starts, no linked ships; nine runway/six hangar, seventeen bridge, seven stream and 28 trench overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SKILL/CABLE](docs/backpaint-approvals.md#1917-03--skillcable), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1917-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-03/approval-audit.json` and `.md`: spring, 4498×1920, ten compounds, eighteen houses, 64 inherited starts, no linked ships; nine runway/six hangar, seventeen bridge, seven stream and 28 trench overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SKILL/CABLE](docs/backpaint-approvals.md#1917-03--skillcable), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-03:cp -out build/review/backdrops/1917-03/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -356,8 +355,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-05](levels/1917-05/)
-  - [x] Audit `levels/1917-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-05/approval-audit.json` and `.md`: spring, 1658×1920, four compounds, sixteen houses, 68 inherited starts, no linked ships; ten runway/six hangar and 34 road overlays recorded, including the occupied cottage. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SKULL/ANZAC](docs/backpaint-approvals.md#1917-05--skullanzac), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1917-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-05/approval-audit.json` and `.md`: spring, 1658×1920, four compounds, sixteen houses, 68 inherited starts, no linked ships; ten runway/six hangar and 34 road overlays recorded, including the occupied cottage. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SKULL/ANZAC](docs/backpaint-approvals.md#1917-05--skullanzac), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-05:cp -out build/review/backdrops/1917-05/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -377,8 +376,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-07](levels/1917-07/)
-  - [x] Audit `levels/1917-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-07/approval-audit.json` and `.md`: summer, 2226×1920, six compounds, thirteen houses, 80 inherited starts, no linked ships; four runway/three hangar, six bridge and fifteen stream overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [AUDIO/MASKS](docs/backpaint-approvals.md#1917-07--audiomasks), including occupied cottage treatment, awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1917-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-07/approval-audit.json` and `.md`: summer, 2226×1920, six compounds, thirteen houses, 80 inherited starts, no linked ships; four runway/three hangar, six bridge and fifteen stream overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [AUDIO/MASKS](docs/backpaint-approvals.md#1917-07--audiomasks), including occupied cottage treatment, approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-07:cp -out build/review/backdrops/1917-07/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -398,8 +397,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-09](levels/1917-09/)
-  - [x] Audit `levels/1917-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-09/approval-audit.json` and `.md`: autumn, 1658×1920, six compounds, two houses, 74 inherited starts, no linked ships or airfields; fourteen trench, one stream and one bridge overlay plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SPELL/BEAMS](docs/backpaint-approvals.md#1917-09--spellbeams), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1917-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-09/approval-audit.json` and `.md`: autumn, 1658×1920, six compounds, two houses, 74 inherited starts, no linked ships or airfields; fourteen trench, one stream and one bridge overlay plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SPELL/BEAMS](docs/backpaint-approvals.md#1917-09--spellbeams), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-09:cp -out build/review/backdrops/1917-09/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -419,8 +418,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-11](levels/1917-11/)
-  - [x] Audit `levels/1917-11/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-11/approval-audit.json` and `.md`: winter, 2226×2560, eight compounds, eighteen houses, 106 inherited starts, no linked ships; seventeen runway/nine hangar and 25 bridge overlays plus all rail/road routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [CAMEL/BELLS](docs/backpaint-approvals.md#1917-11--camelbells), including occupied cottage treatment, awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1917-11/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-11/approval-audit.json` and `.md`: winter, 2226×2560, eight compounds, eighteen houses, 106 inherited starts, no linked ships; seventeen runway/nine hangar and 25 bridge overlays plus all rail/road routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [CAMEL/BELLS](docs/backpaint-approvals.md#1917-11--camelbells), including occupied cottage treatment, approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-11:cp -out build/review/backdrops/1917-11/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -440,8 +439,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1918-01](levels/1918-01/)
-  - [x] Audit `levels/1918-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-01/approval-audit.json` and `.md`: winter, 1090×1280, two HQs, four houses, 87 inherited starts, no linked ships or airfields; 37 trench, eight stream and one bridge overlay plus all road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [FLAGS/POINT](docs/backpaint-approvals.md#1918-01--flagspoint), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1918-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-01/approval-audit.json` and `.md`: winter, 1090×1280, two HQs, four houses, 87 inherited starts, no linked ships or airfields; 37 trench, eight stream and one bridge overlay plus all road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [FLAGS/POINT](docs/backpaint-approvals.md#1918-01--flagspoint), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-01:cp -out build/review/backdrops/1918-01/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
@@ -461,8 +460,8 @@ final painting approval remains pending.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1918-05](levels/1918-05/)
-  - [x] Audit `levels/1918-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-05/approval-audit.json` and `.md`: spring, 1658×1280, four compounds, three houses, 76 inherited starts, no water, linked ships or airfields; all 67 road overlays and rocky/woodland starts recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SCOUT/DAMES](docs/backpaint-approvals.md#1918-05--scoutdames), awaiting approval.
-  - [ ] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder.
+  - [x] Audit `levels/1918-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-05/approval-audit.json` and `.md`: spring, 1658×1280, four compounds, three houses, 76 inherited starts, no water, linked ships or airfields; all 67 road overlays and rocky/woodland starts recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SCOUT/DAMES](docs/backpaint-approvals.md#1918-05--scoutdames), approved by the user on 2026-11-04.
+  - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1918-05:cp -out build/review/backdrops/1918-05/guide`.
   - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
   - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
