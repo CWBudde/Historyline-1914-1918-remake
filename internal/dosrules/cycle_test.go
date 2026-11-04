@@ -559,3 +559,88 @@ func TestCycleSetUp(t *testing.T) {
 		})
 	}
 }
+
+// inSlots reports whether any slot of any container record holds unit i.
+func inSlots(g *Game, i int) bool {
+	for _, h := range g.Holds {
+		if slices.Contains(h.Slots[:], i) {
+			return true
+		}
+	}
+	return false
+}
+
+// TestCycleDestroyedLeavesBuilding moves a unit into its HQ while the
+// enemy's attacks hit it at the cell it left: destroyed there, it is in no
+// slot after the phase change and cannot be repaired.
+func TestCycleDestroyedLeavesBuilding(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			from := -1
+			for _, c := range neighbours(hq0, cycleW, cycleH) {
+				if c >= 0 && c != hq1 {
+					from = c
+					break
+				}
+			}
+			units := map[int]Placement{0: {Type: cInfantry, Owner: 0, Cell: from, Size: 1}, 9: {Type: cInfantry, Owner: 0, Cell: 78}}
+			var shooters []int
+			for _, c := range neighbours(from, cycleW, cycleH) {
+				if c >= 0 && c != hq0 && len(shooters) < 3 {
+					shooters = append(shooters, c)
+					units[len(shooters)] = Placement{Type: cPanzer, Owner: 1, Cell: c}
+				}
+			}
+			g := energyCycle(t, p, units)
+			g.Players[0].Phase, g.Players[1].Phase = PhaseMovement, PhaseAction
+			apply(t, g, Command{Kind: CmdMove, Side: 0, Unit: 0, Cell: hq0})
+			if !inSlots(g, 0) {
+				t.Fatal("the move did not take the unit into the HQ")
+			}
+			for k := range shooters {
+				apply(t, g, Command{Kind: CmdAttack, Side: 1, Unit: k + 1, Cell: from})
+			}
+			resolve(t, g)
+			if !g.Units[0].Destroyed() {
+				t.Fatalf("the attacks left the unit %+v", g.Units[0])
+			}
+			if inSlots(g, 0) {
+				t.Errorf("the destroyed unit is still in a slot: %v", g.Holds[HoldFlag40].Slots)
+			}
+			g.Energy[0] = 100
+			for k := range 7 {
+				if g.Check(Command{Kind: CmdRepair, Side: 0, Hold: HoldFlag40, Slot: k}) == nil {
+					t.Errorf("slot %d offers a repair", k)
+				}
+			}
+		})
+	}
+}
+
+// TestCycleDestroyedTransporterCargo destroys a loaded transporter: its
+// cargo is destroyed with it.
+func TestCycleDestroyedTransporterCargo(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			units := map[int]Placement{1: {Type: cSupply, Owner: 0, Cell: 40, Size: 1}, 10: {Type: cInfantry, Owner: 0}}
+			n := neighbours(40, cycleW, cycleH)
+			for k, c := range n[:3] {
+				units[20+k] = Placement{Type: cPanzer, Owner: 1, Cell: c}
+			}
+			g := newCycleHolds(t, p, units, map[int]Hold{cTransportRec: transportHold(40, 0, 1, 10)})
+			for k := range 3 {
+				apply(t, g, Command{Kind: CmdAttack, Side: 1, Unit: 20 + k, Cell: 40})
+			}
+			resolve(t, g)
+			if !g.Units[1].Destroyed() {
+				t.Fatalf("the attacks left the transporter %+v", g.Units[1])
+			}
+			if !g.Units[10].Destroyed() || inSlots(g, 10) {
+				t.Errorf("the cargo survived: %+v, slots %v", g.Units[10], g.Holds[cTransportRec].Slots)
+			}
+			if !slices.Equal(g.Destroyed(), []int{1, 10}) {
+				t.Errorf("destroyed %v, want [1 10]", g.Destroyed())
+			}
+		})
+	}
+}
