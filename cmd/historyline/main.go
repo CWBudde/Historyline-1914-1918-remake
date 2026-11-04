@@ -967,7 +967,9 @@ func main() {
 		if c.replay, err = llmplay.OpenReplay(*replayDir); err != nil {
 			log.Fatal(err)
 		}
-		c.lvl = c.replay.Session.Level
+		if c.lvl, err = replayLevel(c.replay); err != nil {
+			log.Fatal(err)
+		}
 	} else if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
 		log.Fatal(err)
 	}
