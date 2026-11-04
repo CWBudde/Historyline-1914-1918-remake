@@ -141,6 +141,7 @@ treasury, is the bug (see v7/v8 below).
   at 65, EC annihilated (its HQ ring of bunkers died to adjacent anti-tank
   fire before any capturer had to dash). Deterministic: two runs produce
   byte-identical transcripts; `TestCoachPlaysFullGame` pins the win.
+  Transcript committed: `internal/llmplay/testdata/rhein-coach-win`.
 
 ## Open fronts
 
@@ -396,8 +397,10 @@ the way:
 
 The 4119 win was mostly self-inflicted delay. Same res-44 lock, then
 no muster/release cycles and no southern detours:
-`build/review/llmplay/candl-fast44` ends `replay OK: 477 resolutions,
-every state hash matches, ended winner=side0 won=[hq] score=4300`.
+`build/review/llmplay/candl-fast44` (transcript committed:
+`internal/llmplay/testdata/candl-fast44-win`) ends `replay OK: 477
+resolutions, every state hash matches, ended winner=side0 won=[hq]
+score=4300`.
 Sequence: march the south army north in one antiTank column and commit
 it as soon as the head packs against the bridge guns' reach (bridge
 open ~res 245; e99 dead, e70 driven off to [5,1] and left alive).
