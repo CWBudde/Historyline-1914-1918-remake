@@ -149,4 +149,6 @@ cannot play, not by rushing.
 `go test ./internal/llmplay/`: fair-prompt contents, atomic rejection,
 step+replay+review round trip, a 6-resolution fallback game on RHEIN, frame
 projection, line windows and the `!` gun-reach mark against the engine's
-targets on CANDL, and a `suggest` batch that `Apply` takes whole.
+targets on CANDL, a `suggest` batch that `Apply` takes whole, and a whole
+fallback game replayed side by side (each side's orders, its confirmation,
+then `Resolve`) to every recorded state.
