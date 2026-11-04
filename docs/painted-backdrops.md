@@ -186,6 +186,17 @@ The original bridge deck at [50,3] is widened within its hex beneath the armoure
 Prompts, lightness reports, masked corrections and runtime evidence are under
 `build/review/backdrops/1915-11/`.
 
+BISON/FROST (`1916-01`, 1875×3302) has shallow settled January snow over dormant
+grass, bare trees and dark conifers in pale overcast morning light. Dark ballast
+and snowy sleepers trace both railway corridors and their switches; the central
+slushy path, rocky passes and small open pond retain their original courses.
+The northern HQ is rough grey granite with slate cones and a red-tiled timber hall;
+the southern HQ has cream render, brick window surrounds, copper domes and a slate
+hall. A timber woodcutter's cottage and stone railway keeper's house retain their
+small footprints. Three snowy woodland pockets support the unchanged infantry.
+Prompts, lightness reports, masks and native evidence are under
+`build/review/backdrops/1916-01/`.
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
@@ -294,6 +305,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
+BISON/FROST (1090×1920) uses six: x 0, 362 and y 0, 596, 1193.
 STERN and ARRAS (2226×2560) use sixteen: columns at x 0, 499, 999, 1498 and rows at y 0, 611, 1222, 1833.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
