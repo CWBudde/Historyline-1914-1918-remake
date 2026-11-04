@@ -335,3 +335,59 @@ CP 37 vs EC 30):
 - The lock needs no units beyond the three balloons ([7,12], [14,5],
   [15,6]); EC has not entered empty doorsteps in 300 resolutions while
   they stay.
+
+## candl-muse2-r852c: won (HQ capture, res 4119)
+
+Won 2026-11-04: `build/review/llmplay/candl-muse2-r852c` ends
+`replay OK: 4119 resolutions, every state hash matches, ended
+winner=side0 won=[hq] score=5996`. Played from the res-44 lock (via
+rewinds to res 852 after three HQ losses north) with a prompt-only
+march driver: antiTank/tank stream across the land bridge, muster at
+[20,10], dense releases down the east lane (cols 12–16) herding the
+belt guns south one by one (e110, e109, e107 and all bunkers
+destroyed), then the lever that ended the stalemate: eliteInf captured
+the EC factories [28,8], [36,9], [44,9] and [49,10] in sequence, so
+later builds entered the fight east of the bridge cull, and finally a
+capturer walked the east lane to the EC HQ entrance [87,13]. EC's
+north swarm (9 units incl. trainArt e99 and mArtillery e64) was never
+engaged and is still frozen around the CP HQ at the end. Proven along
+the way:
+
+- **Build orders were fine; the unit names lied.** Builds reuse destroyed
+  live records, and `dosplay.unitID` returned the level id of the record's
+  original unit, so every recycled build was displayed (and driven) as
+  the type it replaced (a type-19 build cost 53 and fought as an
+  antiTank but read `EC_markIV`). Fixed by only trusting a cached id when
+  it still names the record's current type (`TestUnitIDOfReusedRecord`);
+  replays are unaffected. Prompt parsers must accept both `CP_` and `EC_`
+  prefixes on own units (an original id of the same type is kept).
+- The bridge exit is a 3-gun cull (trainArt + two mArtillery): whatever
+  ends a movement on the east shore hexes dies next resolution unless
+  3+ units arrive together (decoy value alone is not enough — the guns
+  pick kills). Units that end their move at lines ≥17 cols 8–11 live in
+  the stream's target shadow and can muster there.
+- The south corridor funnels through mud [23,11]/[21,12], one hex wide
+  for antiTanks: hArtillery kills the unit that ended its move there,
+  every phase. Only armour passes reliably (guns chip A7V/Mark IV for
+  1–4, one-shot antiTanks), so the belt spearhead is tanks; antiTanks
+  follow in their shadow and kill bunkers at range 2.
+- Factory throughput is exit-bound (7 slots, ≤4 exit hexes, parked guns
+  and a built bunker block ring hexes), and exit priority decides what
+  leaves: build only the type you want marched next. Fallback/coach
+  builds fill idle slots with raw type ids outside the factory list.
+- Capturers (eliteInf) die at the bridge like everything else; gate
+  them west ([24,2]) until the corridor to the target factory is clear.
+- **Never fight north next to the CP HQ.** The recordings at res 852
+  were lost three times (res 885, 882, ~1069) the same way: CP units
+  ended moves at [5–9,8–10] (or balloons approached the doorsteps),
+  EC infantry e138 stepped west/north to engage ([6,10]), and on its
+  next move took the entrance [8,11] at zero detour
+  (`[6,10]->[7,11]->[8,11]`). The north guns (e70/e77) died in two of
+  those timelines, but the HQ fell in the same chunks. The lock holds
+  only while EC's nearest visible enemies stay across the river: keep
+  every CP unit out of the ring beside [8,11] and leave the north
+  swarm frozen; win south instead. Balloons are not exempt: as plugs
+  they lure the same capture on their approach.
+- Guns one-shot lone units (even Mark IVs) in their long-range band
+  and only chip armour close in; a belt gun falls to a dense group
+  released together from a forward muster, never to a trickle.

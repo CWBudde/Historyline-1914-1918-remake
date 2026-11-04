@@ -87,15 +87,17 @@ func sideOf(flags int) int {
 }
 
 // unitID is the unit id of a live record: the level's, its head's for a ship's
-// rear, or for a built unit the first id of its type and side.
+// rear, or for a built unit the first id of its type and side. A built unit
+// can reuse a destroyed unit's live record, so a cached id counts only when
+// it still names a unit of the record's current type.
 func (s *Session) unitID(idx int) string {
-	if id, ok := s.Board.IDs[idx]; ok {
-		return id
-	}
-	if id, ok := s.ids[idx]; ok {
-		return id
-	}
 	u := s.Game.Units[idx]
+	if id, ok := s.Board.IDs[idx]; ok && s.idType(id) == u.Type {
+		return id
+	}
+	if id, ok := s.ids[idx]; ok && s.idType(id) == u.Type {
+		return id
+	}
 	if u.Flags4&0xC0 == 0x40 {
 		// A two-cell ship's rear is its head's unit.
 		return s.unitID(idx - 1)
@@ -103,6 +105,14 @@ func (s *Session) unitID(idx int) string {
 	id := s.typeID(u.Type, sideOf(u.Flags4))
 	s.ids[idx] = id
 	return id
+}
+
+// idType is the UNIT.DAT type of unit id, -1 for an unknown id.
+func (s *Session) idType(id string) int {
+	if d, ok := s.set.Units[id]; ok {
+		return d.Dos
+	}
+	return -1
 }
 
 // typeID is the first unit id of UNIT.DAT type typ and side (any side for
