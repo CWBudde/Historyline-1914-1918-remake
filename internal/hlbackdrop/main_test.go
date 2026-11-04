@@ -199,3 +199,63 @@ func TestOpenSeaWeights(t *testing.T) {
 		t.Errorf("sea shift %.2f at the sea mean, %.2f at white", seaShift(80, 80), seaShift(255, 80))
 	}
 }
+
+// TestOpenSeaMixedSections keeps inland sections unchanged and excludes them
+// from the target mean when a coastal map also has open-sea sections.
+func TestOpenSeaMixedSections(t *testing.T) {
+	grid := hexgrid.Grid{Width: 5, Lines: 19}
+	lines := make([][]level.Hex, grid.Lines)
+	for l := range lines {
+		lines[l] = make([]level.Hex, grid.Width-l%2)
+		for c := range lines[l] {
+			terrain := "waterSea"
+			if l < 6 {
+				terrain = "grass"
+			} else if l < 12 {
+				terrain = "water"
+			}
+			lines[l][c].Terrain = terrain
+		}
+	}
+	section := func(id string, bounds image.Rectangle, rgb [3]uint8) paintedSection {
+		im := image.NewNRGBA(bounds)
+		for p := 0; p < len(im.Pix); p += 4 {
+			copy(im.Pix[p:p+4], []uint8{rgb[0], rgb[1], rgb[2], 255})
+		}
+		return paintedSection{ID: id, image: im, Gain: [3]float64{2, 3, 4}}
+	}
+	sections := []paintedSection{
+		section("land", image.Rect(0, 0, 300, 160), [3]uint8{180, 150, 100}),
+		section("lake", image.Rect(0, 280, 300, 440), [3]uint8{40, 70, 80}),
+		section("sea-a", image.Rect(0, 600, 300, 760), [3]uint8{30, 60, 90}),
+		section("sea-b", image.Rect(300, 600, 600, 760), [3]uint8{50, 70, 90}),
+	}
+	before := [][]byte{bytes.Clone(sections[0].image.Pix), bytes.Clone(sections[1].image.Pix)}
+	if err := balanceOpenSea(sections, lines, grid, 1, 1); err != nil {
+		t.Fatal(err)
+	}
+	for i, s := range sections {
+		if s.Gain != [3]float64{1, 1, 1} {
+			t.Errorf("%s gain %v, want unity", s.ID, s.Gain)
+		}
+		if i < 2 {
+			if s.Offset != [3]float64{} || s.water != nil || !bytes.Equal(before[i], s.image.Pix) {
+				t.Errorf("%s was included in open-sea correction", s.ID)
+			}
+			continue
+		}
+		want := [3]float64{10, 5, 0}
+		if i == 3 {
+			want = [3]float64{-10, -5, 0}
+		}
+		if s.Offset != want || len(s.water) == 0 {
+			t.Errorf("%s offset %v, want %v and water weights", s.ID, s.Offset, want)
+		}
+	}
+	if err := balanceOpenSea(sections[:2], lines, grid, 1, 1); err == nil {
+		t.Error("accepted a map without any open-sea samples")
+	}
+	if err := balanceOpenSea([]paintedSection{section("tiny-sea", image.Rect(0, 600, 30, 630), [3]uint8{30, 60, 90})}, lines, grid, 1, 1); err == nil {
+		t.Error("accepted an insufficient open-sea sample")
+	}
+}

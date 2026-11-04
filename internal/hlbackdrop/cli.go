@@ -1578,7 +1578,8 @@ func auditLevel(levels, name, outPath string, stdout io.Writer) error {
 // chained or solved overlap gains then tint whole islands, and gains turn white
 // crests pink. The shift is additive, weighted by the water weights and faded
 // towards white (seaShift); land, shores and piers keep their paint. sx and sy
-// scale output pixels to world pixels.
+// scale output pixels to world pixels. Sections without open sea keep their
+// original paint and do not contribute to the target mean.
 func balanceOpenSea(sections []paintedSection, lines [][]level.Hex, grid hexgrid.Grid, sx, sy float64) error {
 	open := map[hexgrid.Coord]bool{}
 	sea := func(c hexgrid.Coord) bool {
@@ -1602,6 +1603,7 @@ func balanceOpenSea(sections []paintedSection, lines [][]level.Hex, grid hexgrid
 			}
 		}
 	}
+	eligible := 0
 	for i := range sections {
 		s := &sections[i]
 		var sum [3]float64
@@ -1620,23 +1622,36 @@ func balanceOpenSea(sections []paintedSection, lines [][]level.Hex, grid hexgrid
 				n++
 			}
 		}
+		s.Gain = [3]float64{1, 1, 1}
+		if n == 0 {
+			continue
+		}
 		if n < 1000 {
 			return fmt.Errorf("section %s has too little open sea to balance (%d samples)", s.ID, n)
 		}
+		eligible++
 		for k := range sum {
 			s.Offset[k] = sum[k] / float64(n) // the section's sea mean until the target is known
 		}
-		s.Gain = [3]float64{1, 1, 1}
 		s.water, s.waterStep = waterWeights(s.image.Bounds(), lines, grid, sx, sy), waterStep
+	}
+	if eligible == 0 {
+		return fmt.Errorf("no section has open sea to balance")
 	}
 	var target [3]float64
 	for _, s := range sections {
+		if s.water == nil {
+			continue
+		}
 		for k, m := range s.Offset {
-			target[k] += m / float64(len(sections))
+			target[k] += m / float64(eligible)
 		}
 	}
 	for i := range sections {
 		s := &sections[i]
+		if s.water == nil {
+			continue
+		}
 		s.seaLuma = luma(s.Offset)
 		for k := range s.Offset {
 			s.Offset[k] = target[k] - s.Offset[k]

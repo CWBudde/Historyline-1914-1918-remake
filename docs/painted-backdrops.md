@@ -175,6 +175,17 @@ starting units. The northern aircraft stands on its small compacted mud patch.
 Prompts, local colour/lightness reports and runtime evidence are under
 `build/review/backdrops/1915-09/`.
 
+BEAST/STORM (`1915-11`, 3829×4403) has thin wet November snow over dormant grass,
+bare trees and dark conifers under cool diffuse light after sleet. Blue-grey/green
+water stays open. Timber bridge decks and capped landings retain their original
+positions; the stream mouth is open and local bank recesses give the unchanged
+coastal ships full hull clearance. Its HQs are a granite castle with slate pyramids
+and a red-brick fort with green-copper domes. The factories are a rope works and
+net/sail works; the depots hold provisions, engineer materials and covered fuel.
+The original bridge deck at [50,3] is widened within its hex beneath the armoured car.
+Prompts, lightness reports, masked corrections and runtime evidence are under
+`build/review/backdrops/1915-11/`.
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
@@ -306,7 +317,7 @@ ATLAS/ZORRO uses twenty-five sections at x 0, 516, 1033, 1549, 2066 and y 0, 458
 
 FRONT/LEVEL and LIGHT/FLARE use twelve of those sections: columns at x 0, 499, 999, 1498 and rows at y 0, 596, 1193.
 
-PARTS/PRINC uses sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
+PARTS/PRINC, SCROL/CHALK and BEAST/STORM use sixteen of those sections: the same columns and rows at y 0, 611, 1222, 1833.
 
 HILLS/MOVES, COBRA/BLADE, AMPER/STONE and STERN/SODOM use twenty sections at x 0, 499, 998, 1498
 and y 0, 458, 916, 1374, 1833.
@@ -362,10 +373,12 @@ without replacing installed art. The section plan additionally names `output`,
 For maps with several rows, set `balance` to `"all-overlaps"` to solve RGB exposure gains across every
 horizontal and vertical neighbour together, then normalize their arithmetic mean to 1. This avoids
 the exposure drift a long row-by-row gain chain can produce. Omitting it keeps chained gains.
-On a sea map set `"open-sea"`: each section's water is shifted additively to the mean of all sections'
+On a sea map set `"open-sea"`: each eligible section's water is shifted additively to the mean of the sections'
 open sea (sea hexes with only sea around them), weighted by a blurred mask of the water hexes without
 piers and faded towards white, so land, shores, piers and whitecaps keep their paint; overlap gains
-there tint whole islands, because the sections' seas differ in hue. `balanced` names an optional
+there tint whole islands, because the sections' seas differ in hue. Sections with no open sea keep
+their paint and are excluded from the target mean; small nonzero samples still fail validation.
+`balanced` names an optional
 directory for each section as balanced, for `-lightness` checks of the overlaps.
 `-inspect <plan.json>` exports native-resolution join crops and hex-grid overlays
 to the plan's `review` directory. Both modes refuse existing output files.
