@@ -37,7 +37,7 @@ The existing `just` shortcuts use `hl` too.
 | `levels campaign` | Write the campaign folders from the original maps; overwrites setups, keeps backdrops and front pages | `levels-campaign` |
 | `levels backdrop jpeg` / `check` / `audit` | Encode `backdrop.png` to `backdrop.jpg`; check the backdrops; record what a painting must keep | `backdrop-jpeg` |
 | `llmplay new` / `prompt` / `step` / `run` | Start a recorded game; print the phase prompt; apply one batch of orders; drive a game ([llmplay](llmplay.md)) | `llmplay` |
-| `llmplay replay` / `render` / `review` / `gif` | Verify state hashes; frames and video; lessons; GIF | |
+| `llmplay replay` / `render` / `review` / `gif` | Verify state hashes; frames and the map video, or with `-view screen` the player's battle screen video; lessons; GIF | |
 | `preview effects` | Unit movement and effects preview (needs a display) | |
 | `serve` | Local HTTP file server (`-dir`, `-addr`) | |
 | `web` | Build the web demo into `build/web`; `-port 8080` serves it | `web` |
