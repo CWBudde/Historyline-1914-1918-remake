@@ -391,3 +391,38 @@ the way:
 - Guns one-shot lone units (even Mark IVs) in their long-range band
   and only chip armour close in; a belt gun falls to a dense group
   released together from a forward muster, never to a trickle.
+
+## candl-fast44: won (HQ capture, res 477)
+
+The 4119 win was mostly self-inflicted delay. Same res-44 lock, then
+no muster/release cycles and no southern detours:
+`build/review/llmplay/candl-fast44` ends `replay OK: 477 resolutions,
+every state hash matches, ended winner=side0 won=[hq] score=4300`.
+Sequence: march the south army north in one antiTank column and commit
+it as soon as the head packs against the bridge guns' reach (bridge
+open ~res 245; e99 dead, e70 driven off to [5,1] and left alive).
+Cross east immediately with the capturer inside the stream: factory
+[28,8] fell ~res 305 and [36,9] ~res 354, before the belt was clear —
+the hexes around both entrances held only bunkers and guns, nothing
+that can recapture. Herd the remaining belt guns with the antiTank
+pack (e109, then the e119/e120 pair, dead by ~res 430), skip factories
+[44,9]/[49,10] entirely, switch the forward factories to eliteInf
+builds so capturers start at line 36 instead of the bridge, and walk
+one down the east lane to [87,13]. The north swarm (10 units) and
+e129 were still alive at the end; final holdings 159/3 vs 11/3.
+
+- The drifting balloons' waypoint matters: at [26,2] they sit in the
+  west-strip chokepoint, antiTanks queue behind them and enter e70's
+  reach one at a time. Parking them south-east ([34,5]) freed the
+  corridor and the same pack crossed in ~40 resolutions.
+- Factory exit priority is a strategy lever: with antiTanks exiting
+  first, the lone eliteInf spent 7+ movement phases inside [28,8]
+  while six antiTanks took the six ring hexes. Capturers exit first.
+- A factory capture needs no cleared lane behind it, only no enemy
+  capturer nearby; guns and bunkers around the entrance cannot take
+  it back. Capturing on contact is ~2000 resolutions cheaper than
+  clearing the belt first.
+- 100+ units in one column move 1–2 lines per phase in the mud band;
+  the column still beats muster cycles because the head never waits.
+  Stop building once the belt guns are dead — energy is not the
+  constraint, hexes are.
