@@ -37,6 +37,14 @@ export const Profiles: readonly (readonly [Build, Profile])[] = [
 /** cInfantry and cPanzer are the infantry and panzer types the scene tests place (cycle_test.go). */
 export const cInfantry = 18;
 export const cPanzer = 47;
+/** cSupply is a ground transporter (cycle_test.go). */
+export const cSupply = 22;
+/** cTransportRec is the container record the scenes' transporters take (cycle_test.go). */
+export const cTransportRec = 3;
+/** cBuilder is the construction unit (energy_test.go). */
+export const cBuilder = 16;
+/** cSapper is the sapper (sapper_test.go). */
+export const cSapper = 20;
 
 /** moveTables is motion_test.go moveTables: the profile's movement tables, which must hold all 51 types. */
 export function moveTables(p: Profile): MoveTables {

@@ -91,7 +91,7 @@ export function strengthTerm(
 }
 
 /** weapon is the power and encoded range a type uses against a target with the live flag word flags. */
-function weapon(t: Type, flags: number): [power: number, rng: number] {
+export function weapon(t: Type, flags: number): [power: number, rng: number] {
   if ((flags & airTarget) !== 0) {
     return [t.airPower, t.airRange];
   }

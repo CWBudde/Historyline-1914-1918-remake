@@ -170,7 +170,10 @@ export interface Message {
   side: number;
 }
 
-function messages(ms: readonly (readonly [number, number])[]): Message[] {
+/** messages are status messages as Message values. */
+export function messages(
+  ms: readonly (readonly [number, number])[],
+): Message[] {
   return ms.map(([code, side]) => ({ code, side }));
 }
 
@@ -187,8 +190,8 @@ function bytesEqual(a: Uint8Array | undefined, b: Uint8Array): boolean {
   return x.length === b.length && x.every((v, i) => v === b[i]);
 }
 
-// changed are the container records that differ from before.
-function changed(
+/** changed are the container records that differ from before. */
+export function changed(
   before: ReadonlyMap<number, Uint8Array>,
   after: ReadonlyMap<number, Uint8Array>,
 ): Map<number, Hold> {
@@ -253,7 +256,8 @@ export function winter(p: Profile): boolean {
   return p.winter;
 }
 
-function moveTablesOf(p: Profile): MoveTables {
+/** moveTablesOf is Go's Profile.moveTables: the movement tables; it throws ErrNoMovement where the build has none. */
+export function moveTablesOf(p: Profile): MoveTables {
   const t = p.tables?.move ?? null;
   if (t === null) {
     throw new ErrNoMovement();
