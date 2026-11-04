@@ -11,7 +11,9 @@ import (
 	"hash/fnv"
 	"image/color"
 	"log"
+	"os"
 	"strings"
+	"time"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -23,6 +25,7 @@ import (
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
@@ -259,6 +262,20 @@ func (g *game) fill(terrain string) color.RGBA {
 	return c
 }
 
+// advance moves the game on a frame without reading input: the driver's
+// tick, a terrain rework it asked for, the split screen's panels. Update
+// and the recorder (-record) both advance by it.
+func (g *game) advance() {
+	g.drv().Tick()
+	if g.dos != nil && g.dos.rework {
+		g.dos.rework = false
+		g.reworkTerrain()
+	}
+	if g.split != nil {
+		g.updateSplit()
+	}
+}
+
 func (g *game) Update() error {
 	if u, ok := arrived(&g.hdUnits); ok {
 		g.art.release()
@@ -281,13 +298,12 @@ func (g *game) Update() error {
 	if g.dos != nil && g.dos.scene() && anyInput {
 		g.dos.SkipScene() // as the battle panel, any key or click skips a scene
 	}
-	g.drv().Tick()
-	if g.dos != nil && g.dos.rework {
-		g.dos.rework = false
-		g.reworkTerrain()
-	}
-	if g.split != nil {
-		g.updateSplit()
+	g.advance()
+	if g.dos != nil && g.dos.replay != nil {
+		if !g.updateReplay() {
+			return ebiten.Termination
+		}
+		return nil
 	}
 	pressed := inpututil.IsKeyJustPressed
 	if g.split != nil {
@@ -764,18 +780,19 @@ type matchConfig struct {
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
-	scroll     float64        // map scroll speed, screen pixels per frame
-	units      *artPacks      // shared by every battle; nil draws placeholder dots
-	screens    *screenArt     // the screen catalog for the portraits; nil shows blank photos
-	scores     *scores.Store  // the best scores, opened once; nil keeps none
-	saves      *saves.Store   // the single saved battle; nil keeps none
-	saved      []byte         // a saved battle to resume (dos only); nil starts fresh
-	terrain    string         // terrain catalog directory, composed per level; "" draws coloured hexes
-	terrainHD  string         // full-quality terrain catalog loaded in the background of a battle; "" for none
-	candidates bool           // allow candidate terrain packs
-	backdrop   *backdropImage // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
-	noBackdrop bool           // draw the terrain even where the level has a backdrop (-backdrop off)
-	levels     string         // the directory of the level files (-levels)
+	scroll     float64         // map scroll speed, screen pixels per frame
+	units      *artPacks       // shared by every battle; nil draws placeholder dots
+	screens    *screenArt      // the screen catalog for the portraits; nil shows blank photos
+	scores     *scores.Store   // the best scores, opened once; nil keeps none
+	saves      *saves.Store    // the single saved battle; nil keeps none
+	saved      []byte          // a saved battle to resume (dos only); nil starts fresh
+	terrain    string          // terrain catalog directory, composed per level; "" draws coloured hexes
+	terrainHD  string          // full-quality terrain catalog loaded in the background of a battle; "" for none
+	candidates bool            // allow candidate terrain packs
+	backdrop   *backdropImage  // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
+	noBackdrop bool            // draw the terrain even where the level has a backdrop (-backdrop off)
+	levels     string          // the directory of the level files (-levels)
+	replay     *llmplay.Replay // a recorded llmplay game played on both sides (-replay); nil plays a battle
 }
 
 // newMatch starts the battle of c, counting the art it fetches in m.
@@ -783,6 +800,10 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 	var gm *game
 	switch c.rules {
 	case "dos":
+		if c.replay != nil {
+			gm = replayGame(c.replay, c.reveal)
+			break
+		}
 		o := dosplay.Options{Limit: c.limit}
 		var planner dosPlanner = passPlanner{}
 		if c.opponent == "ai" {
@@ -877,12 +898,38 @@ func main() {
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
+	replayDir := flag.String("replay", "", "a recorded llmplay game directory (build/review/llmplay/<game>): watch it in the battle screen, both sides played from its transcript (implies -rules dos; the level and side come from the transcript)")
+	record := recordConfig{}
+	flag.StringVar(&record.out, "record", "", "with -replay: record the replay as an MP4 video of the battle screen under build/ (needs ffmpeg) and exit")
+	recordSize := flag.String("record-size", "1920x1080", "with -record: the video's size, WxH, both even")
+	flag.IntVar(&record.fps, "record-fps", 30, "with -record: video frames per second")
+	flag.IntVar(&record.speed, "record-speed", 2, "with -record: game ticks per video frame (the game runs 60 ticks a second: 2 at 30 fps is real time)")
+	flag.DurationVar(&record.tail, "record-tail", 3*time.Second, "with -record: video after the replay is done")
+	flag.IntVar(&record.crf, "record-crf", 23, "with -record: x264 quality (higher is smaller)")
+	flag.IntVar(&record.maxFrames, "record-max-frames", 0, "with -record: stop after this many video frames (0: record to the end)")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")
 	}
-	direct := *capture != ""
-	flag.Visit(func(f *flag.Flag) { direct = direct || f.Name == "level" || f.Name == "player" })
+	direct := *capture != "" || *replayDir != ""
+	given := map[string]bool{}
+	flag.Visit(func(f *flag.Flag) {
+		given[f.Name] = true
+		direct = direct || f.Name == "level" || f.Name == "player"
+		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent" || f.Name == "rules" && *rules != "dos") {
+			log.Fatalf("-replay takes the level, the sides and the rules from the transcript: drop -%s", f.Name)
+		}
+	})
+
+	if err := record.check(*replayDir, *capture, *reduced, given); err != nil {
+		log.Fatal(err)
+	}
+	if record.out != "" {
+		var err error
+		if record.w, record.h, err = parseRecordSize(*recordSize); err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	set, err := data.Load()
 	if err != nil {
@@ -945,7 +992,14 @@ func main() {
 		return
 	}
 
-	if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
+	if *replayDir != "" {
+		if c.replay, err = llmplay.OpenReplay(*replayDir); err != nil {
+			log.Fatal(err)
+		}
+		if c.lvl, err = replayLevel(c.replay); err != nil {
+			log.Fatal(err)
+		}
+	} else if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
 		log.Fatal(err)
 	}
 	if c.player, err = state.PlayerByName(c.lvl.Player); err != nil {
@@ -969,6 +1023,12 @@ func main() {
 			log.Fatal("-capture requires both -units and -terrain")
 		}
 		if err := writeReviewFrames(gm, *capture, *captureLook); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+	if record.out != "" {
+		if err := recordReplay(gm, record, os.Stdout); err != nil {
 			log.Fatal(err)
 		}
 		return

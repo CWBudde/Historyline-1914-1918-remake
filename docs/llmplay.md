@@ -17,6 +17,8 @@ just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, 
 just llmplay replay -dir ...                               # verify every state hash
 just llmplay render -dir ... [-backdrop level] [-density 2] [-div 2] [-fps 2] [-width 3840] [-crf 16]
                                                            # watch it on the painted backdrop: frames + game.mp4
+just llmplay render -dir ... -view screen [-speed 2] [-max-frames 600]
+                                                           # the player's battle screen: screen.mp4 (needs just packs)
 just llmplay review -dir ... -lessons LESSONS.md           # blunders -> review.md + lessons
 just llmplay gif -dir ...                                  # frames/*.png -> game.gif
 ```
@@ -97,6 +99,40 @@ for a high-quality cut. An explicit PNG/JPEG path may replace `level`, and
 Step-by-step "live" viewing without a video: `prompt` on the game dir after
 each `step`, or open the frames in any image viewer.
 
+To watch a game in the game's own screen, `go run ./cmd/historyline -replay
+build/review/llmplay/<game>` opens the split battle screen (`-rules dos`) on the
+transcript's level, the recorded side's view on its panel: both sides carry
+out their recorded orders the way the computer side does in play (each move
+rests, turns and walks on its own panel), the recorded side first, and every
+resolution is checked against its state hash; a mismatch stops the replay with
+the error as the message. No input gives orders; Q or Esc quits.
+
+### The two videos
+
+`render` makes one of two videos of a game dir:
+
+- **The map video** (`-view map`, the default): `game.mp4` above, the whole
+  map's true state per resolution, omniscient and short.
+- **The player view** (`-view screen`): `screen.mp4`, the front end's split
+  battle screen recording the replay above (`historyline -replay DIR -record
+  DIR/screen.mp4` with the runtime packs, run from the repository root; run
+  `just packs` first). It shows what a player at the screen sees: each side's
+  panel with its own view under fog (`-reveal` on `historyline` lifts it), both
+  sides' moves walking like the computer's, the phase change's battle and
+  capture scenes, and the finale, followed by `-tail` (3 s) of the end. Every
+  resolution is hash-checked; a mismatch stops the video with an error, the
+  part recorded so far still a playable file.
+
+The recording advances the game a fixed `-speed` ticks per video frame (the game
+runs 60 ticks a second, so the default 2 at `-fps` 30 is real time) and draws as
+fast as the machine allows, so the video is the same however long it takes.
+Real time is long: a RHEIN resolution is about 40 s of video, and at 1920×1080
+the recording runs about four times slower than the video plays (600 frames in
+about 80 s); `-speed 8` makes a game four times shorter to watch and to record.
+Flags: `-size` (1920x1080, even), `-fps` (30), `-speed` (2), `-tail` (3s),
+`-crf` (23), `-max-frames` (0: to the end; 600 for a quick look). The map
+video's flags do not apply.
+
 ## Learn — review and lessons
 
 `review` re-simulates the transcript and re-scores every model attack with the
@@ -149,4 +185,11 @@ cannot play, not by rushing.
 `go test ./internal/llmplay/`: fair-prompt contents, atomic rejection,
 step+replay+review round trip, a 6-resolution fallback game on RHEIN, frame
 projection, line windows and the `!` gun-reach mark against the engine's
-targets on CANDL, and a `suggest` batch that `Apply` takes whole.
+targets on CANDL, a `suggest` batch that `Apply` takes whole, and a whole
+fallback game replayed side by side (each side's orders, its confirmation,
+then `Resolve`) to every recorded state.
+`go test ./cmd/historyline/ -run 'Replay|Record'`: the replay in the battle
+screen, and its recording to the same number of frames every run at a fixed
+speed (the frames drawn, not read back), stopping on a mismatch, and into an MP4
+when ffmpeg is installed. `go test ./internal/hlllplay/`: the `-view screen`
+arguments and flags.

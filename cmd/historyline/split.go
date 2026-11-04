@@ -302,9 +302,9 @@ func (g *game) stepView(side, dp, dr int) {
 }
 
 // updateSplit runs one frame of the cameras: each panel looks where the
-// session asks (the computer's moves and battles), the human side's panel
-// follows its walker and a new selection when they are out of view (and its
-// cursor, see showCursor), and the slides advance.
+// session asks (the computer's moves and battles), each panel follows its
+// side's walker and the human side's panel a new selection when they are
+// out of view (and its cursor, see showCursor), and the slides advance.
 func (g *game) updateSplit() {
 	s := g.split
 	if g.dos.locked() {
@@ -316,8 +316,8 @@ func (g *game) updateSplit() {
 	g.tickWells()
 	for side := range 2 {
 		n := 1
-		if side != g.dos.side {
-			n = g.dos.actSpeed() // the computer's camera keeps up with its walk
+		if a := g.dos.act; a != nil && a.side == side {
+			n = g.dos.actSpeed() // the acting side's camera keeps up with its walk
 		}
 		for range n {
 			s.cams[side].tick()
@@ -335,7 +335,7 @@ func (g *game) followSplit() {
 			g.lookAt(side, c)
 		}
 	}
-	if w := d.walk; !w.Done() {
+	if w := d.walkOf(d.side); !w.Done() {
 		if at := w.Hex(); !g.panelShows(d.side, at) {
 			g.lookAt(d.side, at)
 		}

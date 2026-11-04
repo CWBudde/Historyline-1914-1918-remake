@@ -75,22 +75,24 @@ func (d *dosControl) planProgress() float64 {
 func (d *dosControl) acting() bool { return d.act != nil }
 
 // actSpeed is how many frames of the computer carrying out its orders pass
-// in one: actFastSpeed while the human side waits for it, else 1.
+// in one: actFastSpeed while the human side waits for it, else 1 (always in
+// a replay, both sides at one pace).
 func (d *dosControl) actSpeed() int {
-	if d.act != nil && d.s.Ready(d.side) {
+	if d.act != nil && d.self == nil && d.s.Ready(d.side) {
 		return actFastSpeed
 	}
 	return 1
 }
 
-// walkOf is the walk on side's panel: the human side's own move or the
-// computer's move being carried out.
+// walkOf is the walk on side's panel: the move being carried out of the
+// side acting (the computer, or either side in a replay), else the human
+// side's own move.
 func (d *dosControl) walkOf(side int) *walk {
+	if d.act != nil && d.act.side == side {
+		return d.act.walk
+	}
 	if side == d.side {
 		return d.walk
-	}
-	if d.act != nil {
-		return d.act.walk
 	}
 	return nil
 }
@@ -104,6 +106,10 @@ func (d *dosControl) planStep(side int) {
 		return
 	}
 	if d.run == nil {
+		if t, ok := d.plannerOf(side).(*transcriptPlanner); ok {
+			d.finishPlan(side, t.result(side)) // instant: the act starts in this frame
+			return
+		}
 		if !d.startPlan(side) {
 			d.plan(side)
 		}
@@ -133,7 +139,7 @@ func (d *dosControl) planFrames() int {
 // startPlan starts planning side's orders on a copy of the session and
 // reports whether it did.
 func (d *dosControl) startPlan(side int) bool {
-	cp, ok := d.planner.(commandPlanner)
+	cp, ok := d.plannerOf(side).(commandPlanner)
 	if !ok {
 		return false
 	}
@@ -176,8 +182,12 @@ func (d *dosControl) finishPlan(side int, res planResult) {
 }
 
 // planFailed reports a failed planning or replay and plans in the frame on
-// the session as it is now.
+// the session as it is now; a recorded game stops instead.
 func (d *dosControl) planFailed(side int, err error) {
+	if d.replay != nil {
+		d.stopReplay(err)
+		return
+	}
 	d.Message = "computer side: " + err.Error()
 	if !d.s.Ready(side) {
 		d.plan(side)

@@ -13,6 +13,8 @@
 //	hl llmplay replay  -dir GAME          verify the transcript reproduces every state hash
 //	hl llmplay render  -dir GAME [-every 1] [-density 2] [-div 8] [-backdrop level|FILE] [-fps 2] [-width 1440] [-crf 28] [-gif]
 //	                                    replay to frames/*.png + game.gif + game.mp4 (ffmpeg)
+//	hl llmplay render  -dir GAME -view screen [-size 1920x1080] [-fps 30] [-speed 2] [-tail 3s] [-crf 23] [-max-frames 0]
+//	                                    the front end's battle screen replaying the game to screen.mp4 (just packs, ffmpeg)
 //	hl llmplay review  -dir GAME [-lessons FILE]   write review.md, append counted lessons
 //	hl llmplay gif     -dir GAME [-delay 80] [-factor 2]
 //
@@ -28,7 +30,6 @@ import (
 	"fmt"
 	"image"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -443,16 +444,27 @@ func (c *command) cmdRender(args []string) error {
 	gif := fs.Bool("gif", true, "also stitch game.gif from the frames")
 	fps := fs.Int("fps", 2, "video frames per second")
 	width := fs.Int("width", 1440, "video width in pixels (height follows the map)")
-	crf := fs.Int("crf", 28, "x264 quality (higher = smaller file; 34 makes units vanish)")
+	crf := fs.Int("crf", 28, "x264 quality (higher = smaller file; 34 makes units vanish; screen: 23)")
+	view := fs.String("view", "map", "map: the whole map per resolution (game.mp4); screen: the player's split battle screen recorded by the front end (screen.mp4, needs just packs)")
+	fs.String("size", "1920x1080", "screen: video size WxH, both even")
+	fs.Int("speed", 2, "screen: game ticks per video frame (2 at 30 fps is real time)")
+	fs.Duration("tail", 3*time.Second, "screen: video after the game's end")
+	fs.Int("max-frames", 0, "screen: stop after this many video frames (0: to the end)")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
 	if fs.NArg() != 0 {
 		return fmt.Errorf("unexpected positional arguments: %v", fs.Args())
 	}
+	record, err := renderFlags(fs, *view)
+	if err != nil {
+		return err
+	}
+	if *view == "screen" {
+		return c.renderScreen(*dir, record)
+	}
 	var bd image.Image
 	if *backdrop != "" {
-		var err error
 		if bd, err = loadRenderBackdrop(*backdrop, *dir); err != nil {
 			return err
 		}
@@ -475,23 +487,15 @@ func (c *command) cmdRender(args []string) error {
 			}
 		}
 	}
-	ffmpeg, err := exec.LookPath("ffmpeg")
-	if err != nil {
-		if _, err := fmt.Fprintln(c.stdout, "ffmpeg not found: game.mp4 skipped"); err != nil {
-			return err
-		}
-		return nil
-	}
 	mp4 := filepath.Join(*dir, "game.mp4")
-	cmd := exec.CommandContext(c.ctx, ffmpeg, "-y",
-		"-framerate", fmt.Sprint(max(*fps, 1)),
-		"-pattern_type", "glob", "-i", filepath.Join(*dir, "frames", "*.png"),
-		"-vf", fmt.Sprintf("scale=%d:-2", *width),
-		"-c:v", "libx264", "-preset", "veryfast", "-crf", fmt.Sprint(*crf),
-		"-pix_fmt", "yuv420p", "-movflags", "+faststart", mp4)
-	cmd.Stderr = c.stderr
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("ffmpeg: %w", err)
+	if err := llmplay.EncodeMP4(c.ctx, filepath.Join(*dir, "frames", "*.png"), mp4, *fps, *width, *crf); err != nil {
+		if errors.Is(err, llmplay.ErrNoFFmpeg) {
+			if _, err := fmt.Fprintln(c.stdout, "ffmpeg not found: game.mp4 skipped"); err != nil {
+				return err
+			}
+			return nil
+		}
+		return err
 	}
 	if st, err := os.Stat(mp4); err == nil {
 		if _, err := fmt.Fprintf(c.stdout, "game.mp4: %s (%.1f MB)\n", mp4, float64(st.Size())/1e6); err != nil {
