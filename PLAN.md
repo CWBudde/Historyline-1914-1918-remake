@@ -495,10 +495,15 @@ build embeds every backdrop). Decided (defaults, open to override):
 - Responsive layout first (map fills the viewport; side panel on wide screens, bottom sheet on portrait
   phones); the original split screen is a selectable layout later.
 
-- [ ] W0 Scaffold: the `webapp/` workspace, strict tsconfig, ESLint, Vitest, Vite; `just webapp`,
+- [x] W0 Scaffold: the `webapp/` workspace, strict tsconfig, ESLint, Vitest, Vite; `just webapp`,
       `just webapp-test`, `just webapp-check` in `just ci`; treefmt formats `*.ts`/`*.tsx`; Vite `cacheDir`
       and the pnpm store off the project drive; Pages deploys the TS build under `/next/` beside the WASM
       build.
+      (2026-11-04) — pnpm workspace `webapp/engine` + `webapp/app` (TypeScript 6.0, the newest that
+      typescript-eslint supports; Vite 8, Vitest 5, PixiJS 8, Preact 11); the engine's first test checks
+      the header of every record in the 14 fixture files in place; the app draws a DPR-aware hex canvas
+      under a Preact banner. `just webapp-check` and the `test-webapp` CI job pass; Pages serves `/next/`.
+      `node_modules` links into pnpm's global virtual store (the store dir is a user setting, AGENTS.md).
 - [ ] W1 Rules core: `hexgrid`, the profile tables, `dosrules` (movement, visibility, engagements and
       casualties in exact int32 arithmetic, containers, orders and the command cycle, capture, trenches,
       depot construction, energy, repair, production, victory and score, save/load). Done when every record
