@@ -2,6 +2,7 @@ package llmplay
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -10,8 +11,10 @@ import (
 	"os/exec"
 	"path/filepath"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestEncodeMP4Args(t *testing.T) {
@@ -29,7 +32,7 @@ func TestEncodeMP4Args(t *testing.T) {
 func TestVideoWriterArgs(t *testing.T) {
 	got := strings.Join(videoWriterArgs("out.mp4", 64, 48, 30, 23), " ")
 	want := "-y -hide_banner -loglevel error -f rawvideo -pix_fmt rgba -s 64x48 -framerate 30 -i - " +
-		"-c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -movflags +faststart out.mp4"
+		"-c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -movflags +frag_keyframe+empty_moov+default_base_moof out.mp4"
 	if got != want {
 		t.Errorf("args %q\nwant %q", got, want)
 	}
@@ -146,5 +149,50 @@ func TestTailBuffer(t *testing.T) {
 	got := b.String()
 	if len(got) > stderrTail || !strings.HasPrefix(got, "line ") || !strings.HasSuffix(got, "line 199\n") {
 		t.Errorf("tail %d bytes %q…", len(got), got[:min(len(got), 20)])
+	}
+}
+
+// TestVideoWriterKilled: a recording killed mid-way leaves a readable video.
+func TestVideoWriterKilled(t *testing.T) {
+	ffprobe, err := exec.LookPath("ffprobe")
+	if err != nil {
+		t.Skip("no ffprobe")
+	}
+	out := filepath.Join(t.TempDir(), "killed.mp4")
+	v, err := NewVideoWriter(context.Background(), out, 64, 48, 30, 23)
+	if errors.Is(err, ErrNoFFmpeg) {
+		t.Skip("no ffmpeg")
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	pix := make([]byte, 64*48*4)
+	for f := range 600 { // past the keyframe interval of 250 frames
+		for i := range pix {
+			pix[i] = byte(i*f + i>>3)
+		}
+		if err := v.WriteFrame(pix); err != nil {
+			t.Fatal(err)
+		}
+	}
+	readable := func() bool {
+		return exec.CommandContext(context.Background(), ffprobe, "-v", "error", "-show_entries", "format=duration", out).Run() == nil
+	}
+	for end := time.Now().Add(10 * time.Second); !readable() && time.Now().Before(end); {
+		time.Sleep(50 * time.Millisecond)
+	}
+	if err := v.cmd.Process.Kill(); err != nil {
+		t.Fatal(err)
+	}
+	if err := v.Close(); err == nil {
+		t.Error("Close reports no error for a killed ffmpeg")
+	}
+	raw, err := exec.CommandContext(context.Background(), ffprobe, "-v", "error", "-select_streams", "v", "-count_packets",
+		"-show_entries", "stream=nb_read_packets", "-of", "csv=p=0", out).Output()
+	if err != nil {
+		t.Fatalf("killed video unreadable: %v", err)
+	}
+	if n, err := strconv.Atoi(strings.TrimSpace(strings.Split(string(raw), "\n")[0])); err != nil || n == 0 {
+		t.Errorf("killed video holds %q frames", raw)
 	}
 }

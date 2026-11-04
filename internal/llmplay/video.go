@@ -64,14 +64,16 @@ type VideoWriter struct {
 	closed bool
 }
 
-// videoWriterArgs are ffmpeg's arguments for a VideoWriter.
+// videoWriterArgs are ffmpeg's arguments for a VideoWriter. The file is
+// fragmented, so all but its last fragment stays playable when the
+// recording is killed.
 func videoWriterArgs(out string, w, h, fps, crf int) []string {
 	return []string{
 		"-y", "-hide_banner", "-loglevel", "error",
 		"-f", "rawvideo", "-pix_fmt", "rgba", "-s", fmt.Sprintf("%dx%d", w, h),
 		"-framerate", fmt.Sprint(fps), "-i", "-",
 		"-c:v", "libx264", "-preset", "veryfast", "-crf", fmt.Sprint(crf),
-		"-pix_fmt", "yuv420p", "-movflags", "+faststart", out,
+		"-pix_fmt", "yuv420p", "-movflags", "+frag_keyframe+empty_moov+default_base_moof", out,
 	}
 }
 
