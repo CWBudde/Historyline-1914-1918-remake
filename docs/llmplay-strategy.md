@@ -141,7 +141,7 @@ treasury, is the bug (see v7/v8 below).
   at 65, EC annihilated (its HQ ring of bunkers died to adjacent anti-tank
   fire before any capturer had to dash). Deterministic: two runs produce
   byte-identical transcripts; `TestCoachPlaysFullGame` pins the win.
-  Transcript committed: `levels/1918-02/replays/coach-win`.
+  Transcript committed: `levels/1918-02/replays/cp.jsonl`.
 
 ## Open fronts
 
@@ -398,7 +398,7 @@ the way:
 The 4119 win was mostly self-inflicted delay. Same res-44 lock, then
 no muster/release cycles and no southern detours:
 `build/review/llmplay/candl-fast44` (transcript committed:
-`levels/1918-04/replays/fast44-win`) ends `replay OK: 477
+`levels/1918-04/replays/cp.jsonl`) ends `replay OK: 477
 resolutions, every state hash matches, ended winner=side0 won=[hq]
 score=4300`.
 Sequence: march the south army north in one antiTank column and commit
