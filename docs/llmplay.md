@@ -127,18 +127,19 @@ the error as the message. No input gives orders; Q or Esc quits.
 The recording advances the game a fixed `-speed` ticks per video frame (the game
 runs 60 ticks a second, so the default 2 at `-fps` 30 is real time) and draws as
 fast as the machine allows, so the video is the same however long it takes.
-Real time is long: a RHEIN resolution is about 40 s of video, and at 1920×1080
-the recording runs about four times slower than the video plays (600 frames in
-about 80 s); `-speed 8` makes a game four times shorter to watch and to record.
+Real time is long: a RHEIN resolution is about 40 s of video, a whole 24-resolution
+CANDL game 18:40 (472 MB, recorded in 11 min at 1920×1080 on an otherwise idle
+machine); `-speed 8` makes a game four times shorter to watch and to record.
 Flags: `-size` (1920x1080, even), `-fps` (30), `-speed` (2), `-tail` (3s),
 `-crf` (23), `-max-frames` (0: to the end; 600 for a quick look), `-zoom` (-2,
 wheel steps from the fitted zoom). The map video's flags do not apply.
 
 On a level with a painted backdrop, a game without sapper or depot work records
-without the terrain pack, frame for frame the same: 1.7 GB instead of 5.9 GB on
-CANDL. On a machine short of memory, keep a recording from taking the desktop
-with it: `systemd-run --user --scope -p MemoryMax=10G -p MemorySwapMax=2G just
-llmplay render …`.
+without the terrain pack, frame for frame the same and about 4 GB smaller. The
+front end's memory grows during a recording: a whole CANDL game at `-speed 2`
+(33585 frames) went from 1.1 GB to 7.5 GB. On a machine short of memory, keep a
+recording from taking the desktop with it: `systemd-run --user --scope -p
+MemoryMax=10G -p MemorySwapMax=2G just llmplay render …`.
 
 ## Learn — review and lessons
 
