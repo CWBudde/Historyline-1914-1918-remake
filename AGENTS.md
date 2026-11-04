@@ -10,7 +10,8 @@ Python remake, used only as a test reference.
 
 ## Language policy
 
-Write code and tooling in **Go**. Python remains only in `legacy/`; do not add new Python.
+Write code and tooling in **Go**. Python remains only in `legacy/`; do not add new Python. TypeScript only
+in `webapp/`, the web edition's browser runtime (PLAN.md §7); its exports and goldens are `hl` commands in Go.
 
 ## Commands
 

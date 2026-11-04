@@ -477,6 +477,62 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `.github/workflows/deploy-pages.yaml`).
 - [ ] 6.5 Remove `legacy/` once nothing depends on it.
 
+### 7. Web edition (TypeScript, `webapp/`)
+
+A web-native edition beside the Go game: any resolution and device, touch, fast first load (the Go WASM
+build embeds every backdrop). Decided (defaults, open to override):
+
+- TypeScript (strict), Vite, pnpm; a workspace of `webapp/engine` (pure: no DOM or Pixi imports, enforced by
+  ESLint; runs in Node, browser and worker) and `webapp/app`.
+- PixiJS v8 draws the map and battle scenes; menus, panels and HUD are DOM/CSS in Preact with signals, which
+  never drive the frame loop. The computer side runs in a Web Worker. Vitest for the engine, Playwright for
+  smoke tests.
+- The engine is a full TS port of the original rules profile (`dosrules`, `dosbind`, `dosplay`, `dosai`),
+  held in lockstep with Go by the `dosrules` fixtures and Go-generated golden playthroughs; the remake rules
+  (`internal/game`) are not ported. Saves share the Go JSON format.
+- Exports and goldens are `hl webapp` commands in Go; TS is only the browser runtime. The CPU-heavy map work
+  (`mapcompose`, `waterdepth`, `seasonblend`) is baked at build time.
+- Responsive layout first (map fills the viewport; side panel on wide screens, bottom sheet on portrait
+  phones); the original split screen is a selectable layout later.
+
+- [ ] W0 Scaffold: the `webapp/` workspace, strict tsconfig, ESLint, Vitest, Vite; `just webapp`,
+      `just webapp-test`, `just webapp-check` in `just ci`; treefmt formats `*.ts`/`*.tsx`; Vite `cacheDir`
+      and the pnpm store off the project drive; Pages deploys the TS build under `/next/` beside the WASM
+      build.
+- [ ] W1 Rules core: `hexgrid`, the profile tables, `dosrules` (movement, visibility, engagements and
+      casualties in exact int32 arithmetic, containers, orders and the command cycle, capture, trenches,
+      depot construction, energy, repair, production, victory and score, save/load). Done when every record
+      of the 14 fixture files under `internal/dosrules/testdata/` passes and a Go save loads in TS and
+      re-saves byte-identical.
+- [ ] W2 Binding and session: `level`, `scenario`, `campaign`, `dosbind` (`Bind`) and `dosplay` (views,
+      destinations, routes, targets, commands, events, replay). `hl webapp golden` plays `dosai` against
+      `dosai` on every shipped setup and writes commands, events and the save after each resolution to
+      `build/webapp/golden/`; TS replays the commands and must match both. `just webapp-test` regenerates
+      the goldens first, so a Go rule change without its TS twin fails CI.
+- [ ] W3 Computer side: `dosai` (`Planner`, digging, `PlayOut`) in a Web Worker; the golden playouts match
+      when TS plans both sides.
+- [ ] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;
+      the packs, lite and full, 1×/2×/4×; backdrops as tiled mip pyramids; per-level baked layers: the
+      `mapcompose` draw lists, water-depth and season-blend rasters; the pixel font as an atlas; the Noto
+      fonts as WOFF2). The TS loader is manifest-driven and progressive (lite first), picks the density from
+      zoom × devicePixelRatio like `assetDensity`, and caches by content hash.
+- [ ] W5 Map renderer: camera (wheel, drag, pinch, keys), resize and DPR, backdrop tiles with culling and
+      mip choice, tile mode from the draw lists, units with ownership strips, per-side fog, selection,
+      destination, route and target overlays, move and battle animations from `dosplay` events, reduced
+      motion.
+- [ ] W6 Battle UI: unit and terrain panels, contents view (enter/leave, repair, production), phase, turn and
+      ready bar, battle scene, refusals; the Go game's keys, right-click action ring as long-press on touch,
+      tap to select/move/attack; layouts for desktop, tablet and portrait phone; a UI scale setting.
+- [ ] W7 Shell and campaign: the menu pages of `shell.go` (main, map code, values, control, extras,
+      country, news, new units, loading, leave, outcome, scores), the campaign chain per side, saves in
+      IndexedDB (slots, export/import as file), settings.
+- [ ] W8 Original split screen: the two-panel `dosscreen` layout with the steel frame as a selectable layout;
+      two humans on one screen and hot-seat for the `2p` setups (with 1.6 and 5.4).
+- [ ] W9 Release: offline play (service worker), size and frame budgets (first playable from lite data in a
+      few MB), a Playwright test that plays a level to its end, Chrome/Firefox/Safari and iOS/Android; then
+      the TS build becomes the Pages root and the WASM build moves to `/classic/` or is retired.
+- Later: `mapcompose` in TS for an in-browser map editor (6.3); sound (6.2).
+
 ### Beyond the original
 
 - [ ] Artillery can destroy infrastructure.
