@@ -135,35 +135,20 @@ func ReadTranscript(dir string) (_ Header, _ []Line, err error) {
 // every recorded command and checks the state hash after each
 // resolution. It returns the end state, if the game ended.
 func VerifyReplay(dir string) (*dosrules.End, int, error) {
-	h, lines, err := ReadTranscript(dir)
+	rp, err := OpenReplay(dir)
 	if err != nil {
 		return nil, 0, err
 	}
-	month, mode, err := ParseLevelRef(h.Level)
-	if err != nil {
-		return nil, 0, err
-	}
-	lvl, err := ShipLevel(month, mode)
-	if err != nil {
-		return nil, 0, err
-	}
-	s, err := NewSession(lvl, h.LLMSide)
-	if err != nil {
-		return nil, 0, err
-	}
-	for _, l := range lines {
+	s := rp.Session
+	for _, l := range rp.Lines {
 		if _, err := s.Replay(l.Commands); err != nil {
 			return nil, l.Resolution, fmt.Errorf("resolution %d: %w", l.Resolution, err)
 		}
-		got, err := StateHash(s)
-		if err != nil {
+		if err := CheckResolution(s, l); err != nil {
 			return nil, l.Resolution, err
 		}
-		if got != l.StateAfter {
-			return nil, l.Resolution, fmt.Errorf("resolution %d: state hash %s, transcript has %s", l.Resolution, got, l.StateAfter)
-		}
 	}
-	return s.Ended(), len(lines), nil
+	return s.Ended(), len(rp.Lines), nil
 }
 
 // WriteSave writes the session save into the game dir atomically.
