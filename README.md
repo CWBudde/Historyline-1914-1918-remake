@@ -62,7 +62,8 @@ cycle, or `standard`, the remake rules. In `dos` both sides give their orders at
 time: in the movement phase click an own unit and a blue hex, in the action phase an own unit and a red hex
 (a queued attack), click an own building for its contents, F1 confirms (again: reopens); once both sides
 have confirmed the resolution plays back and the phases swap. `-player central|entente` picks the side,
-`-opponent ai|pass` the other side's player.
+`-opponent ai|pass` the other side's player. `-replay DIR` watches a recorded `hl llmplay` game in the
+battle screen instead ([docs/llmplay.md](docs/llmplay.md)).
 
 ## Art
 
