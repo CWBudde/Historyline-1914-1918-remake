@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 14 remain.
-`1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 13 remain.
+`1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -186,7 +186,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes prompts, joins, retained local warnings, final masks and embedded runtime evidence. Four post-install targeted packages, fresh native build, race/lint/vet and source/JPEG/formatting checks pass. Independent final review found no defects.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting and necessary CLI fix: `847e90c5`; normal push `b4de7c7d..847e90c5` succeeded. Source/JPEG hashes and unchanged map/setup/reference hashes verified; independent review found no defects.
 
-- [ ] [1916-01](levels/1916-01/)
+- [x] [1916-01](levels/1916-01/)
   - [x] Audit `levels/1916-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-01/approval-audit.json` and `.md`: winter, 1090×1920, two HQs, two houses, 76 inherited starts, no linked ships or airfields; rail/road/path coordinates recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [BISON/FROST](docs/backpaint-approvals.md#1916-01--bisonfrost), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1916-01/guide/`, 4360×7680 pixels, zero gaps/issues (`map.json`, `guide-render.log`).
@@ -205,7 +205,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size. Global backdrop check passes; both dimensions verified, world aspect agrees within one pixel and all map/setup hashes remain unchanged.
   - [x] Review `1916-01:cp`, `1916-01:ec` and `1916-01:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges. Fresh embedded-JPEG build produced 33 frames per setup, zero gaps/issues. All 76 starts reviewed in eight normal and eleven close groups per mode: 57 accepted native views (`unit-review.md`). Aircraft, train wheelsets, all four stone/eleven hill starts and three forest pockets have full clearance; no ships/bridges.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `verification.md` indexes all prompts, masks, joins, retained material-change warnings, hashes, tests and native evidence. All four targeted package suites and fresh installed build pass; the BISON/FROST painting and six-section layout are documented.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting and documentation commit `06021ae8`; normal push succeeded. All source hashes, unchanged map/setup hashes, unit coverage, relevant tests, native build and formatting checks pass.
 
 - [ ] [1916-03](levels/1916-03/)
   - [x] Audit `levels/1916-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-03/approval-audit.json` and `.md`: winter, 2226×2560, seven compounds, twelve houses, 110 inherited starts, no linked ships, nine runway/four hangar overlays; all routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [DRUCK/MEUSE](docs/backpaint-approvals.md#1916-03--druckmeuse), including occupied cottage/hangar treatment, approved by the user on 2026-11-04.
