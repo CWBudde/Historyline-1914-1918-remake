@@ -8,18 +8,54 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 )
 
 // The player-view video (render -view screen) is the front end's split
 // battle screen recording the replay (historyline -replay DIR -record),
-// run as a child process from the repository root with the runtime packs.
+// run as a child process from the repository root with the runtime packs
+// it needs.
 
-// screenPacks are the runtime packs the recording draws with, relative to
-// the repository root.
-var screenPacks = []struct{ flag, dir string }{
+// screenPack is a runtime pack a recording draws with, relative to the
+// repository root.
+type screenPack struct{ flag, dir string }
+
+// terrainPack is the flag of the pack that takes the most memory, several GB.
+const terrainPack = "-terrain"
+
+// screenPacks are the runtime packs of a recording.
+var screenPacks = []screenPack{
 	{"-units", "build/packs/units"},
-	{"-terrain", "build/packs/terrain"},
+	{terrainPack, "build/packs/terrain"},
 	{"-screens", "build/packs/screens"},
+}
+
+// terrainNeeded reports whether a recording of lines on lvl draws from the
+// terrain pack. A painted backdrop draws the ground; only the hexes sappers
+// and depot builders changed come from the pack.
+func terrainNeeded(lvl *level.Level, lines []llmplay.Line) bool {
+	if lvl.Extra == nil || lvl.Extra.Backdrop == "" {
+		return true
+	}
+	for _, l := range lines {
+		for _, ev := range l.Events {
+			if ev.Kind == dosplay.Dug.String() || ev.Kind == dosplay.Constructed.String() {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// packsFor are the packs of a recording, with or without the terrain pack.
+func packsFor(terrain bool) []screenPack {
+	if terrain {
+		return screenPacks
+	}
+	return slices.DeleteFunc(slices.Clone(screenPacks), func(p screenPack) bool { return p.flag == terrainPack })
 }
 
 // screenVideo is the player-view video's file in the game dir.
@@ -28,7 +64,7 @@ const screenVideo = "screen.mp4"
 // screenRecordArgs are go's arguments recording the game dir (relative to
 // root, under build/) as the player-view video; record holds the -record-*
 // flags to pass, by name without the prefix, in order.
-func screenRecordArgs(root, dir string, record [][2]string) ([]string, error) {
+func screenRecordArgs(root, dir string, packs []screenPack, record [][2]string) ([]string, error) {
 	rel, err := rootRelative(root, dir)
 	if err != nil {
 		return nil, err
@@ -37,7 +73,7 @@ func screenRecordArgs(root, dir string, record [][2]string) ([]string, error) {
 		"run", filepath.Join(root, "cmd", "historyline"),
 		"-replay", rel, "-record", filepath.ToSlash(filepath.Join(rel, screenVideo)),
 	}
-	for _, p := range screenPacks {
+	for _, p := range packs {
 		args = append(args, p.flag, p.dir)
 	}
 	args = append(args, "-allow-candidates")
@@ -68,9 +104,9 @@ func rootRelative(root, dir string) (string, error) {
 	return rel, nil
 }
 
-// missingPacks reports the first runtime pack root lacks.
-func missingPacks(root string) error {
-	for _, p := range screenPacks {
+// missingPacks reports the first of packs root lacks.
+func missingPacks(root string, packs []screenPack) error {
+	for _, p := range packs {
 		if info, err := os.Stat(filepath.Join(root, p.dir)); err != nil || !info.IsDir() {
 			return fmt.Errorf("%s missing: run `just packs` first", p.dir)
 		}
@@ -103,10 +139,18 @@ func (c *command) renderScreen(dir string, record [][2]string) error {
 	if err != nil {
 		return err
 	}
-	if err := missingPacks(root); err != nil {
+	if _, err := rootRelative(root, dir); err != nil {
 		return err
 	}
-	args, err := screenRecordArgs(root, dir, record)
+	rp, err := llmplay.OpenReplay(dir)
+	if err != nil {
+		return err
+	}
+	packs := packsFor(terrainNeeded(rp.Session.Level, rp.Lines))
+	if err := missingPacks(root, packs); err != nil {
+		return err
+	}
+	args, err := screenRecordArgs(root, dir, packs, record)
 	if err != nil {
 		return err
 	}
@@ -121,7 +165,7 @@ func (c *command) renderScreen(dir string, record [][2]string) error {
 // The render flags of each view, by name; -fps and -crf serve both.
 var (
 	mapRenderFlags    = []string{"every", "density", "div", "backdrop", "gif", "width", "fps", "crf"}
-	screenRenderFlags = []string{"size", "fps", "speed", "tail", "crf", "max-frames"}
+	screenRenderFlags = []string{"size", "fps", "speed", "tail", "crf", "max-frames", "zoom"}
 )
 
 // renderFlags checks the flags set on fs fit view and returns, for the

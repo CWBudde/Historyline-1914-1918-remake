@@ -9,6 +9,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -57,6 +58,7 @@ func TestRecordCheck(t *testing.T) {
 		{name: "valid", c: ok, replay: replay},
 		{name: "no record", c: recordConfig{}},
 		{name: "record flag without record", c: recordConfig{}, set: []string{"record-fps"}, err: "-record-fps requires -record"},
+		{name: "zoom without record", c: recordConfig{}, set: []string{"record-zoom"}, err: "-record-zoom requires -record"},
 		{name: "no replay", c: ok, err: "requires -replay"},
 		{name: "capture", c: ok, replay: replay, capture: "build/x", err: "exclude"},
 		{name: "reduced", c: ok, replay: replay, reduced: true, err: "reduced-motion"},
@@ -203,5 +205,32 @@ func TestRecordVideo(t *testing.T) {
 	}
 	if st, err := os.Stat(out); err != nil || st.Size() == 0 {
 		t.Fatalf("video %s: %v", out, err)
+	}
+}
+
+// TestRecordZoom: the recording starts at the zoom asked for and shows more
+// of the map than the fitted zoom does; a zoom past the last level stays on it.
+func TestRecordZoom(t *testing.T) {
+	dir := recordRhein(t, 1)
+	open := func(zoom int) *recorder {
+		rp, err := llmplay.OpenReplay(dir)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return newRecorder(replayGame(rp, false), &countSink{t: t, size: 4 * 1920 * 1080},
+			recordConfig{w: 1920, h: 1080, fps: 30, speed: 2, zoom: zoom})
+	}
+	fit, out := open(0).g.split.screen, open(-2).g.split.screen
+	if fit.Zoom != dosscreen.DefaultZoom {
+		t.Errorf("zoom 0 is level %d, want %d", fit.Zoom, dosscreen.DefaultZoom)
+	}
+	if out.Zoom != dosscreen.DefaultZoom-2 || out.CellScale >= fit.CellScale {
+		t.Errorf("zoom -2 is level %d at scale %v, fitted scale %v", out.Zoom, out.CellScale, fit.CellScale)
+	}
+	if out.Cols <= fit.Cols || out.Rows <= fit.Rows {
+		t.Errorf("zoom -2 shows %dx%d cells, fitted %dx%d", out.Cols, out.Rows, fit.Cols, fit.Rows)
+	}
+	if far := open(-100).g.split.screen; far.Zoom < 0 || far.Zoom >= out.Zoom {
+		t.Errorf("zoom -100 is level %d", far.Zoom)
 	}
 }

@@ -450,6 +450,7 @@ func (c *command) cmdRender(args []string) error {
 	fs.Int("speed", 2, "screen: game ticks per video frame (2 at 30 fps is real time)")
 	fs.Duration("tail", 3*time.Second, "screen: video after the game's end")
 	fs.Int("max-frames", 0, "screen: stop after this many video frames (0: to the end)")
+	fs.Int("zoom", -2, "screen: zoom levels from the fitted zoom, negative zooms out")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}

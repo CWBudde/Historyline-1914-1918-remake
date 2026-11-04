@@ -907,6 +907,7 @@ func main() {
 	flag.DurationVar(&record.tail, "record-tail", 3*time.Second, "with -record: video after the replay is done")
 	flag.IntVar(&record.crf, "record-crf", 23, "with -record: x264 quality (higher is smaller)")
 	flag.IntVar(&record.maxFrames, "record-max-frames", 0, "with -record: stop after this many video frames (0: record to the end)")
+	flag.IntVar(&record.zoom, "record-zoom", -2, "with -record: zoom levels from the fitted zoom, as many mouse wheel steps; negative zooms out, kept within the levels the screen has")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")

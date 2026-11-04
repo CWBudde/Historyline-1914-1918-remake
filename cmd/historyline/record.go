@@ -30,10 +30,11 @@ type recordConfig struct {
 	tail      time.Duration // video after the replay is done
 	crf       int           // x264 quality
 	maxFrames int           // 0 records to the end
+	zoom      int           // zoom levels from the fitted one (dosscreen.Zooms), negative zooms out
 }
 
 // The record flags beside -record itself.
-var recordFlags = []string{"record-size", "record-fps", "record-speed", "record-tail", "record-crf", "record-max-frames"}
+var recordFlags = []string{"record-size", "record-fps", "record-speed", "record-tail", "record-crf", "record-max-frames", "record-zoom"}
 
 // parseRecordSize reads WxH, both even and positive.
 func parseRecordSize(s string) (w, h int, err error) {
@@ -113,9 +114,10 @@ type recorder struct {
 	err    error
 }
 
-// newRecorder lays g out at the record size and records it into sink.
+// newRecorder lays g out at the record size and zoom and records it into sink.
 func newRecorder(g *game, sink frameSink, cfg recordConfig) *recorder {
 	g.applyLayout(cfg.w, cfg.h, 1)
+	g.zoomSplit(cfg.zoom)
 	return &recorder{
 		g: g, sink: sink, cfg: cfg,
 		target: ebiten.NewImage(cfg.w, cfg.h),

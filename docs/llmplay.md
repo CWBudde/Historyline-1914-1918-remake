@@ -116,12 +116,13 @@ the error as the message. No input gives orders; Q or Esc quits.
 - **The player view** (`-view screen`): `screen.mp4`, the front end's split
   battle screen recording the replay above (`historyline -replay DIR -record
   DIR/screen.mp4` with the runtime packs, run from the repository root; run
-  `just packs` first). It shows what a player at the screen sees: each side's
+  `just packs` first). It starts two zoom levels out (`-zoom`) and shows what a player at the screen sees: each side's
   panel with its own view under fog (`-reveal` on `historyline` lifts it), both
   sides' moves walking like the computer's, the phase change's battle and
   capture scenes, and the finale, followed by `-tail` (3 s) of the end. Every
-  resolution is hash-checked; a mismatch stops the video with an error, the
-  part recorded so far still a playable file.
+  resolution is hash-checked; a mismatch stops the video with an error. The
+  file is written in fragments: what was recorded stays playable, also while
+  the recording runs or after it is killed.
 
 The recording advances the game a fixed `-speed` ticks per video frame (the game
 runs 60 ticks a second, so the default 2 at `-fps` 30 is real time) and draws as
@@ -130,8 +131,14 @@ Real time is long: a RHEIN resolution is about 40 s of video, and at 1920×1080
 the recording runs about four times slower than the video plays (600 frames in
 about 80 s); `-speed 8` makes a game four times shorter to watch and to record.
 Flags: `-size` (1920x1080, even), `-fps` (30), `-speed` (2), `-tail` (3s),
-`-crf` (23), `-max-frames` (0: to the end; 600 for a quick look). The map
-video's flags do not apply.
+`-crf` (23), `-max-frames` (0: to the end; 600 for a quick look), `-zoom` (-2,
+wheel steps from the fitted zoom). The map video's flags do not apply.
+
+On a level with a painted backdrop, a game without sapper or depot work records
+without the terrain pack, frame for frame the same: 1.7 GB instead of 5.9 GB on
+CANDL. On a machine short of memory, keep a recording from taking the desktop
+with it: `systemd-run --user --scope -p MemoryMax=10G -p MemorySwapMax=2G just
+llmplay render …`.
 
 ## Learn — review and lessons
 

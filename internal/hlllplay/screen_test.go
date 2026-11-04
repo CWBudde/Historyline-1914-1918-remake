@@ -9,12 +9,16 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 )
 
 func TestScreenRecordArgs(t *testing.T) {
 	root := t.TempDir()
 	dir := filepath.Join(root, "build", "review", "llmplay", "g")
-	got, err := screenRecordArgs(root, dir, [][2]string{{"fps", "60"}, {"max-frames", "600"}})
+	got, err := screenRecordArgs(root, dir, screenPacks, [][2]string{{"fps", "60"}, {"max-frames", "600"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,7 +32,7 @@ func TestScreenRecordArgs(t *testing.T) {
 		t.Errorf("args\n%q\nwant\n%q", got, want)
 	}
 	for _, bad := range []string{"", root, filepath.Join(root, "levels"), filepath.Dir(root)} {
-		if _, err := screenRecordArgs(root, bad, nil); err == nil {
+		if _, err := screenRecordArgs(root, bad, screenPacks, nil); err == nil {
 			t.Errorf("game dir %q outside build/ accepted", bad)
 		}
 	}
@@ -41,7 +45,7 @@ func TestRenderFlags(t *testing.T) {
 		for _, n := range []string{"backdrop", "size"} {
 			fs.String(n, "", "")
 		}
-		for _, n := range []string{"every", "density", "div", "fps", "width", "crf", "speed", "max-frames"} {
+		for _, n := range []string{"every", "density", "div", "fps", "width", "crf", "speed", "max-frames", "zoom"} {
 			fs.Int(n, 0, "")
 		}
 		fs.Bool("gif", true, "")
@@ -63,6 +67,8 @@ func TestRenderFlags(t *testing.T) {
 			view: "screen", args: []string{"-size", "1280x720", "-fps", "60", "-tail", "1s", "-max-frames", "600"},
 			want: [][2]string{{"fps", "60"}, {"max-frames", "600"}, {"size", "1280x720"}, {"tail", "1s"}},
 		},
+		{view: "screen", args: []string{"-zoom", "-3"}, want: [][2]string{{"zoom", "-3"}}},
+		{view: "map", args: []string{"-zoom", "-3"}, err: "-zoom does not apply to -view map"},
 		{view: "screen", args: []string{"-width", "800"}, err: "-width does not apply to -view screen"},
 		{view: "screen", args: []string{"-gif=false"}, err: "-gif does not apply"},
 		{view: "movie", err: "want map or screen"},
@@ -82,7 +88,7 @@ func TestRenderFlags(t *testing.T) {
 
 func TestMissingPacks(t *testing.T) {
 	root := t.TempDir()
-	if err := missingPacks(root); err == nil || !strings.Contains(err.Error(), "run `just packs` first") {
+	if err := missingPacks(root, screenPacks); err == nil || !strings.Contains(err.Error(), "run `just packs` first") {
 		t.Errorf("no packs: %v", err)
 	}
 	for _, p := range screenPacks {
@@ -90,7 +96,44 @@ func TestMissingPacks(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	if err := missingPacks(root); err != nil {
+	if err := missingPacks(root, screenPacks); err != nil {
 		t.Errorf("all packs: %v", err)
+	}
+}
+
+// TestTerrainNeeded: a painted level records without the terrain pack unless
+// the game changed its ground.
+func TestTerrainNeeded(t *testing.T) {
+	painted := &level.Level{Extra: &level.Extra{Backdrop: "backdrop.jpg"}}
+	line := func(kinds ...string) llmplay.Line {
+		var l llmplay.Line
+		for _, k := range kinds {
+			l.Events = append(l.Events, llmplay.EventRec{Kind: k})
+		}
+		return l
+	}
+	quiet := line(dosplay.Moved.String(), dosplay.Battle.String())
+	for _, tt := range []struct {
+		name  string
+		lvl   *level.Level
+		lines []llmplay.Line
+		want  bool
+	}{
+		{"tiles", &level.Level{}, []llmplay.Line{quiet}, true},
+		{"no painting", &level.Level{Extra: &level.Extra{}}, []llmplay.Line{quiet}, true},
+		{"painted", painted, []llmplay.Line{quiet}, false},
+		{"painted, dug", painted, []llmplay.Line{quiet, line(dosplay.Dug.String())}, true},
+		{"painted, depot", painted, []llmplay.Line{quiet, line(dosplay.Constructed.String())}, true},
+	} {
+		if got := terrainNeeded(tt.lvl, tt.lines); got != tt.want {
+			t.Errorf("%s: %v", tt.name, got)
+		}
+	}
+	packs := packsFor(false)
+	if len(packs) != len(screenPacks)-1 || slices.ContainsFunc(packs, func(p screenPack) bool { return p.flag == terrainPack }) {
+		t.Errorf("without terrain: %v", packs)
+	}
+	if len(packsFor(true)) != len(screenPacks) {
+		t.Errorf("with terrain: %v", packsFor(true))
 	}
 }
