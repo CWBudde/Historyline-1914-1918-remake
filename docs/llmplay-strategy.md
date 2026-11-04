@@ -151,7 +151,7 @@ treasury, is the bug (see v7/v8 below).
 # CANDL (1918-04:cp)
 
 Not yet won: the coach loses the HQ at resolution 18, hand play (`candl2`,
-with `-lines`, `-full`, `suggest`) at resolution 20.
+`candl3`, with `-lines`, `-full`, `suggest`) at resolution 20 both times.
 
 ## The situation
 
@@ -204,3 +204,16 @@ side. A capture of the EC HQ is therefore the end of a won battle, not a raid.
 - Seven transTrains clog the rails of the west strip and block the infantry's
   moves (`>uN` everywhere); move them off early or use them.
 - Moving onto your own carrier's hex boards it (`>uN`).
+- The swap costs the unit that goes in: an attack on its old hex destroys it
+  inside the HQ. In `candl3` the HQ was stocked from resolution 3 and swapped
+  every threatened doorstep, yet EC (30+ units around the HQ by resolution
+  10, battles with 25–250 % pincer bonuses) destroyed one to three holders per
+  action phase. The HQ-side force (about 15 units and 7 bunkers) ran out at
+  resolution 19: no other CP unit reaches the HQ, because the west group meets
+  the swarm at the land bridge and production is 80 lines south (energy
+  reached 985 unused). A rotation only delays the fall; holding needs more
+  units on the HQ side than the opening gives.
+- Exits from the HQ take a full move from the entrance, not one step: the pool
+  also refills the outer ring around the doorsteps.
+- At resolution 18 EC left an empty doorstep untaken while two CP holders
+  stood beside it; it captured at resolution 20 when only a balloon was left.
