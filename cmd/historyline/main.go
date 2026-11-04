@@ -260,6 +260,20 @@ func (g *game) fill(terrain string) color.RGBA {
 	return c
 }
 
+// advance moves the game on a frame without reading input: the driver's
+// tick, a terrain rework it asked for, the split screen's panels. Update
+// and the recorder (-record) both advance by it.
+func (g *game) advance() {
+	g.drv().Tick()
+	if g.dos != nil && g.dos.rework {
+		g.dos.rework = false
+		g.reworkTerrain()
+	}
+	if g.split != nil {
+		g.updateSplit()
+	}
+}
+
 func (g *game) Update() error {
 	if u, ok := arrived(&g.hdUnits); ok {
 		g.art.release()
@@ -282,14 +296,7 @@ func (g *game) Update() error {
 	if g.dos != nil && g.dos.scene() && anyInput {
 		g.dos.SkipScene() // as the battle panel, any key or click skips a scene
 	}
-	g.drv().Tick()
-	if g.dos != nil && g.dos.rework {
-		g.dos.rework = false
-		g.reworkTerrain()
-	}
-	if g.split != nil {
-		g.updateSplit()
-	}
+	g.advance()
 	if g.dos != nil && g.dos.replay != nil {
 		if !g.updateReplay() {
 			return ebiten.Termination
