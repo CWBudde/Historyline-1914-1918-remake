@@ -29,7 +29,7 @@ export default defineConfig(
   {
     // The engine is pure: no rendering, no DOM, no Node. It runs in Node, the browser and a worker.
     files: ["engine/src/**/*.ts"],
-    ignores: ["engine/src/**/*.test.ts"],
+    ignores: ["engine/src/**/*.test.ts", "engine/src/testing/**"],
     rules: {
       "no-restricted-imports": [
         "error",

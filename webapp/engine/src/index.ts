@@ -1,10 +1,65 @@
 // The web edition's rules engine: a TypeScript port of the original rules profile (internal/dosrules and the
 // packages around it), held to the Go engine by its fixtures under internal/dosrules/testdata.
+//
+// Go's exported API: free functions take the Go receiver first (p.Casualties(a, d, c) is casualties(p, a, d,
+// c)); a Go (T, error) return throws a GoError (attempt gives the pair back). Package hexgrid is the hexgrid
+// namespace.
 
 export const engineVersion = "0.0.0";
 
+export * as hexgrid from "./hexgrid.ts";
+
 export {
-  isFixtureRecord,
-  type FixtureRecord,
-  type FixtureSource,
-} from "./fixture.ts";
+  int8,
+  uint8,
+  int16,
+  uint16,
+  int32,
+  uint32,
+  mul32,
+  div,
+  rem,
+  IntegerDivideError,
+} from "./int.ts";
+export { GoError, type GoResult, attempt, errorsIs, at } from "./goruntime.ts";
+export { DecodeError } from "./decode.ts";
+
+export {
+  containerLen,
+  maxSteps,
+  type MoveOrder,
+  type StepRun,
+} from "./record.ts";
+export type { MoveType, MoveTerrain, MoveTables } from "./move.ts";
+export {
+  type Type,
+  type Terms,
+  type Tables,
+  type Profile,
+  type Build,
+  newProfile,
+  fullProfile,
+  demoProfile,
+  profilesOf,
+  mustTables,
+} from "./profile.ts";
+export { distance, layoutDistance } from "./distance.ts";
+export {
+  ErrDivideError,
+  type Fighter,
+  type Context,
+  type Result,
+  casualties,
+} from "./casualties.ts";
+export { ErrUndefined } from "./support.ts";
+export {
+  type Source,
+  type FixtureHeader,
+  isFixtureHeader,
+  type FixtureSide,
+  type FixtureContext,
+  type CasualtyExpected,
+  type CasualtyFixture,
+  casualtyInputs,
+  casualtyResult,
+} from "./fixtures.ts";
