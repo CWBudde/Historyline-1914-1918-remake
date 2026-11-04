@@ -197,3 +197,22 @@ func TestReplayEndsWithTheBattle(t *testing.T) {
 		t.Errorf("after %d ticks: ended %v, over %v, line %d of %d", r.ticks, d.s.Ended(), d.over, d.replay.at, len(rp.Lines))
 	}
 }
+
+// TestReplayLevelBackdrop: a replayed level's backdrop is found below the
+// levels directory, as the menu's level is.
+func TestReplayLevelBackdrop(t *testing.T) {
+	rp, err := llmplay.OpenReplay(recordRhein(t, 1))
+	if err != nil {
+		t.Fatal(err)
+	}
+	lvl, err := replayLevel(rp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if lvl.Extra == nil || lvl.Extra.Backdrop != "1918-02/backdrop.jpg" {
+		t.Fatalf("backdrop %+v, want 1918-02/backdrop.jpg", lvl.Extra)
+	}
+	if _, err := levelBackdrop("levels", lvl.Extra.Backdrop); err != nil {
+		t.Fatal(err)
+	}
+}

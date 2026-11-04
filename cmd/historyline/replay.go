@@ -1,8 +1,11 @@
 package main
 
 import (
+	"path"
+
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -118,6 +121,21 @@ func replayGame(rp *llmplay.Replay, reveal bool) *game {
 	g := newDosGame(rp.Session.Level, rp.Session, rp.Header.LLMSide, nil, reveal)
 	g.dos.startReplay(rp.Lines)
 	return g
+}
+
+// replayLevel is the level of a recorded game with its backdrop a path
+// below the levels directory, as scenarioLevel gives it (levelBackdrop).
+func replayLevel(rp *llmplay.Replay) (*level.Level, error) {
+	lvl := rp.Session.Level
+	if lvl.Extra == nil || lvl.Extra.Backdrop == "" {
+		return lvl, nil
+	}
+	month, _, err := llmplay.ParseLevelRef(rp.Header.Level)
+	if err != nil {
+		return nil, err
+	}
+	lvl.Extra.Backdrop = path.Join(month, lvl.Extra.Backdrop)
+	return lvl, nil
 }
 
 // updateReplay takes a replay's input: Q or Esc quits, F11 and F9 work as
