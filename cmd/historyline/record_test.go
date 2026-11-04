@@ -234,3 +234,28 @@ func TestRecordZoom(t *testing.T) {
 		t.Errorf("zoom -100 is level %d", far.Zoom)
 	}
 }
+
+// TestRecordReadsAfterFrameEnd: a frame's pixels are read in the step after
+// the one that drew it, with nothing drawn in between, never in the same
+// Update. Read in the same Update, every frame's draws end in an intermediate
+// flush, and Ebitengine resets a command queue's uniform buffer only at a
+// frame's end: the buffer then grows by each frame's uniforms, to gigabytes.
+func TestRecordReadsAfterFrameEnd(t *testing.T) {
+	rp, err := llmplay.OpenReplay(recordRhein(t, 1))
+	if err != nil {
+		t.Fatal(err)
+	}
+	sink := &countSink{t: t, size: 4 * 320 * 180}
+	r := newRecorder(replayGame(rp, false), sink, recordConfig{w: 320, h: 180, fps: 30, speed: 2, maxFrames: 2})
+	reads := 0
+	r.read = func(*ebiten.Image, []byte) { reads++ }
+	for i, want := range []int{0, 1, 2} {
+		more := r.step()
+		if reads != want || sink.frames != want {
+			t.Errorf("after step %d: %d reads and %d frames, want %d", i+1, reads, sink.frames, want)
+		}
+		if more != (want < 2) {
+			t.Errorf("step %d reports %v with %d frames of 2", i+1, more, want)
+		}
+	}
+}

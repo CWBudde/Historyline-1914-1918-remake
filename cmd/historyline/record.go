@@ -110,6 +110,7 @@ type recorder struct {
 	read   func(*ebiten.Image, []byte) // the frame's pixels: ReadPixels
 	frames int
 	tail   int  // video frames still to write after the replay is done, -1 before
+	drawn  bool // target holds a frame not written yet
 	done   bool // the video is complete, or failed (err)
 	err    error
 }
@@ -127,12 +128,22 @@ func newRecorder(g *game, sink frameSink, cfg recordConfig) *recorder {
 	}
 }
 
-// step advances the game by the speed's ticks and writes the frame it
-// shows. It reports false once the video is complete or failed: the
-// replay done and the tail written, the frame limit reached, a replay
-// mismatch or a write error (err).
+// step writes the frame the last step drew, then advances the game by the
+// speed's ticks and draws the next. It reports false once the video is
+// complete or failed: the replay done and the tail written, the frame limit
+// reached, a replay mismatch or a write error (err).
+//
+// A frame is read in the step after the one that drew it, so that its draws
+// have gone through the frame's end. Read at once, they end in the
+// intermediate flush of ReadPixels, and Ebitengine resets a command queue's
+// uniform buffer only at a frame's end: its pool alternates two queues, so
+// the one taking the draws would never be reset and grow by every frame's
+// uniforms, to gigabytes.
 func (r *recorder) step() bool {
 	if r.done {
+		return false
+	}
+	if r.drawn && !r.writeFrame() {
 		return false
 	}
 	g := r.g
@@ -144,11 +155,19 @@ func (r *recorder) step() bool {
 	if g.artErr != "" || g.terrainErr != "" {
 		return r.fail(fmt.Errorf("record rendering: %s %s", g.artErr, g.terrainErr))
 	}
+	r.drawn = true
+	return true
+}
+
+// writeFrame reads and writes the drawn frame and reports whether the video
+// goes on.
+func (r *recorder) writeFrame() bool {
 	r.read(r.target, r.pix)
 	if err := r.sink.WriteFrame(r.pix); err != nil {
 		return r.fail(err)
 	}
 	r.frames++
+	g := r.g
 	switch {
 	case g.dos.replayErr() != nil:
 		return r.fail(fmt.Errorf("replay stopped at frame %d: %w", r.frames, g.dos.replayErr()))
