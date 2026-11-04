@@ -29,6 +29,7 @@ type Type struct {
 }
 
 // alternate reports whether the unit's strength is its alternate byte.
+// No shipped type enables it; synthetic casualty fixtures cover the branch.
 func (t Type) alternate() bool { return t.StrengthFlags&4 != 0 }
 
 // setsUp reports whether the unit cannot attack in the action phase after it

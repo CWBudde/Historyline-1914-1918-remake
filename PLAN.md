@@ -408,12 +408,17 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 
 ### 3. Original rules profile
 
-- [ ] 3.1 Data: alternate group strength; terrain record names.
+- [ ] 3.1 Data: terrain record names. Alternate strength is covered by the recorded casualty cases
+      (`TestAlternateStrengthEvidence`); none of the 51 shipped types enables it. The local full-game
+      unit table also has zero alternate group strength throughout (`TestStrengthDataMatchesOriginal`).
 - [ ] 3.2 Order cycle: movement/action phases, both players' confirmations, cancellation, eligibility, move
       limits, conflicting destinations and swaps, targets destroyed before their order executes. What is
       known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
       attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
       within the weapon's range for that class.
+      Engine integration tests cover conflicting destinations, refused swaps and moves into vacated
+      cells, on both sides and profiles (`cycle_conflicts_test.go`); refusals leave the state and order
+      count unchanged. These tests do not establish the original's assumed attack eligibility.
 - [x] 3.3 Buildings: depot construction. Sapper trenches work under `-rules dos`.
       (2026-11-01) — `dosai` digs with sappers near an enemy or an own HQ and never fills
       (`internal/dosai/dig.go`). Construction units build depots as the original does
