@@ -105,20 +105,33 @@ func freeSlot(h Hold, side int) int {
 	return -1
 }
 
-// freeRecord is the lowest live record without a unit, -1 if none.
+// freeRecord is the lowest unused live record; once every record has been
+// used, it is the lowest record holding a destroyed unit. It is -1 if none
+// is available.
 func (g *Game) freeRecord() int {
-	for i := range SlotFree {
+	for i := range LiveUnits {
 		if _, ok := g.Units[i]; !ok {
+			return i
+		}
+	}
+	for i := range LiveUnits {
+		if g.Units[i].Destroyed() {
 			return i
 		}
 	}
 	return -1
 }
 
-// freeCarrier is the lowest transporter record that none holds, -1 if none.
+// freeCarrier is the lowest unused transporter record; once every record has
+// been used, it is the lowest cleared record. It is -1 if none is available.
 func (g *Game) freeCarrier() int {
 	for i := range HoldFlag40 {
 		if h, ok := g.Holds[i]; !ok || h == EmptyHold() {
+			return i
+		}
+	}
+	for i := range HoldFlag40 {
+		if h, ok := g.Holds[i]; ok && h.Flags&0x8000 != 0 {
 			return i
 		}
 	}

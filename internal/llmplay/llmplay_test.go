@@ -136,7 +136,7 @@ func TestFallbackPlays(t *testing.T) {
 	}
 }
 
-// The Coach WINS RHEIN against dosai: annihilation at resolution 146
+// The Coach WINS RHEIN against dosai: annihilation at resolution 148
 // (deterministic; see docs/llmplay-strategy.md battle log v1-v32).
 // Regression: coach v2/v3 aborted at resolution 17 with "No such unit"
 // (destroyed cargo record in a hold; two-cell ship rears ordered).
@@ -152,8 +152,8 @@ func TestCoachPlaysFullGame(t *testing.T) {
 	if end.Winner != 0 {
 		t.Errorf("winner side %d won %v score %d, want CP (side 0) to win RHEIN", end.Winner, end.Won, end.Score)
 	}
-	if _, n, err := VerifyReplay(g.Dir); err != nil || n != 146 {
-		t.Errorf("verify: n=%d err=%v, want the deterministic 146-resolution win", n, err)
+	if _, n, err := VerifyReplay(g.Dir); err != nil || n != 148 {
+		t.Errorf("verify: n=%d err=%v, want the deterministic 148-resolution win", n, err)
 	}
 	t.Logf("coach game: winner side %d won %v score %d", end.Winner, end.Won, end.Score)
 }

@@ -29,7 +29,7 @@ commands to the prompt (training only; marked in the transcript header).
 prompt is ever rendered; ~130 ms/resolution including the two-resolution
 oracle lookahead on a Clone) and implements the winning strategy of
 [llmplay-strategy.md](llmplay-strategy.md) — it wins RHEIN against dosai by
-annihilation at resolution 146, deterministically (pinned by
+annihilation at resolution 148, deterministically (pinned by
 `TestCoachPlaysFullGame`). `fallback` (dosai both sides + service) loses the HQ
 in 14 for comparison.
 
@@ -83,7 +83,7 @@ loss: `prompt` on the dir resumes from `save.json`. To **watch** a finished
 game, `render` replays the transcript (hash-verified) and renders
 `frames/NNNN.png` (downscaled by `-div`), stitches `game.gif`, and encodes
 `game.mp4` with ffmpeg (`-width`/`-crf` trade size for quality; defaults
-1440px/CRF 28 at 2 fps — the 146-resolution win is a 73 s, 0.65 MB video;
+1440px/CRF 28 at 2 fps — the 148-resolution win is a 74 s video;
 CRF 34 at 960px shrinks it to 0.2 MB but the units all but vanish). The GIF
 is far larger (~30 MB) and only a fallback for players without H.264.
 

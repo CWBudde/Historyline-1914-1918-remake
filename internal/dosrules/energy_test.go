@@ -210,6 +210,31 @@ func TestEnergyBuild(t *testing.T) {
 	}
 }
 
+// TestEnergyBuildReusesDestroyedRecord checks that a build can take the
+// record of a destroyed unit once every live record has been used.
+func TestEnergyBuildReusesDestroyedRecord(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			g := energyCycle(t, p, map[int]Placement{
+				0: {Type: cInfantry, Owner: 0, Cell: 40}, 1: {Type: cInfantry, Owner: 1, Cell: 44},
+			})
+			for i := 2; i <= SlotFree; i++ {
+				g.Units[i] = Live{Type: cInfantry, Size: 1, Flags4: 2}
+			}
+			g.Units[2] = Live{Type: cInfantry, Flags4: 0x8000}
+			g.Energy[0] = p.Tables.Types[cInfantry].Cost
+
+			evs := apply(t, g, Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: cInfantry})
+			if len(evs) != 1 || evs[0].Kind != EvBuilt || evs[0].Unit != 2 {
+				t.Fatalf("build events %+v, want one build of unit 2", evs)
+			}
+			if u := g.Units[2]; u.Destroyed() || u.Type != cInfantry || g.Holds[HoldFlag40].Slots[0] != 2 {
+				t.Errorf("built unit %+v, slots %v", u, g.Holds[HoldFlag40].Slots)
+			}
+		})
+	}
+}
+
 // TestEnergyBuildExit builds a unit in side 0's action phase and takes it out
 // of the HQ in the next movement phase.
 func TestEnergyBuildExit(t *testing.T) {
@@ -260,6 +285,33 @@ func TestEnergyBuildTransporter(t *testing.T) {
 			evs := apply(t, g, Command{Kind: CmdExit, Side: 0, Hold: HoldFlag40, Slot: 0, Cell: n[0]})
 			if evs[0].Kind != EvMoved || g.occupant(0, n[0]) != 2 || g.Holds[u.Hold].Cells[0] != 2*n[0]+1 {
 				t.Errorf("exit events %+v, occupant %d, record %+v", evs, g.occupant(0, n[0]), g.Holds[u.Hold])
+			}
+		})
+	}
+}
+
+// TestEnergyBuildReusesClearedCarrierRecord checks that building a
+// transporter can take a cleared transporter record.
+func TestEnergyBuildReusesClearedCarrierRecord(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			g := energyCycle(t, p, map[int]Placement{
+				0: {Type: cInfantry, Owner: 0, Cell: 40}, 1: {Type: cInfantry, Owner: 1, Cell: 44},
+			})
+			g.Buildings[HoldFlag40] = Building{Builds: []int{cSupply}}
+			g.Energy[0] = 100
+			for i := range HoldFlag40 {
+				h := EmptyHold()
+				h.Flags = 0x20
+				g.Holds[i] = h
+			}
+			cleared := g.Holds[0]
+			cleared.Flags = 0x8000
+			g.Holds[0] = cleared
+
+			apply(t, g, Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: cSupply})
+			if u := g.Units[2]; u.Hold != 0 || g.Holds[0].Flags&0x8000 != 0 || g.Holds[0].Occupant != 2 {
+				t.Errorf("built supply car %+v, reused record %+v", u, g.Holds[0])
 			}
 		})
 	}

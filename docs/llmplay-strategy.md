@@ -126,13 +126,14 @@ treasury, is the bug (see v7/v8 below).
   their `Costs` omit foreign entrances, so an entrance-seeded HQ field was
   empty for them. → seed building *rings* (race field only; in the fight
   field it lured the west across the river, v26 HQ@28).
-- **v27–v31 (stalls at 30:6, 22:6, 14:5)**: the unit-record pool is **240 total**
-  (`SlotFree`), ~131 builds for the whole game — production is finite. Bunker
+- **v27–v31 (stalls at 30:6, 22:6, 14:5)**: builds then permanently consumed
+  the 240 allocator records, so production was finite (destroyed records are
+  recycled now). Bunker
   assaults looped approach→damaged→repair; the oracle vetoed every costly
   approach; build order always picked A7V when rich, leaving no foot
   capturers for the dash. Probe truth: **anti-tank guns one-shot bunkers
   adjacent (3→0 for 1 own loss)**; A7Vs only chip (3→2).
-- **v32 — WIN: annihilation at resolution 146, 75 units left, score 3855.**
+- **v32 — WIN: annihilation at resolution 148 with recycled records, score 6055.**
   Siege composition fixed: foot capturers and anti-tank guns built before
   armour when rich; in a hard siege (only immobile/artillery enemies left) the
   oracle may not veto the assault and assault units press at strength 2–3
@@ -143,7 +144,7 @@ treasury, is the bug (see v7/v8 below).
 
 ## Open fronts
 
-- The win takes 146 resolutions and nearly the whole record pool; a faster
+- The win takes 148 resolutions; a faster
   EC-HQ dash after [15,26] (capturers built there, ≥2 axes in one movement
   phase) should shorten it — unproven.
 - Rail shuttles (transTrain east→west) are still unused by the coach.
@@ -153,6 +154,8 @@ treasury, is the bug (see v7/v8 below).
 Not yet won: the coach loses the HQ at resolution 18, hand play (`candl2`,
 `candl3`, with `-lines`, `-full`, `suggest`) at resolution 20 both times, and
 `candl4` (a walkthrough written for the original computer side) at resolution 12.
+`candl-muse2` (below) holds the HQ past resolution 151 but has not taken
+the EC HQ either.
 
 ## The situation
 
@@ -249,3 +252,86 @@ lost at resolution 12:
 - The factory builds three units per resolution (income 80 per phase
   change), but only the four hexes beside [93,2] take exits, so the army
   clogs the narrow west strip unless the exit hexes are cleared every move.
+
+## candl-muse2: HQ lock holds, EC HQ still open (2026-11-04)
+
+151 resolutions, game still open, replay-verified (`replay OK: 151
+resolutions`). A custom opening player (diagnostic probe, res 1–44) plugs
+all three doorsteps, stocks the HQ, swaps threatened holders and parks a
+balloon on [7,12]; hand play continued from res 45. At res 151: CP 24
+units, energy 5586, EC 27 units. EC surrounds the HQ but has not captured
+it since the lock formed — unlike `candl3`/`candl4`, attackable CP units
+still live on the west strip, so EC keeps attacking instead of entering.
+
+Proven along the way:
+
+- **Saturation beats a long-range gun**: EC's hArtillery e129 at [86,8]
+  destroys one exposed unit per resolution and picks the most valuable
+  (A7V over supplyCar/antiTank, armCar over elite/cavalry). Exposing 2–3
+  cheap units in the same move lets the rest advance; single-file units
+  just feed it. Never expose a tank together with cheaper units.
+- The lake west shore is crossable on foot only around its north end
+  (lines 79–81, col 7). East of col 7/8, lines 70–90 are lakeside/water
+  for every ground class tried; the EC HQ pocket (cols 11–16) connects to
+  the rest of the map only via the cols 13–15 highway from the far north
+  (EC's own FT-17s march [87,13] → lines 44+ at cols 13–15).
+- e129's sight line runs down col 8 (it destroyed units at [75,8] and
+  [77,8], 9–11 lines away). The unmarked pockets [85,5]/[87,5] are safe
+  from it, but nothing there has line of sight back: antiTank, lArtillery
+  and hArtillery all had no attack from [85,5], [87,5], [86,4] or [88,3].
+- Towed guns are road-bound (hArtillery steps only along
+  [90,2]–[89,3]–[88,3]) and cannot walk east of col 5. A supplyCar can
+  carry one (board first, then drive, same batch), but unloading inside
+  e129's reach in the resolution the car is threatened loses car and gun
+  together; a gun that unloads also cannot fire until the next turn, by
+  when e129 has killed it. Counter-battery by car ambush does not work.
+- Counter-battery from safety does work where sight is open: CP
+  hArtillery at [89,3] (range 12 lines) destroyed EC mArtillery e117
+  after it chased the west staging area to [77,3].
+- An armTrain built in the factory [93,2] can never exit (no rail exit
+  hex) — it bricks a factory slot. The factory cannot build mobileAA.
+- Empty orders trigger the deterministic fallback player for that
+  resolution; use it only as an action-phase pass when no legal attack
+  exists and the factory is full.
+
+Next attempt: keep the balloon lock and the south factory economy, ignore
+e129, and march a saturation stream (infantry at 35 from the factory)
+west side north across the land bridge at lines 12–14, east at the top,
+then south down the cols 13–15 highway to the EC HQ's east doorsteps,
+which no EC unit guards except e129 far west of them.
+
+## candl-muse2 continued: bridge crossed, records leaked (2026-11-04)
+
+The northern route above was executed from the locked game (res 151–311,
+replay-verified: `replay OK: 311 resolutions`). The march peaked at CP 43
+vs EC 27 (res ~200) and **crossed the land bridge**: antiTanks firing at
+range 2 take no return fire and chipped the stChamond guard [13,6] from
+5 to 0; A7Vs then killed the infantry guards [12,6] and [14,6].
+
+The attempt still failed, for two new reasons:
+
+- At the time, built units permanently consumed one of the 241 live
+  records: destroyed records were never reused, so builds eventually
+  failed with `No free unit record` (and the coach silently stopped
+  building). By res ~308 CP was down to 17 irreplaceable units against
+  EC 24 — unwinnable, energy 9804 useless. Builds now reuse destroyed
+  live records (and cleared transporter records) once no unused record
+  remains, so production is no longer capped by cumulative losses; the
+  byte-coded live records still allow at most 241 units at the same time.
+- The EC trainArt at [6,9] (rail by the CP HQ) sees the whole bridge and
+  east approach and value-picks: it alone destroyed ~15 CP units, mostly
+  90-credit A7Vs that arrived one phase ahead of the antiTanks. CP went
+  43 → 17 while EC lost only the three bridge guards.
+
+For a fresh attempt (`candl-muse2-r44`, rewound to the res-44 lock:
+CP 37 vs EC 30):
+
+- March north immediately; do not spend 100 resolutions in the south.
+- Build almost only antiTanks (53): range-2 standoff kills guards and
+  guns without return fire.
+- Never lead east of the bridge with A7Vs. Use one A7V per phase as the
+  trainArt's same-phase decoy while 3+ antiTanks step into range of it;
+  it has 5 HP and cannot be repaired in the field.
+- The lock needs no units beyond the three balloons ([7,12], [14,5],
+  [15,6]); EC has not entered empty doorsteps in 300 resolutions while
+  they stay.
