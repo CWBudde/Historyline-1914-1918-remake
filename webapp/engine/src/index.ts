@@ -21,7 +21,14 @@ export {
   rem,
   IntegerDivideError,
 } from "./int.ts";
-export { GoError, type GoResult, attempt, errorsIs, at } from "./goruntime.ts";
+export {
+  GoError,
+  type GoResult,
+  attempt,
+  errorsIs,
+  at,
+  setAt,
+} from "./goruntime.ts";
 export { DecodeError } from "./decode.ts";
 
 export {
@@ -30,7 +37,47 @@ export {
   type MoveOrder,
   type StepRun,
 } from "./record.ts";
-export type { MoveType, MoveTerrain, MoveTables } from "./move.ts";
+export {
+  type MoveType,
+  type MoveTerrain,
+  type MoveTables,
+  type Piece,
+  type Movement,
+  bufLen,
+  moveSeason,
+  newMovement,
+  pieceAt,
+  occupants,
+  liveLen,
+  liveRecords,
+  movementMaps,
+  costs,
+  reach,
+  owns,
+  endCode,
+  moveDestinations,
+  path,
+} from "./move.ts";
+export { execute, facing } from "./route.ts";
+export {
+  holdRecords,
+  holdFlag40,
+  holdFlag100,
+  holdFlag400,
+  slotFree,
+  inBuilding,
+  type Hold,
+  emptyHold,
+  holdRecord,
+  holdBytes,
+  containerRecords,
+  type Action,
+  moveEndCheck,
+  freeSlot,
+  type ExitOrder,
+  type ExitRun,
+  moveExit,
+} from "./container.ts";
 export {
   type Type,
   type Terms,
@@ -107,3 +154,24 @@ export {
   ordersList,
   ordersResult,
 } from "./fixtures.ts";
+export {
+  type Pair,
+  type FixturePiece,
+  fixturePieces,
+  type FixtureMap,
+  mapOf,
+  fixtureMovement,
+  type MovementExpected,
+  type MovementFixture,
+  movementQuery,
+  type FixtureRecord,
+  type StepExpected,
+  stepExpectedOf,
+  type StepFixture,
+  type FixtureHold,
+  fixtureHolds,
+  type ContainerExpected,
+  containerExpectedOf,
+  type ContainerFixture,
+  containerMovement,
+} from "./motionFixtures.ts";

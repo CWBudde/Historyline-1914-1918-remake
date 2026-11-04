@@ -53,3 +53,17 @@ export function at<T>(a: ArrayLike<T>, i: number): T {
   }
   return a[i] as T;
 }
+
+/** setAt is Go's bounds-checked a[i] = v: it panics (throws a RangeError) outside the slice. */
+export function setAt<T>(
+  a: { [i: number]: T; readonly length: number },
+  i: number,
+  v: T,
+): void {
+  if (!Number.isInteger(i) || i < 0 || i >= a.length) {
+    throw new RangeError(
+      `runtime error: index out of range [${i}] with length ${a.length}`,
+    );
+  }
+  a[i] = v;
+}

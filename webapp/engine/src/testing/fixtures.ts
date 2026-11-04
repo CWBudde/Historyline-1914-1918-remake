@@ -27,7 +27,7 @@ import type {
   OrdersFixture,
   Source,
 } from "../fixtures.ts";
-import { type Profile, decodeType, tablesOf } from "../profile.ts";
+import { type Build, type Profile, decodeType, tablesOf } from "../profile.ts";
 import { readJSON } from "./files.ts";
 import { Profiles, moveTables } from "./tables.ts";
 
@@ -65,7 +65,8 @@ export function checkHeader(
   seen.add(h.id);
 }
 
-const headerKeys = ["schema", "profile", "id", "source"];
+/** headerKeys are the JSON keys of the fixture envelope. */
+export const headerKeys = ["schema", "profile", "id", "source"];
 
 /** decodeHeader reads the envelope fields of a record already read as o. */
 export function decodeHeader(o: JSONObject, what: string): FixtureHeader {
@@ -204,8 +205,8 @@ function decodeTerrain(v: unknown, what: string): FixtureTerrain {
   return { cell: intField(o, "cell", what), class: intField(o, "class", what) };
 }
 
-// list reads o[key] as a slice of T with each element decoded by elem; null and absent are Go's nil slice.
-function list<T>(
+/** list reads o[key] as a slice of T with each element decoded by elem; null and absent are Go's nil slice. */
+export function list<T>(
   o: JSONObject,
   key: string,
   what: string,
@@ -215,13 +216,14 @@ function list<T>(
   return a === null ? null : a.map((v, i) => elem(v, `${what}.${key}[${i}]`));
 }
 
-function decodeInt(v: unknown, what: string): number {
+/** decodeInt reads a Go int element: null is 0. */
+export function decodeInt(v: unknown, what: string): number {
   return v === null ? 0 : int(v, what);
 }
 
 // decodePair reads a Go [2]int: null and missing elements are zero, elements past two an error (Go's decoder
 // drops them; the fixtures never hold any, so the reader refuses them to catch a schema change).
-function decodePair(v: unknown, what: string): [number, number] {
+export function decodePair(v: unknown, what: string): [number, number] {
   if (v === null) {
     return [0, 0];
   }
@@ -359,21 +361,22 @@ export function decodeOrdersFixture(v: unknown, what: string): OrdersFixture {
 
 /**
  * replay is motion_test.go replay: per build, every record of testdata/<build>/<name> (exactly count of
- * them) passes the header check and run (which compares with expect), and every class (the id up to its
+ * them, or count[build] where the builds differ) passes the header check and run (which compares with expect), and every class (the id up to its
  * first "/") in classes is present.
  */
 export function replay<T extends FixtureHeader>(
   name: string,
   decode: (v: unknown, what: string) => T,
-  count: number,
+  count: number | Readonly<Record<Build, number>>,
   run: (p: Profile, f: T) => void,
   ...classes: string[]
 ): void {
   describe.each(Profiles)(`${name}, %s build`, (build, p) => {
     it(`every record of ${name}`, () => {
       moveTables(p);
+      const want = typeof count === "number" ? count : count[build];
       const fs = load(build, name, decode);
-      expect(fs).toHaveLength(count);
+      expect(fs).toHaveLength(want);
       const seen = new Map<string, number>();
       const ids = new Set<string>();
       let passed = 0;
@@ -385,7 +388,7 @@ export function replay<T extends FixtureHeader>(
         const class_ = cut < 0 ? f.id : f.id.slice(0, cut);
         seen.set(class_, (seen.get(class_) ?? 0) + 1);
       }
-      expect(passed).toBe(count);
+      expect(passed).toBe(want);
       for (const c of classes) {
         expect(
           seen.get(c) ?? 0,
