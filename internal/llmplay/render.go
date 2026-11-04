@@ -33,22 +33,11 @@ func RenderReplay(dir string, r *maprender.Renderer, o RenderOptions) (int, erro
 	if o.Div < 1 {
 		o.Div = 1
 	}
-	h, lines, err := ReadTranscript(dir)
+	rp, err := OpenReplay(dir)
 	if err != nil {
 		return 0, err
 	}
-	month, mode, err := ParseLevelRef(h.Level)
-	if err != nil {
-		return 0, err
-	}
-	lvl, err := ShipLevel(month, mode)
-	if err != nil {
-		return 0, err
-	}
-	s, err := NewSession(lvl, h.LLMSide)
-	if err != nil {
-		return 0, err
-	}
+	s, lines := rp.Session, rp.Lines
 	framesDir := filepath.Join(dir, "frames")
 	if err := os.MkdirAll(framesDir, 0o755); err != nil {
 		return 0, err
@@ -79,12 +68,8 @@ func RenderReplay(dir string, r *maprender.Renderer, o RenderOptions) (int, erro
 		if _, err := s.Replay(l.Commands); err != nil {
 			return n, fmt.Errorf("resolution %d: %w", l.Resolution, err)
 		}
-		got, err := StateHash(s)
-		if err != nil {
+		if err := CheckResolution(s, l); err != nil {
 			return n, err
-		}
-		if got != l.StateAfter {
-			return n, fmt.Errorf("resolution %d: state hash %s, transcript has %s", l.Resolution, got, l.StateAfter)
 		}
 		if l.Resolution%o.Every == 0 || l.Resolution == len(lines) {
 			if err := write(l.Resolution); err != nil {
