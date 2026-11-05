@@ -252,22 +252,22 @@ existing footprints. These are artistic settings, not verified map locations.
 - [ ] [1916-07](levels/1916-07/)
   - [x] Audit `levels/1916-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-07/approval-audit.json` and `.md`: summer, 1658×1920, three compounds, 39 inherited starts, no houses, water, airfields or linked ships; 381 mud hexes and three road overlays recorded, no trench overlays. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [PLATE/SOMME](docs/backpaint-approvals.md#1916-07--platesomme), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1916-07:cp -out build/review/backdrops/1916-07/guide`.
-  - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
-  - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
-  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
-  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
-  - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
-  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
-  - [ ] Save the finished lossless source to `levels/1916-07/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
-  - [ ] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1916-07`.
-  - [ ] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.
-  - [ ] Review `1916-07:cp`, `1916-07:ec` and `1916-07:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges.
-  - [ ] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting.
+  - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1916-07/guide/`, 6632×7680, zero gaps/issues. Current audit is byte-identical to approval audit; all baseline map/setup/source/JPEG hashes pass.
+  - [x] Record world/output dimensions and section coverage: `section-layout.json`, 1658×1920 world, 2852×3302 output; nine 728×727 sections on 1252×1250 canvases, x 0/465/930, y 0/596/1193, minimum 263×130 world-pixel overlaps and full map coverage.
+  - [x] Crop and scale every guide canvas with exact registration via the unified backdrop CLI (`sections.log`, `sections/`).
+  - [x] Prepare all nine prompts in `prompts.json`: guide/style/crater-detail roles explicitly separated, approved summer/chalk/clay palette, registered architecture and starting-ground support; no new trenches or road network. `row3-used-prompts.json` additionally removes the depot guide's modern rooftop circle/trucks in favour of approved timber stores within those footprints.
+  - [x] Paint all nine registered sections in parallel with imagegen; retain every stone/meadow island, woodland boundary, rock formation and original approach. Exact prompts, selected outputs and originals in row generation records and `prompt-index.json`.
+  - [x] Actually review every section against its guide and references (`row1-review.md` through `row3-review.md`). No section geometry correction needed; both HQ material/roof mismatches resolved in the planned masked finishing pass. No optional comparison round.
+  - [x] Stitch with mean-one all-overlap RGB gains, 7×7-blurred minimum-difference seams and ±10 px smoothstep blends. `stitched.png.json` records the result; all 12 registered section lightness comparisons pass.
+  - [x] Inspect all eight native/grid join pairs independently. After support finishing, 14 PNGs compare byte-identical; root actually viewed the two changed join-04 exports. No unresolved join defect (`join-final-review.md`).
+  - [x] Retain the approved warm July clay/chalk and green summer palette. Both architecture rings pass. One small infantry contact ring retains a regional L* warning, actually reviewed in source, join and native views as water-to-clay material change without a visible halo; thresholds unchanged.
+  - [x] Finish required ground contacts with registered clay masks: Charron [6,9] rear wheels and elite infantry [26,7] left boots. Independent preflight identified exactly these two; other crater detail remains. Three bunkers remain single runtime sprites, without painted duplicates or moved coordinates.
+  - [x] Finish the two approved HQs with separate masked crops: limestone/slate domes/hipped hall and buff brick/red-tiled towers/long tiled hall. The ration depot already matched its brief and was retained. Gate bridges, yards and the original short depot approach remain usable.
+  - [x] Save `levels/1916-07/backdrop.png`: 2852×3302, 20,903,781 bytes, below 100 MiB and preserving the 1658×1920 world aspect to rounding. Approved placeholder replaced from `finished-supported.png`.
+  - [x] Encode the runtime JPEG at quality 95: 6,032,899 bytes (`jpeg.log`).
+  - [x] Unified backdrop check passes all 52 source/JPEG pairs after installation (`installed-check.log`, exit 0). Final hashes match; all four map/setup hashes unchanged. Scenario, dosbind, hlbackdrop and hlcli tests pass.
+  - [x] Actually review all 39 starts at both zooms in CP, EC and 2p: six normal and nine close views per mode, full assigned sprites visible. Both aircraft, 17 stone starts, three runtime bunkers and both clay contacts pass. Each staged manifest has 33 frames, zero gaps/issues; three standard 1920×1080 frames actually viewed per mode.
+  - [x] Record verification and update `docs/painted-backdrops.md`. Evidence: `build/review/backdrops/1916-07/verification.md`, per-mode reviews/coverage JSON, lightness reports, join review and exact prompt/finishing provenance. Owned native/Xvfb processes stopped after acceptance.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1916-09](levels/1916-09/)

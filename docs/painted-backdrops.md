@@ -222,6 +222,16 @@ ledge and clay patches support land units. Bridge stubs, route gaps, the separat
 northeast channel head and all original routes retain their positions. Prompts,
 lightness findings, masks and native evidence are under `build/review/backdrops/1916-05/`.
 
+PLATE/SOMME (`1916-07`, 2852×3302) has a continuous July shell field of drying
+ochre clay, broken pale chalk rims and dark damp crater bowls beneath warm hazy
+afternoon light. Surviving green woodland, stone/meadow islands and existing rock
+formations keep their original boundaries. The northern limestone fort has four
+round slate domes and a short hipped slate hall; the central buff-brick castle
+has four red-tiled towers and a long tiled hall. Low timber ration sheds retain
+their open yard and short approach. Small clay fills support the unchanged car
+and infantry starts; no trenches or road network are added. Prompts, lightness
+findings, masks and native evidence are under `build/review/backdrops/1916-07/`.
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
@@ -327,7 +337,7 @@ Cut the world into sections of 1090×727 world px (3:2, one 1536×1024 canvas ea
 | PULSE, 8 hexes wide  | 1090×1920 | 1 column × 3 rows: y 0, 596, 1193            |
 | CIVIL, 12 hexes wide | 1658×1920 | 2 columns × 3 rows: x 0, 568; y 0, 596, 1193 |
 
-MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
+MOUSE/SPORT, CROUY/AISNE, PLATE/SOMME, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and ELITE/SEVEN use nine 728×727 world-pixel sections:
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
 BISON/FROST (1090×1920) uses six: x 0, 362 and y 0, 596, 1193.
