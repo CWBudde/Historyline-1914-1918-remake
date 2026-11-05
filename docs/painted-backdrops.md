@@ -205,7 +205,7 @@ red sandstone walls; their courtyard halls have slate and red tile roofs.
 The three factories are a brick engineering works, a timber-and-brick sawmill and
 a stone lime works; the two depots hold ammunition and provisions. Small woodland
 pockets, two limestone ledges and partly backfilled mud patches support the unchanged
-starting units. An intact compact cottage and aviation shed sit behind open troop
+starting units. One churned field of thaw mud fills the mid-west. An intact compact cottage and aviation shed sit behind open troop
 forecourts within their original hexes. Both airfields, the road bridge, harbour
 landing, original route gaps and mountain passes retain their positions. Prompts,
 lightness findings, masks and native evidence are under `build/review/backdrops/1916-03/`.
