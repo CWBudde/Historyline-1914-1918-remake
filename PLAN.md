@@ -509,16 +509,23 @@ build embeds every backdrop). Decided (defaults, open to override):
       the header of every record in the 14 fixture files in place; the app draws a DPR-aware hex canvas
       under a Preact banner. `just webapp-check` and the `test-webapp` CI job pass; Pages serves `/next/`.
       `node_modules` links into pnpm's global virtual store (the store dir is a user setting, AGENTS.md).
-- [ ] W1 Rules core: `hexgrid`, the profile tables, `dosrules` (movement, visibility, engagements and
+- [x] W1 Rules core: `hexgrid`, the profile tables, `dosrules` (movement, visibility, engagements and
       casualties in exact int32 arithmetic, containers, orders and the command cycle, capture, trenches,
       depot construction, energy, repair, production, victory and score, save/load). Done when every record
       of the 14 fixture files under `internal/dosrules/testdata/` passes and a Go save loads in TS and
       re-saves byte-identical.
+      (2026-11-05) — verified the fixture runners for all 14 files and six byte-identical Go save
+      round trips. `pnpm --dir webapp run check` and `go test ./internal/dosrules ./internal/hexgrid`
+      pass. The repository-wide check stops on existing lint failures in `internal/llmplay/candl_probe_test.go`.
 - [ ] W2 Binding and session: `level`, `scenario`, `campaign`, `dosbind` (`Bind`) and `dosplay` (views,
       destinations, routes, targets, commands, events, replay). `hl webapp golden` plays `dosai` against
       `dosai` on every shipped setup and writes commands, events and the save after each resolution to
       `build/webapp/golden/`; TS replays the commands and must match both. `just webapp-test` regenerates
       the goldens first, so a Go rule change without its TS twin fails CI.
+      (2026-11-05, partial) — `level`, compound geometry, `scenario`, `campaign` and `Bind` are ported;
+      all 156 shipped setups' initial saves match Go byte for byte. `hl webapp golden` writes gzip JSONL
+      traces with commands, events and saves (default cap: 300 resolutions). Remaining: `dosplay`, TS
+      replay comparisons and regeneration in `just webapp-test`.
 - [ ] W3 Computer side: `dosai` (`Planner`, digging, `PlayOut`) in a Web Worker; the golden playouts match
       when TS plans both sides.
 - [ ] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;

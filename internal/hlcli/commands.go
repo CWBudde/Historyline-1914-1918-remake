@@ -1,6 +1,9 @@
 package hlcli
 
 import (
+	"context"
+	"io"
+
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finextract"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlart"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlasset"
@@ -10,6 +13,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlkit"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlllplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlwebapp"
 	artreview "github.com/CWBudde/Historyline-1914-1918-remake/tools/art-review"
 	candidatereview "github.com/CWBudde/Historyline-1914-1918-remake/tools/candidate-review"
 	interfaceart "github.com/CWBudde/Historyline-1914-1918-remake/tools/interface-art"
@@ -52,6 +56,10 @@ func commands() command {
 		group("preview", "Native graphics previews", leaf("effects", "Preview unit movement and effects (requires a graphics display)", previewEffects)),
 		leaf("serve", "Serve the local web demo", webServer),
 		leaf("web", "Build the web demo into build/web (-port serves it)", webBuild),
+		group("webapp", "Export the TypeScript edition's data and parity fixtures",
+			leaf("golden", "Write Go AI-vs-AI replay traces for every shipped setup", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
+				return hlwebapp.Golden(ctx, args, out, errs)
+			})),
 		leaf("artbook", "Render the art book PDF into build/artbook (needs typst)", artbook),
 		leaf("manual", "Build the reconstructed manual PDF (needs typst; -images, -watch)", manual),
 	)

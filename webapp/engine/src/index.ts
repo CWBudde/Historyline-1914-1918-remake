@@ -8,6 +8,11 @@
 export const engineVersion = "0.0.0";
 
 export * as hexgrid from "./hexgrid.ts";
+export * as level from "./level.ts";
+export * as compound from "./compound.ts";
+export * as scenario from "./scenario.ts";
+export * as campaign from "./campaign.ts";
+export * as bind from "./bind.ts";
 
 export {
   int8,
