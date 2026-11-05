@@ -30,6 +30,7 @@ export {
   setAt,
 } from "./goruntime.ts";
 export { DecodeError } from "./decode.ts";
+export { JSONSyntaxError, UnmarshalTypeError } from "./gojson.ts";
 
 export {
   containerLen,
@@ -307,3 +308,4 @@ export {
   score,
   surrender,
 } from "./victory.ts";
+export { saveSchema, save, loadGame } from "./save.ts";

@@ -1,5 +1,4 @@
-// Twin of internal/dosrules/builder_test.go: construction units build depots. TestBuilderSaveResume needs Save
-// and LoadGame and is left to the save layer (save.test.ts).
+// Twin of internal/dosrules/builder_test.go: construction units build depots.
 
 import { describe, expect, it } from "vitest";
 import {
@@ -46,7 +45,8 @@ import {
   resolveOk,
   unworked,
 } from "./testing/scenes.ts";
-import { Profiles, cBuilder } from "./testing/tables.ts";
+import { Builds, Full, Profiles, cBuilder } from "./testing/tables.ts";
+import { loadGame, save } from "./save.ts";
 
 // construct gives construction unit u of side its order on cell, resolves the phase and returns the work's
 // events (evHalfDepot, evDepot).
@@ -269,4 +269,20 @@ describe("TestBuilderDepotLimit", () => {
   });
 });
 
-it.todo("TestBuilderSaveResume: needs Save and LoadGame (the save layer)");
+describe("TestBuilderSaveResume", () => {
+  it("full", () => {
+    const g = builderScene(Full, 40, 0, null, null);
+    construct(g, 1, 1, 41);
+    resolveOk(g);
+    construct(g, 1, 1, 41);
+    const r = loadGame(save(g), Builds);
+    expect(r.holds.get(holdFlag100), "resumed depot").toStrictEqual(
+      g.holds.get(holdFlag100),
+    );
+    expect(liveOf(r, 1).hold, "resumed charges").toBe(0);
+    expect(
+      r.buildings.has(holdFlag100),
+      "the resumed depot is a building",
+    ).toBe(true);
+  });
+});

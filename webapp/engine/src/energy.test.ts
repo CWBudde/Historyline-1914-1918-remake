@@ -1,5 +1,4 @@
-// Twin of internal/dosrules/energy_test.go. Energy: the building credits, repair and production. TestEnergySave
-// needs Save and LoadGame and is left to the save layer (save.test.ts).
+// Twin of internal/dosrules/energy_test.go. Energy: the building credits, repair and production.
 
 import { describe, expect, it } from "vitest";
 import { type Live, destroyed, zeroLive } from "./board.ts";
@@ -33,7 +32,9 @@ import {
   energyCycle,
   held,
   hq0,
+  midRound,
   refusal,
+  reload,
   resolveOk,
 } from "./testing/scenes.ts";
 import {
@@ -450,7 +451,17 @@ describe("TestEnergyBuildReusesClearedCarrierRecord", () => {
   });
 });
 
-it.todo("TestEnergySave: needs Save and LoadGame (the save layer)");
+describe("TestEnergySave", () => {
+  it("full", () => {
+    const g = midRound(Full);
+    g.energy = [12, 34];
+    g.buildings = new Map([
+      [holdFlag40, { credits: 20, builds: [cInfantry] }],
+      [depotRec, { credits: 7, builds: [] }],
+    ]);
+    expect(reload(g), "loaded game differs").toStrictEqual(g);
+  });
+});
 
 // TestCosts checks the prices against the full build's unit table.
 describe("TestCosts", () => {

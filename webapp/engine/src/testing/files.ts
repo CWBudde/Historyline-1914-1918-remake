@@ -15,6 +15,11 @@ export function readJSON(path: string): unknown {
   return JSON.parse(readFileSync(repo + path, "utf8"));
 }
 
+/** readBytes reads the file at path below the repository root. */
+export function readBytes(path: string): Uint8Array {
+  return new Uint8Array(readFileSync(repo + path));
+}
+
 /** listDir lists the directory at path below the repository root. */
 export function listDir(path: string): string[] {
   return readdirSync(repo + path);

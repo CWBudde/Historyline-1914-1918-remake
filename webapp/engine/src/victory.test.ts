@@ -1,6 +1,5 @@
 // Twin of internal/dosrules/victory_test.go: the end of a battle: the HQ held, annihilation, a draw, and the
-// score. The reload steps of TestVictoryAnnihilation and TestVictorySurrender need Save and LoadGame and are left
-// to the save layer (save.test.ts); the rest of both tests is here.
+// score.
 
 import { describe, expect, it } from "vitest";
 import {
@@ -38,6 +37,7 @@ import {
   hq1,
   hqCycle,
   hqCycleHolds,
+  reload,
   resolveOk,
   transportHold,
 } from "./testing/scenes.ts";
@@ -87,7 +87,7 @@ describe("TestVictoryAnnihilation", () => {
   it.each(Profiles)("%s", (_build, p) => {
     const n = neighbours(40, cycleW, cycleH);
     for (let size = 1; size <= 6; size++) {
-      const g = hqCycle(p, {
+      let g = hqCycle(p, {
         0: { type: cInfantry, owner: 0, cell: 40, size },
         1: { type: cPanzer, owner: 1, cell: at(n, 0) },
         2: { type: cPanzer, owner: 1, cell: at(n, 3) },
@@ -112,7 +112,9 @@ describe("TestVictoryAnnihilation", () => {
       expect(r.score).toBe(armour(g) + 500);
       expect(score(g)).toBe(armour(g));
       expect(g.ended).toBe(r);
-      // Go reloads the ended battle here (reload): the save layer's test.
+      const h = reload(g);
+      expect(h, "an ended battle reloads equal").toStrictEqual(g);
+      g = h;
       expect(
         check(g, { kind: cmdMove, side: 1, unit: 1, cell: 0 }),
         "a command after the end",
@@ -224,7 +226,7 @@ describe("TestVictorySurrender", () => {
     expect(g.ended).toBe(r);
     expect(surrender(g, 0), "a second surrender").toStrictEqual([]);
     expect(g.ended).toBe(r);
-    // Go reloads the ended battle here (reload): the save layer's test.
+    expect(reload(g).ended, "an ended battle reloads").toStrictEqual(r);
     expect(
       check(g, { kind: cmdMove, side: 0, unit: 0, cell: 0 }),
       "a command after the surrender",
@@ -256,7 +258,3 @@ describe("TestFinalScore", () => {
     },
   );
 });
-
-it.todo(
-  "TestVictoryAnnihilation and TestVictorySurrender: the reload of the ended battle (the save layer)",
-);

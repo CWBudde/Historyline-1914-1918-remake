@@ -1,6 +1,4 @@
-// Twin of internal/dosrules/cycle_conflicts_test.go. Go's refusedMoveUnchanged compares the saves before and
-// after the refused move; until the save layer is ported, the twin compares the whole game state, which every
-// saved field is part of.
+// Twin of internal/dosrules/cycle_conflicts_test.go.
 
 import { describe, expect, it } from "vitest";
 import {
@@ -14,17 +12,20 @@ import {
   phaseMovement,
 } from "./cycle.ts";
 import { at } from "./goruntime.ts";
+import { save } from "./save.ts";
 import { applyOk, newCycle, resolveOk } from "./testing/scenes.ts";
 import { Profiles, cInfantry } from "./testing/tables.ts";
 
+// refusedMoveUnchanged applies the move c, which must be refused, and checks that the save is the same bytes.
 function refusedMoveUnchanged(g: Game, c: Command): void {
-  const before = structuredClone(g);
+  const text = (b: Uint8Array): string => new TextDecoder().decode(b);
+  const before = text(save(g));
   const evs = applyOk(g, c);
   expect(
     evs.map((e) => e.kind),
     "occupied destination",
   ).toStrictEqual([evRefused]);
-  expect(g, "a refused move changed the game state").toStrictEqual(before);
+  expect(text(save(g)), "a refused move changed the game state").toBe(before);
 }
 
 const cases = Profiles.flatMap(([build, p]) =>

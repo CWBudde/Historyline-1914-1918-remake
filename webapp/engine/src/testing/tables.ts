@@ -34,6 +34,12 @@ export const Profiles: readonly (readonly [Build, Profile])[] = [
   ["full", Full],
 ];
 
+/** Builds are the profiles by build name, the profiles loadGame knows (Go's Full and Demo). */
+export const Builds: Readonly<Record<Build, Profile>> = {
+  full: Full,
+  demo: Demo,
+};
+
 /** cInfantry and cPanzer are the infantry and panzer types the scene tests place (cycle_test.go). */
 export const cInfantry = 18;
 export const cPanzer = 47;

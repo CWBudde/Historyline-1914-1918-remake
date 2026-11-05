@@ -1,9 +1,8 @@
 // Twin of internal/dosrules/query_test.go: the container state newGame derives, the queries a session asks of a
-// game and attacks of units off the map. TestSaveBuilding needs Save and LoadGame and is left to the save layer
-// (save.test.ts).
+// game, attacks of units off the map, and a saved game with containers and an HQ in winter.
 
 import { describe, expect, it } from "vitest";
-import { destinations } from "./board.ts";
+import { destinations, season, winter } from "./board.ts";
 import { airTarget, waterTarget } from "./casualties.ts";
 import {
   type Hold,
@@ -32,6 +31,7 @@ import {
 import { builderCharges } from "./energy.ts";
 import { at, attempt } from "./goruntime.ts";
 import { reach } from "./move.ts";
+import { loadGame, save } from "./save.ts";
 import { neighbours } from "./support.ts";
 import {
   applyOk,
@@ -45,9 +45,12 @@ import {
   newCycleHolds,
   openTerrain,
   refusal,
+  reload,
   transportHold,
 } from "./testing/scenes.ts";
 import {
+  Builds,
+  DemoTables,
   Full,
   FullTables,
   Profiles,
@@ -266,4 +269,61 @@ describe("TestWeaponAgainst", () => {
   });
 });
 
-it.todo("TestSaveBuilding: needs Save and LoadGame (the save layer)");
+describe("TestSaveBuilding", () => {
+  it("full", () => {
+    const g = containerScene(season(Full, true));
+    expect(
+      [winter(g.profile), occupant(g, 0, hq0)],
+      "set-up: winter, HQ cell",
+    ).toStrictEqual([true, inBuilding]);
+    const h = reload(g);
+    expect(h, "loaded game differs").toStrictEqual(g);
+    expect(winter(h.profile), "the loaded game plays in winter").toBe(true);
+    expect(h.profile.tables?.move?.terrains).toBe(FullTables.move?.winter);
+
+    const b = save(g);
+    const edit = (f: (m: Record<string, unknown>) => void): Uint8Array => {
+      const m = JSON.parse(new TextDecoder().decode(b)) as Record<
+        string,
+        unknown
+      >;
+      f(m);
+      return new TextEncoder().encode(JSON.stringify(m));
+    };
+    const old = loadGame(
+      edit((m) => {
+        m["schema"] = 2;
+        delete m["winter"];
+      }),
+      Builds,
+    );
+    expect(
+      [winter(old.profile), occupant(old, 0, hq0)],
+      "schema 2",
+    ).toStrictEqual([false, inBuilding]);
+    const [, demoErr] = attempt(() =>
+      loadGame(
+        edit((m) => {
+          m["build"] = DemoTables.build;
+        }),
+        Builds,
+      ),
+    );
+    expect(demoErr?.message, "a winter save of the demo's tables").toBe(
+      `dosrules: load: tables "${DemoTables.build}" have no winter terrain`,
+    );
+    const [, byteErr] = attempt(() =>
+      loadGame(
+        edit((m) => {
+          const maps = m["maps"] as number[][];
+          const m0 = maps[0] ?? [];
+          m0[2 * hq0 + 1] = 0x100;
+        }),
+        Builds,
+      ),
+    );
+    expect(byteErr?.message, "an occupant past a byte").toBe(
+      `dosrules: load: map 0 shows unit 256 at ${String(hq0)}`,
+    );
+  });
+});

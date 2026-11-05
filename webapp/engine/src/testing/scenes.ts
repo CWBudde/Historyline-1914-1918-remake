@@ -25,9 +25,11 @@ import {
 import { destinations } from "../board.ts";
 import { at } from "../goruntime.ts";
 import { type Profile, tablesOf } from "../profile.ts";
+import { loadGame, save } from "../save.ts";
 import { neighbours } from "../support.ts";
 import { terrainWorked } from "../sapper.ts";
 import {
+  Builds,
   cBuilder,
   cInfantry,
   cPanzer,
@@ -312,6 +314,11 @@ export function midRound(p: Profile): Game {
   applyOk(g, { kind: cmdAttack, side: 1, unit: 1, cell: 40 });
   confirm(g, 1);
   return g;
+}
+
+/** reload is save_test.go reload: the game saved and loaded again. */
+export function reload(g: Game): Game {
+  return loadGame(save(g), Builds);
 }
 
 /** terrainOf is the terrain record of cell on both maps, -1 where they differ (sapper_test.go). */
