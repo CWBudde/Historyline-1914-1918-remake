@@ -434,7 +434,10 @@ change L*. Compare matching ground, rather than whole-map averages with differen
   replacing installed art. The JSON names `world`, `source`, `finished`, optional `saturation` and RGB
   `gain` (both default to 1), and ordered `patches`. Each patch names `id`, `painting`, its original
   image-pixel `rectangle` `[x,y,width,height]`, a crop-relative `center`, and `radii` `[solid,transparent]`.
-  The feather ring matches RGB means before a circular smoothstep blend. An optional `output`
+  The feather ring matches RGB means before a circular smoothstep blend. Optional patch
+  `match: "brightness"` uses one gain from weighted RGB ring means, preserving the edit's colour
+  ratios; use it when different grass hues would tint neutral roofs with independent channel gains.
+  Omitted `match` or `match: "rgb"` retains RGB matching. An optional `output`
   `[width,height]` resizes once after compositing and grading, preserving world aspect within one
   pixel; use it when needed to keep the source below 100 MiB. Existing output paths are refused.
 - Save the painting as its source PNG, write the JPEG next to the scenario file (`just backdrop-jpeg`) and

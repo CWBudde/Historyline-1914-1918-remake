@@ -383,7 +383,7 @@ func auditLightness(planPath string, stdout io.Writer) error {
 
 // finishPainting registers each edited square crop back onto its original
 // rectangle. Only its circular feather mask contributes pixels; crops are never
-// rotated or transposed. Ring means match colour before the global grade.
+// rotated or transposed. Ring means match colour or brightness before the grade.
 func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 	plan := struct {
 		World            [2]int
@@ -393,6 +393,7 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 		Gain             [3]float64
 		Patches          []struct {
 			ID, Painting string
+			Match        string     // rgb (default) or brightness, preserving channel ratios
 			Rectangle    [4]int     // x, y, width, height in source-image pixels
 			Center       [2]float64 // relative to Rectangle
 			Radii        [2]float64 // solid inner radius, transparent outer radius
@@ -447,6 +448,13 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 	draw.Draw(canvas, canvas.Bounds(), im, bounds.Min, draw.Src)
 	seen := map[string]bool{}
 	for _, patch := range plan.Patches {
+		match := patch.Match
+		if match == "" {
+			match = "rgb"
+		}
+		if match != "rgb" && match != "brightness" {
+			return fmt.Errorf("patch %s matching mode must be rgb or brightness", patch.ID)
+		}
 		r := patch.Rectangle
 		dest := image.Rect(r[0], r[1], r[0]+r[2], r[1]+r[3])
 		cx, cy, inner, outer := patch.Center[0], patch.Center[1], patch.Radii[0], patch.Radii[1]
@@ -482,11 +490,24 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 			}
 		}
 		var gains [3]float64
-		for c := range 3 {
-			if editSum[c] == 0 {
+		if match == "brightness" {
+			var baseBrightness, editBrightness float64
+			for c, weight := range [3]float64{.2126, .7152, .0722} {
+				baseBrightness += weight * baseSum[c]
+				editBrightness += weight * editSum[c]
+			}
+			if editBrightness == 0 {
 				return fmt.Errorf("patch %s has an empty or black matching ring", patch.ID)
 			}
-			gains[c] = baseSum[c] / editSum[c]
+			gain := baseBrightness / editBrightness
+			gains = [3]float64{gain, gain, gain}
+		} else {
+			for c := range 3 {
+				if editSum[c] == 0 {
+					return fmt.Errorf("patch %s has an empty or black matching ring", patch.ID)
+				}
+				gains[c] = baseSum[c] / editSum[c]
+			}
 		}
 		for y := range r[3] {
 			for x := range r[2] {
@@ -503,7 +524,7 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 				}
 			}
 		}
-		if _, err := fmt.Fprintf(stdout, "%s: crop %v, mask %v at %v, RGB gain %v\n", patch.ID, r, patch.Radii, patch.Center, gains); err != nil {
+		if _, err := fmt.Fprintf(stdout, "%s: crop %v, mask %v at %v, %s matching, RGB gain %v\n", patch.ID, r, patch.Radii, patch.Center, match, gains); err != nil {
 			return err
 		}
 	}
