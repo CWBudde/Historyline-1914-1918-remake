@@ -210,6 +210,18 @@ forecourts within their original hexes. Both airfields, the road bridge, harbour
 landing, original route gaps and mountain passes retain their positions. Prompts,
 lightness findings, masks and native evidence are under `build/review/backdrops/1916-03/`.
 
+VIRUS/ALPIN (`1916-05`, 3829×4403) has fresh May meadow, young broadleaf woods,
+layered conifers and clear blue-green lakes beneath bright overcast light after rain.
+Pale limestone, lime render, weathered timber and shingles tie its cottages and
+works to Trentino. The sandstone HQ has four round copper domes and a red-tiled
+hall; the rubble-stone HQ has four slate cones and a timber-gabled hall. Four
+factories hold textile, sawmill, machine and ceramics works; four distinct depots
+hold provisions, engineer timber, fodder and ammunition. Small water recesses
+support the eight unchanged naval starts, while a woodland pocket, limestone
+ledge and clay patches support land units. Bridge stubs, route gaps, the separate
+northeast channel head and all original routes retain their positions. Prompts,
+lightness findings, masks and native evidence are under `build/review/backdrops/1916-05/`.
+
 HUSAR/SABRE (`1915-03`, 3829×3302) has a March thaw under cool diffuse light: wet olive
 and ochre meadow, bare trees and conifers, slushy tracks and sheltered old snow. Connected
 ridges, gullies and scree join the southwestern mountains into one massif; the central mud,
@@ -319,7 +331,7 @@ MOUSE/SPORT, CROUY/AISNE, RIGHT/BARON, RATIO/TOXIN, FLAME/XENON, BALON/HOUSE and
 columns at x 0, 465, 930 and rows at y 0, 596, 1193. The smaller sections provide their higher image density.
 TROLL (1090×1280) uses four of those sections, at x 0, 362 and y 0, 553.
 BISON/FROST (1090×1920) uses six: x 0, 362 and y 0, 596, 1193.
-DRUCK/MEUSE, STERN and ARRAS (2226×2560) use sixteen: columns at x 0, 499, 999, 1498 and rows at y 0, 611, 1222, 1833.
+DRUCK/MEUSE, VIRUS/ALPIN, STERN and ARRAS (2226×2560) use sixteen: columns at x 0, 499, 999, 1498 and rows at y 0, 611, 1222, 1833.
 
 VENOM/BIMBO uses twelve of those sections, the same columns and four rows at y 0, 611, 1222, 1833
 (116 world px of row overlap). The northwest shore includes a small cove within the transport's water
