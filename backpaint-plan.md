@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 12 remain.
-`1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 11 remain.
+`1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1916-05`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -228,7 +228,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting. `build/review/backdrops/1916-03/verification.md`, exact prompts and selected sources, join/lightness findings, coverage manifests and installed hashes; docs describe DRUCK/MEUSE and its sixteen-section layout.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting and verification committed as `f4c136b3`; push to `origin/main` succeeded on 2026-11-05. Fresh source/JPEG check and all four targeted package tests pass (`resume-backdrop-check.log`, `resume-tests.log`).
 
-- [ ] [1916-05](levels/1916-05/)
+- [x] [1916-05](levels/1916-05/)
   - [x] Audit `levels/1916-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-05/approval-audit.json` and `.md`: spring, 2226×2560, ten compounds, six houses, 100 inherited starts, no linked ships or airfields; eight bridge and eight stream overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [VIRUS/ALPIN](docs/backpaint-approvals.md#1916-05--virusalpin), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [x] Render a fresh unit-free 4× layout guide: `build/review/backdrops/1916-05/guide/`, 8904×10240, zero gaps/issues (`guide-render.log`, `guide/map.json`). Current audit and all approved baseline hashes pass.
@@ -247,7 +247,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Run the unified backdrop check: all 52 source/JPEG pairs pass after the final correction (`installed-check-bow-wide.log`, exit 0). All four map/setup hashes unchanged; scenario, dosbind, hlbackdrop and hlcli tests pass.
   - [x] Review CP, EC and 2p in game at normal and close zoom. All 100 starts per mode/zoom actually inspected in 20 normal + 34 close views, with final affected-area supplements resolving the sole torpedo-bow finding. No linked ships; all eight small hulls, five aircraft and three occupied bridge decks clear. Each staged run: 33 frames, zero gaps/issues.
   - [x] Record verification and update `docs/painted-backdrops.md`. Evidence in `build/review/backdrops/1916-05/verification.md`, per-mode unit reviews/coverage JSON, lightness reports and prompt/finishing provenance.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then push. Art and evidence references committed as `1a63bf66`; `git push origin main` succeeded on 2026-11-05.
 
 - [ ] [1916-07](levels/1916-07/)
   - [x] Audit `levels/1916-07/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-07/approval-audit.json` and `.md`: summer, 1658×1920, three compounds, 39 inherited starts, no houses, water, airfields or linked ships; 381 mud hexes and three road overlays recorded, no trench overlays. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [PLATE/SOMME](docs/backpaint-approvals.md#1916-07--platesomme), approved by the user on 2026-11-04.
