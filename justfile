@@ -120,8 +120,12 @@ webapp-install:
 webapp *args: webapp-install
     pnpm --dir webapp/app exec vite "$@"
 
-# Run the web edition's tests (Vitest; the engine is checked against internal/dosrules/testdata)
-webapp-test: webapp-install
+# Regenerate Go AI command/event/save goldens for the web engine's replay tests
+webapp-golden:
+    go run ./cmd/hl webapp golden
+
+# Run the web edition's tests against current Go fixtures and regenerated playthroughs
+webapp-test: webapp-install webapp-golden
     pnpm --dir webapp run test
 
 # Build the web edition into build/webapp/site
@@ -129,7 +133,7 @@ webapp-build: webapp-install
     pnpm --dir webapp run build
 
 # Typecheck, lint, test and build the web edition
-webapp-check: webapp-install
+webapp-check: webapp-install webapp-golden
     pnpm --dir webapp run check
 
 # Everything CI checks, each test once

@@ -3,6 +3,35 @@ import { grid, marshal, parse } from "./level.ts";
 import { readBytes } from "./testing/files.ts";
 
 describe("legacy levels", () => {
+  it.each(["1.0", "1e0", "-0.0"])(
+    "rejects non-integer JSON notation %s like Go",
+    (literal) => {
+      expect(() =>
+        parse(
+          `{"mapName":"m","mapNo":${literal},"player":"p","tiles":{"line1":[["grass","",""]]}}`,
+        ),
+      ).toThrow();
+      expect(() =>
+        parse(
+          `{"mapName":"m","mapNo":0,"player":"p","tiles":{"line1":[["hqN","","",[${literal}]]]}}`,
+        ),
+      ).toThrow();
+    },
+  );
+  it("reads a null content owner as Go's zero int", () => {
+    expect(
+      parse(
+        '{"mapName":"m","mapNo":0,"player":"p","tiles":{"line1":[["hqN","","",[null]]]}}',
+      ).lines[0]?.[0]?.content?.owner,
+    ).toBe(0);
+  });
+  it("writes a programmatically empty map with Go's whitespace", () => {
+    expect(
+      marshal({ mapName: "m", mapNo: 0, player: "p", lines: [], extra: null }),
+    ).toBe(
+      '{\n\t"mapName" :\t"m",\n\t"mapNo" :\t0,\n\t"player" :\t"p",\n\t"tiles" :\t{\n\t\t\t\t}\n}\n\n\n\n\n\n\n',
+    );
+  });
   it.each([
     "internal/level/testdata/pulse.json",
     "art/reference/pulse/level.json",

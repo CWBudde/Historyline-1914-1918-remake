@@ -517,15 +517,17 @@ build embeds every backdrop). Decided (defaults, open to override):
       (2026-11-05) — verified the fixture runners for all 14 files and six byte-identical Go save
       round trips. `pnpm --dir webapp run check` and `go test ./internal/dosrules ./internal/hexgrid`
       pass. The repository-wide check stops on existing lint failures in `internal/llmplay/candl_probe_test.go`.
-- [ ] W2 Binding and session: `level`, `scenario`, `campaign`, `dosbind` (`Bind`) and `dosplay` (views,
+- [x] W2 Binding and session: `level`, `scenario`, `campaign`, `dosbind` (`Bind`) and `dosplay` (views,
       destinations, routes, targets, commands, events, replay). `hl webapp golden` plays `dosai` against
       `dosai` on every shipped setup and writes commands, events and the save after each resolution to
       `build/webapp/golden/`; TS replays the commands and must match both. `just webapp-test` regenerates
       the goldens first, so a Go rule change without its TS twin fails CI.
-      (2026-11-05, partial) — `level`, compound geometry, `scenario`, `campaign` and `Bind` are ported;
-      all 156 shipped setups' initial saves match Go byte for byte. `hl webapp golden` writes gzip JSONL
-      traces with commands, events and saves (default cap: 300 resolutions). Remaining: `dosplay`, TS
-      replay comparisons and regeneration in `just webapp-test`.
+      (2026-11-05) — all 156 shipped setups replay Go AI traces (up to 300 resolutions each), matching
+      every session event and byte-identical save. The port includes light bridges, ship routes,
+      construction, views and contents, stats, cloning and partial replay errors. `just webapp-test`
+      regenerates the corpus first and passes (739 tests, one optional original-data check skipped);
+      `just webapp-check` and the final typecheck, lint and production build pass. CI installs Go for
+      the golden exporter.
 - [ ] W3 Computer side: `dosai` (`Planner`, digging, `PlayOut`) in a Web Worker; the golden playouts match
       when TS plans both sides.
 - [ ] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;

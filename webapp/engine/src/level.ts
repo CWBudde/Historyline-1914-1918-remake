@@ -1,5 +1,6 @@
 // The legacy level format (internal/level). File access belongs to the caller.
 import { DecodeError, array, int, object } from "./decode.ts";
+import { parse as parseJSON, goInt, type JSONNode } from "./gojson.ts";
 import { type Coord, type Grid, contains } from "./hexgrid.ts";
 
 export interface Infra {
@@ -59,14 +60,30 @@ function parseContent(v: unknown): Content {
   if (a.length !== 1 && a.length !== 2)
     throw new DecodeError("content: want [owner] or [owner, [units]]");
   return {
-    owner: int(a[0], "owner"),
+    owner: int(a[0] ?? 0, "owner"),
     units: a.length === 2 ? strings(a[1], "units") : null,
   };
 }
 
 export function parse(raw: string | Uint8Array): Level {
-  const input: unknown = JSON.parse(
-    typeof raw === "string" ? raw : new TextDecoder().decode(raw),
+  // Every number in this format is a Go int, including its JSON literal syntax.
+  const value = (n: JSONNode): unknown => {
+    switch (n.kind) {
+      case "null":
+        return null;
+      case "bool":
+      case "string":
+        return n.value;
+      case "number":
+        return goInt.decode(n, 0, { struct: "", fields: [] });
+      case "array":
+        return n.items.map(value);
+      case "object":
+        return Object.fromEntries(n.entries.map(([k, v]) => [k, value(v)]));
+    }
+  };
+  const input = value(
+    parseJSON(typeof raw === "string" ? new TextEncoder().encode(raw) : raw),
   );
   const o = object(input, "level", ["mapName", "mapNo", "player", "tiles"]);
   let mapNo = o["mapNo"];
@@ -146,5 +163,5 @@ export function marshal(l: Level): string {
   const lines = l.lines
     .map((line, i) => `\t\t\t\t"line${i + 1}" :\t[${line.map(hex).join(", ")}]`)
     .join(",\n");
-  return `{\n\t"mapName" :\t${quote(l.mapName)},\n\t"mapNo" :\t${l.mapNo},\n\t"player" :\t${quote(l.player)},\n\t"tiles" :\t{\n${lines}\n\t\t\t\t}\n}\n\n\n\n\n\n\n`;
+  return `{\n\t"mapName" :\t${quote(l.mapName)},\n\t"mapNo" :\t${l.mapNo},\n\t"player" :\t${quote(l.player)},\n\t"tiles" :\t{\n${lines === "" ? "" : lines + "\n"}\t\t\t\t}\n}\n\n\n\n\n\n\n`;
 }

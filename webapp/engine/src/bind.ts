@@ -28,6 +28,8 @@ export interface UnitDefinition {
   dos: number;
   country: string;
   name: string;
+  weight: number;
+  armour: number;
 }
 export interface BindingData {
   units: ReadonlyMap<string, UnitDefinition>;
@@ -71,6 +73,8 @@ export function bindingData(rawUnits: unknown, records: unknown): BindingData {
       dos: intField(o, "dos", id),
       country: stringField(o, "country", id),
       name: stringField(o, "name", id),
+      weight: intField(o, "weight", id),
+      armour: intField(o, "armour", id),
     });
   }
   const r = object(records, "records");

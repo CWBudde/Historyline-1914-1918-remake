@@ -10,8 +10,15 @@ export interface Article {
   briefs: string[];
 }
 export function month(file: string): string {
-  const parts = file.split("/").filter((p) => p !== "" && p !== ".");
-  return parts.at(-2) ?? ".";
+  const dir = file.slice(0, file.lastIndexOf("/") + 1),
+    absolute = dir.startsWith("/"),
+    parts: string[] = [];
+  for (const p of dir.split("/")) {
+    if (p === "" || p === ".") continue;
+    if (p === ".." && parts.length > 0 && parts.at(-1) !== "..") parts.pop();
+    else if (p !== ".." || !absolute) parts.push(p);
+  }
+  return parts.at(-1) ?? (absolute ? "/" : ".");
 }
 export function parse(raw: unknown): Article {
   const o = object(raw, "front page", [

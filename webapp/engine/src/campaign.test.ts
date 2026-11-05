@@ -2,6 +2,16 @@ import { expect, it } from "vitest";
 import { month, parse } from "./campaign.ts";
 import { listDir, readJSON } from "./testing/files.ts";
 
+it.each([
+  ["a/b/../news.json", "a"],
+  ["a/b/news.json/", "news.json"],
+  ["/news.json", "/"],
+  ["news.json", "."],
+  ["a/../../news.json", ".."],
+])("normalizes %s like Go's path.Dir/Base", (file, want) => {
+  expect(month(file)).toBe(want);
+});
+
 it("reads every shipped newspaper front page", () => {
   for (const dir of listDir("levels").filter((d) => /^19\d\d-\d\d$/.test(d))) {
     const file = `${dir}/news.json`;
