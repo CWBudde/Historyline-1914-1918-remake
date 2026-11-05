@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { gunzipSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 import * as play from "./play.ts";
+import * as ai from "./ai.ts";
 import { array, object, int, stringField } from "./decode.ts";
 import { type Event as RuleEvent, newEvent } from "./cycle.ts";
 import { Full } from "./testing/tables.ts";
@@ -17,7 +18,7 @@ const index = object(
 );
 const names = array(index["traces"], "traces").map((s) => String(s));
 
-describe("Go session replay goldens", () => {
+describe.each(["replay", "plan"] as const)("Go %s goldens", (operation) => {
   it("cover every shipped setup at the Go AI's playout cap", () => {
     expect(index["schema"]).toBe(1);
     expect(index["resolutions"]).toBe(300);
@@ -76,7 +77,24 @@ describe("Go session replay goldens", () => {
             };
           },
         );
-        const events = play.replay(s, cmds);
+        const mark = play.mark(s);
+        const events =
+          operation === "replay"
+            ? play.replay(s, cmds)
+            : [...ai.plan({}, s, 0), ...ai.plan({}, s, 1), ...play.resolve(s)];
+        const normalize = (c: play.Command) => ({
+          kind: c.kind,
+          side: c.side,
+          cell: c.cell,
+          unit: c.unit ?? 0,
+          hold: c.hold ?? 0,
+          slot: c.slot ?? 0,
+          type: c.type ?? 0,
+        });
+        expect(
+          play.commandsSince(s, mark).map(normalize),
+          `${id}, resolution ${n}: commands`,
+        ).toEqual(cmds.map(normalize));
         const expected = array(goValue(frame["events"]), "events").map((v) => {
           const ev = object(v, "event");
           return {

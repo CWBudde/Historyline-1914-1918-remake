@@ -14,6 +14,7 @@ export * as scenario from "./scenario.ts";
 export * as campaign from "./campaign.ts";
 export * as bind from "./bind.ts";
 export * as play from "./play.ts";
+export * as ai from "./ai.ts";
 
 export {
   int8,

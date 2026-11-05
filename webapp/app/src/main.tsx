@@ -2,6 +2,10 @@ import { engineVersion } from "@historyline/engine";
 import { signal } from "@preact/signals";
 import { Application, Graphics } from "pixi.js";
 import { render } from "preact";
+import { Computer } from "./computer.ts";
+
+// Battle controllers use this worker for plans; its lifetime follows this document.
+export const computer = new Computer();
 
 // The viewport the canvas fills, in CSS pixels, and the device pixel ratio it renders at.
 const viewport = signal({

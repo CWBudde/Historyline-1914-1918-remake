@@ -528,8 +528,13 @@ build embeds every backdrop). Decided (defaults, open to override):
       regenerates the corpus first and passes (739 tests, one optional original-data check skipped);
       `just webapp-check` and the final typecheck, lint and production build pass. CI installs Go for
       the golden exporter.
-- [ ] W3 Computer side: `dosai` (`Planner`, digging, `PlayOut`) in a Web Worker; the golden playouts match
+- [x] W3 Computer side: `dosai` (`Planner`, digging, `PlayOut`) in a Web Worker; the golden playouts match
       when TS plans both sides.
+      (2026-11-06) — all 156 TS-planned traces match Go commands, events and exact saves across 9,817
+      resolutions. Planning and `PlayOut` run on worker snapshots and return replayable commands;
+      progress, disposal and concurrent human orders are checked on real worker threads. Chromium
+      checks both phases. `just webapp-check` passes (907 tests, one optional original-data skip),
+      including regenerated goldens and the production worker bundle.
 - [ ] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;
       the packs, lite and full, 1×/2×/4×; backdrops as tiled mip pyramids; per-level baked layers: the
       `mapcompose` draw lists, water-depth and season-blend rasters; the pixel font as an atlas; the Noto
