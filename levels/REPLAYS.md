@@ -22,7 +22,7 @@ just llmplay replay -dir "$d"
 - `1918-04/replays/cp.jsonl` — CANDL (`1918-04:cp`), the south
   trail marching from resolution 1 around the heavy artillery beside
   the probe opening, then a scripted march from 31: HQ capture at
-  resolution 107, score 3126. Strategy:
+  resolution 105, score 3156. Strategy:
   `docs/llmplay-strategy.md` ("candl-south: won").
 
 Engine changes that alter outcomes will break the state hashes;
