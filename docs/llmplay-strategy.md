@@ -152,7 +152,7 @@ treasury, is the bug (see v7/v8 below).
 
 # CANDL (1918-04:cp)
 
-Won: the recording captures the EC HQ at resolution 105 (the plan is the last
+Won: the recording captures the EC HQ at resolution 103 (the plan is the last
 section). The plain coach loses the CP HQ at resolution 18.
 
 ## The situation
@@ -207,24 +207,34 @@ Production and buildings:
 - Builds reuse destroyed live records; prompt parsers must accept both `CP_`
   and `EC_` prefixes on own units.
 
-## The winning plan (HQ capture, res 105)
+## The winning plan (HQ capture, res 103)
 
-`levels/1918-04/replays/cp.jsonl` ends `replay OK: 105 resolutions, every
-state hash matches, ended winner=side0 won=[hq] score=3156`. North of line 45
+`levels/1918-04/replays/cp.jsonl` ends `replay OK: 103 resolutions, every
+state hash matches, ended winner=side0 won=[hq] score=2828`. North of line 45
 resolutions 1-30 follow a scripted HQ-lock opening where its orders
 stay legal, with the coach's attacks added. From 31 a script moves every unit
 on `Session.View(0)` and the side's own legal queries and takes the coach's
 attacks; it does not simulate EC. The factories fell
-by 77, 81, 85 and 89 and the EC HQ at 105, with 105 CP and 21 EC units left.
+by 75, 79, 83 and 87 and the EC HQ at 103, with 87 CP and 23 EC units left.
 
 - The south trail starts on resolution 1: units on lines 45 and below at column
-  6 or lower march at once instead of mustering. Its head reaches line 44 by
-  resolution 40; without this the group stays at the factory until 31.
+  6 or lower march at once instead of mustering; without this the group stays
+  at the factory until 31.
+- Trains ferry the foot units north. The rail runs unbroken from [91,2] beside
+  the factory to the land bridge, and a train covers 5 hexes a phase where
+  infantry covers 2-3 and an antiTank less. The seven north trains start south
+  at resolution 20, the supply car at 31 and the [69,2] train at 51: before that
+  EC's west army holds the rail at lines 20-60. Units board from the factory or
+  on foot, slowest first; a carrier leaves with 2 aboard or after one idle phase
+  and unloads at line 25, or sooner if the way ahead is shut. It never drives to a stop in
+  heavy artillery reach or within 2 hexes of an enemy. The 5th factory-built
+  unit passes line 25 at resolution 47 instead of 53, the 10th at 51 instead of
+  59. A boarded unit cannot leave in the same phase, so carriers cannot relay.
 - Routes and stops keep out of the heavy artillery's reach: a hex in reach of
   an EC hArtillery costs 20 more to route through and 30 more to stop on. No
   unit dies to heavy artillery on the west strip, and no heavy gun fires on CP
-  before resolution 83. The east lane has to pass the guns, so 20 units die to
-  them on columns 9-11. Counting every long-range gun as well lost the HQ at
+  before resolution 81. The east lane has to pass the guns, so 24 units die to
+  them there. Counting every long-range gun as well lost the HQ at
   resolution 24.
 - By about resolution 28 EC's mobile army has gone north. The east lane then
   holds only guns and bunkers, and nothing there can retake a building.
@@ -242,7 +252,11 @@ by 77, 81, 85 and 89 and the EC HQ at 105, with 105 CP and 21 EC units left.
   five a turn.
 - Three cavalry from the captured factories leave at once instead of waiting
   for the wave, and route around every enemy-adjacent hex.
-- 105 looks like the floor of this plan: 4680 runs over opening length, mix,
-  avoidance, wave size, runner count and a column 13-15 waypoint won at 105 at
-  best. The outcome still swings with small changes, so settings were picked by
-  comparing whole games.
+- 103 looks like the floor of this plan: tuning train start, load, station,
+  wave size, runner count, capture reach and mix over 342 runs won at 103 at
+  best, because from the first factory on the game is the east lane's run, where
+  these trains do not help. Without the trains 105 was the floor over 4680 runs.
+  The generator is not deterministic (map order) and the same settings give 103
+  or 109, so settings were compared over repeated whole games; the recording
+  itself replays exactly. The faster game costs score: 2828 against 3156 at 105,
+  with fewer units left.
