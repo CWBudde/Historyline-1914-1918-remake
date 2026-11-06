@@ -516,7 +516,7 @@ build embeds every backdrop). Decided (defaults, open to override):
       re-saves byte-identical.
       (2026-11-05) — verified the fixture runners for all 14 files and six byte-identical Go save
       round trips. `pnpm --dir webapp run check` and `go test ./internal/dosrules ./internal/hexgrid`
-      pass. The repository-wide check stops on existing lint failures in `internal/llmplay/candl_probe_test.go`.
+      pass.
 - [x] W2 Binding and session: `level`, `scenario`, `campaign`, `dosbind` (`Bind`) and `dosplay` (views,
       destinations, routes, targets, commands, events, replay). `hl webapp golden` plays `dosai` against
       `dosai` on every shipped setup and writes commands, events and the save after each resolution to

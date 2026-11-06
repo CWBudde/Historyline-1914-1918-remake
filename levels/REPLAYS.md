@@ -23,7 +23,7 @@ just llmplay replay -dir "$d"
   trail marching from resolution 1 around the heavy artillery beside
   the probe opening, then a scripted march from 31: HQ capture at
   resolution 105, score 3156. Strategy:
-  `docs/llmplay-strategy.md` ("candl-south: won").
+  `docs/llmplay-strategy.md` ("The winning plan").
 
 Engine changes that alter outcomes will break the state hashes;
 regenerate the recording and the numbers above when that happens.
