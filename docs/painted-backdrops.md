@@ -61,6 +61,12 @@ slushy lanes and cool overcast light. Small woodland clearings and rocky shelves
 units. Railheads have timber buffers; the short southern track continues across the map edge. Three
 setup records move infantry off house roofs onto nearby ground. The northern AA position has a partly
 backfilled crater for firm footing.
+ROYAL/CROWN (`1916-11`, 2852×3302) has thin wet November snow over dormant olive meadow,
+bare woods and dark conifers under cool diffuse light. Fractured grey quarry uplands retain their
+original meadow passes and slushy unmarked roads. Its granite HQ has four slate-cone towers and a
+timber-roofed hall; the ochre stone HQ has four green copper domes and a red-tiled hall. Brick
+engineering works, stone quarry workshops and a small timber-and-stone cottage retain their entries
+and yards. Firm clay supports the two mud-position bunkers; all starting positions remain unchanged.
 PAUSE/SIGMA (`1916-12`, 7737×3302) has dry wind-packed December snow and pale morning light after
 a coastal gale. Its streams meet the sea through open mouths; snowy gravel joins the roads and building
 approaches. Small level pockets support the starting units, and the southern forest road fades beneath
