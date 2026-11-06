@@ -20,6 +20,7 @@ import (
 // have their own anchors, each rounded to the density grid, so the offset may
 // miss by up to 1/density world px per axis.
 func TestLightModelShadows(t *testing.T) {
+	const seasonalShadowSlack = 0.15 // world px
 	r, err := maprender.New(os.DirFS("../../assets"))
 	if err != nil {
 		t.Fatal(err)
@@ -47,13 +48,23 @@ func TestLightModelShadows(t *testing.T) {
 				var d float64
 				tolerance := 0.05
 				if size, ok := strings.CutPrefix(p.Standing.ID, "standing/scatter/crown/"); ok {
-					if d, err = strconv.ParseFloat(size[strings.LastIndex(size, "-")+1:], 64); err != nil {
+					size = size[strings.LastIndex(size, "-")+1:]
+					// A seasonal crown carries its season after the size (16_sp).
+					size, _, _ = strings.Cut(size, "_")
+					if d, err = strconv.ParseFloat(size, 64); err != nil {
 						t.Fatal(err)
 					}
 					tolerance = 1/float64(density) + 0.05
 				} else if d, ok = diameters[p.Standing.Path]; !ok {
 					d = diameter(t, p.Standing.Path, density)
 					diameters[p.Standing.Path] = d
+				}
+				// A seasonal form casts its summer form's shadow (mapcompose.ShadowID),
+				// and its edited outline moves its centroid a little.
+				for _, sfx := range []string{"_au", "_sp", "_w"} {
+					if strings.HasSuffix(p.Standing.ID, sfx) {
+						tolerance += seasonalShadowSlack
+					}
 				}
 				kinds[strings.Join(strings.Split(p.Standing.ID, "/")[:3], "/")]++
 				along := terrainlight.Length * d / math.Sqrt2
