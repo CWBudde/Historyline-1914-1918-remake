@@ -42,6 +42,7 @@ The existing `just` shortcuts use `hl` too.
 | `serve` | Local HTTP file server (`-dir`, `-addr`) | |
 | `web` | Build the web demo into `build/web`; `-port 8080` serves it | `web` |
 | `webapp golden` | Write Go AI-vs-AI command/event/save traces for all shipped setups into `build/webapp/golden`; `-resolutions` caps each trace (default 300) | `webapp-golden` |
+| `webapp assets` | Export hash-pinned packs, scenarios, tiled backdrop mipmaps, baked map layers and fonts into `build/webapp/data` | `webapp-assets` |
 | `artbook` | Render `build/artbook/Historyline_Art.pdf` (needs `typst`) | `artbook` |
 | `manual` | Build the reconstructed manual PDF (needs `typst`); `-images` extracts the original's pictures with `pdfimages`, `-watch` rebuilds on change | `manual`, `manual-images`, `manual-watch` |
 

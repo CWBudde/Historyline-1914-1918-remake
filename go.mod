@@ -3,6 +3,7 @@ module github.com/CWBudde/Historyline-1914-1918-remake
 go 1.25.0
 
 require (
+	github.com/andybalholm/brotli v1.2.8
 	github.com/gen2brain/webp v0.6.4
 	github.com/hajimehoshi/ebiten/v2 v2.10.5
 )

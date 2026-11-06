@@ -117,23 +117,27 @@ webapp-install:
 
 # Serve the web edition with live reload; pass Vite options, e.g. just webapp --host --port 5173
 [positional-arguments]
-webapp *args: webapp-install
+webapp *args: webapp-install webapp-assets
     pnpm --dir webapp/app exec vite "$@"
 
 # Regenerate Go AI command/event/save goldens for the web engine's replay tests
 webapp-golden:
     go run ./cmd/hl webapp golden
 
+# Export the browser's packs, tiled backdrops, baked map layers and fonts
+webapp-assets:
+    go run ./cmd/hl webapp assets
+
 # Run the web edition's tests against current Go fixtures and regenerated playthroughs
-webapp-test: webapp-install webapp-golden
+webapp-test: webapp-install webapp-golden webapp-assets
     pnpm --dir webapp run test
 
 # Build the web edition into build/webapp/site
-webapp-build: webapp-install
+webapp-build: webapp-install webapp-assets
     pnpm --dir webapp run build
 
 # Typecheck, lint, test and build the web edition
-webapp-check: webapp-install webapp-golden
+webapp-check: webapp-install webapp-golden webapp-assets
     pnpm --dir webapp run check
 
 # Everything CI checks, each test once

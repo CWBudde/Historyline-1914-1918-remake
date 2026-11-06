@@ -1,5 +1,21 @@
 # Runtime asset packs
 
+The TypeScript edition uses `hl webapp assets` (`just webapp-assets`). It updates the native packs and
+writes `build/webapp/data/index.json` plus SHA-256-named blobs. The index lists lite/full catalogs,
+scenario and rule JSON, per-setup `mapcompose` scenes, water and seasonal weight rasters, tiled JPEG
+backdrop mip pyramids, pixel-font atlases and Noto WOFF2 fonts with their licence. Units derive a 1×
+catalog from 2×; screens keep their native maximum of 2×. Backdrop tiles include two neighbouring pixels
+for filtering. Raster PNGs store unsigned 16-bit samples in R (low byte) and G (high byte), with opaque
+alpha; divide by the raster's `divisor`. Season rasters follow `seasonblend.Seasons` order and clamp at
+their edges like the native sampled field.
+
+Vite serves this directory at its base path and copies it into the site build. The browser's
+`AssetLoader` requests only the selected IDs, delivers lite before full, and chooses density from
+zoom × DPR. Its `AssetStore` verifies byte counts and hashes, limits concurrent requests and uses
+CacheStorage by content hash (bounded memory when unavailable). Lite encodes are cached under the
+system user cache directory. Candidate catalogs still require explicit opt-in.
+Regenerate assets before starting Vite; restart it after another export so it discovers the new blobs.
+
 `internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored

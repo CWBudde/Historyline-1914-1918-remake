@@ -57,6 +57,9 @@ func commands() command {
 		leaf("serve", "Serve the local web demo", webServer),
 		leaf("web", "Build the web demo into build/web (-port serves it)", webBuild),
 		group("webapp", "Export the TypeScript edition's data and parity fixtures",
+			leaf("assets", "Export browser packs, maps, baked layers and fonts", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
+				return hlwebapp.Assets(ctx, args, out, errs)
+			}),
 			leaf("golden", "Write Go AI-vs-AI replay traces for every shipped setup", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
 				return hlwebapp.Golden(ctx, args, out, errs)
 			})),

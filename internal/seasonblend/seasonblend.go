@@ -319,6 +319,20 @@ func fixed(w []float64, q []int) {
 	q[most] += 256 - sum
 }
 
+// Weights returns Mix's exact fixed-point weights at a world pixel centre, in
+// Seasons(c) order, summing to 256. There are no weights away from a border.
+// Exporters sample this field once; browser rendering need not port its noise.
+func (b *Blend) Weights(c hexgrid.Coord, x, y float64) []int {
+	seasons := b.Seasons(c)
+	if len(seasons) == 0 {
+		return nil
+	}
+	w, q := make([]float64, len(seasons)), make([]int, len(seasons))
+	b.at(b.border[c], x, y, w)
+	fixed(w, q)
+	return q
+}
+
 func floorDiv(a, b int) int {
 	q := a / b
 	if a%b != 0 && a < 0 {

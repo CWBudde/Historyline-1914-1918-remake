@@ -535,11 +535,16 @@ build embeds every backdrop). Decided (defaults, open to override):
       progress, disposal and concurrent human orders are checked on real worker threads. Chromium
       checks both phases. `just webapp-check` passes (907 tests, one optional original-data skip),
       including regenerated goldens and the production worker bundle.
-- [ ] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;
+- [x] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;
       the packs, lite and full, 1×/2×/4×; backdrops as tiled mip pyramids; per-level baked layers: the
       `mapcompose` draw lists, water-depth and season-blend rasters; the pixel font as an atlas; the Noto
       fonts as WOFF2). The TS loader is manifest-driven and progressive (lite first), picks the density from
       zoom × devicePixelRatio like `assetDensity`, and caches by content hash.
+      (2026-11-06) — all 52 months and 156 setups exported; their loaded sessions match Go's initial
+      saves. Lite/full catalogs, mip tiles, native draw lists and fields, pixel atlases and WOFF2 fonts
+      are hash-verified. The web checks pass 917 tests (one optional skip) and the production build;
+      Go helper/race, native pack and WASM checks pass. Chromium checks all densities, fonts, tiles,
+      packed water and cache reuse. The full data is about 1.6 GB; deployment sizing remains W9.
 - [ ] W5 Map renderer: camera (wheel, drag, pinch, keys), resize and DPR, backdrop tiles with culling and
       mip choice, tile mode from the draw lists, units with ownership strips, per-side fog, selection,
       destination, route and target overlays, move and battle animations from `dosplay` events, reduced

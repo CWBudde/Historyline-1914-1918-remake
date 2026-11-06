@@ -1,4 +1,4 @@
-package pixfont
+package bitmap
 
 // The glyphs are newly drawn on plain grids, '#' inked: Small on 5 rows for the
 // status bars, Large on 7 rows for the overlays. Widths vary per glyph; the

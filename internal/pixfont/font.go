@@ -13,6 +13,8 @@ import (
 	"unicode"
 
 	"github.com/hajimehoshi/ebiten/v2"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont/bitmap"
 )
 
 // Face is one size of the font. Lower case draws as upper case; runes without
@@ -21,10 +23,15 @@ type Face struct{ f *font }
 
 var (
 	// Small has capitals 5 font pixels high, for the status bars.
-	Small = Face{newFont(5, boxSmall, smallGlyphs)}
+	Small = bitmapFace(5)
 	// Large has capitals 7 font pixels high, for the overlays.
-	Large = Face{newFont(7, boxLarge, largeGlyphs)}
+	Large = bitmapFace(7)
 )
+
+func bitmapFace(height int) Face {
+	table, boxRows := bitmap.Rows(height)
+	return Face{newFont(height, boxRows, table)}
+}
 
 // box is the glyph index of the box for unknown runes.
 const box = 0
