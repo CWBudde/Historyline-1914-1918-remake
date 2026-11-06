@@ -399,22 +399,22 @@ existing footprints. These are artistic settings, not verified map locations.
 - [ ] [1917-09](levels/1917-09/)
   - [x] Audit `levels/1917-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-09/approval-audit.json` and `.md`: autumn, 1658×1920, six compounds, two houses, 74 inherited starts, no linked ships or airfields; fourteen trench, one stream and one bridge overlay plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SPELL/BEAMS](docs/backpaint-approvals.md#1917-09--spellbeams), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-09:cp -out build/review/backdrops/1917-09/guide`.
-  - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
-  - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
-  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
-  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
-  - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
-  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
-  - [ ] Save the finished lossless source to `levels/1917-09/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
-  - [ ] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1917-09`.
-  - [ ] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.
-  - [ ] Review `1917-09:cp`, `1917-09:ec` and `1917-09:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges.
-  - [ ] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting.
+  - [x] Render fresh unit-free 4× guide: `build/review/backdrops/1917-09/guide/`, 6632×7680, 541 cells, zero gaps/issues. Current audit equals approval; six baseline hashes and four targeted Go packages pass.
+  - [x] Record coverage in `section-layout.json`: 1658×1920 world, 2852×3302 output; nine 728×727-world sections on 1252×1250 canvases, columns 0/465/930 and rows 0/596/1193.
+  - [x] Prepare nine registered guide crops through the unified CLI (`sections.log`).
+  - [x] Store nine exact requests in `prompts.json`, separating layout guides from installed 1915-09 style; predominantly green early September, scattered ochre, diffuse mild sunshine.
+  - [x] Paint all nine sections with built-in imagegen; retain originals and actual requests. Normalize whole square canvases without cropping; no framing repaint or optional candidates.
+  - [x] Review all nine source/guide pairs (`row1/2/3-review.*`). Correct retained workshop rail spur locally; discarded southeast false water lies outside the selected seam.
+  - [x] Stitch nine sections with normalized all-overlap gains and eight minimum-difference seams (`stitched.png.json`, `stitch.log`).
+  - [x] Inspect all eight native/grid joins and registered infrastructure (`joins-review.*`, `infrastructure-review.*`); final affected join 06 also inspected after the workshop correction.
+  - [x] Retain approved green colour and light with global saturation/gains 1. All twelve section L* comparisons pass; local material-change warnings remain recorded separately.
+  - [x] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition. September's `finish-final.json` uses 39 brightness-matched masks, all global mask circles identical to the zero-outside proof. Seven woodland floors corrected after actual native preflight; final seven-squad CP close proof passes, including the registered eastern crop. No unit/map changes, no extra generation for that placement.
+  - [x] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips. September evidence: `build/review/backdrops/1917-09/finishing/final-architecture-review.*` inspects all six complete compounds and retains 32 numeric comparisons with seventeen material-change warnings. Individually specified HQs/factories retained; both depots lose roof symbols/white canopies, HQ bridge loses centre paint, workshop spur is removed while main line/gate remain clear.
+  - [x] Save selected `finished-final.png` as `levels/1917-09/backdrop.png`: 2852×3302, 19,726,290 bytes, SHA-256 `59be609faa2cb884534cfdb64e47296e0814a4b2f598c3a6836887b36931d56a`; world aspect retained, below 100 MiB.
+  - [x] Encode the runtime JPEG at quality 95 through unified `hl`: 5,665,192 bytes, SHA-256 `6d1416f93b1edfc40294e47aee0056bc98c4a509392f323f90fc90659d1da981` (`jpeg-final.log`).
+  - [x] Run unified `hl levels backdrop check`; all 52 installed pairs pass. September's 2852×3302 source/JPEG retain world aspect and 19,726,290-byte source size. Four authoring Go packages and native game tests pass; fresh native binary embeds the installed JPEG (`build/review/backdrops/1917-09/check-final.log`, `final-authoring-tests.log`, `final-tests-host.log`, `native-build.log`).
+  - [x] Review all 74 starts at both zooms in CP, EC and two-player: 444 complete-sprite/support observations pass. All 213 group frames and 229 reviewed-image hashes cross-check; each mode's 33 staged frames has zero gaps/issues. CP's bounded capture resumes only its fifteen missing views; all input hashes pass and eleven owned processes are absent. Actual final close42 shows the western squad in every mode (`unit-review-cp/ec/2p.*`, `unit-inventory-crosscheck.json`). No naval/aircraft/linked ships exist.
+  - [x] Record 27 built-in calls, nine sections/eight joins, 39 contained masks, retained failed trials and 21 final L* warnings with findings under `build/review/backdrops/1917-09/`. Update `docs/painted-backdrops.md`; all map/setup hashes unchanged. Native source corrections and final installed JPEG acceptance are distinguished in `verification.md` and `coordinator-final-review.md`.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-11](levels/1917-11/)

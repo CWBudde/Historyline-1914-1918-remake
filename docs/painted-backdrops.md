@@ -127,6 +127,15 @@ yard, an ammunition dump, a remount depot, a walled farm, engineer stores and a 
 rail networks share one continuous track design; three open railheads have timber buffers and the
 southern compound entries stay open. Four long timber bridges span the waterways. Small clearings and a
 grassy shelf support the starting units; three patrol boats and two infantry groups start on adjacent hexes clear of banks and bridge edges.
+SPELL/BEAMS (`1917-09`, 2852×3302) has predominantly green early-September meadow and woodland,
+scattered ochre leaves, damp shell-torn clay and mild sunshine through high cloud. Grey fieldstone
+with round slate domes and a steep red-tiled hall distinguishes one HQ; buff brick, copper cones
+and a low slate hall distinguish the other. Electrical-equipment works, railway repair shops,
+coal/fuel and engineer depots keep their original yards and gates. Both railway networks retain
+their switches, crossings and approaches, with dark sleepers, rust-brown rails and pale ballast.
+Timber trenches and the small southeast stream/rail bridge retain their courses. Small woodland
+floors support the unchanged infantry starts. Prompts, masks, lightness findings and native
+verification are under `build/review/backdrops/1917-09/`.
 ATLAS/ZORRO (`1917-10`, 4806×4403) has shallow fresh October snow, copper leaves and pale
 clear morning light. Small woodland clearings and level rocky shelves support the starting units;
 both airstrips and four hangars stay open. Eight bridges cross continuous rivers and streams.
