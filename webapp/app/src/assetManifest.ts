@@ -18,7 +18,6 @@ export interface ImageEntry {
 }
 export interface ImageCatalog {
   schema: 1;
-  status: "candidate" | "approved";
   entries: ImageEntry[];
 }
 export interface Tile {
@@ -229,8 +228,7 @@ export function parseAssetIndex(v: unknown): AssetIndex {
 }
 export function parseImageCatalog(v: unknown, density: number): ImageCatalog {
   const c = record(v);
-  if (c.schema !== 1 || (c.status !== "candidate" && c.status !== "approved"))
-    throw new Error("unsupported image catalog");
+  if (c.schema !== 1) throw new Error("unsupported image catalog");
   const seen = new Set<string>();
   const entries = array(c.entries).map((value) => {
     const e = record(value);
@@ -259,5 +257,5 @@ export function parseImageCatalog(v: unknown, density: number): ImageCatalog {
       logicalAnchor: a as [number, number],
     };
   });
-  return { schema: 1, status: c.status, entries };
+  return { schema: 1, entries };
 }

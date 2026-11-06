@@ -109,7 +109,7 @@ func TestTerrainPlanRejectsUnsplitOversizedImage(t *testing.T) {
 func TestTerrainPartsEntryLimitAndGeometry(t *testing.T) {
 	var input []terrainPack
 	for _, d := range terrainDensities {
-		m := assets.Manifest{Schema: 1, Status: "candidate"}
+		m := assets.Manifest{Schema: 1}
 		for i := 0; i <= assets.MaxEntriesPerPack; i++ {
 			m.Entries = append(m.Entries, assets.Entry{ID: fmt.Sprintf("tile/%05d", i), Density: d, Width: d, Height: d})
 		}
@@ -138,7 +138,7 @@ func TestTerrainPartsEntryLimitAndGeometry(t *testing.T) {
 func TestTerrainPartsKeepShadowWithItsStanding(t *testing.T) {
 	var input []terrainPack
 	for _, d := range terrainDensities {
-		m := assets.Manifest{Schema: 1, Status: "candidate"}
+		m := assets.Manifest{Schema: 1}
 		for _, id := range []string{"standing/a", "standing/b", "standing/shadow/a", "standing/shadow/b"} {
 			m.Entries = append(m.Entries, assets.Entry{ID: id, Density: d, Width: 4096 * d / 4, Height: 3072 * d / 4})
 		}

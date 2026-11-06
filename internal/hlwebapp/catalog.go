@@ -17,12 +17,11 @@ import (
 	"slices"
 	"strings"
 
-	"golang.org/x/image/draw"
-	"golang.org/x/sync/errgroup"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlasset"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
+	"golang.org/x/image/draw"
+	"golang.org/x/sync/errgroup"
 )
 
 type QualityPair struct {
@@ -39,7 +38,6 @@ type ImageEntry struct {
 }
 type ImageCatalog struct {
 	Schema  int          `json:"schema"`
-	Status  string       `json:"status"`
 	Entries []ImageEntry `json:"entries"`
 }
 
@@ -64,7 +62,7 @@ func (b blobWriter) catalog(ctx context.Context, dir, name string) (_ map[int]Qu
 		if err != nil {
 			return err
 		}
-		pack, err := assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+		pack, err := assets.Open(sub, "manifest.json")
 		if err != nil {
 			return err
 		}
@@ -94,7 +92,7 @@ func (b blobWriter) catalog(ctx context.Context, dir, name string) (_ map[int]Qu
 		if len(byDensity[density]) == 0 {
 			return nil, nil, fmt.Errorf("%s: missing %dx packs", name, density)
 		}
-		full, lite := ImageCatalog{Schema: 1, Status: "approved"}, ImageCatalog{Schema: 1, Status: "approved"}
+		full, lite := ImageCatalog{Schema: 1}, ImageCatalog{Schema: 1}
 		seen := map[string]ImageEntry{}
 		var dirs []string
 		for p, m := range byDir {
@@ -121,15 +119,11 @@ func (b blobWriter) catalog(ctx context.Context, dir, name string) (_ map[int]Qu
 			if err != nil {
 				return nil, nil, err
 			}
-			pack, err := assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+			pack, err := assets.Open(sub, "manifest.json")
 			if err != nil {
 				return nil, nil, err
 			}
 			m := pack.Manifest()
-			if m.Status == "candidate" {
-				full.Status = "candidate"
-				lite.Status = "candidate"
-			}
 			start := len(full.Entries)
 			full.Entries = append(full.Entries, make([]ImageEntry, len(m.Entries))...)
 			lite.Entries = append(lite.Entries, make([]ImageEntry, len(m.Entries))...)

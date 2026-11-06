@@ -2,7 +2,7 @@
 
 Native preview of unit movement and effects on a grass fixture, driven by `internal/presentation`. It walks a
 unit through the six facings (`n nw sw s se ne`), then plays hit, death, capture and round. Interface PNGs
-load through `internal/assets` (candidates opt-in).
+load through `internal/assets`.
 
 ```sh
 go run ./cmd/hl preview effects -family infantry      # any unit family slug, e.g. armored-train

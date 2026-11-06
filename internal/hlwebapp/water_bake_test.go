@@ -305,7 +305,7 @@ func TestWaterBakeRetainsCompleteFourPackWorkingSet(t *testing.T) {
 				group = "surf"
 			}
 			next := groups[group]
-			next.Schema, next.Status, next.ID = m.Schema, m.Status, m.ID+"/"+group
+			next.Schema, next.ID = m.Schema, m.ID+"/"+group
 			next.Entries = append(next.Entries, e)
 			groups[group] = next
 			if group != "backgrounds" {
@@ -390,7 +390,7 @@ func waterBakeFixture(t *testing.T) (string, *level.Level, *mapcompose.Scene, ma
 		if err := os.MkdirAll(packDir, 0o755); err != nil {
 			t.Fatal(err)
 		}
-		m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("test/%d", d), Status: "approved"}
+		m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("test/%d", d)}
 		pictures[d] = map[string]image.Image{}
 		ids := []string{"tile/water_au", "tile/shore-test_au", "tile/water", "tile/surf", "tile/sea-00", "tile/sea-02", "tile/sea-11", "tile/sea-13", "tile/sea-20", "tile/sea-22", "tile/sea-31", "tile/sea-33"}
 		for i, id := range ids {

@@ -33,14 +33,12 @@ async function fixture() {
     lite: await ref(
       JSON.stringify({
         schema: 1,
-        status: "approved",
         entries: [image(d, lite)],
       }),
     ),
     full: await ref(
       JSON.stringify({
         schema: 1,
-        status: "approved",
         entries: [image(d, full)],
       }),
     ),
@@ -194,7 +192,6 @@ it("rejects schema gaps, hash paths, missing mip tiles and catalog geometry", as
     parseImageCatalog(
       {
         schema: 1,
-        status: "approved",
         entries: [
           {
             id: "a",

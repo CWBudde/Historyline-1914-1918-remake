@@ -12,9 +12,8 @@ import (
 	"sync"
 	"unicode"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont/bitmap"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Face is one size of the font. Lower case draws as upper case; runes without

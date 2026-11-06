@@ -29,7 +29,7 @@ const fetcher: typeof fetch = async (url) => {
 it("exports all 156 setups as sessions identical to Go's initial saves", async () => {
   const loader = await AssetLoader.open(
     "https://example.test/data/index.json",
-    { fetch: fetcher, cache: null, allowCandidates: true },
+    { fetch: fetcher, cache: null },
   );
   const months = listDir("levels")
     .filter((m) => /^19\d\d-\d\d$/.test(m))

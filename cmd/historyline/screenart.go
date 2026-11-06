@@ -6,7 +6,6 @@ import (
 	"io/fs"
 	"slices"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -24,7 +23,7 @@ type screenArt struct {
 }
 
 // openScreenArt opens every family the 1x directory lists, at every density.
-func openScreenArt(fsys fs.FS, opt assets.Options) (*screenArt, error) {
+func openScreenArt(fsys fs.FS) (*screenArt, error) {
 	dirs, err := fs.ReadDir(fsys, "1x")
 	if err != nil {
 		return nil, fmt.Errorf("screen catalog: %w", err)
@@ -35,7 +34,7 @@ func openScreenArt(fsys fs.FS, opt assets.Options) (*screenArt, error) {
 			families = append(families, d.Name())
 		}
 	}
-	p, err := openPacks(fsys, opt, families, screenDensities)
+	p, err := openPacks(fsys, families, screenDensities)
 	if err != nil {
 		return nil, fmt.Errorf("screen %w", err)
 	}
@@ -49,13 +48,13 @@ func openScreenArt(fsys fs.FS, opt assets.Options) (*screenArt, error) {
 }
 
 // loadScreenArt opens the screen catalog in dir, counting its fetches in m.
-func loadScreenArt(dir string, allowCandidates bool, m *meter) (*screenArt, error) {
+func loadScreenArt(dir string, m *meter) (*screenArt, error) {
 	fsys, done, err := openArtDir(dir, m)
 	if err != nil {
 		return nil, err
 	}
 	defer done()
-	return openScreenArt(fsys, assets.Options{AllowCandidates: allowCandidates})
+	return openScreenArt(fsys)
 }
 
 // image returns the texture of id at density d, nil when the catalog is

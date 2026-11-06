@@ -26,15 +26,15 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 	}
 	for _, p := range packs {
 		m := p.Manifest
-		if m.Status != "candidate" || m.ID != fmt.Sprintf("unit-%s-%dx", p.Family, p.Density) || len(m.Entries) != 36 {
-			t.Fatalf("pack %s: status %s, %d entries", m.ID, m.Status, len(m.Entries))
+		if m.ID != fmt.Sprintf("unit-%s-%dx", p.Family, p.Density) || len(m.Entries) != 36 {
+			t.Fatalf("pack %s: %d entries", m.ID, len(m.Entries))
 		}
 		dir := filepath.Join(out, fmt.Sprintf("%dx", p.Density), p.Family)
 		r, err := os.OpenRoot(dir)
 		if err != nil {
 			t.Fatal(err)
 		}
-		pack, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
+		pack, err := assets.Open(r.FS(), "manifest.json")
 		if err := r.Close(); err != nil {
 			t.Fatal(err)
 		}
@@ -74,7 +74,7 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 			t.Error(err)
 		}
 	}()
-	pack, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
+	pack, err := assets.Open(r.FS(), "manifest.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -86,7 +86,7 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 		t.Fatal("runtime build changed the source PNG bytes")
 	}
 	var output bytes.Buffer
-	if err := Run([]string{"validate", "-root", filepath.Join(out, "2x", "infantry"), "-allow-candidates"}, &output, io.Discard); err != nil {
+	if err := Run([]string{"validate", "-root", filepath.Join(out, "2x", "infantry")}, &output, io.Discard); err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(output.String(), "validated unit-infantry-2x: 36 PNG variants") {

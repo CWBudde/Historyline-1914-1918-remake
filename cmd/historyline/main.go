@@ -657,9 +657,6 @@ func (g *game) devIndicators() string {
 	if g.hexNumbers {
 		on = append(on, "HEXNUMBERS")
 	}
-	if g.art != nil && g.art.candidate || g.terrain != nil && g.terrain.candidate {
-		on = append(on, "CANDIDATE-ART")
-	}
 	if g.terrain != nil {
 		if n := len(g.terrain.scene.Gaps); n > 0 {
 			on = append(on, fmt.Sprintf("CONTEXT-GAP %d", n))
@@ -788,7 +785,6 @@ type matchConfig struct {
 	saved      []byte          // a saved battle to resume (dos only); nil starts fresh
 	terrain    string          // terrain catalog directory, composed per level; "" draws coloured hexes
 	terrainHD  string          // full-quality terrain catalog loaded in the background of a battle; "" for none
-	candidates bool            // allow candidate terrain packs
 	backdrop   *backdropImage  // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
 	noBackdrop bool            // draw the terrain even where the level has a backdrop (-backdrop off)
 	levels     string          // the directory of the level files (-levels)
@@ -867,12 +863,12 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 	}
 	if c.terrain != "" {
 		var err error
-		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl, m); err != nil {
+		if gm.terrain, err = loadTerrainArt(c.terrain, c.lvl, m); err != nil {
 			return nil, err
 		}
 		if c.terrainHD != "" {
 			gm.hdTerrain = background("full-quality terrain", func() (*terrainArt, error) {
-				return loadTerrainArt(c.terrainHD, c.candidates, c.lvl, &meter{pause: pagePauser()})
+				return loadTerrainArt(c.terrainHD, c.lvl, &meter{pause: pagePauser()})
 			})
 		}
 	}
@@ -894,7 +890,6 @@ func main() {
 	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the -units catalog downloaded fast")
 	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the -units catalog downloaded fast")
 	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
-	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
@@ -944,12 +939,12 @@ func main() {
 	}
 	c := matchConfig{
 		set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
-		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open(), saves: saves.Open(), levels: *dir,
+		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
 	}
 	// The web page shows how much of the art has arrived until the game starts.
 	boot := &meter{fetched: pageFetched}
 	if *units != "" {
-		if c.units, err = loadUnitArt(*units, *candidates, boot); err != nil {
+		if c.units, err = loadUnitArt(*units, boot); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -972,7 +967,7 @@ func main() {
 		}
 	}
 	if *screens != "" {
-		if c.screens, err = loadScreenArt(*screens, *candidates, boot); err != nil {
+		if c.screens, err = loadScreenArt(*screens, boot); err != nil {
 			log.Fatal(err)
 		}
 		dospanel.SetSurfaces(c.screens.surfaces())
@@ -986,7 +981,7 @@ func main() {
 		}
 		pageReady()
 		a := newApp(c, campaign, c.screens)
-		a.hd = loadHDArt(hd, *candidates)
+		a.hd = loadHDArt(hd)
 		if err := ebiten.RunGame(a); err != nil {
 			log.Fatal(err)
 		}
@@ -1036,7 +1031,7 @@ func main() {
 	}
 	if hd.units != "" {
 		gm.hdUnits = background("full-quality units", func() (*artPacks, error) {
-			return loadUnitArt(hd.units, *candidates, &meter{pause: pagePauser()})
+			return loadUnitArt(hd.units, &meter{pause: pagePauser()})
 		})
 	}
 	pageReady()

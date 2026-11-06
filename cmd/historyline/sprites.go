@@ -82,17 +82,16 @@ type texKey struct {
 // plus the GPU textures made from them so far. Units have one group per family,
 // terrain one per tile group.
 type artPacks struct {
-	packs     map[packKey]*assets.Pack
-	tex       map[texKey]*ebiten.Image
-	candidate bool // some pack is a review candidate, not approved art
-	pad       int  // texels added around each texture
+	packs map[packKey]*assets.Pack
+	tex   map[texKey]*ebiten.Image
+	pad   int // texels added around each texture
 	// bleed lists the groups whose opaque edges are extended into the added
 	// border; the others get a transparent border.
 	bleed map[string]bool
 }
 
 // openPacks opens every group at every density.
-func openPacks(fsys fs.FS, opt assets.Options, groups []string, densities []int) (*artPacks, error) {
+func openPacks(fsys fs.FS, groups []string, densities []int) (*artPacks, error) {
 	a := &artPacks{packs: map[packKey]*assets.Pack{}, tex: map[texKey]*ebiten.Image{}}
 	for _, d := range densities {
 		for _, group := range groups {
@@ -101,14 +100,11 @@ func openPacks(fsys fs.FS, opt assets.Options, groups []string, densities []int)
 			if err != nil {
 				return nil, err
 			}
-			p, err := assets.Open(sub, "manifest.json", opt)
+			p, err := assets.Open(sub, "manifest.json")
 			if err != nil {
 				return nil, fmt.Errorf("pack %s: %w", dir, err)
 			}
 			a.packs[packKey{group, d}] = p
-			if p.Manifest().Status != "approved" {
-				a.candidate = true
-			}
 		}
 	}
 	return a, nil
@@ -116,8 +112,8 @@ func openPacks(fsys fs.FS, opt assets.Options, groups []string, densities []int)
 
 // openUnitArt opens the whole unit catalog and checks that every family has
 // every sprite at every density, so drawing never meets a missing variant.
-func openUnitArt(fsys fs.FS, opt assets.Options) (*artPacks, error) {
-	a, err := openPacks(fsys, opt, unitsprite.AllFamilies(), spriteDensities)
+func openUnitArt(fsys fs.FS) (*artPacks, error) {
+	a, err := openPacks(fsys, unitsprite.AllFamilies(), spriteDensities)
 	if err != nil {
 		return nil, fmt.Errorf("unit %w", err)
 	}
@@ -285,11 +281,11 @@ func (g *game) drawSprite(dst *ebiten.Image, c hexgrid.Coord, family, id string,
 
 // loadUnitArt opens the unit catalog in dir, counting its fetches in m. The
 // packs snapshot their bytes, so the directory is closed again at once.
-func loadUnitArt(dir string, allowCandidates bool, m *meter) (*artPacks, error) {
+func loadUnitArt(dir string, m *meter) (*artPacks, error) {
 	fsys, done, err := openArtDir(dir, m)
 	if err != nil {
 		return nil, err
 	}
 	defer done()
-	return openUnitArt(fsys, assets.Options{AllowCandidates: allowCandidates})
+	return openUnitArt(fsys)
 }

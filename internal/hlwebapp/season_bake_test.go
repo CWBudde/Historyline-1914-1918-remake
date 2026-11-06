@@ -321,7 +321,7 @@ func seasonBakeFixture(t *testing.T) (string, *level.Level, *BakedLayers) {
 		if err := os.MkdirAll(folder, 0o755); err != nil {
 			t.Fatal(err)
 		}
-		m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("season-test/%d", d), Status: "approved"}
+		m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("season-test/%d", d)}
 		for i, id := range []string{"tile/grass", "tile/grass_w", "tile/road14", "tile/road14_w", "standing/grass", "standing/grass_w"} {
 			width, height, anchor := 96, 80, [2]float64{47.25, 39.75}
 			if i >= 4 {

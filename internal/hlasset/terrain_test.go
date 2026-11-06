@@ -34,7 +34,7 @@ func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack
 			t.Error(err)
 		}
 	}()
-	p, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
+	p, err := assets.Open(r.FS(), "manifest.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -151,9 +151,6 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	groups, standing := map[string]bool{}, map[int]int{}
 	for _, p := range packs {
 		n := len(p.Manifest.Entries)
-		if p.Manifest.Status != "candidate" {
-			t.Errorf("%s: status %s", p.Manifest.ID, p.Manifest.Status)
-		}
 		if isStandingPart(p.Group) {
 			groups[standingGroup] = true
 			standing[p.Density] += n

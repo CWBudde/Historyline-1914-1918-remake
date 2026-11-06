@@ -74,7 +74,7 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 		sum := sha256.Sum256(buf.Bytes())
 		packs := map[string]*assets.Manifest{}
 		for _, g := range terrainGroups {
-			packs[g] = &assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-%s-%dx", g, d), Status: "candidate"}
+			packs[g] = &assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-%s-%dx", g, d)}
 		}
 		var sorted []string
 		for id := range ids {
@@ -84,7 +84,7 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 		for _, id := range sorted {
 			m := packs[ids[id]]
 			if m == nil {
-				m = &assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-%s-%dx", ids[id], d), Status: "candidate"}
+				m = &assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-%s-%dx", ids[id], d)}
 				packs[ids[id]] = m
 			}
 			p := fmt.Sprintf("images/%04d.png", len(m.Entries))
@@ -116,7 +116,7 @@ func TestOpenTerrainArtSelectsAvailableContexts(t *testing.T) {
 		}
 	}
 	ctx := mapcompose.ContextID(gap.Family, mapcompose.Key(gap.Descriptor))
-	a, err := openTerrainArt(terrainCatalog(t, l, "", ctx), assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(terrainCatalog(t, l, "", ctx), l)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -130,18 +130,15 @@ func TestOpenTerrainArtSelectsAvailableContexts(t *testing.T) {
 			want++
 		}
 	}
-	if len(a.scene.Gaps) != want || want == len(plain.Gaps) || !a.candidate {
-		t.Errorf("%d gaps (want %d of %d), candidate %v", len(a.scene.Gaps), want, len(plain.Gaps), a.candidate)
+	if len(a.scene.Gaps) != want || want == len(plain.Gaps) {
+		t.Errorf("%d gaps (want %d of %d)", len(a.scene.Gaps), want, len(plain.Gaps))
 	}
 }
 
-func TestOpenTerrainArtRefusesCandidatesAndGaps(t *testing.T) {
+func TestOpenTerrainArtRefusesGaps(t *testing.T) {
 	l := testLevel(t)
-	if _, err := openTerrainArt(terrainCatalog(t, l, ""), assets.Options{}, l); err == nil || !strings.Contains(err.Error(), "opt-in") {
-		t.Errorf("candidates loaded without opt-in: %v", err)
-	}
 	for _, skip := range []string{"tile/unseen", "tile/hqN", "tile/road36"} {
-		if _, err := openTerrainArt(terrainCatalog(t, l, skip), assets.Options{AllowCandidates: true}, l); err == nil || !strings.Contains(err.Error(), skip) {
+		if _, err := openTerrainArt(terrainCatalog(t, l, skip), l); err == nil || !strings.Contains(err.Error(), skip) {
 			t.Errorf("catalog without %s loaded: %v", skip, err)
 		}
 	}
@@ -199,11 +196,10 @@ func TestTerrainShadowsFollowFog(t *testing.T) {
 func TestTerrainDevIndicators(t *testing.T) {
 	g := &game{}
 	g.terrain = &terrainArt{
-		artPacks: &artPacks{candidate: true},
-		scene:    mapcompose.Scene{Gaps: make([]mapcompose.Gap, 3), Issues: make([]mapcompose.Issue, 1)},
+		scene: mapcompose.Scene{Gaps: make([]mapcompose.Gap, 3), Issues: make([]mapcompose.Issue, 1)},
 	}
 	got := g.devIndicators()
-	for _, want := range []string{"CANDIDATE-ART", "CONTEXT-GAP 3", "COMPOUND-ISSUE 1"} {
+	for _, want := range []string{"CONTEXT-GAP 3", "COMPOUND-ISSUE 1"} {
 		if !strings.Contains(got, want) {
 			t.Errorf("dev label %q lacks %q", got, want)
 		}
@@ -282,7 +278,7 @@ func TestPaddedBleedGrowsOpaqueEdge(t *testing.T) {
 
 func TestOpenTerrainArtAddsStandingItems(t *testing.T) {
 	l := testLevel(t)
-	a, err := openTerrainArt(terrainCatalog(t, l, "", mapcompose.StandingID("house")), assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(terrainCatalog(t, l, "", mapcompose.StandingID("house")), l)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -313,7 +309,7 @@ func TestOpenTerrainArtAddsSeparateClusterStandingPack(t *testing.T) {
 	stamp := mapcompose.StampID("knoll", "1", 1)
 	standing := mapcompose.StandingID(stamp)
 	fsys := terrainCatalog(t, l, "", stamp, standing)
-	a, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(fsys, l)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -333,7 +329,7 @@ func TestOpenTerrainArtAddsSeparateClusterStandingPack(t *testing.T) {
 		t.Fatal("fixture did not exercise a stamped cluster")
 	}
 	delete(fsys, "4x/standing-stamps/manifest.json")
-	if _, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l); err == nil {
+	if _, err := openTerrainArt(fsys, l); err == nil {
 		t.Fatal("accepted cluster standing pack with a missing density")
 	}
 }
@@ -342,7 +338,7 @@ func TestOpenTerrainArtAddsSeparateClusterStandingPack(t *testing.T) {
 // bare one drawn over them; overlays have only the bare one. Terrain loads 1x.
 func TestBackgroundsHaveBareTextures(t *testing.T) {
 	l := testLevel(t)
-	a, err := openTerrainArt(terrainCatalog(t, l, ""), assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(terrainCatalog(t, l, ""), l)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -393,7 +389,7 @@ func TestTerrainBlendsSeasonBorders(t *testing.T) {
 			}
 		}
 	}
-	a, err := openTerrainArt(terrainCatalog(t, l, ""), assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(terrainCatalog(t, l, ""), l)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -188,8 +188,7 @@ func loadFamilyAssets(repo, family string) (_ *assets, resultErr error) {
 		return nil
 	}
 	// The shared runtime loader snapshots and caches the selected interface PNGs.
-	// Candidate use is explicit; this diagnostic does not promote the art.
-	manifest := runtimeassets.Manifest{Schema: 1, ID: "effects-interface-v1", Status: "candidate"}
+	manifest := runtimeassets.Manifest{Schema: 1, ID: "effects-interface-v1"}
 	for id := range wanted {
 		f, ok := entries[id]
 		if !ok {
@@ -200,7 +199,7 @@ func loadFamilyAssets(repo, family string) (_ *assets, resultErr error) {
 		})
 	}
 	sort.Slice(manifest.Entries, func(i, j int) bool { return manifest.Entries[i].ID < manifest.Entries[j].ID })
-	pack, err := runtimeassets.Load(r.FS(), manifest, runtimeassets.Options{AllowCandidates: true})
+	pack, err := runtimeassets.Load(r.FS(), manifest)
 	if err != nil {
 		return nil, err
 	}

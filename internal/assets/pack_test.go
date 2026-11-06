@@ -61,7 +61,7 @@ func TestReadBoundedReportsReadAndCloseFailures(t *testing.T) {
 func fixture(t *testing.T, c color.NRGBA) (fstest.MapFS, Manifest) {
 	t.Helper()
 	f := fstest.MapFS{}
-	m := Manifest{Schema: 1, ID: "fixture", Status: "approved"}
+	m := Manifest{Schema: 1, ID: "fixture"}
 	for _, density := range []int{1, 2, 4} {
 		im := image.NewNRGBA(image.Rect(0, 0, 3*density, 2*density))
 		for y := range im.Bounds().Dy() {
@@ -89,7 +89,7 @@ func fixture(t *testing.T, c color.NRGBA) (fstest.MapFS, Manifest) {
 func TestExactVariantsSnapshotCacheAndPackSwitch(t *testing.T) {
 	red := color.NRGBA{R: 255, A: 255}
 	f, m := fixture(t, red)
-	p, err := Open(f, "manifest.json", Options{})
+	p, err := Open(f, "manifest.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -140,7 +140,7 @@ func TestExactVariantsSnapshotCacheAndPackSwitch(t *testing.T) {
 		}
 	}
 	greenFS, greenManifest := fixture(t, color.NRGBA{G: 255, A: 255})
-	other, err := Load(greenFS, greenManifest, Options{})
+	other, err := Load(greenFS, greenManifest)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -166,8 +166,6 @@ func TestRejectMalformedCatalog(t *testing.T) {
 		{"schema", func(m *Manifest) { m.Schema = 2 }, "schema"},
 		{"empty", func(m *Manifest) { m.Entries = nil }, "entries"},
 		{"too-many", func(m *Manifest) { m.Entries = make([]Entry, MaxEntriesPerPack+1) }, "entries"},
-		{"status", func(m *Manifest) { m.Status = "accepted-ish" }, "status"},
-		{"candidate", func(m *Manifest) { m.Status = "candidate" }, "opt-in"},
 		{"duplicate", func(m *Manifest) { m.Entries = append(m.Entries, m.Entries[0]) }, "duplicate asset"},
 		{"shared-path", func(m *Manifest) { m.Entries[1].Path = m.Entries[0].Path }, "duplicate asset path"},
 		{"case-path", func(m *Manifest) { m.Entries[1].Path = strings.ToUpper(m.Entries[0].Path[:1]) + m.Entries[0].Path[1:] }, "duplicate asset path"},
@@ -190,7 +188,7 @@ func TestRejectMalformedCatalog(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			f, m := fixture(t, color.NRGBA{})
 			c.edit(&m)
-			if _, err := Load(f, m, Options{}); err == nil || !strings.Contains(err.Error(), c.want) {
+			if _, err := Load(f, m); err == nil || !strings.Contains(err.Error(), c.want) {
 				t.Fatalf("want %q, got %v", c.want, err)
 			}
 		})
@@ -199,10 +197,10 @@ func TestRejectMalformedCatalog(t *testing.T) {
 		t.Run(bad, func(t *testing.T) {
 			f, m := fixture(t, color.NRGBA{})
 			m.Entries[0].Path = bad
-			if _, err := Load(f, m, Options{}); err == nil {
+			if _, err := Load(f, m); err == nil {
 				t.Fatal("accepted nonportable/reference path")
 			}
-			if _, err := Open(f, bad, Options{}); err == nil {
+			if _, err := Open(f, bad); err == nil {
 				t.Fatal("accepted invalid manifest path")
 			}
 		})
@@ -238,7 +236,7 @@ func TestByteIntegrityAndFullPNGDecode(t *testing.T) {
 				sum := sha256.Sum256(f[e.Path].Data)
 				e.SHA256 = hex.EncodeToString(sum[:])
 			}
-			p, err := Load(f, m, Options{})
+			p, err := Load(f, m)
 			if mode != "pixel-crc" {
 				if err == nil {
 					t.Fatal("invalid bytes accepted")
@@ -262,25 +260,24 @@ func TestStrictManifestAndCandidateOptIn(t *testing.T) {
 	for _, b := range []string{`{}`, `{"extra":true}`, `null null`, `[]`, strings.Repeat(" ", maxManifest+1)} {
 		m, err := ParseManifest([]byte(b))
 		if err == nil {
-			_, err = Load(fstest.MapFS{}, m, Options{})
+			_, err = Load(fstest.MapFS{}, m)
 		}
 		if err == nil {
 			t.Fatalf("invalid manifest accepted: %.40s", b)
 		}
 	}
 	f, m := fixture(t, color.NRGBA{})
-	m.Status = "candidate"
-	if _, err := Load(f, m, Options{AllowCandidates: true}); err != nil {
+	if _, err := Load(f, m); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := Open(fstest.MapFS{}, "manifest.json", Options{}); !errors.Is(err, fs.ErrNotExist) {
+	if _, err := Open(fstest.MapFS{}, "manifest.json"); !errors.Is(err, fs.ErrNotExist) {
 		t.Fatal("missing manifest error lost", err)
 	}
 }
 
 func TestConcurrentFirstDecode(t *testing.T) {
 	f, m := fixture(t, color.NRGBA{B: 255, A: 255})
-	p, err := Load(f, m, Options{})
+	p, err := Load(f, m)
 	if err != nil {
 		t.Fatal(err)
 	}

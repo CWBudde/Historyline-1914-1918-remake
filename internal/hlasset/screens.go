@@ -18,9 +18,8 @@ import (
 	"slices"
 	"strings"
 
-	"golang.org/x/image/draw"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"golang.org/x/image/draw"
 )
 
 // screenDensities are the densities of the screen catalog: the backdrop and
@@ -312,7 +311,7 @@ func buildScreens(assetsDir, artDir, out string) (_ []assets.Manifest, err error
 // screen-<family>-<d>x into <d>x/<family>/ and validates it.
 func (o *output) writeScreenPack(files []screenFile, d int, family string) (assets.Manifest, error) {
 	dir := path.Join(fmt.Sprintf("%dx", d), family)
-	m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("screen-%s-%dx", family, d), Status: "candidate"}
+	m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("screen-%s-%dx", family, d)}
 	if err := o.mkdirAll(path.Join(dir, "images")); err != nil {
 		return m, err
 	}
@@ -348,7 +347,7 @@ func (o *output) writeScreenPack(files []screenFile, d int, family string) (asse
 	if err != nil {
 		return m, err
 	}
-	p, err := assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+	p, err := assets.Open(sub, "manifest.json")
 	if err != nil {
 		return m, err
 	}
