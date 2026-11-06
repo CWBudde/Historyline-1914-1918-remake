@@ -113,12 +113,12 @@ web port="":
 
 # Install the web edition's dependencies (webapp/, pnpm; node_modules only links into pnpm's store)
 webapp-install:
-    pnpm --dir webapp install --frozen-lockfile
+    cd webapp && pnpm install --frozen-lockfile
 
 # Serve the web edition with live reload; pass Vite options, e.g. just webapp --host --port 5173
 [positional-arguments]
 webapp *args: webapp-install webapp-assets
-    pnpm --dir webapp/app exec vite "$@"
+    cd webapp/app && pnpm exec vite "$@"
 
 # Regenerate Go AI command/event/save goldens for the web engine's replay tests
 webapp-golden:
@@ -130,15 +130,23 @@ webapp-assets:
 
 # Run the web edition's tests against current Go fixtures and regenerated playthroughs
 webapp-test: webapp-install webapp-golden webapp-assets
-    pnpm --dir webapp run test
+    cd webapp && pnpm run test
 
 # Build the web edition into build/webapp/site
 webapp-build: webapp-install webapp-assets
-    pnpm --dir webapp run build
+    cd webapp && pnpm run build
+
+# Report the built web edition's size and fail above its limit
+webapp-size:
+    go run ./cmd/hl webapp size
+
+# Play the built web edition in real browser engines (needs: cd webapp && pnpm exec playwright install)
+webapp-e2e *args: webapp-build
+    cd webapp && pnpm run e2e "$@"
 
 # Typecheck, lint, test and build the web edition
 webapp-check: webapp-install webapp-golden webapp-assets
-    pnpm --dir webapp run check
+    cd webapp && pnpm run check
 
 # Everything CI checks, each test once
 ci: lint test build build-tools wasm art-check reference-check webapp-check

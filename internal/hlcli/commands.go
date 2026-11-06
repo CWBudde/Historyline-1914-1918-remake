@@ -62,6 +62,9 @@ func commands() command {
 			}),
 			leaf("golden", "Write Go AI-vs-AI replay traces for every shipped setup", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
 				return hlwebapp.Golden(ctx, args, out, errs)
+			}),
+			leaf("size", "Report the built site's size and fail above its limit", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
+				return hlwebapp.Size(ctx, args, out, errs)
 			})),
 		leaf("artbook", "Render the art book PDF into build/artbook (needs typst)", artbook),
 		leaf("manual", "Build the reconstructed manual PDF (needs typst; -images, -watch)", manual),

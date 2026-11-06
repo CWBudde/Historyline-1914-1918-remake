@@ -38,3 +38,12 @@ jobs:
 
       - name: Typecheck, lint, test and build the web edition
         run: just webapp-check
+
+      - name: Report the site's size and enforce its limit
+        run: just webapp-size
+
+      - name: Install the browser engines
+        run: pnpm --dir webapp exec playwright install --with-deps chromium firefox webkit
+
+      - name: Play the production build in the browser engines
+        run: pnpm --dir webapp run e2e

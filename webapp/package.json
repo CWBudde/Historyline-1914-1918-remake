@@ -11,10 +11,12 @@
     "lint": "eslint --max-warnings 0 .",
     "test": "vitest run",
     "build": "pnpm --filter @historyline/app run build",
-    "check": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build"
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build",
+    "e2e": "playwright test -c app/e2e/playwright.config.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
     "@types/node": "26.6.6",
     "eslint": "10.14.0",
     "globals": "17.14.0",
