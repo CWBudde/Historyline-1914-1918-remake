@@ -433,7 +433,7 @@ e129 were still alive at the end; final holdings 159/3 vs 11/3.
 ## candl-south: won (HQ capture, res 105)
 
 `levels/1918-04/replays/cp.jsonl` ends `replay OK: 105 resolutions, every
-state hash matches, ended winner=side0 won=[hq] score=3126`. North of line 45
+state hash matches, ended winner=side0 won=[hq] score=3156`. North of line 45
 resolutions 1-30 follow the probe opening of `candl-fast44` where its orders
 stay legal, with the coach's attacks added. From 31 a script moves every unit
 on `Session.View(0)` and the side's own legal queries and takes the coach's
