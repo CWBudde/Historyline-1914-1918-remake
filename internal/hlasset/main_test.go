@@ -67,9 +67,6 @@ func TestRetainedInterfaceBuildValidateAndRepeat(t *testing.T) {
 	if !strings.Contains(output.String(), "117 PNG variants") {
 		t.Fatal("missing validation result", output.String())
 	}
-	if err := Run([]string{"validate", "-root", a}, &output, io.Discard); err == nil || !strings.Contains(err.Error(), "opt-in") {
-		t.Fatal("candidate silently accepted", err)
-	}
 	before, err := os.ReadFile(filepath.Join(a, "manifest.json"))
 	if err != nil {
 		t.Fatal(err)

@@ -257,5 +257,5 @@ export function parseImageCatalog(v: unknown, density: number): ImageCatalog {
       logicalAnchor: a as [number, number],
     };
   });
-  return { schema: 1, status: c.status, entries };
+  return { schema: 1, entries };
 }

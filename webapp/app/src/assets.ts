@@ -4,7 +4,6 @@ import {
   parseImageCatalog,
   type AssetIndex,
   type ImageEntry,
-  type ImageCatalog,
 } from "./assetManifest.ts";
 
 /** The native assetDensity rule: smallest non-magnified pack, capped at 4x. */
@@ -21,7 +20,6 @@ export interface LoadedImage {
   entry: ImageEntry;
   bytes: ArrayBuffer;
   quality: "lite" | "full";
-  status: ImageCatalog["status"];
 }
 
 export class AssetLoader {
@@ -128,7 +126,6 @@ export class AssetLoader {
             entry,
             bytes,
             quality,
-            status: manifest.status,
           };
           result.set(entry.id, image);
           if (old?.entry.file.sha256 !== entry.file.sha256)
