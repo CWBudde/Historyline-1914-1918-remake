@@ -1,4 +1,5 @@
 import type { Camera, Point } from "./camera.ts";
+import { PressHold } from "./input/press.ts";
 
 interface Pointer {
   start: Point;
@@ -97,20 +98,84 @@ export interface MapInputCallbacks {
   cancel(): void;
   design(): void;
   phase(): void;
+  keyDown?(key: string, repeat: boolean): boolean;
+  keyUp?(key: string): boolean;
+  reset?(): void;
+  context?(point: Point): void;
+  contextCancel?(): void;
 }
 
 /** DOM event lifetime belongs to a map view; closing it releases every handler. */
 export class MapInput {
   readonly gesture: MapGesture;
   private keys = new Set<string>();
+  private activeKeys = new Set<string>();
   private abort = new AbortController();
+  private press: PressHold;
+  private touchContext = false;
+  private suppressTouchClick = false;
+  private disposed = false;
   constructor(
-    canvas: HTMLCanvasElement,
+    private readonly canvas: HTMLCanvasElement,
     camera: Camera,
     private callbacks: MapInputCallbacks,
   ) {
     this.gesture = new MapGesture(camera);
+    const physical = (p: Point) => {
+      const d = camera.scale > 0 ? camera.scale : 1;
+      return { x: p.x * d, y: p.y * d };
+    };
+    this.press = new PressHold(
+      (_id, p) => {
+        if (this.activeKeys.size > 0 || this.keys.size > 0)
+          this.resetKeyboard();
+        callbacks.context?.(physical(p));
+      },
+      () => callbacks.contextCancel?.(),
+    );
     const options = { signal: this.abort.signal };
+    // A suppressed touch pointerup can still synthesize a click on a newly
+    // mounted DOM control. Catch it before that retargeted control sees it.
+    // A fresh pointerdown anywhere starts a new intentional tap.
+    window.addEventListener(
+      "pointerdown",
+      (e) => {
+        this.suppressTouchClick = false;
+        // A fired ring can cover the canvas. Its second touch belongs to
+        // the ongoing map gesture, rather than activating an overlay button.
+        if (
+          !this.press.holding() ||
+          e.pointerType !== "touch" ||
+          e.button !== 0 ||
+          e.target === canvas ||
+          this.press.positions().has(e.pointerId)
+        )
+          return;
+        const rect = canvas.getBoundingClientRect();
+        if (
+          e.clientX < rect.left ||
+          e.clientX >= rect.right ||
+          e.clientY < rect.top ||
+          e.clientY >= rect.bottom
+        )
+          return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        this.beginPointer(e);
+      },
+      { ...options, capture: true },
+    );
+    window.addEventListener(
+      "click",
+      (e) => {
+        if (this.suppressTouchClick && e.detail > 0) {
+          this.suppressTouchClick = false;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      },
+      { ...options, capture: true },
+    );
     const point = (e: { clientX: number; clientY: number }) => {
       const r = canvas.getBoundingClientRect();
       return { x: e.clientX - r.left, y: e.clientY - r.top };
@@ -118,10 +183,7 @@ export class MapInput {
     canvas.addEventListener(
       "pointerdown",
       (e) => {
-        if (e.button !== 0) return;
-        const p = point(e);
-        canvas.setPointerCapture(e.pointerId);
-        this.gesture.down(e.pointerId, p.x, p.y);
+        this.beginPointer(e);
       },
       options,
     );
@@ -129,27 +191,37 @@ export class MapInput {
       "pointermove",
       (e) => {
         const p = point(e);
-        if (this.gesture.move(e.pointerId, p.x, p.y)) callbacks.changed();
-        callbacks.hover({ x: p.x * camera.scale, y: p.y * camera.scale });
+        if (this.press.move(e.pointerId, p)) return;
+        this.cameraAction(() => this.gesture.move(e.pointerId, p.x, p.y));
+        callbacks.hover(physical(p));
       },
       options,
     );
     canvas.addEventListener(
       "pointerup",
       (e) => {
-        const p = point(e),
-          tap = this.gesture.up(e.pointerId, p.x, p.y);
+        const known = this.press.positions().has(e.pointerId);
+        const p = point(e);
+        const held = this.press.move(e.pointerId, p);
+        const suppress = this.press.up(e.pointerId);
+        let tap: Point | null;
+        if (held) {
+          this.gesture.cancel();
+          tap = null;
+        } else
+          tap = this.cameraAction(() => this.gesture.up(e.pointerId, p.x, p.y));
+        if (known && e.pointerType === "touch" && (suppress || tap === null))
+          this.suppressTouchClick = true;
         if (canvas.hasPointerCapture(e.pointerId))
           canvas.releasePointerCapture(e.pointerId);
-        callbacks.changed();
-        if (tap !== null) callbacks.click(tap);
+        if (!suppress && tap !== null) callbacks.click(tap);
       },
       options,
     );
     canvas.addEventListener(
       "pointercancel",
       () => {
-        this.gesture.cancel();
+        this.resetInput();
       },
       options,
     );
@@ -157,8 +229,17 @@ export class MapInput {
       "contextmenu",
       (e) => {
         e.preventDefault();
-        this.gesture.cancel();
-        callbacks.cancel();
+        // Browsers can synthesize contextmenu before or after a touch hold.
+        // A real mouse pointerdown switches modality before its right-click.
+        if (
+          this.touchContext ||
+          ("pointerType" in e && e.pointerType === "touch")
+        )
+          return;
+        this.resetInput();
+        if (callbacks.context !== undefined)
+          callbacks.context(physical(point(e)));
+        else callbacks.cancel();
       },
       options,
     );
@@ -167,22 +248,30 @@ export class MapInput {
       (e) => {
         e.preventDefault();
         const p = point(e);
-        this.gesture.wheel(e.deltaY, e.deltaMode, p.x, p.y);
-        callbacks.changed();
+        this.cameraAction(() => {
+          this.gesture.wheel(e.deltaY, e.deltaMode, p.x, p.y);
+        });
       },
       { ...options, passive: false },
     );
     window.addEventListener(
       "keydown",
       (e) => {
-        const target = e.target;
-        if (
-          target instanceof HTMLElement &&
-          (target.isContentEditable ||
-            ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))
-        )
+        if (reserved(e.target, e.key)) {
+          if (this.activeKeys.size > 0 || this.keys.size > 0)
+            this.resetKeyboard();
           return;
+        }
+        if (this.press.positions().size === 0) this.touchContext = false;
         const key = e.key.toLowerCase();
+        if (callbacks.keyDown !== undefined) {
+          this.activeKeys.add(key);
+          if (callbacks.keyDown(e.key, e.repeat)) {
+            e.preventDefault();
+            return;
+          }
+          this.activeKeys.delete(key);
+        }
         if (
           [
             "arrowleft",
@@ -197,6 +286,7 @@ export class MapInput {
         ) {
           e.preventDefault();
           this.keys.add(key);
+          this.activeKeys.add(key);
         }
         if (!e.repeat) {
           if (key === "escape") callbacks.cancel();
@@ -213,24 +303,127 @@ export class MapInput {
     );
     window.addEventListener(
       "keyup",
-      (e) => this.keys.delete(e.key.toLowerCase()),
+      (e) => {
+        const key = e.key.toLowerCase();
+        const held = this.activeKeys.delete(key) || this.keys.has(key);
+        this.keys.delete(key);
+        if (reserved(e.target, e.key)) {
+          if (held || this.activeKeys.size > 0 || this.keys.size > 0)
+            this.resetKeyboard();
+          return;
+        }
+        if (callbacks.keyUp?.(e.key)) e.preventDefault();
+      },
+      options,
+    );
+    window.addEventListener(
+      "focusin",
+      (e) => {
+        if (
+          editable(e.target) &&
+          (this.activeKeys.size > 0 || this.keys.size > 0)
+        )
+          this.resetKeyboard();
+      },
       options,
     );
     window.addEventListener(
       "blur",
       () => {
-        this.keys.clear();
-        this.gesture.cancel();
+        this.resetInput();
       },
       options,
     );
   }
   tick(ms: number): void {
-    if (this.gesture.keyboard(this.keys, ms)) this.callbacks.changed();
+    this.cameraAction(() => this.gesture.keyboard(this.keys, ms));
   }
   dispose(): void {
+    if (this.disposed) return;
+    this.disposed = true;
     this.abort.abort();
-    this.keys.clear();
-    this.gesture.cancel();
+    this.resetInput();
   }
+  private beginPointer(e: PointerEvent): void {
+    this.touchContext = e.pointerType === "touch";
+    if (e.button !== 0) return;
+    const rect = this.canvas.getBoundingClientRect();
+    const p = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    this.canvas.setPointerCapture(e.pointerId);
+    const held = this.press.holding();
+    this.press.down(
+      e.pointerId,
+      p,
+      this.callbacks.context === undefined ? "mouse" : e.pointerType,
+    );
+    if (this.disposed) return;
+    if (held && this.press.positions().size > 1) {
+      // Held moves were intentionally not fed to MapGesture. Rebuild
+      // from current CSS positions before the first pinch delta.
+      this.gesture.cancel();
+      for (const [id, at] of this.press.positions())
+        this.gesture.down(id, at.x, at.y);
+    } else this.gesture.down(e.pointerId, p.x, p.y);
+  }
+  private resetKeyboard(): void {
+    this.keys.clear();
+    this.activeKeys.clear();
+    this.callbacks.reset?.();
+  }
+  private resetInput(): void {
+    this.resetKeyboard();
+    const held = this.press.holding();
+    for (const id of this.press.positions().keys()) {
+      if (this.canvas.hasPointerCapture(id))
+        this.canvas.releasePointerCapture(id);
+    }
+    this.gesture.cancel();
+    this.press.cancel();
+    if (!held) this.callbacks.contextCancel?.();
+  }
+  private cameraAction<T>(action: () => T): T {
+    const camera = this.gesture.camera;
+    const before = {
+      x: camera.origin.x,
+      y: camera.origin.y,
+      zoom: camera.zoom,
+    };
+    const result = action();
+    if (
+      before.x !== camera.origin.x ||
+      before.y !== camera.origin.y ||
+      before.zoom !== camera.zoom
+    )
+      this.callbacks.changed();
+    return result;
+  }
+}
+
+function editable(target: EventTarget | null): target is Element {
+  return (
+    target instanceof Element &&
+    (target.closest("input,textarea,select,button,summary") !== null ||
+      (target instanceof HTMLElement && target.isContentEditable))
+  );
+}
+function reserved(target: EventTarget | null, key: string): boolean {
+  if (!editable(target) || functionKey(key) || key.toLowerCase() === "escape")
+    return false;
+  if (
+    target.closest("input,textarea,select") !== null ||
+    (target instanceof HTMLElement && target.isContentEditable)
+  )
+    return true;
+  return [
+    " ",
+    "space",
+    "enter",
+    "arrowup",
+    "arrowleft",
+    "arrowright",
+    "arrowdown",
+  ].includes(key.toLowerCase());
+}
+function functionKey(key: string): boolean {
+  return /^F\d{1,2}$/i.test(key);
 }

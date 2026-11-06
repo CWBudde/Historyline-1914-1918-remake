@@ -3,6 +3,7 @@ import { play } from "@historyline/engine";
 import { Full } from "../../engine/src/testing/tables.ts";
 import { playData, shippedLevel } from "../../engine/src/testing/play.ts";
 import { MapPlayback } from "./mapPlayback.ts";
+import { battleTicks } from "./battle/timeline.ts";
 
 function units() {
   const s = play.newSession(shippedLevel("1914-08"), playData, {
@@ -192,4 +193,126 @@ it("reveals enemy moves immediately and uses static reduced battle effects", () 
   p.advance(400);
   expect(p.effects()).toHaveLength(0);
   expect(p.busy()).toBe(false);
+});
+
+it("follows the native scene's individual losses and experience without changing rules views", () => {
+  const { before, after, a, d } = views(),
+    p = new MapPlayback(0);
+  const fighter = (u: play.UnitView, n: number): play.Fighter => ({
+    unit: u,
+    before: 6,
+    after: n,
+    expBefore: 0,
+    expAfter: 1,
+    altBefore: 0,
+    altAfter: 0,
+    destroyed: false,
+  });
+  const b: play.BattleInfo = {
+    attacker: fighter(a, 6),
+    defender: fighter(d, 4),
+    returnFire: false,
+    pincer: 0,
+    blocking: 0,
+  };
+  p.setScenes(true);
+  p.resolution(before, after, [
+    play.newEvent({ kind: play.Battle, from: a.at, to: d.at, battle: b }),
+    play.newEvent({ kind: play.PhaseChanged }),
+  ]);
+  expect(p.scene()?.state.sides[0].shown).toBe(1);
+  expect(p.shown(after).units.get("0,1")?.size).toBe(6);
+  p.advance((97 * 1000) / 60);
+  expect(p.shown(after).units.get("0,1")?.size).toBe(6);
+  p.advance(1000 / 60);
+  expect(p.shown(after).units.get("0,1")?.size).toBe(5);
+  p.advance((28 * 1000) / 60);
+  expect(p.shown(after).units.get("0,1")?.size).toBe(4);
+  expect(p.shown(after).units.get("0,1")?.exp).toBe(0);
+  p.advance((30 * 1000) / 60);
+  expect(p.shown(after).units.get("0,1")?.exp).toBe(1);
+  p.advance(((battleTicks(b, false) - 156) * 1000) / 60);
+  expect(p.scene()).toBeNull();
+  expect(p.busy()).toBe(false);
+  expect(before.units.get("0,1")?.size).toBe(6);
+});
+
+it("keeps a dying unit until the map explosion peak and skips or reduces scenes safely", () => {
+  const { before, a, d } = views(),
+    after = structuredClone(before),
+    p = new MapPlayback(0);
+  after.units.delete("0,1");
+  const fighter = (u: play.UnitView, n: number): play.Fighter => ({
+    unit: u,
+    before: 6,
+    after: n,
+    expBefore: 0,
+    expAfter: 0,
+    altBefore: 0,
+    altAfter: 0,
+    destroyed: n === 0,
+  });
+  const b: play.BattleInfo = {
+    attacker: fighter(a, 6),
+    defender: fighter(d, 0),
+    returnFire: false,
+    pincer: 0,
+    blocking: 0,
+  };
+  const events = [
+    play.newEvent({ kind: play.Battle, from: a.at, to: d.at, battle: b }),
+    play.newEvent({ kind: play.PhaseChanged }),
+  ];
+  p.setScenes(true);
+  p.resolution(before, after, events);
+  p.advance((238 * 1000) / 60);
+  expect(p.shown(after).units.get("0,1")?.size).toBe(0);
+  p.advance((17 * 1000) / 60);
+  expect(p.shown(after).units.has("0,1")).toBe(true);
+  p.advance(1000 / 60);
+  expect(p.shown(after).units.has("0,1")).toBe(false);
+  expect(p.skipScene()).toBe(true);
+  expect(p.busy()).toBe(false);
+  p.resolution(before, after, events);
+  p.setReducedMotion(true);
+  expect(p.scene()?.state.sides[1].count).toBe(0);
+  expect(p.shown(after).units.has("0,1")).toBe(false);
+  p.advance((20 * 1000) / 60);
+  expect(p.busy()).toBe(false);
+  expect(p.skipScene()).toBe(false);
+});
+
+it("allows native cancel to skip the map battle wait when scene panels are off", () => {
+  const { before, after, a, d } = views(),
+    p = new MapPlayback(0);
+  const fighter = (u: play.UnitView): play.Fighter => ({
+    unit: u,
+    before: 6,
+    after: 6,
+    expBefore: 0,
+    expAfter: 0,
+    altBefore: 0,
+    altAfter: 0,
+    destroyed: false,
+  });
+  p.resolution(before, after, [
+    play.newEvent({
+      kind: play.Battle,
+      from: a.at,
+      to: d.at,
+      battle: {
+        attacker: fighter(a),
+        defender: fighter(d),
+        returnFire: false,
+        pincer: 0,
+        blocking: 0,
+      },
+    }),
+    play.newEvent({ kind: play.PhaseChanged }),
+  ]);
+  expect(p.scene()).toBeNull();
+  expect(p.busy()).toBe(true);
+  expect(p.skipScene()).toBe(true);
+  expect(p.busy()).toBe(false);
+  expect(p.shown(after)).toBe(after);
 });

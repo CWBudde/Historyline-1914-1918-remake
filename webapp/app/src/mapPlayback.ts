@@ -1,6 +1,12 @@
 import { play, hexgrid, level } from "@historyline/engine";
 import { toward, type Facing } from "./unitFrame.ts";
 import type { Point } from "./camera.ts";
+import {
+  battleAt,
+  battleTicks,
+  firstLoss,
+  type BattleState,
+} from "./battle/timeline.ts";
 
 const stepMS = (8 * 1000) / 60,
   reducedMS = (20 * 1000) / 60,
@@ -30,6 +36,20 @@ export interface MapEffect {
   frame: string;
   alpha: number;
 }
+export interface BattleSceneView {
+  battle: play.BattleInfo;
+  state: BattleState;
+  tick: number;
+  reduced: boolean;
+}
+interface Fight {
+  battle: play.BattleInfo;
+  elapsed: number;
+  reduced: boolean;
+  last: [number, number];
+  dropAt: [number | null, number | null];
+  struck: boolean;
+}
 
 /** Immutable visual snapshots follow events after the rules have already run. */
 export class MapPlayback {
@@ -41,6 +61,8 @@ export class MapPlayback {
   private wait = 0;
   private time = 0;
   private marks: Mark[] = [];
+  private showScenes = false;
+  private fight: Fight | null = null;
   constructor(
     readonly side: number,
     private reduced = false,
@@ -97,6 +119,39 @@ export class MapPlayback {
   shown(live: play.View): play.View {
     return this.frozen ?? live;
   }
+  setScenes(enabled: boolean): void {
+    this.showScenes = enabled;
+    if (!enabled) this.skipScene();
+  }
+  scene(): BattleSceneView | null {
+    const f = this.fight;
+    if (f === null) return null;
+    const tick = Math.floor(((f.elapsed + epsilonMS) * 60) / 1000);
+    return {
+      battle: f.battle,
+      state: battleAt(f.battle, tick, f.reduced),
+      tick,
+      reduced: f.reduced,
+    };
+  }
+  skipScene(): boolean {
+    const f = this.fight;
+    if (f === null && this.wait === 0) return false;
+    for (const fighter of f === null
+      ? []
+      : [f.battle.attacker, f.battle.defender])
+      this.strength(
+        fighter,
+        fighter.after,
+        fighter.expAfter,
+        fighter.destroyed,
+      );
+    this.fight = null;
+    this.wait = 0;
+    this.marks = [];
+    this.normalize();
+    return true;
+  }
   busy(): boolean {
     return (
       this.walk !== null ||
@@ -116,6 +171,7 @@ export class MapPlayback {
     this.queue = structuredClone([...events]);
     this.wait = 0;
     this.marks = [];
+    this.fight = null;
     this.normalize();
   }
   advance(ms: number): void {
@@ -131,8 +187,16 @@ export class MapPlayback {
       this.normalize();
       if (this.wait === 0) break;
       if (remaining === 0) break;
-      const used = Math.min(remaining, this.wait);
+      const used = Math.min(
+        remaining,
+        this.wait,
+        this.fight === null ? Infinity : 1000 / 60,
+      );
       this.time += used;
+      if (this.fight !== null) {
+        this.fight.elapsed += used;
+        this.updateScene();
+      }
       remaining -= used;
       this.wait -= used;
       if (this.wait < epsilonMS) this.wait = 0;
@@ -170,6 +234,11 @@ export class MapPlayback {
         m.reduced = true;
       }
       this.wait = Math.min(this.wait, reducedMS);
+      if (this.fight !== null) {
+        this.fight.reduced = true;
+        this.fight.elapsed = 0;
+        this.updateScene();
+      }
     }
   }
   private face(event: play.Event): void {
@@ -183,6 +252,7 @@ export class MapPlayback {
   }
   private normalize(): void {
     while (this.wait === 0) {
+      this.fight = null;
       const e = this.queue.shift();
       if (e === undefined) {
         this.frozen = null;
@@ -232,6 +302,29 @@ export class MapPlayback {
         b.defender.unit.index,
         toward(point(e.to), point(e.from)),
       );
+    if (this.showScenes) {
+      this.fight = {
+        battle: b,
+        elapsed: 0,
+        reduced: this.reduced,
+        last: [b.attacker.before, b.defender.before],
+        dropAt: [null, null],
+        struck: false,
+      };
+      let ticks = battleTicks(b, this.reduced);
+      if (
+        [b.attacker, b.defender].some(
+          (f) => f.after === f.before && f.altAfter < f.altBefore,
+        )
+      )
+        ticks = Math.max(
+          ticks,
+          firstLoss(b, this.reduced) + (this.reduced ? 20 : 24),
+        );
+      this.wait = (ticks * 1000) / 60;
+      this.updateScene();
+      return;
+    }
     let duration = 400;
     for (const f of [b.defender, b.attacker]) {
       const old =
@@ -275,5 +368,90 @@ export class MapPlayback {
       }
     }
     this.wait = this.reduced ? Math.min(duration, reducedMS) : duration;
+  }
+  private strength(
+    f: play.Fighter,
+    size: number,
+    exp: number,
+    drop: boolean,
+  ): void {
+    if (this.frozen === null) return;
+    const old = [...this.frozen.units.values()].find(
+        (u) => u.index === f.unit.index,
+      ),
+      indices = new Set([f.unit.index]);
+    for (const partner of [old?.head, old?.rear]) {
+      if (partner !== undefined && partner !== null) {
+        const u = this.frozen.units.get(level.coordKey(partner));
+        if (u !== undefined) indices.add(u.index);
+      }
+    }
+    for (const [key, u] of this.frozen.units) {
+      if (!indices.has(u.index)) continue;
+      if (drop) this.frozen.units.delete(key);
+      else if (u.size !== size || u.exp !== exp)
+        this.frozen.units.set(key, { ...u, size, exp });
+    }
+  }
+  private updateScene(): void {
+    const f = this.fight,
+      shown = this.scene();
+    if (f === null || shown === null) return;
+    const fighters = [f.battle.attacker, f.battle.defender] as const;
+    for (const side of [0, 1] as const) {
+      const fighter = fighters[side],
+        state = shown.state.sides[side];
+      if (state.count < f.last[side]) {
+        const old =
+          this.frozen === null
+            ? undefined
+            : [...this.frozen.units.values()].find(
+                (u) => u.index === fighter.unit.index,
+              );
+        const death = fighter.destroyed && state.count === 0;
+        this.marks.push({
+          at: { ...(old?.at ?? fighter.unit.at) },
+          death,
+          start: this.time,
+          duration: f.reduced ? reducedMS : death ? 900 : 400,
+          reduced: f.reduced,
+        });
+        if (death) f.dropAt[side] = this.time + (f.reduced ? 0 : 300);
+      }
+      if (f.reduced && fighter.destroyed && state.count === 0)
+        f.dropAt[side] = this.time;
+      f.last[side] = Math.min(f.last[side], state.count);
+      const drop =
+        f.dropAt[side] !== null &&
+        this.time + epsilonMS >= (f.dropAt[side] ?? Infinity);
+      this.strength(
+        fighter,
+        f.last[side],
+        shown.state.gained[side] ? fighter.expAfter : fighter.expBefore,
+        drop,
+      );
+    }
+    if (!f.struck && shown.tick >= firstLoss(f.battle, f.reduced)) {
+      f.struck = true;
+      for (const fighter of fighters)
+        if (
+          fighter.after === fighter.before &&
+          fighter.altAfter < fighter.altBefore
+        ) {
+          const old =
+            this.frozen === null
+              ? undefined
+              : [...this.frozen.units.values()].find(
+                  (u) => u.index === fighter.unit.index,
+                );
+          this.marks.push({
+            at: { ...(old?.at ?? fighter.unit.at) },
+            death: false,
+            start: this.time,
+            duration: f.reduced ? reducedMS : 400,
+            reduced: f.reduced,
+          });
+        }
+    }
   }
 }

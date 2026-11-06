@@ -3,6 +3,10 @@
   --brass: #c4a773;
   --muted: #6e8088;
   --slate: #162630;
+  --ui-scale: 1;
+  --top-height: calc(64px * var(--ui-scale));
+  --dock-width: min(calc(320px * var(--ui-scale)), 45vw);
+  --dock-height: min(44dvh, calc(400px * var(--ui-scale)));
   color-scheme: dark;
 }
 
@@ -14,7 +18,7 @@ body {
   background: var(--slate);
   color: var(--cream);
   font-family: system-ui, sans-serif;
-  touch-action: none;
+  touch-action: auto;
 }
 
 #stage,
@@ -26,6 +30,38 @@ body {
 /* The DOM UI lies over the canvas; only its panels take the pointer. */
 #ui {
   pointer-events: none;
+}
+
+.in-battle #stage {
+  top: var(--top-height);
+  right: var(--dock-width);
+}
+
+#stage canvas {
+  display: block;
+  touch-action: none;
+}
+
+@media (max-width: 900px), (orientation: portrait) {
+  .in-battle #stage {
+    right: 0;
+    bottom: var(--dock-height);
+  }
+}
+
+.leave-shade {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #061017bb;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.leave-shade .banner {
+  position: static;
+  margin: 16px;
 }
 
 .banner {

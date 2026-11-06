@@ -249,7 +249,8 @@ export class MapRenderer {
         continue;
       this.unit(frame, this.unitLayer);
       this.stats.units++;
-      if (camera.effective() >= 0.35) this.mark(frame.unit);
+      if (camera.effective() >= 0.35 && frame.unit.size > 0)
+        this.mark(frame.unit);
     }
     if (moving !== null) {
       const meta = this.families[moving.unit.id];

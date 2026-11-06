@@ -556,9 +556,15 @@ build embeds every backdrop). Decided (defaults, open to override):
       Chromium verifies desktop controls, phone touch/pinch at 2× DPR, mip and asset-density changes,
       reduced effects, terrain restoration and native water at all three densities. The production
       build passes with the verified index; full-bundle deployment sizing remains W9.
-- [ ] W6 Battle UI: unit and terrain panels, contents view (enter/leave, repair, production), phase, turn and
+- [x] W6 Battle UI: unit and terrain panels, contents view (enter/leave, repair, production), phase, turn and
       ready bar, battle scene, refusals; the Go game's keys, right-click action ring as long-press on touch,
       tap to select/move/attack; layouts for desktop, tablet and portrait phone; a UI scale setting.
+      (2026-11-06) — Fair unit/terrain panels, seven-slot contents, native production/repair/exit actions,
+      confirmations, keyboard gestures and battle timing. The web suite passes 1,091 tests (one optional
+      skip); the final app suite passes 217, with types, lint, formatting and production builds clean.
+      Chromium checks desktop/tablet movement, attacks and resolved battles, production costs, modal
+      cancellation, phone holds/pinch/scrolling and UI scale. The production bundle passes its browser
+      smoke test; release size and browser coverage remain W9.
 - [ ] W7 Shell and campaign: the menu pages of `shell.go` (main, map code, values, control, extras,
       country, news, new units, loading, leave, outcome, scores), the campaign chain per side, saves in
       IndexedDB (slots, export/import as file), settings.

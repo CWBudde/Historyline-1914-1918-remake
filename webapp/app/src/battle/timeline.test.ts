@@ -1,0 +1,241 @@
+import { play } from "@historyline/engine";
+import { createHash } from "node:crypto";
+import { expect, it } from "vitest";
+import {
+  battleAt,
+  battleTicks,
+  firstLoss,
+  type BattleState,
+} from "./timeline.ts";
+
+function fighter(
+  before: number,
+  after: number,
+  fields: Partial<play.Fighter> = {},
+): play.Fighter {
+  return {
+    unit: {
+      index: 1,
+      type: 0,
+      id: "infantry",
+      name: "Infantry",
+      domain: play.Infantry,
+      side: 0,
+      owner: 1,
+      at: { line: 0, col: 0 },
+      size: before,
+      full: 6,
+      alt: 0,
+      exp: 1,
+      budget: 0,
+      armour: 0,
+      moved: false,
+      held: false,
+      carrier: false,
+      destroyed: false,
+      hold: -1,
+      in: -1,
+      slot: -1,
+      target: null,
+      rear: null,
+      head: null,
+    },
+    before,
+    after,
+    expBefore: 1,
+    expAfter: 1,
+    destroyed: false,
+    altBefore: 0,
+    altAfter: 0,
+    ...fields,
+  };
+}
+function battle(
+  attacker: play.Fighter,
+  defender: play.Fighter,
+  returnFire = false,
+): play.BattleInfo {
+  return { attacker, defender, returnFire, pincer: 0, blocking: 0 };
+}
+
+it("builds attacker first, lands defender losses before return fire and gains experience in the hold", () => {
+  const b = battle(fighter(3, 2, { expAfter: 2 }), fighter(2, 1), true);
+  expect(battleTicks(b, false)).toBe(184);
+  expect(firstLoss(b, false)).toBe(56);
+  expect(battleAt(b, 0, false).sides.map((s) => s.shown)).toEqual([1, 0]);
+  expect(battleAt(b, 6, false).sides.map((s) => s.shown)).toEqual([1, 1]);
+  expect(battleAt(b, 24, false).sides.map((s) => s.shown)).toEqual([3, 2]);
+  expect(battleAt(b, 42, false).flash).toEqual([
+    { kind: 0, side: 0, figure: 2, progress: 0 },
+  ]);
+  expect(battleAt(b, 50, false).flash).toEqual([
+    { kind: 0, side: 0, figure: 2, progress: 0.8 },
+    { kind: 1, side: 1, figure: 1, progress: 0 },
+  ]);
+  expect(battleAt(b, 55, false).sides[1].count).toBe(2);
+  expect(battleAt(b, 56, false).sides[1]).toEqual({
+    shown: 2,
+    lost: 1,
+    count: 1,
+    rise: 1,
+    hit: 1,
+  });
+  expect(battleAt(b, 99, false).sides[0].count).toBe(3);
+  expect(battleAt(b, 100, false).sides[0].count).toBe(2);
+  expect(battleAt(b, 113, false).gained).toEqual([false, false]);
+  expect(battleAt(b, 114, false).gained).toEqual([true, false]);
+  expect(battleAt(b, 114, false).glow).toEqual([1, 0]);
+  expect(battleAt(b, 154, false).glow).toEqual([0, 0]);
+});
+
+it("shows a missed return volley without inventing a loss and holds empty or unopposed battles", () => {
+  const b = battle(fighter(2, 2), fighter(2, 2), true);
+  expect(battleTicks(b, false)).toBe(134);
+  expect(firstLoss(b, false)).toBe(64);
+  expect(firstLoss(b, true)).toBe(20);
+  expect(battleAt(b, 44, false).flash).toEqual([
+    { kind: 0, side: 1, figure: 0, progress: 0.8 },
+    { kind: 2, side: 0, figure: 1, progress: 0 },
+  ]);
+  expect(battleAt(b, 70, false).sides.map((s) => s.count)).toEqual([2, 2]);
+  expect(battleTicks(battle(fighter(0, 0), fighter(0, 0)), false)).toBe(82);
+  expect(battleTicks(battle(fighter(0, 0), fighter(2, 2), true), false)).toBe(
+    94,
+  );
+});
+
+it("builds a naval group as one picture, clamps groups and makes reduced motion final immediately", () => {
+  const ship = fighter(6, 5);
+  ship.unit.domain = play.Naval;
+  const b = battle(ship, fighter(2, 2));
+  expect(battleAt(b, 0, false).sides[0].shown).toBe(6);
+  expect(battleTicks(b, false)).toBe(128);
+  const clamped = battle(fighter(9, 12), fighter(-2, -1));
+  expect(battleAt(clamped, -10, false).sides.map((s) => s.count)).toEqual([
+    6, 0,
+  ]);
+  const destroyed = battle(
+    fighter(4, 4, { expAfter: 2 }),
+    fighter(3, 2, { destroyed: true }),
+  );
+  expect(battleTicks(destroyed, true)).toBe(20);
+  expect(firstLoss(destroyed, true)).toBe(0);
+  const end = battleAt(destroyed, 0, true);
+  expect(end.sides).toEqual([
+    { shown: 4, lost: 0, count: 4, rise: 1, hit: 0 },
+    { shown: 3, lost: 3, count: 0, rise: 1, hit: 0 },
+  ]);
+  expect(end.gained).toEqual([true, false]);
+  expect(end.glow).toEqual([0, 0]);
+  expect(end.flash).toEqual([]);
+  expect(battleAt(destroyed, 10000, false).sides).toEqual(end.sides);
+});
+
+it("treats only Naval as a ship and leaves input and returned frames independent", () => {
+  for (const domain of [play.Infantry, play.Armour, play.Artillery, play.Air]) {
+    const a = fighter(6, 6);
+    a.unit.domain = domain;
+    const b = battle(a, fighter(2, 1)),
+      before = structuredClone(b);
+    expect(battleAt(b, 0, false).sides[0].shown).toBe(1);
+    const first = battleAt(b, 50, false),
+      second = battleAt(b, 50, false);
+    first.sides[0].shown = 99;
+    first.flash.push({ kind: 2, side: 0, figure: 0, progress: 1 });
+    first.gained[0] = true;
+    expect(battleAt(b, 50, false)).toEqual(second);
+    expect(b).toEqual(before);
+  }
+});
+
+// Independently generated by native internal/dospanel BattleTicks, FirstLoss
+// and BattleAt through a temporary Go test overlay. Each digest covers all
+// 784 pairs of before/after strengths (0..6), every integer tick from -1 to
+// duration+1, then reduced tick 0. Fields below are IEEE-754 float64 LE:
+// durations/first-loss, sides, flash count/items, gained and glow. No art bytes.
+const native = [
+  [
+    0,
+    false,
+    "00444839659370fb2082a3b21ee4e1d7b8b94fa818192b6133e783d27a4b016c",
+  ],
+  [0, true, "60e232d9cb6af98a62b81c9609d4c94b272ec986aab815453880271925a92ac8"],
+  [
+    1,
+    false,
+    "261e00db0c3925684fee376b36bc06663b2668ebc7b2a36cd46a0797620a5adb",
+  ],
+  [1, true, "3427f72b7e6e93bbbcaf2cf385ffbb825c1c72ec9971d1f35234cab51eafb34c"],
+  [
+    2,
+    false,
+    "3ed6c8c356daa5cf584d0f4631cddfa0d1c3f5619d03e5f1b71ca16fa9f8e753",
+  ],
+  [2, true, "05329e2e8b8417aaaf126aa211213ba84412fec8935fe7db076912da547800d8"],
+  [
+    3,
+    false,
+    "61aa811c15f33b42871998e62e62262c3301000ad4ae10389de4401b5b06a77f",
+  ],
+  [3, true, "d67d89afa23a0b5a9a490d4a4e7474cb168241220af6813ce0ff6917700c19b7"],
+] as const;
+
+it.each(native)(
+  "matches every native strength/loss frame: ship mask %i, return fire %s",
+  (ships, reply, expected) => {
+    const hash = createHash("sha256");
+    let cases = 0;
+    for (let a = 0; a <= 6; a++)
+      for (let aa = 0; aa <= a; aa++)
+        for (let d = 0; d <= 6; d++)
+          for (let da = 0; da <= d; da++) {
+            const attacker = fighter(a, aa, {
+                expBefore: 1,
+                expAfter: 1 + (aa % 2),
+              }),
+              defender = fighter(d, da, {
+                expBefore: 3,
+                expAfter: 3 + (da % 2),
+              });
+            if ((ships & 1) !== 0) attacker.unit.domain = play.Naval;
+            if ((ships & 2) !== 0) defender.unit.domain = play.Naval;
+            const b = battle(attacker, defender, reply),
+              n = battleTicks(b, false),
+              raw = Buffer.allocUnsafe((n + 4) * 256 + 32);
+            let offset = 0;
+            const put = (value: number) => {
+              raw.writeDoubleLE(value, offset);
+              offset += 8;
+            };
+            put(n);
+            put(firstLoss(b, false));
+            put(battleTicks(b, true));
+            put(firstLoss(b, true));
+            const state = (st: BattleState) => {
+              for (const side of st.sides) {
+                put(side.shown);
+                put(side.lost);
+                put(side.count);
+                put(side.rise);
+                put(side.hit);
+              }
+              put(st.flash.length);
+              for (const flash of st.flash) {
+                put(flash.kind);
+                put(flash.side);
+                put(flash.figure);
+                put(flash.progress);
+              }
+              for (const gained of st.gained) put(Number(gained));
+              for (const glow of st.glow) put(glow);
+            };
+            for (let tick = -1; tick <= n + 1; tick++)
+              state(battleAt(b, tick, false));
+            state(battleAt(b, 0, true));
+            hash.update(raw.subarray(0, offset));
+            cases++;
+          }
+    expect(cases).toBe(784);
+    expect(hash.digest("hex")).toBe(expected);
+  },
+);
