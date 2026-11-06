@@ -97,6 +97,15 @@ support the starting units. A connected rocky massif surrounds the southeastern 
 mud forms one field around the ruined depot. Both rail routes share one registered track design, with
 timber buffers at their ends and the southern factory entry left open. Gravel and dirt approaches join
 the building yards.
+SKULL/ANZAC (`1917-05`, 2852×3302) has fresh May meadow, young broadleaf woods and
+darker conifers, damp gravel and soft clear morning light after rain. Its northern sandstone HQ
+has copper domes and a low slate hall; the southern limewashed rubble fort has slate cones,
+brick arches and a red-tiled timber-gabled hall. Brick aircraft-component works and timber-and-brick
+machinery works retain their service entries. Both airstrips, six hangars, existing windmills,
+small shell patches and the sole pond remain registered. An intact compact rear cottage leaves
+its original forecourt open; small woodland pockets and firm hill ground support unchanged starts.
+Prompts, retained lightness warnings, composition corrections and native verification are under
+`build/review/backdrops/1917-05/`.
 HILLS/MOVES (`1917-06`, 3829×4403) has full June greenery and mostly dry gravel beneath thin
 high cloud, after several dry days. Small clearings and level shelves support the starting units;
 all three airstrips and seven hangars stay open. Fourteen timber bridges span continuous streams,
