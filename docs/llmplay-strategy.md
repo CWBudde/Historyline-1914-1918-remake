@@ -152,11 +152,11 @@ treasury, is the bug (see v7/v8 below).
 
 # CANDL (1918-04:cp)
 
-Not yet won: the coach loses the HQ at resolution 18, hand play (`candl2`,
-`candl3`, with `-lines`, `-full`, `suggest`) at resolution 20 both times, and
-`candl4` (a walkthrough written for the original computer side) at resolution 12.
-`candl-muse2` (below) holds the HQ past resolution 151 but has not taken
-the EC HQ either.
+Won; the fastest recording captures the EC HQ at resolution 127
+(`candl-march30`, last section). The plain coach loses the HQ at resolution 18,
+hand play (`candl2`, `candl3`, with `-lines`, `-full`, `suggest`) at resolution
+20 both times, and `candl4` (a walkthrough written for the original computer
+side) at resolution 12.
 
 ## The situation
 
@@ -429,3 +429,30 @@ e129 were still alive at the end; final holdings 159/3 vs 11/3.
   the column still beats muster cycles because the head never waits.
   Stop building once the belt guns are dead — energy is not the
   constraint, hexes are.
+
+## candl-march30: won (HQ capture, res 127)
+
+`levels/1918-04/replays/cp.jsonl` ends `replay OK: 127 resolutions, every
+state hash matches, ended winner=side0 won=[hq] score=2456`. Resolutions 1-30
+are the probe opening of `candl-fast44`. From 31 a script moves on
+`Session.View(0)` and the side's own legal queries and takes the coach's
+attacks; it does not simulate EC. The factories fell at 99, 103, 107 and 113
+and the EC HQ at 127, with 67 CP and 24 EC units left.
+
+- By about resolution 28 EC's mobile army has gone north. The east lane then
+  holds only guns and bunkers, and nothing there can retake a building.
+- Every ground unit with speed 3 or more marches at once, nearest the EC HQ
+  first, by least terrain cost. Enemy hexes count as closed unless no open way
+  exists. Units on lines 1-15 at column 8 or higher stand still, away from the
+  CP HQ.
+- The south factory builds only eliteInf. A7V first won only at turn 102 from
+  the res-44 branch; most other mixes did not finish by resolution 400.
+- Infantry-class units take the four factories on the way. Those factories
+  build cavalry and hold it until they are nearly full, then release it
+  together. Fed in one by one, it dies at the bunkers on lines 57-60, about
+  five a turn.
+- The outcome swings with the branch point: leaving the opening at 30 won at
+  127, at 44 at turn 81, at 41 not by turn 150, and at 27 lost the HQ at turn
+  20. The branch and build mix were picked by comparing whole games.
+- The final score is lower than the slower win's: 2456, against 4300 at
+  resolution 477.

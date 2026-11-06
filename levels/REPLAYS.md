@@ -19,10 +19,10 @@ just llmplay replay -dir "$d"
   Regenerated 2026-11-04 with
   `hl llmplay run -driver coach -level 1918-02:cp`;
   `TestCoachPlaysFullGame` pins the same outcome.
-- `1918-04/replays/cp.jsonl` — CANDL (`1918-04:cp`),
-  prompt-driven play from the res-44 HQ lock: HQ capture at
-  resolution 477, score 4300. Strategy:
-  `docs/llmplay-strategy.md` ("candl-fast44: won").
+- `1918-04/replays/cp.jsonl` — CANDL (`1918-04:cp`), the probe
+  opening to resolution 30, then a scripted march: HQ capture at
+  resolution 127, score 2456. Strategy:
+  `docs/llmplay-strategy.md` ("candl-march30: won").
 
 Engine changes that alter outcomes will break the state hashes;
 regenerate the recording and the numbers above when that happens.
