@@ -295,7 +295,7 @@ summer-tile guide, so the map's autumn rules season does not brown it. Its HQs a
 castle with a square keep, an L-shaped red-tiled hall and a dry ditch, and a pale limestone
 château-fort with slate cones, a moat and a parterre. Its factories are a sugar refinery, a brewery, a
 lakeside paper mill, a cotton spinning mill and an iron foundry; its nine depots each hold different
-stores. A hamlet of a post mill, a thatched farmstead, a chapel, a slate cottage, a tiled barn and two small cottages lies by the south-west road, linked to it by thin footpaths.
+stores. A hamlet of a post mill, a thatched farmstead, a chapel, a slate cottage, a tiled barn and two small cottages lies by the south-west road, linked to it by thin footpaths. North of it a depot's rutted track ends at a small stone-and-timber lake landing with a few stacked stores, and a footpath runs from there along the bank to the western bridge.
 
 Flanders (`1918-10`, 7640×6522) has wet October ground, copper/rust foliage and peripheral
 harvested and ploughed fields around an open central fighting area. Its 56 registered sections
