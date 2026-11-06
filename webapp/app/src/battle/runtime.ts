@@ -112,7 +112,7 @@ export class BattleRuntime {
         this.map.dirty = true;
       },
       (e) => {
-        this.status(e.message);
+        if (navigator.onLine) this.status(e.message);
       },
     );
     this.keys = new BattleKeys({

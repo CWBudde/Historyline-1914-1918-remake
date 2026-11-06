@@ -106,7 +106,8 @@ export class MapRenderer {
         this.dirty = true;
       },
       (e) => {
-        report(e.message);
+        // Offline, full-quality upgrades and unvisited art are expected to be missing.
+        if (navigator.onLine) report(e.message);
       },
     );
     this.root.addChild(

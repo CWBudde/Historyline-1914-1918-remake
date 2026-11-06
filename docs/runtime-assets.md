@@ -19,6 +19,12 @@ CacheStorage by content hash (bounded memory when unavailable). Lite encodes are
 system user cache directory.
 Regenerate assets before starting Vite; restart it after another export so it discovers the new blobs.
 
+Offline play: the production build's service worker (`webapp/app/src/sw.ts`) precaches the app and `index.json`
+and never touches `blobs/`. Fifteen seconds after a battle starts, `keepForOffline` fetches into the same content
+cache the lite units, interface and screens at the current density, and the backdrop and terrain of that month and
+the next two of its chain; it is skipped under Save-Data. A month not kept reports that it is not available
+offline. Nothing evicts old blobs yet, so the browser's storage quota is the only limit.
+
 `internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored

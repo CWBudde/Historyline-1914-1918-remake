@@ -3,7 +3,8 @@ import { signal } from "@preact/signals";
 import { Application } from "pixi.js";
 import { render } from "preact";
 import { Computer } from "./computer.ts";
-import { AssetLoader } from "./assets.ts";
+import { AssetLoader, assetDensity } from "./assets.ts";
+import { battleLoadError, keepForOffline, offlineMissions } from "./offline.ts";
 import { parseImageCatalog } from "./assetManifest.ts";
 import { UiAssets } from "./ui/assets.ts";
 import { SplitRuntime } from "./split/runtime.ts";
@@ -47,8 +48,40 @@ let preferences = defaultSettings(
   storageNote = "";
 let storageAttempt: Promise<void> | null = null,
   bootAbort = new AbortController(),
-  lastEnd: ReturnType<typeof play.ended> = null;
+  lastEnd: ReturnType<typeof play.ended> = null,
+  offlineKeep: { timer: number; abort: AbortController } | null = null;
 
+const offlineDelay = 15_000;
+function stopOfflineKeep(): void {
+  if (offlineKeep === null) return;
+  clearTimeout(offlineKeep.timer);
+  offlineKeep.abort.abort();
+  offlineKeep = null;
+}
+/** After the battle has settled, as its first load must stay small. */
+function scheduleOfflineKeep(battle: SplitRuntime, mission: Mission): void {
+  stopOfflineKeep();
+  const active = loader,
+    missions = campaign?.byKey;
+  const connection = (navigator as { connection?: { saveData?: boolean } })
+    .connection;
+  if (active === null || missions === undefined || connection?.saveData) return;
+  const abort = new AbortController();
+  const density = assetDensity(battle.map.camera.zoom, battle.map.camera.scale);
+  offlineKeep = {
+    abort,
+    timer: window.setTimeout(() => {
+      keepForOffline(
+        active,
+        offlineMissions(mission, missions),
+        density,
+        abort.signal,
+      ).catch(() => {
+        /* Best effort: playing online is unaffected. */
+      });
+    }, offlineDelay),
+  };
+}
 function message(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
@@ -264,7 +297,10 @@ async function beginBattle(
     (fraction, text) => {
       current.loading(fraction, text);
     },
-  );
+  ).catch((error: unknown) => {
+    if (signal.aborted) throw error;
+    throw battleLoadError(error, navigator.onLine);
+  });
   if (signal.aborted || current !== shell || closed) {
     next.dispose();
     signal.throwIfAborted();
@@ -274,6 +310,7 @@ async function beginBattle(
   runtime = next;
   lastEnd = null;
   publishDebug();
+  scheduleOfflineKeep(next, request.mission);
 }
 async function bootstrap(): Promise<void> {
   const run = ++bootGeneration;
@@ -356,7 +393,16 @@ async function bootstrap(): Promise<void> {
     }
   }
 }
+function registerServiceWorker(): void {
+  if (!import.meta.env.PROD || !("serviceWorker" in navigator)) return;
+  navigator.serviceWorker
+    .register(new URL("./sw.js", document.baseURI))
+    .catch(() => {
+      /* Without it the game still plays online. */
+    });
+}
 async function start(): Promise<void> {
+  registerServiceWorker();
   const stage = document.getElementById("stage"),
     ui = document.getElementById("ui");
   if (stage === null || ui === null) throw Error("Missing game stage.");
@@ -366,6 +412,7 @@ async function start(): Promise<void> {
     "pagehide",
     () => {
       closed = true;
+      stopOfflineKeep();
       bootAbort.abort();
       if (shell !== null) shell.onChange = null;
       discardBattle();
