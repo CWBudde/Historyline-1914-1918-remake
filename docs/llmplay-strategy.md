@@ -430,29 +430,39 @@ e129 were still alive at the end; final holdings 159/3 vs 11/3.
   Stop building once the belt guns are dead — energy is not the
   constraint, hexes are.
 
-## candl-march30: won (HQ capture, res 127)
+## candl-south: won (HQ capture, res 107)
 
-`levels/1918-04/replays/cp.jsonl` ends `replay OK: 127 resolutions, every
-state hash matches, ended winner=side0 won=[hq] score=2456`. Resolutions 1-30
-are the probe opening of `candl-fast44`. From 31 a script moves on
-`Session.View(0)` and the side's own legal queries and takes the coach's
-attacks; it does not simulate EC. The factories fell at 99, 103, 107 and 113
-and the EC HQ at 127, with 67 CP and 24 EC units left.
+`levels/1918-04/replays/cp.jsonl` ends `replay OK: 107 resolutions, every
+state hash matches, ended winner=side0 won=[hq] score=3126`. North of line 45
+resolutions 1-30 follow the probe opening of `candl-fast44` where its orders
+stay legal, with the coach's attacks added. From 31 a script moves every unit
+on `Session.View(0)` and the side's own legal queries and takes the coach's
+attacks; it does not simulate EC. The factories fell at 77, 83, 87 and 93 and
+the EC HQ at 107, with 94 CP and 23 EC units left.
 
+- The south trail starts on resolution 1: units on lines 45 and below at column
+  6 or lower march at once instead of mustering. Its head reaches line 44 by
+  resolution 40; without this the group stays at the factory until 31.
+- Routes and stops keep out of the heavy artillery's reach: a hex in reach of
+  an EC hArtillery costs 40 more to route through and 60 more to stop on. No
+  unit dies to heavy artillery on the west strip (two did without this), and
+  no heavy gun fires on CP before resolution 85 (15 without). The east lane
+  has to pass the guns, so 20 units still die to them on columns 9-12, against
+  20 before. Counting every long-range gun as well lost the HQ at resolution 24.
 - By about resolution 28 EC's mobile army has gone north. The east lane then
   holds only guns and bunkers, and nothing there can retake a building.
-- Every ground unit with speed 3 or more marches at once, nearest the EC HQ
+- From 31 every ground unit with speed 3 or more marches, nearest the EC HQ
   first, by least terrain cost. Enemy hexes count as closed unless no open way
   exists. Units on lines 1-15 at column 8 or higher stand still, away from the
   CP HQ.
-- The south factory builds only eliteInf. A7V first won only at turn 102 from
-  the res-44 branch; most other mixes did not finish by resolution 400.
+- The south factory repeats antiTank, eliteInf, eliteInf, eliteInf, keeping 150
+  energy for the north during the opening. EliteInf alone never breaks the
+  plug of St Chamond and infantry on the land bridge (not won by 400), and no
+  slow types: lArtillery and AA left at the factory block its exits.
 - Infantry-class units take the four factories on the way. Those factories
   build cavalry and hold it until they are nearly full, then release it
   together. Fed in one by one, it dies at the bunkers on lines 57-60, about
   five a turn.
-- The outcome swings with the branch point: leaving the opening at 30 won at
-  127, at 44 at turn 81, at 41 not by turn 150, and at 27 lost the HQ at turn
-  20. The branch and build mix were picked by comparing whole games.
-- The final score is lower than the slower win's: 2456, against 4300 at
-  resolution 477.
+- The outcome swings with small changes: leaving the opening at 30 won at 107,
+  at 26 at 117, at 34 at 109, and at 28 lost the HQ at 40. Mix and avoidance
+  strength were picked by comparing whole games.
