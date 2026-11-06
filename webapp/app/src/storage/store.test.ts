@@ -126,7 +126,6 @@ describe("persistent settings", () => {
       layout: "responsive",
       playMode: "single",
       limit: 0,
-      allowCandidates: false,
     });
     expect(defaultSettings(true).reduced).toBe(true);
   });
@@ -142,7 +141,6 @@ describe("persistent settings", () => {
       layout: "responsive",
       playMode: "single",
       limit: 0,
-      allowCandidates: false,
     });
     expect(
       validateSettings({
@@ -155,7 +153,6 @@ describe("persistent settings", () => {
         layout: "original",
         playMode: "hotseat",
         limit: 20,
-        allowCandidates: true,
       }),
     ).toStrictEqual({
       uiScale: 0.75,
@@ -167,7 +164,6 @@ describe("persistent settings", () => {
       layout: "original",
       playMode: "hotseat",
       limit: 20,
-      allowCandidates: true,
     });
   });
 
@@ -178,7 +174,6 @@ describe("persistent settings", () => {
     { reduced: "false" },
     { scenes: 0 },
     { painted: null },
-    { allowCandidates: 1 },
     { scroll: "turbo" },
     { opponent: "human" },
     { layout: "split" },

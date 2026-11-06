@@ -22,7 +22,7 @@ func writeCatalog(t *testing.T, dir string, packs map[string]map[string]image.Im
 	t.Helper()
 	out := map[string]assets.Manifest{}
 	for d, images := range packs {
-		m := assets.Manifest{Schema: 1, ID: path.Base(d), Status: "candidate"}
+		m := assets.Manifest{Schema: 1, ID: path.Base(d)}
 		if err := os.MkdirAll(filepath.Join(dir, d, "images"), 0o755); err != nil {
 			t.Fatal(err)
 		}
@@ -85,7 +85,7 @@ func TestLiteCatalog(t *testing.T) {
 	}
 	want := map[string]string{"screen/backdrop": ".jpg", "button/up": ".webp", "button/dot": ".png"}
 	for d, m := range src {
-		p, err := assets.Open(os.DirFS(filepath.Join(out, d)), "manifest.json", assets.Options{AllowCandidates: true})
+		p, err := assets.Open(os.DirFS(filepath.Join(out, d)), "manifest.json")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -93,7 +93,7 @@ func TestLiteCatalog(t *testing.T) {
 			t.Fatal(err)
 		}
 		got := p.Manifest()
-		if got.ID != m.ID || got.Status != m.Status || len(got.Entries) != len(m.Entries) {
+		if got.ID != m.ID || len(got.Entries) != len(m.Entries) {
 			t.Fatalf("%s: manifest %+v", d, got)
 		}
 		for i, e := range got.Entries {

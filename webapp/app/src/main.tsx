@@ -5,7 +5,6 @@ import { render } from "preact";
 import { Computer } from "./computer.ts";
 import { AssetLoader } from "./assets.ts";
 import { parseImageCatalog } from "./assetManifest.ts";
-import { CandidateArtError } from "./mapImages.ts";
 import { UiAssets } from "./ui/assets.ts";
 import { SplitRuntime } from "./split/runtime.ts";
 import { SplitUI } from "./split/SplitUI.tsx";
@@ -30,8 +29,7 @@ import {
 export const computer = new Computer();
 const revision = signal(0),
   status = signal("Preparing Historyline…"),
-  bootBusy = signal(true),
-  candidate = signal(false);
+  bootBusy = signal(true);
 let app: Application,
   appReady = false,
   closed = false,
@@ -148,10 +146,10 @@ function Controls() {
         {!bootBusy.value && (
           <button
             onClick={() => {
-              void bootstrap(candidate.value);
+              void bootstrap();
             }}
           >
-            {candidate.value ? "Use candidate art" : "Retry"}
+            Retry
           </button>
         )}
       </div>
@@ -277,13 +275,12 @@ async function beginBattle(
   lastEnd = null;
   publishDebug();
 }
-async function bootstrap(allowCandidates = false): Promise<void> {
+async function bootstrap(): Promise<void> {
   const run = ++bootGeneration;
   bootAbort.abort();
   bootAbort = new AbortController();
   const signal = bootAbort.signal;
   bootBusy.value = true;
-  candidate.value = false;
   status.value = "Loading the campaign…";
   if (shell !== null) shell.onChange = null;
   shell = null;
@@ -295,20 +292,10 @@ async function bootstrap(allowCandidates = false): Promise<void> {
   try {
     await initializeStorage();
     signal.throwIfAborted();
-    if (allowCandidates && !preferences.allowCandidates) {
-      preferences = { ...preferences, allowCandidates: true };
-      if (store !== null)
-        try {
-          await store.saveSettings(preferences);
-        } catch (error) {
-          storageNote = `Art permission could not be saved: ${message(error)}`;
-        }
-    }
     const nextLoader = await AssetLoader.open(
       new URL("./index.json", document.baseURI),
-      { allowCandidates: preferences.allowCandidates },
     );
-    const catalogs = await Promise.all(
+    await Promise.all(
       ["screens", "units", "terrain"].flatMap((name) => {
         const pair = nextLoader.index.packs[name]?.["1"];
         if (pair === undefined) throw Error(`Missing ${name} art catalog.`);
@@ -317,11 +304,6 @@ async function bootstrap(allowCandidates = false): Promise<void> {
         );
       }),
     );
-    if (
-      catalogs.some((c) => c.status === "candidate") &&
-      !preferences.allowCandidates
-    )
-      throw new CandidateArtError();
     signal.throwIfAborted();
     nextAssets = new UiAssets(nextLoader);
     const [nextCampaign, nextData] = await Promise.all([
@@ -366,7 +348,6 @@ async function bootstrap(allowCandidates = false): Promise<void> {
     nextAssets?.dispose();
     if (run === bootGeneration && !signal.aborted) {
       status.value = message(error);
-      candidate.value = error instanceof CandidateArtError;
     }
   } finally {
     if (run === bootGeneration) {

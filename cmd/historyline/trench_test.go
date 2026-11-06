@@ -5,7 +5,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
@@ -79,7 +78,7 @@ func TestSapperWorkRedrawsTerrain(t *testing.T) {
 	ev := dig(t, gm)
 	// The catalog holds the tiles of the map as the work leaves it.
 	after := reworked(lvl, gm.dos.s.Reworked())
-	if gm.terrain, err = openTerrainArt(terrainCatalog(t, after, ""), assets.Options{AllowCandidates: true}, lvl); err != nil {
+	if gm.terrain, err = openTerrainArt(terrainCatalog(t, after, ""), lvl); err != nil {
 		t.Fatal(err)
 	}
 	trench := func(ids []string) bool {

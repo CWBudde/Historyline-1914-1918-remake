@@ -26,7 +26,7 @@ func TestScreenRecordArgs(t *testing.T) {
 		"run", filepath.Join(root, "cmd", "historyline"),
 		"-replay", "build/review/llmplay/g", "-record", "build/review/llmplay/g/screen.mp4",
 		"-units", "build/packs/units", "-terrain", "build/packs/terrain", "-screens", "build/packs/screens",
-		"-allow-candidates", "-record-fps", "60", "-record-max-frames", "600",
+		"-record-fps", "60", "-record-max-frames", "600",
 	}
 	if !slices.Equal(got, want) {
 		t.Errorf("args\n%q\nwant\n%q", got, want)

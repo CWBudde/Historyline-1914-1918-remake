@@ -78,7 +78,7 @@ func indexPacks(entries []indexEntry, prefix string) []assets.Manifest {
 		if !ok {
 			i = len(packs)
 			at[e.Pack] = i
-			packs = append(packs, assets.Manifest{Schema: 1, ID: e.Pack, Status: "candidate"})
+			packs = append(packs, assets.Manifest{Schema: 1, ID: e.Pack})
 		}
 		packs[i].Entries = append(packs[i].Entries, assets.Entry{
 			ID: e.ID, Path: e.Path, SHA256: e.SHA256, Width: e.Width, Height: e.Height, Density: e.Density, Anchor: *e.Anchor,
@@ -90,7 +90,7 @@ func indexPacks(entries []indexEntry, prefix string) []assets.Manifest {
 // loadPack loads m from the assets directory root and hands it to use; the
 // decoded pack is dropped afterwards so only one is held at a time.
 func loadPack(root *os.Root, m assets.Manifest, use func(*assets.Pack) error) error {
-	p, err := assets.Load(root.FS(), m, assets.Options{AllowCandidates: true})
+	p, err := assets.Load(root.FS(), m)
 	if err != nil {
 		return fmt.Errorf("%s: %w", m.ID, err)
 	}

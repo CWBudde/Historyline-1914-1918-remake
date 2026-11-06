@@ -18,11 +18,10 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gen2brain/webp"
-	"golang.org/x/sync/errgroup"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
+	"github.com/gen2brain/webp"
+	"golang.org/x/sync/errgroup"
 )
 
 // Qualities of the compressed catalogs.
@@ -68,7 +67,7 @@ func liteCatalog(dir, out string) (_ liteStats, err error) {
 		if err != nil {
 			return st, err
 		}
-		p, err := assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+		p, err := assets.Open(sub, "manifest.json")
 		if err != nil {
 			return st, fmt.Errorf("%s: %w", d, err)
 		}

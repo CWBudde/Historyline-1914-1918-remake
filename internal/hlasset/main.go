@@ -163,7 +163,6 @@ func Run(args []string, stdout, stderr io.Writer) (err error) {
 		flags.SetOutput(stderr)
 		root := flags.String("root", ".", "pack filesystem root")
 		manifest := flags.String("manifest", "manifest.json", "root-relative manifest path")
-		candidates := flags.Bool("allow-candidates", false, "explicitly allow offline candidates")
 		if err := flags.Parse(args[1:]); err != nil {
 			return err
 		}
@@ -175,7 +174,7 @@ func Run(args []string, stdout, stderr io.Writer) (err error) {
 			return err
 		}
 		defer func() { err = errors.Join(err, r.Close()) }()
-		p, err := assets.Open(r.FS(), *manifest, assets.Options{AllowCandidates: *candidates})
+		p, err := assets.Open(r.FS(), *manifest)
 		if err != nil {
 			return err
 		}
@@ -183,7 +182,7 @@ func Run(args []string, stdout, stderr io.Writer) (err error) {
 			return err
 		}
 		m := p.Manifest()
-		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants; status=%s\n", m.ID, len(m.Entries), m.Status)
+		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants\n", m.ID, len(m.Entries))
 		return err
 	default:
 		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, build-screens, packs, lite, terrain-gaps or validate", args[0])

@@ -23,7 +23,7 @@ func TestLiteMaterialsPreservePeriodicPixels(t *testing.T) {
 		t.Run(fmt.Sprintf("%dx", d), func(t *testing.T) {
 			period := image.Pt(568, 400)
 			src := fstest.MapFS{}
-			m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-materials-%dx", d), Status: "candidate"}
+			m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-materials-%dx", d)}
 			originals := map[string]*image.NRGBA{}
 			for i, id := range []string{worldmaterial.MeadowID, worldmaterial.ScrubID} {
 				im := image.NewNRGBA(image.Rect(0, 0, period.X*d, period.Y*d))
@@ -52,7 +52,7 @@ func TestLiteMaterialsPreservePeriodicPixels(t *testing.T) {
 				sum := sha256.Sum256(b.Bytes())
 				m.Entries = append(m.Entries, assets.Entry{ID: id, Path: name, SHA256: hex.EncodeToString(sum[:]), Width: im.Rect.Dx(), Height: im.Rect.Dy(), Density: d})
 			}
-			p, err := assets.Load(src, m, assets.Options{AllowCandidates: true})
+			p, err := assets.Load(src, m)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -71,7 +71,7 @@ func TestLiteMaterialsPreservePeriodicPixels(t *testing.T) {
 				t.Fatal(err)
 			}
 			o.done()
-			got, err := assets.Open(os.DirFS(filepath.Join(out, "materials")), "manifest.json", assets.Options{AllowCandidates: true})
+			got, err := assets.Open(os.DirFS(filepath.Join(out, "materials")), "manifest.json")
 			if err != nil {
 				t.Fatal(err)
 			}

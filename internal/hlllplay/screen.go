@@ -76,7 +76,6 @@ func screenRecordArgs(root, dir string, packs []screenPack, record [][2]string) 
 	for _, p := range packs {
 		args = append(args, p.flag, p.dir)
 	}
-	args = append(args, "-allow-candidates")
 	for _, f := range record {
 		args = append(args, "-record-"+f[0], f[1])
 	}
