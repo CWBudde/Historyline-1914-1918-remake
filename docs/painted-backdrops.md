@@ -222,6 +222,16 @@ ledge and clay patches support land units. Bridge stubs, route gaps, the separat
 northeast channel head and all original routes retain their positions. Prompts,
 lightness findings, masks and native evidence are under `build/review/backdrops/1916-05/`.
 
+DROID/TANKS (`1916-09`, 2852×3302) has wet brown shell fields and green meadow
+lanes under cool early-autumn light. Low knolls, scattered ochre crowns, isolated
+ponds and the original timber-lined trenches retain their positions and gaps.
+Warm brick, buff stone, lime render and dark roofs distinguish the French clay-country
+buildings: a copper-domed stone HQ, a slate-cone brick HQ, munitions and repair
+works, ammunition stores and engineer sheds. The existing windmill and farmstead
+courtyards remain. Unmarked stone bridges retain their original access; small
+clay fills support five unchanged infantry and cavalry starts. Prompts, masks,
+lightness results and native evidence are under `build/review/backdrops/1916-09/`.
+
 PLATE/SOMME (`1916-07`, 2852×3302) has a continuous July shell field of drying
 ochre clay, broken pale chalk rims and dark damp crater bowls beneath warm hazy
 afternoon light. Surviving green woodland, stone/meadow islands and existing rock
