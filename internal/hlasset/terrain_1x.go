@@ -44,7 +44,7 @@ func deriveTerrain(out string, packs []terrainPack) (_ []terrainPack, err error)
 		if err != nil {
 			return nil, err
 		}
-		p, err := assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+		p, err := assets.Open(sub, "manifest.json")
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", src.Manifest.ID, err)
 		}

@@ -58,7 +58,7 @@ func TestExportCatalogKeepsDensitiesAndGeometry(t *testing.T) {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(raw.Bytes())
-		m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("test/%d", d), Status: "candidate", Entries: []assets.Entry{{ID: "unit/test/cp/n-normal", Path: "image.png", SHA256: hex.EncodeToString(sum[:]), Width: 8 * d, Height: 6 * d, Density: d, Anchor: [2]float64{4, 3}}}}
+		m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("test/%d", d), Entries: []assets.Entry{{ID: "unit/test/cp/n-normal", Path: "image.png", SHA256: hex.EncodeToString(sum[:]), Width: 8 * d, Height: 6 * d, Density: d, Anchor: [2]float64{4, 3}}}}
 		manifest, err := json.Marshal(m)
 		if err != nil {
 			t.Fatal(err)
@@ -87,7 +87,7 @@ func TestExportCatalogKeepsDensitiesAndGeometry(t *testing.T) {
 			if err := json.Unmarshal(raw, &c); err != nil {
 				t.Fatal(err)
 			}
-			if c.Schema != 1 || c.Status != "candidate" || len(c.Entries) != 1 {
+			if c.Schema != 1 || len(c.Entries) != 1 {
 				t.Fatalf("catalog: %+v", c)
 			}
 			e := c.Entries[0]

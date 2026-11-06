@@ -272,7 +272,7 @@ func terrainGaps(dir string, w io.Writer) (err error) {
 			if err != nil {
 				return err
 			}
-			p, err := assets.Open(fsys, "manifest.json", assets.Options{AllowCandidates: true})
+			p, err := assets.Open(fsys, "manifest.json")
 			if err != nil {
 				return err
 			}

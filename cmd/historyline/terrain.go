@@ -52,12 +52,12 @@ type terrainArt struct {
 // tiles are used where the catalog has them at every density; every other tile
 // the level draws, and the unseen tile, must be present, so drawing never meets
 // a missing tile.
-func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainArt, error) {
+func openTerrainArt(fsys fs.FS, lvl *level.Level) (*terrainArt, error) {
 	groups, err := assets.PackGroups(fsys, terrainGroups, optionalGroups, terrainDensities)
 	if err != nil {
 		return nil, fmt.Errorf("terrain %w", err)
 	}
-	packs, err := openPacks(fsys, opt, groups, terrainDensities)
+	packs, err := openPacks(fsys, groups, terrainDensities)
 	if err != nil {
 		return nil, fmt.Errorf("terrain %w", err)
 	}
@@ -171,13 +171,13 @@ func (a *terrainArt) recompose(lvl *level.Level) error {
 }
 
 // loadTerrainArt opens the terrain catalog in dir for lvl, counting its fetches in m.
-func loadTerrainArt(dir string, allowCandidates bool, lvl *level.Level, m *meter) (*terrainArt, error) {
+func loadTerrainArt(dir string, lvl *level.Level, m *meter) (*terrainArt, error) {
 	fsys, done, err := openArtDir(dir, m)
 	if err != nil {
 		return nil, err
 	}
 	defer done()
-	return openTerrainArt(fsys, assets.Options{AllowCandidates: allowCandidates}, lvl)
+	return openTerrainArt(fsys, lvl)
 }
 
 // terrainLayers returns the tiles drawn on hex c of scene s given the player's

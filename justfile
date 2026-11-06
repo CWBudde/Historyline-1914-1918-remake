@@ -39,13 +39,13 @@ _build-dir:
     mkdir -p build
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
-art_flags := "-units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates"
+art_flags := "-units build/packs/units -terrain build/packs/terrain -screens build/packs/screens"
 
 # Build the unit, terrain and screen packs into build/packs where their art or `hl assets` changed; pass e.g. -only terrain
 packs *args: _build-dir
     go run ./cmd/hl assets packs -out build/packs {{args}}
 
-# Play with the candidate unit, terrain and screen art
+# Play with the unit, terrain and screen art
 play *args: packs
     go run ./cmd/historyline {{art_flags}} {{args}}
 
@@ -200,7 +200,7 @@ gfx-study *args: packs
     set -eu
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
-    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
+    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -capture "$study_dir/captures"
     go run ./cmd/hl review gallery -captures "$study_dir/captures" "$@"
 
 # Extract the original manual's pictures into the ignored build/manual/img/

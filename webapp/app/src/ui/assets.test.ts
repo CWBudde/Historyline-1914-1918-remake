@@ -13,7 +13,6 @@ function source(fail = false) {
       calls.push([catalog, ids, zoom, dpr]);
       const image = (quality: "lite" | "full"): LoadedImage => ({
         quality,
-        status: "approved",
         bytes: new TextEncoder().encode(quality).buffer,
         entry: {
           id: ids[0] ?? "",

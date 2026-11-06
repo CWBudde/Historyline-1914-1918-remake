@@ -43,8 +43,10 @@ func bridgeUnit(t *testing.T, s *Session) int {
 	return -1
 }
 
-var bridgeHex = hexgrid.Coord{Line: 3, Col: 2}
-var eastHex = hexgrid.Coord{Line: 2, Col: 3}
+var (
+	bridgeHex = hexgrid.Coord{Line: 3, Col: 2}
+	eastHex   = hexgrid.Coord{Line: 2, Col: 3}
+)
 
 // A light bridge (a path deck over the stream, as on NONNE) carries foot
 // units and light towed guns up to the light artillery, but no armoured

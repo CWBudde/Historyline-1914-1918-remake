@@ -40,7 +40,6 @@ const MaxEntriesPerPack = 4096
 type Manifest struct {
 	Schema  int     `json:"schema_version"`
 	ID      string  `json:"id"`
-	Status  string  `json:"status"` // candidate or approved; never inferred from an export
 	Entries []Entry `json:"entries"`
 }
 
@@ -65,10 +64,6 @@ var formats = map[string]struct {
 	".png":  {"PNG", png.DecodeConfig, png.Decode},
 	".jpg":  {"JPEG", jpeg.DecodeConfig, jpeg.Decode},
 	".webp": {"WebP", webp.DecodeConfig, webp.Decode},
-}
-
-type Options struct {
-	AllowCandidates bool
 }
 
 type key struct {
@@ -122,7 +117,7 @@ func ParseManifest(b []byte) (Manifest, error) {
 
 // Open reads a manifest then snapshots its images. Use os.Root.FS for disk packs
 // to contain symlinks, or an embed.FS for distribution packs.
-func Open(fsys fs.FS, name string, options Options) (*Pack, error) {
+func Open(fsys fs.FS, name string) (*Pack, error) {
 	if !safePath(name) {
 		return nil, fmt.Errorf("invalid manifest path %q", name)
 	}
@@ -134,20 +129,14 @@ func Open(fsys fs.FS, name string, options Options) (*Pack, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Load(fsys, m, options)
+	return Load(fsys, m)
 }
 
 // Load checks the entire catalog, hashes and image headers before returning any
 // assets. Validate also fully decodes every image, including a PNG's pixel stream/CRC.
-func Load(fsys fs.FS, m Manifest, options Options) (*Pack, error) {
+func Load(fsys fs.FS, m Manifest) (*Pack, error) {
 	if m.Schema != 1 || !safePath(m.ID) {
 		return nil, fmt.Errorf("unsupported pack schema or invalid ID %q", m.ID)
-	}
-	if m.Status != "approved" && m.Status != "candidate" {
-		return nil, fmt.Errorf("pack %q: invalid status %q", m.ID, m.Status)
-	}
-	if m.Status == "candidate" && !options.AllowCandidates {
-		return nil, fmt.Errorf("pack %q: candidate requires explicit opt-in", m.ID)
 	}
 	if len(m.Entries) == 0 || len(m.Entries) > MaxEntriesPerPack {
 		return nil, fmt.Errorf("pack %q: need 1..%d entries", m.ID, MaxEntriesPerPack)

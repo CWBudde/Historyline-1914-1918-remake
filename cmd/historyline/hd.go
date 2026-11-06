@@ -27,19 +27,19 @@ type hdArt struct {
 
 // loadHDArt loads the full-quality unit and screen art of d in the background,
 // nil when d names none.
-func loadHDArt(d hdDirs, allowCandidates bool) <-chan hdArt {
+func loadHDArt(d hdDirs) <-chan hdArt {
 	if d.units == "" && d.screens == "" {
 		return nil
 	}
 	return background("full-quality art", func() (a hdArt, err error) {
 		m := &meter{pause: pagePauser()}
 		if d.units != "" {
-			if a.units, err = loadUnitArt(d.units, allowCandidates, m); err != nil {
+			if a.units, err = loadUnitArt(d.units, m); err != nil {
 				return a, err
 			}
 		}
 		if d.screens != "" {
-			a.screens, err = loadScreenArt(d.screens, allowCandidates, m)
+			a.screens, err = loadScreenArt(d.screens, m)
 		}
 		return a, err
 	})

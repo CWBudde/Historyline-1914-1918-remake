@@ -7,7 +7,6 @@ export interface Settings {
   scroll: "normal" | "fast" | "slow";
   opponent: "computer" | "passive";
   limit: 0 | 5 | 10 | 15 | 20;
-  allowCandidates: boolean;
 }
 
 export interface SaveEnvelope {
@@ -59,7 +58,6 @@ export function defaultSettings(systemReduced = false): Settings {
     scroll: "normal",
     opponent: "computer",
     limit: 0,
-    allowCandidates: false,
   };
 }
 
@@ -67,12 +65,7 @@ export function defaultSettings(systemReduced = false): Settings {
 export function validateSettings(value: unknown): Settings {
   if (!object(value)) throw new Error("Invalid settings");
   const result = defaultSettings();
-  for (const key of [
-    "reduced",
-    "scenes",
-    "painted",
-    "allowCandidates",
-  ] as const) {
+  for (const key of ["reduced", "scenes", "painted"] as const) {
     if (!Object.hasOwn(value, key)) continue;
     const field = value[key];
     if (typeof field !== "boolean") throw new Error(`Invalid settings ${key}`);

@@ -39,7 +39,7 @@ func terrainPartFixture(t *testing.T) (fstest.MapFS, *level.Level, mapcompose.Ga
 		if err != nil {
 			t.Fatal(err)
 		}
-		extra := assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-context-ground-2-%dx", d), Status: "candidate"}
+		extra := assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-context-ground-2-%dx", d)}
 		kept := m.Entries[:0]
 		for _, e := range m.Entries {
 			if e.ID == id {
@@ -64,7 +64,7 @@ func terrainPartFixture(t *testing.T) (fstest.MapFS, *level.Level, mapcompose.Ga
 func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 	fsys, l, gap := terrainPartFixture(t)
 	id := mapcompose.ContextID(gap.Family, mapcompose.Key(gap.Descriptor))
-	a, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(fsys, l)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +77,7 @@ func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 	}
 	manifest := fsys["4x/context-ground-2/manifest.json"]
 	delete(fsys, "4x/context-ground-2/manifest.json")
-	if _, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l); err == nil {
+	if _, err := openTerrainArt(fsys, l); err == nil {
 		t.Error("accepted a part without its 4x manifest")
 	}
 	fsys["4x/context-ground-2/manifest.json"] = manifest
@@ -98,7 +98,7 @@ func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 		}
 		fsys[base] = &fstest.MapFile{Data: b}
 	}
-	if _, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l); err == nil || !strings.Contains(err.Error(), "duplicate") {
+	if _, err := openTerrainArt(fsys, l); err == nil || !strings.Contains(err.Error(), "duplicate") {
 		t.Errorf("duplicate context across parts: %v", err)
 	}
 }
@@ -110,7 +110,7 @@ func TestHTTPTerrainPackParts(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer done()
-	a, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l)
+	a, err := openTerrainArt(fsys, l)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -140,7 +140,7 @@ func TestOpenTerrainArtRejectsDuplicateInHigherDensity(t *testing.T) {
 	}
 	f[name] = &fstest.MapFile{Data: b}
 	f["4x/context-ground/"+e.Path] = f["4x/context-ground-2/"+part.Entries[0].Path]
-	if _, err := openTerrainArt(f, assets.Options{AllowCandidates: true}, l); err == nil || !strings.Contains(err.Error(), "duplicate") {
+	if _, err := openTerrainArt(f, l); err == nil || !strings.Contains(err.Error(), "duplicate") {
 		t.Fatalf("duplicate only at 4x: %v", err)
 	}
 }
@@ -164,7 +164,7 @@ func TestOpenTerrainArtRejectsUnpairedPartEntries(t *testing.T) {
 				t.Fatal(err)
 			}
 			f[name] = &fstest.MapFile{Data: b}
-			if _, err := openTerrainArt(f, assets.Options{AllowCandidates: true}, l); err == nil {
+			if _, err := openTerrainArt(f, l); err == nil {
 				t.Fatal("accepted unmatched part entries")
 			}
 		})

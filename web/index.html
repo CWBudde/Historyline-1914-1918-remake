@@ -226,8 +226,6 @@
             if (lite[i] !== null && full[i] !== null)
               go.argv.push(`-${c}-hd`, url(c));
           });
-          if (listings.some((l) => l !== null))
-            go.argv.push("-allow-candidates");
           let wasm = await fetch("historyline.wasm" + v);
           if (!wasm.ok) throw new Error(`historyline.wasm: ${wasm.status}`);
           // The download is compressed on the wire, so count the decoded bytes against the size build.json gives.

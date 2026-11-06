@@ -124,7 +124,6 @@ describe("persistent settings", () => {
       scroll: "normal",
       opponent: "computer",
       limit: 0,
-      allowCandidates: false,
     });
     expect(defaultSettings(true).reduced).toBe(true);
   });
@@ -138,7 +137,6 @@ describe("persistent settings", () => {
       scroll: "fast",
       opponent: "computer",
       limit: 0,
-      allowCandidates: false,
     });
     expect(
       validateSettings({
@@ -149,7 +147,6 @@ describe("persistent settings", () => {
         scroll: "slow",
         opponent: "passive",
         limit: 20,
-        allowCandidates: true,
       }),
     ).toStrictEqual({
       uiScale: 0.75,
@@ -159,7 +156,6 @@ describe("persistent settings", () => {
       scroll: "slow",
       opponent: "passive",
       limit: 20,
-      allowCandidates: true,
     });
   });
 
@@ -170,7 +166,6 @@ describe("persistent settings", () => {
     { reduced: "false" },
     { scenes: 0 },
     { painted: null },
-    { allowCandidates: 1 },
     { scroll: "turbo" },
     { opponent: "human" },
     { limit: 4 },

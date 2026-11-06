@@ -20,8 +20,8 @@ func TestRetainedInterfaceBuildValidateAndRepeat(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if m.Status != "candidate" || len(m.Entries) != 117 {
-		t.Fatalf("unexpected runtime catalog: %s %d", m.Status, len(m.Entries))
+	if len(m.Entries) != 117 {
+		t.Fatalf("unexpected runtime catalog: %d", len(m.Entries))
 	}
 	ids := make(map[string]bool)
 	for _, e := range m.Entries {
@@ -61,10 +61,10 @@ func TestRetainedInterfaceBuildValidateAndRepeat(t *testing.T) {
 		t.Fatal("unexpected file count", files)
 	}
 	var output bytes.Buffer
-	if err := Run([]string{"validate", "-root", a, "-allow-candidates"}, &output, io.Discard); err != nil {
+	if err := Run([]string{"validate", "-root", a}, &output, io.Discard); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(output.String(), "117 PNG variants; status=candidate") {
+	if !strings.Contains(output.String(), "117 PNG variants") {
 		t.Fatal("missing validation result", output.String())
 	}
 	if err := Run([]string{"validate", "-root", a}, &output, io.Discard); err == nil || !strings.Contains(err.Error(), "opt-in") {
@@ -86,7 +86,7 @@ func TestRetainedInterfaceBuildValidateAndRepeat(t *testing.T) {
 	if err := os.WriteFile(path, []byte("corrupt"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if err := Run([]string{"validate", "-root", a, "-allow-candidates"}, &output, io.Discard); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
+	if err := Run([]string{"validate", "-root", a}, &output, io.Discard); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
 		t.Fatal("corruption passed CLI", err)
 	}
 }

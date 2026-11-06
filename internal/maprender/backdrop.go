@@ -5,13 +5,12 @@ import (
 	"image"
 	"math"
 
-	xdraw "golang.org/x/image/draw"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
+	xdraw "golang.org/x/image/draw"
 )
 
 // RenderBackdrop draws lvl on a painted level backdrop instead of the

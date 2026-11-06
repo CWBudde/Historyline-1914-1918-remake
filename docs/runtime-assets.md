@@ -16,7 +16,7 @@ Vite serves this directory at its base path and copies it into the site build. T
 `AssetLoader` requests only the selected IDs, delivers lite before full, and chooses density from
 zoom × DPR. Its `AssetStore` verifies byte counts and hashes, limits concurrent requests and uses
 CacheStorage by content hash (bounded memory when unavailable). Lite encodes are cached under the
-system user cache directory. Candidate catalogs still require explicit opt-in.
+system user cache directory.
 Regenerate assets before starting Vite; restart it after another export so it discovers the new blobs.
 
 `internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
@@ -31,7 +31,7 @@ go run ./cmd/hl assets build-terrain -out build/packs/terrain                # t
 go run ./cmd/hl assets build-screens -out build/packs/screens                # menu frames, controls, paintings
 go run ./cmd/hl assets packs -out build/packs                                # the three above, each only when changed
 go run ./cmd/hl assets lite -in build/packs/units -out <dir>                # compressed copy for the web
-go run ./cmd/hl assets validate -root <pack> -allow-candidates
+go run ./cmd/hl assets validate -root <pack>
 go run ./cmd/hl assets terrain-gaps -terrain build/packs/terrain
 just play                                                                  # game with all three catalogs
 just web 8080                                                              # web build with the 2x catalogs
@@ -45,15 +45,13 @@ replaces it, so a failed build keeps the old one.
 
 ## Pack format
 
-`manifest.json` (`schema_version` 1, `id`, `status`, `entries[]`); each entry has `id`, `path`, `sha256`,
+`manifest.json` (`schema_version` 1, `id`, `entries[]`); each entry has `id`, `path`, `sha256`,
 `width`, `height`, `density` and `logical_anchor`. `Load` checks paths (local, unique, no `legacy`/`original`
 components), hashes, image headers (`.png`, `.jpg`, `.webp`) and exact dimensions before use; all densities of an ID share logical size
 and anchor. Limits: 4,096 entries, 2 MiB manifest, 32 MiB per PNG, 128 MiB encoded, 256 MiB decoded
 (8 bytes/pixel estimate), so each density and family is its own pack.
 
 - No implicit fallback: a missing `(ID, density)` is an `*assets.MissingError`. No rotation or recolouring.
-- `candidate` packs load only with `Options{AllowCandidates: true}` / `-allow-candidates`; the game then
-  shows `DEV: CANDIDATE-ART`.
 - Builders validate everything before creating the output directory, never overwrite an existing one, and
   copy export bytes unchanged; only terrain is graded (below).
 

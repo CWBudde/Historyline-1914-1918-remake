@@ -23,30 +23,22 @@ export interface LoadedImage {
   quality: "lite" | "full";
   status: ImageCatalog["status"];
 }
-export interface LoaderOptions extends StoreOptions {
-  allowCandidates?: boolean;
-}
 
 export class AssetLoader {
   readonly index: AssetIndex;
   readonly store: AssetStore;
-  private readonly allowCandidates: boolean;
-  get candidatesAllowed(): boolean {
-    return this.allowCandidates;
-  }
 
   constructor(
     index: unknown,
     baseURL: string | URL,
-    options: LoaderOptions = {},
+    options: StoreOptions = {},
   ) {
     this.index = parseAssetIndex(index);
     this.store = new AssetStore(baseURL, options);
-    this.allowCandidates = options.allowCandidates ?? false;
   }
   static async open(
     indexURL: string | URL,
-    options: LoaderOptions = {},
+    options: StoreOptions = {},
   ): Promise<AssetLoader> {
     const url = new URL(indexURL);
     const response = await (options.fetch ?? fetch)(url, { cache: "no-cache" });
@@ -104,8 +96,6 @@ export class AssetLoader {
         await this.store.json(pair[quality]),
         density,
       );
-      if (manifest.status === "candidate" && !this.allowCandidates)
-        throw new Error("candidate art requires explicit opt-in");
       const byID = new Map(manifest.entries.map((e) => [e.id, e]));
       const selected = requested.map((id) => {
         const entry = byID.get(id);

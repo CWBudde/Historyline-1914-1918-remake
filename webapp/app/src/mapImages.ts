@@ -9,12 +9,6 @@ import { RenderCache, type RenderResource } from "./renderCache.ts";
 import { dress, dressMargin, padded, type Rim } from "./unitDress.ts";
 import type { Rect } from "./camera.ts";
 
-export class CandidateArtError extends Error {
-  constructor() {
-    super("The current art pack is marked candidate.");
-  }
-}
-
 export interface MapImage {
   id: string;
   width: number;
@@ -77,11 +71,6 @@ export class MapImages {
     );
     if (lite === undefined || full === undefined)
       throw new Error("missing image catalog");
-    if (
-      !this.loader.candidatesAllowed &&
-      (lite.status === "candidate" || full.status === "candidate")
-    )
-      throw new CandidateArtError();
     const complete = new Map(full.entries.map((e) => [e.id, e]));
     return new Map(
       lite.entries.map((e) => {

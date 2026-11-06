@@ -66,13 +66,13 @@ history.
 
 ### 2. Art completion and acceptance
 
-**Art freeze:** the current candidate art is the freeze baseline. 178 of 182 indexed families carry
+**Art freeze:** the current art is accepted and the freeze baseline. 178 of 182 indexed families carry
 `prompt.md` status `approved` (`just art-index`; `just art-check` passes). This records acceptance of the
 current masters, not passage of the Look targets below: 2.1–2.11 and Look 0–Look 8 remain open and paused
 under this freeze, and Look 9 L9.1–L9.3 stay unticked. The four unbound screen families `capture`,
 `intermission`, `production-repair` and `surface` stay `candidate`: they have no `runtime_ids`, so approving
 them would fail `just art-check`; they follow 2.4 once their features and bindings exist. Runtime packs
-stay `candidate` (their status is never inferred from `prompt.md` status). A future Look replacement sets
+carry no status; the game loads them without a flag or mark. A future Look replacement sets
 the replaced family back to `candidate`/`revised` on new-master install.
 
 - [ ] 2.1 Bring the terrain to the target look in the order of "Terrain look: order of work" below.

@@ -20,7 +20,7 @@ import (
 func compressedFixture(t *testing.T, ext string, enc func(io.Writer, image.Image) error) (fstest.MapFS, Manifest) {
 	t.Helper()
 	f := fstest.MapFS{}
-	m := Manifest{Schema: 1, ID: "lite", Status: "approved"}
+	m := Manifest{Schema: 1, ID: "lite"}
 	for _, d := range []int{1, 2} {
 		im := image.NewNRGBA(image.Rect(0, 0, 8*d, 8*d))
 		for y := range 8 * d {
@@ -53,7 +53,7 @@ func TestCompressedFormats(t *testing.T) {
 		{".webp", true, func(w io.Writer, im image.Image) error { return webp.Encode(w, im, webp.Options{Quality: 90}) }},
 	} {
 		f, m := compressedFixture(t, c.ext, c.enc)
-		p, err := Load(f, m, Options{})
+		p, err := Load(f, m)
 		if err != nil {
 			t.Fatalf("%s: %v", c.ext, err)
 		}
@@ -85,20 +85,20 @@ func TestCompressedFormats(t *testing.T) {
 		bad := m
 		bad.Entries = []Entry{m.Entries[0]}
 		bad.Entries[0].Width = 16
-		if _, err := Load(f, bad, Options{}); err == nil || !strings.Contains(err.Error(), "dimensions") {
+		if _, err := Load(f, bad); err == nil || !strings.Contains(err.Error(), "dimensions") {
 			t.Errorf("%s: wrong size accepted: %v", c.ext, err)
 		}
 		bad.Entries[0] = m.Entries[0]
 		f[bad.Entries[0].Path] = &fstest.MapFile{Data: []byte("not an image")}
 		sum := sha256.Sum256([]byte("not an image"))
 		bad.Entries[0].SHA256 = hex.EncodeToString(sum[:])
-		if _, err := Load(f, bad, Options{}); err == nil || !strings.Contains(err.Error(), "header") {
+		if _, err := Load(f, bad); err == nil || !strings.Contains(err.Error(), "header") {
 			t.Errorf("%s: broken header accepted: %v", c.ext, err)
 		}
 	}
 	f, m := compressedFixture(t, ".jpg", func(w io.Writer, im image.Image) error { return jpeg.Encode(w, im, nil) })
 	m.Entries[0].Path = "images/1.gif"
-	if _, err := Load(f, m, Options{}); err == nil || !strings.Contains(err.Error(), "path") {
+	if _, err := Load(f, m); err == nil || !strings.Contains(err.Error(), "path") {
 		t.Errorf("a GIF entry: %v", err)
 	}
 }

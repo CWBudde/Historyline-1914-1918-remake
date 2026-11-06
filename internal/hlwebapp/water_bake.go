@@ -111,7 +111,7 @@ func (w *waterBaker) image(id string, d int) (image.Image, assets.Entry, error) 
 		if err != nil {
 			return nil, assets.Entry{}, err
 		}
-		pack, err = assets.Open(sub, "manifest.json", assets.Options{AllowCandidates: true})
+		pack, err = assets.Open(sub, "manifest.json")
 		if err != nil {
 			return nil, assets.Entry{}, err
 		}

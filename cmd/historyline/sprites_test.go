@@ -93,7 +93,7 @@ func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
 			}
 			sum := sha256.Sum256(buf.Bytes())
 			dir := path.Join(fmt.Sprintf("%dx", d), fam)
-			m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("unit-%s-%dx", fam, d), Status: "candidate"}
+			m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("unit-%s-%dx", fam, d)}
 			for _, pal := range unitsprite.Palettes {
 				for f := range unitsprite.Facings {
 					for _, s := range unitsprite.States {
@@ -121,12 +121,12 @@ func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
 }
 
 func TestOpenUnitArt(t *testing.T) {
-	a, err := openUnitArt(testCatalog(t, "", ""), assets.Options{AllowCandidates: true})
+	a, err := openUnitArt(testCatalog(t, "", ""))
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(a.packs) != len(unitsprite.AllFamilies())*len(spriteDensities) || !a.candidate {
-		t.Fatalf("%d packs, candidate %v", len(a.packs), a.candidate)
+	if len(a.packs) != len(unitsprite.AllFamilies())*len(spriteDensities) {
+		t.Fatalf("%d packs", len(a.packs))
 	}
 	e, err := a.entry("cavalry", unitsprite.ID("cavalry", unitsprite.EC, unitsprite.S, unitsprite.Spent), 4)
 	if err != nil || e.Anchor != [2]float64{48, 49} {
@@ -137,7 +137,7 @@ func TestOpenUnitArt(t *testing.T) {
 // The map draws the dressed sprite, whose wider border keeps the anchor on the
 // hex centre; panels keep the bare sprite.
 func TestMapImageIsDressed(t *testing.T) {
-	a, err := openUnitArt(testCatalog(t, "", ""), assets.Options{AllowCandidates: true})
+	a, err := openUnitArt(testCatalog(t, "", ""))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -169,15 +169,12 @@ func TestMapImageIsDressed(t *testing.T) {
 	}
 }
 
-func TestOpenUnitArtRefusesCandidatesAndGaps(t *testing.T) {
-	if _, err := openUnitArt(testCatalog(t, "", ""), assets.Options{}); err == nil || !strings.Contains(err.Error(), "opt-in") {
-		t.Errorf("candidates loaded without opt-in: %v", err)
-	}
-	if _, err := openUnitArt(testCatalog(t, "sappers", ""), assets.Options{AllowCandidates: true}); err == nil || !strings.Contains(err.Error(), "sappers") {
+func TestOpenUnitArtRefusesGaps(t *testing.T) {
+	if _, err := openUnitArt(testCatalog(t, "sappers", "")); err == nil || !strings.Contains(err.Error(), "sappers") {
 		t.Errorf("catalog without sappers loaded: %v", err)
 	}
 	gap := unitsprite.ID("bunker", unitsprite.Neutral, unitsprite.NW, unitsprite.Normal)
-	if _, err := openUnitArt(testCatalog(t, "", gap), assets.Options{AllowCandidates: true}); err == nil || !strings.Contains(err.Error(), gap) {
+	if _, err := openUnitArt(testCatalog(t, "", gap)); err == nil || !strings.Contains(err.Error(), gap) {
 		t.Errorf("catalog missing %s loaded: %v", gap, err)
 	}
 }
