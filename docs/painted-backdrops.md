@@ -110,6 +110,15 @@ HILLS/MOVES (`1917-06`, 3829×4403) has full June greenery and mostly dry gravel
 high cloud, after several dry days. Small clearings and level shelves support the starting units;
 all three airstrips and seven hangars stay open. Fourteen timber bridges span continuous streams,
 with short footbridge approaches fading into worn grass.
+AUDIO/MASKS (`1917-07`, 3829×3302) has full July leaf, rich green meadow with straw patches,
+packed gravel and clear blue coastal water under warm afternoon sun. Pale limestone and copper
+domes distinguish the western HQ; brown fieldstone, slate cones and a half-timbered hall distinguish
+the eastern one. Low timber engineer and provision depots, a brick flour mill and a timber-and-brick
+sawmill keep their original yards and entrances. The harbour, railway, six bridge hexes, eastern
+stream branches, southern lake and all three hangars retain their courses and footprints. Small
+water recesses, woodland pockets, a rocky shelf and an intact rear cottage with an open forecourt
+support unchanged starts; a local crown trim clears a bomber tail. Prompts, masks, retained lightness
+warnings and native verification are under `build/review/backdrops/1917-07/`.
 COBRA/BLADE (`1917-08`, 3829×4403) follows PULSE's look: bright late-summer meadow, painterly woods
 and natural stony river and lake banks under warm afternoon sun. Every building is an individual design:
 a moated limestone château with green copper domes and a red-brick fort with octagonal crenellated
