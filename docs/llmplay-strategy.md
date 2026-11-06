@@ -152,8 +152,8 @@ treasury, is the bug (see v7/v8 below).
 
 # CANDL (1918-04:cp)
 
-Won; the fastest recording captures the EC HQ at resolution 127
-(`candl-march30`, last section). The plain coach loses the HQ at resolution 18,
+Won; the fastest recording captures the EC HQ at resolution 107
+(`candl-south`, last section). The plain coach loses the HQ at resolution 18,
 hand play (`candl2`, `candl3`, with `-lines`, `-full`, `suggest`) at resolution
 20 both times, and `candl4` (a walkthrough written for the original computer
 side) at resolution 12.
