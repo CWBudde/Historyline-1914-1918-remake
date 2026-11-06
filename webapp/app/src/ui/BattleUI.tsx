@@ -1,5 +1,5 @@
 import { level, play, phaseMovement } from "@historyline/engine";
-import { useCallback, useEffect, useRef } from "preact/hooks";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "preact/hooks";
 import type { TargetedKeyboardEvent } from "preact";
 import { spriteID } from "../unitFrame.ts";
 import type { BattleUIProps } from "./types.ts";
@@ -617,8 +617,37 @@ function GameInfo({ p }: { p: Props }) {
 }
 
 function Settings({ p }: { p: Props }) {
+  const details = useRef<HTMLDetailsElement>(null),
+    summary = useRef<HTMLElement>(null),
+    sheet = useRef<HTMLFieldSetElement>(null),
+    lastFocus = useRef<HTMLElement | null>(null),
+    heldFocus = useRef(false);
+  useLayoutEffect(() => {
+    const last = lastFocus.current;
+    if (p.settingsBusy) {
+      if (
+        last?.isConnected &&
+        sheet.current?.contains(last) &&
+        (document.activeElement === last ||
+          document.activeElement === document.body)
+      ) {
+        summary.current?.focus();
+        heldFocus.current = true;
+      }
+    } else if (heldFocus.current) {
+      if (
+        details.current?.open &&
+        document.activeElement === summary.current &&
+        last?.isConnected &&
+        !last.matches(":disabled")
+      )
+        last.focus();
+      heldFocus.current = false;
+    }
+  }, [p.settingsBusy]);
   return (
     <details
+      ref={details}
       class="battle-settings"
       onKeyDown={(event) => {
         if (event.key === "Escape" && event.currentTarget.open) {
@@ -627,8 +656,17 @@ function Settings({ p }: { p: Props }) {
         }
       }}
     >
-      <summary>Settings</summary>
-      <div class="battle-settings-sheet">
+      <summary ref={summary}>Settings</summary>
+      <fieldset
+        class="battle-settings-sheet"
+        ref={sheet}
+        disabled={p.settingsBusy ?? false}
+        aria-label="Battle settings"
+        onFocusCapture={(event) => {
+          if (event.target instanceof HTMLElement)
+            lastFocus.current = event.target;
+        }}
+      >
         <label>
           UI scale
           <select
@@ -697,7 +735,12 @@ function Settings({ p }: { p: Props }) {
         >
           Leave battle
         </button>
-      </div>
+        {(p.settingsNote || p.settingsBusy) && (
+          <p class="battle-reason" role="status">
+            {p.settingsNote || "Saving settings…"}
+          </p>
+        )}
+      </fieldset>
     </details>
   );
 }

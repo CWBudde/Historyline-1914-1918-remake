@@ -120,6 +120,7 @@ export class MapPlayback {
     return this.frozen ?? live;
   }
   setScenes(enabled: boolean): void {
+    if (enabled === this.showScenes) return;
     this.showScenes = enabled;
     if (!enabled) this.skipScene();
   }

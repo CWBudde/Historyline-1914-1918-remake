@@ -64,6 +64,33 @@ body {
   margin: 16px;
 }
 
+.battle-ended {
+  position: fixed;
+  top: calc(var(--top-height) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 16px;
+  background: #172830ee;
+  border: 2px solid var(--brass);
+  color: var(--cream);
+  font:
+    calc(14px * var(--ui-scale)) "HL Sans",
+    sans-serif;
+  pointer-events: auto;
+}
+
+.battle-ended button {
+  min-height: 44px;
+  padding: 8px 16px;
+  color: var(--cream);
+  background: var(--slate);
+  border: 1px solid var(--brass);
+  font: inherit;
+  cursor: pointer;
+}
+
 .banner {
   position: absolute;
   top: max(16px, env(safe-area-inset-top));

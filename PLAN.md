@@ -565,9 +565,14 @@ build embeds every backdrop). Decided (defaults, open to override):
       Chromium checks desktop/tablet movement, attacks and resolved battles, production costs, modal
       cancellation, phone holds/pinch/scrolling and UI scale. The production bundle passes its browser
       smoke test; release size and browser coverage remain W9.
-- [ ] W7 Shell and campaign: the menu pages of `shell.go` (main, map code, values, control, extras,
+- [x] W7 Shell and campaign: the menu pages of `shell.go` (main, map code, values, control, extras,
       country, news, new units, loading, leave, outcome, scores), the campaign chain per side, saves in
       IndexedDB (slots, export/import as file), settings.
+      (2026-11-06) — All menu pages, 104 missions in two side campaigns, three IndexedDB slots, native
+      save files, settings and best scores. The web suite passes 1,203 tests (one optional skip), with
+      types, lint, formatting and the production build passing. Chromium checks menus on desktop and
+      phones, exact save/file round trips, storage failures, cancellation, wins, losses and the final
+      month; the production bundle passes computer-phase and save/resume checks.
 - [ ] W8 Original split screen: the two-panel `dosscreen` layout with the steel frame as a selectable layout;
       two humans on one screen and hot-seat for the `2p` setups (with 1.6 and 5.4).
 - [ ] W9 Release: offline play (service worker), size and frame budgets (first playable from lite data in a

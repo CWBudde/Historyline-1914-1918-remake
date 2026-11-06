@@ -14,6 +14,8 @@ export interface BattleUIProps {
   scenes: Signal<boolean>;
   painted: Signal<boolean>;
   ring: Signal<RingLayout | null>;
+  settingsBusy?: boolean;
+  settingsNote?: string;
   onScale(value: number): void;
   onReduced(value: boolean): void;
   onScenes(value: boolean): void;

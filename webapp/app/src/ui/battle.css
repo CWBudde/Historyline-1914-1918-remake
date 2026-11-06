@@ -156,6 +156,8 @@
   display: none;
 }
 .battle-ui .battle-settings-sheet {
+  margin: 0;
+  min-inline-size: 0;
   position: absolute;
   right: max(8px, env(safe-area-inset-right));
   top: calc(var(--top-height, 64px) + 4px);

@@ -1,0 +1,464 @@
+.shell-ui {
+  --shell-cream: #eee5d2;
+  --shell-brass: #c4a773;
+  --shell-muted: #afbab7;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  touch-action: pan-y;
+  color: var(--shell-cream);
+  background: #172830;
+  font:
+    calc(15px * var(--shell-scale, 1)) / 1.5 "HL Sans",
+    sans-serif;
+  scrollbar-color: #9d8b67 #172830;
+}
+.shell-ui *,
+.shell-ui *::before,
+.shell-ui *::after {
+  box-sizing: border-box;
+}
+.shell-backdrop {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.shell-art {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+.shell-art-empty {
+  background: #53606244;
+}
+.shell-backdrop .shell-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shell-backdrop .shell-frame {
+  object-fit: fill;
+  opacity: 0.18;
+}
+.shell-sheet {
+  position: relative;
+  min-height: 100%;
+  width: min(31em, 48%);
+  padding: max(28px, env(safe-area-inset-top)) clamp(20px, 3vw, 48px)
+    max(28px, env(safe-area-inset-bottom));
+  background: linear-gradient(110deg, #2a3e47f7, #172830fa 75%);
+  border-right: 2px solid #95805b;
+  box-shadow: 8px 0 28px #0005;
+  overflow-wrap: anywhere;
+}
+.shell-ui h1,
+.shell-ui h2,
+.shell-ui h3,
+.shell-ui p {
+  margin: 0 0 0.8em;
+}
+.shell-ui h1,
+.shell-ui h2 {
+  font-family: "HL Display", "HL Serif", serif;
+  line-height: 1.15;
+  color: var(--shell-brass);
+}
+.shell-ui h1 {
+  font-size: clamp(1.65em, 3.2vw, 2.8em);
+}
+.shell-ui h2 {
+  font-size: 1.25em;
+}
+.shell-ui h3 {
+  font-size: 0.9em;
+}
+.shell-heading {
+  margin-bottom: 1.6em;
+  border-bottom: 1px solid #9d8b67;
+}
+.shell-years {
+  letter-spacing: 0.12em;
+  color: var(--shell-brass);
+}
+.shell-menu {
+  display: grid;
+  gap: 0.65em;
+  margin: 1.3em 0;
+}
+.shell-ui button,
+.shell-ui input,
+.shell-ui select,
+.shell-import {
+  font: inherit;
+  color: var(--shell-cream);
+  min-height: 44px;
+  border: 1px solid #9d8b67;
+  border-radius: 3px;
+  background: linear-gradient(#354b55, #1b2b34);
+  padding: 0.6em 0.85em;
+  max-width: 100%;
+}
+.shell-ui button {
+  cursor: pointer;
+  touch-action: manipulation;
+  overflow-wrap: anywhere;
+}
+.shell-menu .shell-button {
+  text-align: left;
+}
+.shell-ui button:hover:not(:disabled),
+.shell-import:hover:not(.shell-disabled) {
+  border-color: #f3d7a0;
+  background: #3c5057;
+}
+.shell-ui button:active:not(:disabled) {
+  background: #15252d;
+}
+.shell-ui button:disabled,
+.shell-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.shell-ui :focus-visible {
+  outline: 3px solid #f4d698;
+  outline-offset: 3px;
+}
+.shell-ui input,
+.shell-ui select {
+  min-width: 0;
+  width: 100%;
+}
+.shell-ui option {
+  color: var(--shell-cream);
+  background: #263942;
+}
+.shell-field {
+  display: grid;
+  gap: 0.35em;
+}
+.shell-fixed {
+  padding: 0.6em 0.85em;
+  margin: 0 !important;
+  color: var(--shell-muted);
+  border-bottom: 1px solid #687773;
+}
+.shell-muted {
+  color: var(--shell-muted);
+  font-size: 0.85em;
+}
+.shell-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65em;
+  margin: 1em 0 0;
+}
+.shell-notice {
+  color: #ffe2a3;
+  margin: 1.4em 0 0 !important;
+  border-top: 1px solid #95805b;
+  padding-top: 0.8em;
+}
+.shell-wide .shell-sheet {
+  width: min(1200px, calc(100% - 48px));
+  min-height: 0;
+  margin: 24px auto;
+  border: 1px solid #95805b;
+  box-shadow: 0 8px 32px #0008;
+}
+.shell-countries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.shell-country {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  padding: 1.25em !important;
+}
+.shell-country-flag {
+  width: 100%;
+  height: clamp(110px, 25vh, 240px);
+}
+.shell-country strong {
+  font:
+    1.65em "HL Display",
+    serif;
+  color: var(--shell-brass);
+}
+.shell-country span:last-child {
+  font-size: 0.9em;
+}
+.shell-section-heading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  color: var(--shell-muted);
+  font-size: 0.85em;
+}
+.shell-units {
+  display: grid;
+  gap: 12px;
+}
+.shell-unit {
+  display: grid;
+  grid-template-columns: 110px minmax(160px, 0.8fr) minmax(0, 1.4fr);
+  gap: 18px;
+  padding: 12px;
+  background: #12252bcc;
+  border: 1px solid #687773;
+}
+.shell-portrait {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  background: #746752;
+  border: 1px solid #9d8b67;
+}
+.shell-unit h2 {
+  font-size: 1em;
+}
+.shell-unit p {
+  font-size: 0.85em;
+  margin-bottom: 0.2em;
+}
+.shell-unit-note {
+  align-self: center;
+}
+.shell-progress {
+  width: 100%;
+  accent-color: var(--shell-brass);
+  height: 18px;
+}
+.shell-save-leave {
+  display: grid;
+  gap: 12px;
+  margin-top: 1.5em;
+}
+.shell-save-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.shell-save-slot {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #9d8b67;
+  background: #172830d9;
+}
+.shell-save-slot .shell-actions {
+  margin-bottom: 0.8em;
+}
+.shell-import {
+  display: grid;
+  gap: 8px;
+  cursor: pointer;
+}
+.shell-import input {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.8em;
+}
+.shell-import input::file-selector-button {
+  min-height: 36px;
+  border: 1px solid #9d8b67;
+  background: #354b55;
+  color: var(--shell-cream);
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.shell-scores {
+  width: 100%;
+  border-collapse: collapse;
+}
+.shell-scores th,
+.shell-scores td {
+  padding: 0.5em 0.25em;
+  text-align: left;
+  border-bottom: 1px solid #687773;
+}
+.shell-scores td,
+.shell-scores th:last-child {
+  text-align: right;
+}
+.shell-page-leave {
+  background: #050a0dbb;
+  display: grid;
+  align-items: center;
+}
+.shell-page-leave .shell-sheet {
+  width: min(680px, calc(100% - 32px));
+}
+.shell-page-leave .shell-backdrop {
+  opacity: 0.3;
+}
+.shell-page-news .shell-sheet {
+  background: #e9dfc8;
+  color: #302c23;
+  padding: 24px;
+  border: 2px solid #887f69;
+}
+.shell-page-news .shell-heading {
+  text-align: center;
+  border-bottom: 3px double #514b3c;
+  margin-bottom: 0.4em;
+}
+.shell-page-news h1 {
+  color: #302c23;
+  font-size: clamp(1.65em, 4vw, 3.2em);
+}
+.shell-paper {
+  font-family: "HL Serif", serif;
+}
+.shell-paper-header {
+  border-bottom: 2px solid #514b3c;
+  margin-bottom: 1em;
+  text-align: center;
+}
+.shell-edition {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #514b3c;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.7em;
+}
+.shell-paper h2 {
+  color: #302c23;
+  font-size: clamp(1.5em, 3vw, 2.5em);
+}
+.shell-deck {
+  font-style: italic;
+}
+.shell-news-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  gap: 24px;
+}
+.shell-news-picture figure {
+  margin: 0 0 1.2em;
+}
+.shell-news-photo {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background: #cdc4b0;
+  border: 1px solid #514b3c;
+}
+.shell-news-picture figcaption {
+  font-size: 0.8em;
+  font-style: italic;
+  margin-top: 0.5em;
+}
+.shell-orders {
+  border-top: 1px solid #514b3c;
+  padding-top: 0.6em;
+  font-size: 0.85em;
+}
+.shell-orders h3,
+.shell-briefs h3 {
+  text-transform: uppercase;
+}
+.shell-news-copy {
+  columns: 2 14em;
+  column-gap: 24px;
+  column-rule: 1px solid #514b3c66;
+  font-size: 0.95em;
+}
+.shell-news-copy > p {
+  text-indent: 1em;
+  text-align: start;
+}
+.shell-briefs {
+  border-top: 1px solid #514b3c;
+  padding-top: 0.65em;
+  break-inside: avoid;
+}
+.shell-briefs ul {
+  padding-left: 1.1em;
+  margin: 0;
+}
+.shell-briefs li {
+  margin-bottom: 0.5em;
+}
+.shell-page-news .shell-notice {
+  color: #573f1a;
+}
+@media (max-width: 900px), (orientation: portrait) {
+  .shell-sheet {
+    width: min(38em, 78%);
+  }
+  .shell-wide .shell-sheet {
+    width: calc(100% - 24px);
+    margin: 12px auto;
+    padding: 20px;
+  }
+  .shell-save-slots {
+    grid-template-columns: 1fr;
+  }
+  .shell-save-slot .shell-import {
+    max-width: 28em;
+  }
+  .shell-news-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 18px;
+  }
+  .shell-unit {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .shell-portrait {
+    width: 90px;
+    height: 90px;
+  }
+  .shell-unit-note {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 560px) {
+  .shell-sheet {
+    width: 100%;
+    border-right: 0;
+    background: #172830ed;
+    padding: 24px 18px;
+  }
+  .shell-countries {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .shell-country-flag {
+    height: 100px;
+  }
+  .shell-country {
+    gap: 0.4em;
+    padding: 0.8em !important;
+  }
+  .shell-news-layout {
+    grid-template-columns: 1fr;
+  }
+  .shell-news-copy {
+    columns: auto;
+  }
+  .shell-edition {
+    flex-wrap: wrap;
+    font-size: 0.7em;
+  }
+  .shell-page-news .shell-sheet {
+    padding: 14px;
+  }
+  .shell-page-leave .shell-sheet {
+    width: calc(100% - 24px);
+  }
+}

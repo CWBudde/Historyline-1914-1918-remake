@@ -42,6 +42,10 @@ export class MapBattle {
   version = 0;
   onChange: (() => void) | null = null;
   private planning = false;
+  private paused = false;
+  private disposed = false;
+  private resumeGate: Promise<void> | null = null;
+  private resume: (() => void) | null = null;
 
   constructor(
     readonly session: play.Session,
@@ -64,6 +68,31 @@ export class MapBattle {
   }
   busy(): boolean {
     return this.planning || this.playback.busy();
+  }
+  planningOrders(): boolean {
+    return this.planning;
+  }
+  setPaused(paused: boolean): void {
+    if (this.disposed || paused === this.paused) return;
+    this.paused = paused;
+    if (paused)
+      this.resumeGate = new Promise((resolve) => {
+        this.resume = resolve;
+      });
+    else {
+      this.resume?.();
+      this.resume = null;
+      this.resumeGate = null;
+    }
+    this.touch();
+  }
+  dispose(): void {
+    this.disposed = true;
+    this.paused = false;
+    this.resume?.();
+    this.resume = null;
+    this.resumeGate = null;
+    this.onChange = null;
   }
   view(): play.View {
     return this.playback.shown(play.view(this.session, this.side));
@@ -368,6 +397,7 @@ export class MapBattle {
     this.touch();
   }
   async requestPhase(): Promise<void> {
+    if (this.paused || this.disposed) return;
     if (play.ended(this.session) !== null) return;
     if (play.ready(this.session, this.side) && !this.playback.busy()) {
       play.unconfirm(this.session, this.side);
@@ -394,6 +424,7 @@ export class MapBattle {
     await this.phase();
   }
   requestSurrender(): void {
+    if (this.paused || this.disposed) return;
     if (play.ended(this.session) !== null || this.playback.busy()) return;
     this.clearSelection();
     this.phasePrompt = false;
@@ -413,6 +444,7 @@ export class MapBattle {
     this.touch();
   }
   async phase(): Promise<void> {
+    if (this.paused || this.disposed) return;
     if (this.planning) {
       if (
         !play.ready(this.session, this.side) &&
@@ -442,6 +474,8 @@ export class MapBattle {
               this.touch();
             },
           );
+          while (this.isPaused()) await this.resumeGate;
+          if (this.isDisposed()) return;
           if (play.ended(this.session) !== null) return;
           play.replay(this.session, commands);
         }
@@ -457,6 +491,8 @@ export class MapBattle {
         this.status = "Orders resolved.";
       }
     } catch (e) {
+      while (this.isPaused()) await this.resumeGate;
+      if (this.isDisposed()) return;
       if (
         play.ended(this.session) === null &&
         play.ready(this.session, this.side)
@@ -470,6 +506,7 @@ export class MapBattle {
     }
   }
   tick(ms: number): void {
+    if (this.paused || this.disposed) return;
     const active = this.playback.busy() || this.playback.effects().length > 0,
       scene = this.playback.scene()?.battle,
       wasBusy = this.busy();
@@ -560,11 +597,19 @@ export class MapBattle {
   private canAct(): boolean {
     return (
       !this.busy() &&
+      !this.paused &&
+      !this.disposed &&
       !this.phasePrompt &&
       !this.surrenderPrompt &&
       play.ended(this.session) === null &&
       !play.ready(this.session, this.side)
     );
+  }
+  private isPaused(): boolean {
+    return this.paused;
+  }
+  private isDisposed(): boolean {
+    return this.disposed;
   }
   private touch(): void {
     this.version++;

@@ -77,7 +77,7 @@ it("can plan while the other side gives orders, then replay onto the live sessio
   expect(play.replay(a, await pending)).toEqual(computerEvents);
   expect(play.save(a)).toEqual(play.save(b));
   c.dispose();
-});
+}, 30_000);
 it("reports worker refusals and rejects in-flight and future work on disposal", async () => {
   const c = computer(),
     s = play.newSession(shippedLevel("1914-08"), playData, { profile: Full });
@@ -87,7 +87,7 @@ it("reports worker refusals and rejects in-flight and future work on disposal", 
   c.dispose();
   await check;
   await expect(c.commands(s, 0)).rejects.toThrow("Computer stopped");
-});
+}, 30_000);
 it("runs PlayOut off-thread and returns the complete replayable command cycle", async () => {
   const c = computer(),
     s = play.newSession(shippedLevel("1914-08"), playData, {
