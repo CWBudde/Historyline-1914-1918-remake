@@ -6,8 +6,11 @@ scenario and rule JSON, per-setup `mapcompose` scenes, water and seasonal weight
 backdrop mip pyramids, pixel-font atlases and Noto WOFF2 fonts with their licence. Units derive a 1×
 catalog from 2×; screens keep their native maximum of 2×. Backdrop tiles include two neighbouring pixels
 for filtering. Raster PNGs store unsigned 16-bit samples in R (low byte) and G (high byte), with opaque
-alpha; divide by the raster's `divisor`. Season rasters follow `seasonblend.Seasons` order and clamp at
-their edges like the native sampled field.
+alpha; divide by the raster's `divisor`. Season rasters follow `seasonblend.Seasons` order.
+The optional `backgrounds` contain the native depth, sea and surf result at each density; use them only
+for their matching background ID. `seasonBakes` contains the native mixed background, infrastructure
+and standing layers over their full image bounds, plus the selected seasonal ground props and crowns.
+An empty mixed pass suppresses that pass; stamps and shadows keep the main scene.
 
 Vite serves this directory at its base path and copies it into the site build. The browser's
 `AssetLoader` requests only the selected IDs, delivers lite before full, and chooses density from

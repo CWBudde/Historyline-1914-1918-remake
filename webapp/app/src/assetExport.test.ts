@@ -10,10 +10,12 @@ import {
   scenario,
   play,
   level,
+  hexgrid,
 } from "@historyline/engine";
 import { repo, listDir } from "../../engine/src/testing/files.ts";
 import { AssetLoader } from "./assets.ts";
 import { fileRef, record, type FileRef } from "./assetManifest.ts";
+import { parseBakedLayers } from "./mapScene.ts";
 
 const dir = join(repo, "build/webapp/data");
 const fetcher: typeof fetch = async (url) => {
@@ -74,11 +76,24 @@ it("exports all 156 setups as sessions identical to Go's initial saves", async (
         new TextDecoder().decode(play.save(session)),
         `${month}:${mode}`,
       ).toBe(expected.save);
-      const baked = record(await loader.baked(month, mode));
-      expect(baked.schema).toBe(1);
-      const grid = record(record(baked.scene).Grid);
-      expect(grid.Width).toBe(level.grid(lv).width);
-      expect(grid.Lines).toBe(level.grid(lv).lines);
+      const baked = parseBakedLayers(await loader.baked(month, mode));
+      expect(baked.scene.grid).toEqual(level.grid(lv));
+      for (const [key, densities] of baked.backgrounds) {
+        const c = play.coordFromKey(key),
+          cell = baked.scene.cells[c.line]?.[c.col];
+        expect(hexgrid.contains(baked.scene.grid, c), key).toBe(true);
+        if (cell === undefined) throw new Error(`missing baked cell ${key}`);
+        const cluster = baked.scene.clusters[cell.cluster - 1];
+        const background =
+          cluster !== undefined && cluster.stamp !== ""
+            ? cell.under
+            : cell.background;
+        expect([...densities.keys()].sort()).toEqual([1, 2, 4]);
+        for (const [density, image] of densities) {
+          expect(image.id, `${month}:${mode}:${key}`).toBe(background);
+          expect(image.density).toBe(density);
+        }
+      }
     }
   }
 }, 120_000);

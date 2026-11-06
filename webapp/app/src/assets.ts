@@ -31,6 +31,9 @@ export class AssetLoader {
   readonly index: AssetIndex;
   readonly store: AssetStore;
   private readonly allowCandidates: boolean;
+  get candidatesAllowed(): boolean {
+    return this.allowCandidates;
+  }
 
   constructor(
     index: unknown,

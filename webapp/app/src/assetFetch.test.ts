@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { AssetStore, type ContentCache } from "./assetFetch.ts";
 
 async function reference(text: string) {
@@ -26,6 +26,21 @@ class MemoryCache implements ContentCache {
 }
 
 describe("verified content storage", () => {
+  it("keeps the default browser fetch bound to its global receiver", async () => {
+    const ref = await reference("browser");
+    vi.stubGlobal("fetch", function (this: unknown) {
+      if (this !== globalThis) throw new TypeError("Illegal invocation");
+      return Promise.resolve(new Response("browser"));
+    });
+    try {
+      const store = new AssetStore("https://example.test/data/", {
+        cache: null,
+      });
+      expect(new TextDecoder().decode(await store.get(ref))).toBe("browser");
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
   it("deduplicates concurrent requests and reuses content across releases", async () => {
     const ref = await reference('{"test":1}');
     const cache = new MemoryCache();

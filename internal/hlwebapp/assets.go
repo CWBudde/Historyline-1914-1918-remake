@@ -127,6 +127,11 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	if index.Rules["sprites.json"], err = b.json(sprites); err != nil {
 		return err
 	}
+	water, err := newWaterBaker(filepath.Join(*packs, "terrain"), b)
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, water.close()) }()
 	months, err := scenario.Months(levels.Levels)
 	if err != nil {
 		return err
@@ -163,6 +168,16 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 			layers, err := b.layers(ctx, lv, func(id string) bool { return terrain[id] })
 			if err != nil {
 				return err
+			}
+			if err := water.bake(ctx, lv, &layers); err != nil {
+				return err
+			}
+			mixed, err := water.bakeSeasons(ctx, lv, &layers)
+			if err != nil {
+				return err
+			}
+			if len(mixed.Layers) > 0 {
+				layers.SeasonBakes = &mixed
 			}
 			if entry.Layers[mode], err = b.json(layers); err != nil {
 				return err

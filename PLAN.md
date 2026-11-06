@@ -545,10 +545,17 @@ build embeds every backdrop). Decided (defaults, open to override):
       are hash-verified. The web checks pass 917 tests (one optional skip) and the production build;
       Go helper/race, native pack and WASM checks pass. Chromium checks all densities, fonts, tiles,
       packed water and cache reuse. The full data is about 1.6 GB; deployment sizing remains W9.
-- [ ] W5 Map renderer: camera (wheel, drag, pinch, keys), resize and DPR, backdrop tiles with culling and
+- [x] W5 Map renderer: camera (wheel, drag, pinch, keys), resize and DPR, backdrop tiles with culling and
       mip choice, tile mode from the draw lists, units with ownership strips, per-side fog, selection,
       destination, route and target overlays, move and battle animations from `dosplay` events, reduced
       motion.
+      (2026-11-06) — Pixi draws culled terrain passes and backdrop mips, fair DOS unit views, native
+      sprite dressing, ownership and strength marks, map orders and event playback. Go bakes water,
+      surf and mixed seasonal layers. The full web suite passes 1,003 tests (one optional skip);
+      all 156 exported setups and referenced hashes pass, as do Go helper/race and lint checks.
+      Chromium verifies desktop controls, phone touch/pinch at 2× DPR, mip and asset-density changes,
+      reduced effects, terrain restoration and native water at all three densities. The production
+      build passes with the verified index; full-bundle deployment sizing remains W9.
 - [ ] W6 Battle UI: unit and terrain panels, contents view (enter/leave, repair, production), phase, turn and
       ready bar, battle scene, refusals; the Go game's keys, right-click action ring as long-press on touch,
       tap to select/move/attack; layouts for desktop, tablet and portrait phone; a UI scale setting.

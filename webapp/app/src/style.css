@@ -51,3 +51,28 @@ body {
   font-size: 0.85rem;
   color: var(--muted);
 }
+
+.map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.banner button {
+  color: var(--cream);
+  background: var(--slate);
+  border: 1px solid var(--brass);
+  padding: 7px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.banner button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.banner .map-help {
+  line-height: 1.4;
+  margin-bottom: 0;
+}

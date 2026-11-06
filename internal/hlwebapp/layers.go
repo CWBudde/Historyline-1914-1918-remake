@@ -34,11 +34,13 @@ type SeasonMask struct {
 	Weights []Raster            `json:"weights"`
 }
 type BakedLayers struct {
-	Schema  int                                     `json:"schema"`
-	Scene   *mapcompose.Scene                       `json:"scene"`
-	Seasons map[mapcompose.Season]*mapcompose.Scene `json:"seasons"`
-	Water   map[string]Raster                       `json:"water"`
-	Blend   map[string]SeasonMask                   `json:"blend"`
+	SeasonBakes *SeasonBakes                            `json:"seasonBakes,omitempty"`
+	Backgrounds map[string]map[string]BakedBackground   `json:"backgrounds,omitempty"`
+	Schema      int                                     `json:"schema"`
+	Scene       *mapcompose.Scene                       `json:"scene"`
+	Seasons     map[mapcompose.Season]*mapcompose.Scene `json:"seasons"`
+	Water       map[string]Raster                       `json:"water"`
+	Blend       map[string]SeasonMask                   `json:"blend"`
 }
 
 func (b blobWriter) layers(ctx context.Context, lv *level.Level, has func(string) bool) (BakedLayers, error) {

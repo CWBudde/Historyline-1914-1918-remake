@@ -75,7 +75,7 @@ export class AssetStore {
 
   constructor(baseURL: string | URL, options: StoreOptions = {}) {
     this.baseURL = new URL(baseURL);
-    this.fetcher = options.fetch ?? fetch;
+    this.fetcher = options.fetch ?? fetch.bind(globalThis);
     this.cache =
       options.cache === undefined
         ? browserCache()
