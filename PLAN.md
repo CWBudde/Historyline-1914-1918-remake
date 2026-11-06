@@ -573,8 +573,13 @@ build embeds every backdrop). Decided (defaults, open to override):
       types, lint, formatting and the production build passing. Chromium checks menus on desktop and
       phones, exact save/file round trips, storage failures, cancellation, wins, losses and the final
       month; the production bundle passes computer-phase and save/resume checks.
-- [ ] W8 Original split screen: the two-panel `dosscreen` layout with the steel frame as a selectable layout;
+- [x] W8 Original split screen: the two-panel `dosscreen` layout with the steel frame as a selectable layout;
       two humans on one screen and hot-seat for the `2p` setups (with 1.6 and 5.4).
+      (2026-11-06) — Native steel geometry, independent side cameras and panels, simultaneous key sets,
+      and protected hot-seat handovers for all 52 local setups. The web suite passes 1,300 tests (one
+      optional skip); the final app suite passes 398, with types, lint, formatting and production builds
+      passing. Chromium checks both humans' orders and battles, exact native saves, recipient restoration,
+      live layout changes and phone touch at 2× DPR and 200% scale; production save/resume checks pass.
 - [ ] W9 Release: offline play (service worker), size and frame budgets (first playable from lite data in a
       few MB), a Playwright test that plays a level to its end, Chrome/Firefox/Safari and iOS/Android; then
       the TS build becomes the Pages root and the WASM build moves to `/classic/` or is retired.

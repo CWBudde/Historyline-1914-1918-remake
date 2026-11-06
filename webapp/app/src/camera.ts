@@ -14,6 +14,8 @@ export class Camera {
   world: Size;
   view: Size;
   zoom = 1;
+  // A native split view supplies its own whole-cell bounds and steel margins.
+  bounded = true;
   scale = 1;
   origin: Point = { x: 0, y: 0 };
   constructor(world: Size, view: Size) {
@@ -81,6 +83,7 @@ export class Camera {
     };
   }
   private clamp(): void {
+    if (!this.bounded) return;
     const axis = (origin: number, world: number, view: number) =>
       world <= view
         ? (world - view) / 2

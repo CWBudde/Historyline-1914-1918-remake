@@ -6,9 +6,9 @@ import { Computer } from "./computer.ts";
 import { AssetLoader } from "./assets.ts";
 import { parseImageCatalog } from "./assetManifest.ts";
 import { CandidateArtError } from "./mapImages.ts";
-import { BattleUI } from "./ui/BattleUI.tsx";
 import { UiAssets } from "./ui/assets.ts";
-import { BattleRuntime } from "./battle/runtime.ts";
+import { SplitRuntime } from "./split/runtime.ts";
+import { SplitUI } from "./split/SplitUI.tsx";
 import {
   loadBattleData,
   newBattleSession,
@@ -38,7 +38,7 @@ let app: Application,
   bootGeneration = 0;
 let shell: ShellController | null = null,
   assets: UiAssets | null = null,
-  runtime: BattleRuntime | null = null,
+  runtime: SplitRuntime | null = null,
   store: BrowserStore | null = null,
   loader: AssetLoader | null = null,
   data: BattleData | null = null,
@@ -69,7 +69,9 @@ function publishDebug(): void {
   }
   window.__historyline = {
     shell,
-    ...(runtime === null ? {} : { battle: runtime.battle, map: runtime.map }),
+    ...(runtime === null
+      ? {}
+      : { battle: runtime.battle, map: runtime.map, runtime }),
   };
 }
 function resize(): void {
@@ -108,6 +110,10 @@ function changed(): void {
   document.documentElement.classList.toggle(
     "in-battle",
     runtime !== null && (battlePage || shell?.page === "leave"),
+  );
+  document.documentElement.classList.toggle(
+    "original-layout",
+    runtime?.original ?? false,
   );
   runtime?.setPaused(paused);
   resize();
@@ -164,11 +170,14 @@ function Controls() {
     );
   return (
     <>
-      <BattleUI
-        {...battle.props(images, revision, {
+      <SplitUI
+        runtime={battle}
+        assets={images}
+        revision={revision}
+        state={{
           busy: current.busy,
           note: current.note,
-        })}
+        }}
       />
       {battle.ended() && current.result !== null && (
         <div class="battle-ended">
@@ -231,7 +240,7 @@ async function beginBattle(
     activeLoader = loader,
     activeData = data;
   discardBattle();
-  const next = await BattleRuntime.create(
+  const next = await SplitRuntime.create(
     app,
     activeLoader,
     request,
@@ -340,7 +349,7 @@ async function bootstrap(allowCandidates = false): Promise<void> {
           );
         return encodeEnvelope(
           runtime.request.mission.key,
-          runtime.request.side,
+          runtime.saveSide(),
           play.save(runtime.battle.session),
         );
       },
@@ -425,8 +434,9 @@ declare global {
   interface Window {
     __historyline?: {
       shell: ShellController;
-      battle?: BattleRuntime["battle"];
-      map?: BattleRuntime["map"];
+      battle?: SplitRuntime["battle"];
+      map?: SplitRuntime["map"];
+      runtime?: SplitRuntime;
     };
   }
 }

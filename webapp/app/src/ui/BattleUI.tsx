@@ -218,8 +218,11 @@ function Terrain({ p }: { p: Props }) {
       legal.has(key) ||
       (entrance !== null && legal.has(level.coordKey(entrance)));
   return (
-    <section class="battle-terrain" aria-labelledby="battle-terrain-title">
-      <h3 id="battle-terrain-title">
+    <section
+      class="battle-terrain"
+      aria-labelledby={`battle-terrain-title-${p.battle.side}`}
+    >
+      <h3 id={`battle-terrain-title-${p.battle.side}`}>
         Terrain{" "}
         <small>
           {at.line}, {at.col}
@@ -300,8 +303,8 @@ function Orders({ p }: { p: Props }) {
     orders = b.orders();
   return (
     <>
-      <section aria-labelledby="battle-orders-title">
-        <h2 id="battle-orders-title">Orders</h2>
+      <section aria-labelledby={`battle-orders-title-${p.battle.side}`}>
+        <h2 id={`battle-orders-title-${p.battle.side}`}>Orders</h2>
         {own === null ? (
           <p class="battle-muted">
             Tap your unit, then its destination or target.
@@ -403,9 +406,14 @@ function Contents({ p }: { p: Props }) {
         : profile.repair,
     options = c.options();
   return (
-    <section class="battle-contents" aria-labelledby="battle-contents-title">
+    <section
+      class="battle-contents"
+      aria-labelledby={`battle-contents-title-${p.battle.side}`}
+    >
       <div class="battle-section-heading">
-        <h2 id="battle-contents-title">{groundName(c.name())}</h2>
+        <h2 id={`battle-contents-title-${p.battle.side}`}>
+          {groundName(c.name())}
+        </h2>
         <button
           type="button"
           onClick={() => {
@@ -545,8 +553,8 @@ function GameInfo({ p }: { p: Props }) {
   const b = p.battle,
     s = play.stats(b.session);
   return (
-    <section aria-labelledby="battle-game-title">
-      <h2 id="battle-game-title">Battle information</h2>
+    <section aria-labelledby={`battle-game-title-${p.battle.side}`}>
+      <h2 id={`battle-game-title-${p.battle.side}`}>Battle information</h2>
       <dl class="battle-values">
         <div>
           <dt>Turn</dt>
@@ -682,6 +690,24 @@ function Settings({ p }: { p: Props }) {
             ))}
           </select>
         </label>
+        {p.onLayout !== undefined && (
+          <label>
+            Layout
+            <select
+              value={p.layout ?? "responsive"}
+              onChange={(event) => {
+                p.onLayout?.(
+                  event.currentTarget.value === "original"
+                    ? "original"
+                    : "responsive",
+                );
+              }}
+            >
+              <option value="responsive">Responsive</option>
+              <option value="original">Original split screen</option>
+            </select>
+          </label>
+        )}
         <label>
           <input
             type="checkbox"
@@ -750,6 +776,7 @@ function Confirm({ p }: { p: Props }) {
     dialog = useRef<HTMLElement>(null),
     b = p.battle;
   useEffect(() => {
+    if (p.embedded) return;
     const previous = document.activeElement;
     confirm.current?.focus();
     return () => {
@@ -758,6 +785,7 @@ function Confirm({ p }: { p: Props }) {
     };
   }, []);
   const trap = (event: TargetedKeyboardEvent<HTMLElement>) => {
+    if (p.embedded) return;
     if (event.key !== "Tab") return;
     const buttons = dialog.current?.querySelectorAll<HTMLButtonElement>(
       "button:not(:disabled)",
@@ -778,12 +806,12 @@ function Confirm({ p }: { p: Props }) {
       <section
         class="battle-confirm"
         role="alertdialog"
-        aria-modal="true"
-        aria-labelledby="battle-confirm-title"
+        aria-modal={p.embedded ? undefined : "true"}
+        aria-labelledby={`battle-confirm-title-${p.battle.side}`}
         ref={dialog}
         onKeyDown={trap}
       >
-        <h2 id="battle-confirm-title">
+        <h2 id={`battle-confirm-title-${p.battle.side}`}>
           {b.surrenderPrompt ? "Give up this battle?" : "End this phase?"}
         </h2>
         <p>
@@ -833,7 +861,7 @@ export function BattleUI(p: BattleUIProps) {
     phase = play.phase(s, b.side),
     ready = play.ready(s, b.side),
     end = play.ended(s),
-    scene = b.playback.scene(),
+    scene = p.showScene === false ? null : b.playback.scene(),
     ring = p.ring.value,
     progress =
       b.progress === null
@@ -872,10 +900,12 @@ export function BattleUI(p: BattleUIProps) {
       class="battle-ui"
       data-revision={revision}
       data-panel={b.panel}
+      data-scene={scene !== null}
+      data-readonly={p.readOnly ?? false}
       style={{ "--ui-scale": p.scale.value }}
       onKeyDown={controlKeys}
     >
-      <header class="battle-top">
+      <header class="battle-top" inert={p.readOnly ?? false}>
         <div class="battle-title">
           <h1>{s.level.mapName || "Historyline 1914–1918"}</h1>
           <span>
@@ -925,7 +955,11 @@ export function BattleUI(p: BattleUIProps) {
           Opponent: {phaseName(play.phase(s, 1 - b.side))} ·{" "}
           {play.ready(s, 1 - b.side) ? "Ready" : "Giving orders"}
         </div>
-        <nav class="battle-panel-nav" aria-label="Battle views">
+        <nav
+          class="battle-panel-nav"
+          aria-label="Battle views"
+          inert={p.readOnly ?? false}
+        >
           {(b.panel !== "orders" || b.contents.box !== null) && (
             <button
               type="button"

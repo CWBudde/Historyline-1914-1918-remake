@@ -222,6 +222,34 @@ it("introduces deployed, held and buildable side types once, with native per-slo
   expect(scenario.level(campaign.first(0).file, "cp").mapName).toBe("FIRST");
 });
 
+it("keeps local setups out of side chains, preserves them for either side and prefers campaign codes", async () => {
+  const first = files();
+  first.set("2p.json", { from: "cp" });
+  const second = files("NEXT", "ENTENTE");
+  second.set("2p.json", { from: "cp", code: "LOCAL" });
+  const campaign = await loadCampaign(
+    loader({ "1914-08": first, "1914-09": second }),
+  );
+  expect(campaign.missions).toHaveLength(4);
+  expect(campaign.byKey.size).toBe(6);
+  const local = campaign.byKey.get("1914-08:2p");
+  expect(local).toMatchObject({
+    key: "1914-08:2p",
+    side: 0,
+    mode: "2p",
+    code: "FIRST",
+    next: null,
+    newUnits: [],
+    news: article,
+    issue: 1,
+    season: "summer",
+  });
+  expect(campaign.forSide("1914-08:2p", 0)).toBe(local);
+  expect(campaign.forSide("1914-08:2p", 1)).toBe(local);
+  expect(campaign.findCode("first")?.key).toBe("1914-08:cp");
+  expect(campaign.findCode("local")?.key).toBe("1914-09:2p");
+});
+
 it.each([
   { ...article, extra: true },
   { ...article, label: "" },
@@ -303,6 +331,26 @@ it("loads all 104 shipped missions with both 52-month chains, codes, issues and 
     .sort();
   expect(months).toHaveLength(52);
   expect(campaign.missions).toHaveLength(104);
+  expect(campaign.byKey.size).toBe(156);
+  for (const [i, month] of months.entries()) {
+    const local = campaign.byKey.get(`${month}:2p`);
+    if (local === undefined) throw Error(`missing local mission ${month}`);
+    const raw = readJSON(`levels/${month}/2p.json`) as { code?: string };
+    const cp = readJSON(`levels/${month}/cp.json`) as { code: string };
+    expect(local).toMatchObject({
+      month,
+      mode: "2p",
+      side: 0,
+      code: raw.code || cp.code,
+      next: null,
+      newUnits: [],
+      issue: i + 1,
+    });
+    expect(local.file).toBe(campaign.byKey.get(`${month}:cp`)?.file);
+    expect(local.news).toBe(campaign.byKey.get(`${month}:cp`)?.news);
+    expect(campaign.forSide(local.key, 1)).toBe(local);
+    expect(() => scenario.level(local.file, "2p")).not.toThrow();
+  }
   for (const side of [0, 1] as const) {
     const mode = side === 0 ? "cp" : "ec";
     const chain = campaign.missions.slice(side * 52, (side + 1) * 52);

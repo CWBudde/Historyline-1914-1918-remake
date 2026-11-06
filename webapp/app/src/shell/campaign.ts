@@ -18,7 +18,7 @@ export interface UnitCard {
 export interface Mission {
   key: string;
   month: string;
-  mode: "cp" | "ec";
+  mode: scenario.Mode;
   side: 0 | 1;
   code: string;
   name: string;
@@ -213,18 +213,48 @@ export async function loadCampaign(
   }
   if (missions.length === 0) throw new Error("no campaign maps");
   const byKey = new Map(missions.map((mission) => [mission.key, mission]));
+  for (const month of months) {
+    const entry = loaded.get(month);
+    if (entry === undefined) continue;
+    const { file, news } = entry;
+    const setup = scenario.setup(file, "2p");
+    if (setup === null) continue;
+    scenario.level(file, "2p");
+    const code = setup.code || scenario.setup(file, "cp")?.code || "";
+    const mission: Mission = {
+      key: `${month}:2p`,
+      month,
+      mode: "2p",
+      side: 0,
+      code,
+      name: file.name,
+      season: file.season,
+      briefing: `Map ${code}, ${file.season} — two human commanders; capture the enemy HQ.`,
+      next: null,
+      news,
+      issue: issues.get(month) ?? 0,
+      newUnits: [],
+      file,
+    };
+    byKey.set(mission.key, mission);
+  }
   return {
     missions,
     byKey,
     forSide(key, side) {
       const current = byKey.get(key);
       if (current === undefined) throw new Error(`campaign: no mission ${key}`);
+      if (current.mode === "2p") return current;
       return (
         byKey.get(`${current.month}:${side === 0 ? "cp" : "ec"}`) ?? current
       );
     },
     findCode(code) {
-      return missions.find((m) => m.code === code.toUpperCase()) ?? null;
+      return (
+        missions.find((m) => m.code === code.toUpperCase()) ??
+        [...byKey.values()].find((m) => m.code === code.toUpperCase()) ??
+        null
+      );
     },
     first(side) {
       const mission = missions.find((m) => m.side === side);

@@ -16,6 +16,11 @@ export interface BattleUIProps {
   ring: Signal<RingLayout | null>;
   settingsBusy?: boolean;
   settingsNote?: string;
+  embedded?: boolean;
+  showScene?: boolean;
+  readOnly?: boolean;
+  layout?: "responsive" | "original";
+  onLayout?(value: "responsive" | "original"): void;
   onScale(value: number): void;
   onReduced(value: boolean): void;
   onScenes(value: boolean): void;

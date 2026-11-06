@@ -25,6 +25,12 @@ export interface MapComputer {
   ): Promise<play.Command[]>;
 }
 
+/** Local humans share rules, while each keeps its own fair view and controls. */
+export interface MapBattleCycle {
+  confirm(side: number): void;
+  changed(side: number): void;
+}
+
 /** Orders and panels share one fair side view; only play mutates the rules. */
 export class MapBattle {
   readonly playback: MapPlayback;
@@ -41,6 +47,9 @@ export class MapBattle {
   status = "";
   version = 0;
   onChange: (() => void) | null = null;
+  onResolution:
+    | ((before: [play.View, play.View], events: readonly play.Event[]) => void)
+    | null = null;
   private planning = false;
   private paused = false;
   private disposed = false;
@@ -51,13 +60,19 @@ export class MapBattle {
     readonly session: play.Session,
     readonly side: number,
     private readonly computer?: MapComputer,
+    private readonly cycle?: MapBattleCycle,
   ) {
     if (side !== 0 && side !== 1) throw new Error("Invalid battle side.");
     this.playback = new MapPlayback(side);
     this.contents = new ContentsController(
       session,
       side,
-      () => this.busy() || this.phasePrompt || this.surrenderPrompt,
+      () =>
+        this.busy() ||
+        this.paused ||
+        this.disposed ||
+        this.phasePrompt ||
+        this.surrenderPrompt,
     );
     this.cursor = {
       ...([...this.view().units.values()].find((u) => u.side === side)?.at ?? {
@@ -93,6 +108,7 @@ export class MapBattle {
     this.resume = null;
     this.resumeGate = null;
     this.onChange = null;
+    this.onResolution = null;
   }
   view(): play.View {
     return this.playback.shown(play.view(this.session, this.side));
@@ -445,6 +461,17 @@ export class MapBattle {
   }
   async phase(): Promise<void> {
     if (this.paused || this.disposed) return;
+    if (this.cycle !== undefined) {
+      if (!this.canAct()) return;
+      this.clearSelection();
+      try {
+        this.cycle.confirm(this.side);
+      } catch (e) {
+        this.refused(e);
+      }
+      this.touch();
+      return;
+    }
     if (this.planning) {
       if (
         !play.ready(this.session, this.side) &&
@@ -481,13 +508,17 @@ export class MapBattle {
         }
       }
       if (play.ready(this.session, 0) && play.ready(this.session, 1)) {
-        const before = play.view(this.session, this.side),
+        const before: [play.View, play.View] = [
+            play.view(this.session, 0),
+            play.view(this.session, 1),
+          ],
           events = play.resolve(this.session);
         this.playback.resolution(
-          before,
+          before[this.side === 0 ? 0 : 1],
           play.view(this.session, this.side),
           events,
         );
+        this.onResolution?.(before, events);
         this.status = "Orders resolved.";
       }
     } catch (e) {
@@ -514,6 +545,12 @@ export class MapBattle {
     if (active) this.version++;
     if (scene !== this.playback.scene()?.battle || wasBusy !== this.busy())
       this.onChange?.();
+  }
+  /** A peer's order can change the fair map without changing this panel's UI. */
+  refresh(): void {
+    if (this.disposed) return;
+    this.version++;
+    this.onChange?.();
   }
   private allowed(action: Action, at: hexgrid.Coord): boolean {
     if (action === "cancel" || action === "info" || action === "map")
@@ -612,8 +649,8 @@ export class MapBattle {
     return this.disposed;
   }
   private touch(): void {
-    this.version++;
-    this.onChange?.();
+    this.refresh();
+    if (!this.disposed) this.cycle?.changed(this.side);
   }
   private refused(error: unknown): void {
     this.status = error instanceof Error ? error.message : String(error);

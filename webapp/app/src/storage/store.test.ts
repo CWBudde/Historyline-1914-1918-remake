@@ -123,6 +123,8 @@ describe("persistent settings", () => {
       painted: true,
       scroll: "normal",
       opponent: "computer",
+      layout: "responsive",
+      playMode: "single",
       limit: 0,
       allowCandidates: false,
     });
@@ -137,6 +139,8 @@ describe("persistent settings", () => {
       painted: true,
       scroll: "fast",
       opponent: "computer",
+      layout: "responsive",
+      playMode: "single",
       limit: 0,
       allowCandidates: false,
     });
@@ -148,6 +152,8 @@ describe("persistent settings", () => {
         painted: false,
         scroll: "slow",
         opponent: "passive",
+        layout: "original",
+        playMode: "hotseat",
         limit: 20,
         allowCandidates: true,
       }),
@@ -158,6 +164,8 @@ describe("persistent settings", () => {
       painted: false,
       scroll: "slow",
       opponent: "passive",
+      layout: "original",
+      playMode: "hotseat",
       limit: 20,
       allowCandidates: true,
     });
@@ -173,6 +181,12 @@ describe("persistent settings", () => {
     { allowCandidates: 1 },
     { scroll: "turbo" },
     { opponent: "human" },
+    { layout: "split" },
+    { layout: undefined },
+    { layout: false },
+    { playMode: "local" },
+    { playMode: undefined },
+    { playMode: 2 },
     { limit: 4 },
     { limit: -5 },
     { uiScale: 0 },
@@ -183,6 +197,18 @@ describe("persistent settings", () => {
   ])("surfaces corrupt settings %j", (value) => {
     expect(() => validateSettings(value)).toThrow();
   });
+});
+
+it("round-trips a two-human native envelope without adding presentation settings", () => {
+  const saved = encodeEnvelope("1914-09:2p", 1, utf8('{"schema":3}'));
+  expect(parseSave(serializeSave(saved))).toStrictEqual({
+    map: "1914-09:2p",
+    side: 1,
+    data: "eyJzY2hlbWEiOjN9",
+  });
+  expect(validateSettings({ playMode: "simultaneous" }).playMode).toBe(
+    "simultaneous",
+  );
 });
 
 it("reports unavailable browser storage instead of pretending saves succeeded", async () => {

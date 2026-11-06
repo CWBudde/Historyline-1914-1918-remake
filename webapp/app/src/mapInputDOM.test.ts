@@ -605,3 +605,47 @@ it("reserves text-entry M while Escape still reaches the modal cancellation hook
   }
   expect(events).toEqual(["Escape", "Escape", "Escape"]);
 });
+
+it("lets a split-screen router own the keyboard while retaining map pointer controls", () => {
+  const down = vi.fn(() => true),
+    up = vi.fn(() => true),
+    s = setup({ keyboard: false, keyDown: down, keyUp: up });
+  const before = { ...s.camera.origin };
+  for (const value of ["ArrowRight", "d", "F1", "F8", "Escape"]) {
+    expect(key("keydown", value).defaultPrevented).toBe(false);
+    s.input.tick(16);
+    key("keyup", value);
+  }
+  expect(down).not.toHaveBeenCalled();
+  expect(up).not.toHaveBeenCalled();
+  expect(s.camera.origin).toEqual(before);
+  expect(s.calls.phase).toBe(0);
+  expect(s.calls.design).toBe(0);
+  expect(s.calls.cancel).toBe(0);
+  s.pointer("pointerdown", 1, 100, 100, "mouse");
+  s.pointer("pointerup", 1, 100, 100, "mouse");
+  expect(s.clicks).toEqual([{ x: 200, y: 200 }]);
+});
+
+it("accepts camera keys from the split router and releases them on focus or disposal", () => {
+  const s = setup({ keyboard: false }),
+    before = { ...s.camera.origin };
+  expect(s.input.cameraKey("d", true)).toBe(true);
+  s.input.tick(16);
+  expect(s.camera.origin.x).toBeGreaterThan(before.x);
+  s.input.cameraKey("d", false);
+  const released = { ...s.camera.origin };
+  s.input.tick(16);
+  expect(s.camera.origin).toEqual(released);
+  s.input.cameraKey("w", true);
+  focus(new ElementTarget("INPUT"));
+  s.input.tick(16);
+  expect(s.camera.origin).toEqual(released);
+  s.input.cameraKey("s", true);
+  s.input.clearKeyboard();
+  s.input.tick(16);
+  expect(s.camera.origin).toEqual(released);
+  expect(s.input.cameraKey("r", true)).toBe(false);
+  s.input.dispose();
+  expect(s.input.cameraKey("d", true)).toBe(false);
+});
