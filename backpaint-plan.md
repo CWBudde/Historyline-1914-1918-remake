@@ -34,8 +34,8 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 10 remain.
-`1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1916-05`, `1916-07`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
+The checklist tracks the 25 original tile-render placeholders; 9 remain.
+`1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1916-05`, `1916-07`, `1916-09`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
 use 1.41 image pixels per world pixel; the others use 1.72.
@@ -270,7 +270,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Record verification and update `docs/painted-backdrops.md`. Evidence: `build/review/backdrops/1916-07/verification.md`, per-mode reviews/coverage JSON, lightness reports, join review and exact prompt/finishing provenance. Owned native/Xvfb processes stopped after acceptance.
   - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then push. `c00ff768` committed the art and verification references; `git push origin main` succeeded on 2026-11-05.
 
-- [ ] [1916-09](levels/1916-09/)
+- [x] [1916-09](levels/1916-09/)
   - [x] Audit `levels/1916-09/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-09/approval-audit.json` and `.md`: autumn, 1658×1920, six compounds, eleven houses, 86 inherited starts, no airfields or linked ships; 47 path and 47 trench overlays, 263 mud hexes and three ponds recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [DROID/TANKS](docs/backpaint-approvals.md#1916-09--droidtanks), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [x] Render a fresh unit-free 4× guide: `build/review/backdrops/1916-09/guide/`, 6632×7680, zero gaps/issues. Current audit is byte-identical to approval audit; all baseline map/setup/source/JPEG hashes pass.
@@ -289,7 +289,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Run the global backdrop check: all 52 source/JPEG pairs pass (`installed-check.log`). September source/JPEG are 2852×3302, 20,490,544/5,755,539 bytes, q95; source byte comparison and all four map/setup hashes pass. Fresh native build and all four targeted packages pass (`native-build.log`, `installed-tests.log`).
   - [x] Review the installed JPEG in CP, EC and two-player at normal/close zoom: all 86 inherited starts pass in each mode. Each has eighteen normal and thirty close groups, plus two unselected heavy-gun supplements resolving explicit cursor-ring visibility exceptions; three standard staged views were inspected from each 33-frame, zero-gap/issue capture. All five repaired contacts, tank tracks, aircraft, original trenches and single runtime bunkers pass. `unit-review-{cp,ec,2p}.md` and coverage JSON record actual views; all owned processes are stopped.
   - [x] Record verification and visual evidence in `build/review/backdrops/1916-09/verification.md`, with exact prompts indexed by `prompt-index.json`. Update `docs/painted-backdrops.md` for the finished clay-country painting. All 26 lightness comparisons, eight native/grid joins, four targeted Go packages, global source/JPEG checks and unchanged map/setup hashes pass.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`. Painting commit `1fd425e7`; push succeeded. All three modes accept all 86 starts at both zooms, final art/native hashes match, and all owned review processes are stopped.
 
 - [ ] [1916-11](levels/1916-11/)
   - [x] Audit `levels/1916-11/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1916-11/approval-audit.json` and `.md`: winter, 1658×1920, four compounds, one house, 35 inherited starts, no water, airfields or linked ships; 53 path and 41 road overlays and all mountain footprints recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [ROYAL/CROWN](docs/backpaint-approvals.md#1916-11--royalcrown), approved by the user on 2026-11-04.
