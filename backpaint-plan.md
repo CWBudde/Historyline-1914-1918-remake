@@ -34,7 +34,7 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 7 remain.
+The checklist tracks the 25 original tile-render placeholders; 6 remain.
 `1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1916-05`, `1916-07`, `1916-09`, `1916-11`, `1917-01`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
@@ -333,7 +333,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Record verification in `build/review/backdrops/1917-01/verification.md`, exact prompts in `prompt-index.json`, and update `docs/painted-backdrops.md`. All eight native/grid joins, five compounds/fifteen houses and four targeted packages pass; two depot lightness warnings retain visual dispositions, and the final support ring passes. Global source/JPEG and map/setup invariants pass. This is painting completion with reported inherited contact constraints, not an all-unit clearance pass.
   - [x] Commit verified painting and documentation directly to `main`: `61c79bdf`; `git push origin main` succeeded. Fixed-layout contact findings remain documented rather than silently passed.
 
-- [ ] [1917-03](levels/1917-03/)
+- [x] [1917-03](levels/1917-03/)
   - [x] Audit `levels/1917-03/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-03/approval-audit.json` and `.md`: spring, 4498×1920, ten compounds, eighteen houses, 64 inherited starts, no linked ships; nine runway/six hangar, seventeen bridge, seven stream and 28 trench overlays plus all rail/road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SKILL/CABLE](docs/backpaint-approvals.md#1917-03--skillcable), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [x] Render a fresh unit-free 4× guide: `build/review/backdrops/1917-03/guide/`, 17992×7680, 1481 cells, zero gaps/issues. Current audit is byte-identical to approval audit and all six baseline hashes pass.
@@ -352,7 +352,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Run backdrop check successfully for all 52 PNG/JPEG pairs; all four targeted Go packages pass. Installed dimensions, source size, art/native hashes and all four unchanged map/setup hashes verified (`installed-check.log`, `installed-tests.log`, `final-map-setup-check.log`).
   - [x] Review all 64 starts at normal and close zoom in each mode: all actual sprite/support checks pass, including nine aircraft, six trains and eight bunker rims. CP resolves two primary normal clips with existing alternates; EC resolves one close train clip; two-player primaries are complete. Each staged manifest has 33 frames and zero gaps/issues. No linked ships. Per-unit matrices and visual reports retain actual evidence, source/JPEG/native hashes and support-source caveats.
   - [x] Record `verification.md`, `prompt-index.md`, join/architecture/infrastructure/vegetation reviews and all three unit coverage matrices; update `docs/painted-backdrops.md`. All 26 joins, ten compounds, eighteen houses, seventeen bridges, seven streams, nine runways, six hangars and both rail regions reviewed. All owned game/display processes stopped.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit verified PNG/JPEG and documentation as `bc7aa604` directly to `main`; push to `origin/main` succeeded. Verification and per-unit visual evidence are under `build/review/backdrops/1917-03/`.
 
 - [ ] [1917-05](levels/1917-05/)
   - [x] Audit `levels/1917-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-05/approval-audit.json` and `.md`: spring, 1658×1920, four compounds, sixteen houses, 68 inherited starts, no linked ships; ten runway/six hangar and 34 road overlays recorded, including the occupied cottage. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SKULL/ANZAC](docs/backpaint-approvals.md#1917-05--skullanzac), approved by the user on 2026-11-04.
