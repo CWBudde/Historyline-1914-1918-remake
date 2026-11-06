@@ -71,6 +71,13 @@ PAUSE/SIGMA (`1916-12`, 7737×3302) has dry wind-packed December snow and pale m
 a coastal gale. Its streams meet the sea through open mouths; snowy gravel joins the roads and building
 approaches. Small level pockets support the starting units, and the southern forest road fades beneath
 snow and canopy. One EC setup infantry group starts beside its house instead of on the roof.
+UBOOT/DEPTH (`1917-01`, 2852×3302) has a cold, snow-free maritime coast: muted green meadow,
+leafed woodland and dark conifers under cool overcast light, beside one restless slate-blue sea.
+Salt-weathered stone, russet brick and tarred timber distinguish its coastal cottages, ropeworks,
+marine workshops, island provisions yard and two hangars. Its HQs are a pale granite castle with
+four slate domes and a low slate hall, and a Baltic brick fort with four copper cones and stepped
+gables. Original shores, bridge footprints and starting positions remain fixed; the inherited
+battleship/bridge overlap and torpedo boat on land are recorded in the month's verification.
 ELITE/SEVEN (`1917-02`, 2852×3302) has a February thaw under low raincloud, wet dormant grass,
 bare trees and scattered old snow. Both airstrips stay open; the southern stream fragments form
 continuous channels. Small clearings and a level rocky shelf support the starting units. One EC

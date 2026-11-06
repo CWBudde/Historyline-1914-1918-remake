@@ -315,22 +315,22 @@ existing footprints. These are artistic settings, not verified map locations.
 - [ ] [1917-01](levels/1917-01/)
   - [x] Audit `levels/1917-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-01/approval-audit.json` and `.md`: summer rules season, 1658×1920, five compounds, fifteen houses, 58 inherited starts including fourteen linked ships; four runway/two hangar overlays, seven bridge overlays and all coastal routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [UBOOT/DEPTH](docs/backpaint-approvals.md#1917-01--ubootdepth), snow-free cold coast with summer rules retained, approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
-  - [ ] Render a fresh unit-free 4× layout guide: `just hl art map -level levels/1917-01:cp -out build/review/backdrops/1917-01/guide`.
-  - [ ] Record world/output dimensions and aspect, section count, canvas sizes, origins and overlaps following the guide; confirm complete map coverage.
-  - [ ] Crop and scale the guide into the planned overlapping section canvases, preserving exact registration.
-  - [ ] Prepare each section's prompt with canvas/world dimensions, hex size, approved season/light and references explicitly separated into layout and style.
-  - [ ] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
-  - [ ] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
-  - [ ] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
-  - [ ] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
-  - [ ] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
-  - [ ] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
-  - [ ] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
-  - [ ] Save the finished lossless source to `levels/1917-01/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
-  - [ ] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1917-01`.
-  - [ ] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.
-  - [ ] Review `1917-01:cp`, `1917-01:ec` and `1917-01:2p` in game at normal and close zoom; check starting units and linked ships' full hulls at their midpoint and facing against terrain, shores, piers and bridges.
-  - [ ] Record the verification and visual-review evidence, and update `docs/painted-backdrops.md` to describe the finished painting.
+  - [x] Render a fresh unit-free 4× guide: `build/review/backdrops/1917-01/guide/`, 6632×7680, zero gaps/issues. Current audit is byte-identical to approval audit and all six baseline hashes pass.
+  - [x] Record complete coverage in `section-layout.json`: 1658×1920 world, 2852×3302 output, nine 728×727 sections on 1252×1250 canvases; x 0/465/930, y 0/596/1193, minimum 263×130 world-pixel overlaps.
+  - [x] Prepare all nine registered guide crops through the unified backdrop CLI (`sections.log`, `sections/`).
+  - [x] Prepare exact prompts in `prompts.json`, separating layout from the approved 1915-07 snow-free ground/foliage and 1916-02 sea-only references. Cool overcast maritime light, exact shores/bridges/landings, all five individual compounds and fifteen houses, two open airstrips and all 58 support anchors are specified; no snow or new docks. Exact fourteen-hull midpoints/facings and immutable support terrain are recorded in `starting-anchors.json`.
+  - [x] Paint every approved section, preserving every terrain feature, road, river, forest edge, crater, building and fort within about 10 canvas pixels of the guide.
+  - [x] Review every section against the guide and approved references; correct deviations and select the approved pick per section. Run a comparison round only with separate approval.
+  - [x] Stitch the sections with overlap RGB gains normalised to mean 1, minimum-difference seams using a 7×7-blurred cost, and ±10 px smoothstep blends.
+  - [x] Inspect every join at full resolution and with a hex-grid overlay; correct seams, doubled features and registration errors.
+  - [x] Grade the assembled painting towards the approved reference's light and chroma; retain continuous banks, fields, trenches and route connections.
+  - [x] Finish exact-hex objects using separate sheets and feathered masks where needed; retain their coordinates without rotation or transposition.
+  - [x] Finish the approved individual HQs, factories and depots with masked crops; preserve entrances, yards, landing places and open airstrips.
+  - [x] Save the finished lossless source to `levels/1917-01/backdrop.png`, replacing only the approved placeholder; preserve world aspect and keep the file below 100 MiB.
+  - [x] Encode the runtime JPEG from that source: `just hl levels backdrop jpeg 1917-01`.
+  - [x] Run `just hl levels backdrop check`; verify the installed PNG/JPEG dimensions, world aspect and actual source file size.
+  - [x] Review all three modes at normal/close zoom: all 58 starts and all fourteen linked hulls have complete evidence. Twelve coastal/bridge contact findings remain explicitly reported under the approved fixed-layout brief; no units or shores moved. The approved forest pocket is corrected and verified in every mode. `unit-coverage-final.json` preserves original reviews, final affected-field evidence and exact decoded-pixel provenance.
+  - [x] Record verification in `build/review/backdrops/1917-01/verification.md`, exact prompts in `prompt-index.json`, and update `docs/painted-backdrops.md`. All eight native/grid joins, five compounds/fifteen houses and four targeted packages pass; two depot lightness warnings retain visual dispositions, and the final support ring passes. Global source/JPEG and map/setup invariants pass. This is painting completion with reported inherited contact constraints, not an all-unit clearance pass.
   - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
 
 - [ ] [1917-03](levels/1917-03/)
