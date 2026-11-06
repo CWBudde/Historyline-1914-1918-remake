@@ -1,0 +1,229 @@
+.original-layout.in-battle #stage {
+  inset: 0;
+}
+.split-input {
+  position: absolute;
+  touch-action: none;
+}
+.split-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.split-frame-host {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.split-screen {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+.split-panel {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+.split-panel .battle-ui {
+  position: absolute;
+  inset: 0;
+}
+.split-panel .battle-ui .battle-top {
+  z-index: 4;
+  background: transparent;
+  height: auto;
+  min-height: 0;
+  padding: 6px;
+  justify-content: flex-end;
+  pointer-events: none;
+  border: 0;
+  box-shadow: none;
+}
+.split-panel .battle-title,
+.split-panel .battle-ready {
+  display: none;
+}
+.split-panel .battle-settings {
+  pointer-events: auto;
+}
+.split-panel .battle-ui .battle-settings-sheet {
+  right: 4px;
+  top: calc(100% + 2px);
+  width: min(340px, calc(100% - 8px));
+  max-height: calc(100dvh - 128px * var(--ui-scale, 1));
+  padding: 8px;
+}
+.split-panel .battle-settings-sheet label {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  justify-content: stretch;
+  gap: 4px;
+}
+.split-panel .battle-settings-sheet label:has(input) {
+  display: flex;
+}
+.split-panel .battle-ui .battle-settings-sheet select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+.split-panel .battle-ui[data-readonly="true"] .battle-top {
+  display: none;
+}
+.split-panel .battle-ui .battle-dock {
+  z-index: 1;
+  position: absolute;
+  inset: 44px 8px 8px;
+  width: auto;
+  height: auto;
+  max-height: none;
+  border: 1px solid #8c7448;
+  background: #181d1ff5;
+  overflow: auto;
+  padding: 12px;
+}
+.split-panel
+  .battle-ui[data-panel="orders"]
+  .battle-dock:not(:has(.battle-contents, .battle-scene-panel)) {
+  display: none;
+}
+.split-panel .battle-opponent-status,
+.split-panel .battle-phase-row,
+.split-panel .battle-help {
+  display: none;
+}
+.split-panel .battle-unit-heading {
+  grid-template-columns: minmax(80px, 40%) 1fr;
+}
+.split-panel .battle-photo {
+  max-height: 150px;
+}
+.split-panel .battle-ui .battle-modal-shade {
+  position: absolute;
+  inset: 0;
+}
+.split-panel .battle-ui .battle-confirm {
+  max-width: calc(100% - 16px);
+}
+.split-panel .battle-ui .battle-ring {
+  position: fixed;
+}
+.split-panel .battle-scene-host,
+.split-panel .battle-strategy-host {
+  min-height: 180px;
+}
+.split-hidden {
+  background: #131417;
+}
+.split-covered {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  margin: 0;
+  color: #a4afb0;
+}
+.split-well {
+  z-index: 3;
+  position: absolute;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  color: #bed392;
+  pointer-events: auto;
+  padding: 0 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  font:
+    calc(12px * var(--ui-scale)) "HL Sans",
+    sans-serif;
+  text-transform: uppercase;
+}
+.split-panel .battle-ui[data-scene="true"] .battle-dock {
+  inset: 0;
+  padding: 8px;
+  overflow: hidden;
+}
+.split-panel .battle-ui[data-scene="true"] .battle-status,
+.split-panel .battle-ui[data-scene="true"] .battle-panel-nav {
+  display: none;
+}
+.split-panel .battle-scene-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.split-panel .battle-scene-panel h2 {
+  display: none;
+}
+.split-panel .battle-scene-host {
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+.split-panel .battle-host-close {
+  flex: none;
+}
+.split-well.side-1 {
+  color: #fbe3c7;
+}
+.split-well span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.split-well small {
+  color: #d6a657;
+  white-space: nowrap;
+}
+.split-well:disabled {
+  cursor: default;
+}
+.split-well:focus-visible {
+  outline: 2px solid #c2a466;
+  outline-offset: -2px;
+}
+.hotseat-handover {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #131719;
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+  color: #eee5d2;
+  font:
+    calc(16px * var(--ui-scale)) "HL Sans",
+    sans-serif;
+}
+.hotseat-handover section {
+  box-sizing: border-box;
+  width: min(520px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  padding: 24px;
+}
+.hotseat-handover h1 {
+  font-family: "HL Display", serif;
+  color: #c4a773;
+}
+.hotseat-handover button {
+  min-height: 44px;
+  padding: 8px 14px;
+  margin: 6px 8px 6px 0;
+  border: 1px solid #9d8b67;
+  color: inherit;
+  background: #263942;
+  font: inherit;
+  cursor: pointer;
+}
+.hotseat-handover button:focus-visible {
+  outline: 3px solid #f4d698;
+  outline-offset: 3px;
+}

@@ -82,6 +82,15 @@ ELITE/SEVEN (`1917-02`, 2852×3302) has a February thaw under low raincloud, wet
 bare trees and scattered old snow. Both airstrips stay open; the southern stream fragments form
 continuous channels. Small clearings and a level rocky shelf support the starting units. One EC
 anti-tank crew starts on the adjacent bank path, clear of the diagonal road bridge's stream.
+SKILL/CABLE (`1917-03`, 7737×3302) has an early March thaw: dormant olive meadow,
+bare broadleaf woods and dark conifers, sheltered old snow and wet clay beneath bright cloud.
+The winding cold river, long crossings, separate trench fields and both railway networks retain
+their courses. Buff limestone and slate domes distinguish the northern HQ; grey ashlar, copper
+cones and a dormered slate hall distinguish the southern one. Brick steel and cable works,
+stone cement works, a timber-and-brick paper mill and four low supply depots retain their yards
+and entrances. A small woodland pocket and rough clay support the unchanged gun positions;
+all nine runway aircraft stay clear. Prompts, masks, retained lightness warnings and native
+verification are under `build/review/backdrops/1917-03/`.
 INFRA/ZOMBI (`1917-04`, 4806×5504) has wet spring meadow, budding trees and wind-ruffled inland
 lakes under bright overcast light between April showers. Small woodland clearings and level shelves
 support the starting units. A connected rocky massif surrounds the southeastern HQ; the southwestern

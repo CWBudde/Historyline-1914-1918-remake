@@ -93,6 +93,8 @@ export class MapGesture {
 }
 
 export interface MapInputCallbacks {
+  /** A split screen installs one router for both native key sets. */
+  keyboard?: boolean;
   changed(): void;
   hover(point: Point): void;
   click(point: Point): void;
@@ -117,7 +119,7 @@ export class MapInput {
   private suppressTouchClick = false;
   private disposed = false;
   constructor(
-    private readonly canvas: HTMLCanvasElement,
+    private readonly canvas: HTMLElement,
     camera: Camera,
     private callbacks: MapInputCallbacks,
   ) {
@@ -258,6 +260,7 @@ export class MapInput {
     window.addEventListener(
       "keydown",
       (e) => {
+        if (callbacks.keyboard === false) return;
         if (reserved(e.target, e.key)) {
           if (this.activeKeys.size > 0 || this.keys.size > 0)
             this.resetKeyboard();
@@ -305,6 +308,7 @@ export class MapInput {
     window.addEventListener(
       "keyup",
       (e) => {
+        if (callbacks.keyboard === false) return;
         const key = e.key.toLowerCase();
         const held = this.activeKeys.delete(key) || this.keys.has(key);
         this.keys.delete(key);
@@ -338,6 +342,22 @@ export class MapInput {
   }
   tick(ms: number, speed = 1): void {
     this.cameraAction(() => this.gesture.keyboard(this.keys, ms, speed));
+  }
+  /** Continuous panning when a shared split-screen router owns DOM keys. */
+  cameraKey(key: string, down: boolean): boolean {
+    const lower = key.toLowerCase();
+    if (this.disposed || !["w", "a", "s", "d"].includes(lower)) return false;
+    if (down) {
+      this.keys.add(lower);
+      this.activeKeys.add(lower);
+    } else {
+      this.keys.delete(lower);
+      this.activeKeys.delete(lower);
+    }
+    return true;
+  }
+  clearKeyboard(): void {
+    this.resetKeyboard();
   }
   dispose(): void {
     if (this.disposed) return;

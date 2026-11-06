@@ -99,6 +99,16 @@ function catalog(): Campaign {
     }
   }
   const byKey = new Map(missions.map((m) => [m.key, m]));
+  for (const mission of missions.filter((m) => m.mode === "cp")) {
+    const local: Mission = {
+      ...mission,
+      key: `${mission.month}:2p`,
+      mode: "2p",
+      next: null,
+      newUnits: [],
+    };
+    byKey.set(local.key, local);
+  }
   return {
     missions,
     byKey,
@@ -113,6 +123,7 @@ function catalog(): Campaign {
     forSide(key, side) {
       const current = byKey.get(key);
       if (!current) throw Error("no mission");
+      if (current.mode === "2p") return current;
       return (
         byKey.get(`${current.month}:${side === 0 ? "cp" : "ec"}`) ?? current
       );
@@ -126,6 +137,7 @@ function fixture(available = true) {
   const starts: { request: BattleStart; signal: AbortSignal }[] = [];
   const pauses: boolean[] = [];
   const applied: Settings[] = [];
+  const persisted: Settings[] = [];
   const state = {
     discarded: 0,
     validated: 0,
@@ -164,9 +176,10 @@ function fixture(available = true) {
       slots.delete(slot);
       return Promise.resolve();
     },
-    saveSettings: async () => {
+    saveSettings: async (settings) => {
       if (state.writeGate) await state.writeGate.promise;
       fail();
+      persisted.push(settings);
     },
     listScores: () => {
       fail();
@@ -216,6 +229,7 @@ function fixture(available = true) {
     starts,
     pauses,
     applied,
+    persisted,
     state,
     envelope,
     store,
@@ -230,6 +244,97 @@ async function battle(f: ReturnType<typeof fixture>, side: 0 | 1 = 0) {
   expect(f.model.page).toBe("battle");
 }
 const won: End = { over: true, winner: 0, won: ["hq", ""], score: 750 };
+
+it.each(["simultaneous", "hotseat"] as const)(
+  "starts the selected month's local setup directly through news for %s humans",
+  async (playMode) => {
+    const f = fixture();
+    f.model.submitCode("HISTORY");
+    f.model.unitPage = 3;
+    await f.model.updateSettings({ playMode, layout: "original" });
+    expect(f.persisted[0]).toMatchObject({ playMode, layout: "original" });
+    f.model.start();
+    expect(f.model.mission.key).toBe("1914-09:2p");
+    expect(f.model.side).toBe(0);
+    expect(f.model.unitPage).toBe(0);
+    expect(f.model.page).toBe("news");
+    await f.model.chooseSide(1);
+    expect(f.model.mission.key).toBe("1914-09:2p");
+    await f.model.continueNews();
+    expect(f.model.page).toBe("battle");
+    expect(f.starts[0]?.request).toMatchObject({
+      mission: { key: "1914-09:2p" },
+      side: 0,
+    });
+  },
+);
+
+it("backs out of local news to the menu and skips absent news without showing country or cards", async () => {
+  const f = fixture();
+  await f.model.updateSettings({ playMode: "hotseat" });
+  f.model.start();
+  f.model.back();
+  expect(f.model.page).toBe("main");
+  const mission = f.campaign.byKey.get("1914-08:2p");
+  if (!mission) throw Error("missing local fixture");
+  mission.news = null;
+  f.model.start();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  expect(f.model.page).toBe("battle");
+  expect(f.starts).toHaveLength(1);
+});
+
+it("restores local native saves with their saved human side and returns to that side's campaign for a new single game", async () => {
+  const f = fixture();
+  const saved = { ...f.envelope, map: "1914-09:2p", side: 1 as const };
+  await f.model.importSlot("2", serializeSave(saved));
+  await f.model.loadSlot("2");
+  expect(f.model.page).toBe("battle");
+  expect(f.model.side).toBe(1);
+  expect(f.starts[0]?.request).toMatchObject({
+    mission: { key: "1914-09:2p" },
+    side: 1,
+    saved,
+  });
+  // The host captures the active local side; the shell keeps its native bytes.
+  f.hooks.capture = () => saved;
+  f.model.requestLeave();
+  await f.model.saveAndLeave("1");
+  expect(f.slots.get("1")?.envelope).toEqual(saved);
+  await f.model.updateSettings({ playMode: "single" });
+  f.model.start();
+  expect(f.model.page).toBe("country");
+  expect(f.model.mission.key).toBe("1914-09:ec");
+  expect(f.model.side).toBe(1);
+  await f.model.chooseSide(0);
+  expect(f.model.mission.key).toBe("1914-09:cp");
+});
+
+it.each([0, 1] as const)(
+  "shows side %s winning a local battle without recording or advancing a campaign win",
+  async (winner) => {
+    const f = fixture();
+    await f.model.updateSettings({ playMode: "simultaneous" });
+    f.model.start();
+    await f.model.continueNews();
+    // Preferences for the next battle cannot change this local outcome.
+    await f.model.updateSettings({ playMode: "single", opponent: "passive" });
+    expect(f.model.activeMission?.key).toBe("1914-08:2p");
+    await f.model.endBattle({
+      ...won,
+      winner,
+      won: winner === 0 ? ["hq", ""] : ["", "hq"],
+    });
+    f.model.showOutcome();
+    expect(f.model.page).toBe("outcome");
+    expect(f.model.result).toMatchObject({ won: true, draw: false, next: "" });
+    expect(f.model.result?.text).toContain(
+      winner === 0 ? "Central Powers" : "Entente Cordial",
+    );
+    expect(f.model.mission.key).toBe("1914-08:2p");
+    expect(f.scores).toEqual([]);
+  },
+);
 
 it("follows native code, country, news, card pagination and Escape transitions", async () => {
   const { model } = fixture();

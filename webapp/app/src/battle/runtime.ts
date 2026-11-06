@@ -25,6 +25,14 @@ export interface BattleHooks {
   fullscreen(): void;
   preference(patch: Partial<Settings>): void;
 }
+export interface BattleRuntimeOptions {
+  /** Split panels share a session, with their own controller and fair view. */
+  battle?: MapBattle;
+  surface?: HTMLElement;
+  keyboard?: boolean;
+  pointer?: boolean;
+  hitTest?: (point: Point) => boolean;
+}
 /** A battle owns its map/input/GPU resources. Document fonts, settings,
  * worker and catalog outlive it, including a paused leave confirmation. */
 export class BattleRuntime {
@@ -51,28 +59,35 @@ export class BattleRuntime {
     computer: Computer,
     baked: unknown,
     private readonly hooks: BattleHooks,
+    private readonly options: BattleRuntimeOptions,
   ) {
     this.preferences = { ...preferences };
     this.scale = signal(preferences.uiScale);
     this.reduced = signal(preferences.reduced);
     this.scenes = signal(preferences.scenes);
     this.painted = signal(preferences.painted);
-    const session = newBattleSession(
-      request.mission.file,
-      request.mission.mode,
-      request.side,
-      {
-        limit: preferences.limit,
-        computer: preferences.opponent === "computer",
-      },
-      data,
-      request.saved === undefined ? undefined : decodeEnvelope(request.saved),
-    );
-    this.battle = new MapBattle(
-      session,
-      request.side,
-      session.game.players[1 - request.side]?.computer ? computer : undefined,
-    );
+    if (options.battle !== undefined && options.battle.side !== request.side)
+      throw Error("The panel controller belongs to another side.");
+    const session =
+      options.battle?.session ??
+      newBattleSession(
+        request.mission.file,
+        request.mission.mode,
+        request.side,
+        {
+          limit: preferences.limit,
+          computer: preferences.opponent === "computer",
+        },
+        data,
+        request.saved === undefined ? undefined : decodeEnvelope(request.saved),
+      );
+    this.battle =
+      options.battle ??
+      new MapBattle(
+        session,
+        request.side,
+        session.game.players[1 - request.side]?.computer ? computer : undefined,
+      );
     this.battle.setPaused(true);
     this.map = new MapRenderer(
       app,
@@ -117,6 +132,9 @@ export class BattleRuntime {
         this.battle.run(action);
       },
       placement: () => {
+        // Both native key sets can repeat the mode gesture to confirm. The
+        // prompt suppresses ordinary actions, but must retain this gesture.
+        if (this.battle.phasePrompt) return { left: "mode" };
         const allowed = new Set(this.battle.actions()),
           p = placement(
             play.phase(session, request.side) !== phaseMovement,
@@ -150,6 +168,7 @@ export class BattleRuntime {
     hooks: BattleHooks,
     signal: AbortSignal,
     progress: (fraction: number, text: string) => void,
+    options: BattleRuntimeOptions = {},
   ): Promise<BattleRuntime> {
     signal.throwIfAborted();
     progress(0.1, "Loading the battlefield…");
@@ -171,6 +190,7 @@ export class BattleRuntime {
       computer,
       baked,
       hooks,
+      options,
     );
     const aborted = () => {
       runtime.dispose();
@@ -215,8 +235,9 @@ export class BattleRuntime {
       this.closeRing();
     }
     this.battle.setPaused(paused);
-    if (!paused)
-      this.input = new MapInput(this.app.canvas, this.map.camera, {
+    if (!paused && this.options.pointer !== false)
+      this.input = new MapInput(this.surface(), this.map.camera, {
+        keyboard: this.options.keyboard ?? true,
         changed: () => {
           this.closeRing();
           this.map.dirty = true;
@@ -251,15 +272,36 @@ export class BattleRuntime {
         contextCancel: () => {
           this.closeRing();
         },
-        keyDown: (key, repeat) => this.keys.down(key, repeat),
-        keyUp: (key) => this.keys.up(key),
+        keyDown: (key, repeat) => this.keyDown(key, repeat),
+        keyUp: (key) => this.keyUp(key),
         reset: () => {
           this.keys.cancel();
           this.closeRing();
         },
       });
   }
-  tick(ms: number): void {
+  keyDown(key: string, repeat = false): boolean {
+    return !this.paused && !this.stopped && this.keys.down(key, repeat);
+  }
+  keyUp(key: string): boolean {
+    return !this.paused && !this.stopped && this.keys.up(key);
+  }
+  cancelInput(): void {
+    this.input?.clearKeyboard();
+    this.keys.cancel();
+    this.closeRing();
+  }
+  cameraKey(key: string, down: boolean): boolean {
+    return (
+      !this.paused &&
+      !this.stopped &&
+      (this.input?.cameraKey(key, down) ?? false)
+    );
+  }
+  saveSide(): 0 | 1 {
+    return this.request.side;
+  }
+  tick(ms: number, draw = true): void {
     if (this.paused || this.stopped) return;
     this.input?.tick(
       ms,
@@ -270,7 +312,7 @@ export class BattleRuntime {
           : 1,
     );
     this.battle.tick(ms);
-    this.map.render();
+    if (draw) this.map.render();
   }
   resize(width: number, height: number, dpr: number): void {
     if (
@@ -370,6 +412,7 @@ export class BattleRuntime {
     }
   }
   private at(p: Point): hexgrid.Coord | null {
+    if (this.options.hitTest?.(p) === false) return null;
     const w = this.map.camera.screenToWorld(p.x, p.y),
       [at, onMap] = hexgrid.pixelToHex(
         level.grid(this.battle.session.level),
@@ -401,7 +444,7 @@ export class BattleRuntime {
     this.battle.setCursor(at);
     const actions = this.battle.actions(at);
     if (!actions.length) return;
-    const r = this.app.canvas.getBoundingClientRect();
+    const r = this.surface().getBoundingClientRect();
     this.ringAt = at;
     this.ring.value = layoutRing(
       actions,
@@ -458,5 +501,8 @@ export class BattleRuntime {
         return false;
     }
     return true;
+  }
+  private surface(): HTMLElement {
+    return this.options.surface ?? this.app.canvas;
   }
 }

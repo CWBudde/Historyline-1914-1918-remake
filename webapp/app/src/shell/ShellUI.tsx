@@ -2,6 +2,7 @@ import type { Signal } from "@preact/signals";
 import type { ComponentChildren } from "preact";
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import type { UiAssets } from "../ui/assets.ts";
+import { makeInert } from "../ui/inert.ts";
 import type { UnitCard } from "./campaign.ts";
 import {
   saveSlots,
@@ -201,7 +202,7 @@ export function ShellUI(p: ShellUIProps) {
     const node = root.current;
     if (!node || page !== "leave") return;
     const savedFocus = document.activeElement;
-    const inert: { node: HTMLElement; value: boolean }[] = [];
+    const release: (() => void)[] = [];
     // Preserve existing inert states on the canvas and other document controls.
     for (
       let branch: HTMLElement = node;
@@ -210,8 +211,7 @@ export function ShellUI(p: ShellUIProps) {
     ) {
       for (const sibling of branch.parentElement.children) {
         if (sibling !== branch && sibling instanceof HTMLElement) {
-          inert.push({ node: sibling, value: sibling.inert });
-          sibling.inert = true;
+          release.push(makeInert(sibling));
         }
       }
       if (branch.parentElement === document.body) break;
@@ -223,7 +223,7 @@ export function ShellUI(p: ShellUIProps) {
     document.addEventListener("focusin", retainFocus);
     return () => {
       document.removeEventListener("focusin", retainFocus);
-      for (const item of inert) item.node.inert = item.value;
+      for (const unlock of release) unlock();
       if (
         savedFocus instanceof HTMLElement &&
         savedFocus.isConnected &&
@@ -418,14 +418,40 @@ export function ShellUI(p: ShellUIProps) {
             {button(`Battles · ${s.settings.reduced ? "Short" : "Full"}`, () =>
               change({ reduced: !s.settings.reduced }),
             )}
+            <label class="shell-field">
+              Play mode
+              <select
+                value={s.settings.playMode}
+                disabled={busy}
+                onChange={(event) => {
+                  const playMode = event.currentTarget.value;
+                  if (
+                    playMode === "single" ||
+                    playMode === "simultaneous" ||
+                    playMode === "hotseat"
+                  )
+                    run(() => change({ playMode }));
+                }}
+              >
+                <option value="single">Single player</option>
+                <option value="simultaneous">Two humans</option>
+                <option value="hotseat">Hot-seat</option>
+              </select>
+            </label>
             <p class="shell-fixed">Player A · Human</p>
-            {button(
-              `Player B · ${s.settings.opponent === "computer" ? "Computer" : "Passive"}`,
-              () =>
-                change({
-                  opponent:
-                    s.settings.opponent === "computer" ? "passive" : "computer",
-                }),
+            {s.settings.playMode === "single" ? (
+              button(
+                `Player B · ${s.settings.opponent === "computer" ? "Computer" : "Passive"}`,
+                () =>
+                  change({
+                    opponent:
+                      s.settings.opponent === "computer"
+                        ? "passive"
+                        : "computer",
+                  }),
+              )
+            ) : (
+              <p class="shell-fixed">Player B · Human</p>
             )}
             <p class="shell-fixed">Depots · Own only</p>
             {button(
@@ -450,6 +476,21 @@ export function ShellUI(p: ShellUIProps) {
       content = (
         <>
           <div class="shell-menu">
+            <label class="shell-field">
+              Layout
+              <select
+                value={s.settings.layout}
+                disabled={busy}
+                onChange={(event) => {
+                  const layout = event.currentTarget.value;
+                  if (layout === "responsive" || layout === "original")
+                    run(() => change({ layout }));
+                }}
+              >
+                <option value="responsive">Responsive</option>
+                <option value="original">Original split screen</option>
+              </select>
+            </label>
             {button(
               `Fullscreen · ${p.isFullscreen ? "On" : "Off"}`,
               p.onFullscreen,
@@ -492,6 +533,11 @@ export function ShellUI(p: ShellUIProps) {
               </select>
             </label>
           </div>
+          <p class="shell-muted">
+            Two humans uses the original split screen. Player A: mouse or arrows
+            + Space. Player B: D/C/X/V + Ctrl. Hot-seat passes control between
+            players.
+          </p>
           <footer class="shell-actions">{back()}</footer>
         </>
       );
@@ -671,12 +717,14 @@ export function ShellUI(p: ShellUIProps) {
       content = (
         <>
           <p>{s.result?.text}</p>
-          {s.result?.won && <p>Score {s.result.score}</p>}
+          {s.result?.won && s.mission.mode !== "2p" && (
+            <p>Score {s.result.score}</p>
+          )}
           {s.result?.next ? (
             <p>
               The code of the next map is <strong>{s.result.next}</strong>.
             </p>
-          ) : s.result?.won ? (
+          ) : s.result?.won && s.mission.mode !== "2p" ? (
             <p>There is no further map yet.</p>
           ) : null}
           <footer class="shell-actions">

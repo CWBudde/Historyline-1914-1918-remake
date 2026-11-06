@@ -134,6 +134,31 @@ export class ShellController {
   start(): void {
     if (this.busy || this.page !== "main") return;
     this.pendingSave = undefined;
+    this.unitPage = 0;
+    if (this.settings.playMode !== "single") {
+      const local = this.campaign.byKey.get(`${this.mission.month}:2p`);
+      if (local === undefined) {
+        this.note = "This map has no two-human setup.";
+        this.changed();
+        return;
+      }
+      this.mission = local;
+      this.side = 0;
+      if (local.news !== null) this.show("news");
+      else void this.afterNews();
+      return;
+    }
+    if (this.mission.mode === "2p") {
+      const single = this.campaign.byKey.get(
+        `${this.mission.month}:${this.side === 0 ? "cp" : "ec"}`,
+      );
+      if (single === undefined) {
+        this.note = "This map has no single-player setup for this side.";
+        this.changed();
+        return;
+      }
+      this.mission = single;
+    }
     this.side = this.mission.side;
     this.show("country");
   }
@@ -231,7 +256,7 @@ export class ShellController {
         this.show("extras");
         break;
       case "news":
-        this.show("country");
+        this.show(this.mission.mode === "2p" ? "main" : "country");
         break;
       case "units":
         if (this.unitPage > 0) {
@@ -429,7 +454,8 @@ export class ShellController {
     this.ended = true;
     const generation = this.battleGeneration;
     const draw = end.winner !== 0 && end.winner !== 1;
-    const won = !draw && end.winner === this.activeSide;
+    const local = played.mode === "2p";
+    const won = !draw && (local || end.winner === this.activeSide);
     const reason =
       end.won[end.winner] === "hq"
         ? "hold the enemy HQ"
@@ -445,13 +471,14 @@ export class ShellController {
       score: end.score,
       next: "",
     };
-    const next = won
-      ? this.campaign.forSide(played.key, this.activeSide).next
-      : null;
+    const next =
+      won && !local
+        ? this.campaign.forSide(played.key, this.activeSide).next
+        : null;
     this.pendingNext =
       next === null ? null : (this.campaign.byKey.get(next) ?? null);
     this.changed();
-    if (!won) return;
+    if (!won || local) return;
     if (this.store === null) {
       this.note =
         "The best score cannot be kept: browser storage is unavailable.";

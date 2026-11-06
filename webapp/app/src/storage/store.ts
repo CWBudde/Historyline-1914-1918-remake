@@ -6,6 +6,8 @@ export interface Settings {
   painted: boolean;
   scroll: "normal" | "fast" | "slow";
   opponent: "computer" | "passive";
+  layout: "responsive" | "original";
+  playMode: "single" | "simultaneous" | "hotseat";
   limit: 0 | 5 | 10 | 15 | 20;
 }
 
@@ -57,6 +59,8 @@ export function defaultSettings(systemReduced = false): Settings {
     painted: true,
     scroll: "normal",
     opponent: "computer",
+    layout: "responsive",
+    playMode: "single",
     limit: 0,
   };
 }
@@ -88,6 +92,22 @@ export function validateSettings(value: unknown): Settings {
     if (opponent !== "computer" && opponent !== "passive")
       throw new Error("Invalid settings opponent");
     result.opponent = opponent;
+  }
+  if (Object.hasOwn(value, "layout")) {
+    const layout = value.layout;
+    if (layout !== "responsive" && layout !== "original")
+      throw new Error("Invalid settings layout");
+    result.layout = layout;
+  }
+  if (Object.hasOwn(value, "playMode")) {
+    const playMode = value.playMode;
+    if (
+      playMode !== "single" &&
+      playMode !== "simultaneous" &&
+      playMode !== "hotseat"
+    )
+      throw new Error("Invalid settings playMode");
+    result.playMode = playMode;
   }
   if (Object.hasOwn(value, "limit")) {
     const limit = value.limit;

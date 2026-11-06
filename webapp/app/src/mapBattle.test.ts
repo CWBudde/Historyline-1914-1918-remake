@@ -90,6 +90,7 @@ it("confirms the human, replays worker commands and resolves a complete phase", 
     expected = play.clone(s, Builds);
   play.confirm(expected, 0);
   ai.plan({}, expected, 1);
+  const expectedBefore = [play.view(expected, 0), play.view(expected, 1)];
   play.resolve(expected);
   let release: () => void = () => {};
   const gate = new Promise<void>((resolve) => {
@@ -102,6 +103,10 @@ it("confirms the human, replays worker commands and resolves a complete phase", 
       return ai.commands({}, snapshot, side);
     },
   });
+  let observed: readonly play.View[] | null = null;
+  battle.onResolution = (before) => {
+    observed = before;
+  };
   const pending = battle.phase();
   expect(battle.busy()).toBe(true);
   expect(play.ready(s, 0)).toBe(true);
@@ -112,6 +117,7 @@ it("confirms the human, replays worker commands and resolves a complete phase", 
   release();
   await pending;
   expect(play.save(s)).toEqual(play.save(expected));
+  expect(observed).toEqual(expectedBefore);
   battle.tick(100_000);
   expect(battle.view()).toEqual(play.view(s, 0));
 });
