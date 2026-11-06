@@ -75,7 +75,7 @@ export class MapGesture {
       p.y,
     );
   }
-  keyboard(keys: ReadonlySet<string>, ms: number): boolean {
+  keyboard(keys: ReadonlySet<string>, ms: number, speed = 1): boolean {
     const x =
       Number(keys.has("arrowright") || keys.has("d")) -
       Number(keys.has("arrowleft") || keys.has("a"));
@@ -85,7 +85,8 @@ export class MapGesture {
     if (x === 0 && y === 0) return false;
     const step =
       ((12 * Math.min(100, Math.max(0, ms))) / (1000 / 60)) *
-      (this.camera.scale > 0 ? this.camera.scale : 1);
+      (this.camera.scale > 0 ? this.camera.scale : 1) *
+      speed;
     this.camera.scroll(x * step, y * step);
     return true;
   }
@@ -335,8 +336,8 @@ export class MapInput {
       options,
     );
   }
-  tick(ms: number): void {
-    this.cameraAction(() => this.gesture.keyboard(this.keys, ms));
+  tick(ms: number, speed = 1): void {
+    this.cameraAction(() => this.gesture.keyboard(this.keys, ms, speed));
   }
   dispose(): void {
     if (this.disposed) return;

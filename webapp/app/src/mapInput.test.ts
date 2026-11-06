@@ -67,3 +67,15 @@ it.each([0.75, 1, 2, 3])(
     expect(camera.origin.y).toBeCloseTo(before.y + 12, 9);
   },
 );
+
+it("applies the native control-menu scroll speed to keyboard camera motion", () => {
+  const c = new Camera(
+      { width: 10000, height: 10000 },
+      { width: 400, height: 300 },
+    ),
+    g = new MapGesture(c);
+  g.keyboard(new Set(["d"]), 1000 / 60, 2);
+  expect(c.origin.x).toBeCloseTo(24);
+  g.keyboard(new Set(["d"]), 1000 / 60, 0.5);
+  expect(c.origin.x).toBeCloseTo(30);
+});

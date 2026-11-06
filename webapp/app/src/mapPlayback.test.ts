@@ -312,6 +312,8 @@ it("allows native cancel to skip the map battle wait when scene panels are off",
   ]);
   expect(p.scene()).toBeNull();
   expect(p.busy()).toBe(true);
+  p.setScenes(false);
+  expect(p.busy()).toBe(true);
   expect(p.skipScene()).toBe(true);
   expect(p.busy()).toBe(false);
   expect(p.shown(after)).toBe(after);

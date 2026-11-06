@@ -100,7 +100,10 @@ export class BattleScenes {
       autoStart: false,
     });
     if (this.isStopped()) {
-      this.app.destroy(true, { children: true });
+      this.app.destroy(
+        { removeView: true, releaseGlobalResources: false },
+        { children: true },
+      );
       return;
     }
     this.initialized = true;
@@ -615,7 +618,12 @@ export class BattleScenes {
     this.images.dispose();
     this.tone.destroy();
     if (this.initialized) {
-      this.app.destroy(true, { children: true });
+      // The map renderer survives this canvas; its active batches share Pixi's
+      // global pools, so only document teardown may release those resources.
+      this.app.destroy(
+        { removeView: true, releaseGlobalResources: false },
+        { children: true },
+      );
       this.initialized = false;
     }
     this.hosts.battle = null;
