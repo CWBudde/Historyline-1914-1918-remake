@@ -27,4 +27,4 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev xorg-dev libasound2-dev
 
       - name: Build desktop binary
-        run: go build ./cmd/...
+        run: go build -p 1 ./cmd/... # one package at a time: compiling gen2brain/webp in parallel ran the macOS runner out of memory

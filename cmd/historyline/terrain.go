@@ -42,6 +42,7 @@ type terrainArt struct {
 	materials *terrainMaterials
 	depth     *depthTiles // the water backgrounds shaded by depth
 	blend     *blendTiles // the layers mixed at season borders; nil in one season
+	fields    *fieldTiles // the crater fields and stamp borders as reworked; nil until first drawn
 	scene     mapcompose.Scene
 	group     map[string]string // asset ID → pack group
 	// dim holds the remembered look of each texture drawn dimmed so far.
@@ -142,6 +143,12 @@ func (a *terrainArt) drawable(s *mapcompose.Scene) error {
 	for _, line := range s.Cells {
 		for _, c := range line {
 			ids = slices.Concat(ids, []string{c.Background, c.Under}, c.Overlays, c.Shadows, c.Standing)
+			if c.Field != nil {
+				ids = append(ids, c.Field.Exemplar)
+			}
+			if c.Fringe != nil {
+				ids = append(ids, c.Fringe.Exemplar)
+			}
 		}
 	}
 	for _, cl := range s.Clusters {
@@ -275,6 +282,8 @@ func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim
 	}
 	if signature != "" {
 		img, e, err = g.terrain.depthImage(*at, signature, id, d, bare)
+	} else if at != nil && g.backdrop == nil && reworksGround(&g.terrain.scene, *at, id) {
+		img, e, err = g.terrain.fieldImage(*at, id, d, bare)
 	} else if at != nil && g.terrain.materials.eligible(*at, id) {
 		img, e, err = g.terrain.materialImage(*at, id, d, bare)
 	} else if bare {

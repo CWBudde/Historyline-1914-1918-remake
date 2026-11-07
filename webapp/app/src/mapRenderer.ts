@@ -219,7 +219,8 @@ export class MapRenderer {
             const baked = this.baked.backgrounds
               .get(level.coordKey(draw.coord))
               ?.get(catalog.density);
-            if (baked?.id === draw.id) image = baked;
+            if (baked?.id === draw.id && !(painted && baked.tileOnly))
+              image = baked;
             if (image !== undefined && draw.pass === "bleed")
               image = { ...image, bleed: true };
           }
