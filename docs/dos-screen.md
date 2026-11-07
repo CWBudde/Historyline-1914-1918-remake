@@ -1,10 +1,10 @@
 # The split battle screen (`-rules dos`)
 
 Under `-rules dos` the battle screen follows the original's layout. Two map panels sit side by side, one per
-side, in a thin gunmetal frame with rectangular openings, with a status strip under each panel. Info, unit,
-contents, strategic-map and battle views open inside a panel within the same frame. `-rules standard` keeps
-the single-map HUD. The look is newly authored; only layout, proportions, information and behaviour follow
-the original, whose riveted steel frame with toothed openings the remake does not copy.
+side, inside a riveted steel frame whose inner edge follows the outline of the visible hex cells, with a
+status bar under each panel. Info, unit, contents, strategic-map and battle views open inside a panel within
+the same frame. `-rules standard` keeps the single-map HUD. The look is newly authored (painted steel,
+the remake's terrain and units); only layout, proportions, information and behaviour follow the original.
 
 ## Reference
 
@@ -74,18 +74,23 @@ The package docs hold the details; this is the map of where each part lives.
   smallest window keeps `MinCols` × `MinRows` (7×6) cells per panel. The fixed pieces (divider, wells, bolt)
   are reference pixels at 2 logical pixels each, times the UI scale.
 - **Zoom** (`dosscreen.Zooms`): ½ to 2× the fitted scale in steps of about a tenth (seven per doubling) with the mouse wheel over the human
-  panel, shared by both panels, keeping the hover cell in view; at least 4×4 cells stay visible. Zooming
-  out stops where the map would no longer fill the openings (`Screen.FillZoom`).
-- **Frame** (`dosscreen.Frame`, `slim.go`): painted at runtime and cached per window size: plain
-  rectangular openings edge to edge, a thin gunmetal border with a brass hairline facing the map, gunmetal
-  status strips, a brass knob at the divider's foot. Every playable hex whose centre lies in the opening
-  takes the cursor and the pointer. The playable area is the map without its border row and column
-  (`dosbind.Board.Playable`): cameras, cursor, map drawing and the strategic map never show the border.
-  The opening always ends on the map: on the painted backdrop at its edge, on tiles where the outer hexes
-  still fill it; only a map smaller than the opening shows gunmetal past its ends (`Frame.DrawBeyond`).
-- **Cameras** (`cmd/historyline/split.go`): one per panel, resting on whole column pairs; each follows its
-  side's cursor and that side's revealed moves. The pointer on the human panel's outer half cells steps the
-  camera (edge scroll, `cursor.go`). A camera at a map end shifts by whole device pixels so that its opening ends on the playable area
+  panel, shared by both panels, keeping the hover cell in view; at least 4×4 cells stay visible. In the
+  slim frame zooming out stops where the map would no longer fill the openings (`Screen.FillZoom`).
+- **Frame** (`dosscreen.Frame`): drawn at runtime, not one painting: steel masked by the union of the
+  panel's visible cells, bevel and lip from the mask edge, rivets at the tooth vertices, the divider post,
+  bolt and status wells as fixed pieces. Cached per window size, zoom and on-map cell pattern; cells beyond
+  the playable area stay steel, so the frame closes in at its end. The playable area is the map without its
+  border row and column (`dosbind.Board.Playable`): cameras, cursor, frame, map drawing and the strategic
+  map never show the border. This plate frame belongs to the terrain tiles; the painted backdrop and the
+  original tiles (F8's other looks) use the slim frame instead (`Frame.Slim`, `slim.go`), as does the web
+  edition: plain rectangular openings edge to edge, a thin gunmetal border with a brass
+  hairline facing the map, gunmetal status strips, a brass knob at the divider's foot; every playable hex
+  whose centre lies in the opening takes the cursor and the pointer. The opening always ends on the map;
+  only a map smaller than the opening shows gunmetal past its ends (`Frame.DrawBeyond`).
+- **Cameras** (`cmd/historyline/split.go`): one per panel, snapping to whole column pairs so the teeth keep
+  their phase; each follows its side's cursor and that side's revealed moves. The pointer on the human
+  panel's outer half cells steps the camera (edge scroll, `cursor.go`). In the slim frame a camera at a
+  map end shifts by whole device pixels so that its opening ends on the playable area
   (`dosscreen.Screen.SlimFit`).
 - **Input** (`internal/gesture`, `cmd/historyline/cursor.go`): the human side's panel takes the mouse (a
   click selects and confirms, a drag of one cell pitch picks a gesture, right-click opens a ring of every

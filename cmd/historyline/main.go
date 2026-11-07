@@ -21,6 +21,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
@@ -978,6 +979,7 @@ func main() {
 			log.Fatal(err)
 		}
 		dospanel.SetSurfaces(c.screens.surfaces())
+		dosscreen.SetArt(c.screens.frameArt())
 	}
 
 	if !direct {

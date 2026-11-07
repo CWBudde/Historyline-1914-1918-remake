@@ -300,8 +300,8 @@ func (g *game) drawBackdrop(dst *ebiten.Image, vx, vy, vw, vh float64, inView []
 		g.hexPath(&p, unseen)
 		vector.FillPath(dst, &p, nil, pathOptions(fogShade(state.Unseen, color.RGBA{})))
 	}
-	if g.split != nil {
-		return // the battle screen's frame shows the whole picture, edge to edge
+	if g.split != nil && g.split.frame.Slim {
+		return // the slim frame shows the whole picture, edge to edge
 	}
 	// Elsewhere the picture beyond the outer hexes stays empty, as the terrain
 	// tiles leave it.

@@ -81,9 +81,15 @@ func TestCycleDesignDos(t *testing.T) {
 	g.orig = &origArt{} // already loaded, so no local original files are needed
 	g.applyLayout(1800, 1000, 1)
 	g.layoutSplit()
+	if !g.split.frame.Slim {
+		t.Fatal("the backdrop does not lay out the slim frame")
+	}
 
 	if msg := g.cycleDesign(); !strings.Contains(msg, "terrain") {
 		t.Fatalf("backdrop -> %q, want the terrain tiles", msg)
+	}
+	if g.split.frame.Slim {
+		t.Error("the terrain tiles keep the backdrop's slim frame")
 	}
 	if msg := g.cycleDesign(); !strings.Contains(msg, "original") {
 		t.Fatalf("tiles -> %q, want the original (DOS) design", msg)
@@ -91,8 +97,14 @@ func TestCycleDesignDos(t *testing.T) {
 	if !g.origOn() || g.backdrop != nil {
 		t.Fatalf("DOS design: orig on %v, backdrop shown %v", g.origOn(), g.backdrop != nil)
 	}
+	if !g.split.frame.Slim {
+		t.Error("the original tiles do not lay out the slim frame")
+	}
 	if msg := g.cycleDesign(); !strings.Contains(msg, "backdrop") {
 		t.Fatalf("DOS -> %q, want the backdrop again", msg)
+	}
+	if !g.split.frame.Slim {
+		t.Error("the backdrop again does not lay out the slim frame")
 	}
 	if g.origOn() || g.backdrop == nil {
 		t.Fatalf("backdrop again: orig on %v, backdrop shown %v", g.origOn(), g.backdrop != nil)

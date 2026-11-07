@@ -121,8 +121,8 @@ func (g *game) origAvailable() string {
 }
 
 // refreshDesign re-lays the split screen out for the design now shown: the
-// map's extent, and so the zoom floor and the views' shifts, follow the
-// painted backdrop where it is shown.
+// terrain tiles use the plate frame, the backdrop and the original tiles the
+// slim frame.
 func (g *game) refreshDesign() {
 	if g.split != nil {
 		g.layoutSplit()

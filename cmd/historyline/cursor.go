@@ -557,9 +557,11 @@ func (g *game) drawCursor(dst *ebiten.Image) {
 	if !g.hoverOnMap || !g.panelShows(d.side, g.hover) {
 		return
 	}
-	// No steel covers the panel's edge: the cursor stays inside the opening.
-	o := s.screen.SlimOpening(d.side)
-	dst = dst.SubImage(image.Rect(o.X, o.Y, o.Right(), o.Bottom())).(*ebiten.Image)
+	if s.frame.Slim {
+		// No steel covers the panel's edge: the cursor stays inside the opening.
+		o := s.screen.SlimOpening(d.side)
+		dst = dst.SubImage(image.Rect(o.X, o.Y, o.Right(), o.Bottom())).(*ebiten.Image)
+	}
 	cam := g.splitCamera(d.side)
 	x, y := cam.WorldToScreen(hexgrid.Center(g.hover))
 	a, ok, held := t.Plate()
@@ -582,7 +584,7 @@ func (g *game) darken(dst *ebiten.Image, cells []hexgrid.Coord) {
 	}
 	var p vector.Path
 	var fill *vector.FillOptions
-	if g.split != nil {
+	if g.split != nil && g.split.frame.Slim {
 		b := dst.Bounds()
 		p.MoveTo(float32(b.Min.X), float32(b.Min.Y))
 		p.LineTo(float32(b.Max.X), float32(b.Min.Y))
@@ -690,14 +692,19 @@ func (g *game) strategicPick(side int, x, y float64) (hexgrid.Coord, bool) {
 	return g.playGrid().PixelToHex(wx, wy)
 }
 
-// viewCamera is a camera whose visible world is side's opening, for the
-// strategic map's view rectangle.
+// viewCamera is a camera whose visible world is side's opening block (in the
+// slim frame its opening), for the strategic map's view rectangle.
 func (g *game) viewCamera(side int) camera.Camera {
 	v := g.splitView(side)
-	o := g.split.screen.SlimOpening(side)
-	x0, y0 := v.ScreenToWorld(float64(o.X), float64(o.Y))
-	x1, y1 := v.ScreenToWorld(float64(o.Right()), float64(o.Bottom()))
-	return camera.Camera{World: g.cam.World, View: camera.Size{W: x1 - x0, H: y1 - y0}, Zoom: 1, Origin: camera.Point{X: x0, Y: y0}}
+	if g.split.frame.Slim {
+		o := g.split.screen.SlimOpening(side)
+		x0, y0 := v.ScreenToWorld(float64(o.X), float64(o.Y))
+		x1, y1 := v.ScreenToWorld(float64(o.Right()), float64(o.Bottom()))
+		return camera.Camera{World: g.cam.World, View: camera.Size{W: x1 - x0, H: y1 - y0}, Zoom: 1, Origin: camera.Point{X: x0, Y: y0}}
+	}
+	ox, oy := v.Origin()
+	bw, bh := dosscreen.BlockSize(v.Cols, v.Rows)
+	return camera.Camera{World: g.cam.World, View: camera.Size{W: bw, H: bh}, Zoom: 1, Origin: camera.Point{X: ox, Y: oy}}
 }
 
 // strategicScene is what side's strategic map shows: the terrain colours, the
