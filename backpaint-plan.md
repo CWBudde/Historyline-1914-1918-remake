@@ -34,7 +34,7 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 3 remain.
+The checklist tracks the 25 original tile-render placeholders; 2 remain.
 `1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1916-05`, `1916-07`, `1916-09`, `1916-11`, `1917-01`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
@@ -417,7 +417,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Record 27 built-in calls, nine sections/eight joins, 39 contained masks, retained failed trials and 21 final L* warnings with findings under `build/review/backdrops/1917-09/`. Update `docs/painted-backdrops.md`; all map/setup hashes unchanged. Native source corrections and final installed JPEG acceptance are distinguished in `verification.md` and `coordinator-final-review.md`.
   - [x] Commit verified PNG/JPEG and documentation directly to `main` as `c01389ec`; `git push origin main` succeeds. Preserve unrelated staged work. Full verification: `build/review/backdrops/1917-09/`.
 
-- [ ] [1917-11](levels/1917-11/)
+- [x] [1917-11](levels/1917-11/)
   - [x] Audit `levels/1917-11/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1917-11/approval-audit.json` and `.md`: winter, 2226×2560, eight compounds, eighteen houses, 106 inherited starts, no linked ships; seventeen runway/nine hangar and 25 bridge overlays plus all rail/road routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [CAMEL/BELLS](docs/backpaint-approvals.md#1917-11--camelbells), including occupied cottage treatment, approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [x] Render fresh unit-free 4× guide: `build/review/backdrops/1917-11/guide/`, 8904×10240, 977 cells, zero gaps/issues. Current audit equals approval, six original hashes and four targeted Go packages pass (`prep-baseline-check.log`, `prep-tests.log`).
@@ -436,7 +436,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Verify all 52 installed PNG/JPEG pairs (`installed-final-pair-check.log`); dimensions/aspect/source size pass, all four map/setup hashes remain unchanged. Fresh native build embeds the final JPEG (`final-native-build-late-harbour.log`, `installed-final-sha256.txt`).
   - [x] Review all three modes at both zooms: 106 units and 51 bridge/hangar/runway gates per mode, 942 accepted observations. Retain the original harbour failure, then verify its local repair with fresh captures; 936 unaffected target observations carry forward through exact pixel/resampling proofs. All 237 viewed hashes and canonical IDs/coordinates pass (`unit-inventory-crosscheck.json`, `unit-review-*-final.json`). All 16 owned capture processes are gone; captures ran serially under memory caps.
   - [x] Record exact prompts, retained failures, masks, pixel locality, unchanged-limit lightness warnings and explicit mixed-version native evidence (`verification.md`, `coordinator-final-review.md`). Update `docs/painted-backdrops.md` with the finished CAMEL/BELLS painting.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit verified assets and documentation directly to `main`: `d0e212de`, integrated and pushed as `ea544b16`. Preserve unrelated stash conflicts through a temporary index and non-forcing integration push.
 
 - [ ] [1918-01](levels/1918-01/)
   - [x] Audit `levels/1918-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-01/approval-audit.json` and `.md`: winter, 1090×1280, two HQs, four houses, 87 inherited starts, no linked ships or airfields; 37 trench, eight stream and one bridge overlay plus all road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [FLAGS/POINT](docs/backpaint-approvals.md#1918-01--flagspoint), approved by the user on 2026-11-04.
