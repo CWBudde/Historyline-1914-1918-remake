@@ -115,7 +115,7 @@ func (a *terrainArt) blendImage(c hexgrid.Coord, pass, d int, bare bool, known f
 			if id == "" {
 				continue
 			}
-			im, e, err := a.pixels(c, id, d, pass == 0)
+			im, e, err := a.pixels(t.blend.Scenes[seasons[i]], c, id, d, pass == 0)
 			if err != nil {
 				return nil, assets.Entry{}, err
 			}
@@ -150,9 +150,9 @@ func (a *terrainArt) blendImage(c hexgrid.Coord, pass, d int, bare bool, known f
 }
 
 // pixels is drawn ID id of hex c at density d as painted, a background as
-// drawn: water shaded by depth, a summer meadow sampled from the world
-// material.
-func (a *terrainArt) pixels(c hexgrid.Coord, id string, d int, background bool) (image.Image, assets.Entry, error) {
+// drawn: water shaded by depth, crater ground reworked as scene s has it, a summer
+// meadow sampled from the world material.
+func (a *terrainArt) pixels(s *mapcompose.Scene, c hexgrid.Coord, id string, d int, background bool) (image.Image, assets.Entry, error) {
 	e, err := a.entry(a.group[id], id, d)
 	if err != nil {
 		return nil, e, err
@@ -164,6 +164,10 @@ func (a *terrainArt) pixels(c hexgrid.Coord, id string, d int, background bool) 
 	if a.depthSignature(c, id) != "" {
 		shaded, err := a.shadeDepth(c, id, tile, e, d)
 		return shaded, e, err
+	}
+	if reworksGround(s, c, id) {
+		reworked, err := a.reworkedPixels(s, c, id, tile, e, d)
+		return reworked, e, err
 	}
 	if m := a.materials; m.eligible(c, id) {
 		sampled, err := sampleMaterial(m.samplers[d], m.field, tile, materialOrigin(c, e, d))

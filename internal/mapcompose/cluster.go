@@ -110,6 +110,9 @@ func (s *Scene) registerClusters(at func(hexgrid.Coord) Hex, has func(string) bo
 			if !stamp(&parts[0], has) && tiled[kind] {
 				parts = Tile(g, kind, cl.Cells, has)
 			}
+			if kind == "crater" || kind == "crater_w" {
+				s.registerField(&cl, at(start).Terrain, has)
+			}
 			for _, p := range parts {
 				s.Clusters = append(s.Clusters, p)
 				for _, c := range p.Cells {
@@ -122,6 +125,7 @@ func (s *Scene) registerClusters(at func(hexgrid.Coord) Hex, has func(string) bo
 			}
 		}
 	}
+	s.registerFringes(at, has)
 }
 
 func byLineCol(a, b hexgrid.Coord) int {

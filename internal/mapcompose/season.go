@@ -149,6 +149,13 @@ func (s *Scene) inSeason(seasonAt func(hexgrid.Coord) Season, has func(string) b
 			c := &s.Cells[l][col]
 			swap(&c.Background)
 			swap(&c.Under)
+			if c.Field != nil && (season == Autumn || season == Spring) {
+				if form := SeasonalID(c.Field.Exemplar, season); has(form) {
+					f := *c.Field
+					f.Exemplar = form
+					c.Field = &f
+				}
+			}
 			for _, ids := range [][]string{c.Overlays, c.Standing} {
 				for i := range ids {
 					swap(&ids[i])

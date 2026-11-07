@@ -137,6 +137,11 @@ func (w *waterBaker) seasonLayer(ctx context.Context, blend *seasonblend.Blend, 
 				}
 				im = field.Shade(im, with, origin, d)
 			}
+			if pass == "background" {
+				if im, err = w.reworked(blend.Scenes[season], c, id, im, origin, d); err != nil {
+					return BakedBackground{}, false, err
+				}
+			}
 			parts[i] = append(parts[i], seasonblend.Part{Image: im, At: origin})
 		}
 	}

@@ -111,3 +111,34 @@ func (r *Renderer) deep(id string, at hexgrid.Coord, density int, field *waterde
 	}
 	return seasonblend.Part{Image: field.Shade(im, with, o, density), At: o}, nil
 }
+
+// reworked is background part p of hex at as the tile map draws it: a crater
+// field's ground laid down in world space (mapcompose.FieldMaterial), a winter
+// crater stamp's border with rough ground as one rough ground.
+func (r *Renderer) reworked(p seasonblend.Part, s *mapcompose.Scene, id string, at hexgrid.Coord, density int) (seasonblend.Part, error) {
+	if fringe := s.FringeAt(at, id); fringe != nil {
+		_, exemplar, err := r.assetImage(fringe.Exemplar, density)
+		if err != nil {
+			return p, err
+		}
+		return seasonblend.Part{Image: fringe.Rework(p.Image, exemplar, p.At, at, density), At: p.At}, nil
+	}
+	f := s.FieldAt(at, id)
+	if f == nil {
+		return p, nil
+	}
+	key := fmt.Sprintf("%d/%s", density, f.Exemplar)
+	m := r.fields[key]
+	if m == nil {
+		e, im, err := r.assetImage(f.Exemplar, density)
+		if err != nil {
+			return p, err
+		}
+		m = mapcompose.NewFieldMaterial(im, e.Anchor, density)
+		if r.fields == nil {
+			r.fields = map[string]*mapcompose.FieldMaterial{}
+		}
+		r.fields[key] = m
+	}
+	return seasonblend.Part{Image: m.Rework(p.Image, p.At, at, f.Edges), At: p.At}, nil
+}

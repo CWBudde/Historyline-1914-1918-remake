@@ -29,31 +29,31 @@
     "cp": {
       "2x": {
         "source": "assets/units/infantry/cp/n-normal-2x.png",
-        "source_sha256": "d87d0239d24adcd23acbf26db2c8bfc331ae9b3909ff7f7678ec390bf880c2f4"
+        "source_sha256": "4b3f600b9f16457e228c106e75560b6c37939f1c2bcda377b7837de9b0f480f8"
       },
       "4x": {
         "source": "assets/units/infantry/cp/n-normal-4x.png",
-        "source_sha256": "89e49a29cb2fc0f52f1954dc62811ad2649ea7df3a8246e40f3e628083111806"
+        "source_sha256": "90dfcc861f6f63f337b6d46f34ffe927cd57b1a96fe3d593e3803a6c10a5b950"
       }
     },
     "ec": {
       "2x": {
         "source": "assets/units/infantry/ec/n-normal-2x.png",
-        "source_sha256": "9e446092566a289f50548633eb20963166cf30b826b6325c082541da56a445cb"
+        "source_sha256": "9f79a4bdcfc87e6e0dcf85d8360acaa78dcc646b95b5f6266c186789ee702cda"
       },
       "4x": {
         "source": "assets/units/infantry/ec/n-normal-4x.png",
-        "source_sha256": "b31a9fd57103ec817d86b5631c04ee2453ef528494b3afb6943cdff6552dd04d"
+        "source_sha256": "0742b8afa3a6dc78db41b539f65d63c5b1cc3aba3f128ede156bc62d57955a6f"
       }
     },
     "neutral": {
       "2x": {
         "source": "assets/units/infantry/neutral/n-normal-2x.png",
-        "source_sha256": "e20b5624005655b8b5471cb44f2443b4eec8a017d8a496a33c32da779a06f98b"
+        "source_sha256": "15ee643a3000287a7e65ac7a00fca945720c9791a3309dde86346e1b50874e67"
       },
       "4x": {
         "source": "assets/units/infantry/neutral/n-normal-4x.png",
-        "source_sha256": "546a3ab1acd529119b17b2fff3762ab854bcbd93577fe258003cef6c9c613d78"
+        "source_sha256": "7cd22da2ce4abde5e2afe87eb229210b832280b5ad825d89a1137040e2481821"
       }
     }
   }
