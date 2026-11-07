@@ -153,11 +153,14 @@ context tile whose key is the SHA-256 of a descriptor (season, centre, neighbour
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). Every level folder's map (`levels/`) has no gaps.
-The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`mud` and
+The ground contexts come from `art/pipeline/ground-terrain-v4.json`; its `lattice_materials` (`mud` and
 `shelled_w`, the shell-hole fields, `rough_w`, the winter hills, and `stoney_w`, winter stony ground) are
 sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
 painting, and `TestRegenerateLatticeGroundContexts` re-renders every context they touch.
-Unstamped crater fields thus draw one continuous shell-hole field instead of a crater per hex.
+The tile map reworks unstamped crater hexes at draw time (`mapcompose.FieldMaterial`): patches of the all-crater
+tile's hollows, world-placed with a random shift, so that they repeat every 1136×800 world px instead of per hex. A
+stamped crater beside other rough ground blends into it (`mapcompose.StampFringe`). A painted map's changed hex
+keeps the plain tile.
 Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
 hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is the original's half depot,
 which binds to the half depot's records, and draws the construction site `tile/siteN`, `siteW`,

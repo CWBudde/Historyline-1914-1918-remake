@@ -23,6 +23,9 @@ type groundManifest struct {
 	// LatticeMaterials are the target materials sampled unmirrored and
 	// lattice-periodic, by source px per world px (newLatticeGroundRenderer).
 	LatticeMaterials map[string]float64 `json:"lattice_materials,omitempty"`
+	// LatticeContrast are the lattice materials that select between the lattice
+	// cosets instead of averaging them, which keeps their painted contrast.
+	LatticeContrast []string `json:"lattice_contrast,omitempty"`
 }
 type groundInputs struct {
 	Manifest groundManifest
@@ -78,6 +81,17 @@ func decodeGroundManifest(data []byte, m *groundManifest) error {
 			}
 		}
 		keys = append(keys, "lattice_materials")
+	}
+	if _, ok := raw["lattice_contrast"]; ok {
+		if len(m.LatticeContrast) == 0 {
+			return errors.New("lattice_contrast requires at least one material")
+		}
+		for _, id := range m.LatticeContrast {
+			if _, ok := m.LatticeMaterials[id]; !ok {
+				return fmt.Errorf("lattice_contrast: %s is not a lattice material", id)
+			}
+		}
+		keys = append(keys, "lattice_contrast")
 	}
 	root, err := groundObject(data, keys...)
 	if err != nil {

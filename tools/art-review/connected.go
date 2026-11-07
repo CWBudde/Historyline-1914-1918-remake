@@ -393,7 +393,10 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 	}
 	report.Method += " Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width."
 	for _, f := range in.manifest.Families {
-		if f.Markings == "ruts" && f.ID == "road" {
+		if f.Markings == "ruts" && f.ID == "road" && f.Verge == "" {
+			report.Method += fmt.Sprintf(" Road markings=ruts replace the dashes and edge lines: two wheel tracks %.1f world px either side of every course's centre line darken the surface to %.2f of its brightness at weight %.2f, full within %.1f world px and fading by smoothstep over a further %.1f.", connectionRutOffset, connectionRoadWornShade, connectionRutStrength, connectionRutCore, connectionRutFade)
+		}
+		if f.Markings == "ruts" && f.ID == "road" && f.Verge == "snow" {
 			report.Method += fmt.Sprintf(" Road markings=ruts replace the dashes and edge lines: two slush ruts %.1f world px either side of every course's centre line blend the surface toward RGB(%d,%d,%d) at weight %.2f, full within %.1f world px and fading by smoothstep over a further %.1f.", connectionRutOffset, connectionRutColor.R, connectionRutColor.G, connectionRutColor.B, connectionRutStrength, connectionRutCore, connectionRutFade)
 		}
 		switch {

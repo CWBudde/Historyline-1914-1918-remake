@@ -3,7 +3,7 @@ id: terrain/rBridge
 title: Road bridge
 kind: terrain
 status: approved
-runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
+runtime_ids: rBridge14, rBridge25, rBridge36, rBridge14_w, rBridge25_w, rBridge36_w, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
 masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-36-rail-summer-v3.png, rbridge-36-rail-winter-v3.png, rbridge-36-rail-export-summer-v3.png, rbridge-36-rail-export-winter-v3.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png, rbridge-36-rail-summer-v4.png, rbridge-36-rail-winter-v4.png, rbridge-36-rail-export-summer-v4.png, rbridge-36-rail-export-winter-v4.png
 ---
 
@@ -21,9 +21,9 @@ no water, ground, approach road, text, letters, flags or other objects.
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| rBridge14 | rBridge14, standing/rBridge14, standing/rBridge14_w | Separately painted NE/SW bridge, axis -29.396 degrees from horizontal; winter: a seasonal edit. |
-| rBridge25 | rBridge25, standing/rBridge25, standing/rBridge25_w | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal; winter: a seasonal edit. |
-| rBridge36 | rBridge36, standing/rBridge36, standing/rBridge36_w | Separately painted vertical N/S bridge; winter: a seasonal edit. |
+| rBridge14 | rBridge14, rBridge14_w, standing/rBridge14, standing/rBridge14_w | Separately painted NE/SW bridge, axis -29.396 degrees from horizontal; winter: a seasonal edit. |
+| rBridge25 | rBridge25, rBridge25_w, standing/rBridge25, standing/rBridge25_w | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal; winter: a seasonal edit. |
+| rBridge36 | rBridge36, rBridge36_w, standing/rBridge36, standing/rBridge36_w | Separately painted vertical N/S bridge; winter: a seasonal edit. |
 | rail deck | standing/rBridge36-rail, standing/rBridge36-rail_w | The vertical bridge with a single-track rail deck instead of the road. |
 
 ## Edges & joins
@@ -35,7 +35,8 @@ An independent road layer provides the approaches and the stream passes undernea
 The levels write rail and path bridges as `rBridge36` with `rail36` or `path36` and no road; the map
 draws the rail deck or the footbridge (`standing/bridge36`) for them. The rail deck's rails lie where
 `tile/rail36`'s do, 4.5 logical either side of the centre (the wide track), and run over both end
-slabs. On a winter map every deck takes its `_w` form.
+slabs. On a winter map every deck takes its `_w` form. The map tiles `tile/rBridge*` and `tile/rBridge*_w` are
+empty (`connected-mixed-v4.json`, `TestGenerateWinterRoadBridgeTiles`): the standing deck is the whole bridge.
 
 ## Post
 

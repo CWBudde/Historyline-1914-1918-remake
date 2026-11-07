@@ -218,6 +218,9 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	for _, id := range slices.Sorted(maps.Keys(in.Manifest.LatticeMaterials)) {
 		b.report.Profile += fmt.Sprintf(" Optional lattice_materials: %s is sampled like summer grass (unmirrored, periods 142,80, two-coset average) from the centred crop of its source spanning %g source px per world px.", id, in.Manifest.LatticeMaterials[id])
 	}
+	for _, id := range in.Manifest.LatticeContrast {
+		b.report.Profile += fmt.Sprintf(" Optional lattice_contrast: %s selects between the two cosets by a weight field antisymmetric under (71,40) (harmonics with k+m odd plus %.2f of the difference of luminance blurred over a %.1f world px ring, ramp half-width %.2f) instead of averaging them; the result stays lattice-periodic and keeps the painted contrast.", id, latticeSelectStoneKey, latticeSelectBlur, latticeSelectSoftness)
+	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	materials := map[string]*image.NRGBA{}
 	for _, id := range groundMaterialIDs {
@@ -227,7 +230,7 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 		b.report.Materials[id] = connectionMaterialReport{source.Ref, dimensions{source.Image.Bounds().Dx(), source.Image.Bounds().Dy()}, retained}
 		materials[id] = source.Image
 	}
-	renderer := newLatticeGroundRenderer(materials, in.Manifest.LatticeMaterials)
+	renderer := newLatticeGroundRenderer(materials, in.Manifest.LatticeMaterials, in.Manifest.LatticeContrast)
 	renderer.mudFeature = in.Manifest.MudFeature
 	renderer.shelledFeature = in.Manifest.ShelledFeature
 	tiles := map[string]map[int]*image.NRGBA{}

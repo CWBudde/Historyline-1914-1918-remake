@@ -462,8 +462,11 @@ Image 1 is the selected summer shell-hole field: keep its layout, holes and canv
 No new painting: `ground-stony-winter-v2.png` is sampled unmirrored and lattice-periodic like `rough_w`, at 7
 source px per world px (`lattice_materials` in `art/pipeline/ground-terrain-v3.json`), so the large boulders
 come to about 19 world px. The mirrored sampler had folded it into a kaleidoscope cross (correlation with its
-top-bottom mirror 1.00, now 0.19; `TestLatticeGroundTilesAreNotMirrored`). The two-coset average leaves the
-stones paler than painted.
+top-bottom mirror 1.00, now 0.18; `TestLatticeGroundTilesAreNotMirrored`). `ground-terrain-v4.json` adds
+`lattice_contrast`: the two lattice cosets are selected by a weight field that flips under (71,40) instead of
+averaged, and the darker coset wins near a seam (`sampleSelectedMaterial`). The 2x tile comes to L\* 75.8, σ 19.2
+(average: 78.5, 12.4; master: 73.5, 23.5; `TestStoneyWinterKeepsPaintedContrast`). On the maps a stoney hex draws
+its boulder stamp over snow; the tile shows in the blends of its neighbours.
 
 ### Look 7 winter hills (rough_w) candidate (2026-10-24)
 `ground-rough-winter-v3.png` (exec-23420ffe), native 1536×1024 RGB: a winter edit of the summer hills

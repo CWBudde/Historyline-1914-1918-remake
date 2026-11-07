@@ -9,6 +9,7 @@ import (
 	"image/color"
 	"maps"
 	"math"
+	"slices"
 	"strings"
 )
 
@@ -191,14 +192,16 @@ type groundRenderer struct {
 }
 
 func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
-	return newLatticeGroundRenderer(materials, nil)
+	return newLatticeGroundRenderer(materials, nil, nil)
 }
 
 // newLatticeGroundRenderer is newGroundRenderer with the materials named in
 // lattice sampled like summer grass, unmirrored and lattice-periodic, from a
 // centred crop of their source at the given source px per world px
-// (latticeCrop) instead of the mirrored connection sampler.
-func newLatticeGroundRenderer(materials map[string]*image.NRGBA, lattice map[string]float64) *groundRenderer {
+// (latticeCrop) instead of the mirrored connection sampler; those also named in
+// contrast select between the lattice cosets instead of averaging them
+// (sampleSelectedMaterial).
+func newLatticeGroundRenderer(materials map[string]*image.NRGBA, lattice map[string]float64, contrast []string) *groundRenderer {
 	if len(lattice) > 0 {
 		materials = maps.Clone(materials)
 		for id, k := range lattice {
@@ -212,7 +215,9 @@ func newLatticeGroundRenderer(materials map[string]*image.NRGBA, lattice map[str
 			s := &r.samples[y*416+x]
 			s.geometry = groundGeometryAt(p)
 			for i, id := range groundMaterialIDs {
-				if _, ok := lattice[id]; ok || id == "grass" {
+				if slices.Contains(contrast, id) {
+					s.materials[i] = sampleSelectedMaterial(materials[id], p)
+				} else if _, ok := lattice[id]; ok || id == "grass" {
 					s.materials[i] = sampleGrassMaterial(materials[id], p)
 				} else {
 					s.materials[i] = sampleConnectionMaterial(materials[id], p)

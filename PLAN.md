@@ -103,8 +103,8 @@ the replaced family back to `candidate`/`revised` on new-master install.
 - [ ] 2.11 Performance: name baseline hardware; 60 FPS (p95 ≤ 16.7 ms) on the stress map; startup time,
       download size and texture memory. Ship 4× only if it passes the same review.
 - [ ] 2.12 Autumn, then spring: season per map, seasonal IDs with summer fallback and the autumn families are in
-      ([art/tileset.md](art/tileset.md)). Open: spring road, path and cross surfaces, painted after the road
-      markings go (L4.3); acceptance on a map in the game.
+      ([art/tileset.md](art/tileset.md)). Open: spring road, path and cross surfaces (the road strips no longer
+      carry paint, L4.3); acceptance on a map in the game.
 
 #### Terrain look: order of work
 
@@ -123,9 +123,9 @@ Most of the flatness comes from the pack build, not from the paintings, so code 
 
 Stop adding enumerated baked contexts. Each one fixes the old sampling in place, and Look 1 replaces them.
 
-**Order now:** visible defects that need no new image first: crater fields and their winter notch (L8.2a), road
-markings (L4.3), `stoney_w` sampling (L7.1), summer road bridges on winter maps (L7.4). Then the gate (Look 0), the
-material and mask foundations (Look 1), water, and the rest in order. Status audited 2026-11-06.
+**Order now:** the gate (Look 0), the material and mask foundations (Look 1), water, and the rest in order. The
+defects that needed no new image are done (L8.2a, the road strips of L4.3, `stoney_w`, the winter `rBridge` audit gap).
+Status audited 2026-11-06.
 
 **Where the earlier candidates live:**
 - The other machine's Codex image outputs: 617 PNGs, of which 372 are installed masters.
@@ -321,11 +321,14 @@ stones.
       74 px instead of 48), R4 trench (summer and winter; the entry's bay numbers do not fill 1536 px, so 6
       bays of 256 px). Barbed wire is struck: the original has none (3.3). R5 waits for the stroke renderer.
 - [ ] L4.3 Road: water-bound macadam with two worn wheel tracks, sandy verges and a ditch, no paint (period
-      fit overrules the reference's lane markings; `road36` still shows dashes, and the exporter's `markings: ruts`
-      removes them); curves and junctions as in the features "Northern road
+      fit overrules the reference's lane markings); curves and junctions as in the features "Northern road
       junction" and "Western road junction". Exemplars `r7c3`, `r3c2`, `r36c4`, `r15c6`, `r9c3`, `r31c2`.
       Roads end at gates (HQ north gate, depot barrier) and into paths; the `road346` junction at `r17c6`
       must hand over to the path from `r18c5` instead of ending in a stub.
+      (2026-11-07) — partial: road and cross strips, and the road in ground contexts, carry no paint
+      (`connected-terrain-v3`, `TestInstalledRoadsCarryNoPaint`). Open: the gate roads of the HQ, depot, factory, site and
+      ruin masters (their manifests pin `connected-terrain-v2` as `entry_road`), the three dashes on the summer and
+      autumn `standing/rBridge*` decks (both need image work), verges, junctions, handovers.
 - [ ] L4.4 Path: earth track with two ruts, grass in the middle, frayed edges. Exemplars `r19c5`, `r20c4`,
       `r22c3`, `r24c3`, `r28c2`.
 - [ ] L4.5 Rail (`rail*`), level crossings (`cross1`–`cross4`) and trenches (`trench*`) in the same style; no
@@ -385,14 +388,16 @@ Mostly a material swap of the matching summer family plus the winter grade.
 
 - [ ] L7.1 Winter materials and edits: G1, G4, G6, G7, G8 and G9 (`grass_w`, `rough_w`, `shelled_w` crater
       stamps in snow, `stoney_w`, `mountain_w`, `mountN_w`/`mountS_w`/`mountE_w`/`mountW_w`). Open: `grass_w`,
-      `mountain_w` and `mount*_w` with G1, G8 and G9; `stoney_w` stones come out paler than painted.
+      `mountain_w` and `mount*_w` with G1, G8 and G9. (2026-11-07) — the `stoney_w` tile keeps its painted contrast
+      (`TestStoneyWinterKeepsPaintedContrast`); all 271 `stoney_w` hexes on the maps draw a `boulders_w` stamp, so what
+      shows there is unchanged.
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Open water in
       winter is graded to a slate teal. Open: the I1 shore ice, laid by coast distance like the surf, and
       `shoal_w`, still the summer pixels.
 - [ ] L7.4 Winter strips and kits (R1–R5) and the I3 edits of rocks and bridges. Winter roads, paths, rails,
       crossings, streams, trenches, bridge decks, quays, lake rocks and skerries are installed. Open: the R5
-      kit decals (wait for the stroke renderer), the I3 edits of the W3/W4 kits, which nothing places yet, and
-      `tile/rBridge*`, which draws summer on 4 of 16 winter maps.
+      kit decals (wait for the stroke renderer), and the I3 edits of the W3/W4 kits, which nothing places
+      yet. (2026-11-07) — `tile/rBridge*` was only an audit gap: the tile is fully transparent, no pixel differs.
 - [x] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
       installed), `house_w`.
       (2026-11-06) — all 21 IDs are in `assets/index.json`, none with its summer form's pixels;
@@ -407,9 +412,15 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] L8.1 Sea and open water distinct from ponds (records 25, 34, 47, 48): the sea material, surf, shoals and
       skerries are drawn. Open: the depth exporter (L3.1); pond (34) still draws as the shallows; winter
       surf and sea are the summer pixels under the winter grade.
-- [ ] L8.2a Crater fields: the hollows repeat once per hex (one lattice period, contrast halved by the
+- [x] L8.2a Crater fields: the hollows repeat once per hex (one lattice period, contrast halved by the
       two-coset average; L1.1; 2,886 hexes), and a winter crater stamp beside `rough_w` leaves a white hex-shaped
       notch (`1914-10`, line 14, column 11).
+      (2026-11-07) — `mapcompose.FieldMaterial` lays world-placed crater patches in the game, `maprender` and the web
+      bake (lite only), `StampFringe` closes the notch (`TestCraterFieldsDoNotRepeatPerHex`,
+      `TestWinterCraterStampLeavesNoNotch`). The materials are still cut from the old tiles: native crater materials
+      belong to L1.1. Autumn and spring fields have not been looked at.
+- [ ] L8.2b The same notch beside `rough_w` under `boulders_w` stamps (206 side-hex pairs; `registerFringes`), and the hard
+      hex outline of an isolated `shelled_w` or `rough_w` hex in winter.
 - [ ] L8.3 Harbour buildings and their yard (C4), quays and piers (C5) and town streets (C6) are drawn except:
       record 120, a quay piece on land, still shows a short road; the harbour setts are about 6×4 world px,
       coarser than the quay's, and the yard stops at the meadow before the bank. Town streets (C6) are struck: no
@@ -487,7 +498,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `1918-05`. F8 switches between painting and tiles.
 - [ ] 5.6 Terrain art for the original maps: `hl assets terrain-gaps` over every shipped map finds every
       context; 319 crater clusters have no stamp (118 of them single hexes) and draw the shell-hole field on
-      purpose, so L8.2a is the real fix. Optional: a summer `crater/1` stamp.
+      purpose (L8.2a). Optional: a summer `crater/1` stamp.
 - [ ] 5.7 Unit roster: weapon slots use stand-ins from the existing catalogue; the remake's own rules still
       play deep and shallow water as one (the levels and the original rules keep them apart).
 - [ ] 5.8 Decode the computer player's parameters from the original map files.
