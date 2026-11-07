@@ -141,6 +141,17 @@ clear morning light. Small woodland clearings and level rocky shelves support th
 both airstrips and four hangars stay open. Eight bridges cross continuous rivers and streams.
 One continuous winter railway runs from the factory approach to the southern map edge. One patrol
 boat and one infantry group start on adjacent hexes clear of a bank and a house.
+CAMEL/BELLS (`1917-11`, 3829×4403) has thin fresh November snow over dormant grass,
+bare crowns and dark conifers, with an open slate-blue lake under cold diffuse light.
+Granite, four slate cones and a steep slate hall distinguish one HQ; red brick, four
+green-copper domes and a low red-tiled hall distinguish the other. Aircraft-engine,
+joinery, stone-machine and boiler works retain their open yards, alongside rations
+and ammunition depots. Both rail networks, 25 bridge hexes, seventeen occupied runway
+hexes and nine hangars retain their routes and approaches. Isolated bridge stubs and
+the southern missing span remain open. Small connected bank recesses support the
+unchanged naval starts; an intact compact rear cottage leaves its infantry forecourt
+clear. Prompts, masks, lightness findings and native verification are under
+`build/review/backdrops/1917-11/`.
 AMPER/STONE (`1917-12`, 3829×4403) follows MOUSE's look: settled December snow broken by bare
 shrubs and dry grass, mixed woods of snow-laden conifers and leafless trees, and natural lake banks
 with snowy boulders, frozen reeds and a thin rim of shore ice, under diffuse cold afternoon light.
