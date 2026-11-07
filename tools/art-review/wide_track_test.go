@@ -454,7 +454,7 @@ func TestInstalledWideTracksJoinAndRailsRun(t *testing.T) {
 			}
 		}
 	}
-	summer, err := loadMixedInputs(filepath.Join(root, "art/pipeline/connected-mixed-v3.json"))
+	summer, err := loadMixedInputs(filepath.Join(root, "art/pipeline/connected-mixed-v4.json"))
 	if err != nil {
 		t.Fatal(err)
 	}

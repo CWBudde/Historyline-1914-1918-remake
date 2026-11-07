@@ -8,9 +8,9 @@ masters: road-asphalt-shared-v2.png, road-snow-winter-v1.png, road-asphalt-share
 ---
 
 ## Look
-Paved country road. In the reference it is a medium-grey asphalt carriageway with a dashed off-white
-centre line, thin pale edge lines and sandy gravel shoulders with grass tufts, running in smooth, even
-curves (average including verges about RGB 124,118,79).
+Country road of the period: grey stone carriageway with two darker worn wheel tracks and sandy gravel
+shoulders with grass tufts, running in smooth, even curves, without paint. The reference's dashed centre
+line and pale edge lines are not taken over (period fit); average including verges about RGB 124,118,79.
 
 ## Base prompt
 Opaque square material swatch of a maintained paved road surface seen straight from above: modest
@@ -43,10 +43,18 @@ renderer adds the road shape, markings and shoulders.
 ## Edges & joins
 The road is 22 world pixels wide with a 2-pixel earth shoulder, centred on the shared port centres and
 continuing straight through each port, so it joins the next road tile, bridges and compounds exactly.
-Centre dashes are drawn by the renderer along the centre line. The winter forms keep the geometry; the
-renderer draws two slush ruts 4.5 world pixels either side of the centre line instead of the dashes.
+The renderer draws two wheel tracks 4.5 world pixels either side of the centre line: the surface at 0.68
+brightness in summer and autumn, slush in the winter forms, which keep the geometry.
 
 ## Post
+
+### Summer and autumn roads without paint (2026-11-07)
+
+`connected-terrain-v3.json` is `connected-terrain-v2.json` with `markings: ruts`; no new image. The tracks
+darken the surface itself, so they stay darker on the wet autumn material, where the winter slush colour
+would be lighter. `TestGenerateRutRoads` (`campaigngfx`) installs `tile/road*`, `tile/road*_au` and the
+crossings; `TestInstalledRoadsCarryNoPaint` counts the paint-white pixels. The compound scenes still pin
+`connected-terrain-v2.json` as `entry_road`, and their masters and the bridge decks paint markings.
 
 ### Autumn road material edit (2026-10-31)
 
@@ -71,7 +79,7 @@ Image 1 is the selected summer road material (road-asphalt-shared-v2) to edit: k
 ```
 
 
-`art-review -connected art/pipeline/connected-terrain-v2.json` renders the summer roads from
+`art-review -connected art/pipeline/connected-terrain-v3.json` renders the summer roads from
 `road-asphalt-shared-v2.png`. `connected-road-winter-v1.json` renders the `_w` forms from
 `road-snow-winter-v1.png` with `markings: ruts` and `verge: snow`; the winter maps draw them (and the
 winter level crossings) in place of the summer roads. The tagged generator
@@ -127,8 +135,8 @@ Avoid: any geometry change, ice sheen, rows of footprints, blue snow, the summer
 Attached references: image 1 is the summer road strip to edit; copy none of its colours, keep all of its layout.
 ```
 
-`art-review -connected art/pipeline/connected-terrain-v2.json` cuts the asphalt to each port set, adds dashed
-markings and earth shoulders (earth bank material) over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+`art-review -connected art/pipeline/connected-terrain-v3.json` cuts the asphalt to each port set, adds the wheel
+tracks and earth shoulders (earth bank material) over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 The selected built-in imagegen master is native 1254×1254 RGB. It uses the base prompt above with
 fine irregular aggregate and restrained wear. The former asphalt source remains a retained draft.

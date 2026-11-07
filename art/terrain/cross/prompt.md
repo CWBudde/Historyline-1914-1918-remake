@@ -33,7 +33,7 @@ covers the intersection only: the way's width plus 1 world pixel either side, an
 side of the track's centre line (4.5 scaled with the rail family); the steel runs unbroken over it.
 
 ## Post
-Derived only: `art-review -mixed art/pipeline/connected-mixed-v3.json` layers the rail variant over the
+Derived only: `art-review -mixed art/pipeline/connected-mixed-v4.json` layers the rail variant over the
 path or road variant. `connected-mixed-winter-v2.json` derives the winter crossings from
 `connected-mixed-v3.json`, swapping every layer for its `_w` form of the same profile from
 `connected-road-winter-v1.json`, `connected-paths-winter-v2.json` and `connected-rail-winter-v2.json`; the plank infill blends 0.85 toward the winter surface of the

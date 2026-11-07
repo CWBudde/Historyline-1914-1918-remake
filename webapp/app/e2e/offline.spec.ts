@@ -33,8 +33,15 @@ async function battleFromCode(page: Page, month: string): Promise<void> {
     await page.waitForTimeout(200);
   }
 }
-/** The keep starts 15 s after a battle starts and reads one file at a time. */
+/**
+ * The keep starts 15 s after a battle starts and reads one file at a time.
+ * Without a GPU the map's frames starve it for over 20 minutes, so no more are
+ * drawn until the caller's reload.
+ */
 async function waitForKeep(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    window.requestAnimationFrame = () => 0;
+  });
   await page.waitForTimeout(16_000);
   let last = -1;
   for (;;) {

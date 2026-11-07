@@ -25,11 +25,14 @@ history.
 
 ### 1. Play and UI
 
-- [ ] 1.1 Ownership strips on units and buildings; check the composed map by hand in the window, including
-      fractional zoom and 4K/HiDPI.
-- [ ] 1.2 Contexts for summer and winter materials mixed inside one map.
-- [ ] 1.3 Decide the open art ambiguities: the `trench5a` port and the four inferred lakeside corners.
-      Decided: the HQ entrance cell is N (Look 5).
+- [ ] 1.1 Ownership strips on units and buildings in the desktop game (the web edition draws them; both
+      editions must match); check the composed map by hand in the window, including fractional zoom and 4K/HiDPI.
+- [x] 1.2 Contexts for summer and winter materials mixed inside one map.
+      (2026-11-06) — `internal/seasonblend` blends per-hex seasons in the game, `maprender` and the web bake;
+      `go test ./internal/seasonblend` and the season tests of `internal/mapcompose` pass. No shipped map
+      uses per-hex `seasons` yet.
+- [ ] 1.3 Decide the open art ambiguity: the four inferred lakeside corners (`lakeside123`/`126`; look at them
+      on a map). Decided: the HQ entrance cell is N (Look 5). Struck: `trench5a`, on no shipped map.
 - [ ] 1.4 Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
       approved exports through `assets/assets.go`. The screen paintings still need native 4× masters and
       runtime bindings. Interface packs build, but the game does not use them yet.
@@ -44,15 +47,17 @@ history.
       - a capitals pixel font in two sizes (status bar, overlays), replacing `internal/pixfont`;
       - a single-man figure per unit type for the battle scene's ring (the map sprites hold several men);
       - name plates keep their brass rivets, which the original's plates have too.
-- [ ] 1.6 Two humans on one screen: the left panel takes the mouse and key set A, a second human plays the
+- [ ] 1.6 Two humans on one screen in the desktop game (done in the web edition, W8; both editions must match;
+      `gesture.KeySetB` is defined but unused): the left panel takes the mouse and key set A, a second human plays the
       right panel with key set B (D/C/X/V + Ctrl), both at the same time. This is the original's two-player
       mode; each side acts in its own mode, and the phase changes once both confirm. Keep the panel state
       (wells, stages, overlays) per side where cheap. Wires up the `2p` setups (5.4).
 - [ ] 1.7 Acceptance of the playable game, desktop and WASM:
-      - hand-test all three original levels and the monthly campaign from both sides under the default
+      - hand-test PULSE (`1914-08`), CIVIL (`1914-10`), MOUSE (`1914-12`) and the monthly campaign from both
+        sides under the default
         `-rules dos` (`just play`, `just run`, the web build), including repair and production in the
         contents view; move, attack, enter/leave container, capture, end turn;
-      - `-capture` frames of all three levels, both sides, next to the reference frames in `hl review gallery`
+      - `-capture` frames of those three months, both sides, next to the reference frames in `hl review gallery`
         (local only, the references stay ignored); 720p–4K, UI scales; summer and winter; check attack
         targets and which panel shows the battle against further battle frames;
       - hand test in a window that the OS pointer hides over the human side's map.
@@ -61,15 +66,16 @@ history.
       panel (portrait, skills, four weapon rows with empty/unlimited/zero distinct, hidden data suppressed
       before binding; all units, long labels, every UI scale; portrait-panel acceptance of all 48 portrait
       families); battle panel with real bars and sprites, explosion sprites, capture/round banners from the
-      interface art; hot-seat with handover screen and vision isolation. Milestone: all three levels play
+      interface art; hot-seat with handover screen and vision isolation. Milestone: those three months play
       end to end under the remake rules, both sides, summer/winter.
 
 ### 2. Art completion and acceptance
 
-**Art freeze:** the current art is accepted and the freeze baseline. 178 of 182 indexed families carry
-`prompt.md` status `approved` (`just art-index`; `just art-check` passes). This records acceptance of the
-current masters, not passage of the Look targets below: 2.1–2.11 and Look 0–Look 8 remain open and paused
-under this freeze, and Look 9 L9.1–L9.3 stay unticked. The four unbound screen families `capture`,
+**Tile map:** painted backdrops are the default look on all 52 months; the tile map stays the standardised
+design F8 switches to (`-backdrop off` at startup), so the Look track below continues for it. The current art is
+the baseline: 178 of 182 indexed families carry `prompt.md` status `approved` (`just art-index`; `just art-check`
+passes). This records acceptance of the current masters, not passage of the Look targets below. The four unbound
+screen families `capture`,
 `intermission`, `production-repair` and `surface` stay `candidate`: they have no `runtime_ids`, so approving
 them would fail `just art-check`; they follow 2.4 once their features and bindings exist. Runtime packs
 carry no status; the game loads them without a flag or mark. A future Look replacement sets
@@ -89,14 +95,16 @@ the replaced family back to `candidate`/`revised` on new-master install.
 - [ ] 2.6 In-engine art preview (`hl preview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
 - [ ] 2.7 Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).
-- [ ] 2.8 `just art-build` / `art-preview`.
+- [x] 2.8 `just art-build` / `art-preview`.
+      (2026-11-06) — dropped: the recipes never existed; `hl art`, `hl export` and `hl assets` cover the work.
 - [ ] 2.9 Windows: make the exporter tests pass (path/identity handling, directory rollback).
 - [ ] 2.10 Visual acceptance on all shipped maps at 720p/1080p/1440p/4K, display scales 100–200 %, UI scales
       100–150 %, zoom 0.75–2; check halos, bleed, repetition, cracks, picking, text.
 - [ ] 2.11 Performance: name baseline hardware; 60 FPS (p95 ≤ 16.7 ms) on the stress map; startup time,
       download size and texture memory. Ship 4× only if it passes the same review.
-- [ ] 2.12 Autumn, then spring: season per map, seasonal IDs with summer fallback, then the tile families in
-      the order of [art/tileset.md](art/tileset.md).
+- [ ] 2.12 Autumn, then spring: season per map, seasonal IDs with summer fallback and the autumn families are in
+      ([art/tileset.md](art/tileset.md)). Open: spring road, path and cross surfaces (the road strips no longer
+      carry paint, L4.3); acceptance on a map in the game.
 
 #### Terrain look: order of work
 
@@ -106,7 +114,7 @@ local in `build/review/look-audit/`. This section sets the order. Cells are name
 1-based) as in `art/reference/pulse/reference.json`, which lists the exemplar cells and multi-hex features
 of every family. The goal: the PULSE map rendered with the runtime art (`just artbook`, chapter "PULSE map")
 reads as the same painting as the local reference `RefDesign2.png`, without visible hex steps at 1×, 2× and
-4×; the same foundations carry the winter maps and the 72 campaign maps.
+4×; the same foundations carry the winter maps and all 52 months.
 
 Most of the flatness comes from the pack build, not from the paintings, so code comes first:
 - Sources are squeezed into one 142×80 lattice cell, sampled bilinearly without a prefilter and averaged
@@ -114,6 +122,10 @@ Most of the flatness comes from the pack build, not from the paintings, so code 
 - Every family bakes the canonical meadow into its tiles.
 
 Stop adding enumerated baked contexts. Each one fixes the old sampling in place, and Look 1 replaces them.
+
+**Order now:** the gate (Look 0), the material and mask foundations (Look 1), water, and the rest in order. The
+defects that needed no new image are done (L8.2a, the road strips of L4.3, `stoney_w`, the winter `rBridge` audit gap).
+Status audited 2026-11-06.
 
 **Where the earlier candidates live:**
 - The other machine's Codex image outputs: 617 PNGs, of which 372 are installed masters.
@@ -133,7 +145,7 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       gradient, bank width and stream width with their variation; unit edge contrast; the 5–95 % value range.
       `-look-out` reports value percentiles, box-band RMS, lattice correlations, canopy coverage, unit edges,
       water transects, woodland arcs and crown/shadow bearings; `just look-check` gives a strict
-      PASS/FAIL/INCOMPLETE report (PULSE: 11/38/40) and exits nonzero unless all rules pass. Remaining:
+      PASS/FAIL/INCOMPLETE report (PULSE: 21/28/40) and exits nonzero unless all rules pass. Remaining:
       - feature metrics, original baselines and the strict acceptance gate bound in CI;
       - reference canopy annotations and woodland-perimeter metrics; complete woodland-boundary coverage
         (now six arcs in `r8c5`);
@@ -142,15 +154,16 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       - global painted light and the families other than PULSE crowns;
       - the unresolved periods, estimators and populations the report leaves incomplete.
 - [ ] L0.2 Review views at the real size: 1× and an effective zoom of 1.6 (the split screen), plus in-game
-      captures at 1080p and 4K. `-capture-look -capture DIR` writes twelve real-Draw frames (0.5×/1×/1.6× at
-      1080p/4K, revealed and fogged); acceptance of the other families and views remains.
+      captures at 1080p and 4K. `-rules standard -capture-look -capture DIR` writes twelve real-Draw frames
+      (0.5×/1×/1.6× at 1080p/4K, revealed and fogged); under the default rules the flag writes no look frames
+      and says nothing, so fix or reject that. Acceptance of the other families and views remains.
 
-##### Look 1: Sampling, grade and legibility (code, no new art)
+##### Look 1: Sampling, grade and legibility (mostly code)
 
 The reusable meadow/scrub sampler and the optional material-pack contract are built
 ([docs/runtime-assets.md](docs/runtime-assets.md)); default activation waits: the PULSE review shows
-oversized grass detail and hard transitions against other families' baked meadow
-(`build/review/look-native/`). Convert those families together before promoting the period exports.
+oversized grass detail and hard transitions against other families' baked meadow. Convert those families
+together before promoting the period exports.
 
 - [ ] L1.1 Sample every material at its native aspect with a world period instead of one lattice cell. Use a
       prefilter (box or Lanczos to the export density), no mirror wrap and no coset averaging.
@@ -160,18 +173,19 @@ oversized grass detail and hard transitions against other families' baked meadow
       gets 284×160.
       Done when the installed meadow and scrub masters reach grass σL\* ≥ 10 at 1× and the lattice
       autocorrelation is < 0.15.
-- [ ] L1.2 No baked meadow in other families. Hills, mud, stone, forest floor, roads, paths, streams, shores
-      and compounds export colour with an alpha falloff over the meadow underlay. Their 8-px canonical edge
-      guard goes away. Mount stays 3.5 L\* under grass rather than 6–10 until then, because its quarters are
+- [ ] L1.2 No baked meadow in other families. Hills, mud, stone, forest floor, shores and compounds export
+      colour with an alpha falloff over the meadow underlay. Their 8-px canonical edge
+      guard goes away. Mount stays about 4 L\* under grass rather than 6–10 until then, because its quarters are
       50–70 % baked meadow.
 - [ ] L1.3 One light and shadow model (azimuth 315°, shadow RGB 18,26,16, length 0.25 × object diameter,
       opacity crowns 0.6, rocks 0.45, buildings 0.35), built in `internal/terrainlight`. Remaining:
-      - rocks and buildings have no standing art to cast from (Look 5, the rock kits); their cast shadows
-        join the shadow layer drawn before all standing items, so they fall on neighbouring hexes;
+      - buildings and rocks without standing art have nothing to cast from (Look 5, the rock kits), and knolls
+        have standing art but no shadow; their cast shadows join the shadow layer drawn before all standing
+        items, so they fall on neighbouring hexes;
       - write the model in `art/style.md`.
-- [ ] L1.4 Units: props kept 0.3 hex away from a unit's foot point. Not built: units draw above every terrain
-      pass, so no prop hides one, and a hole of that radius would clear 46 % of each hex into a visible
-      lattice. (Rim and contact shadow reach edge ΔL\* ≥ 30 on grass, forest, road and water.)
+- [x] L1.4 Units: props kept 0.3 hex away from a unit's foot point.
+      (2026-11-06) — struck: units draw above every terrain pass, so no prop hides one, and a hole of that radius
+      would clear 46 % of each hex into a visible lattice. The unit edge metric stays in L0.1.
 
 **Compositor (code).** Art is authored once per family instead of once per neighbour combination, and the
 painting can cross hex borders; picking, fog and rules stay per hex.
@@ -180,7 +194,9 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       neighbours) and a **standing** part (tree crowns, rocks, crests, buildings, bridges) on a larger
       canvas that may overhang up to half a hex on every side. The code is ready: a terrain or
       infrastructure ID gets a standing item as soon as `assets/index.json` lists `standing/<id>` in the
-      packs `terrain-standing-2x`/`-4x`. Knolls and crowns use it; the other families still need the split.
+      packs `terrain-standing-2x`/`-4x`. Forest contexts, scatter, knolls, bridges, the hangar and the harbour
+      use it; houses, compounds, mountains and
+      boulders still need the split.
 - [ ] L1.7 Mask-based transitions:
       - each blending family is authored as a **tileable material** (large period, like the hills phase
         568×320) plus one **edge mask set** (six edge masks and the vertex blends, soft and irregular);
@@ -196,7 +212,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       (`mapcompose/props.go`, `scatter.go`). Remaining:
       - bushes, single trees and boulders as scatter classes, with the density rows of the other families
         (stone: many boulders);
-      - exclusion zones around infrastructure, buildings and units' foot points (L1.4);
+      - exclusion zones around buildings;
       - prop sheets with a `prompt.md` each (`art/terrain/props/<sheet>`), drawn in the ground or standing
         layer by size;
       - same output for the same level on every run (fixture test with hashes).
@@ -232,9 +248,10 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       (σ of the radius-10 box mean 3.35 for 4–6); on PULSE the meadow is slightly too even (cell means
       σL\* 2.4 against 4.3, residual 9.1 against 10.0). Next: G1a drifts of about 5 L\* without more fine
       contrast. Records under `build/review/gen-2026-10-23/g1-r2/`.
-- [ ] L2.3 Replace the 16 `grass-detail-*` variants by the material phase; remove them once unused.
-- [ ] L2.4 Meadow G2 props: fifteen G2 items scatter on grass and hills. Remaining: grass hexes with
-      infrastructure get no props; tufts read as dark stars at 2×; the thin backing under tufts and flowers.
+- [ ] L2.3 Replace the summer `grass-detail-*` variants by the material phase after L2.2. The autumn and spring
+      details are painted content and stay until seasonal materials exist.
+- [ ] L2.4 Meadow G2 props: fifteen G2 items scatter on grass and hills. Remaining: pale straw ovals
+      stand out at 2×; the thin backing under tufts and flowers.
 - [ ] L2.5 Hills G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per hex
       (scrub from G7 props), lit from the north-west, as material plus edge masks so the dark smears go.
       Exemplars `r6c5`, `r16c7`, `r21c7`, `r23c6`. Candidate `hills-hummock-summer-v1.png` reads as hills
@@ -248,7 +265,8 @@ painting can cross hex borders; picking, fog and rules stay per hex.
 The HQ moat is the bar: teal, darker under its banks, lighter and greener in the shallows, with reeds and
 stones.
 
-- [ ] L3.1 Exporter profile `depth-v1` for open water, shores, mouths and streams, computed from the masks:
+- [ ] L3.1 Depth for lakes, shallow water, shores, mouths and streams (`internal/waterdepth` already shades deep
+      water and the sea; 23 months have only shallow water and get no depth), computed from the masks:
       coast distance; depth; a bank shadow cast toward the lower right; layers from the bottom: bed, deep
       water by depth, shadow, a broken lap line, damp fringe, then painted bank props placed along the
       coast with seeds keyed to the edge, so both tiles of a pair agree. Keep the 234 shore pairs, the 24
@@ -256,8 +274,8 @@ stones.
 - [ ] L3.2 Lake: clear water material with depth falloff towards the shore (exemplars `r29c7`, `r30c7`);
       `waterStones` as a rock cluster rising from the water (standing layer). The depth falloff is open.
 - [ ] L3.3 Shore as a mask edge between water and grass, lined with rounded boulders placed along the
-      shoreline (props), so any port set works. Exemplars `r29c6`, `r30c6`, `r31c7`, `r32c7`. Open: the
-      boulders along the shoreline.
+      shoreline (props), so any port set works. Exemplars `r29c6`, `r30c6`, `r31c7`, `r32c7`. Rounded
+      stones are baked into the bank; open: whether that is enough or placed boulders are needed.
 - [ ] L3.4 Streams: 22 world px at the ports, meander 3–7 px, width 16–30 inside a tile with pools at bends
       and riffles on straights; three meander alternates per port set; foam and stony banks. Exemplars
       `r8c2`, `r10c2`, `r12c1`, `r34c6`, `r36c6`. The lake outlet leaves the shore without a seam (feature
@@ -272,14 +290,13 @@ stones.
 - [ ] L3.6 Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5.
       - Plank footbridges, straight and diagonal, with railings and shadow (`r33c7`, `r37c7`).
       - Road bridge with parapets (`r4c1`, feature "Northern stream with road bridge"), the stream visible
-        below; its carriageway continues the macadam road with no deck plate; also for paths and rail
-        (levels 2 and 3).
+        below; its carriageway continues the macadam road with no deck plate; also for paths and rail.
       Candidates, unpromoted, prompts and faults in `art/terrain/bridge/prompt.md` and
       `art/terrain/rBridge/prompt.md`: B1/B2 plank footbridges (B2 painted at 36.8°, needs a 7.4° turn),
       B3–B5 stone road bridges carrying the R1 macadam (B4/B5 at 31.1°/29.1°, slight side faces; sandy
       verges leave only about 14 logical px of carriageway). `exec-62ac6b08`, `exec-3b558b9a` and
-      `exec-07b389c2` are re-registered for review only (`build/review/gen-2026-10-23/bridge-earlier/`); no
-      registration manifest or export yet.
+      `exec-07b389c2` are re-registered for review only (`build/review/gen-2026-10-23/bridge-earlier/`). The
+      carriageway of B3–B5 waits for R1 (L4.2).
 - [ ] L3.7 Done when the water rows of the acceptance table hold and the moat test passes: lake and moat side
       by side at 4× read as one material.
 
@@ -295,25 +312,31 @@ stones.
       - multi-infrastructure cells (for example `stream25` + `rBridge36` + `road36`): a road meeting a path
         ends in a widened mouth; a bridge sprite is placed and rotated where a road or path crosses a stream.
       Export to the existing tile IDs; the painted port tiles stay as fallback and the 1× reference, and
-      every port combination in the three levels must render without a gap.
-- [ ] L4.2 Generate R1–R4 (road, path, rail and trench strips, summer and winter), the R5 kit sheets and R6
-      (barbed wire, three variants). Widths: road 22 (footprint about 38), path 11, rail ballast 16, trench
-      footprint 18–22. Candidates, unpromoted, with prompts and measured faults in each family's prompt.md:
+      every port combination in the 52 months must render without a gap (none has one today). L3.4 shares the
+      stream part.
+- [ ] L4.2 Generate R1–R4 (road, path, rail and trench strips, summer and winter) and the R5 kit sheets. Widths:
+      road, path and rail 22 (decided, `TestTracksAsWideAsTheRoad`; road footprint about 38), trench footprint
+      18–22. Candidates, unpromoted, with prompts and measured faults in each family's prompt.md:
       R1 road and R2 path (summer and winter), R3 rail (summer and winter; the sleeper gap across the wrap is
       74 px instead of 48), R4 trench (summer and winter; the entry's bay numbers do not fill 1536 px, so 6
-      bays of 256 px), R6 barbed wire (patches set vertically; `hl export kits` clears the matte and scales each patch
-      to 70 world px). R5 waits for the stroke renderer.
+      bays of 256 px). Barbed wire is struck: the original has none (3.3). R5 waits for the stroke renderer.
 - [ ] L4.3 Road: water-bound macadam with two worn wheel tracks, sandy verges and a ditch, no paint (period
       fit overrules the reference's lane markings); curves and junctions as in the features "Northern road
       junction" and "Western road junction". Exemplars `r7c3`, `r3c2`, `r36c4`, `r15c6`, `r9c3`, `r31c2`.
       Roads end at gates (HQ north gate, depot barrier) and into paths; the `road346` junction at `r17c6`
       must hand over to the path from `r18c5` instead of ending in a stub.
+      (2026-11-07) — partial: road and cross strips, and the road in ground contexts, carry no paint
+      (`connected-terrain-v3`, `TestInstalledRoadsCarryNoPaint`). Open: the gate roads of the HQ, depot, factory, site and
+      ruin masters (their manifests pin `connected-terrain-v2` as `entry_road`), the three dashes on the summer and
+      autumn `standing/rBridge*` decks (both need image work), verges, junctions, handovers.
 - [ ] L4.4 Path: earth track with two ruts, grass in the middle, frayed edges. Exemplars `r19c5`, `r20c4`,
       `r22c3`, `r24c3`, `r28c2`.
-- [ ] L4.5 Rail (`rail*`), level crossings (`cross1`–`cross4`) and trenches (`trench*`, the `trench5a` port is
-      open in 1.3) in the same style; no PULSE reference, so match the summer materials' light and grade.
+- [ ] L4.5 Rail (`rail*`), level crossings (`cross1`–`cross4`) and trenches (`trench*`) in the same style; no
+      PULSE reference, so match the summer materials' light and grade.
       Trench lines already join across hexes (`mapcompose.TrenchShape`); the round position `trench0` runs
-      toward a hex without a trench end in a blind spur. Rail and crossings open.
+      toward a hex without a trench end in a blind spur. Rail and crossing tiles exist in every season but do
+      not meet the row: `rail36` shows mirror symmetry and `cross1`
+      a broken plank patch.
 - [ ] L4.6 Done when no carriageway pixel is paint-white, every road–path meeting has a mouth
       (`r17c6`/`r18c5`), and rail, crossings and trenches meet their rows in the table.
 
@@ -323,13 +346,13 @@ stones.
       code-made cast shadow, and a ground part derived from the painting over the real meadow.
 - [ ] L5.2 Each ownable building keeps a flat marker zone for the ownership strip: HQ in C, depot in S,
       factory in E. The HQ entrance cell is N.
-- [ ] L5.3 Generate, each with its winter edit:
-      - H1, the HQ as a bastioned fort that keeps the moat: four round corner towers, red-roofed gatehouse
-        at the north gate, inner hall, paved courtyard with carts, crates and a well; the road enters over
-        the stream bridge. Features "Northern headquarters" and "Southern headquarters" (`r6c1`–`r10c1`,
+- [ ] L5.3 Generate, each with its winter, autumn and spring edits:
+      - H1, the HQ as a bastioned fort that keeps the moat, as [art/direction.md](art/direction.md) H1 (decided: no
+        round towers); the road enters over the stream bridge. Features "Northern headquarters" and "Southern
+        headquarters" (`r6c1`–`r10c1`,
         `r42c6`–`r46c6`);
-      - H2, the depot as a supply dump: fence, barrier gate on the road, sheds and red vehicles in the west,
-        white tents in the east, large hall with a helipad roof in the south. Features "Central depot"
+      - H2, the depot as a supply dump as direction H2 (decided: no helipad, no saturated red): fence, barrier gate on
+        the road, sheds, tents and stacks. Features "Central depot"
         (`r19c6`–`r21c6`) and "Southwestern depot" (`r34c1`–`r36c1`);
       - H3, the factory as a brick works;
       - H4–H6, house variants chosen by seed: detached hut with a brown roof, a small shed and a trodden
@@ -365,15 +388,20 @@ Mostly a material swap of the matching summer family plus the winter grade.
 
 - [ ] L7.1 Winter materials and edits: G1, G4, G6, G7, G8 and G9 (`grass_w`, `rough_w`, `shelled_w` crater
       stamps in snow, `stoney_w`, `mountain_w`, `mountN_w`/`mountS_w`/`mountE_w`/`mountW_w`). Open: `grass_w`,
-      `mountain_w` and `mount*_w` with G1, G8 and G9; `stoney_w` stones come out paler than painted.
+      `mountain_w` and `mount*_w` with G1, G8 and G9. (2026-11-07) — the `stoney_w` tile keeps its painted contrast
+      (`TestStoneyWinterKeepsPaintedContrast`); all 271 `stoney_w` hexes on the maps draw a `boulders_w` stamp, so what
+      shows there is unchanged.
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Open water in
-      winter is graded to a slate teal (campaign 15: L\* 27.1, chroma 7.8). Open: the I1 shore ice (needs
-      L3.1) and the winter streams (L7.4).
+      winter is graded to a slate teal. Open: the I1 shore ice, laid by coast distance like the surf, and
+      `shoal_w`, still the summer pixels.
 - [ ] L7.4 Winter strips and kits (R1–R5) and the I3 edits of rocks and bridges. Winter roads, paths, rails,
       crossings, streams, trenches, bridge decks, quays, lake rocks and skerries are installed. Open: the R5
-      kit decals (wait for the stroke renderer) and the I3 edits of the W3/W4 kits, which nothing places yet.
-- [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
+      kit decals (wait for the stroke renderer), and the I3 edits of the W3/W4 kits, which nothing places
+      yet. (2026-11-07) — `tile/rBridge*` was only an audit gap: the tile is fully transparent, no pixel differs.
+- [x] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
       installed), `house_w`.
+      (2026-11-06) — all 21 IDs are in `assets/index.json`, none with its summer form's pixels;
+      `TestWinterMapsDrawNoSummerInfrastructure` passes. New Look 5 masters will need new edits.
 
 ##### Look 8: Campaign subjects
 
@@ -383,15 +411,20 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 
 - [ ] L8.1 Sea and open water distinct from ponds (records 25, 34, 47, 48): the sea material, surf, shoals and
       skerries are drawn. Open: the depth exporter (L3.1); pond (34) still draws as the shallows; winter
-      skerries and surf are the summer pixels under the winter grade.
-- [ ] L8.2a Crater fields: the hollows repeat once per hex (one lattice period, contrast halved by the
-      two-coset average; L1.1), and a winter crater stamp inside a field leaves a white hex-shaped notch
-      (level20_cp).
+      surf and sea are the summer pixels under the winter grade.
+- [x] L8.2a Crater fields: the hollows repeat once per hex (one lattice period, contrast halved by the
+      two-coset average; L1.1; 2,886 hexes), and a winter crater stamp beside `rough_w` leaves a white hex-shaped
+      notch (`1914-10`, line 14, column 11).
+      (2026-11-07) — `mapcompose.FieldMaterial` lays world-placed crater patches in the game, `maprender` and the web
+      bake (lite only), `StampFringe` closes the notch (`TestCraterFieldsDoNotRepeatPerHex`,
+      `TestWinterCraterStampLeavesNoNotch`). The materials are still cut from the old tiles: native crater materials
+      belong to L1.1. Autumn and spring fields have not been looked at.
+- [ ] L8.2b The same notch beside `rough_w` under `boulders_w` stamps (206 side-hex pairs; `registerFringes`), and the hard
+      hex outline of an isolated `shelled_w` or `rough_w` hex in winter.
 - [ ] L8.3 Harbour buildings and their yard (C4), quays and piers (C5) and town streets (C6) are drawn except:
       record 120, a quay piece on land, still shows a short road; the harbour setts are about 6×4 world px,
-      coarser than the quay's, and the yard stops at the meadow before the bank. Open: town streets (C6),
-      though no record calls for them (only 7 road hexes in all maps touch two houses); decide whether to
-      keep them. The 4× standing pack is at 262 of 268 MB.
+      coarser than the quay's, and the yard stops at the meadow before the bank. Town streets (C6) are struck: no
+      record calls for them.
 - [ ] L8.4 Junctions and level crossings without a tile of their own (two overlays today); forest and
       mountain variants that show plain forest and mountain; mountain ranges at their footprint. Knolls and
       boulders are tiled from the existing stamps; whole-shape paintings would read better.
@@ -400,11 +433,11 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 
 - [ ] L9.1 Every family within its acceptance row and its `art/reference/pulse/targets.json` targets
       (`just reference-check`); side-by-side crops reviewed by hand.
-- [ ] L9.2 No gaps or issues in the render of all three levels and every campaign level (STATMAP excepted);
+- [ ] L9.2 No gaps or issues in the render of all 52 months (`hl assets terrain-gaps` reports none today);
       1×, 2× and 4× packs build. A sample of summer, winter, sea and harbour maps in the art book or under
       `build/review/`, checked by hand after the Look 7 and Look 8 replacements.
-- [ ] L9.3 The game window (`just play`) at zoom 0.75, 1 and 2, at 1080p and 4K and HiDPI, on PULSE, Civil,
-      Mouse and four campaign maps, including a summer and a winter map from both campaigns.
+- [ ] L9.3 The game window (`just play`) at zoom 0.75, 1 and 2, at 1080p and 4K and HiDPI, on `1914-08`, `1914-10`,
+      `1914-12` and four other months, including a summer and a winter map from both campaigns.
 
 ### 3. Original rules profile
 
@@ -457,24 +490,24 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);
       - the two-player maps against the computer (it builds nothing; their setups are symmetric, GRAND
         starts with one unit a side);
-      - the news illustrations (`art/screens/news`) of the 25 new months, whose pages show a plain tone in
-        their place;
-      - a hot-seat mode in the menu for the `2p` setups (every month exists); the front end is 1.6.
+      - a hot-seat mode in the desktop menu for the `2p` setups (every month exists; done in the web edition, W8); the
+        front end is 1.6.
 - [ ] 5.5 Painted backdrops: PULSE (`1914-08`) differs from the month's map in 31 hexes (stone, mountains,
       trenches) until repainted; CIVIL (`1914-10`) follows the old map in trenches of 9 hexes and one rough
-      hex; Flanders (`1918-10`) has a placeholder, the tile render of its ground. Open: paintings for the
-      other maps, a render mode switch between tiles and painting in the game.
+      hex. Three months still hold a placeholder ([backpaint-plan.md](backpaint-plan.md)): `1917-11`, `1918-01`,
+      `1918-05`. F8 switches between painting and tiles.
 - [ ] 5.6 Terrain art for the original maps: `hl assets terrain-gaps` over every shipped map finds every
-      context, but crater and boulder clusters without an installed stamp of their own (the stamps
-      were made for the Python maps), PULSE, CIVIL and MOUSE included.
+      context; 319 crater clusters have no stamp (118 of them single hexes) and draw the shell-hole field on
+      purpose (L8.2a). Optional: a summer `crater/1` stamp.
 - [ ] 5.7 Unit roster: weapon slots use stand-ins from the existing catalogue; the remake's own rules still
       play deep and shallow water as one (the levels and the original rules keep them apart).
 - [ ] 5.8 Decode the computer player's parameters from the original map files.
 
 ### 6. Polish and distribution
 
-- [ ] 6.1 Screens still missing: briefing/campaign, handover, credits/help (built: main menu, country
-      selection, loading, victory/defeat, leave-battle, save/load, score list); hover/focus/pressed/disabled
+- [ ] 6.1 Screens still missing in the desktop game: handover, credits/help (built: main menu, country
+      selection, news, new units, loading, victory/defeat, leave-battle, save/load, score list);
+      hover/focus/pressed/disabled
       states and keyboard navigation throughout.
 - [ ] 6.2 Sound and music (`ebiten/audio`).
 - [ ] 6.3 Map editor (`-edit` or an `hl` command) with tile/infra/unit/container palettes and a new-map wizard.

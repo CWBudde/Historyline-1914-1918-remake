@@ -202,7 +202,7 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		for id, s := range in.Sources {
 			materials[id] = s.Image
 		}
-		r := newLatticeGroundRenderer(materials, in.Manifest.LatticeMaterials)
+		r := newLatticeGroundRenderer(materials, in.Manifest.LatticeMaterials, in.Manifest.LatticeContrast)
 		r.mudFeature = in.Manifest.MudFeature
 		r.shelledFeature = in.Manifest.ShelledFeature
 		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p groundProfileReport) string { return p.ContextKey }, func(p groundProfileReport) string { return p.Season }, func(p groundProfileReport) (groundProfileReport, error) {

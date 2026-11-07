@@ -23,7 +23,14 @@ export default defineConfig({
     { name: "chromium", use: devices["Desktop Chrome"] },
     { name: "firefox", use: devices["Desktop Firefox"] },
     { name: "webkit", use: devices["Desktop Safari"] },
-    { name: "android", use: devices["Pixel 7"] },
+    {
+      name: "android",
+      use: {
+        ...devices["Pixel 7"],
+        // CI has no GPU: at the phone's full density a level takes over 30 minutes.
+        ...(process.env["CI"] === undefined ? {} : { deviceScaleFactor: 1 }),
+      },
+    },
     { name: "ios", use: devices["iPhone 15"] },
   ],
 });
