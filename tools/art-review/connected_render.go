@@ -279,6 +279,10 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 			// Summer cart ruts: the track worn toward its darker earth.
 			earth := sampleConnectionMaterial(in.materials[f.BorderMaterial], world)
 			bank = connectionBlend(bank, earth, core*connectionRoadRutAt(*route.road, local))
+		} else if route.road.ruts && !route.road.snow {
+			// Worn wheel tracks: the same stone, compacted and darker in every season.
+			worn := connectionBlend(color.NRGBA{A: 255}, bank, connectionRoadWornShade)
+			bank = connectionBlend(bank, worn, core*connectionRoadRutAt(*route.road, local))
 		} else if route.road.ruts {
 			bank = connectionBlend(bank, connectionRutColor, core*connectionRoadRutAt(*route.road, local))
 		} else {

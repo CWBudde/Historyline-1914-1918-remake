@@ -51,6 +51,7 @@ export interface BakedBackground {
   logicalAnchor: [number, number];
   lite: FileRef;
   full: FileRef;
+  tileOnly?: boolean;
 }
 export interface BakedLayers {
   scene: MapScene;
@@ -181,6 +182,7 @@ function backgrounds(v: unknown): Map<number, BakedBackground> {
           ],
           lite: fileRef(b.lite),
           full: fileRef(b.full),
+          ...(b.tileOnly === true ? { tileOnly: true } : {}),
         },
       ];
     }),

@@ -81,7 +81,7 @@ its own family.
 exist:
 
 ```sh
-go run ./cmd/hl review art -connected art/pipeline/connected-terrain-v2.json -out build/review/road
+go run ./cmd/hl review art -connected art/pipeline/connected-terrain-v3.json -out build/review/road
 go run ./cmd/hl review art -unit art/pipeline/unit-infantry-v1.json -out build/review/infantry
 go run ./tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json -out build/review/feature-stamps
 ```

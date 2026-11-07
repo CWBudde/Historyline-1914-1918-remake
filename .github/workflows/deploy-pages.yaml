@@ -29,9 +29,6 @@ jobs:
       - name: Setup just
         uses: extractions/setup-just@v3
 
-      - name: Build web demo
-        run: just web
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -44,16 +41,13 @@ jobs:
           cache: pnpm
           cache-dependency-path: webapp/pnpm-lock.yaml
 
-      - name: Build the web edition under /next/
-        run: |
-          just webapp-build
-          mkdir -p build/web/next
-          cp -r build/webapp/site/. build/web/next/
+      - name: Build the web edition
+        run: just webapp-build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: build/web
+          path: build/webapp/site
 
   deploy:
     needs: build

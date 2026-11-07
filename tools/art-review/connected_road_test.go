@@ -155,3 +155,43 @@ func TestConnectedWinterRoadActualPNG(t *testing.T) {
 		}
 	}
 }
+
+// Summer and autumn roads: no painted lines, two wheel tracks darker than the
+// crown on a light and on a dark surface alike, in the surface's own hue.
+func TestSummerRoadRutsDarkenTheSurface(t *testing.T) {
+	for _, surface := range []color.NRGBA{{117, 108, 98, 255}, {88, 77, 68, 255}} {
+		dir, m := connectedFixture(t)
+		f := m["families"].([]any)[0].(map[string]any)
+		f["markings"] = "ruts"
+		f["width"], f["border"] = 22, 2
+		f["variants"] = []any{map[string]any{"id": "road36", "ports": []int{3, 6}}}
+		src := image.NewNRGBA(image.Rect(0, 0, 384, 320))
+		draw.Draw(src, src.Bounds(), image.NewUniform(surface), image.Point{}, draw.Src)
+		m["materials"].(map[string]any)["road"] = unitTestPNG(t, filepath.Join(dir, "road.png"), src)
+		in, err := loadConnectionInputs(writeConnectedManifest(t, dir, m))
+		if err != nil {
+			t.Fatal(err)
+		}
+		tiles, err := exportConnectionTiles(in, &in.manifest.Families[0], &in.manifest.Families[0].Variants[0])
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, density := range []int{2, 4} {
+			im := tiles[density]
+			y := 40 * density
+			centre := im.NRGBAAt(48*density, y)
+			if n := roadPaintPixels(im); n != 0 {
+				t.Fatalf("%dx surface %v: %d paint-white pixels", density, surface, n)
+			}
+			for _, x := range []float64{48 - 4.5, 48 + 4.5} {
+				rut := im.NRGBAAt(int(x*float64(density)), y)
+				if int(rut.R)+8 > int(centre.R) {
+					t.Fatalf("%dx surface %v: rut at %v not darker than the centre: %v vs %v", density, surface, x, rut, centre)
+				}
+				if rut.B > rut.R {
+					t.Fatalf("%dx surface %v: rut at %v is bluish: %v", density, surface, x, rut)
+				}
+			}
+		}
+	}
+}

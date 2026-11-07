@@ -65,6 +65,7 @@ type Renderer struct {
 	graded    map[string]image.Image // images as drawn, keyed "density/id"
 	set       *data.Set
 	materials map[int]*worldmaterial.Sampler
+	fields    map[string]*mapcompose.FieldMaterial // crater materials, keyed "density/id"
 }
 
 // New reads index.json of the assets tree.
@@ -166,6 +167,11 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 						if err != nil {
 							return nil, err
 						}
+						if pass == 0 {
+							if p, err = r.reworked(p, s, id, at, density); err != nil {
+								return nil, err
+							}
+						}
 						parts = append(parts, p)
 					}
 					return parts, nil
@@ -209,6 +215,11 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 						p, err := r.part(id, at, density, pass == 0, depth, field, terrain)
 						if err != nil {
 							return Map{}, err
+						}
+						if pass == 0 {
+							if p, err = r.reworked(p, &scene, id, at, density); err != nil {
+								return Map{}, err
+							}
 						}
 						drawPart(m.Image, p)
 					}
