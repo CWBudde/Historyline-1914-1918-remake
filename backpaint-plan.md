@@ -34,7 +34,7 @@ None. All 52 campaign months have both `backdrop.png` and `backdrop.jpg`.
 
 ## Placeholders awaiting painting
 
-The checklist tracks the 25 original tile-render placeholders; 2 remain.
+The checklist tracks the 25 original tile-render placeholders; 1 remains.
 `1915-03`, `1915-05`, `1915-07`, `1915-09`, `1915-11`, `1916-01`, `1916-03`, `1916-05`, `1916-07`, `1916-09`, `1916-11`, `1917-01`, `1918-03`, `1918-07`, `1918-08`, `1918-09`, `1918-10` and `1918-11` are painted and retain their verification records here.
 The newly added pairs passed the source/JPEG check; their dimensions match their
 current maps and every source is below 100 MiB. `1918-07`, `1918-10` and `1918-11`
@@ -438,7 +438,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Record exact prompts, retained failures, masks, pixel locality, unchanged-limit lightness warnings and explicit mixed-version native evidence (`verification.md`, `coordinator-final-review.md`). Update `docs/painted-backdrops.md` with the finished CAMEL/BELLS painting.
   - [x] Commit verified assets and documentation directly to `main`: `d0e212de`, integrated and pushed as `ea544b16`. Preserve unrelated stash conflicts through a temporary index and non-forcing integration push.
 
-- [ ] [1918-01](levels/1918-01/)
+- [x] [1918-01](levels/1918-01/)
   - [x] Audit `levels/1918-01/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-01/approval-audit.json` and `.md`: winter, 1090×1280, two HQs, four houses, 87 inherited starts, no linked ships or airfields; 37 trench, eight stream and one bridge overlay plus all road/path routes recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [FLAGS/POINT](docs/backpaint-approvals.md#1918-01--flagspoint), approved by the user on 2026-11-04.
   - [x] Obtain approval for the month's season, light, style references and painting brief, including replacement of its existing placeholder. User revised and approved all remaining briefs on 2026-11-04; see [approved briefs](docs/backpaint-approvals.md).
   - [x] Render fresh unit-free 4× guide (`guide.log`): 4360×5120, 233 cells, zero gaps/issues. Current audit equals approval; all six baseline hashes and fresh scenario/binding tests pass (`prep-baseline-check.log`, `prep-tests.log`).
@@ -457,7 +457,7 @@ existing footprints. These are artistic settings, not verified map locations.
   - [x] Global 52-pair backdrop check passes (`installed-final-pair-check.log`); dimensions, aspect and source size agree. All four map/setup hashes and thirty accepted runtime assets remain unchanged. Fresh native build embeds the final JPEG; installed acceptance remains separate.
   - [x] Review all three installed-JPEG modes at both zooms: 87 units and 46 trench/brook/bridge gates per mode, 798 accepted observations across 108 actually viewed images (`unit-review-*-final.*`, `unit-inventory-crosscheck.json`). Infantry [9,3] uses the full alternate close-2 view. Native storehouse/EC tower framing limits remain explicit; all six complete architecture crops were checked in the decoded JPEG. No naval starts or linked hulls.
   - [x] Record verification, single-version hashes, all numerical warnings, mask/pixel proofs, exact requests and native view limits in `verification.md` and `coordinator-final-review.md`; update `docs/painted-backdrops.md`. Exact forest ownership confirms the exterior conifer is valid; no late repaint or optional variant.
-  - [ ] Commit the verified PNG/JPEG and documentation directly to `main`, then run `git push origin main`.
+  - [x] Commit the four verified art/documentation paths directly to `main`: `f7fb04fe`. Normal push `e1449ea7..a366efb2` preserves concurrent terrain/art work and all eight unrelated conflict-index entries. Source/JPEG/native hashes and all 108 actual-view hashes reverify; `art-push.log` records success.
 
 - [ ] [1918-05](levels/1918-05/)
   - [x] Audit `levels/1918-05/map.json` and every setup; record terrain, routes, waterways, buildings, airfields, starting units and linked ships. `build/review/backdrops/1918-05/approval-audit.json` and `.md`: spring, 1658×1280, four compounds, three houses, 76 inherited starts, no water, linked ships or airfields; all 67 road overlays and rocky/woodland starts recorded. Input hashes in `approval-baseline-sha256.txt`; scenario, binding and backdrop tests pass. Proposed brief: [SCOUT/DAMES](docs/backpaint-approvals.md#1918-05--scoutdames), approved by the user on 2026-11-04.
