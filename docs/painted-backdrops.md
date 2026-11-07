@@ -167,6 +167,16 @@ on their hexes, and the strips fade out into trodden snow at their open ends. Th
 the west is one field of frozen mud with ice-filled shell holes and splintered stumps, its two trenches
 linked into one V-shaped line. Six level rocky ledges support the starting crews, and a small
 snowy hoof margin retains the southern stony field. All starting positions remain unchanged.
+FLAGS/POINT (`1918-01`, 1875×2202) has frozen chalk-upland shell fields, old shallow
+patchy snow, dormant grass and bare woods under low diffuse daylight. Narrow pale
+trench walls retain their dark revetments, linked pits, blind spurs and original
+courses through continuous frozen clay. The northern brook stays open beneath
+its crossing. Pale granite, four round slate domes and a low red-tiled hall
+distinguish the western HQ; dark sandstone, four red cones and a steep slate hall
+distinguish the southern one. Four individual cottages retain their footprints.
+Soft frozen sod and firm clay support the unchanged aircraft, tank and bunker
+starts. Prompts, masks, retained lightness warnings and native verification are
+under `build/review/backdrops/1918-01/`.
 RHEIN/MOSEL (`1918-02`, 7737×3302) has a February thaw, wet dormant meadow, bare woods and
 sheltered old snow in pale midmorning light after sleet. One continuous rail design has timber buffers
 at its closed ends; capped piers and worn bank approaches finish the coastal roads. Small clearings
