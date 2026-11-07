@@ -143,6 +143,18 @@ func (r Record) checkIndex() error {
 // computer player reads. Their meaning is not decoded.
 type Computer [TypeCount][6]byte
 
+// Builds are the unit types the computer player may build on the map, whichever
+// side it plays: the types whose word at +2 has bit 0x400.
+func (c *Computer) Builds() []int {
+	out := []int{}
+	for t := range c {
+		if c[t][3]&0x04 != 0 {
+			out = append(out, t)
+		}
+	}
+	return out
+}
+
 // DecodeComputer decodes an unpacked COM file.
 func DecodeComputer(b []byte) (*Computer, error) {
 	if len(b) != 6*TypeCount {

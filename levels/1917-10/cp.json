@@ -187,5 +187,6 @@
 		{"at": [60, 5], "owner": "ec", "credits": 12, "units": ["EC_mobileAA", "EC_cavalry", "EC_cavalry", "EC_cavalry", "EC_mArtillery", "EC_cavalry"]},
 		{"at": [60, 12], "owner": "ec", "credits": 17}
 	],
-	"builds": ["CP_armCar", "CP_gothaGV", "CP_staaken", "CP_albatrosDIII", "CP_fokkerDrI", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_sappers", "CP_cavalry", "CP_supplyCar", "CP_trainArt", "CP_armTrain", "EC_handleyPage", "EC_dh4", "EC_se5a", "EC_spad13", "EC_camel", "EC_charron", "CP_ft17", "CP_markI", "EC_stChamond"]
+	"builds": ["CP_armCar", "CP_gothaGV", "CP_staaken", "CP_albatrosDIII", "CP_fokkerDrI", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_sappers", "CP_cavalry", "CP_supplyCar", "CP_trainArt", "CP_armTrain", "EC_handleyPage", "EC_dh4", "EC_se5a", "EC_spad13", "EC_camel", "EC_charron", "CP_ft17", "CP_markI", "EC_stChamond"],
+	"computerBuilds": [10,11,12,14,15,17,18,21,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 }

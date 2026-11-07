@@ -13,8 +13,6 @@ import "slices"
 // from the next movement phase on.
 //
 // Assumed, not verified:
-//   - Each side is credited after every phase change, with the credits of
-//     every building record it owns (not neutral).
 //   - Repairs and builds are given in an own building; they mark the unit
 //     moved (one order per unit and phase) but do not enter the order list,
 //     so the move limit does not count them.
@@ -33,6 +31,9 @@ import "slices"
 type Building struct {
 	Credits int   `json:"credits"`
 	Builds  []int `json:"builds,omitempty"`
+	// ComputerBuilds are the types a computer side may build here; none: the
+	// default of its side.
+	ComputerBuilds []int `json:"computerBuilds,omitempty"`
 }
 
 // builderCharges are a construction unit's charges after a repair.
@@ -180,7 +181,7 @@ func (g *Game) build(c Command) []Event {
 	return []Event{{Kind: EvBuilt, Side: c.Side, Unit: i, Cell: h.Cells[0] / 2, Energy: g.Energy[c.Side]}}
 }
 
-// Income is the energy side's buildings pay it at a phase change: the
+// Income is the energy side's buildings pay it each cycle: the
 // credits of every building record it owns.
 func (g *Game) Income(side int) int {
 	paid := 0
@@ -192,13 +193,14 @@ func (g *Game) Income(side int) int {
 	return paid
 }
 
-// credit pays each side its Income after the phase change ph; a side
-// credited nothing gets no event.
+// credit pays the side that enters its action phase at the phase change ph
+// its Income, so each side is paid once per cycle; a side credited nothing
+// gets no event.
 func (g *Game) credit(ph Event) []Event {
 	var evs []Event
 	for k := range 2 {
 		paid := g.Income(k)
-		if paid == 0 {
+		if g.Players[k].Phase != PhaseAction || paid == 0 {
 			continue
 		}
 		g.Energy[k] += paid

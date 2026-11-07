@@ -46,5 +46,6 @@
 		{"at": [42, 2], "owner": "ec", "credits": 10, "units": ["EC_charron", "EC_cavalry", "EC_infantry", "EC_infantry", "EC_infantry", "EC_mArtillery", "EC_hArtillery"]},
 		{"at": [42, 10], "owner": "ec", "credits": 16, "units": ["EC_mArtillery", "EC_lArtillery", "EC_charron", "EC_eliteInf", "EC_eliteInf", "EC_infantry", "EC_infantry"]}
 	],
-	"builds": ["CP_armCar", "CP_fokkerEI", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_sappers", "CP_cavalry", "CP_supplyCar", "EC_voisin", "EC_moraneN", "EC_dh2", "EC_charron"]
+	"builds": ["CP_armCar", "CP_fokkerEI", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_sappers", "CP_cavalry", "CP_supplyCar", "EC_voisin", "EC_moraneN", "EC_dh2", "EC_charron"],
+	"computerBuilds": [10,11,12,14,15,17,18,21,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 }

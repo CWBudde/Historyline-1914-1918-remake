@@ -86,6 +86,9 @@ type Level struct {
 	// Computer reports a COM file: the parameters of the computer player,
 	// which the level does not carry (not decoded).
 	Computer bool `json:"computer"`
+	// ComputerBuilds are the types the computer player may build, nil without
+	// a COM file.
+	ComputerBuilds []int `json:"computerBuilds,omitempty"`
 }
 
 // Source names where a level came from; the importer fills it.
@@ -201,6 +204,9 @@ func Build(in Input, r Rules) (*Level, error) {
 		return nil, fmt.Errorf("finmap: %d units, at most %d", created, MaxUnits)
 	}
 	l.Computer = in.Computer != nil
+	if in.Computer != nil {
+		l.ComputerBuilds = in.Computer.Builds()
+	}
 	if c := in.Code; c != nil {
 		l.Mission = &Mission{Code: c.Password, Players: c.Players, Winter: c.Winter, CampaignEnd: c.CampaignEnd}
 		switch {

@@ -90,5 +90,6 @@
 		{"at": [41, 2], "owner": "cp", "credits": 17},
 		{"at": [44, 10], "owner": "cp", "credits": 14}
 	],
-	"builds": ["CP_armCar", "CP_gothaGV", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_cavalry", "CP_supplyCar", "CP_balloon", "EC_spad7", "EC_charron", "CP_ft17", "CP_markI"]
+	"builds": ["CP_armCar", "CP_gothaGV", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_cavalry", "CP_supplyCar", "CP_balloon", "EC_spad7", "EC_charron", "CP_ft17", "CP_markI"],
+	"computerBuilds": [10,11,12,14,15,17,18,21,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 }

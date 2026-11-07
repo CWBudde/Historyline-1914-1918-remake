@@ -62,19 +62,18 @@ describe("TestEnergyCredits", () => {
     });
     g.energy = [5, 1];
     const evs = resolveOk(g);
-    expect(g.energy).toStrictEqual([25, 8]);
+    expect(g.energy).toStrictEqual([5, 8]);
     const got = evs
       .filter((e) => e.kind === evCredit)
       .map((e) => [e.side, e.energy, e.turn]);
-    expect(got).toStrictEqual([
-      [0, 25, g.turn],
-      [1, 8, g.turn],
-    ]);
+    expect(got).toStrictEqual([[1, 8, g.turn]]);
     const i = evs.findIndex((e) => e.kind === evCredit);
     expect(i, "credits do not follow the phase change").toBeGreaterThanOrEqual(
       1,
     );
     expect(at(evs, i - 1).kind).toBe(evPhase);
+    resolveOk(g);
+    expect(g.energy).toStrictEqual([25, 8]);
   });
 });
 

@@ -201,9 +201,10 @@ describe("original-profile computer", () => {
       const built = planned(100000).filter((c) => c.kind === "build");
       expect(built.length).toBeGreaterThan(0);
       expect(built.length).toBeLessThanOrEqual(ai.maxBuilds);
-      for (const c of built) expect(ai.mayBuild(1, c.type ?? -1)).toBe(true);
-      expect(ai.mayBuild(0, 16)).toBe(false);
-      expect(ai.mayBuild(1, 16)).toBe(false);
+      for (const c of built)
+        expect([10, 11, 12, 14, 15, 17, 18, 19, 21]).toContain(c.type);
+      expect(ai.mayBuild([], 0, 16)).toBe(false);
+      expect(ai.mayBuild([], 1, 16)).toBe(false);
     });
     it("neither builds nor repairs in the movement phase", () => {
       const s = play.newSession(shippedLevel("1918-02"), playData, {

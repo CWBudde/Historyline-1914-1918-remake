@@ -149,10 +149,10 @@ counted ≥ 2 times become dated, evidence-linked bullets in `LESSONS.md`, which
 `new`/`run` inject into the next game's preamble. Lessons are counted patterns,
 never the model's self-assessment.
 
-## Strategy playbook for RHEIN (CP, 34 vs 74 units, income 45 vs 95)
+## Strategy playbook for RHEIN (CP, 34 vs 74 units, income per cycle 45 vs 95)
 
 Opponent profile (`dosai`): exact focus-fire attacks, but greedy 1-phase
-movement toward the nearest visible enemy/HQ; its units leave buildings after the others have moved; repairs held units and builds at its factories above an energy reserve of 61, but never depots;
+movement toward the nearest visible enemy/HQ; its units leave buildings after the others have moved; repairs held units and builds the map's `computerBuilds` at its factories above an energy reserve of 61, but never depots;
 sappers dig (never fill) only with an enemy within 4 hexes or its HQ within 3;
 captures only at zero detour, no HQ garrison, stale view of your moves, no
 pincer/threat awareness. Do not offer it positive-gain trades — check

@@ -94,7 +94,7 @@ func TestComputerBuildLists(t *testing.T) {
 	}
 	for side := range 2 {
 		for typ := range 51 {
-			if got := mayBuild(side, typ); got != slices.Contains(want[side], typ) {
+			if got := mayBuild(nil, side, typ); got != slices.Contains(want[side], typ) {
 				t.Errorf("side %d, type %d: mayBuild = %v", side, typ, got)
 			}
 		}
@@ -136,8 +136,8 @@ func TestProductionReserveAndCap(t *testing.T) {
 		t.Fatalf("built %d units, want 1 to %d", len(got), maxBuilds)
 	}
 	for _, typ := range got {
-		if !mayBuild(side, typ) {
-			t.Errorf("built type %d", typ)
+		if !slices.Contains([]int{10, 11, 12, 14, 15, 17, 18, 19, 21}, typ) {
+			t.Errorf("built type %d, outside RHEIN's list for side 1", typ)
 		}
 	}
 }
@@ -335,5 +335,22 @@ func checkLeft(t *testing.T, s *dosplay.Session, side int, month string) {
 				}
 			}
 		}
+	}
+}
+
+// A map's list holds both sides' types, each side builds its own part of it;
+// a map without a list leaves the side's default.
+func TestMapBuildList(t *testing.T) {
+	list := []int{0, 9, 10, 19, 36, 50}
+	for _, c := range []struct {
+		side, typ int
+		want      bool
+	}{{0, 9, true}, {0, 10, true}, {0, 19, true}, {0, 36, false}, {1, 9, false}, {1, 10, true}, {1, 19, true}, {1, 50, true}, {1, 11, false}} {
+		if got := mayBuild(list, c.side, c.typ); got != c.want {
+			t.Errorf("side %d, type %d: mayBuild = %v", c.side, c.typ, got)
+		}
+	}
+	if !mayBuild(nil, 1, 50) || mayBuild(nil, 1, 19) {
+		t.Error("no list: not the side's default")
 	}
 }

@@ -73,5 +73,6 @@
 		{"at": [59, 15], "credits": 6, "units": ["EC_eliteInf", "EC_eliteInf"]},
 		{"at": [60, 4], "owner": "cp", "credits": 20}
 	],
-	"builds": ["EC_armCar", "EC_lArtillery", "EC_mArtillery", "EC_hArtillery", "EC_construction", "EC_eliteInf", "EC_infantry", "EC_antiTank", "EC_sappers", "EC_cavalry", "EC_supplyCar", "EC_charron", "EC_ft17", "EC_markI", "EC_stChamond"]
+	"builds": ["EC_armCar", "EC_lArtillery", "EC_mArtillery", "EC_hArtillery", "EC_construction", "EC_eliteInf", "EC_infantry", "EC_antiTank", "EC_sappers", "EC_cavalry", "EC_supplyCar", "EC_charron", "EC_ft17", "EC_markI", "EC_stChamond"],
+	"computerBuilds": [0,1,2,3,4,5,6,7,8,9,10,11,12,14,15,17,18,19,21]
 }

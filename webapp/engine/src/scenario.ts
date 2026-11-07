@@ -31,6 +31,8 @@ export interface Setup {
   units: Unit[];
   buildings: Building[];
   builds: string[];
+  /** The unit types the computer may build on this map; empty: its side's default. */
+  computerBuilds: number[];
 }
 export interface File {
   month: string;
@@ -179,6 +181,7 @@ export function decode(
       "units",
       "buildings",
       "builds",
+      "computerBuilds",
     ]);
     const from = stringField(o, "from", "setup");
     const s: Setup = {
@@ -187,12 +190,18 @@ export function decode(
       units: [],
       buildings: [],
       builds: ss(arrayField(o, "builds", "setup")),
+      computerBuilds: (arrayField(o, "computerBuilds", "setup") ?? []).map(
+        (v) => int(v, "computerBuilds"),
+      ),
     };
     const units = arrayField(o, "units", "setup") ?? [];
     const buildings = arrayField(o, "buildings", "setup") ?? [];
     if (
       from !== "" &&
-      (units.length !== 0 || buildings.length !== 0 || s.builds.length !== 0)
+      (units.length !== 0 ||
+        buildings.length !== 0 ||
+        s.builds.length !== 0 ||
+        s.computerBuilds.length !== 0)
     )
       return fail("alias has its own content");
     const taken = new Set<string>();
@@ -265,6 +274,7 @@ export function level(f: File, m: Mode): Level {
     extra: {
       credits: new Map(),
       builds: [...s.builds],
+      computerBuilds: [...s.computerBuilds],
       backdrop: f.backdrop,
       season: f.season,
       seasons: new Map(f.seasons),

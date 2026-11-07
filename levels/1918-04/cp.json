@@ -152,5 +152,6 @@
 		{"at": [90, 15], "owner": "ec", "credits": 20},
 		{"at": [93, 2], "owner": "cp", "credits": 30}
 	],
-	"builds": ["CP_armCar", "CP_a7v", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_cavalry", "CP_supplyCar", "CP_armTrain", "EC_camel", "EC_charron", "CP_markI", "CP_markIV"]
+	"builds": ["CP_armCar", "CP_a7v", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_cavalry", "CP_supplyCar", "CP_armTrain", "EC_camel", "EC_charron", "CP_markI", "CP_markIV"],
+	"computerBuilds": [10,11,12,14,17,18,19,21,45,46,48,49,50]
 }

@@ -225,6 +225,7 @@ func remake(m *finmap.Level, set *data.Set, ids map[[2]int]string) (*level.Level
 		}
 		ex.Builds = append(ex.Builds, id)
 	}
+	ex.ComputerBuilds = slices.Clone(m.ComputerBuilds)
 	lv.Extra = ex
 	return lv, nil
 }

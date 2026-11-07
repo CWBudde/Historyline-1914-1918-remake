@@ -187,7 +187,8 @@ func TestStats(t *testing.T) {
 			t.Errorf("%s: orders %v after %d moves", lv.MapName, got, moved)
 		}
 
-		// Each phase change pays every side the income shown before it.
+		// A phase change pays the side entering its action phase the income shown
+		// before it, and the other side nothing.
 		for range 3 {
 			before := s.Stats()
 			s.Confirm(0)
@@ -197,7 +198,11 @@ func TestStats(t *testing.T) {
 			}
 			after := s.Stats()
 			for k := range 2 {
-				if after.Energy[k] != before.Energy[k]+before.Income[k] || after.Energy[k] != s.Energy(k) {
+				paid := 0
+				if s.Phase(k) == dosrules.PhaseAction {
+					paid = before.Income[k]
+				}
+				if after.Energy[k] != before.Energy[k]+paid || after.Energy[k] != s.Energy(k) {
 					t.Errorf("%s: side %d energy %d -> %d with income %d", lv.MapName, k, before.Energy[k], after.Energy[k], before.Income[k])
 				}
 			}

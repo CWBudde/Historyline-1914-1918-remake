@@ -20,6 +20,7 @@ export interface Hex {
 export interface Extra {
   credits: Map<string, number>;
   builds: string[];
+  computerBuilds?: number[];
   backdrop: string;
   season: string;
   seasons: Map<string, string>;

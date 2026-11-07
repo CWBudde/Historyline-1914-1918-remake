@@ -212,6 +212,7 @@ func (b *Board) originalBuildings(l *finmap.Level) error {
 			credit.Credits = hqCredits
 		case flagFactory:
 			credit.Builds = slices.Clone(l.Producible)
+			credit.ComputerBuilds = slices.Clone(l.ComputerBuilds)
 		}
 		b.Buildings[bd.Container] = credit
 	}

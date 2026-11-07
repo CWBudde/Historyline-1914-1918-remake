@@ -110,5 +110,6 @@
 		{"at": [74, 18], "owner": "cp", "credits": 5},
 		{"at": [75, 2], "credits": 7, "units": ["EC_nieuport17", "CP_infantry", "CP_infantry", "CP_infantry", "CP_eliteInf"]}
 	],
-	"builds": ["CP_armCar", "CP_fokkerEI", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_cavalry", "CP_supplyCar", "CP_trainArt", "CP_armTrain", "CP_transTrain", "EC_voisin", "EC_dh2", "EC_nieuport17", "EC_charron"]
+	"builds": ["CP_armCar", "CP_fokkerEI", "CP_fokkerEIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_cavalry", "CP_supplyCar", "CP_trainArt", "CP_armTrain", "CP_transTrain", "EC_voisin", "EC_dh2", "EC_nieuport17", "EC_charron"],
+	"computerBuilds": [10,11,12,14,15,17,18,21,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 }

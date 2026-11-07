@@ -15,21 +15,32 @@ const (
 	maxBuilds   = 10 // units built per phase, over all factories
 )
 
-// computerBuilds are the UNIT.DAT types the computer may build, per side;
-// never a construction unit, a transporter or a train.
+// computerBuilds are the types the computer may build, per side, on a map that
+// gives no list of its own: never a construction unit, a transporter or a train.
 var computerBuilds = [2][]int{
 	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 19, 21},
 	{10, 11, 12, 14, 15, 17, 18, 21, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50},
 }
 
-// mayBuild reports whether the computer may build type typ for side.
-func mayBuild(side, typ int) bool { return slices.Contains(computerBuilds[side], typ) }
+// mayBuild reports whether the computer may build type typ for side, given the
+// building's map list (nil: its side's default). A map list holds both sides'
+// types: side 0 builds none above 35, side 1 none below 10.
+func mayBuild(list []int, side, typ int) bool {
+	if len(list) == 0 {
+		return slices.Contains(computerBuilds[side], typ)
+	}
+	if side == 0 && typ > 35 || side == 1 && typ < 10 {
+		return false
+	}
+	return slices.Contains(list, typ)
+}
 
 // allowedBuilds are the options of building record hold the computer may
 // build for side, whatever the side can pay.
 func allowedBuilds(s *dosplay.Session, side, hold int) []dosplay.BuildOption {
+	list := s.Game.Buildings[hold].ComputerBuilds
 	return slices.DeleteFunc(s.Buildable(side, hold), func(o dosplay.BuildOption) bool {
-		return !mayBuild(side, o.Type)
+		return !mayBuild(list, side, o.Type)
 	})
 }
 

@@ -485,8 +485,15 @@ const computerBuilds: readonly (readonly number[])[] = [
     47, 48, 49, 50,
   ],
 ];
-export function mayBuild(side: number, type: number): boolean {
-  return at(computerBuilds, side).includes(type);
+/** mayBuild: the building's map list holds both sides' types, side 0 builds none above 35, side 1 none below 10; an empty list is the side's default. */
+export function mayBuild(
+  list: readonly number[],
+  side: number,
+  type: number,
+): boolean {
+  if (list.length === 0) return at(computerBuilds, side).includes(type);
+  if ((side === 0 && type > 35) || (side === 1 && type < 10)) return false;
+  return list.includes(type);
 }
 export function pick(
   turn: number,
@@ -544,6 +551,7 @@ function produce(pl: Plan, energy: number, out: play.Event[]): void {
   for (const b of ownBuildings(pl)) {
     if (b.kind !== play.Factory) continue;
     let e = energy;
+    const list = pl.s.game.buildings.get(b.hold)?.computerBuilds ?? [];
     for (
       let slot = b.units.length;
       slot < play.Slots && built < maxBuilds;
@@ -553,7 +561,7 @@ function produce(pl: Plan, energy: number, out: play.Event[]): void {
       if (budget <= 0) break;
       const opts = play
         .buildable(pl.s, pl.side, b.hold)
-        .filter((o) => mayBuild(pl.side, o.type) && o.cost <= budget);
+        .filter((o) => mayBuild(list, pl.side, o.type) && o.cost <= budget);
       if (opts.length === 0) break;
       const o = at(
         opts,

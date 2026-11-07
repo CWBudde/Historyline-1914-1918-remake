@@ -502,8 +502,8 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 5.7 Unit roster: weapon slots use stand-ins from the existing catalogue; the remake's own rules still
       play deep and shallow water as one (the levels and the original rules keep them apart).
 - [ ] 5.8 Decode the rest of the computer player's parameters from the original map files: `dosai` uses their
-      permission bit as one type list per side (`internal/dosai/service.go`); the other bytes, the goal values
-      and the carrier order stay out.
+      permission bit (`computerBuilds` in the setups, a default per side where a month has none); the other bytes,
+      the goal values and the carrier order stay out.
 
 ### 6. Polish and distribution
 

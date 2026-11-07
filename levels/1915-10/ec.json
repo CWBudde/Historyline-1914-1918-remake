@@ -121,5 +121,6 @@
 		{"at": [43, 7], "owner": "ec", "credits": 8},
 		{"at": [44, 13]}
 	],
-	"builds": ["EC_armCar", "CP_fokkerEI", "CP_fokkerEIII", "EC_lArtillery", "EC_mArtillery", "EC_hArtillery", "EC_staticAA", "EC_construction", "EC_eliteInf", "EC_infantry", "EC_sappers", "EC_cavalry", "EC_supplyCar", "EC_voisin", "EC_moraneN", "EC_dh2", "EC_charron"]
+	"builds": ["EC_armCar", "CP_fokkerEI", "CP_fokkerEIII", "EC_lArtillery", "EC_mArtillery", "EC_hArtillery", "EC_staticAA", "EC_construction", "EC_eliteInf", "EC_infantry", "EC_sappers", "EC_cavalry", "EC_supplyCar", "EC_voisin", "EC_moraneN", "EC_dh2", "EC_charron"],
+	"computerBuilds": [0,1,2,3,4,5,6,7,8,9,10,11,12,14,15,17,18,19,21]
 }

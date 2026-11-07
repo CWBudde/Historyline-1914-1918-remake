@@ -73,8 +73,8 @@ func TestEnergyCredits(t *testing.T) {
 			})
 			g.Energy = [2]int{5, 1}
 			evs := resolve(t, g)
-			if g.Energy != [2]int{25, 8} {
-				t.Errorf("energy %v, want [25 8]", g.Energy)
+			if g.Energy != [2]int{5, 8} {
+				t.Errorf("energy %v, want [5 8]: only the side entering its action phase is paid", g.Energy)
 			}
 			var got [][3]int
 			for _, e := range evs {
@@ -82,11 +82,14 @@ func TestEnergyCredits(t *testing.T) {
 					got = append(got, [3]int{e.Side, e.Energy, e.Turn})
 				}
 			}
-			if want := [][3]int{{0, 25, g.Turn}, {1, 8, g.Turn}}; !slices.Equal(got, want) {
+			if want := [][3]int{{1, 8, g.Turn}}; !slices.Equal(got, want) {
 				t.Errorf("credit events %v, want %v", got, want)
 			}
 			if i := slices.IndexFunc(evs, func(e Event) bool { return e.Kind == EvCredit }); i < 1 || evs[i-1].Kind != EvPhase {
 				t.Errorf("credits do not follow the phase change: %+v", evs)
+			}
+			if resolve(t, g); g.Energy != [2]int{25, 8} {
+				t.Errorf("energy after the next phase change %v, want [25 8]", g.Energy)
 			}
 		})
 	}

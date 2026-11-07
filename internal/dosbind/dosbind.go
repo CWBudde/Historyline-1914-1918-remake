@@ -68,6 +68,8 @@ type MapRecords struct {
 	Credits map[string]int `json:"credits"`
 	Builds  []int          `json:"builds"`
 
+	computerBuilds []int // a scenario setup's (level.Extra)
+
 	byHex map[*building]int // a scenario setup's credits (level.Extra), in place of Credits
 }
 
@@ -75,7 +77,7 @@ type MapRecords struct {
 // builds (lv.Extra): credits by building (the sum over its hexes), builds by
 // unit type.
 func extraRecords(lv *level.Level, set *data.Set, at map[hexgrid.Coord]*building, mr MapRecords) (MapRecords, error) {
-	out := MapRecords{Terrain: mr.Terrain, byHex: map[*building]int{}}
+	out := MapRecords{Terrain: mr.Terrain, byHex: map[*building]int{}, computerBuilds: lv.Extra.ComputerBuilds}
 	for p, n := range lv.Extra.Credits {
 		bd := at[p]
 		if bd == nil {
@@ -565,6 +567,7 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 		bd2 := dosrules.Building{Credits: credits}
 		if f&flagFactory != 0 {
 			bd2.Builds = slices.Clone(mr.Builds)
+			bd2.ComputerBuilds = slices.Clone(mr.computerBuilds)
 		}
 		b.Buildings[idx] = bd2
 	}

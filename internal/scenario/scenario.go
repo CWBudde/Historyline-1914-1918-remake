@@ -134,6 +134,9 @@ type Setup struct {
 	Units     []Unit
 	Buildings []Building
 	Builds    []string // the unit ids factories build
+	// ComputerBuilds are the unit types (numbers) the computer player may build
+	// on this map; nil for the default of its side (internal/dosai).
+	ComputerBuilds []int
 }
 
 // Unit is a unit on the map.
@@ -215,11 +218,12 @@ type mapJSON struct {
 }
 
 type setupJSON struct {
-	From      Mode                `json:"from"`
-	Code      string              `json:"code"`
-	Units     [][]json.RawMessage `json:"units"`
-	Buildings []buildingJSON      `json:"buildings"`
-	Builds    []string            `json:"builds"`
+	From           Mode                `json:"from"`
+	Code           string              `json:"code"`
+	Units          [][]json.RawMessage `json:"units"`
+	Buildings      []buildingJSON      `json:"buildings"`
+	Builds         []string            `json:"builds"`
+	ComputerBuilds []int               `json:"computerBuilds"`
 }
 
 type buildingJSON struct {
@@ -502,12 +506,12 @@ func (f *File) at(line, col int) (hexgrid.Coord, error) {
 }
 
 func (f *File) parseSetup(sj *setupJSON) (*Setup, error) {
-	s := &Setup{From: sj.From, Code: sj.Code, Builds: sj.Builds}
+	s := &Setup{From: sj.From, Code: sj.Code, Builds: sj.Builds, ComputerBuilds: sj.ComputerBuilds}
 	if s.From != "" {
 		if !slices.Contains(Modes, s.From) {
 			return nil, fmt.Errorf("from %q: no such mode", s.From)
 		}
-		if len(sj.Units) > 0 || len(sj.Buildings) > 0 || len(sj.Builds) > 0 {
+		if len(sj.Units) > 0 || len(sj.Buildings) > 0 || len(sj.Builds) > 0 || len(sj.ComputerBuilds) > 0 {
 			return nil, errors.New("a setup from another has no units, buildings or builds of its own")
 		}
 		return s, nil
@@ -603,7 +607,7 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	lv := &level.Level{
 		MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
 		Extra: &level.Extra{
-			Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop,
+			Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), ComputerBuilds: slices.Clone(s.ComputerBuilds), Backdrop: f.Backdrop,
 			Season: f.Season, Seasons: maps.Clone(f.Seasons),
 		},
 	}
@@ -774,6 +778,19 @@ func (f *File) Files() (map[string][]byte, error) {
 		if len(s.Builds) > 0 {
 			fields = append(fields, func() { b.WriteString("\"builds\": "); strs(s.Builds) })
 		}
+		if len(s.ComputerBuilds) > 0 {
+			fields = append(fields, func() {
+				b.WriteString("\"computerBuilds\": ")
+				b.WriteString("[")
+				for i, t := range s.ComputerBuilds {
+					if i > 0 {
+						b.WriteString(",")
+					}
+					b.WriteString(strconv.Itoa(t))
+				}
+				b.WriteString("]")
+			})
+		}
 		b.WriteString("{")
 		for k, w := range fields {
 			if k > 0 {
@@ -850,6 +867,7 @@ func Split(lv *level.Level) (lines [][]level.Hex, s *Setup) {
 	}
 	if lv.Extra != nil {
 		s.Builds = slices.Clone(lv.Extra.Builds)
+		s.ComputerBuilds = slices.Clone(lv.Extra.ComputerBuilds)
 	}
 	return lines, s
 }

@@ -250,7 +250,7 @@ const (
 	EvEnd      EventKind = "end"      // the battle ended: Side is the winner (-1 a draw), End
 	EvRepaired EventKind = "repaired" // a unit repaired: Energy left
 	EvBuilt    EventKind = "built"    // a unit built: Unit, the building's Cell, Energy left
-	EvCredit   EventKind = "credit"   // a side credited after the phase change: Energy
+	EvCredit   EventKind = "credit"   // the side entering its action phase credited: Energy
 	EvCaptured EventKind = "captured" // Side took building record Hold at Cell with Unit (capture.go)
 	EvWork     EventKind = "work"     // a sapper's or construction unit's work order on Cell was taken: Messages
 	EvDug      EventKind = "dug"      // a sapper dug a trench at Cell: Cells took trench records (sapper.go)
@@ -704,7 +704,8 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // unit that must set up (type +0x0f bit 0: medium, heavy and train artillery)
 // and arrived on the map this phase (+0x14 bit 0), not destroyed and not held,
 // keeps the moved flag: it gives no order in the next phase (02dc:1cf9-1d60).
-// Each side is then credited its buildings' energy (EvCredit).
+// The side entering its action phase is then credited its buildings' energy
+// (EvCredit).
 // A destroyed attacker cannot have a later order: it is listed once, and
 // only return fire in its own battle destroys it. When the battle has ended
 // (End), an EvEnd event follows the phase change and no further command or

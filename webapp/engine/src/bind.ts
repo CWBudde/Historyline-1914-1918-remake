@@ -130,7 +130,13 @@ export function game(b: Board, p: Profile): Game {
   g.buildings = new Map(
     [...b.buildings].map(([i, bd]) => [
       i,
-      { credits: bd.credits, builds: [...bd.builds] },
+      {
+        credits: bd.credits,
+        builds: [...bd.builds],
+        ...(bd.computerBuilds === undefined
+          ? {}
+          : { computerBuilds: [...bd.computerBuilds] }),
+      },
     ]),
   );
   return g;
@@ -350,6 +356,9 @@ export function bind(lv: Level, data: BindingData, p: Profile): Board {
         (flags & 0x400) === 0
           ? []
           : [...(lv.extra === null ? mr.builds : builds)],
+      ...((flags & 0x400) !== 0 && (lv.extra?.computerBuilds?.length ?? 0) > 0
+        ? { computerBuilds: [...(lv.extra?.computerBuilds ?? [])] }
+        : {}),
     });
   }
   if (lv.extra === null)

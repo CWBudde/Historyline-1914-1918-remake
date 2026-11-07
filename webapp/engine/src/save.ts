@@ -53,6 +53,7 @@ interface SavedPlayer {
 interface SavedBuilding {
   credits: number;
   builds: number[] | null;
+  computerBuilds: number[] | null;
 }
 
 // savedGame is the JSON of a save, Go's savedGame; null is Go's nil.
@@ -129,6 +130,7 @@ const endCodec = goStruct<End>("End", "dosrules.End", {
 const buildingCodec = goStruct<SavedBuilding>("Building", "dosrules.Building", {
   credits: ["credits", goInt],
   builds: ["builds", goSlice(goInt)],
+  computerBuilds: ["computerBuilds", goSlice(goInt)],
 });
 
 const savedGameCodec = goStruct<SavedGame>("savedGame", "dosrules.savedGame", {
@@ -205,6 +207,9 @@ function encodeBuilding(b: Building): string {
   const f: [string, string][] = [["credits", encodeInt(b.credits)]];
   if (b.builds.length > 0) {
     f.push(["builds", ints(b.builds)]);
+  }
+  if ((b.computerBuilds?.length ?? 0) > 0) {
+    f.push(["computerBuilds", ints(b.computerBuilds ?? [])]);
   }
   return encodeObject(f);
 }
@@ -354,7 +359,13 @@ export function loadGame(
   for (const r of [...(s.buildings?.keys() ?? [])].sort((a, b) => a - b)) {
     const b = s.buildings?.get(r);
     if (b !== undefined) {
-      buildings.set(r, { credits: b.credits, builds: b.builds ?? [] });
+      buildings.set(r, {
+        credits: b.credits,
+        builds: b.builds ?? [],
+        ...(b.computerBuilds === null
+          ? {}
+          : { computerBuilds: b.computerBuilds }),
+      });
     }
   }
   const [p0, p1] = players;

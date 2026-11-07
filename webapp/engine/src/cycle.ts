@@ -476,7 +476,7 @@ export const evEnd = "end" satisfies EventKind;
 export const evRepaired = "repaired" satisfies EventKind;
 /** A unit built: unit, the building's cell, energy left. */
 export const evBuilt = "built" satisfies EventKind;
-/** A side credited after the phase change: energy. */
+/** The side entering its action phase credited: energy. */
 export const evCredit = "credit" satisfies EventKind;
 /** Side took building record hold at cell with unit (capture.ts). */
 export const evCaptured = "captured" satisfies EventKind;
@@ -1055,7 +1055,7 @@ export function battlefield(g: Game, side: number): Battlefield {
  * and counts the turn. It also clears every unit's +4 bits 0x0f00 (moved among them), its order cell +0x11 and
  * its action bytes +0x13 to +0x16 (02dc:1cf0, 1ebc), except that a unit that must set up (type +0x0f bit 0:
  * medium, heavy and train artillery) and arrived on the map this phase (+0x14 bit 0), not destroyed and not
- * held, keeps the moved flag: it gives no order in the next phase (02dc:1cf9-1d60). Each side is then credited
+ * held, keeps the moved flag: it gives no order in the next phase (02dc:1cf9-1d60). The side entering its action phase is then credited
  * its buildings' energy (evCredit). A destroyed attacker cannot have a later order: it is listed once, and only
  * return fire in its own battle destroys it. When the battle has ended (end), an evEnd event follows the phase
  * change and no further command or resolution is taken.

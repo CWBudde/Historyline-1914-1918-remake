@@ -7,7 +7,7 @@ fully deterministic — every number below can be checked with `Engage`.
 
 ## The situation
 
-CP 34 units / income 45 vs EC 74 / income 95–105. Three separated CP groups:
+CP 34 units / income 45 per cycle vs EC 74 / income 95–105. Three separated CP groups:
 NE sea group (depot [10,31] with 2×A7V, antiTank, 2×eliteInf + 2 transShips,
 3 patrolBoats), centre-west HQ group (HQ [28,8], guns, A7V, 2 aircraft),
 east enclave (factory [29,23] ringed by A7V/antiTank/eliteInf). EC HQ [15,15].
@@ -33,7 +33,7 @@ Mark I)** — taking it roughly doubles CP income.
 ## The opponent (dosai), and how it dies
 
 Exact sequential focus fire in its action phase; greedy 1-phase movement to the
-nearest visible enemy/HQ; **repairs held units and builds at its factories above an energy reserve of 61, never depots**; sappers dig (never
+nearest visible enemy/HQ; **repairs held units and builds the map's `computerBuilds` at its factories above an energy reserve of 61, never depots**; sappers dig (never
 fill) only with an enemy within 4 hexes or its HQ within 3; captures only at
 zero detour, no HQ garrison/threat model, and its view of our moves is stale
 until the phase change. Consequences we exploit:

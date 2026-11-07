@@ -6,8 +6,6 @@
 // unit leaves the building from the next movement phase on.
 //
 // Assumed, not verified:
-//   - Each side is credited after every phase change, with the credits of every building record it owns (not
-//     neutral).
 //   - Repairs and builds are given in an own building; they mark the unit moved (one order per unit and phase)
 //     but do not enter the order list, so the move limit does not count them.
 //   - A repair leaves the alternate strength as it is.
@@ -52,6 +50,8 @@ export interface Building {
   credits: number;
   /** Go's nil (JSON omitempty) is empty. */
   builds: number[];
+  /** The types a computer side may build here; absent or empty: the default of its side. */
+  computerBuilds?: number[];
 }
 
 /** builderCharges are a construction unit's charges after a repair. */
@@ -267,7 +267,7 @@ export function build(g: Game, c: Command): Event[] {
   ];
 }
 
-/** income is the energy side's buildings pay it at a phase change: the credits of every building record it owns. */
+/** income is the energy side's buildings pay it each cycle: the credits of every building record it owns. */
 export function income(g: Game, side: number): number {
   let paid = 0;
   for (const [i, b] of g.buildings) {
@@ -279,12 +279,12 @@ export function income(g: Game, side: number): number {
   return paid;
 }
 
-/** credit pays each side its income after the phase change ph; a side credited nothing gets no event. */
+/** credit pays the side that enters its action phase at the phase change ph its income, so each side is paid once per cycle; a side credited nothing gets no event. */
 export function credit(g: Game, ph: Readonly<Event>): Event[] {
   const evs: Event[] = [];
   for (let k = 0; k < 2; k++) {
     const paid = income(g, k);
-    if (paid === 0) {
+    if (at(g.players, k).phase !== phaseAction || paid === 0) {
       continue;
     }
     setAt(g.energy, k, at(g.energy, k) + paid);

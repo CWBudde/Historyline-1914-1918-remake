@@ -102,5 +102,6 @@
 		{"at": [56, 3], "owner": "ec", "credits": 5},
 		{"at": [60, 14], "owner": "ec", "credits": 18}
 	],
-	"builds": ["CP_armCar", "CP_a7v", "CP_gothaGV", "CP_staaken", "CP_albatrosDIII", "CP_fokkerDrI", "CP_fokkerDVII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_sappers", "CP_cavalry", "CP_supplyCar", "CP_balloon", "EC_handleyPage", "EC_dh4", "EC_se5a", "EC_spad13", "EC_camel", "EC_charron", "CP_ft17", "CP_markI", "EC_stChamond", "CP_markIV"]
+	"builds": ["CP_armCar", "CP_a7v", "CP_gothaGV", "CP_staaken", "CP_albatrosDIII", "CP_fokkerDrI", "CP_fokkerDVII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_construction", "CP_eliteInf", "CP_infantry", "CP_antiTank", "CP_sappers", "CP_cavalry", "CP_supplyCar", "CP_balloon", "EC_handleyPage", "EC_dh4", "EC_se5a", "EC_spad13", "EC_camel", "EC_charron", "CP_ft17", "CP_markI", "EC_stChamond", "CP_markIV"],
+	"computerBuilds": [10,11,12,14,15,17,18,21,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 }

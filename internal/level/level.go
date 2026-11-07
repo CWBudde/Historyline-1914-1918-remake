@@ -32,6 +32,9 @@ type Level struct {
 type Extra struct {
 	Credits map[hexgrid.Coord]int // credits per cycle, by a hex of the building
 	Builds  []string              // the unit ids factories build
+	// ComputerBuilds are the unit types (numbers) the computer player may build
+	// on this map; nil for the default of its side (internal/dosai).
+	ComputerBuilds []int
 	// Backdrop is the painting of the map's ground drawn in place of the
 	// terrain tiles, a picture file named relative to the scenario file's
 	// directory ("1914-08.jpg"); "" for none.

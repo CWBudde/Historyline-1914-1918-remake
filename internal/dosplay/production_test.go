@@ -14,7 +14,7 @@ import (
 // cycle). On Civil each side owns one factory; Pulse has none and Mouse's are
 // all neutral.
 func TestFactoryProductionInPlay(t *testing.T) {
-	const resolutions = 4
+	const resolutions = 8
 	for _, lv := range shipped(t) {
 		s := session(t, lv, Options{})
 		var owns, built [2]bool

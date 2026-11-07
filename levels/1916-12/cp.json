@@ -84,5 +84,6 @@
 		{"at": [40, 1], "credits": 8, "units": ["CP_hArtillery", "CP_gothaGV", "CP_fokkerEIII"]},
 		{"at": [45, 18], "owner": "ec", "credits": 15}
 	],
-	"builds": ["CP_armCar", "CP_gothaGV", "CP_fokkerEIII", "CP_albatrosDIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_cavalry", "CP_supplyCar", "CP_balloon", "EC_handleyPage", "EC_nieuport17", "EC_spad7", "EC_charron", "CP_ft17", "CP_markI", "EC_stChamond"]
+	"builds": ["CP_armCar", "CP_gothaGV", "CP_fokkerEIII", "CP_albatrosDIII", "CP_lArtillery", "CP_mArtillery", "CP_hArtillery", "CP_mobileAA", "CP_staticAA", "CP_eliteInf", "CP_infantry", "CP_cavalry", "CP_supplyCar", "CP_balloon", "EC_handleyPage", "EC_nieuport17", "EC_spad7", "EC_charron", "CP_ft17", "CP_markI", "EC_stChamond"],
+	"computerBuilds": [10,11,12,14,15,17,18,21,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 }
