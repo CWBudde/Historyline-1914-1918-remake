@@ -511,8 +511,8 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       states and keyboard navigation throughout.
 - [ ] 6.2 Sound and music (`ebiten/audio`).
 - [ ] 6.3 Map editor (`-edit` or an `hl` command) with tile/infra/unit/container palettes and a new-map wizard.
-- [ ] 6.4 Release binaries via GoReleaser (the WASM build is deployed to GitHub Pages by
-      `.github/workflows/deploy-pages.yaml`).
+- [ ] 6.4 Release binaries via GoReleaser. Pages serves the web edition (W9); `just web` still builds the WASM
+      version locally.
 - [ ] 6.5 Remove `legacy/` once nothing depends on it.
 
 ### 7. Web edition (TypeScript, `webapp/`)
@@ -616,6 +616,10 @@ build embeds every backdrop). Decided (defaults, open to override):
 - [ ] W9 Release: offline play (service worker), size and frame budgets (first playable from lite data in a
       few MB), a Playwright test that plays a level to its end, Chrome/Firefox/Safari and iOS/Android; then
       the TS build becomes the Pages root and the WASM build moves to `/classic/` or is retired.
+      (2026-11-07) — partial: the service worker, the offline months, the budgets, the Playwright playthrough and
+      the Pages root are in, and the WASM build is retired from Pages. The suite runs on Playwright's Chromium,
+      Firefox and WebKit and phone emulation. Open: real Safari, iOS and Android. Risk: the site is about 2.9 GB,
+      above the 1 GB Pages limit as remembered (not re-checked); deploys succeed today, and GitHub could enforce it.
 - Later: `mapcompose` in TS for an in-browser map editor (6.3); sound (6.2).
 
 ### Beyond the original

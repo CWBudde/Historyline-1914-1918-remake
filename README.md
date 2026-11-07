@@ -32,7 +32,8 @@ just lint       # go vet + golangci-lint
 just build      # bin/historyline
 just build-tools # bin/hl and its native preview helper
 just hl --help  # all developer tools; see docs/cli.md
-just web 8080   # web build with the art packs into build/web, served on :8080
+just web 8080   # Go WASM build with the art packs into build/web, served on :8080 (not published)
+just webapp     # the web edition (TypeScript), the site GitHub Pages serves
 just ci         # everything CI runs
 just check      # ci without the slow art tool tests
 just clean      # delete all generated output under build/

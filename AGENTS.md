@@ -30,6 +30,7 @@ just artbook     # hl artbook: build/artbook/Historyline_Art.pdf (needs typst)
 just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin/hl + native preview helper
 just webapp     # the web edition's dev server (Vite); just webapp-check = tsc, eslint, vitest, vite build
 just webapp-test   # its tests; just webapp-build -> build/webapp/site
+just webapp-e2e    # Playwright against the production build, in real browser engines; just webapp-size guards the site size
 ```
 
 ## Architecture
@@ -105,7 +106,8 @@ just webapp-test   # its tests; just webapp-build -> build/webapp/site
 - `webapp/` (PLAN.md §7): the web edition in TypeScript, a pnpm workspace. `webapp/engine` is the
   rules port, pure (ESLint forbids rendering, DOM and Node imports outside tests) and checked against the Go
   fixtures in `internal/dosrules/testdata`; `webapp/app` is the browser front end (Vite, PixiJS for the map,
-  Preact for the DOM UI). `node_modules` only links into pnpm's global store; when the project's drive is not
+  Preact for the DOM UI), `webapp/app/e2e` its Playwright tests. It is the site GitHub Pages serves; a service worker
+  keeps the app, and the months around the last battle stay in the content cache for offline play. `node_modules` only links into pnpm's global store; when the project's drive is not
   the home folder's, set `pnpm config set store-dir ~/.local/share/pnpm/store --location=global`.
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
