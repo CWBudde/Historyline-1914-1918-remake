@@ -34,6 +34,6 @@
 		"line28": [["factoryN", ""], ["grass", "road14"], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road25"], ["grass", "road14"], ["grass", "road15"], ["forest", ""], ["forest", ""], ["hqC", ""]],
 		"line29": [["factoryW", ""], ["factoryE", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road15"], ["forest", ""], ["forest", ""], ["forest", ""], ["hqSW", ""], ["hqSE", ""]],
 		"line30": [["factoryS", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["hqS", ""]],
-		"line31": [["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", "road15"], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""]]
+		"line31": [["grass", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["forest", ""], ["grass", ""]]
 	}
 }

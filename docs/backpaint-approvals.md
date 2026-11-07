@@ -677,8 +677,9 @@ rock band, road aggregate and building masonry, with material-specific texture
 so the three remain distinguishable during play.
 
 **Audit:** 1658×1280 world pixels, 76 starts, four compounds, three houses and
-67 road overlays. No water, rails, trenches, airfields or linked ships; the single
-mud hex is an existing bunker position. Preserve every fork and gate approach,
+66 road overlays after the approved replacement of the detached road at [31,7]
+with forest in the map and painting. No water, rails, trenches, airfields or linked
+ships; the single mud hex is an existing bunker position. Preserve every fork and gate approach,
 the northern rock band and the southern woodland edge without adding fields.
 
 **Individual architecture proposed:** HQ [6,1], warm limestone castle with four

@@ -215,7 +215,8 @@ red-tiled timber hall faces a rendered fort with slate cones and a low green-cop
 hall. Brick engine works, timber-and-stone repair shops and three individual
 cottages retain their footprints and open approaches. A small woodland pocket
 supports the unchanged cavalry; firm clay and natural stony ground support the
-bunker and tank starts. The detached southern road curve stays unconnected.
+bunker and tank starts. Forest replaces the detached southern road curve at
+[31,7] in both the map and the painting.
 Prompts, masks, lightness findings and native review evidence are under
 `build/review/backdrops/1918-05/`.
 
