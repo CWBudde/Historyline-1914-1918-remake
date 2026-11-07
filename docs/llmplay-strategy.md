@@ -176,9 +176,10 @@ treasury, is the bug (see v7/v8 below).
 
 # CANDL (1918-04:cp)
 
-Not won on the current rules. Under the older income and build lists a recording captured
-the EC HQ at resolution 103 (the plan is the last section); it no longer replays, and its
-numbers are from those rules. The plain coach then lost the CP HQ at resolution 18.
+No win is known on the current rules. A recording captured the EC HQ at resolution 103 (the
+plan is the last section), but against a computer side that did not build and with the older
+income; the numbers there come from that game. It no longer replays, and its CP orders played
+against today's dosai lose the CP HQ at resolution 24. The plain coach loses it at resolution 10.
 
 ## The situation
 

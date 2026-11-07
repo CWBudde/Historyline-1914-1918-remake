@@ -22,8 +22,9 @@ just llmplay replay -dir "$d"
   trail marching from resolution 1 around the heavy artillery beside
   the probe opening, trains ferrying its foot units north, then a
   scripted march from 31: HQ capture at resolution 103, score 2828. Strategy:
-  `docs/llmplay-strategy.md` ("The winning plan"). Stale: recorded on the older
-  income and build lists, it fails the hash check from the first resolution.
+  `docs/llmplay-strategy.md` ("The winning plan"). Stale: recorded against a computer
+  side that did not build and with the older income, it fails the hash check from the first
+  resolution, and its CP orders lose at resolution 24 against today's dosai.
 
 Engine changes that alter outcomes will break the state hashes;
 regenerate the recording and the numbers above when that happens.
