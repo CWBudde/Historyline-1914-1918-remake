@@ -30,6 +30,8 @@ type BakedBackground struct {
 	Anchor  [2]float64 `json:"logicalAnchor"`
 	Lite    FileRef    `json:"lite"`
 	Full    FileRef    `json:"full"`
+	// TileOnly is a rework of the tile map; a painted map's changed hex keeps the tile.
+	TileOnly bool `json:"tileOnly,omitempty"`
 }
 
 type waterBakeKey struct {
@@ -47,13 +49,15 @@ type waterAssetKey struct {
 // packs for the background and optional sea/water/surf inputs rather than the
 // full terrain catalog. Baked caches contain references, never decoded pixels.
 type waterBaker struct {
-	root    *os.Root
-	blobs   blobWriter
-	dirs    map[waterAssetKey]string
-	anchors map[waterAssetKey][2]float64
-	packs   map[string]*assets.Pack
-	recent  []string
-	cache   map[waterBakeKey]BakedBackground
+	root       *os.Root
+	blobs      blobWriter
+	dirs       map[waterAssetKey]string
+	anchors    map[waterAssetKey][2]float64
+	packs      map[string]*assets.Pack
+	recent     []string
+	cache      map[waterBakeKey]BakedBackground
+	fields     map[fieldMaterialKey]*mapcompose.FieldMaterial
+	fieldCache map[fieldBakeKey]BakedBackground
 }
 
 func newWaterBaker(dir string, b blobWriter) (*waterBaker, error) {
@@ -198,7 +202,7 @@ func (w *waterBaker) bake(ctx context.Context, lv *level.Level, layers *BakedLay
 			layers.Backgrounds[c.key][strconv.Itoa(d)] = result
 		}
 	}
-	return nil
+	return w.bakeFields(ctx, lv, layers)
 }
 
 func (w *waterBaker) shade(ctx context.Context, field *waterdepth.Field, c hexgrid.Coord, id string, d int) (BakedBackground, error) {
