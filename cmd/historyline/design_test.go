@@ -97,8 +97,8 @@ func TestCycleDesignDos(t *testing.T) {
 	if !g.origOn() || g.backdrop != nil {
 		t.Fatalf("DOS design: orig on %v, backdrop shown %v", g.origOn(), g.backdrop != nil)
 	}
-	if !g.split.frame.Slim {
-		t.Error("the original tiles do not lay out the slim frame")
+	if g.split.frame.Slim {
+		t.Error("the original tiles do not lay out the plate frame")
 	}
 	if msg := g.cycleDesign(); !strings.Contains(msg, "backdrop") {
 		t.Fatalf("DOS -> %q, want the backdrop again", msg)

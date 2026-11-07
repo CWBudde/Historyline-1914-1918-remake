@@ -187,7 +187,7 @@ func (g *game) layoutSplit() {
 		g.split = &split{track: newTracker(), zoom: dosscreen.DefaultZoom}
 	}
 	s := g.split
-	s.frame.Slim = g.backdrop != nil || g.origOn() // only the terrain tiles keep the plate frame
+	s.frame.Slim = g.backdrop != nil // the tiles, the remake's and the original's, keep the plate frame
 	base := dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
 	s.screen = base.Zoomed(max(s.zoom, g.zoomFloor(base)))
 	s.track.Threshold = gestureThreshold(s.screen.CellScale)
@@ -244,17 +244,13 @@ func (g *game) splitView(side int) dosscreen.View {
 }
 
 // slimWorld is where the slim frame's openings may look: the playable area's
-// bounding box (hexgrid.Grid.Bounds), within the backdrop. The original tiles
-// end in a zigzag of hexes, so without a backdrop it is the box the outer
-// hexes fill completely: half a hex in at the top and bottom, a slanted edge's
-// run at the sides.
+// bounding box (hexgrid.Grid.Bounds), within the backdrop.
 func (g *game) slimWorld() dosscreen.WorldRect {
 	w, h := g.playGrid().Bounds()
 	if b := g.backdrop; b != nil {
-		return dosscreen.WorldRect{X1: min(w, b.ww), Y1: min(h, b.wh)}
+		w, h = min(w, b.ww), min(h, b.wh)
 	}
-	const run = hexgrid.HexWidth - hexgrid.HalfPitch
-	return dosscreen.WorldRect{X0: run, Y0: hexgrid.LinePitch, X1: w - run, Y1: h - hexgrid.LinePitch}
+	return dosscreen.WorldRect{X1: w, Y1: h}
 }
 
 // slimShift is the shift of side's view resting on pair, row: in the slim frame

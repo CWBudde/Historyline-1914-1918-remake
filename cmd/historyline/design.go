@@ -121,8 +121,8 @@ func (g *game) origAvailable() string {
 }
 
 // refreshDesign re-lays the split screen out for the design now shown: the
-// terrain tiles use the plate frame, the backdrop and the original tiles the
-// slim frame.
+// backdrop uses the slim frame, the tiles (the remake's and the original's)
+// the plate frame.
 func (g *game) refreshDesign() {
 	if g.split != nil {
 		g.layoutSplit()

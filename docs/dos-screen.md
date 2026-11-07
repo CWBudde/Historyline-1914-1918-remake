@@ -81,9 +81,8 @@ The package docs hold the details; this is the map of where each part lives.
   bolt and status wells as fixed pieces. Cached per window size, zoom and on-map cell pattern; cells beyond
   the playable area stay steel, so the frame closes in at its end. The playable area is the map without its
   border row and column (`dosbind.Board.Playable`): cameras, cursor, frame, map drawing and the strategic
-  map never show the border. This plate frame belongs to the terrain tiles; the painted backdrop and the
-  original tiles (F8's other looks) use the slim frame instead (`Frame.Slim`, `slim.go`), as does the web
-  edition: plain rectangular openings edge to edge, a thin gunmetal border with a brass
+  map never show the border. This plate frame belongs to the tiles, the remake's and the original's; the
+  painted backdrop uses the slim frame instead (`Frame.Slim`, `slim.go`), as does the web edition: plain rectangular openings edge to edge, a thin gunmetal border with a brass
   hairline facing the map, gunmetal status strips, a brass knob at the divider's foot; every playable hex
   whose centre lies in the opening takes the cursor and the pointer. The opening always ends on the map;
   only a map smaller than the opening shows gunmetal past its ends (`Frame.DrawBeyond`).
