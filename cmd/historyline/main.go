@@ -893,6 +893,7 @@ func main() {
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
+	snapshotPath := flag.String("snapshot", "", "start in a saved dos battle: the save slot file (save.json in the config directory, naming its level and side) or a bare dos save such as an llmplay game's save.json (then -level names the level; -player overrides the side)")
 	replayDir := flag.String("replay", "", "a recorded llmplay game directory (build/review/llmplay/<game>): watch it in the battle screen, both sides played from its transcript (implies -rules dos; the level and side come from the transcript)")
 	record := recordConfig{}
 	flag.StringVar(&record.out, "record", "", "with -replay: record the replay as an MP4 video of the battle screen under build/ (needs ffmpeg) and exit")
@@ -907,7 +908,7 @@ func main() {
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")
 	}
-	direct := *capture != "" || *replayDir != ""
+	direct := *capture != "" || *replayDir != "" || *snapshotPath != ""
 	given := map[string]bool{}
 	flag.Visit(func(f *flag.Flag) {
 		given[f.Name] = true
@@ -988,6 +989,10 @@ func main() {
 		return
 	}
 
+	var snap snapshot
+	if *replayDir != "" && *snapshotPath != "" {
+		log.Fatal("-replay and -snapshot do not combine")
+	}
 	if *replayDir != "" {
 		if c.replay, err = llmplay.OpenReplay(*replayDir); err != nil {
 			log.Fatal(err)
@@ -995,8 +1000,19 @@ func main() {
 		if c.lvl, err = replayLevel(c.replay); err != nil {
 			log.Fatal(err)
 		}
-	} else if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
-		log.Fatal(err)
+	} else {
+		level := *name
+		if *snapshotPath != "" {
+			if snap, err = startSnapshot(*snapshotPath, *rules, *capture, given["level"], *name); err != nil {
+				log.Fatal(err)
+			}
+			if snap.level != "" {
+				level = snap.level
+			}
+		}
+		if c.lvl, c.board, err = loadMap(*dir, level, set); err != nil {
+			log.Fatal(err)
+		}
 	}
 	if c.player, err = state.PlayerByName(c.lvl.Player); err != nil {
 		log.Fatal(err)
@@ -1009,6 +1025,12 @@ func main() {
 		c.player = state.Entente
 	default:
 		log.Fatalf("unknown -player %q (want central or entente)", *side)
+	}
+	if snap.data != nil {
+		c.saved = snap.data
+		if snap.side >= 0 && *side == "" {
+			c.player = dosbind.Factions[snap.side]
+		}
 	}
 	gm, err := newMatch(c, boot)
 	if err != nil {

@@ -64,7 +64,8 @@ time: in the movement phase click an own unit and a blue hex, in the action phas
 (a queued attack), click an own building for its contents, F1 confirms (again: reopens); once both sides
 have confirmed the resolution plays back and the phases swap. `-player central|entente` picks the side,
 `-opponent ai|pass` the other side's player. `-replay DIR` watches a recorded `hl llmplay` game in the
-battle screen instead ([docs/llmplay.md](docs/llmplay.md)).
+battle screen instead ([docs/llmplay.md](docs/llmplay.md)). `-snapshot FILE` starts in a saved battle
+and plays on from there: the save slot file, or an `hl llmplay` game's `save.json` together with `-level`.
 
 ## Art
 
