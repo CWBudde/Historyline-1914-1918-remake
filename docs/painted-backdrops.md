@@ -518,7 +518,9 @@ change L*. Compare matching ground, rather than whole-map averages with differen
   The feather ring matches RGB means before a circular smoothstep blend. Optional patch
   `match: "brightness"` uses one gain from weighted RGB ring means, preserving the edit's colour
   ratios; use it when different grass hues would tint neutral roofs with independent channel gains.
-  Omitted `match` or `match: "rgb"` retains RGB matching. An optional `output`
+  Omitted `match` or `match: "rgb"` retains RGB matching. Use `match: "none"` when a patch
+  deliberately changes material, such as snow to water: it preserves the edit's RGB before the
+  global grade and keeps the same feather blend. An optional `output`
   `[width,height]` resizes once after compositing and grading, preserving world aspect within one
   pixel; use it when needed to keep the source below 100 MiB. Existing output paths are refused.
 - Save the painting as its source PNG, write the JPEG next to the scenario file (`just backdrop-jpeg`) and

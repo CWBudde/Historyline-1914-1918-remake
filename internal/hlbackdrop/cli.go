@@ -383,7 +383,8 @@ func auditLightness(planPath string, stdout io.Writer) error {
 
 // finishPainting registers each edited square crop back onto its original
 // rectangle. Only its circular feather mask contributes pixels; crops are never
-// rotated or transposed. Ring means match colour or brightness before the grade.
+// rotated or transposed. Optional ring matching adjusts colour or brightness
+// before the grade.
 func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 	plan := struct {
 		World            [2]int
@@ -393,7 +394,7 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 		Gain             [3]float64
 		Patches          []struct {
 			ID, Painting string
-			Match        string     // rgb (default) or brightness, preserving channel ratios
+			Match        string     // rgb (default), brightness (one gain), or none
 			Rectangle    [4]int     // x, y, width, height in source-image pixels
 			Center       [2]float64 // relative to Rectangle
 			Radii        [2]float64 // solid inner radius, transparent outer radius
@@ -452,8 +453,8 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 		if match == "" {
 			match = "rgb"
 		}
-		if match != "rgb" && match != "brightness" {
-			return fmt.Errorf("patch %s matching mode must be rgb or brightness", patch.ID)
+		if match != "rgb" && match != "brightness" && match != "none" {
+			return fmt.Errorf("patch %s matching mode must be rgb, brightness or none", patch.ID)
 		}
 		r := patch.Rectangle
 		dest := image.Rect(r[0], r[1], r[0]+r[2], r[1]+r[3])
@@ -489,8 +490,9 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 				}
 			}
 		}
-		var gains [3]float64
-		if match == "brightness" {
+		gains := [3]float64{1, 1, 1}
+		switch match {
+		case "brightness":
 			var baseBrightness, editBrightness float64
 			for c, weight := range [3]float64{.2126, .7152, .0722} {
 				baseBrightness += weight * baseSum[c]
@@ -501,7 +503,7 @@ func finishPainting(levels, name, planPath string, stdout io.Writer) error {
 			}
 			gain := baseBrightness / editBrightness
 			gains = [3]float64{gain, gain, gain}
-		} else {
+		case "rgb":
 			for c := range 3 {
 				if editSum[c] == 0 {
 					return fmt.Errorf("patch %s has an empty or black matching ring", patch.ID)
