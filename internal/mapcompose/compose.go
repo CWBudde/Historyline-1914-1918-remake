@@ -37,6 +37,11 @@ type Cell struct {
 	// none; Under is the base tile drawn instead of Background under its stamp.
 	Cluster int
 	Under   string
+	// Field is set on a crater field's hex: the rework of Background at draw time.
+	Field *FieldGround `json:"-"`
+	// Fringe is set beside the border of a winter crater stamp and rough ground:
+	// the rework of Under on a stamped hex, of Background on a rough one.
+	Fringe *StampFringe `json:"-"`
 }
 
 // Reason says why a context tile could not be selected.

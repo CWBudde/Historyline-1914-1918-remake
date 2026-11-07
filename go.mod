@@ -1,6 +1,6 @@
 module github.com/CWBudde/Historyline-1914-1918-remake
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/andybalholm/brotli v1.2.8

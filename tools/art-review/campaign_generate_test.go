@@ -265,7 +265,7 @@ func loadCampaignRenderers(root string) (*groundRenderer, *forestRenderer, *hill
 	for id, s := range gi.Sources {
 		materials[id] = s.Image
 	}
-	ground := newLatticeGroundRenderer(materials, gi.Manifest.LatticeMaterials)
+	ground := newLatticeGroundRenderer(materials, gi.Manifest.LatticeMaterials, gi.Manifest.LatticeContrast)
 	ground.mudFeature = gi.Manifest.MudFeature
 	ground.shelledFeature = gi.Manifest.ShelledFeature
 	fi, err := loadForestInputs(filepath.Join(root, "art/pipeline/forest-terrain-v3.json"))

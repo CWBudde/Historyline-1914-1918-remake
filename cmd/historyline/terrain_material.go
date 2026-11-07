@@ -51,6 +51,9 @@ func (a *terrainArt) release() {
 	if a.blend != nil {
 		a.blend.release(a)
 	}
+	if a.fields != nil {
+		a.fields.release(a)
+	}
 	for _, d := range a.dim {
 		d.Deallocate()
 	}

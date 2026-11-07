@@ -41,8 +41,8 @@ func validateConnectionRoadFields(data []byte) error {
 	return nil
 }
 
-// Winter roads carry two darker slush ruts instead of painted lines, and their
-// shoulders are dirty snow instead of dusty gravel.
+// Roads carry two wheel tracks instead of painted lines: darker stone without
+// a snow verge; slush with one, and dirty snow shoulders instead of dusty gravel.
 const (
 	connectionRutOffset   = 4.5 // world px from the centre line
 	connectionRutCore     = .6  // fully dark half-width
@@ -51,6 +51,9 @@ const (
 	// connectionSnowShoulderMix blends the earth border toward snow; the dusty
 	// summer shoulder blends at .35.
 	connectionSnowShoulderMix = .85
+	// connectionRoadWornShade is the brightness of a summer or autumn road's worn
+	// wheel tracks against its surface (markings ruts without the snow verge).
+	connectionRoadWornShade = .68
 	// Winter paths are cart tracks on the 7-pixel path: two narrow ruts.
 	connectionPathRutOffset = 1.6
 	connectionPathRutCore   = .3
@@ -117,7 +120,7 @@ type connectionRoadPaint struct {
 	courses   []connectionRoadCourse
 	junction  bool
 	halfWidth float64
-	ruts      bool // slush ruts instead of the dashed centre and edge lines
+	ruts      bool // wheel tracks instead of the dashed centre and edge lines
 	snow      bool // dirty snow shoulders instead of dusty gravel
 	cart      bool // a path: narrow cart ruts; in winter (snow) verges of winter ground
 }

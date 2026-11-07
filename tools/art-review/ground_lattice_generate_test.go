@@ -8,6 +8,7 @@ package artreview
 // (lattice_materials), canonical tiles included, overwriting their PNGs and
 // updating their hashes in assets/index.json; run `go run ./cmd/hl art index`
 // afterwards. TestGenerateCampaignContexts then finds them current.
+// GROUND_LATTICE_ONLY=stoney_w narrows the run to the contexts of that material.
 import (
 	"bytes"
 	"crypto/sha256"
@@ -55,9 +56,13 @@ func TestRegenerateLatticeGroundContexts(t *testing.T) {
 	}
 	// New hashes by asset path: a canonical context shares its file with its tile.
 	hashes := map[string][2]string{}
+	only := os.Getenv("GROUND_LATTICE_ONLY")
 	for _, p := range profiles.Profiles {
 		ids := append([]string{p.RuntimeID}, p.NeighborIDs[:]...)
-		if !slices.ContainsFunc(ids, func(id string) bool { _, ok := gi.Manifest.LatticeMaterials[id]; return ok }) {
+		if !slices.ContainsFunc(ids, func(id string) bool {
+			_, ok := gi.Manifest.LatticeMaterials[id]
+			return ok && (only == "" || id == only)
+		}) {
 			continue
 		}
 		c, err := newGroundContext(p.RuntimeID, p.NeighborIDs[:])
