@@ -15,8 +15,8 @@ hl *args:
 py *args:
     cd legacy/python && python3 main.py {{args}}
 
-# Run the game
-run *args:
+# Run the game with the painted art (builds the packs first; the game finds them in build/packs)
+run *args: packs
     go run ./cmd/historyline {{args}}
 
 # Let an LLM play a shipped level (default RHEIN, 1918-02:cp) against dosai, fully recorded; see docs/llmplay.md
@@ -39,19 +39,17 @@ _build-dir:
     mkdir -p build
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
-art_flags := "-units build/packs/units -terrain build/packs/terrain -screens build/packs/screens"
-
 # Build the unit, terrain and screen packs into build/packs where their art or `hl assets` changed; pass e.g. -only terrain
 packs *args: _build-dir
     go run ./cmd/hl assets packs -out build/packs {{args}}
 
-# Play with the unit, terrain and screen art
+# Same as run
 play *args: packs
-    go run ./cmd/historyline {{art_flags}} {{args}}
+    go run ./cmd/historyline {{args}}
 
 # Play as above, with F8 switching to the original tiles and units from the local original/ (never shipped)
 play-original *args: packs
-    go run -tags origtiles ./cmd/historyline {{art_flags}} {{args}}
+    go run -tags origtiles ./cmd/historyline {{args}}
 
 # Run all Go tests
 test:

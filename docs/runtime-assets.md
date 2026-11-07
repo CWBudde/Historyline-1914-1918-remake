@@ -39,11 +39,11 @@ go run ./cmd/hl assets packs -out build/packs                                # t
 go run ./cmd/hl assets lite -in build/packs/units -out <dir>                # compressed copy for the web
 go run ./cmd/hl assets validate -root <pack>
 go run ./cmd/hl assets terrain-gaps -terrain build/packs/terrain
-just play                                                                  # game with all three catalogs
+just run                                                                   # game with all three catalogs (found in build/packs)
 just web 8080                                                              # web build with the 2x catalogs
 ```
 
-`hl assets packs` (`just packs`, which `just play` and `just web` run first) keeps `build/packs/units`,
+`hl assets packs` (`just packs`, which `just run`, `just play` and `just web` run first) keeps `build/packs/units`,
 `terrain` and `screens` current: each catalog's `stamp` holds the sha256 of the hl binary and of the
 catalog's inputs (its `assets/index.json` entries with their file hashes; for the screens also every
 `art/screens/<family>/*.png`). A catalog whose stamp matches is kept; any other is built beside it and then

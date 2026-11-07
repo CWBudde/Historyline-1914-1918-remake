@@ -25,8 +25,8 @@ needs [golangci-lint](https://golangci-lint.run) v2:
 `go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.1`.
 
 ```sh
-just run        # play with placeholder graphics
-just play       # play with the painted art and menu screens (builds the packs into build/packs/ when the art changed)
+just run        # play with the painted art and menu screens (builds the packs into build/packs/ when the art changed)
+just play       # the same
 just test       # go test ./...
 just lint       # go vet + golangci-lint
 just build      # bin/historyline
@@ -57,6 +57,9 @@ skip the menu and start that battle directly.
 
 v1 is one-player: two human players are not in v1. Maps 48-71 are two-player maps in the original;
 here you play one side against the computer or a passive opponent.
+
+The game loads its art from `build/packs/` when it finds it there (`-units`, `-terrain` and `-screens`
+name other packs); without packs it draws placeholders.
 
 `-rules` picks the rule set (pass it after `just run` or `just play`): `dos` (default), the original order
 cycle, or `standard`, the remake rules. In `dos` both sides give their orders at the same

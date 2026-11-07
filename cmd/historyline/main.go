@@ -883,9 +883,9 @@ func main() {
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
-	units := flag.String("units", "", "unit sprite catalog built by hl assets build-units (default: placeholder dots)")
-	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: coloured hexes)")
-	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: plain menu panels)")
+	units := flag.String("units", "", "unit sprite catalog built by hl assets build-units (default: build/packs/units when present, else placeholder dots)")
+	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
+	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
 	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the -units catalog downloaded fast")
 	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the -units catalog downloaded fast")
@@ -917,6 +917,13 @@ func main() {
 			log.Fatalf("-replay takes the level, the sides and the rules from the transcript: drop -%s", f.Name)
 		}
 	})
+
+	// The painted art is the default: the packs just packs builds, where they are.
+	for name, path := range map[string]*string{"units": units, "terrain": terrain, "screens": screens} {
+		if !given[name] {
+			*path = defaultPack(name)
+		}
+	}
 
 	if err := record.check(*replayDir, *capture, *reduced, given); err != nil {
 		log.Fatal(err)
