@@ -25,7 +25,7 @@ type FuncDriver func(prompt string) (string, error)
 func (f FuncDriver) Orders(prompt string) (string, error) { return f(prompt) }
 
 // FallbackDriver never produces orders: Game plays the phase with the
-// deterministic fallback (dosai.Planner + service). Useful as a baseline
+// deterministic fallback (dosai.Planner). Useful as a baseline
 // and to prove the harness end to end.
 type FallbackDriver struct{}
 

@@ -170,4 +170,50 @@ describe("original-profile computer", () => {
       ]),
     );
   });
+  describe("economy", () => {
+    const toPhase = (s: play.Session, side: number, phase: number): void => {
+      for (let i = 0; i < 4 && play.phase(s, side) !== phase; i++) {
+        play.confirm(s, 0);
+        play.confirm(s, 1);
+        play.resolve(s);
+      }
+      expect(play.phase(s, side)).toBe(phase);
+    };
+    const planned = (energy: number): play.Command[] => {
+      const s = play.newSession(shippedLevel("1918-02"), playData, {
+        profile: Full,
+        computer: [true, true],
+      });
+      toPhase(s, 1, 2);
+      s.game.energy[1] = energy;
+      return ai.commands({}, s, 1);
+    };
+    it("draws the same builds as Go", () => {
+      expect([
+        ai.pick(3, 0, 1024, 2, 9),
+        ai.pick(17, 1, 1030, 6, 23),
+        ai.pick(255, 1, 1, 0, 1000),
+        ai.pick(12345, 0, 4096, 5, 997),
+      ]).toEqual([3, 20, 698, 832]);
+    });
+    it("keeps the reserve and builds only the computer's types up to the cap", () => {
+      expect(planned(ai.reserve).filter((c) => c.kind === "build")).toEqual([]);
+      const built = planned(100000).filter((c) => c.kind === "build");
+      expect(built.length).toBeGreaterThan(0);
+      expect(built.length).toBeLessThanOrEqual(ai.maxBuilds);
+      for (const c of built) expect(ai.mayBuild(1, c.type ?? -1)).toBe(true);
+      expect(ai.mayBuild(0, 16)).toBe(false);
+      expect(ai.mayBuild(1, 16)).toBe(false);
+    });
+    it("neither builds nor repairs in the movement phase", () => {
+      const s = play.newSession(shippedLevel("1918-02"), playData, {
+        profile: Full,
+        computer: [true, true],
+      });
+      toPhase(s, 1, 1);
+      s.game.energy[1] = 100000;
+      for (const c of ai.commands({}, s, 1))
+        expect(["build", "repair"]).not.toContain(c.kind);
+    });
+  });
 });

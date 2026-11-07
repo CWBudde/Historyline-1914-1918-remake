@@ -91,6 +91,7 @@ interface Mover {
   unit: number;
   at: Coord;
   held: boolean;
+  leave: boolean;
   dist: number;
 }
 function goals(pl: Plan): Coord[] {
@@ -99,25 +100,31 @@ function goals(pl: Plan): Coord[] {
 function movers(pl: Plan): Mover[] {
   const out: Mover[] = [],
     gs = goals(pl);
-  const add = (u: play.UnitView, c: Coord, held: boolean): void => {
+  const add = (
+    u: play.UnitView,
+    c: Coord,
+    held: boolean,
+    leave: boolean,
+  ): void => {
     if (u.side === pl.side && canOrder(pl, u.index))
-      out.push({ unit: u.index, at: c, held, dist: nearest(c, gs) });
+      out.push({ unit: u.index, at: c, held, leave, dist: nearest(c, gs) });
   };
   for (const c of sorted(pl.view.units)) {
     const u = pl.view.units.get(coordKey(c));
     if (u === undefined) continue;
-    add(u, c, false);
+    add(u, c, false, false);
     if (u.side === pl.side && u.carrier)
       for (const v of play.contents(pl.s, pl.side, c)?.slots ?? [])
-        add(v, c, true);
+        add(v, c, true, false);
   }
   for (const c of sorted(pl.view.buildings)) {
     const b = pl.view.buildings.get(coordKey(c));
     if (b?.owner === play.faction(pl.side))
-      for (const v of b.units) add(v, c, true);
+      for (const v of b.units) add(v, c, true, true);
   }
   return out.sort(
     (a, b) =>
+      Number(a.leave) - Number(b.leave) ||
       a.dist - b.dist ||
       a.at.line - b.at.line ||
       a.at.col - b.at.col ||
@@ -213,6 +220,7 @@ function choose(
   u: play.UnitView,
   from: Coord,
   dests: Coord[],
+  leave: boolean,
 ): Coord | null {
   for (const c of dests) if (includes(pl.hqs, c)) return c;
   let f: Map<string, number>;
@@ -234,9 +242,10 @@ function choose(
   let best = from,
     bestScore = score(pl, u, f, from);
   if (u.held) bestScore -= defence(pl, from);
+  if (leave) bestScore = -Infinity;
   for (const c of dests) {
     const k = coordKey(c);
-    if (pl.view.units.has(k)) continue;
+    if (pl.view.units.has(k) || k === coordKey(from)) continue;
     let sc = score(pl, u, f, c);
     if (pl.view.buildings.has(k)) sc -= defence(pl, c);
     if (sc > bestScore || (sc === bestScore && hasLower(f, c, best))) {
@@ -260,7 +269,7 @@ function move(pl: Plan, out: play.Event[]): void {
         const dst = m.held
             ? play.exitDestinations(pl.s, pl.side, u.in, u.slot)
             : play.destinations(pl.s, pl.side, m.unit),
-          to = choose(pl, u, m.at, play.coords(dst));
+          to = choose(pl, u, m.at, play.coords(dst), m.leave);
         if (to !== null)
           out.push(
             ...(m.held
@@ -465,6 +474,103 @@ function dig(
     report(pl, done + i + 1, total);
   }
 }
+// The computer's economy, as the original's computer side plans it (service.go).
+export const repairFloor = 14,
+  reserve = 61,
+  maxBuilds = 10;
+const computerBuilds: readonly (readonly number[])[] = [
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 19, 21],
+  [
+    10, 11, 12, 14, 15, 17, 18, 21, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
+    47, 48, 49, 50,
+  ],
+];
+export function mayBuild(side: number, type: number): boolean {
+  return at(computerBuilds, side).includes(type);
+}
+export function pick(
+  turn: number,
+  side: number,
+  hold: number,
+  slot: number,
+  n: number,
+): number {
+  let x =
+    Math.imul(turn, 73856093) ^
+    Math.imul(side + 1, 19349663) ^
+    Math.imul(hold, 83492791) ^
+    Math.imul(slot + 1, 2654435761);
+  x ^= x >>> 15;
+  x = Math.imul(x, 2654435761);
+  x ^= x >>> 13;
+  return (x >>> 0) % n;
+}
+function ownBuildings(pl: Plan): play.BuildingView[] {
+  const out: play.BuildingView[] = [];
+  for (const c of sorted(pl.view.buildings)) {
+    const b = pl.view.buildings.get(coordKey(c));
+    if (b?.owner === play.faction(pl.side)) out.push(b);
+  }
+  return out.sort((a, b) => a.hold - b.hold);
+}
+function refused(check: () => void): boolean {
+  try {
+    check();
+    return false;
+  } catch (e) {
+    if (e instanceof GoError) return true;
+    throw e;
+  }
+}
+function repairs(pl: Plan, energy: number, out: play.Event[]): void {
+  if (energy <= repairFloor) return;
+  const units = ownBuildings(pl)
+    .flatMap((b) => b.units)
+    .filter((u) => u.side === pl.side && u.size < u.full)
+    .sort((a, b) => a.index - b.index);
+  for (const v of units) {
+    const u = play.unit(pl.s, v.index);
+    if (
+      refused(() => {
+        play.canRepair(pl.s, pl.side, u.in, u.slot);
+      })
+    )
+      continue;
+    out.push(...play.repair(pl.s, pl.side, u.in, u.slot));
+  }
+}
+function produce(pl: Plan, energy: number, out: play.Event[]): void {
+  let built = 0;
+  for (const b of ownBuildings(pl)) {
+    if (b.kind !== play.Factory) continue;
+    let e = energy;
+    for (
+      let slot = b.units.length;
+      slot < play.Slots && built < maxBuilds;
+      slot++
+    ) {
+      const budget = e - reserve;
+      if (budget <= 0) break;
+      const opts = play
+        .buildable(pl.s, pl.side, b.hold)
+        .filter((o) => mayBuild(pl.side, o.type) && o.cost <= budget);
+      if (opts.length === 0) break;
+      const o = at(
+        opts,
+        pick(play.turn(pl.s), pl.side, b.hold, slot, opts.length),
+      );
+      e -= o.cost;
+      built++;
+      if (
+        refused(() => {
+          play.canBuild(pl.s, pl.side, b.hold, o.type);
+        })
+      )
+        continue;
+      out.push(...play.build(pl.s, pl.side, b.hold, o.type));
+    }
+  }
+}
 export function plan(p: Planner, s: play.Session, side: number): play.Event[] {
   if (side !== 0 && side !== 1) throw new GoError(`dosai: side ${side}`);
   if (play.ended(s) !== null || play.ready(s, side)) return [];
@@ -473,12 +579,15 @@ export function plan(p: Planner, s: play.Session, side: number): play.Event[] {
   try {
     if (play.phase(s, side) === 1) move(pl, out);
     else {
-      const [cands, units] = candidates(pl),
+      const energy = play.energy(s, side),
+        [cands, units] = candidates(pl),
         ds = diggers(pl),
         total = units.length + ds.length;
       report(pl, 0, total);
       attack(pl, cands, units.length, total, out);
       dig(pl, ds, units.length, total, out);
+      repairs(pl, energy, out);
+      produce(pl, energy, out);
     }
     out.push(...play.confirm(s, side));
   } catch (e) {

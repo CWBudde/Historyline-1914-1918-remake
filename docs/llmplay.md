@@ -32,8 +32,8 @@ prompt is ever rendered; ~130 ms/resolution including the two-resolution
 oracle lookahead on a Clone) and implements the winning strategy of
 [llmplay-strategy.md](llmplay-strategy.md) — it wins RHEIN against dosai by
 annihilation at resolution 148, deterministically (pinned by
-`TestCoachPlaysFullGame`). `fallback` (dosai both sides + service) loses the HQ
-in 14 for comparison.
+`TestCoachPlaysFullGame`). `fallback` (dosai both sides) loses the HQ
+in 7 for comparison.
 
 ## Observe — what the model sees (fair play)
 
@@ -72,7 +72,7 @@ the coach's action phase for the side (repairs, builds by its doctrine, sapper
 work, sequential focus fire scored by the exact outcome) as a batch to take,
 edit or ignore; it never reads the opponent's plan. After 3 bad
 batches (or driver failure) a deterministic fallback plays the phase
-(`dosai.Planner` + repair/build service) so a game never stalls.
+(`dosai.Planner`) so a game never stalls.
 
 ## Record — always on
 
@@ -152,7 +152,7 @@ never the model's self-assessment.
 ## Strategy playbook for RHEIN (CP, 34 vs 74 units, income 45 vs 95)
 
 Opponent profile (`dosai`): exact focus-fire attacks, but greedy 1-phase
-movement toward the nearest visible enemy/HQ; never builds units or depots, never repairs;
+movement toward the nearest visible enemy/HQ; its units leave buildings after the others have moved; repairs held units and builds at its factories above an energy reserve of 61, but never depots;
 sappers dig (never fill) only with an enemy within 4 hexes or its HQ within 3;
 captures only at zero detour, no HQ garrison, stale view of your moves, no
 pincer/threat awareness. Do not offer it positive-gain trades — check
@@ -183,8 +183,8 @@ every candidate against the annotated gains.
    build infantry there and send ≥ 2 capturers at the EC HQ [15,15] on
    different axes in one movement phase behind an A7V screen.
 
-Baseline evidence: fallback-vs-dosai (dosai both sides + service) loses the CP
-HQ in 14 resolutions — the level is won by the economy/capture game dosai
+Baseline evidence: fallback-vs-dosai (dosai both sides) loses the CP
+HQ in 7 resolutions — the level is won by the economy/capture game dosai
 cannot play, not by rushing.
 
 ## Tests

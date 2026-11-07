@@ -488,7 +488,7 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 5.4 Monthly campaign: remaining work.
       - a balance pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`;
       - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);
-      - the two-player maps against the computer (it builds nothing; their setups are symmetric, GRAND
+      - the two-player maps against the computer (their setups are symmetric, GRAND
         starts with one unit a side);
       - a hot-seat mode in the desktop menu for the `2p` setups (every month exists; done in the web edition, W8); the
         front end is 1.6.
@@ -501,7 +501,9 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       purpose (L8.2a). Optional: a summer `crater/1` stamp.
 - [ ] 5.7 Unit roster: weapon slots use stand-ins from the existing catalogue; the remake's own rules still
       play deep and shallow water as one (the levels and the original rules keep them apart).
-- [ ] 5.8 Decode the computer player's parameters from the original map files.
+- [ ] 5.8 Decode the rest of the computer player's parameters from the original map files: `dosai` uses their
+      permission bit as one type list per side (`internal/dosai/service.go`); the other bytes, the goal values
+      and the carrier order stay out.
 
 ### 6. Polish and distribution
 

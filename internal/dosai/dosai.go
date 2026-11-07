@@ -7,9 +7,12 @@
 // action phase it queues the attacks whose exact outcome (dosrules.Engage on
 // the side's map as the earlier orders leave it) gains most, then has each
 // sapper near an enemy unit or an own HQ dig the trench that adds most
-// defence where it counts; it never fills one. Like the original's computer
-// side it never builds depots. The digging is its own: the original's
-// sappers get no work order on purpose.
+// defence where it counts; it never fills one. Last it repairs the damaged
+// units in its buildings and has its factories build (service.go), as the
+// original's computer side does, and in the movement phase every unit in a
+// building leaves it once the units on the map have moved. Like the
+// original's computer side it never builds depots. The digging is its own:
+// the original's sappers get no work order on purpose.
 //
 // It reads only what the side may know: its view (the other side's units
 // where they stood at the last phase change), its battlefield, and the
@@ -20,6 +23,7 @@ package dosai
 import (
 	"cmp"
 	"fmt"
+	"math"
 	"slices"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
@@ -201,10 +205,11 @@ func nearest(c hexgrid.Coord, cs []hexgrid.Coord) int {
 
 // mover is a unit of the side that may get a move or an exit order.
 type mover struct {
-	unit int
-	at   hexgrid.Coord
-	held bool
-	dist int // to the nearest goal
+	unit  int
+	at    hexgrid.Coord
+	held  bool
+	leave bool // held in an own building: it leaves wherever it can
+	dist  int  // to the nearest goal
 }
 
 // goals are the hexes the movement phase heads for: the enemy HQ entrances
@@ -212,23 +217,24 @@ type mover struct {
 func (pl *plan) goals() []hexgrid.Coord { return append(slices.Clone(pl.hqs), pl.enemies...) }
 
 // movers are the side's units that may move or exit now, nearest to a goal
-// first (ties by line, column and unit).
+// first (ties by line, column and unit), the units in buildings after all
+// others, so that the units on the map clear the doorways.
 func (pl *plan) movers() []mover {
 	goals := pl.goals()
 	var out []mover
-	add := func(u dosplay.UnitView, at hexgrid.Coord, held bool) {
+	add := func(u dosplay.UnitView, at hexgrid.Coord, held, leave bool) {
 		if u.Side != pl.side || pl.s.CanOrder(pl.side, u.Index) != nil {
 			return
 		}
-		out = append(out, mover{unit: u.Index, at: at, held: held, dist: nearest(at, goals)})
+		out = append(out, mover{unit: u.Index, at: at, held: held, leave: leave, dist: nearest(at, goals)})
 	}
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
-		add(u, c, false)
+		add(u, c, false, false)
 		if u.Side == pl.side && u.Carrier {
 			if _, slots, ok := pl.s.Contents(pl.side, c); ok {
 				for _, v := range slots {
-					add(v, c, true)
+					add(v, c, true, false)
 				}
 			}
 		}
@@ -236,12 +242,12 @@ func (pl *plan) movers() []mover {
 	for _, c := range sorted(pl.view.Buildings) {
 		if b := pl.view.Buildings[c]; b.Owner == pl.s.Faction(pl.side) {
 			for _, v := range b.Units {
-				add(v, c, true)
+				add(v, c, true, true)
 			}
 		}
 	}
 	slices.SortStableFunc(out, func(a, b mover) int {
-		return cmp.Or(cmp.Compare(a.dist, b.dist), cmp.Compare(a.at.Line, b.at.Line),
+		return cmp.Or(cmpBool(a.leave, b.leave), cmp.Compare(a.dist, b.dist), cmp.Compare(a.at.Line, b.at.Line),
 			cmp.Compare(a.at.Col, b.at.Col), cmp.Compare(a.unit, b.unit))
 	})
 	return out
@@ -288,7 +294,7 @@ func (pl *plan) moveUnit(m mover) ([]dosplay.Event, error) {
 	if err != nil {
 		return nil, err
 	}
-	to, ok := pl.choose(u, m.at, dosplay.Coords(dests))
+	to, ok := pl.choose(u, m.at, dosplay.Coords(dests), m.leave)
 	if !ok {
 		return nil, nil
 	}
@@ -304,8 +310,9 @@ func (pl *plan) moveUnit(m mover) ([]dosplay.Event, error) {
 // if it beats from. Only a unit that may capture reaches a
 // foreign building's entrance. A held unit does not defend the building's
 // hex, so its terrain does not count for staying in an own building or
-// going into one.
-func (pl *plan) choose(u dosplay.UnitView, from hexgrid.Coord, dests []hexgrid.Coord) (hexgrid.Coord, bool) {
+// going into one. With leave the unit goes to the best hex even if that does
+// not beat from.
+func (pl *plan) choose(u dosplay.UnitView, from hexgrid.Coord, dests []hexgrid.Coord, leave bool) (hexgrid.Coord, bool) {
 	for _, c := range dests {
 		if slices.Contains(pl.hqs, c) {
 			return c, true
@@ -324,9 +331,12 @@ func (pl *plan) choose(u dosplay.UnitView, from hexgrid.Coord, dests []hexgrid.C
 	if u.Held {
 		bestScore -= pl.defence(from)
 	}
+	if leave {
+		bestScore = math.MinInt
+	}
 	for _, c := range dests {
-		if _, ok := pl.view.Units[c]; ok {
-			continue // loading into a transporter
+		if _, ok := pl.view.Units[c]; ok || c == from {
+			continue // loading into a transporter, or no move
 		}
 		sc := pl.score(u, f, c)
 		if _, ok := pl.view.Buildings[c]; ok {
@@ -472,6 +482,7 @@ type candidate struct {
 // action gives the action phase's orders: the attacks (attack), then the
 // sappers' work (dig). The progress counts the attackers, then the diggers.
 func (pl *plan) action() ([]dosplay.Event, error) {
+	energy := pl.s.Energy(pl.side)
 	cands, units := pl.candidates()
 	diggers := pl.diggers()
 	total := len(units) + len(diggers)
@@ -481,6 +492,15 @@ func (pl *plan) action() ([]dosplay.Event, error) {
 		return evs, err
 	}
 	ev, err := pl.dig(diggers, len(units), total)
+	evs = append(evs, ev...)
+	if err != nil {
+		return evs, err
+	}
+	if ev, err = pl.repairs(energy); err != nil {
+		return append(evs, ev...), err
+	}
+	evs = append(evs, ev...)
+	ev, err = pl.produce(energy)
 	return append(evs, ev...), err
 }
 
@@ -607,4 +627,15 @@ func strength(t dosrules.Type, size, alt int) int {
 		return alt
 	}
 	return size
+}
+
+// cmpBool orders false before true.
+func cmpBool(a, b bool) int {
+	switch {
+	case a == b:
+		return 0
+	case b:
+		return -1
+	}
+	return 1
 }

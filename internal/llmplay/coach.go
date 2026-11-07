@@ -27,6 +27,7 @@ package llmplay
 
 import (
 	"container/heap"
+	"maps"
 	"slices"
 	"strings"
 
@@ -47,12 +48,29 @@ const (
 	unreachable   = 1 << 29
 )
 
+var (
+	dashOn        = true
+	sealOn        = false
+	escortOn      = false
+	southOn       = false
+	batteryWanted = 0
+	dashWanted    = 8
+	tankFirst     = 90
+	aaWanted      = 1
+	passGuard     = true
+	southArmour   = true
+	marchRace     = true
+	raceSight     = 3
+)
+
 // Coach plays the strategy. The zero Coach is ready to use; use a
 // pointer so reinforcement assignments stay sticky across phases
 // (recomputed-from-scratch assignments oscillated: units marched
 // west one phase and back east the next, v21).
 type Coach struct {
 	stickyReinforce map[int]bool
+	seal            []hexgrid.Coord // found once, on the opening position
+	sealDone        bool
 }
 
 type coachPlan struct {
@@ -78,6 +96,10 @@ type coachPlan struct {
 	siegeHard bool                          // only immobile/artillery enemies left: tanks assault too
 	exitHexes map[hexgrid.Coord]bool        // building exit hexes: do not park here
 	safe      map[int]bool                  // oracle-doomed units: weight threat heavily
+	dash      map[int]bool                  // foot capturers racing for the enemy HQ
+	seal      []hexgrid.Coord               // the hexes that shut the HQ ground off
+	plug      map[int]hexgrid.Coord         // unit index -> seal hex it holds
+	inside    map[hexgrid.Coord]bool        // the ground behind the seal
 }
 
 type fieldKey struct {
@@ -91,8 +113,11 @@ const (
 	goalFight goalKind = iota
 	goalCapture
 	goalHome
-	goalHQ   // own HQs only (sappers: trench the HQ doorstep)
-	goalRace // east/NE fighters: escort the dash at the enemy HQ
+	goalHQ        // own HQs only (sappers: trench the HQ doorstep)
+	goalRace      // east/NE fighters: escort the dash at the enemy HQ
+	goalDash      // the enemy HQ alone, around the enemy units
+	goalHold      // behind the seal: in reach of the plugs on the ground
+	goalDashSouth // goalDash, not through the mountain pass
 )
 
 func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool) *coachPlan {
@@ -137,6 +162,7 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool) *coachPlan 
 			}
 		}
 	}
+	p.findDashers()
 	// Home guard: the 8 ground units nearest an own HQ form its
 	// screen. In v1–v6 the west infantry rushed foreign buildings and
 	// the HQ front thinned to two units by the time EC arrived.
@@ -147,7 +173,7 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool) *coachPlan 
 		}
 		var near []du
 		for _, u := range p.own {
-			if u.Held || u.Carrier || u.Domain == dosplay.Air || u.Domain == dosplay.Naval {
+			if u.Held || u.Carrier || u.Domain == dosplay.Air || u.Domain == dosplay.Naval || p.dash[u.Index] {
 				continue
 			}
 			d := 999
@@ -346,6 +372,18 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool) *coachPlan 
 	return p
 }
 
+// findDashers picks the foot capturers that race for the enemy HQ. dosai
+// leaves its HQ empty and chases the nearest unit, so those with a long
+// way round draw its army off as well.
+func (p *coachPlan) findDashers() {
+	p.dash = map[int]bool{}
+	for _, u := range p.own {
+		if dashOn && u.Domain == dosplay.Infantry && p.canCapture(u) && !strings.HasSuffix(u.ID, "_antiTank") && !p.s.Sapper(u.Index) {
+			p.dash[u.Index] = true
+		}
+	}
+}
+
 // bridgeHexes are the passage hexes an aircraft can block: road/rail
 // infra over water terrain, or an infra named bridge.
 func bridgeHexes(s *dosplay.Session) map[hexgrid.Coord]bool {
@@ -389,6 +427,9 @@ func (p *coachPlan) costsFor(u dosplay.UnitView) (map[hexgrid.Coord]int, error) 
 // dosai). Fight goals ring the enemy units at the unit's own reach.
 func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int, error) {
 	k := fieldKey{u.Type, g}
+	if g == goalDash && southOn && p.southDasher(u) {
+		k.goal = goalDashSouth
+	}
 	if f, ok := p.fields[k]; ok {
 		return f, nil
 	}
@@ -416,7 +457,34 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 			seed(n, v)
 		}
 	}
+	if g == goalDash {
+		for _, c := range p.foreign {
+			if bv := p.view.Buildings[c]; bv.HQ && p.s.SideOf(bv.Owner) == p.opp {
+				seed(c, 0)
+			}
+		}
+		open := maps.Clone(costs)
+		if k.goal == goalDashSouth {
+			for _, c := range passHexes {
+				delete(open, c)
+			}
+		}
+		through := dijkstra(open, start)
+		for _, e := range p.enemies {
+			delete(open, e.At)
+		}
+		f := dijkstra(open, start)
+		for c, v := range through {
+			if _, ok := f[c]; !ok {
+				f[c] = v + 300 // shut for now: wait as near as the way allows
+			}
+		}
+		p.fields[k] = f
+		return f, nil
+	}
 	switch g {
+	case goalHold:
+		p.holdField(u, costs, seed)
 	case goalCapture:
 		// The race: neutral prize first (income), enemy HQ preferred,
 		// other enemy buildings only when they are on the way (+80).
@@ -437,7 +505,7 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 			if bv.HQ && p.s.SideOf(bv.Owner) == p.opp {
 				seedBuilding(c, 0)
 			}
-			if p.s.SideOf(bv.Owner) == 2 {
+			if p.s.SideOf(bv.Owner) == 2 && !southArmour {
 				seedBuilding(c, 0)
 			}
 		}
@@ -446,7 +514,7 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 			ringDist = 1 // anti-tank guns one-shot bunkers adjacent (probe: 3->0 for 1 own loss)
 		}
 		for _, e := range p.enemies {
-			if hexgrid.Distance(u.At, e.At) <= 8 {
+			if hexgrid.Distance(u.At, e.At) <= raceSight {
 				for c := range costs {
 					if hexgrid.Distance(c, e.At) == ringDist {
 						seed(c, 0)
@@ -496,6 +564,12 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 					seed(c, 0)
 				}
 			}
+		}
+	}
+	if g == goalRace && passGuard {
+		costs = maps.Clone(costs)
+		for _, c := range passHexes {
+			delete(costs, c)
 		}
 	}
 	f := dijkstra(costs, start)
@@ -555,6 +629,21 @@ func dijkstra(costs map[hexgrid.Coord]int, start map[hexgrid.Coord]int) map[hexg
 	return dist
 }
 
+// plan is the side's plan on the session, with the seal found on the first
+// position it sees.
+func (c *Coach) plan(s *dosplay.Session, side int) *coachPlan {
+	p := newCoachPlan(s, side, c.stickyReinforce)
+	if !c.sealDone && sealOn {
+		c.seal, c.sealDone = p.findSeal(), true
+	}
+	p.planSeal(c.seal)
+	if len(p.seal) > 0 && holdOn {
+		p.reinforce = map[int]bool{} // nothing marches in through the own seal
+	}
+	c.stickyReinforce = p.reinforce
+	return p
+}
+
 // PlayPhase implements PhasePlayer.
 func (c *Coach) PlayPhase(s *dosplay.Session, side int) ([]dosplay.Event, error) {
 	if s.Ended() != nil || s.Ready(side) {
@@ -563,8 +652,7 @@ func (c *Coach) PlayPhase(s *dosplay.Session, side int) ([]dosplay.Event, error)
 	if s.Phase(side) == dosrules.PhaseMovement {
 		return c.moveOracle(s, side)
 	}
-	p := newCoachPlan(s, side, c.stickyReinforce)
-	c.stickyReinforce = p.reinforce
+	p := c.plan(s, side)
 	evs, err := p.act()
 	if err != nil {
 		return evs, err
@@ -585,8 +673,7 @@ func (c *Coach) moveOracle(s *dosplay.Session, side int) ([]dosplay.Event, error
 	hardSiege := false
 	planOn := func(clone *dosplay.Session, safe map[int]bool) ([]dosrules.Command, error) {
 		mark := clone.Mark()
-		p := newCoachPlan(clone, side, c.stickyReinforce)
-		c.stickyReinforce = p.reinforce
+		p := c.plan(clone, side)
 		hardSiege = p.siegeHard
 		p.safe = safe
 		if _, err := p.move(); err != nil {
@@ -774,6 +861,12 @@ func (p *coachPlan) goalFor(u dosplay.UnitView) goalKind {
 	if _, isGuard := p.guardOf[u.Index]; isGuard {
 		return goalHome
 	}
+	if p.dash[u.Index] {
+		return goalDash
+	}
+	if p.inside[u.At] && u.Domain != dosplay.Air && !p.damaged(u) && !p.s.Sapper(u.Index) {
+		return goalHold
+	}
 	switch {
 	case p.damaged(u) && len(p.ownB) > 0:
 		return goalHome
@@ -854,9 +947,12 @@ func (p *coachPlan) scoreDest(u dosplay.UnitView, from, c hexgrid.Coord, f map[h
 	// value progress above all: v22's reinforcements sat in a forest
 	// cluster at col 21 for 25 resolutions because support+terrain
 	// bonuses outweighed the route gradient.
+	if p.dash[u.Index] {
+		return score*4 - p.threat(u, c)/10
+	}
 	siegeAssault := p.siege && !p.homeGuard[u.Index] &&
 		(strings.HasSuffix(u.ID, "_antiTank") || p.canCapture(u) || u.Domain == dosplay.Air || p.siegeHard)
-	if p.reinforce[u.Index] || p.s.Sapper(u.Index) && p.goalFor(u) == goalHQ || siegeAssault {
+	if p.reinforce[u.Index] || p.s.Sapper(u.Index) && p.goalFor(u) == goalHQ || siegeAssault || marchRace && p.goalFor(u) == goalRace {
 		return score*4 - p.threat(u, c)/20
 	}
 	score += terrainBonus(p.s, nil, c) * 2
@@ -932,7 +1028,7 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 	// (or on its guard hex) holds position. Shuffling west units lost
 	// terrain/support every phase and dosai's exact fire punished
 	// the old hex anyway (v17/v18 west fell at 20).
-	if p.homeGuard[u.Index] && !p.damaged(u) && !p.siege {
+	if p.homeGuard[u.Index] && !p.damaged(u) && !p.siege && (len(p.seal) == 0 || !holdOn) {
 		if g, isGuard := p.guardOf[u.Index]; isGuard && from == g {
 			return from, false, nil
 		}
@@ -949,6 +1045,18 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 	}
 	best, bestScore := from, p.scoreDest(u, from, from, f)
 	for _, c := range dosplay.Coords(dests) {
+		if slices.Contains(p.seal, c) {
+			continue // kept for its plug
+		}
+		if passGuard && !p.dash[u.Index] && slices.Contains(passHexes, c) {
+			continue // the pass is for the capturers: it lets one through per phase
+		}
+		if p.dash[u.Index] && u.At.Col >= 14 && p.turnNow() < DashGo && f[c] < dashWaitF {
+			continue // out of the enemy's sight until its army has gone west
+		}
+		if p.inside[from] && !p.inside[c] && u.Domain != dosplay.Air {
+			continue // the seal holds: nobody walks out through it
+		}
 		if sc := p.scoreDest(u, from, c, f); sc > bestScore {
 			best, bestScore = c, sc
 		}
@@ -1091,6 +1199,9 @@ func (p *coachPlan) move() ([]dosplay.Event, error) {
 	// 3. Moves in role order.
 	ordered := slices.Clone(p.own)
 	rank := func(u dosplay.UnitView) int {
+		if _, ok := p.plug[u.Index]; ok {
+			return 5
+		}
 		switch {
 		case p.canCapture(u):
 			return 0
@@ -1114,11 +1225,24 @@ func (p *coachPlan) move() ([]dosplay.Event, error) {
 		if u.Moved || u.Held || u.Budget == 0 {
 			continue
 		}
+		if h, ok := p.plug[u.Index]; ok {
+			if err := add(p.movePlug(u, h)); err != nil {
+				return evs, err
+			}
+			continue
+		}
 		if u.Carrier {
 			if err := add(p.moveCarrier(u)); err != nil {
 				return evs, err
 			}
 			continue
+		}
+		if escortOn && u.Domain == dosplay.Air {
+			if done, err := p.moveEscort(u, add); err != nil {
+				return evs, err
+			} else if done {
+				continue
+			}
 		}
 		if u.Domain == dosplay.Air && p.isPlugger(u) {
 			if done, err := p.movePlane(u, add); err != nil {
@@ -1372,7 +1496,7 @@ func (p *coachPlan) service() []dosplay.Event {
 	// phase: exits drain about one unit per movement phase through a
 	// single free hex, and building faster only jams the slots (probe
 	// v11: 7-deep backlog while energy banked to 900).
-	capturers, sappers, antiTanks, aaGuns, enemyAir, footCapturers := 0, 0, 0, 0, 0, 0
+	capturers, sappers, antiTanks, aaGuns, enemyAir, footCapturers, battery := 0, 0, 0, 0, 0, 0, 0
 	for _, u := range p.own {
 		if p.canCapture(u) {
 			capturers++
@@ -1386,9 +1510,32 @@ func (p *coachPlan) service() []dosplay.Event {
 		if strings.HasSuffix(u.ID, "_antiTank") {
 			antiTanks++
 		}
+		if strings.HasSuffix(u.ID, "_mArtillery") {
+			battery++
+		}
 		if strings.HasSuffix(u.ID, "_mobileAA") || strings.HasSuffix(u.ID, "_staticAA") {
 			aaGuns++
 		}
+	}
+	dashers := len(p.dash)
+	for _, at := range p.ownB {
+		if _, slots, ok := p.s.Contents(p.side, at); ok {
+			for _, u := range slots {
+				switch {
+				case strings.HasSuffix(u.ID, "_mobileAA") || strings.HasSuffix(u.ID, "_staticAA"):
+					aaGuns++
+				case p.s.Sapper(u.Index):
+					sappers++
+				case strings.HasSuffix(u.ID, "_antiTank"):
+					antiTanks++
+				case strings.HasSuffix(u.ID, "_eliteInf") || strings.HasSuffix(u.ID, "_infantry"):
+					dashers++
+				}
+			}
+		}
+	}
+	if dashOn {
+		sappers = 2 // they would queue in the pass ahead of the capturers
 	}
 	for _, e := range p.enemies {
 		if e.Domain == dosplay.Air {
@@ -1399,11 +1546,13 @@ func (p *coachPlan) service() []dosplay.Event {
 		match func(id string) bool
 		when  bool
 	}{
-		{func(id string) bool { return strings.HasSuffix(id, "_mobileAA") }, enemyAir > 0 && aaGuns < 2},
+		{func(id string) bool { return strings.HasSuffix(id, "_eliteInf") }, dashOn && dashers < dashWanted},
+		{func(id string) bool { return strings.HasSuffix(id, "_mArtillery") }, battery < batteryWanted},
+		{func(id string) bool { return strings.HasSuffix(id, "_mobileAA") }, enemyAir > 0 && aaGuns < aaWanted},
 		{func(id string) bool { return strings.HasSuffix(id, "_sappers") }, sappers < 2},
 		{func(id string) bool { return strings.HasSuffix(id, "_infantry") || strings.HasSuffix(id, "_eliteInf") }, capturers < 4 || footCapturers < 3 || p.siege && footCapturers < 6},
+		{func(id string) bool { return strings.HasSuffix(id, "_a7v") || strings.HasSuffix(id, "_markIV") }, p.s.Energy(p.side) >= tankFirst},
 		{func(id string) bool { return strings.HasSuffix(id, "_antiTank") }, antiTanks < 8},
-		{func(id string) bool { return strings.HasSuffix(id, "_a7v") || strings.HasSuffix(id, "_markIV") }, p.s.Energy(p.side) >= 150},
 		{func(id string) bool { return strings.HasSuffix(id, "_sappers") }, sappers < 2},
 		{func(id string) bool { return strings.HasSuffix(id, "_eliteInf") }, true},
 		{func(id string) bool { return strings.HasSuffix(id, "_antiTank") }, true},

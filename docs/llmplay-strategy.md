@@ -33,7 +33,7 @@ Mark I)** — taking it roughly doubles CP income.
 ## The opponent (dosai), and how it dies
 
 Exact sequential focus fire in its action phase; greedy 1-phase movement to the
-nearest visible enemy/HQ; **never builds (units or depots), never repairs**; sappers dig (never
+nearest visible enemy/HQ; **repairs held units and builds at its factories above an energy reserve of 61, never depots**; sappers dig (never
 fill) only with an enemy within 4 hexes or its HQ within 3; captures only at
 zero detour, no HQ garrison/threat model, and its view of our moves is stale
 until the phase change. Consequences we exploit:
@@ -74,7 +74,7 @@ treasury, is the bug (see v7/v8 below).
 
 ## Battle log — what each loss taught (refine me)
 
-- **Baseline (dosai both sides)**: HQ falls in 14 resolutions. Rushing loses.
+- **Baseline (dosai both sides)**: HQ falls in 7 resolutions. Rushing loses.
 - **Manual LLM game**: landed eliteInf pincered 5→0 at its *old* hex after I
   ordered it forward → retreats must start a phase earlier; prompt gained
   THREATS. Factory exits are only [27,23]/[31,23]-style budget-8 hexes.

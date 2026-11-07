@@ -7,8 +7,8 @@
 //     Clone and commit only a fully legal batch.
 //   - Game drives the resolution loop, records a replayable transcript
 //     plus a save per resolution, and never stalls: after repeated bad
-//     replies a deterministic fallback (dosai.Planner + repair/build
-//     service) plays the phase.
+//     replies a deterministic fallback (dosai.Planner) plays the
+//     phase.
 //   - Frame recording (frames/GIF) and post-game Review (blunder
 //     detection feeding a LESSONS file) live in frame.go / review.go.
 //
