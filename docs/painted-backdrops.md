@@ -207,6 +207,18 @@ One registered railway retains its destroyed intervals; closed spurs have timber
 bridge stubs keep their missing spans. Worn approaches finish the supply paths. Four ships and two
 land units start on adjacent hexes clear of banks and roofs.
 
+SCOUT/DAMES (`1918-05`, 2852×2202) has fresh May meadow, fully leafed broadleaf
+woods and dark conifers under warm high-cloud late-morning light. Pale mineral
+tones link the northern rock band, gravel roads and limestone masonry; the broad
+road loop stays open meadow. A limestone castle with four copper domes and a
+red-tiled timber hall faces a rendered fort with slate cones and a low green-copper
+hall. Brick engine works, timber-and-stone repair shops and three individual
+cottages retain their footprints and open approaches. A small woodland pocket
+supports the unchanged cavalry; firm clay and natural stony ground support the
+bunker and tank starts. The detached southern road curve stays unconnected.
+Prompts, masks, lightness findings and native review evidence are under
+`build/review/backdrops/1918-05/`.
+
 STERN/SODOM (`1918-06`, 3829×4403) has June greenery under bright late-morning light: lush meadow
 with field flowers and woods in fresh green leaf. A vast ring of shell-torn ground surrounds the
 central HQ: one cratered battlefield with wire, stumps and duckboards and a ragged edge that thins
