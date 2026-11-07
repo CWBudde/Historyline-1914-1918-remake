@@ -1,10 +1,11 @@
 // Package dosai is the computer side on the original order cycle
 // (internal/dosplay): a greedy planner that gives all orders of a side's
 // phase through the session and confirms them. In the movement phase it
-// moves each unit along the cheapest terrain route towards the enemy HQ
-// and the enemy units it sees, and takes the enemy HQ or another side's or
-// a neutral building where a unit reaches its entrance; in the
-// action phase it queues the attacks whose exact outcome (dosrules.Engage on
+// sends each capturer to the nearest building that is not the side's, the
+// enemy HQ last (capture.go), moves every other unit along the
+// cheapest terrain route towards the enemy HQ and the enemy units it sees,
+// and takes the enemy HQ or another side's or a neutral building where a unit
+// reaches its entrance on the way; in the action phase it queues the attacks whose exact outcome (dosrules.Engage on
 // the side's map as the earlier orders leave it) gains most, then has each
 // sapper near an enemy unit or an own HQ dig the trench that adds most
 // defence where it counts; it never fills one. Last it repairs the damaged
@@ -133,16 +134,19 @@ func playOut(s *dosplay.Session, p [2]*Planner, maxTurns int, keep func([]dospla
 
 // plan is the state of one Plan call.
 type plan struct {
-	s       *dosplay.Session
-	side    int
-	profile dosrules.Profile
-	view    dosplay.View
-	bf      *dosrules.Battlefield
-	enemies []hexgrid.Coord               // the other side's units in the view, sorted
-	hqs     []hexgrid.Coord               // the other side's HQ entrances, sorted
-	ownHQs  []hexgrid.Coord               // the side's HQ entrances, sorted
-	prizes  []hexgrid.Coord               // the other side's and neutral depots and factories, sorted
-	fields  map[int]map[hexgrid.Coord]int // by unit type
+	s         *dosplay.Session
+	side      int
+	profile   dosrules.Profile
+	view      dosplay.View
+	bf        *dosrules.Battlefield
+	enemies   []hexgrid.Coord               // the other side's units in the view, sorted
+	hqs       []hexgrid.Coord               // the other side's HQ entrances, sorted
+	ownHQs    []hexgrid.Coord               // the side's HQ entrances, sorted
+	prizes    []hexgrid.Coord               // the other side's and neutral depots and factories, sorted
+	fields    map[int]map[hexgrid.Coord]int // by unit type
+	missions  map[int]mission               // by unit, for the movement phase
+	hopFields map[routeKey]map[hexgrid.Coord]int
+	routes    map[routeKey]map[hexgrid.Coord]int
 
 	progress func(done, total int) // Planner.Progress
 }
@@ -161,7 +165,7 @@ func newPlan(s *dosplay.Session, side int) (*plan, error) {
 	}
 	pl := &plan{
 		s: s, side: side, profile: s.Game.Profile, view: s.View(side), bf: bf,
-		fields: map[int]map[hexgrid.Coord]int{},
+		fields: map[int]map[hexgrid.Coord]int{}, hopFields: map[routeKey]map[hexgrid.Coord]int{}, routes: map[routeKey]map[hexgrid.Coord]int{},
 	}
 	for _, c := range sorted(pl.view.Units) {
 		if pl.view.Units[c].Side == 1-side {
@@ -210,15 +214,16 @@ type mover struct {
 	held  bool
 	leave bool // held in an own building: it leaves wherever it can
 	dist  int  // to the nearest goal
+	value int  // its mission's value, 0 for none
 }
 
 // goals are the hexes the movement phase heads for: the enemy HQ entrances
 // and the enemy units.
 func (pl *plan) goals() []hexgrid.Coord { return append(slices.Clone(pl.hqs), pl.enemies...) }
 
-// movers are the side's units that may move or exit now, nearest to a goal
-// first (ties by line, column and unit), the units in buildings after all
-// others, so that the units on the map clear the doorways.
+// movers are the side's units that may move or exit now, the highest mission
+// first, then nearest to a goal (ties by line, column and unit), the units in
+// buildings after all others, so that the units on the map clear the doorways.
 func (pl *plan) movers() []mover {
 	goals := pl.goals()
 	var out []mover
@@ -226,7 +231,7 @@ func (pl *plan) movers() []mover {
 		if u.Side != pl.side || pl.s.CanOrder(pl.side, u.Index) != nil {
 			return
 		}
-		out = append(out, mover{unit: u.Index, at: at, held: held, leave: leave, dist: nearest(at, goals)})
+		out = append(out, mover{unit: u.Index, at: at, held: held, leave: leave, dist: nearest(at, goals), value: pl.missions[u.Index].value})
 	}
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
@@ -247,7 +252,7 @@ func (pl *plan) movers() []mover {
 		}
 	}
 	slices.SortStableFunc(out, func(a, b mover) int {
-		return cmp.Or(cmpBool(a.leave, b.leave), cmp.Compare(a.dist, b.dist), cmp.Compare(a.at.Line, b.at.Line),
+		return cmp.Or(cmpBool(a.leave, b.leave), cmp.Compare(b.value, a.value), cmp.Compare(a.dist, b.dist), cmp.Compare(a.at.Line, b.at.Line),
 			cmp.Compare(a.at.Col, b.at.Col), cmp.Compare(a.unit, b.unit))
 	})
 	return out
@@ -255,9 +260,12 @@ func (pl *plan) movers() []mover {
 
 // move gives the movement phase's orders.
 func (pl *plan) move() ([]dosplay.Event, error) {
-	if len(pl.enemies) == 0 && len(pl.hqs) == 0 {
+	if len(pl.enemies) == 0 && len(pl.hqs) == 0 && len(pl.prizes) == 0 {
 		pl.report(0, 0)
 		return nil, nil
+	}
+	if err := pl.assignMissions(); err != nil {
+		return nil, err
 	}
 	var evs []dosplay.Event
 	movers := pl.movers()
@@ -307,7 +315,8 @@ func (pl *plan) moveUnit(m mover) ([]dosplay.Event, error) {
 // choose is the destination of a unit standing at from: an enemy HQ
 // entrance if it reaches one, else a building to capture on the way (its
 // route cost to the goal no higher than from's), else the best scoring hex
-// if it beats from. Only a unit that may capture reaches a
+// if it beats from. A unit with a mission heads for its building (capture.go),
+// every other unit for the nearest place to fight from. Only a unit that may capture reaches a
 // foreign building's entrance. A held unit does not defend the building's
 // hex, so its terrain does not count for staying in an own building or
 // going into one. With leave the unit goes to the best hex even if that does
@@ -318,7 +327,10 @@ func (pl *plan) choose(u dosplay.UnitView, from hexgrid.Coord, dests []hexgrid.C
 			return c, true
 		}
 	}
-	f, err := pl.field(u)
+	f, ok, err := pl.missionField(u)
+	if err == nil && !ok {
+		f, err = pl.field(u)
+	}
 	if err != nil {
 		return from, false
 	}

@@ -59,12 +59,14 @@ Mark I)** — taking it roughly doubles CP income.
 
 Exact sequential focus fire in its action phase; greedy 1-phase movement to the
 nearest visible enemy/HQ; **repairs held units and builds the map's `computerBuilds` at its factories above an energy reserve of 61, never depots**; sappers dig (never
-fill) only with an enemy within 4 hexes or its HQ within 3; captures only at
-zero detour, no HQ garrison/threat model, and its view of our moves is stale
+fill) only with an enemy within 4 hexes or its HQ within 3; sends each capturer to
+the nearest valuable building it does not own (the original's goal values, by
+route length), no HQ garrison/threat model, and its view of our moves is stale
 until the phase change. Consequences we exploit:
 
 1. Out-produce and out-repair it — every repaired 6/6 compounds.
-2. Detour-capture everything neutral/nearby; it won't contest the race.
+2. Race it for the neutral buildings: its capturers head for the nearest
+   ones from the first phase.
 3. Whoever *closes* during movement shoots first: battles next resolution use
    the new positions, the enemy's move doesn't count yet. Ending a move
    exactly at weapon reach is the attacking position.

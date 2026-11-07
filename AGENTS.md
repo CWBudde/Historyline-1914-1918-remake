@@ -57,7 +57,8 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   side's view of its own map (no line of sight), destinations, routes, targets, the commands, and events
   in hexes (moves with routes, battles, captures, reveals, phase change, end).
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
-  costs towards the enemy HQ and units, takes buildings on its way, queues the attacks the exact battle
+  costs towards the enemy HQ and units, sends each capturer to a building by the original's goal values
+  (`capture.go`: the nearest depot or factory first, the HQ last), queues the attacks the exact battle
   outcome favours, has sappers dig trenches near the enemy or its HQ, and, like the original, empties its
   buildings, repairs and builds at its factories (`service.go`); `PlayOut`.
 - `internal/llmplay` + `internal/hlllplay` (`hl llmplay`, `just llmplay`, `docs/llmplay.md`): an external agent plays a shipped

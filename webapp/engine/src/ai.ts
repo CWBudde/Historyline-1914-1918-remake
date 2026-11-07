@@ -33,6 +33,9 @@ interface Plan {
   ownHQs: Coord[];
   prizes: Coord[];
   fields: Map<number, Map<string, number>>;
+  missions: Map<number, Mission>;
+  hopFields: Map<string, Map<string, number>>;
+  routes: Map<string, Map<string, number>>;
   progress: ((done: number, total: number) => void) | undefined;
 }
 function sorted<V>(m: ReadonlyMap<string, V>): Coord[] {
@@ -64,6 +67,9 @@ function newPlan(s: play.Session, side: number, p: Planner): Plan {
     ownHQs: [],
     prizes: [],
     fields: new Map(),
+    missions: new Map(),
+    hopFields: new Map(),
+    routes: new Map(),
     progress: p.progress,
   };
   for (const c of sorted(pl.view.units))
@@ -93,6 +99,7 @@ interface Mover {
   held: boolean;
   leave: boolean;
   dist: number;
+  value: number;
 }
 function goals(pl: Plan): Coord[] {
   return [...pl.hqs, ...pl.enemies];
@@ -107,7 +114,14 @@ function movers(pl: Plan): Mover[] {
     leave: boolean,
   ): void => {
     if (u.side === pl.side && canOrder(pl, u.index))
-      out.push({ unit: u.index, at: c, held, leave, dist: nearest(c, gs) });
+      out.push({
+        unit: u.index,
+        at: c,
+        held,
+        leave,
+        dist: nearest(c, gs),
+        value: pl.missions.get(u.index)?.value ?? 0,
+      });
   };
   for (const c of sorted(pl.view.units)) {
     const u = pl.view.units.get(coordKey(c));
@@ -125,6 +139,7 @@ function movers(pl: Plan): Mover[] {
   return out.sort(
     (a, b) =>
       Number(a.leave) - Number(b.leave) ||
+      b.value - a.value ||
       a.dist - b.dist ||
       a.at.line - b.at.line ||
       a.at.col - b.at.col ||
@@ -225,7 +240,7 @@ function choose(
   for (const c of dests) if (includes(pl.hqs, c)) return c;
   let f: Map<string, number>;
   try {
-    f = field(pl, u);
+    f = missionField(pl, u) ?? field(pl, u);
   } catch (e) {
     if (e instanceof GoError) return null;
     throw e;
@@ -256,10 +271,15 @@ function choose(
   return coordKey(best) === coordKey(from) ? null : best;
 }
 function move(pl: Plan, out: play.Event[]): void {
-  if (pl.enemies.length === 0 && pl.hqs.length === 0) {
+  if (
+    pl.enemies.length === 0 &&
+    pl.hqs.length === 0 &&
+    pl.prizes.length === 0
+  ) {
     report(pl, 0, 0);
     return;
   }
+  assignMissions(pl);
   const ms = movers(pl);
   report(pl, 0, ms.length);
   for (const [i, m] of ms.entries()) {
@@ -628,4 +648,139 @@ export function playOut(
     play.resolve(s);
   }
   return play.ended(s);
+}
+
+// Capture missions (internal/dosai/capture.go): every depot and factory counts
+// the same and above the enemy HQ, so that the route decides.
+const buildingValue = 3850,
+  hqValue = 450;
+interface Mission {
+  goal: Coord;
+  value: number;
+}
+interface CaptureGoal {
+  at: Coord;
+  value: number;
+}
+function goalValue(b: play.BuildingView): number {
+  return b.hq ? hqValue : buildingValue;
+}
+function assignMissions(pl: Plan): void {
+  pl.missions = new Map();
+  const goals = captureGoals(pl),
+    cs = capturers(pl);
+  for (const g of goals) assign(pl, g, cs, false);
+  for (const g of goals) {
+    let served = false;
+    for (const m of pl.missions.values())
+      served ||= coordKey(m.goal) === coordKey(g.at);
+    if (!served) assign(pl, g, cs, true);
+  }
+}
+function captureGoals(pl: Plan): CaptureGoal[] {
+  const goals: CaptureGoal[] = [];
+  for (const c of sorted(pl.view.buildings)) {
+    const b = pl.view.buildings.get(coordKey(c));
+    if (
+      b !== undefined &&
+      b.owner !== play.faction(pl.side) &&
+      (!b.hq || b.owner === play.faction(1 - pl.side))
+    )
+      goals.push({ at: c, value: goalValue(b) });
+  }
+  // Array.prototype.sort is stable, as Go's SortStableFunc.
+  return goals.sort((a, b) => b.value - a.value);
+}
+function capturers(pl: Plan): Coord[] {
+  const out: Coord[] = [];
+  for (const c of sorted(pl.view.units)) {
+    const u = pl.view.units.get(coordKey(c));
+    if (
+      u !== undefined &&
+      u.side === pl.side &&
+      (at(moveTablesOf(pl.profile).types, u.type).flags & 1) !== 0 &&
+      canOrder(pl, u.index)
+    )
+      out.push(c);
+  }
+  const index = (c: Coord): number =>
+    pl.view.units.get(coordKey(c))?.index ?? 0;
+  return out.sort((a, b) => index(a) - index(b));
+}
+function assign(
+  pl: Plan,
+  g: CaptureGoal,
+  cs: readonly Coord[],
+  free: boolean,
+): void {
+  let best = -1,
+    bestHops = 0;
+  for (const c of cs) {
+    const u = pl.view.units.get(coordKey(c));
+    if (u === undefined) continue;
+    const m = pl.missions.get(u.index);
+    if (free && m !== undefined) continue;
+    const h = hops(pl, u, g.at, c);
+    if (
+      h !== null &&
+      g.value - h > (m?.value ?? 0) &&
+      (best < 0 || h < bestHops)
+    ) {
+      best = u.index;
+      bestHops = h;
+    }
+  }
+  if (best >= 0)
+    pl.missions.set(best, { goal: g.at, value: g.value - bestHops });
+}
+function hops(
+  pl: Plan,
+  u: play.UnitView,
+  goal: Coord,
+  from: Coord,
+): number | null {
+  const k = `${u.type}:${coordKey(goal)}`;
+  let dist = pl.hopFields.get(k);
+  if (dist === undefined) {
+    const costs = play.costs(pl.s, pl.side, u.index);
+    dist = new Map();
+    if (costs.has(coordKey(goal))) {
+      dist.set(coordKey(goal), 0);
+      const q: Coord[] = [goal];
+      for (let i = 0; i < q.length; i++) {
+        const p = at(q, i),
+          d = dist.get(coordKey(p)) ?? 0;
+        for (const n of around(p)) {
+          const nk = coordKey(n);
+          if (costs.has(nk) && !dist.has(nk)) {
+            dist.set(nk, d + 1);
+            q.push(n);
+          }
+        }
+      }
+    }
+    pl.hopFields.set(k, dist);
+  }
+  return dist.get(coordKey(from)) ?? null;
+}
+function missionField(
+  pl: Plan,
+  u: play.UnitView,
+): Map<string, number> | undefined {
+  const m = pl.missions.get(u.index);
+  if (
+    m === undefined ||
+    pl.view.buildings.get(coordKey(m.goal))?.owner === play.faction(pl.side)
+  )
+    return undefined;
+  const k = `${u.type}:${coordKey(m.goal)}`;
+  let f = pl.routes.get(k);
+  if (f === undefined) {
+    f = dijkstra(
+      play.costs(pl.s, pl.side, u.index),
+      new Map([[coordKey(m.goal), 0]]),
+    );
+    pl.routes.set(k, f);
+  }
+  return f;
 }
