@@ -484,13 +484,6 @@ Pieces per family:
 A crossing keeper's hut is a separate standing cut-out: a small brick hut with a tile roof, about 14×12
 world px.
 
-**R6 Barbed wire, three variants.** 1536×1024 RGBA, three 512×1024 columns.
-
-```text
-Transparent RGBA 1536x1024 sheet, strict nadir, three separate WWI barbed-wire entanglement patches in three 512x1024 columns, each about 70x30 world px (746x320 px): (1) a belt of twisted iron screw pickets seen from directly above as small dark round heads with short shadows, strung with criss-crossing rusty wire; (2) two rusted concertina coils lying side by side, loops seen from above; (3) two timber knife-rest (cheval-de-frise) frames with wire wrapped across them. All wire ends finish inside the patch. Rust brown, dark steel grey and weathered grey wood. Short soft shadows only within the wire thickness. Full alpha between wires and outside.
-Avoid: side-view stakes or log ends, ground mats or grass, people, text, patches touching column borders.
-```
-
 ### Buildings
 
 Whole scenes on transparency, drawn in the standing layer with a code-made cast shadow. Each ownable
@@ -615,19 +608,7 @@ Transparent RGBA 1536x1024, strict nadir. One straight stone quay pier crossing 
 Avoid: ships, road-bridge railings, asphalt or paint, water pixels.
 ```
 
-**C6 Town street strip and block kit.**
-- Street: 1536×1024 opaque, tileable over 144×96 world px.
-- Blocks: 1536×1024 RGBA.
-
-```text
-Street: Opaque 1536x1024, strict nadir, horizontally tileable over 144x96 world px. A small-town street of 1914 centred on y=512: carriageway 235 px wide of grey granite setts (pave) in a fan pattern, worn smoother in two wheel tracks, with granite kerbs; narrow brick or flagstone pavements 64 px wide on both sides, then a dark cobbled gutter; beyond, packed earth and weeds that the renderer covers with buildings. Upper-left light.
-Avoid: road paint, tram rails, cars, people, text.
-
-Blocks: Transparent RGBA 1536x1024, strict nadir, four separate pieces: three terraced row-house blocks (each about 60x28 world px, 3-5 houses with individual tile or slate roofs, chimneys and small back yards) and one corner block with a small courtyard. Muted red-brown tile and grey slate. Soft transparent edges.
-Avoid: churches with spires, text, shop signs, perspective.
-```
-
-Winter edits of C4–C6: snow on the roofs, decks and pavements, dark slush tracks.
+Winter edits of C4 and C5: snow on the roofs, decks and pavements, dark slush tracks.
 
 ## Acceptance metrics
 
