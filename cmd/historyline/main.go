@@ -1003,7 +1003,7 @@ func main() {
 	} else {
 		level := *name
 		if *snapshotPath != "" {
-			if snap, err = startSnapshot(*snapshotPath, *rules, *capture, given["level"], *name); err != nil {
+			if snap, err = startSnapshot(*snapshotPath, *rules, given["level"], *name); err != nil {
 				log.Fatal(err)
 			}
 			if snap.level != "" {

@@ -51,10 +51,10 @@ func TestReadSnapshot(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if _, err := startSnapshot(slot, "dos", "", true, "1918-02:cp"); err == nil {
+	if _, err := startSnapshot(slot, "dos", true, "1918-02:cp"); err == nil {
 		t.Error("a -level other than the save's was accepted")
 	}
-	if _, err := startSnapshot(slot, "standard", "", false, ""); err == nil {
+	if _, err := startSnapshot(slot, "standard", false, ""); err == nil {
 		t.Error("-snapshot accepted the standard rules")
 	}
 	junk := filepath.Join(dir, "junk")
