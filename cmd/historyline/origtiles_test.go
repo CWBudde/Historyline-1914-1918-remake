@@ -1,5 +1,3 @@
-//go:build origtiles
-
 package main
 
 import (

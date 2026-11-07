@@ -47,10 +47,6 @@ packs *args: _build-dir
 play *args: packs
     go run ./cmd/historyline {{args}}
 
-# Play as above, with F8 switching to the original tiles and units from the local original/ (never shipped)
-play-original *args: packs
-    go run -tags origtiles ./cmd/historyline {{args}}
-
 # Run all Go tests
 test:
     go test -timeout 40m ./...

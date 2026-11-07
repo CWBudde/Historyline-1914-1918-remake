@@ -540,15 +540,13 @@ func TestEdgeScroll(t *testing.T) {
 			g.updateSplit()
 		}
 	}
-	v := g.splitView(d.side)
-	bx, by := v.Offset()
-	bw, bh := dosscreen.BlockSize(v.Cols, v.Rows)
-	right := bx + int(bw*v.Scale) - 2
-	midY := by + int(bh*v.Scale)/2
+	o := s.screen.SlimOpening(d.side)
+	right := o.Right() - 2
+	midY := o.Y + o.H/2
 	start := s.cams[d.side]
 
 	// Resting in the middle, or inactive on the edge, never scrolls.
-	run(bx+int(bw*v.Scale)/2, midY, 100, true)
+	run(o.X+o.W/2, midY, 100, true)
 	run(right, midY, 100, false)
 	if got := s.cams[d.side]; got.pair != start.pair || got.row != start.row {
 		t.Fatalf("scrolled to %d,%d without an edge", got.pair, got.row)
@@ -566,12 +564,14 @@ func TestEdgeScroll(t *testing.T) {
 		t.Fatalf("stepped after %d frames", edgeFirst)
 	}
 	_, hi := pairRange(g.playGrid(), s.screen.Cols)
+	before, _ := g.pickSplit(right, midY)
 	run(right, midY, 2, true)
 	if got := s.cams[d.side].pair; got != start.pair+1 {
 		t.Fatalf("pair %d after the first step, want %d", got, start.pair+1)
 	}
-	if c, ok := g.pickSplit(right, midY); !ok || g.hover != c {
-		t.Errorf("cursor %v after a step, under the pointer %v (%v)", g.hover, c, ok)
+	// The step puts the cursor on the cell under the pointer as the slide starts.
+	if !g.hoverOnMap || g.hover != before {
+		t.Errorf("cursor %v (%v) after a step, want %v", g.hover, g.hoverOnMap, before)
 	}
 	run(right, midY, 400, true)
 	if got := s.cams[d.side].pair; got != hi {
@@ -583,7 +583,7 @@ func TestEdgeScroll(t *testing.T) {
 		t.Errorf("cursor %v (%v), under the pointer %v (%v)", g.hover, g.hoverOnMap, c, ok)
 	}
 	// Up and left back to the corner.
-	run(bx+2, by+2, 800, true)
+	run(o.X+2, o.Y+2, 800, true)
 	if got := s.cams[d.side]; got.pair != 0 || got.row != 0 {
 		t.Errorf("corner at %d,%d, want 0,0", got.pair, got.row)
 	}

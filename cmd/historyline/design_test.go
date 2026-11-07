@@ -57,12 +57,12 @@ func TestCycleDesignDosUnavailable(t *testing.T) {
 	g.dos = d
 	ww, wh := d.s.Level.Grid().Bounds()
 	g.backdrop = &backdrop{ww: float64(ww), wh: float64(wh)}
-	g.orig = &origArt{err: "build with -tags origtiles (just play-original)"}
+	g.orig = &origArt{err: "no original/extracted/dos-full above the working directory"}
 
 	if msg := g.cycleDesign(); !strings.Contains(msg, "terrain") {
 		t.Fatalf("backdrop -> %q, want the terrain tiles", msg)
 	}
-	if msg := g.cycleDesign(); !strings.Contains(msg, "backdrop") || !strings.Contains(msg, "origtiles") {
+	if msg := g.cycleDesign(); !strings.Contains(msg, "backdrop") || !strings.Contains(msg, "dos-full") {
 		t.Fatalf("tiles -> %q, want the backdrop, noting the unavailable original art", msg)
 	}
 	if g.origOn() {
@@ -81,15 +81,9 @@ func TestCycleDesignDos(t *testing.T) {
 	g.orig = &origArt{} // already loaded, so no local original files are needed
 	g.applyLayout(1800, 1000, 1)
 	g.layoutSplit()
-	if !g.split.frame.Slim {
-		t.Fatal("the backdrop does not lay out the slim frame")
-	}
 
 	if msg := g.cycleDesign(); !strings.Contains(msg, "terrain") {
 		t.Fatalf("backdrop -> %q, want the terrain tiles", msg)
-	}
-	if g.split.frame.Slim {
-		t.Error("the terrain tiles keep the backdrop's slim frame")
 	}
 	if msg := g.cycleDesign(); !strings.Contains(msg, "original") {
 		t.Fatalf("tiles -> %q, want the original (DOS) design", msg)
@@ -99,9 +93,6 @@ func TestCycleDesignDos(t *testing.T) {
 	}
 	if msg := g.cycleDesign(); !strings.Contains(msg, "backdrop") {
 		t.Fatalf("DOS -> %q, want the backdrop again", msg)
-	}
-	if !g.split.frame.Slim {
-		t.Error("the backdrop again does not lay out the slim frame")
 	}
 	if g.origOn() || g.backdrop == nil {
 		t.Fatalf("backdrop again: orig on %v, backdrop shown %v", g.origOn(), g.backdrop != nil)

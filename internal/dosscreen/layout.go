@@ -18,7 +18,6 @@
 package dosscreen
 
 import (
-	"image"
 	"math"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -64,8 +63,6 @@ func (r Rect) Bottom() int { return r.Y + r.H }
 func (r Rect) Overlaps(o Rect) bool {
 	return r.X < o.Right() && o.X < r.Right() && r.Y < o.Bottom() && o.Y < r.Bottom()
 }
-
-func (r Rect) image() image.Rectangle { return image.Rect(r.X, r.Y, r.Right(), r.Bottom()) }
 
 // Screen is the split battle screen for one window size and UI scale, in device
 // pixels. Panels[0] is player A's (left), Panels[1] player B's (right).

@@ -24,7 +24,6 @@ just lint        # go vet + golangci-lint v2 (.golangci.yml); just lint-fix appl
 just fmt         # treefmt (treefmt.toml): gofumpt, gci, typstyle, prettier, shfmt; just fix = lint-fix + fmt
 just check-formatted  # fails if just fmt would change a tracked file (formats a copy)
 just run         # play with the painted art from build/packs (just play: the same); just build -> bin/; just web 8080 (hl web -port 8080)
-just play-original  # just play, with F8 switching to the original tiles and units from the local original/ (-tags origtiles)
 just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates
 just artbook     # hl artbook: build/artbook/Historyline_Art.pdf (needs typst)
 just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin/hl + native preview helper
@@ -66,7 +65,7 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   warnings) and atomic JSONL orders; every game is recorded (replayable transcript, per-resolution save,
   optional frames/GIF) and reviewed into counted `LESSONS.md` patterns.
 - `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen under
-  `-rules dos` (layout, steel frame, panel views, cursor gestures); see `docs/dos-screen.md`.
+  `-rules dos` (layout, frame, panel views, cursor gestures); see `docs/dos-screen.md`.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: the legacy level format read/write, what a scenario setup becomes; as files only the
   PULSE reference map (`art/reference/pulse/level.json`) and test fixtures. `internal/tpwm`: Turbo Packer

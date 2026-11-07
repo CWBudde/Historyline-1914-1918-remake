@@ -5,7 +5,6 @@ import (
 	"math"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -155,30 +154,12 @@ func TestBeyondPieces(t *testing.T) {
 	}
 }
 
-// The slim frame paints its chrome once per window size and no panel frames;
-// switching the style repaints the chrome.
-func TestFrameSlimCache(t *testing.T) {
-	g := hexgrid.Grid{Width: 40, Lines: 40}
+// DrawBeyond past the world lays the frame's gunmetal.
+func TestDrawBeyond(t *testing.T) {
 	s := Layout(640, 400, 1)
 	dst := ebiten.NewImage(640, 400)
-	f := Frame{Slim: true}
+	var f Frame
 	defer f.Release()
-	views := [2]View{s.View(0, 5, 5), s.View(1, 9, 9)}
-	f.Draw(dst, s, views, g)
-	f.Draw(dst, s, [2]View{s.View(0, -1, 0), s.View(1, 8, 10)}, g)
-	if f.painted != 1 || len(f.panels) != 0 {
-		t.Fatalf("slim frame painted %d images, %d panels; want the chrome only", f.painted, len(f.panels))
-	}
-	f.Slim = false
-	f.Draw(dst, s, views, g)
-	if f.painted != 4 {
-		t.Errorf("the plate frame after the slim one painted %d, want chrome and both panels", f.painted)
-	}
-	f.Slim = true
-	f.Draw(dst, s, views, g)
-	if f.painted != 5 {
-		t.Errorf("back to the slim frame painted %d, want a new chrome", f.painted)
-	}
 	f.DrawBeyond(dst, s.SlimOpening(0), Rect{50, -10, 1000, 1000}, s.UI)
 	if f.metal == nil {
 		t.Error("DrawBeyond past the world made no gunmetal")

@@ -1,5 +1,3 @@
-//go:build origtiles
-
 package main
 
 import (
@@ -27,8 +25,7 @@ func (a *origArt) load() {
 
 // loadOrigArt reads the original terrain tiles, summer (LIB/PARTS) and winter
 // (LIB/PARTW), one per terrain record, and the unit sprites (LIB/UNIT) from
-// the local original/ folder above the working directory. Only builds with
-// -tags origtiles have it.
+// the local original/ folder above the working directory.
 func loadOrigArt() (*origArt, error) {
 	dir, err := findDosFull(".")
 	if err != nil {

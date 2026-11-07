@@ -5,9 +5,6 @@ import (
 	"math"
 	"slices"
 	"testing"
-
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The zoom factors rise from far out to close in, with the fitted scale at
@@ -123,51 +120,5 @@ func TestClampZoom(t *testing.T) {
 				}
 			}
 		}
-	}
-}
-
-// The teeth meet the cell edges at every usable zoom level of real layouts, in
-// both panels, inside the map and at its edge.
-func TestZoomTeethMeetCellEdges(t *testing.T) {
-	g := hexgrid.Grid{Width: 40, Lines: 40}
-	for _, w := range [][2]int{{1280, 720}, {1920, 1080}, {3840, 2160}, {1024, 768}} {
-		for _, ui := range []float64{1, 1.5, 2} {
-			s := Layout(w[0], w[1], ui)
-			for _, i := range s.ZoomLevels() {
-				z := s.Zoomed(i)
-				name := fmt.Sprintf("%dx%d@%v zoom %d", w[0], w[1], ui, i)
-				checkTeeth(t, name+" left", z.View(0, 2, 3), g)
-				checkTeeth(t, name+" right", z.View(1, -1, 0), g)
-			}
-		}
-	}
-}
-
-// A zoomed Screen is a new cache key for the panel frames but keeps the chrome,
-// which does not change with the zoom; going back reuses the cached panels.
-func TestFrameCacheZoom(t *testing.T) {
-	g := hexgrid.Grid{Width: 40, Lines: 40}
-	s := Layout(1280, 720, 1)
-	out := s.Zoomed(DefaultZoom - 1)
-	if out == s || out.Zoom == s.Zoom {
-		t.Fatalf("zoomed screen %+v equals the layout", out)
-	}
-	dst := ebiten.NewImage(1280, 720)
-	var f Frame
-	defer f.Release()
-	draw := func(s Screen) {
-		f.Draw(dst, s, [2]View{s.View(0, 5, 5), s.View(1, 9, 9)}, g)
-	}
-	draw(s)
-	if f.painted != 3 {
-		t.Fatalf("first draw painted %d images, want chrome and two panels", f.painted)
-	}
-	draw(out)
-	if f.painted != 5 {
-		t.Errorf("zooming out painted %d images, want two new panels and no chrome", f.painted)
-	}
-	draw(s)
-	if f.painted != 5 {
-		t.Errorf("zooming back repainted: %d", f.painted)
 	}
 }

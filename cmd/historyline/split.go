@@ -118,7 +118,7 @@ func centreView(g hexgrid.Grid, cols, rows int, c hexgrid.Coord) (pair, row int)
 	return clampView(g, cols, rows, floorDiv(k-(cols-1)/2, 2), c.Line>>1-(rows-1)/2)
 }
 
-// viewShows reports whether c is an on-map cell of v: an opening of its frame.
+// viewShows reports whether c is an on-map cell of v's block of whole cells.
 func viewShows(v dosscreen.View, g hexgrid.Grid, c hexgrid.Coord) bool {
 	j := 2*(c.Col-v.Pair) + c.Line&1
 	i := c.Line>>1 - v.Row
@@ -187,7 +187,6 @@ func (g *game) layoutSplit() {
 		g.split = &split{track: newTracker(), zoom: dosscreen.DefaultZoom}
 	}
 	s := g.split
-	s.frame.Slim = g.backdrop != nil // a painted map shows edge to edge in the slim frame
 	base := dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
 	s.screen = base.Zoomed(max(s.zoom, g.zoomFloor(base)))
 	s.track.Threshold = gestureThreshold(s.screen.CellScale)
@@ -243,34 +242,31 @@ func (g *game) splitView(side int) dosscreen.View {
 	return v
 }
 
-// slimWorld is where the slim frame's openings may look: the playable area's
-// bounding box (hexgrid.Grid.Bounds), within the backdrop.
+// slimWorld is where the frame's openings may look: the playable area's
+// bounding box (hexgrid.Grid.Bounds), within the backdrop. Tiles (no backdrop
+// shown) end in a zigzag of hexes, so there it is the box the outer hexes fill
+// completely: half a hex in at the top and bottom, a slanted edge's run at the
+// sides.
 func (g *game) slimWorld() dosscreen.WorldRect {
 	w, h := g.playGrid().Bounds()
 	if b := g.backdrop; b != nil {
-		w, h = min(w, b.ww), min(h, b.wh)
+		return dosscreen.WorldRect{X1: min(w, b.ww), Y1: min(h, b.wh)}
 	}
-	return dosscreen.WorldRect{X1: w, Y1: h}
+	const run = hexgrid.HexWidth - hexgrid.HalfPitch
+	return dosscreen.WorldRect{X0: run, Y0: hexgrid.LinePitch, X1: w - run, Y1: h - hexgrid.LinePitch}
 }
 
-// slimShift is the shift of side's view resting on pair, row: in the slim frame
-// the one that keeps its opening on the map (dosscreen.Screen.SlimFit), else
-// none.
+// slimShift is the shift of side's view resting on pair, row that keeps its
+// opening on the map (dosscreen.Screen.SlimFit).
 func (g *game) slimShift(side, pair, row int) (sx, sy float64) {
 	s := g.split
-	if !s.frame.Slim {
-		return 0, 0
-	}
 	v := s.screen.SlimFit(s.screen.View(side, pair, row), side, g.slimWorld())
 	return v.ShiftX, v.ShiftY
 }
 
-// zoomFloor is the lowest zoom level of base's: in the slim frame the one
-// where the map still fills the openings (dosscreen.Screen.FillZoom).
+// zoomFloor is the lowest zoom level of base's: the one where the map still
+// fills the openings (dosscreen.Screen.FillZoom).
 func (g *game) zoomFloor(base dosscreen.Screen) int {
-	if !g.split.frame.Slim {
-		return 0
-	}
 	w := g.slimWorld()
 	return base.FillZoom(w.X1-w.X0, w.Y1-w.Y0)
 }
@@ -351,13 +347,9 @@ func (g *game) followSplit() {
 }
 
 // panelShows reports whether side's panel shows c to the cursor and the
-// pointer: an opening of the plate frame, or in the slim frame any playable
-// hex whose centre lies in the panel's opening.
+// pointer: any playable hex whose centre lies in the panel's opening.
 func (g *game) panelShows(side int, c hexgrid.Coord) bool {
 	v := g.splitView(side)
-	if !g.split.frame.Slim {
-		return viewShows(v, g.playGrid(), c)
-	}
 	x, y := v.WorldToScreen(hexgrid.Center(c))
 	return g.playGrid().Contains(c) && inRect(g.split.screen.SlimOpening(side), x, y)
 }
@@ -367,13 +359,9 @@ func inRect(r dosscreen.Rect, x, y float64) bool {
 	return x >= float64(r.X) && y >= float64(r.Y) && x < float64(r.Right()) && y < float64(r.Bottom())
 }
 
-// panelOpening is where side's panel shows its map: the whole panel in the
-// plate frame (whose steel covers the rest), the opening of the slim frame.
+// panelOpening is where side's panel shows its map: the frame's opening.
 func (g *game) panelOpening(side int) dosscreen.Rect {
-	if g.split.frame.Slim {
-		return g.split.screen.SlimOpening(side)
-	}
-	return g.split.screen.Panels[side]
+	return g.split.screen.SlimOpening(side)
 }
 
 // pickSplit is the hex under device pixel (mx, my): only on the human side's
@@ -408,7 +396,7 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 			views[side] = g.plateView(side)
 		}
 	}
-	s.frame.Draw(screen, s.screen, views, g.playGrid())
+	s.frame.Draw(screen, s.screen)
 	if g.dos.prompt || g.dos.stage == stageBlack {
 		g.cursorPlates(screen)
 		return
@@ -453,17 +441,15 @@ func (g *game) drawPanel(dst *ebiten.Image, side int, p dosscreen.Rect, dx, dy f
 	g.cam.Origin.Y -= dy / e
 	r := image.Rect(p.X, p.Y, p.Right(), p.Bottom()).Add(image.Pt(int(dx), int(dy)))
 	g.drawMapLayer(dst.SubImage(r).(*ebiten.Image), x0, y0, x1-x0, y1-y0, side == g.dos.side)
-	if g.split.frame.Slim && g.backdrop != nil {
-		// Past the map's ends the panel shows the slim frame's gunmetal.
-		w := g.slimWorld()
-		sx0, sy0 := g.cam.WorldToScreen(w.X0, w.Y0)
-		sx1, sy1 := g.cam.WorldToScreen(w.X1, w.Y1)
-		ix0, iy0 := int(math.Round(sx0)), int(math.Round(sy0))
-		world := dosscreen.Rect{X: ix0, Y: iy0, W: int(math.Round(sx1)) - ix0, H: int(math.Round(sy1)) - iy0}
-		o := g.split.screen.SlimOpening(side)
-		o.X, o.Y = o.X+int(dx), o.Y+int(dy)
-		g.split.frame.DrawBeyond(dst, o, world, g.split.screen.UI)
-	}
+	// Past the map's ends the panel shows the frame's gunmetal.
+	w := g.slimWorld()
+	sx0, sy0 := g.cam.WorldToScreen(w.X0, w.Y0)
+	sx1, sy1 := g.cam.WorldToScreen(w.X1, w.Y1)
+	ix0, iy0 := int(math.Round(sx0)), int(math.Round(sy0))
+	world := dosscreen.Rect{X: ix0, Y: iy0, W: int(math.Round(sx1)) - ix0, H: int(math.Round(sy1)) - iy0}
+	o := g.split.screen.SlimOpening(side)
+	o.X, o.Y = o.X+int(dx), o.Y+int(dy)
+	g.split.frame.DrawBeyond(dst, o, world, g.split.screen.UI)
 	if mode == panelGameInfo {
 		g.drawOverlay(dst, side, g.panelRect(side))
 	}

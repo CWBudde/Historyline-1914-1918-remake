@@ -209,7 +209,7 @@ func TestSplitLayoutAndPicking(t *testing.T) {
 				hq = c
 			}
 		}
-		if !viewShows(g.splitView(side), g.playGrid(), hq) {
+		if !g.panelShows(side, hq) {
 			t.Errorf("panel %d does not show its HQ %v", side, hq)
 		}
 	}
@@ -221,7 +221,7 @@ func TestSplitLayoutAndPicking(t *testing.T) {
 		t.Errorf("block corner at %v,%v, view offset %d,%d", sx, sy, bx, by)
 	}
 	for _, c := range v.Cells() {
-		if !g.playGrid().Contains(c) {
+		if !g.panelShows(d.side, c) {
 			continue
 		}
 		sx, sy := v.WorldToScreen(hexgrid.Center(c))
@@ -483,7 +483,7 @@ func TestSplitZoom(t *testing.T) {
 				t.Fatalf("zoom %d: camera %d off the map at %d,%d", s.screen.Zoom, side, c.pair, c.row)
 			}
 		}
-		if !viewShows(g.splitView(d.side), g.playGrid(), at) {
+		if !g.panelShows(d.side, at) {
 			t.Fatalf("zoom %d hides the cursor cell %v", s.screen.Zoom, at)
 		}
 		sx, sy := g.splitView(d.side).WorldToScreen(hexgrid.Center(at))
@@ -491,7 +491,9 @@ func TestSplitZoom(t *testing.T) {
 			t.Fatalf("zoom %d: the camera does not pick %v at its centre", s.screen.Zoom, at)
 		}
 	}
-	if lo := levels[0]; s.screen.Zoom != lo || s.screen.CellScale >= fitted {
+	// Zooming out stops where the map still fills the openings.
+	lo := max(levels[0], g.zoomFloor(dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))))
+	if s.screen.Zoom != lo || s.screen.CellScale >= fitted {
 		t.Errorf("zoomed out to %d (scale %v), want level %d", s.screen.Zoom, s.screen.CellScale, lo)
 	}
 	// A new window keeps the level asked for where it is usable.
@@ -505,9 +507,8 @@ func TestSplitZoom(t *testing.T) {
 }
 
 // TestSplitStopsAtTheEdge scrolls the human panel of PARTS (original map 09)
-// into every corner: no view holds a cell of the map's edge, the steel closes
-// right below the last row and right of the last column, and the first row and
-// column stay reachable.
+// into every corner: no view holds a cell of the map's edge, no edge hex is
+// shown, and the first row and column stay reachable.
 func TestSplitStopsAtTheEdge(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -536,22 +537,17 @@ func TestSplitStopsAtTheEdge(t *testing.T) {
 	for _, step := range [][2]int{{-99, -99}, {99, -99}, {-99, 99}, {99, 99}} {
 		g.stepView(side, step[0], step[1])
 		v := g.splitView(side)
-		m := dosscreen.Mask(v, play)
 		for _, c := range v.Cells() {
 			cell, ok := b.Cell(c)
 			if ok && b.Edge(cell) {
 				t.Errorf("step %v: view %d,%d holds edge cell %v", step, v.Pair, v.Row, c)
 			}
-			if ctr := centrePixel(v, c); play.Contains(c) && m.AlphaAt(ctr.X, ctr.Y).A != 255 {
-				t.Errorf("step %v: cell %v is steel", step, c)
-			}
 		}
 		for l := range g.grid.Lines {
 			for col := range g.grid.Width {
 				c := hexgrid.Coord{Line: l, Col: col}
-				ctr := centrePixel(v, c)
-				if !play.Contains(c) && g.grid.Contains(c) && ctr.In(m.Rect) && m.AlphaAt(ctr.X, ctr.Y).A != 0 {
-					t.Errorf("step %v: edge hex %v is open", step, c)
+				if !play.Contains(c) && g.grid.Contains(c) && g.panelShows(side, c) {
+					t.Errorf("step %v: edge hex %v is shown", step, c)
 				}
 			}
 		}
@@ -568,10 +564,4 @@ func TestSplitStopsAtTheEdge(t *testing.T) {
 			t.Errorf("step %v: last even column %d, want %d", step, c.Col, play.Width-1)
 		}
 	}
-}
-
-// centrePixel is the device pixel at the centre of c in v.
-func centrePixel(v dosscreen.View, c hexgrid.Coord) image.Point {
-	x, y := v.WorldToScreen(hexgrid.Center(c))
-	return image.Pt(int(math.Floor(x)), int(math.Floor(y)))
 }

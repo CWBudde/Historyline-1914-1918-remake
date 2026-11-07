@@ -131,7 +131,7 @@ func TestComputerMovesWalk(t *testing.T) {
 				}
 				g.drawing = false
 				g.updateSplit()
-				if !viewShows(g.splitView(opp), g.playGrid(), w.Hex()) {
+				if !g.panelShows(opp, w.Hex()) {
 					t.Errorf("turn %d: walker on %v out of its panel's view", turn, w.Hex())
 				}
 			}

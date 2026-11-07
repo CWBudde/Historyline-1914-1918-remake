@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -115,7 +114,6 @@ func (a *app) upgrade(hd hdArt) {
 			a.battle.screens = hd.screens
 		}
 		dospanel.SetSurfaces(hd.screens.surfaces())
-		dosscreen.SetArt(hd.screens.frameArt())
 		if old != nil {
 			old.packs.release()
 		}

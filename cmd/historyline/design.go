@@ -120,8 +120,9 @@ func (g *game) origAvailable() string {
 	return g.orig.err
 }
 
-// refreshDesign re-lays the split screen out for the design now shown: a
-// painted map fills the slim frame, the other designs use the plate frame.
+// refreshDesign re-lays the split screen out for the design now shown: the
+// map's extent, and so the zoom floor and the views' shifts, follow the
+// painted backdrop where it is shown.
 func (g *game) refreshDesign() {
 	if g.split != nil {
 		g.layoutSplit()

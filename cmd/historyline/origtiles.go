@@ -10,9 +10,9 @@ import (
 // origArt is the original game's map art: the terrain tiles, summer and
 // winter, by terrain record, and the unit sprites. One of the map designs F8
 // cycles through (design.go), drawn in place of the remake's art under
-// -rules dos, for comparison on a local machine: only builds with
-// -tags origtiles (just play-original) can load them, from the git-ignored
-// original/ folder; other builds skip this design and say why.
+// -rules dos, for comparison on a local machine: it loads them from the
+// git-ignored original/ folder when that holds the original game; without it
+// F8 skips this design and says why. None of it is shipped.
 type origArt struct {
 	tiles [2][]*ebiten.Image // summer, winter
 	// units are the unit frames by side (0, 1, 2 neutral) and moved (0, 1):

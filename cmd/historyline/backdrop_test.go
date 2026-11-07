@@ -113,11 +113,10 @@ func TestBackdropOnLevel(t *testing.T) {
 	}
 }
 
-// In the slim frame of a backdrop the human panel picks every playable hex
-// whose centre lies in its opening, also those the plate frame's teeth cover,
-// and nothing on the frame.
+// The human panel picks every playable hex whose centre lies in its opening,
+// also those beyond the view's block of whole cells, and nothing on the frame.
 func TestSlimPick(t *testing.T) {
-	uncovered := 0 // picked hexes the plate frame covers, over all windows
+	uncovered := 0 // picked hexes beyond the block, over all windows
 	for _, tc := range []struct {
 		name string
 		w, h int
@@ -128,7 +127,6 @@ func TestSlimPick(t *testing.T) {
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			g, d := newSplitTest(t, passPlanner{}, tc.w, tc.h)
-			g.split.frame.Slim = true
 			// A view inside the map, with hexes beyond the block on every side.
 			s := g.split
 			pair, row := clampView(g.playGrid(), s.screen.Cols, s.screen.Rows, 2, 3)
@@ -163,20 +161,10 @@ func TestSlimPick(t *testing.T) {
 					t.Errorf("frame pixel %v picks %v", p, c)
 				}
 			}
-			// The plate frame keeps picking through its openings only.
-			g.split.frame.Slim = false
-			for line := v.Row * 2; line < (v.Row+v.Rows)*2; line++ {
-				for col := v.Pair; col < v.Pair+(v.Cols+1)/2; col++ {
-					c := hexgrid.Coord{Line: line, Col: col}
-					if g.panelShows(d.side, c) != viewShows(v, play, c) {
-						t.Fatalf("plate frame: %v shown %v", c, g.panelShows(d.side, c))
-					}
-				}
-			}
 		})
 	}
 	if uncovered == 0 {
-		t.Error("no window picks a hex the plate frame covers")
+		t.Error("no window picks a hex beyond the block of whole cells")
 	}
 }
 
@@ -198,9 +186,6 @@ func TestSlimNoGap(t *testing.T) {
 			g.backdrop = &backdrop{ww: float64(ww), wh: float64(wh)}
 			g.layoutSplit()
 			s := g.split
-			if !s.frame.Slim {
-				t.Fatal("a backdrop lays out the slim frame")
-			}
 			g.zoomSplit(-len(dosscreen.Zooms))
 			base := dosscreen.Layout(tc.w, tc.h, 1)
 			floor := base.FillZoom(g.slimWorld().X1, g.slimWorld().Y1)

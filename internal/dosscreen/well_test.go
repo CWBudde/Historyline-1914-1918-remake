@@ -46,35 +46,21 @@ func TestWellGeometry(t *testing.T) {
 	}
 }
 
-// Over the painted chrome the text area and the bar cover only the well's fill.
-func TestWellOverFill(t *testing.T) {
-	s := Layout(1280, 720, 1.5)
-	img := PaintChrome(s)
-	for side := range s.Status {
-		for _, r := range []Rect{s.WellText(side), s.WellBar(side)} {
-			for y := r.Y; y < r.Bottom(); y++ {
-				for x := r.X; x < r.Right(); x++ {
-					if c := img.RGBAAt(x, y); c != wellFill {
-						t.Fatalf("side %d: %+v at %d,%d is %v, not the fill", side, r, x, y, c)
-					}
-				}
-			}
-		}
-	}
-}
-
 // The text colours are the reference's pale green (left) and cream (right); the
 // numbers are amber and the bar grey, all well off the dark fill.
 func TestWellColours(t *testing.T) {
+	dark := color.RGBA{0x18, 0x1C, 0x00, 0xFF}
 	if TextColour(0) != (color.RGBA{0xBE, 0xD3, 0x92, 0xFF}) || TextColour(1) != (color.RGBA{0xFB, 0xE3, 0xC7, 0xFF}) {
 		t.Errorf("text colours %v %v", TextColour(0), TextColour(1))
 	}
 	for _, c := range []color.RGBA{TextColour(0), TextColour(1), NumberColour, BarColour} {
-		if c.A != 255 || luma(c) < luma(wellFill)+90 {
-			t.Errorf("colour %v does not stand off the fill %v", c, wellFill)
+		if c.A != 255 || luma(c) < luma(dark)+90 {
+			t.Errorf("colour %v does not stand off the dark strip %v", c, dark)
 		}
 	}
 	if NumberColour == TextColour(0) || NumberColour == TextColour(1) {
 		t.Errorf("numbers %v share a text colour", NumberColour)
 	}
 }
+
+func luma(c color.RGBA) float64 { return 0.299*float64(c.R) + 0.587*float64(c.G) + 0.114*float64(c.B) }
