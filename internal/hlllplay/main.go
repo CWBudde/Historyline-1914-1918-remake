@@ -9,7 +9,7 @@
 //	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full]   print the current phase prompt
 //	hl llmplay suggest -dir GAME          print the coach's action-phase orders (repairs, builds, focus fire) as JSONL
 //	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback)
-//	hl llmplay run    [-level REF] [-out DIR] [-driver fallback|file] [-max 300] [-frames] [-lessons FILE] [-oracle]
+//	hl llmplay run    [-level REF] [-out DIR] [-driver fallback|file|coach|strike] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hl llmplay replay  -dir GAME          verify the transcript reproduces every state hash
 //	hl llmplay render  -dir GAME [-every 1] [-density 2] [-div 8] [-backdrop level|FILE] [-fps 2] [-width 1440] [-crf 28] [-gif]
 //	                                    replay to frames/*.png + game.gif + game.mp4 (ffmpeg)
@@ -270,7 +270,7 @@ func (c *command) cmdRun(args []string) (err error) {
 	fs.SetOutput(c.stderr)
 	level := fs.String("level", "1918-02:cp", "shipped level ref")
 	out := fs.String("out", "", "game dir")
-	driver := fs.String("driver", "fallback", "fallback | file (prompt.txt/orders.jsonl in the game dir)")
+	driver := fs.String("driver", "fallback", "fallback | file (prompt.txt/orders.jsonl in the game dir) | coach | strike (RHEIN as CP only)")
 	maxR := fs.Int("max", 300, "max resolutions")
 	oracle := fs.Bool("oracle", false, "training oracle")
 	frames := fs.Bool("frames", false, "render frames + game.gif")
@@ -281,8 +281,11 @@ func (c *command) cmdRun(args []string) (err error) {
 	if fs.NArg() != 0 {
 		return fmt.Errorf("unexpected positional arguments: %v", fs.Args())
 	}
-	if *driver != "fallback" && *driver != "file" && *driver != "coach" {
-		return fmt.Errorf("driver %q: want fallback, file or coach", *driver)
+	if *driver != "fallback" && *driver != "file" && *driver != "coach" && *driver != "strike" {
+		return fmt.Errorf("driver %q: want fallback, file, coach or strike", *driver)
+	}
+	if *driver == "strike" && *level != "1918-02:cp" {
+		return fmt.Errorf("driver strike only plays 1918-02:cp, not %s", *level)
 	}
 	s, side, err := newSession(*level)
 	if err != nil {
@@ -304,9 +307,13 @@ func (c *command) cmdRun(args []string) (err error) {
 	}
 	var d llmplay.Driver
 	switch *driver {
-	case "coach":
+	case "coach", "strike":
 		// Fast path: no prompts are built.
-		ce, cerr := g.PlayCoach(&llmplay.Coach{}, *maxR)
+		var pl llmplay.PhasePlayer = &llmplay.Coach{}
+		if *driver == "strike" {
+			pl = &llmplay.Strike{}
+		}
+		ce, cerr := g.PlayCoach(pl, *maxR)
 		if cerr != nil {
 			return cerr
 		}

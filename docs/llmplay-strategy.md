@@ -1,9 +1,34 @@
 # Winning RHEIN as CP — the living strategy
 
-Executable form: `internal/llmplay.Coach` (`just llmplay run -driver coach`).
-This file is refined after every lost battle; coach version notes cite it.
+Executable form: `internal/llmplay.Strike` (`just llmplay run -driver strike`).
 Target: RHEIN = `1918-02:cp`, CP (side 0) vs `dosai.Planner` (EC), DOS rules,
 fully deterministic — every number below can be checked with `Engage`.
+
+## The winning plan (HQ capture, resolution 23)
+
+`Strike` ends with CP 22 and EC 82 units, score 3843. Hexes here are 0-based {line col};
+the sections below use the prompt's 1-based [line,col]. It rests on one habit: every dosai
+unit walks to the nearest seen enemy, planes included, though most of them cannot hurt a plane.
+
+- **Bait.** Fokker and Junkers fly to the south edge, {44 14} and {44 9}. The force in the
+  neck follows and stands on lines 37-43 by resolution 10. It also stops marching on the CP
+  HQ, which falls at 26 instead of 18. Ground units landed by the lake draw EC into the neck
+  instead, so nothing lands before the bait has worked.
+- **Lift.** The factory builds cavalry with all the energy there is. The eastern ship sails
+  at 7 with 2 cavalry, 2 eliteInf and 2 antiTank and reaches {31 17} at 13.
+- **Clear.** The Junkers leaves at 11 and bombs the heavy gun at {19 14}, then the pocket's
+  mobile units.
+- **Run.** Landed units march nearest-first, pricing a hex next to an enemy as a lost move
+  and stopping where bunkers and guns reach least. They do not shoot, since return fire costs
+  strength. The EC HQ opens only to the north, from {12 14}, {13 13} or {13 14}. A cavalry
+  group of size 3 captures.
+
+The line is brittle. Landing at 9 or 11 loses the runners, and moving the Junkers to 9 or 13
+loses at 26. Engine or dosai changes will probably break it, as the income fix broke the
+annihilation win below; `TestStrikeWinsRhein` catches that.
+
+The rest of the RHEIN part predates the corrected income and build lists: its numbers come
+from those older rules and no longer reproduce, and the general `Coach` now loses at 30.
 
 ## The situation
 
@@ -140,20 +165,20 @@ treasury, is the bug (see v7/v8 below).
   instead of retreating to repair. Depot [19,28] taken at 11, factory [15,26]
   at 65, EC annihilated (its HQ ring of bunkers died to adjacent anti-tank
   fire before any capturer had to dash). Deterministic: two runs produce
-  byte-identical transcripts; `TestCoachPlaysFullGame` pins the win.
-  Transcript committed: `levels/1918-02/replays/cp.jsonl`.
+  byte-identical transcripts.
 
 ## Open fronts
 
-- The win takes 148 resolutions; a faster
-  EC-HQ dash after [15,26] (capturers built there, ≥2 axes in one movement
-  phase) should shorten it — unproven.
+- A win that does not depend on one exact timing is still open. The capture of the
+  neutral depot and of EC's factories, which moves income to CP, was not measured on the
+  corrected rules.
 - Rail shuttles (transTrain east→west) are still unused by the coach.
 
 # CANDL (1918-04:cp)
 
-Won: the recording captures the EC HQ at resolution 103 (the plan is the last
-section). The plain coach loses the CP HQ at resolution 18.
+Not won on the current rules. Under the older income and build lists a recording captured
+the EC HQ at resolution 103 (the plan is the last section); it no longer replays, and its
+numbers are from those rules. The plain coach then lost the CP HQ at resolution 18.
 
 ## The situation
 
@@ -209,8 +234,7 @@ Production and buildings:
 
 ## The winning plan (HQ capture, res 103)
 
-`levels/1918-04/replays/cp.jsonl` ends `replay OK: 103 resolutions, every
-state hash matches, ended winner=side0 won=[hq] score=2828`. North of line 45
+`levels/1918-04/replays/cp.jsonl` recorded a win at 103, score 2828. North of line 45
 resolutions 1-30 follow a scripted HQ-lock opening where its orders
 stay legal, with the coach's attacks added. From 31 a script moves every unit
 on `Session.View(0)` and the side's own legal queries and takes the coach's

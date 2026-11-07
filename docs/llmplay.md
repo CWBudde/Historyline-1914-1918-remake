@@ -23,16 +23,16 @@ just llmplay review -dir ... -lessons LESSONS.md           # blunders -> review.
 just llmplay gif -dir ...                                  # frames/*.png -> game.gif
 ```
 
-`run -driver fallback|file|coach` plays a whole game unattended; `-frames`
+`run -driver fallback|file|coach|strike` plays a whole game unattended; `-frames`
 records a PNG per resolution (omniscient `TrueView` projected through
 `maprender`) plus `game.gif`. `-oracle` appends the opponent's exact planned
 commands to the prompt (training only; marked in the transcript header).
 **`coach` is the fast self-player**: it drives the session API directly (no
 prompt is ever rendered; ~130 ms/resolution including the two-resolution
-oracle lookahead on a Clone) and implements the winning strategy of
-[llmplay-strategy.md](llmplay-strategy.md) — it wins RHEIN against dosai by
-annihilation at resolution 148, deterministically (pinned by
-`TestCoachPlaysFullGame`). `fallback` (dosai both sides) loses the HQ
+oracle lookahead on a Clone) and plays any level; on RHEIN it loses the CP HQ
+at resolution 30. **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
+at resolution 23, deterministically (pinned by `TestStrikeWinsRhein`; see
+[llmplay-strategy.md](llmplay-strategy.md)). `fallback` (dosai both sides) loses the HQ
 in 7 for comparison.
 
 ## Observe — what the model sees (fair play)
@@ -85,7 +85,7 @@ loss: `prompt` on the dir resumes from `save.json`. To **watch** a finished
 game, `render` replays the transcript (hash-verified) and renders
 `frames/NNNN.png` (downscaled by `-div`), stitches `game.gif`, and encodes
 `game.mp4` with ffmpeg (`-width`/`-crf` trade size for quality; defaults
-1440px/CRF 28 at 2 fps — the 148-resolution win is a 74 s video;
+1440px/CRF 28 at 2 fps, so 148 resolutions make a 74 s video;
 CRF 34 at 960px shrinks it to 0.2 MB but the units all but vanish). The GIF
 is far larger (~30 MB) and only a fallback for players without H.264.
 
@@ -184,8 +184,8 @@ every candidate against the annotated gains.
    different axes in one movement phase behind an A7V screen.
 
 Baseline evidence: fallback-vs-dosai (dosai both sides) loses the CP
-HQ in 7 resolutions — the level is won by the economy/capture game dosai
-cannot play, not by rushing.
+HQ in 7 resolutions. The one recorded win is not this economy game but the
+plane-bait strike at the top of [llmplay-strategy.md](llmplay-strategy.md).
 
 ## Tests
 

@@ -14,16 +14,16 @@ cp levels/1918-02/replays/cp.jsonl "$d/transcript.jsonl"
 just llmplay replay -dir "$d"
 ```
 
-- `1918-02/replays/cp.jsonl` — RHEIN (`1918-02:cp`), coach
-  self-play (v32): annihilation at resolution 148, score 6055.
-  Regenerated 2026-11-04 with
-  `hl llmplay run -driver coach -level 1918-02:cp`;
-  `TestCoachPlaysFullGame` pins the same outcome.
+- `1918-02/replays/cp.jsonl` — RHEIN (`1918-02:cp`), `Strike`:
+  HQ capture at resolution 23, score 3843. Regenerate with
+  `hl llmplay run -driver strike -level 1918-02:cp`;
+  `TestStrikeWinsRhein` pins the same outcome.
 - `1918-04/replays/cp.jsonl` — CANDL (`1918-04:cp`), the south
   trail marching from resolution 1 around the heavy artillery beside
   the probe opening, trains ferrying its foot units north, then a
   scripted march from 31: HQ capture at resolution 103, score 2828. Strategy:
-  `docs/llmplay-strategy.md` ("The winning plan").
+  `docs/llmplay-strategy.md` ("The winning plan"). Stale: recorded on the older
+  income and build lists, it fails the hash check from the first resolution.
 
 Engine changes that alter outcomes will break the state hashes;
 regenerate the recording and the numbers above when that happens.
