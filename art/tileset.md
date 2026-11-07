@@ -27,21 +27,16 @@ Autumn and spring are new. They change only how a map looks, never the rules:
   As with winter, a seasonal source is an edit of the selected summer master: change the season only and
   keep every outline and position.
 
-Painted backdrops already show their own season. Tiles matter for the months without a backdrop and for
-the tile map design that F8 switches to. Colour references for autumn: FRONT/LEVEL (`1915-10`). Colour
+Painted backdrops already show their own season. Tiles matter for the tile map design that F8 switches
+to. Colour references for autumn: FRONT/LEVEL (`1915-10`). Colour
 references for spring: NOISE/TEMPO (`1915-04`), PLANE/CLEAN (`1916-04`), INFRA/ZOMBI (`1917-04`) and
 CANDL/ORDER (`1918-04`).
-
-| Season | Months without a backdrop that use it |
-| --- | --- |
-| autumn | 1915-09, 1916-09, 1917-09, 1918-09 |
-| spring | 1915-05, 1916-05, 1917-03, 1917-05, 1918-03, 1918-05 |
 
 ## Coverage of the original
 
 Every original terrain record has a look (`internal/origview/looks.json`): a remake terrain plus overlays.
 Every level folder composes in its season with no missing context tile (`hl assets terrain-gaps`). One
-gap remains: 291 summer and 29 winter crater clusters have no stamp and draw the continuous shell-hole
+gap remains: 290 summer and 29 winter crater clusters have no stamp and draw the continuous shell-hole
 field instead.
 
 ## Families

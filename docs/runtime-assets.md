@@ -165,7 +165,7 @@ which binds to the half depot's records, and draws the construction site `tile/s
 (`dosplay.Session.Reworked`). The destroyed depot `tile/ruin*` is no longer drawn.
 
 Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
-transparent infrastructure patch for either seasonal ground; sapper placement and removal are not bound yet.
+transparent infrastructure patch that no map draws: the original has no barbed wire.
 
 A trench hex draws the course its neighbours give its piece (`mapcompose.TrenchShape`): an edge between
 two trench hexes is a link when either piece has a port across it, a port beyond the map stays a link, and
@@ -369,5 +369,5 @@ page shows the terrain download the same way.
 ## Open
 
 Packs for portraits, animation metadata (all listed in `assets/index.json`) and fonts;
-ownership strips; contexts for summer/winter mixtures inside one map; live pack switching;
+desktop ownership strips; live pack switching;
 art approval and embedding.
