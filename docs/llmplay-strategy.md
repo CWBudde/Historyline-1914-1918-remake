@@ -495,3 +495,28 @@ The coach lost the CP HQ at 8 (its door stood empty), the fallback at 24, the lo
 - The finish: four cavalry ride down the rail edge (columns 1–2); one stops on [42,8] next to the heavy
   gun, which cannot fire at range 1, and takes the HQ the next move. A capturer listed as DESTROY in
   THREATS dies before it can step onto the entrance (battles resolve before moves).
+
+# BUMMM (1915-08:ec)
+
+A sea map. Every automatic player was ground down by CP's army (the fallback lasted to 49).
+
+## The recorded win (HQ capture, resolution 46, score 2374)
+
+- Both CP fleets sail straight for the EC bay (lines 58–72), where EC fights with the heavy gun [61,6]
+  beside it. Destroyers, battleships and submarines are two-cell units (only the head takes orders);
+  ship damage depends heavily on experience, distance and pincer: an experienced battleship sinks any
+  small ship from 2–4 hexes, and a CP torpedo boat with pincer or CP battleship e21, once experienced,
+  sinks a full EC battleship in one shot. Kill e21 in one action phase (a submarine hit, then the
+  battleship from about 3 hexes). CP's land army then floods down the west strip: EC loses the war of
+  attrition, and the win is a landing in the north.
+- The recording is the fallback's game to 22 (a fork: the CP fleet sunk but one torpedo boat, transport
+  u91 afloat) and play from the prompt after: a supply car, two infantry, an elite and a charron board
+  u91 at the lakeside hex [47,7] (23–26); destroyers and torpedo boats escort it north (they kill the
+  six roaming Fokkers in one or two shots; EC builds no AA) and it lands from the lakeside hex [13,20]
+  onto [10,19], [11,20], [12,19] (38).
+- Ships load and unload only on lakeside hexes; a transport cannot take units after it moved that phase;
+  cargo exits up to 8 move points away. Take the CP factory [11,19] first (40: it stops the builds on the
+  route, and builds cavalry for you), then walk the east edge [10,19], [4,18] to the doorstep [3,18],
+  out of bunker e3's reach (only heavy gun e7 hits it, for about 1), and onto the HQ [4,17] (46).
+- At home, units on the three HQ doorsteps [61,2], [62,1], [62,2] and the heavy gun [61,6] killing a
+  capturer per turn hold the EC HQ.

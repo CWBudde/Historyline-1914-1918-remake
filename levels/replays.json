@@ -185,6 +185,14 @@
       "score": 922
     },
     {
+      "level": "1915-08:ec",
+      "code": "BUMMM",
+      "side": 1,
+      "driver": "llm",
+      "resolutions": 46,
+      "score": 2374
+    },
+    {
       "level": "1915-09:cp",
       "code": "SCROL",
       "side": 0,
