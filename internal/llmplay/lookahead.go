@@ -2,6 +2,7 @@ package llmplay
 
 import (
 	"maps"
+	"slices"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
@@ -21,10 +22,12 @@ type Lookahead struct {
 	Config  *CoachConfig // the base doctrine; nil: DefaultCoachConfig
 	Horizon int          // resolutions played ahead; 0: 8
 	Exact   bool         // rollouts replan with the coach's own oracle (3x slower)
+	Wide    bool         // also the widePostures
 	// Trace, if set, gets each decision: the posture values and the pick.
 	Trace func(turn int, values []int, pick int)
 
 	c       Coach
+	list    []posture
 	cfgs    []*CoachConfig
 	posture int
 }
@@ -46,6 +49,13 @@ var postures = []posture{
 	{"turtle", func(c *CoachConfig) { c.Turtle, c.Dash = true, false }},
 }
 
+// widePostures are further plans a Wide Lookahead considers: the foot
+// capturers take buildings instead of racing for the enemy HQ.
+var widePostures = []posture{
+	{"grab", func(c *CoachConfig) { c.Dash = false }},
+	{"grab-cautious", func(c *CoachConfig) { c.Dash, c.Caution = false, 300 }},
+}
+
 // keepBonus favours the posture in play: switching on a hair's difference
 // makes the army march back and forth.
 const keepBonus = 40
@@ -60,7 +70,11 @@ func (l *Lookahead) PlayPhase(s *dosplay.Session, side int) ([]dosplay.Event, er
 		if base == nil {
 			base = DefaultCoachConfig()
 		}
-		for _, p := range postures {
+		l.list = postures
+		if l.Wide {
+			l.list = append(slices.Clone(postures), widePostures...)
+		}
+		for _, p := range l.list {
 			c := *base
 			p.apply(&c)
 			l.cfgs = append(l.cfgs, &c)
@@ -74,13 +88,13 @@ func (l *Lookahead) PlayPhase(s *dosplay.Session, side int) ([]dosplay.Event, er
 }
 
 // Posture is the name of the posture in play.
-func (l *Lookahead) Posture() string { return postures[l.posture].name }
+func (l *Lookahead) Posture() string { return l.list[l.posture].name }
 
 func (l *Lookahead) choose(s *dosplay.Session, side int) {
-	values := make([]int, len(postures))
+	values := make([]int, len(l.list))
 	best, bestV := l.posture, 0
 	found := false
-	for i := range postures {
+	for i := range l.list {
 		v, ok := l.rollout(s, side, i)
 		if !ok {
 			values[i] = -1 << 40

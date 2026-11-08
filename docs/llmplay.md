@@ -25,7 +25,7 @@ just llmplay gif -dir ...                                  # frames/*.png -> gam
 ```
 
 `run -driver NAME` plays a whole game unattended with a registered player
-(`llmplay.Players`: `coach`, `lookahead`, `fallback`, `strike`) or, with `file`, the orders
+(`llmplay.Players`: `coach`, `lookahead`, `lookahead-deep`, `lookahead-wide`, `fallback`, `strike`) or, with `file`, the orders
 an outside agent writes to `orders.jsonl` for each `prompt.txt`; `-frames`
 records a PNG per resolution (omniscient `TrueView` projected through
 `maprender`) plus `game.gif`. `-oracle` appends the opponent's exact planned
@@ -41,6 +41,9 @@ on a Clone against dosai, values the end (a win or loss, material at
 strength, buildings, capturers at an HQ: `Evaluate`) and plays the best
 posture. It knows dosai's replies, so it is an oracle player, and about 20
 times slower than the coach (its rollouts skip the coach's own oracle).
+`lookahead-deep` plays 16 resolutions ahead instead of 8; `lookahead-wide`
+also weighs the grab postures (foot capturers take buildings instead of
+racing for the enemy HQ).
 **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
 at resolution 25, deterministically (pinned by `TestStrikeWinsRhein`; see
 [llmplay-strategy.md](llmplay-strategy.md)). `fallback` (dosai both sides) loses the HQ

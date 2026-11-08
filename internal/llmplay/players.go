@@ -26,6 +26,8 @@ type Player struct {
 var Players = []Player{
 	{Name: "coach", Doc: "the general self-player", New: func(ref string) PhasePlayer { return &Coach{Config: CoachConfigFor(ref)} }},
 	{Name: "lookahead", Doc: "the coach choosing its posture by playing each ahead against dosai (an oracle)", New: func(ref string) PhasePlayer { return &Lookahead{Config: CoachConfigFor(ref)} }},
+	{Name: "lookahead-deep", Doc: "lookahead playing 16 resolutions ahead", New: func(ref string) PhasePlayer { return &Lookahead{Config: CoachConfigFor(ref), Horizon: 16} }},
+	{Name: "lookahead-wide", Doc: "lookahead also weighing the grab postures", New: func(ref string) PhasePlayer { return &Lookahead{Config: CoachConfigFor(ref), Wide: true} }},
 	{Name: "fallback", Doc: "the computer side's own planner", New: func(string) PhasePlayer { return &FallbackPlayer{} }},
 	{Name: "strike", Doc: "RHEIN's scripted HQ strike", Levels: []string{"1918-02:cp"}, New: func(string) PhasePlayer { return &Strike{} }},
 }
