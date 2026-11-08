@@ -89,12 +89,60 @@
       "score": 719
     },
     {
+      "level": "1915-02:ec",
+      "code": "BIMBO",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 22,
+      "score": 1561
+    },
+    {
+      "level": "1915-03:ec",
+      "code": "SABRE",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 24,
+      "score": 664
+    },
+    {
+      "level": "1915-04:ec",
+      "code": "TEMPO",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 56,
+      "score": 1292
+    },
+    {
+      "level": "1915-05:cp",
+      "code": "TRACK",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 15,
+      "score": 568
+    },
+    {
       "level": "1915-05:ec",
       "code": "TOMMY",
       "side": 1,
       "driver": "fallback",
       "resolutions": 32,
       "score": 281
+    },
+    {
+      "level": "1915-06:ec",
+      "code": "BARON",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 76,
+      "score": 662
+    },
+    {
+      "level": "1915-07:cp",
+      "code": "LIGHT",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 35,
+      "score": 890
     },
     {
       "level": "1915-07:ec",
@@ -105,12 +153,28 @@
       "score": 922
     },
     {
+      "level": "1915-09:cp",
+      "code": "SCROL",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 45,
+      "score": 932
+    },
+    {
       "level": "1915-09:ec",
       "code": "CHALK",
       "side": 1,
       "driver": "fallback",
       "resolutions": 38,
       "score": 749
+    },
+    {
+      "level": "1915-10:ec",
+      "code": "LEVEL",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 200,
+      "score": 1381
     },
     {
       "level": "1916-01:cp",
@@ -137,6 +201,14 @@
       "score": 457
     },
     {
+      "level": "1916-03:cp",
+      "code": "DRUCK",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 89,
+      "score": 1117
+    },
+    {
       "level": "1916-03:ec",
       "code": "MEUSE",
       "side": 1,
@@ -161,12 +233,36 @@
       "score": 2207
     },
     {
+      "level": "1916-07:cp",
+      "code": "PLATE",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 19,
+      "score": 490
+    },
+    {
       "level": "1916-07:ec",
       "code": "SOMME",
       "side": 1,
       "driver": "fallback",
       "resolutions": 24,
       "score": 315
+    },
+    {
+      "level": "1916-09:cp",
+      "code": "DROID",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 91,
+      "score": 1388
+    },
+    {
+      "level": "1916-10:cp",
+      "code": "BALON",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 27,
+      "score": 1139
     },
     {
       "level": "1916-11:cp",
@@ -177,12 +273,28 @@
       "score": 705
     },
     {
+      "level": "1916-11:ec",
+      "code": "CROWN",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 36,
+      "score": 780
+    },
+    {
       "level": "1917-01:cp",
       "code": "UBOOT",
       "side": 0,
       "driver": "fallback",
       "resolutions": 40,
       "score": 1612
+    },
+    {
+      "level": "1917-02:ec",
+      "code": "SEVEN",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 58,
+      "score": 562
     },
     {
       "level": "1917-03:cp",
@@ -233,6 +345,14 @@
       "score": 807
     },
     {
+      "level": "1917-09:cp",
+      "code": "SPELL",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 27,
+      "score": 706
+    },
+    {
       "level": "1917-09:ec",
       "code": "BEAMS",
       "side": 1,
@@ -281,6 +401,14 @@
       "score": 1741
     },
     {
+      "level": "1918-03:ec",
+      "code": "ARRAS",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 84,
+      "score": 1411
+    },
+    {
       "level": "1918-04:cp",
       "code": "CANDL",
       "side": 0,
@@ -288,6 +416,14 @@
       "resolutions": 103,
       "score": 2828,
       "stale": "no win on the current rules; the scripted south trail won at 103 before the computer side built (ae2c4316) and loses at 24 today"
+    },
+    {
+      "level": "1918-05:cp",
+      "code": "SCOUT",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 25,
+      "score": 724
     },
     {
       "level": "1918-05:ec",
@@ -314,6 +450,14 @@
       "score": 2749
     },
     {
+      "level": "1918-08:cp",
+      "code": "TROLL",
+      "side": 0,
+      "driver": "lookahead",
+      "resolutions": 27,
+      "score": 545
+    },
+    {
       "level": "1918-08:ec",
       "code": "BLACK",
       "side": 1,
@@ -336,6 +480,14 @@
       "driver": "fallback",
       "resolutions": 145,
       "score": 2422
+    },
+    {
+      "level": "1918-10:ec",
+      "code": "LIBRE",
+      "side": 1,
+      "driver": "lookahead",
+      "resolutions": 110,
+      "score": 2799
     },
     {
       "level": "1918-11:ec",

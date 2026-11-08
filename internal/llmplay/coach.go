@@ -71,6 +71,11 @@ type CoachConfig struct {
 	Battery     int  // medium guns to build
 	TankFirst   int  // energy from which tanks come before foot units
 	AA          int  // mobile AA to build against enemy air
+
+	// Postures (Lookahead switches between them; zero is the plain coach).
+	Caution int  // percent weight of the threat penalty (0: 100)
+	Siege   int  // 1: siege whatever the enemy has left, 2: hard siege
+	Turtle  bool // every non-capturer ground unit holds at the own HQ
 }
 
 // DefaultCoachConfig is the configuration the zero Coach plays: RHEIN's.
@@ -106,6 +111,7 @@ type Coach struct {
 	stickyReinforce map[int]bool
 	seal            []hexgrid.Coord // found once, on the opening position
 	sealDone        bool
+	quick           bool // no oracle replan (Lookahead's rollouts)
 }
 
 type coachPlan struct {
@@ -211,6 +217,12 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachC
 		if e.Budget > 0 && !p.longRange(e) && e.Domain != dosplay.Artillery {
 			p.siegeHard = false
 		}
+	}
+	switch cfg.Siege {
+	case 1:
+		p.siege = true
+	case 2:
+		p.siege, p.siegeHard = true, true
 	}
 	p.findDashers()
 	// Home guard: the 8 ground units nearest an own HQ form its
@@ -709,10 +721,17 @@ func (c *Coach) PlayPhase(s *dosplay.Session, side int) ([]dosplay.Event, error)
 	if s.Ended() != nil || s.Ready(side) {
 		return nil, nil
 	}
-	if s.Phase(side) == dosrules.PhaseMovement {
+	if s.Phase(side) == dosrules.PhaseMovement && !c.quick {
 		return c.moveOracle(s, side)
 	}
 	p := c.plan(s, side)
+	if s.Phase(side) == dosrules.PhaseMovement {
+		evs, err := p.move()
+		if err != nil {
+			return evs, err
+		}
+		return append(evs, s.Confirm(side)...), nil
+	}
 	evs, err := p.act()
 	if err != nil {
 		return evs, err
@@ -864,6 +883,9 @@ func (p *coachPlan) threat(u dosplay.UnitView, c hexgrid.Coord) int {
 	}
 	// The worst envelope dominates; the sum only shades it. (v1 summed
 	// everything and the whole army froze out of range.)
+	if p.cfg.Caution > 0 {
+		return (worst + danger/8) * p.cfg.Caution / 100
+	}
 	return worst + danger/8
 }
 
@@ -930,6 +952,8 @@ func (p *coachPlan) goalFor(u dosplay.UnitView) goalKind {
 	switch {
 	case p.damaged(u) && len(p.ownB) > 0:
 		return goalHome
+	case p.cfg.Turtle && !p.canCapture(u) && u.Domain != dosplay.Air && len(p.ownHQs) > 0:
+		return goalHQ // the turtle posture: everything back to the HQ screen
 	case p.s.Sapper(u.Index):
 		return goalHQ // trench the HQ doorstep, wherever it was built
 	case p.reinforce[u.Index]:

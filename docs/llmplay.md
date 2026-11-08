@@ -25,7 +25,7 @@ just llmplay gif -dir ...                                  # frames/*.png -> gam
 ```
 
 `run -driver NAME` plays a whole game unattended with a registered player
-(`llmplay.Players`: `coach`, `fallback`, `strike`) or, with `file`, the orders
+(`llmplay.Players`: `coach`, `lookahead`, `fallback`, `strike`) or, with `file`, the orders
 an outside agent writes to `orders.jsonl` for each `prompt.txt`; `-frames`
 records a PNG per resolution (omniscient `TrueView` projected through
 `maprender`) plus `game.gif`. `-oracle` appends the opponent's exact planned
@@ -34,7 +34,14 @@ commands to the prompt (training only; marked in the transcript header).
 prompt is ever rendered; ~130 ms/resolution including the two-resolution
 oracle lookahead on a Clone) and plays any level; its map-bound knobs
 (`CoachConfig`) are tuned on RHEIN only. On RHEIN it loses the CP HQ at
-resolution 30. **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
+resolution 30. **`lookahead`** is the coach with a plan search: before each
+movement phase it plays each posture (the plain coach, cautious, bold, siege,
+assault, turtle; `CoachConfig.Caution`, `Siege`, `Turtle`) 8 resolutions ahead
+on a Clone against dosai, values the end (a win or loss, material at
+strength, buildings, capturers at an HQ: `Evaluate`) and plays the best
+posture. It knows dosai's replies, so it is an oracle player, and about 20
+times slower than the coach (its rollouts skip the coach's own oracle).
+**`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
 at resolution 25, deterministically (pinned by `TestStrikeWinsRhein`; see
 [llmplay-strategy.md](llmplay-strategy.md)). `fallback` (dosai both sides) loses the HQ
 in 7 for comparison.
@@ -164,7 +171,7 @@ playing the opponent, must reach every recorded state.
 ```sh
 just llmplay corpus status                 # all 104 targets: win, stale, failing or none
 just llmplay corpus verify                 # the same, failing on any recording that no longer wins
-just llmplay corpus sweep [-drivers coach,fallback] [-only 1918-02,1916-05:ec] [-j 4] [-adopt]
+just llmplay corpus sweep [-drivers coach,lookahead,fallback] [-only 1918-02,1916-05:ec] [-j 4] [-adopt]
                                            # play the players on the targets; -adopt takes each new win
 just llmplay corpus adopt -dir GAME        # take a finished winning game (any driver) into the corpus
 just llmplay corpus regen [-level REF]     # make recordings again after an engine or dosai change
