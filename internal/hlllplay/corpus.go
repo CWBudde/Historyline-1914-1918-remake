@@ -176,6 +176,13 @@ func (c *command) corpusRegen(args []string) error {
 		}
 		found = true
 		ne, err := llmplay.Regen(*root, *work, e, *maxR)
+		if err != nil && e.Stale != "" {
+			// Still lost: keep the reason it went stale with.
+			if _, err := fmt.Fprintf(c.stdout, "%-11s still stale: %s\n", e.Level, e.Stale); err != nil {
+				return err
+			}
+			continue
+		}
 		if err != nil {
 			failed = append(failed, e.Level)
 			// Adopt may have rewritten the manifest; mark on a fresh read.

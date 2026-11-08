@@ -1,12 +1,268 @@
 {
   "replays": [
     {
+      "level": "1914-08:cp",
+      "code": "PULSE",
+      "side": 0,
+      "driver": "fallback",
+      "resolutions": 27,
+      "score": 436
+    },
+    {
+      "level": "1914-08:ec",
+      "code": "BATLE",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 26,
+      "score": 424
+    },
+    {
+      "level": "1914-09:cp",
+      "code": "KLUCK",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 9,
+      "score": 682
+    },
+    {
+      "level": "1914-09:ec",
+      "code": "MARNE",
+      "side": 1,
+      "driver": "coach",
+      "resolutions": 22,
+      "score": 355
+    },
+    {
+      "level": "1914-11:cp",
+      "code": "POLYG",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 19,
+      "score": 356
+    },
+    {
+      "level": "1914-11:ec",
+      "code": "NONNE",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 26,
+      "score": 307
+    },
+    {
+      "level": "1914-12:ec",
+      "code": "SPORT",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 99,
+      "score": 1170
+    },
+    {
+      "level": "1915-01:cp",
+      "code": "CROUY",
+      "side": 0,
+      "driver": "fallback",
+      "resolutions": 17,
+      "score": 712
+    },
+    {
+      "level": "1915-01:ec",
+      "code": "AISNE",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 12,
+      "score": 719
+    },
+    {
+      "level": "1915-05:ec",
+      "code": "TOMMY",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 32,
+      "score": 281
+    },
+    {
+      "level": "1915-07:ec",
+      "code": "FLARE",
+      "side": 1,
+      "driver": "coach",
+      "resolutions": 24,
+      "score": 922
+    },
+    {
+      "level": "1915-09:ec",
+      "code": "CHALK",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 38,
+      "score": 749
+    },
+    {
+      "level": "1916-01:cp",
+      "code": "BISON",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 38,
+      "score": 1057
+    },
+    {
+      "level": "1916-01:ec",
+      "code": "FROST",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 85,
+      "score": 590
+    },
+    {
+      "level": "1916-02:ec",
+      "code": "PRINC",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 190,
+      "score": 457
+    },
+    {
+      "level": "1916-03:ec",
+      "code": "MEUSE",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 42,
+      "score": 1149
+    },
+    {
+      "level": "1916-05:cp",
+      "code": "VIRUS",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 21,
+      "score": 1317
+    },
+    {
+      "level": "1916-05:ec",
+      "code": "ALPIN",
+      "side": 1,
+      "driver": "coach",
+      "resolutions": 10,
+      "score": 2207
+    },
+    {
+      "level": "1916-07:ec",
+      "code": "SOMME",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 24,
+      "score": 315
+    },
+    {
+      "level": "1916-11:cp",
+      "code": "ROYAL",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 23,
+      "score": 705
+    },
+    {
+      "level": "1917-01:cp",
+      "code": "UBOOT",
+      "side": 0,
+      "driver": "fallback",
+      "resolutions": 40,
+      "score": 1612
+    },
+    {
+      "level": "1917-03:cp",
+      "code": "SKILL",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 33,
+      "score": 2369
+    },
+    {
+      "level": "1917-03:ec",
+      "code": "CABLE",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 24,
+      "score": 2412
+    },
+    {
+      "level": "1917-05:cp",
+      "code": "SKULL",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 43,
+      "score": 665
+    },
+    {
+      "level": "1917-05:ec",
+      "code": "ANZAC",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 30,
+      "score": 940
+    },
+    {
+      "level": "1917-07:cp",
+      "code": "AUDIO",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 57,
+      "score": 737
+    },
+    {
+      "level": "1917-07:ec",
+      "code": "MASKS",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 38,
+      "score": 807
+    },
+    {
+      "level": "1917-09:ec",
+      "code": "BEAMS",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 24,
+      "score": 756
+    },
+    {
+      "level": "1917-11:ec",
+      "code": "BELLS",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 34,
+      "score": 2243
+    },
+    {
+      "level": "1918-01:cp",
+      "code": "FLAGS",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 58,
+      "score": 817
+    },
+    {
+      "level": "1918-01:ec",
+      "code": "POINT",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 39,
+      "score": 912
+    },
+    {
       "level": "1918-02:cp",
       "code": "RHEIN",
       "side": 0,
       "driver": "strike",
       "resolutions": 25,
       "score": 3967
+    },
+    {
+      "level": "1918-03:cp",
+      "code": "STORY",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 49,
+      "score": 1741
     },
     {
       "level": "1918-04:cp",
@@ -16,6 +272,62 @@
       "resolutions": 103,
       "score": 2828,
       "stale": "no win on the current rules; the scripted south trail won at 103 before the computer side built (ae2c4316) and loses at 24 today"
+    },
+    {
+      "level": "1918-05:ec",
+      "code": "DAMES",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 31,
+      "score": 1009
+    },
+    {
+      "level": "1918-06:cp",
+      "code": "STERN",
+      "side": 0,
+      "driver": "coach",
+      "resolutions": 27,
+      "score": 1938
+    },
+    {
+      "level": "1918-07:cp",
+      "code": "GREEN",
+      "side": 0,
+      "driver": "fallback",
+      "resolutions": 115,
+      "score": 2749
+    },
+    {
+      "level": "1918-08:ec",
+      "code": "BLACK",
+      "side": 1,
+      "driver": "coach",
+      "resolutions": 24,
+      "score": 632
+    },
+    {
+      "level": "1918-09:cp",
+      "code": "GRAND",
+      "side": 0,
+      "driver": "fallback",
+      "resolutions": 91,
+      "score": 1741
+    },
+    {
+      "level": "1918-10:cp",
+      "code": "COAST",
+      "side": 0,
+      "driver": "fallback",
+      "resolutions": 145,
+      "score": 2422
+    },
+    {
+      "level": "1918-11:ec",
+      "code": "TRUCE",
+      "side": 1,
+      "driver": "fallback",
+      "resolutions": 43,
+      "score": 2192
     }
   ]
 }

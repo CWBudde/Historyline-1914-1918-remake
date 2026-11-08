@@ -188,7 +188,7 @@ treasury, is the bug (see v7/v8 below).
 No win is known on the current rules. A recording captured the EC HQ at resolution 103 (the
 plan is the last section), but against a computer side that did not build and with the older
 income; the numbers there come from that game. The corpus marks it stale (the recording is in
-git at ae2c4316), and its CP orders played against today's dosai lose the CP HQ at resolution 24. The plain coach loses it at resolution 10.
+git at ae2c4316), and its CP orders played against today's dosai lose the CP HQ at resolution 24. The plain coach loses it at resolution 14.
 
 ## The situation
 
