@@ -185,6 +185,14 @@
       "score": 749
     },
     {
+      "level": "1915-10:cp",
+      "code": "FRONT",
+      "side": 0,
+      "driver": "llm",
+      "resolutions": 75,
+      "score": 1705
+    },
+    {
       "level": "1915-10:ec",
       "code": "LEVEL",
       "side": 1,

@@ -402,3 +402,27 @@ coach ran to 300 without a winner.
   slots); a carrier that moved this phase cannot take on units; a unit that left a ship cannot board a
   car that left it in the same phase. In the action phase the windowed prompt (`-lines`) leaves out the
   legal attacks: use the full prompt or `suggest`.
+
+# FRONT (1915-10:cp)
+
+The fallback lost the CP HQ at 14 and the coach at 18, to infantry and cavalry walking up the west
+edge (columns 1–3) to [7,4]; the lookahead player held to 182 and lost too.
+
+## The recorded win (HQ capture, resolution 75, score 1705)
+
+- The map: the CP HQ entrance [8,4] has three doorsteps ([6,4], [7,4], [7,5]), the EC HQ entrance
+  [37,12] three ([35,12], [36,11], [36,12]). A mud and trench belt covers lines 15–29 across the map with
+  no rail through it; in the mud infantry moves as fast as cavalry, cavalry 1 hex. The open grass in the
+  east (lines 30–36, columns 12–16) is the way to the EC HQ. The computer's whole army closes from
+  resolution 2.
+- The recording is the lookahead player's game to 20 (a fork: every EC plane dead, CP keeping 4 Fokkers
+  at experience 6) and play from the prompt after.
+- Experienced Fokkers decide the game: only elite infantry, AA and armoured trains hit them, and at
+  experience 6 they one-shot infantry and cavalry, so for 50 resolutions they killed every capturer
+  sent north. Their damage falls fast with strength: repair them at the HQ or factory. Only a full
+  Fokker E.III damages bunkers (1 per hit). Pincers multiply damage (three planes killed the heavy gun
+  [34,10]); AA guns shoot only aircraft, so ground units kill them cheaply.
+- The finish: from about 50 the EC HQ was held by a charron on the doorstep [36,12], the heavy gun
+  [34,10], armoured trains on the rail at [33,11]/[34,11] and a bunker [32,11] at 1/3. Three planes
+  killed the heavy gun (72), a plane and a cavalry pincer the charron (74); at 75 the cavalry on [37,13]
+  moved through [36,12], next to no EC unit, onto [37,12].
