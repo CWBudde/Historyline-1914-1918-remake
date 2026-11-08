@@ -75,6 +75,7 @@ type Game struct {
 	Side    int // the model's side; opponent is 1-Side, played by dosai
 	Dir     string
 	Level   string // "1918-02:cp"
+	Driver  string // the header's driver
 	Planner *dosai.Planner
 	// Oracle appends the opponent's exact planned commands (from a
 	// Clone; dosai is deterministic) to the prompt. Training games
@@ -92,9 +93,10 @@ type Game struct {
 	FallbackPhases int
 }
 
-// NewGame starts a recorded game: it creates dir, writes the transcript
-// header, the static map and save.json. The caller closes with Close.
-func NewGame(s *dosplay.Session, side int, dir, levelRef, code string, oracle bool) (*Game, error) {
+// NewGame starts a recorded game of h.LLMSide on h.Level: it creates dir,
+// writes the transcript header h, the static map and save.json. The caller
+// closes with Close.
+func NewGame(s *dosplay.Session, dir string, h Header) (*Game, error) {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, err
 	}
@@ -102,8 +104,9 @@ func NewGame(s *dosplay.Session, side int, dir, levelRef, code string, oracle bo
 	if err != nil {
 		return nil, err
 	}
-	g := &Game{S: s, Side: side, Dir: dir, Level: levelRef, Planner: &dosai.Planner{}, Oracle: oracle, tr: tr}
-	if err := tr.Write(Header{Kind: "header", Level: levelRef, Code: code, LLMSide: side, Oracle: oracle}); err != nil {
+	h.Kind = "header"
+	g := &Game{S: s, Side: h.LLMSide, Dir: dir, Level: h.Level, Driver: h.Driver, Planner: &dosai.Planner{}, Oracle: h.Oracle, tr: tr}
+	if err := tr.Write(h); err != nil {
 		return nil, err
 	}
 	if err := os.WriteFile(filepath.Join(dir, "map.txt"), []byte(StaticMap(s)), 0o644); err != nil {
@@ -122,7 +125,7 @@ func ResumeGame(s *dosplay.Session, dir string) (*Game, error) {
 	if err != nil {
 		return nil, err
 	}
-	g := &Game{S: s, Side: h.LLMSide, Dir: dir, Level: h.Level, Planner: &dosai.Planner{}, Oracle: h.Oracle, tr: tr}
+	g := &Game{S: s, Side: h.LLMSide, Dir: dir, Level: h.Level, Driver: h.Driver, Planner: &dosai.Planner{}, Oracle: h.Oracle, tr: tr}
 	if n := len(lines); n > 0 {
 		g.resolution = lines[n-1].Resolution
 	}
@@ -254,6 +257,12 @@ func (g *Game) StepPlayer(pl PhasePlayer) ([]dosplay.Event, error) {
 	if err != nil {
 		return nil, err
 	}
+	text := "coach"
+	if t, ok := pl.(interface{ OrdersText() string }); ok {
+		text = t.OrdersText()
+	} else if g.Driver != "" {
+		text = g.Driver
+	}
 	oppEvs, err := g.Planner.Plan(s, 1-g.Side)
 	if err != nil {
 		return nil, err
@@ -282,7 +291,7 @@ func (g *Game) StepPlayer(pl PhasePlayer) ([]dosplay.Event, error) {
 	}
 	line := Line{
 		Kind: "resolution", Resolution: g.resolution, Turn: s.Turn(), PhaseLLM: phaseLLM,
-		OrdersText: "coach", Commands: s.CommandsSince(mark), Events: recs,
+		OrdersText: text, Commands: s.CommandsSince(mark), Events: recs,
 		StateBefore: before, StateAfter: after, EnergyLLM: s.Energy(g.Side),
 		UnitsLLM: st.Sides[g.Side].Units, UnitsOpponent: st.Sides[1-g.Side].Units, Frame: frame,
 	}

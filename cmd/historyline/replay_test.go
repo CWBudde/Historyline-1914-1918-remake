@@ -27,7 +27,7 @@ func recordRhein(t *testing.T, n int) string {
 		t.Fatal(err)
 	}
 	dir := t.TempDir()
-	g, err := llmplay.NewGame(s, 0, dir, "1918-02:cp", "RHEIN", false)
+	g, err := llmplay.NewGame(s, dir, llmplay.Header{Level: "1918-02:cp", Code: "RHEIN"})
 	if err != nil {
 		t.Fatal(err)
 	}

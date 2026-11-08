@@ -23,7 +23,7 @@ func SuggestAct(s *dosplay.Session, side int) (string, error) {
 		return "", err
 	}
 	mark := clone.Mark()
-	if _, err := newCoachPlan(clone, side, nil).act(); err != nil {
+	if _, err := newCoachPlan(clone, side, nil, nil).act(); err != nil {
 		return "", err
 	}
 	var b strings.Builder

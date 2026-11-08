@@ -151,7 +151,7 @@ func (p *coachPlan) planSeal(seal []hexgrid.Coord) {
 			inNow++
 		}
 	}
-	if !holdOn {
+	if !p.cfg.Hold {
 		p.inside = map[hexgrid.Coord]bool{}
 		if len(p.seal) > 0 {
 			for _, h := range seal {
@@ -161,11 +161,11 @@ func (p *coachPlan) planSeal(seal []hexgrid.Coord) {
 			}
 		}
 	}
-	if holdOn && inNow >= sealBroken {
+	if p.cfg.Hold && inNow >= sealBroken {
 		p.seal, p.inside = nil, map[hexgrid.Coord]bool{}
 		return
 	}
-	if holdOn {
+	if p.cfg.Hold {
 		p.guardOf = map[int]hexgrid.Coord{} // with the ground shut, the doorstep needs no guard
 	}
 	for _, h := range seal {
@@ -197,7 +197,7 @@ func (p *coachPlan) planSeal(seal []hexgrid.Coord) {
 			if _, used := p.plug[u.Index]; used || u.Held || u.Carrier || u.Domain == dosplay.Naval || u.Budget == 0 || u.Size < plugSize {
 				continue
 			}
-			if holdOn && !p.inside[u.At] && u.Domain != dosplay.Air && !slices.Contains(seal, u.At) {
+			if p.cfg.Hold && !p.inside[u.At] && u.Domain != dosplay.Air && !slices.Contains(seal, u.At) {
 				continue
 			}
 			costs, err := p.costsFor(u)
@@ -210,7 +210,7 @@ func (p *coachPlan) planSeal(seal []hexgrid.Coord) {
 				continue
 			}
 			air := 1
-			if !holdOn && u.Domain != dosplay.Air {
+			if !p.cfg.Hold && u.Domain != dosplay.Air {
 				continue // the planes alone hold the bridges
 			}
 			if (u.Domain == dosplay.Air) == p.bridges[h] {
@@ -339,19 +339,12 @@ func (p *coachPlan) moveEscort(u dosplay.UnitView, add func([]dosplay.Event, err
 	return true, nil
 }
 
-var passHexes = []hexgrid.Coord{{Line: 27, Col: 18}, {Line: 28, Col: 18}, {Line: 27, Col: 19}, {Line: 28, Col: 19}, {Line: 27, Col: 20}, {Line: 28, Col: 20}, {Line: 29, Col: 17}, {Line: 30, Col: 17}}
-
 // southDasher is every other dasher in the east: two ways in take twice the
 // troops, and the pass lets one through per phase.
 func (p *coachPlan) southDasher(u dosplay.UnitView) bool {
-	return u.Index%2 == 0 && u.At.Col >= 20
+	return u.Index%2 == 0 && u.At.Col >= p.cfg.SouthCol
 }
 
 const dashWaitF = 97
 
-// DashGo is the turn the dash goes.
-var DashGo = 16
-
 func (p *coachPlan) turnNow() int { return p.s.Game.Turn }
-
-var holdOn = false

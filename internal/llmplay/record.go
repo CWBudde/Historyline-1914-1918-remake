@@ -20,7 +20,23 @@ type Header struct {
 	Level   string `json:"level"`
 	Code    string `json:"code,omitempty"` // menu code word, e.g. RHEIN
 	LLMSide int    `json:"llmSide"`
-	Oracle  bool   `json:"oracle"`
+	// Driver names who gave the recorded side's orders: a registered
+	// player (Players: coach, strike, fallback) that regenerates the game,
+	// or "llm" for orders from outside (prompt/step, file), which only the
+	// orders themselves can replay. Empty in older transcripts: "llm".
+	Driver string `json:"driver,omitempty"`
+	Oracle bool   `json:"oracle"`
+}
+
+// DriverLLM is the driver of orders given from outside the program.
+const DriverLLM = "llm"
+
+// PlayedBy is the header's driver, DriverLLM when none was recorded.
+func (h Header) PlayedBy() string {
+	if h.Driver == "" {
+		return DriverLLM
+	}
+	return h.Driver
 }
 
 // Line is one resolution of the transcript. Commands are the session's
@@ -35,7 +51,7 @@ type Line struct {
 	OrdersText    string             `json:"ordersText,omitempty"`
 	Rejected      []string           `json:"rejected,omitempty"`
 	Commands      []dosrules.Command `json:"commands"`
-	Events        []EventRec         `json:"events"`
+	Events        []EventRec         `json:"events,omitempty"`
 	StateBefore   string             `json:"stateBefore"` // sha256 of Save()
 	StateAfter    string             `json:"stateAfter"`
 	EnergyLLM     int                `json:"energyLlm"`
@@ -98,9 +114,18 @@ func StateHash(s *dosplay.Session) (string, error) {
 	return hex.EncodeToString(sum[:]), nil
 }
 
-// ReadTranscript parses a game dir's transcript.
+// TranscriptPath is the transcript of a game dir, or path itself when it
+// names a file (a shipped recording, levels/<month>/replays/<setup>.jsonl).
+func TranscriptPath(path string) string {
+	if fi, err := os.Stat(path); err == nil && !fi.IsDir() {
+		return path
+	}
+	return filepath.Join(path, "transcript.jsonl")
+}
+
+// ReadTranscript parses a game dir's transcript, or a transcript file.
 func ReadTranscript(dir string) (_ Header, _ []Line, err error) {
-	f, err := os.Open(filepath.Join(dir, "transcript.jsonl"))
+	f, err := os.Open(TranscriptPath(dir))
 	if err != nil {
 		return Header{}, nil, err
 	}

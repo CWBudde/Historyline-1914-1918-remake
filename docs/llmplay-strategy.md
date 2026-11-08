@@ -1,6 +1,7 @@
 # Winning RHEIN as CP — the living strategy
 
-Executable form: `internal/llmplay.Strike` (`just llmplay run -driver strike`).
+Executable form: `internal/llmplay.Strike` (`just llmplay run -driver strike`), recorded as
+`levels/1918-02/replays/cp.jsonl`.
 Target: RHEIN = `1918-02:cp`, CP (side 0) vs `dosai.Planner` (EC), DOS rules,
 fully deterministic — every number below can be checked with `Engage`.
 
@@ -186,8 +187,8 @@ treasury, is the bug (see v7/v8 below).
 
 No win is known on the current rules. A recording captured the EC HQ at resolution 103 (the
 plan is the last section), but against a computer side that did not build and with the older
-income; the numbers there come from that game. It no longer replays, and its CP orders played
-against today's dosai lose the CP HQ at resolution 24. The plain coach loses it at resolution 10.
+income; the numbers there come from that game. The corpus marks it stale (the recording is in
+git at ae2c4316), and its CP orders played against today's dosai lose the CP HQ at resolution 24. The plain coach loses it at resolution 10.
 
 ## The situation
 
@@ -243,7 +244,7 @@ Production and buildings:
 
 ## The winning plan (HQ capture, res 103)
 
-`levels/1918-04/replays/cp.jsonl` recorded a win at 103, score 2828. North of line 45
+The recording (ae2c4316) won at 103, score 2828. North of line 45
 resolutions 1-30 follow a scripted HQ-lock opening where its orders
 stay legal, with the coach's attacks added. From 31 a script moves every unit
 on `Session.View(0)` and the side's own legal queries and takes the coach's

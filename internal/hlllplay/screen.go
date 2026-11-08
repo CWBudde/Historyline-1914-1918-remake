@@ -50,6 +50,17 @@ func terrainNeeded(lvl *level.Level, lines []llmplay.Line) bool {
 	return false
 }
 
+// compact reports whether lines carry no events at all: a shipped
+// recording, whose events a replay rebuilds (llmplay.Expand).
+func compact(lines []llmplay.Line) bool {
+	for _, l := range lines {
+		if len(l.Events) > 0 {
+			return false
+		}
+	}
+	return len(lines) > 0
+}
+
 // packsFor are the packs of a recording, with or without the terrain pack.
 func packsFor(terrain bool) []screenPack {
 	if terrain {
@@ -144,6 +155,11 @@ func (c *command) renderScreen(dir string, record [][2]string) error {
 	rp, err := llmplay.OpenReplay(dir)
 	if err != nil {
 		return err
+	}
+	if compact(rp.Lines) {
+		if err := llmplay.Expand(rp); err != nil {
+			return err
+		}
 	}
 	packs := packsFor(terrainNeeded(rp.Session.Level, rp.Lines))
 	if err := missingPacks(root, packs); err != nil {

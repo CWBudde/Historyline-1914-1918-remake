@@ -48,32 +48,64 @@ const (
 	unreachable   = 1 << 29
 )
 
-var (
-	dashOn        = true
-	sealOn        = false
-	escortOn      = false
-	southOn       = false
-	batteryWanted = 0
-	dashWanted    = 8
-	tankFirst     = 90
-	aaWanted      = 1
-	passGuard     = true
-	southArmour   = true
-	marchRace     = true
-	raceSight     = 3
-)
+// CoachConfig are the Coach's knobs. The map-bound ones (columns, turns,
+// hexes) were tuned on RHEIN; CoachConfigFor gives them only there.
+type CoachConfig struct {
+	Dash        bool // foot capturers dash for the enemy HQ
+	DashWanted  int  // eliteInf to build while fewer dashers are on the map
+	DashGo      int  // turn before which dashers at or east of EastCol wait out of sight (0: never)
+	EastCol     int  // fighters at or east of this column escort the dash (<0: none)
+	Seal        bool // find and plug the hexes that shut the own HQ ground off
+	Hold        bool // nothing marches in through the own seal
+	Escort      bool // planes join the lead capturer
+	South       bool // every other eastern dasher takes the way round the pass
+	SouthCol    int  // column from which a dasher counts as eastern
+	PassHexes   []hexgrid.Coord
+	SouthArmour bool // armour races for neutral buildings too
+	MarchRace   bool // race goals score progress above all
+	RaceSight   int  // hexes within which an enemy stops a race
+	Battery     int  // medium guns to build
+	TankFirst   int  // energy from which tanks come before foot units
+	AA          int  // mobile AA to build against enemy air
+}
+
+// DefaultCoachConfig is the configuration the zero Coach plays: RHEIN's.
+func DefaultCoachConfig() *CoachConfig {
+	return &CoachConfig{
+		Dash: true, DashWanted: 8, DashGo: 16, EastCol: 14, SouthCol: 20,
+		PassHexes: []hexgrid.Coord{
+			{Line: 27, Col: 18}, {Line: 28, Col: 18}, {Line: 27, Col: 19}, {Line: 28, Col: 19},
+			{Line: 27, Col: 20}, {Line: 28, Col: 20}, {Line: 29, Col: 17}, {Line: 30, Col: 17},
+		},
+		SouthArmour: true, MarchRace: true, RaceSight: 3, TankFirst: 90, AA: 1,
+	}
+}
+
+// CoachConfigFor is the configuration for the shipped setup ref: RHEIN's
+// tuning on 1918-02:cp, elsewhere the same doctrine without RHEIN's
+// columns, turns and pass.
+func CoachConfigFor(ref string) *CoachConfig {
+	c := DefaultCoachConfig()
+	if ref == "1918-02:cp" {
+		return c
+	}
+	c.DashGo, c.EastCol, c.PassHexes = 0, -1, nil
+	return c
+}
 
 // Coach plays the strategy. The zero Coach is ready to use; use a
 // pointer so reinforcement assignments stay sticky across phases
 // (recomputed-from-scratch assignments oscillated: units marched
 // west one phase and back east the next, v21).
 type Coach struct {
+	Config          *CoachConfig // nil: DefaultCoachConfig
 	stickyReinforce map[int]bool
 	seal            []hexgrid.Coord // found once, on the opening position
 	sealDone        bool
 }
 
 type coachPlan struct {
+	cfg       *CoachConfig
 	s         *dosplay.Session
 	side      int
 	opp       int
@@ -120,9 +152,12 @@ const (
 	goalDashSouth // goalDash, not through the mountain pass
 )
 
-func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool) *coachPlan {
+func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachConfig) *coachPlan {
+	if cfg == nil {
+		cfg = DefaultCoachConfig()
+	}
 	p := &coachPlan{
-		s: s, side: side, opp: 1 - side, view: s.View(side), prof: s.Game.Profile,
+		cfg: cfg, s: s, side: side, opp: 1 - side, view: s.View(side), prof: s.Game.Profile,
 		fields: map[fieldKey]map[hexgrid.Coord]int{}, costs: map[int]map[hexgrid.Coord]int{}, loaded: map[int]bool{},
 	}
 	for _, at := range sortedCoords(p.view.Units) {
@@ -378,7 +413,7 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool) *coachPlan 
 func (p *coachPlan) findDashers() {
 	p.dash = map[int]bool{}
 	for _, u := range p.own {
-		if dashOn && u.Domain == dosplay.Infantry && p.canCapture(u) && !strings.HasSuffix(u.ID, "_antiTank") && !p.s.Sapper(u.Index) {
+		if p.cfg.Dash && u.Domain == dosplay.Infantry && p.canCapture(u) && !strings.HasSuffix(u.ID, "_antiTank") && !p.s.Sapper(u.Index) {
 			p.dash[u.Index] = true
 		}
 	}
@@ -427,7 +462,7 @@ func (p *coachPlan) costsFor(u dosplay.UnitView) (map[hexgrid.Coord]int, error) 
 // dosai). Fight goals ring the enemy units at the unit's own reach.
 func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int, error) {
 	k := fieldKey{u.Type, g}
-	if g == goalDash && southOn && p.southDasher(u) {
+	if g == goalDash && p.cfg.South && p.southDasher(u) {
 		k.goal = goalDashSouth
 	}
 	if f, ok := p.fields[k]; ok {
@@ -465,7 +500,7 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 		}
 		open := maps.Clone(costs)
 		if k.goal == goalDashSouth {
-			for _, c := range passHexes {
+			for _, c := range p.cfg.PassHexes {
 				delete(open, c)
 			}
 		}
@@ -505,7 +540,7 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 			if bv.HQ && p.s.SideOf(bv.Owner) == p.opp {
 				seedBuilding(c, 0)
 			}
-			if p.s.SideOf(bv.Owner) == 2 && !southArmour {
+			if p.s.SideOf(bv.Owner) == 2 && !p.cfg.SouthArmour {
 				seedBuilding(c, 0)
 			}
 		}
@@ -514,7 +549,7 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 			ringDist = 1 // anti-tank guns one-shot bunkers adjacent (probe: 3->0 for 1 own loss)
 		}
 		for _, e := range p.enemies {
-			if hexgrid.Distance(u.At, e.At) <= raceSight {
+			if hexgrid.Distance(u.At, e.At) <= p.cfg.RaceSight {
 				for c := range costs {
 					if hexgrid.Distance(c, e.At) == ringDist {
 						seed(c, 0)
@@ -566,9 +601,9 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 			}
 		}
 	}
-	if g == goalRace && passGuard {
+	if g == goalRace && len(p.cfg.PassHexes) > 0 {
 		costs = maps.Clone(costs)
-		for _, c := range passHexes {
+		for _, c := range p.cfg.PassHexes {
 			delete(costs, c)
 		}
 	}
@@ -632,12 +667,12 @@ func dijkstra(costs map[hexgrid.Coord]int, start map[hexgrid.Coord]int) map[hexg
 // plan is the side's plan on the session, with the seal found on the first
 // position it sees.
 func (c *Coach) plan(s *dosplay.Session, side int) *coachPlan {
-	p := newCoachPlan(s, side, c.stickyReinforce)
-	if !c.sealDone && sealOn {
+	p := newCoachPlan(s, side, c.stickyReinforce, c.Config)
+	if !c.sealDone && p.cfg.Seal {
 		c.seal, c.sealDone = p.findSeal(), true
 	}
 	p.planSeal(c.seal)
-	if len(p.seal) > 0 && holdOn {
+	if len(p.seal) > 0 && p.cfg.Hold {
 		p.reinforce = map[int]bool{} // nothing marches in through the own seal
 	}
 	c.stickyReinforce = p.reinforce
@@ -878,7 +913,7 @@ func (p *coachPlan) goalFor(u dosplay.UnitView) goalKind {
 		return goalFight // screen the HQ; foreign buildings are others' job
 	case p.canCapture(u):
 		return goalCapture
-	case u.At.Col >= 14 && !u.Carrier && u.Domain != dosplay.Air:
+	case p.cfg.EastCol >= 0 && u.At.Col >= p.cfg.EastCol && !u.Carrier && u.Domain != dosplay.Air:
 		return goalRace // east/NE fighters escort the HQ dash
 	default:
 		return goalFight
@@ -952,7 +987,7 @@ func (p *coachPlan) scoreDest(u dosplay.UnitView, from, c hexgrid.Coord, f map[h
 	}
 	siegeAssault := p.siege && !p.homeGuard[u.Index] &&
 		(strings.HasSuffix(u.ID, "_antiTank") || p.canCapture(u) || u.Domain == dosplay.Air || p.siegeHard)
-	if p.reinforce[u.Index] || p.s.Sapper(u.Index) && p.goalFor(u) == goalHQ || siegeAssault || marchRace && p.goalFor(u) == goalRace {
+	if p.reinforce[u.Index] || p.s.Sapper(u.Index) && p.goalFor(u) == goalHQ || siegeAssault || p.cfg.MarchRace && p.goalFor(u) == goalRace {
 		return score*4 - p.threat(u, c)/20
 	}
 	score += terrainBonus(p.s, nil, c) * 2
@@ -1028,7 +1063,7 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 	// (or on its guard hex) holds position. Shuffling west units lost
 	// terrain/support every phase and dosai's exact fire punished
 	// the old hex anyway (v17/v18 west fell at 20).
-	if p.homeGuard[u.Index] && !p.damaged(u) && !p.siege && (len(p.seal) == 0 || !holdOn) {
+	if p.homeGuard[u.Index] && !p.damaged(u) && !p.siege && (len(p.seal) == 0 || !p.cfg.Hold) {
 		if g, isGuard := p.guardOf[u.Index]; isGuard && from == g {
 			return from, false, nil
 		}
@@ -1048,10 +1083,10 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 		if slices.Contains(p.seal, c) {
 			continue // kept for its plug
 		}
-		if passGuard && !p.dash[u.Index] && slices.Contains(passHexes, c) {
+		if !p.dash[u.Index] && slices.Contains(p.cfg.PassHexes, c) {
 			continue // the pass is for the capturers: it lets one through per phase
 		}
-		if p.dash[u.Index] && u.At.Col >= 14 && p.turnNow() < DashGo && f[c] < dashWaitF {
+		if p.dash[u.Index] && p.cfg.EastCol >= 0 && u.At.Col >= p.cfg.EastCol && p.turnNow() < p.cfg.DashGo && f[c] < dashWaitF {
 			continue // out of the enemy's sight until its army has gone west
 		}
 		if p.inside[from] && !p.inside[c] && u.Domain != dosplay.Air {
@@ -1237,7 +1272,7 @@ func (p *coachPlan) move() ([]dosplay.Event, error) {
 			}
 			continue
 		}
-		if escortOn && u.Domain == dosplay.Air {
+		if p.cfg.Escort && u.Domain == dosplay.Air {
 			if done, err := p.moveEscort(u, add); err != nil {
 				return evs, err
 			} else if done {
@@ -1534,7 +1569,7 @@ func (p *coachPlan) service() []dosplay.Event {
 			}
 		}
 	}
-	if dashOn {
+	if p.cfg.Dash {
 		sappers = 2 // they would queue in the pass ahead of the capturers
 	}
 	for _, e := range p.enemies {
@@ -1546,12 +1581,12 @@ func (p *coachPlan) service() []dosplay.Event {
 		match func(id string) bool
 		when  bool
 	}{
-		{func(id string) bool { return strings.HasSuffix(id, "_eliteInf") }, dashOn && dashers < dashWanted},
-		{func(id string) bool { return strings.HasSuffix(id, "_mArtillery") }, battery < batteryWanted},
-		{func(id string) bool { return strings.HasSuffix(id, "_mobileAA") }, enemyAir > 0 && aaGuns < aaWanted},
+		{func(id string) bool { return strings.HasSuffix(id, "_eliteInf") }, p.cfg.Dash && dashers < p.cfg.DashWanted},
+		{func(id string) bool { return strings.HasSuffix(id, "_mArtillery") }, battery < p.cfg.Battery},
+		{func(id string) bool { return strings.HasSuffix(id, "_mobileAA") }, enemyAir > 0 && aaGuns < p.cfg.AA},
 		{func(id string) bool { return strings.HasSuffix(id, "_sappers") }, sappers < 2},
 		{func(id string) bool { return strings.HasSuffix(id, "_infantry") || strings.HasSuffix(id, "_eliteInf") }, capturers < 4 || footCapturers < 3 || p.siege && footCapturers < 6},
-		{func(id string) bool { return strings.HasSuffix(id, "_a7v") || strings.HasSuffix(id, "_markIV") }, p.s.Energy(p.side) >= tankFirst},
+		{func(id string) bool { return strings.HasSuffix(id, "_a7v") || strings.HasSuffix(id, "_markIV") }, p.s.Energy(p.side) >= p.cfg.TankFirst},
 		{func(id string) bool { return strings.HasSuffix(id, "_antiTank") }, antiTanks < 8},
 		{func(id string) bool { return strings.HasSuffix(id, "_sappers") }, sappers < 2},
 		{func(id string) bool { return strings.HasSuffix(id, "_eliteInf") }, true},

@@ -20,7 +20,7 @@ func rhein(t *testing.T) *Game {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := NewGame(s, 0, t.TempDir(), "1918-02:cp", "RHEIN", false)
+	g, err := NewGame(s, t.TempDir(), Header{Level: "1918-02:cp", Code: "RHEIN"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -85,7 +85,7 @@ func TestStepAndReplay(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := NewGame(s, 0, dir, "1918-02:cp", "RHEIN", false)
+	g, err := NewGame(s, dir, Header{Level: "1918-02:cp", Code: "RHEIN"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -167,7 +167,7 @@ func TestRenderReplay(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := NewGame(s, 0, dir, "1918-02:cp", "RHEIN", false)
+	g, err := NewGame(s, dir, Header{Level: "1918-02:cp", Code: "RHEIN"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -216,7 +216,7 @@ func TestRenderReplayBackdrop(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := NewGame(s, 0, dir, "1918-02:cp", "RHEIN", false)
+	g, err := NewGame(s, dir, Header{Level: "1918-02:cp", Code: "RHEIN"})
 	if err != nil {
 		t.Fatal(err)
 	}

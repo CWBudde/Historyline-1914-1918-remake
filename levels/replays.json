@@ -1,0 +1,21 @@
+{
+  "replays": [
+    {
+      "level": "1918-02:cp",
+      "code": "RHEIN",
+      "side": 0,
+      "driver": "strike",
+      "resolutions": 25,
+      "score": 3967
+    },
+    {
+      "level": "1918-04:cp",
+      "code": "CANDL",
+      "side": 0,
+      "driver": "script",
+      "resolutions": 103,
+      "score": 2828,
+      "stale": "no win on the current rules; the scripted south trail won at 103 before the computer side built (ae2c4316) and loses at 24 today"
+    }
+  ]
+}

@@ -61,7 +61,7 @@ func TestHelpWithoutDisplay(t *testing.T) {
 		"levels", "levels extract", "levels campaign", "levels backdrop", "levels backdrop jpeg", "levels backdrop check",
 		"web", "webapp", "webapp golden", "webapp assets", "webapp size", "artbook", "manual",
 		"llmplay", "llmplay new", "llmplay prompt", "llmplay step", "llmplay run",
-		"llmplay replay", "llmplay render", "llmplay review", "llmplay gif",
+		"llmplay replay", "llmplay fork", "llmplay corpus", "llmplay render", "llmplay review", "llmplay gif",
 		"preview", "preview effects", "serve",
 	} {
 		t.Run(path, func(t *testing.T) {

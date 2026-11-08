@@ -14,7 +14,8 @@ just llmplay prompt -dir ... -lines 1-20,75-95 -full       # one front, every de
 just llmplay suggest -dir ...                              # action phase: the coach's repairs, builds, focus fire as JSONL
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
-just llmplay replay -dir ...                               # verify every state hash
+just llmplay replay -dir ...                               # verify every state hash (a game dir or a .jsonl)
+just llmplay fork -dir ... -at 12 -out build/review/llmplay/try2   # go on from resolution 12
 just llmplay render -dir ... [-backdrop level] [-density 2] [-div 2] [-fps 2] [-width 3840] [-crf 16]
                                                            # watch it on the painted backdrop: frames + game.mp4
 just llmplay render -dir ... -view screen [-speed 2] [-max-frames 600]
@@ -23,14 +24,17 @@ just llmplay review -dir ... -lessons LESSONS.md           # blunders -> review.
 just llmplay gif -dir ...                                  # frames/*.png -> game.gif
 ```
 
-`run -driver fallback|file|coach|strike` plays a whole game unattended; `-frames`
+`run -driver NAME` plays a whole game unattended with a registered player
+(`llmplay.Players`: `coach`, `fallback`, `strike`) or, with `file`, the orders
+an outside agent writes to `orders.jsonl` for each `prompt.txt`; `-frames`
 records a PNG per resolution (omniscient `TrueView` projected through
 `maprender`) plus `game.gif`. `-oracle` appends the opponent's exact planned
 commands to the prompt (training only; marked in the transcript header).
 **`coach` is the fast self-player**: it drives the session API directly (no
 prompt is ever rendered; ~130 ms/resolution including the two-resolution
-oracle lookahead on a Clone) and plays any level; on RHEIN it loses the CP HQ
-at resolution 30. **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
+oracle lookahead on a Clone) and plays any level; its map-bound knobs
+(`CoachConfig`) are tuned on RHEIN only. On RHEIN it loses the CP HQ at
+resolution 30. **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
 at resolution 25, deterministically (pinned by `TestStrikeWinsRhein`; see
 [llmplay-strategy.md](llmplay-strategy.md)). `fallback` (dosai both sides) loses the HQ
 in 7 for comparison.
@@ -77,11 +81,14 @@ batches (or driver failure) a deterministic fallback plays the phase
 ## Record — always on
 
 Each game dir (`build/review/llmplay/<game>/`) holds `transcript.jsonl` (header
-+ one line per resolution: both sides' session-logged commands, events, state
+with the level, code word, side and driver + one line per resolution: both sides' session-logged commands, events, state
 hashes = sha256 of `Save()`), `save.json` after every resolution, `map.txt`,
 `preamble.txt`, and with `-frames`, `frames/NNNN.png` + `game.gif`. `replay`
 rebuilds the game and proves every hash. A game survives total model context
-loss: `prompt` on the dir resumes from `save.json`. To **watch** a finished
+loss: `prompt` on the dir resumes from `save.json`. `fork -dir GAME -at N -out NEW`
+starts a new game dir from the first N resolutions of any recording (the state
+rebuilt and hash-checked), to try another line from a checkpoint; a fork's
+driver is `llm`. To **watch** a finished
 game, `render` replays the transcript (hash-verified) and renders
 `frames/NNNN.png` (downscaled by `-div`), stitches `game.gif`, and encodes
 `game.mp4` with ffmpeg (`-width`/`-crf` trade size for quality; defaults
@@ -140,6 +147,41 @@ machine short of memory, keep a recording from taking the desktop with it:
 `systemd-run --user --scope -p MemoryMax=10G -p MemorySwapMax=2G just llmplay
 render …`.
 
+## The corpus — a winning recording per target
+
+The goal is a recorded win for every target: each month's `cp` setup played as
+CP and its `ec` setup played as EC, 104 in all (`2p` has no computer side). The
+recordings live beside the levels as `levels/<month>/replays/<setup>.jsonl`,
+compact (no events or frames; a replay rebuilds them), and
+`levels/replays.json` lists each with its driver, resolutions and score.
+
+A recording counts only while it is a win against the **current** computer
+side. `replay` proves the rules still give the recorded game; it replays both
+sides' commands and cannot see a dosai change. The corpus checks with
+`llmplay.LiveReplay`: the recorded side's orders, with today's `dosai.Planner`
+playing the opponent, must reach every recorded state.
+
+```sh
+just llmplay corpus status                 # all 104 targets: win, stale, failing or none
+just llmplay corpus verify                 # the same, failing on any recording that no longer wins
+just llmplay corpus sweep [-drivers coach,fallback] [-only 1918-02,1916-05:ec] [-j 4] [-adopt]
+                                           # play the players on the targets; -adopt takes each new win
+just llmplay corpus adopt -dir GAME        # take a finished winning game (any driver) into the corpus
+just llmplay corpus regen [-level REF]     # make recordings again after an engine or dosai change
+```
+
+`TestShippedReplays` runs the check in `go test`, so a change to the rules or
+to dosai fails until `corpus regen` has made the recordings again. Regen
+re-runs a registered player (twice, to prove it deterministic) or plays an
+`llm` game's orders back (`OrdersPlayer`); a game that no longer wins is
+marked `stale` with the reason and skipped until someone wins the target
+again, for example from a `fork` before the resolution where it broke.
+
+The workflow per target: `corpus status` and the last sweep
+(`build/review/llmplay/corpus/sweep/sweep.json`) show what the players
+achieve; play the target with `new`/`prompt`/`step` (fork to retry from a
+checkpoint) or a new player in `llmplay.Players`; `corpus adopt` the win.
+
 ## Learn — review and lessons
 
 `review` re-simulates the transcript and re-scores every model attack with the
@@ -194,7 +236,9 @@ step+replay+review round trip, a 6-resolution fallback game on RHEIN, frame
 projection, line windows and the `!` gun-reach mark against the engine's
 targets on CANDL, a `suggest` batch that `Apply` takes whole, and a whole
 fallback game replayed side by side (each side's orders, its confirmation,
-then `Resolve`) to every recorded state.
+then `Resolve`) to every recorded state, the shipped recordings against the
+current dosai (`TestShippedReplays`), orders played back, fork, adopt with
+compact transcripts and `Expand`, and Strike's RHEIN win.
 `go test ./cmd/historyline/ -run 'Replay|Record'`: the replay in the battle
 screen, and its recording to the same number of frames every run at a fixed
 speed (the frames drawn, not read back), stopping on a mismatch, and into an MP4

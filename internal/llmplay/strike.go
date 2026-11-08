@@ -484,7 +484,7 @@ func (st *Strike) goTo(s *dosplay.Session, side int, u dosplay.UnitView, wp hexg
 // act fires with everything but the landed runners (exact attacks, as Coach
 // values them), then builds cavalry with all the energy there is.
 func (st *Strike) act(s *dosplay.Session, side int) ([]dosplay.Event, error) {
-	p := newCoachPlan(s, side, nil)
+	p := newCoachPlan(s, side, nil, nil)
 	p.own = slices.DeleteFunc(p.own, func(u dosplay.UnitView) bool { return st.landed[u.Index] && u.Type != typeAntiTank })
 	evs, err := p.attacks()
 	if err != nil {

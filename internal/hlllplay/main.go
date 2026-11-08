@@ -9,8 +9,10 @@
 //	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full]   print the current phase prompt
 //	hl llmplay suggest -dir GAME          print the coach's action-phase orders (repairs, builds, focus fire) as JSONL
 //	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback)
-//	hl llmplay run    [-level REF] [-out DIR] [-driver fallback|file|coach|strike] [-max 300] [-frames] [-lessons FILE] [-oracle]
-//	hl llmplay replay  -dir GAME          verify the transcript reproduces every state hash
+//	hl llmplay run    [-level REF] [-out DIR] [-driver file|coach|fallback|strike] [-max 300] [-frames] [-lessons FILE] [-oracle]
+//	hl llmplay replay  -dir GAME|FILE     verify the transcript reproduces every state hash
+//	hl llmplay fork    -dir GAME|FILE [-at N] -out NEW   a new game from the first N resolutions
+//	hl llmplay corpus  status|verify|regen|adopt|sweep  the winning recordings in levels/ (docs/llmplay.md)
 //	hl llmplay render  -dir GAME [-every 1] [-density 2] [-div 8] [-backdrop level|FILE] [-fps 2] [-width 1440] [-crf 28] [-gif]
 //	                                    replay to frames/*.png + game.gif + game.mp4 (ffmpeg)
 //	hl llmplay render  -dir GAME -view screen [-size 1920x1080] [-fps 30] [-speed 2] [-tail 3s] [-crf 23] [-max-frames 0]
@@ -43,23 +45,6 @@ type rejected []string
 
 func (r rejected) Error() string { return "REJECTED, nothing applied: " + strings.Join(r, "; ") }
 
-// codeOf reads the menu code word from the scenario setup file (the
-// only original string the repo carries) — RHEIN for 1918-02:cp. It is
-// used as the game id and transcript decoration.
-func newSession(ref string) (*dosplay.Session, int, error) {
-	month, mode, err := llmplay.ParseLevelRef(ref)
-	if err != nil {
-		return nil, 0, err
-	}
-	lvl, err := llmplay.ShipLevel(month, mode)
-	if err != nil {
-		return nil, 0, err
-	}
-	side := llmplay.LLMSide(mode)
-	s, err := llmplay.NewSession(lvl, side)
-	return s, side, err
-}
-
 func gameDir(out, ref string) string {
 	if out != "" {
 		return out
@@ -84,7 +69,7 @@ func frameHook(dir string, on bool) (func(*dosplay.Session, int) (string, error)
 func preamble(s *dosplay.Session, lessons string) string {
 	var b strings.Builder
 	b.WriteString(llmplay.Lessons(lessons, 30))
-	b.WriteString("You play Historyline 1914-1918 (DOS rules, deterministic: battle outcomes are exact, the LEGAL section predicts them). Win by capturing the enemy HQ with an infantry-class unit (move it onto the HQ entrance) or by destroying every enemy unit. Lose the same way. Phases alternate: movement (move/exit; moving onto a foreign building entrance captures it at resolution, contents included) and action (attack queues fought at resolution, repair=full strength for 15, build in factories). The opponent is a greedy deterministic planner: it rushes the nearest visible enemy, never repairs, never builds, never detours to capture, and its view of your moves is stale until the phase change.\n")
+	b.WriteString("You play Historyline 1914-1918 (DOS rules, deterministic: battle outcomes are exact, the LEGAL section predicts them). Win by capturing the enemy HQ with an infantry-class unit (move it onto the HQ entrance) or by destroying every enemy unit. Lose the same way. Phases alternate: movement (move/exit; moving onto a foreign building entrance captures it at resolution, contents included) and action (attack queues fought at resolution, repair=full strength for 15, build in factories). The opponent is a greedy deterministic planner: its units head for the nearest visible enemy or your HQ, each of its capturers goes for the nearest building it can take (depots and factories before the HQ), it attacks where the exact outcome favours it, repairs held units and builds at its factories, and its view of your moves is stale until the phase change.\n")
 	b.WriteString(llmplay.StaticMap(s))
 	return b.String()
 }
@@ -103,15 +88,12 @@ func (c *command) cmdNew(args []string) (err error) {
 	if fs.NArg() != 0 {
 		return fmt.Errorf("unexpected positional arguments: %v", fs.Args())
 	}
-	s, side, err := newSession(*level)
-	if err != nil {
-		return err
-	}
 	dir := gameDir(*out, *level)
-	g, err := llmplay.NewGame(s, side, dir, *level, "", *oracle)
+	g, err := llmplay.StartGame(*level, dir, llmplay.DriverLLM, *oracle)
 	if err != nil {
 		return err
 	}
+	s := g.S
 	hook, err := frameHook(dir, *frames)
 	if err != nil {
 		return err
@@ -270,7 +252,7 @@ func (c *command) cmdRun(args []string) (err error) {
 	fs.SetOutput(c.stderr)
 	level := fs.String("level", "1918-02:cp", "shipped level ref")
 	out := fs.String("out", "", "game dir")
-	driver := fs.String("driver", "fallback", "fallback | file (prompt.txt/orders.jsonl in the game dir) | coach | strike (RHEIN as CP only)")
+	driver := fs.String("driver", "fallback", "file (prompt.txt/orders.jsonl in the game dir) or a player: "+strings.Join(llmplay.PlayerNames(), ", "))
 	maxR := fs.Int("max", 300, "max resolutions")
 	oracle := fs.Bool("oracle", false, "training oracle")
 	frames := fs.Bool("frames", false, "render frames + game.gif")
@@ -281,21 +263,24 @@ func (c *command) cmdRun(args []string) (err error) {
 	if fs.NArg() != 0 {
 		return fmt.Errorf("unexpected positional arguments: %v", fs.Args())
 	}
-	if *driver != "fallback" && *driver != "file" && *driver != "coach" && *driver != "strike" {
-		return fmt.Errorf("driver %q: want fallback, file, coach or strike", *driver)
-	}
-	if *driver == "strike" && *level != "1918-02:cp" {
-		return fmt.Errorf("driver strike only plays 1918-02:cp, not %s", *level)
-	}
-	s, side, err := newSession(*level)
-	if err != nil {
-		return err
+	var player *llmplay.Player
+	if *driver != "file" {
+		p, err := llmplay.FindPlayer(*driver, *level)
+		if err != nil {
+			return fmt.Errorf("driver %q: %w", *driver, err)
+		}
+		player = &p
 	}
 	dir := gameDir(*out, *level)
-	g, err := llmplay.NewGame(s, side, dir, *level, "", *oracle)
+	recorded := *driver
+	if player == nil {
+		recorded = llmplay.DriverLLM
+	}
+	g, err := llmplay.StartGame(*level, dir, recorded, *oracle)
 	if err != nil {
 		return err
 	}
+	s, side := g.S, g.Side
 	defer func() { err = errors.Join(err, g.Close()) }()
 	hook, err := frameHook(dir, *frames)
 	if err != nil {
@@ -305,15 +290,9 @@ func (c *command) cmdRun(args []string) (err error) {
 	if err := os.WriteFile(filepath.Join(dir, "preamble.txt"), []byte(preamble(s, *lessons)), 0o644); err != nil {
 		return err
 	}
-	var d llmplay.Driver
-	switch *driver {
-	case "coach", "strike":
+	if player != nil {
 		// Fast path: no prompts are built.
-		var pl llmplay.PhasePlayer = &llmplay.Coach{}
-		if *driver == "strike" {
-			pl = &llmplay.Strike{}
-		}
-		ce, cerr := g.PlayCoach(pl, *maxR)
+		ce, cerr := g.PlayCoach(player.New(*level), *maxR)
 		if cerr != nil {
 			return cerr
 		}
@@ -338,14 +317,8 @@ func (c *command) cmdRun(args []string) (err error) {
 			}
 		}
 		return nil
-	case "fallback":
-		d = llmplay.FallbackDriver{}
-	case "file":
-		d = llmplay.FileDriver{Dir: dir}
-	default:
-		return fmt.Errorf("driver %q", *driver)
 	}
-	end, err := g.Play(d, *maxR)
+	end, err := g.Play(llmplay.FileDriver{Dir: dir}, *maxR)
 	if err != nil {
 		return err
 	}
