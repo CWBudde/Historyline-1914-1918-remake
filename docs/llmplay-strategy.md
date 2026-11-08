@@ -474,3 +474,24 @@ The computer's EC keeps building (the automatic players ended facing 100 units);
 - The EC HQ has no garrison. Ground units cannot pass north of line 12 at columns 1–3; the way in is the
   road: cavalry on [13,4] reaches [7,5] in one move, nothing fires at it next to the bunker [6,5], and
   the next move takes [7,4] round by [6,4]. A cavalry on the road could do this much earlier.
+
+# VENOM (1915-02:cp)
+
+The coach lost the CP HQ at 8 (its door stood empty), the fallback at 24, the lookahead player at 96.
+
+## The recorded win (HQ capture, resolution 93, score 1307)
+
+- The CP HQ [51,2] is entered only from [49,2], [50,1] and [50,2], ringed by trenches at [48,2], [49,3],
+  [50,3]. The HQ infantry steps out onto a doorstep, the train artillery onto [50,1], a light gun comes
+  by train to [49,2], the infantry stays in the trenches: that holds EC's cavalry wave. The train
+  artillery (range 2–7) kills a unit per action phase all game. In the north the bunkers and the light
+  gun at [6,8] grind down EC's northern army alone.
+- Move the depot [21,2] units out onto its own doorsteps early; never leave units inside a factory with
+  an open doorstep next to an EC capturer (a factory with 4 inside was lost that way at 28).
+- EC's mobile army is gone by about 30. Its HQ [44,8] (doorsteps [42,8], [43,8], [43,9]) is then held by
+  the heavy gun e51 and two veteran medium guns of range 5 that one-shot cavalry. Keep every unit 6 hexes
+  from the medium guns: they walk towards the CP HQ into the train artillery's reach (about column 5 or
+  less, lines 45–50) and die there (60 and 80).
+- The finish: four cavalry ride down the rail edge (columns 1–2); one stops on [42,8] next to the heavy
+  gun, which cannot fire at range 1, and takes the HQ the next move. A capturer listed as DESTROY in
+  THREATS dies before it can step onto the entrance (battles resolve before moves).
