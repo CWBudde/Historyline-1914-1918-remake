@@ -209,6 +209,14 @@
       "score": 2833
     },
     {
+      "level": "1915-11:ec",
+      "code": "STORM",
+      "side": 1,
+      "driver": "llm",
+      "resolutions": 40,
+      "score": 1620
+    },
+    {
       "level": "1916-01:cp",
       "code": "BISON",
       "side": 0,

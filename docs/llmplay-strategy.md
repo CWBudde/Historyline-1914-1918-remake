@@ -426,3 +426,26 @@ edge (columns 1–3) to [7,4]; the lookahead player held to 182 and lost too.
   [34,10], armoured trains on the rail at [33,11]/[34,11] and a bunker [32,11] at 1/3. Three planes
   killed the heavy gun (72), a plane and a cavalry pincer the charron (74); at 75 the cavalry on [37,13]
   moved through [36,12], next to no EC unit, onto [37,12].
+
+# STORM (1915-11:ec)
+
+BEAST's map as EC. The coach was wiped out at 64; the lookahead player and the fallback stalled.
+
+## The recorded win (HQ capture, resolution 40, score 1620)
+
+- The map is a U around a lake (`ls` is water: ships only), so the CP west lane and the EC east lane
+  meet only across the north (lines 1–9); HQ to HQ by land is 66–85 movement points. The computer sends
+  every mobile CP unit north from the first move and leaves the CP HQ [41,4] to bunker e20 [47,7]; its
+  door opens only to the north ([39,4], [40,3], [40,4]).
+- Cavalry takes the factory [27,13] at 8 (5 units inside, +50 income). From 13 to 29 the EC heavy gun
+  [52,14] (range 6) and medium gun [48,13] (range 5) destroy the whole CP navy with focus fire as it
+  comes to the EC coast, empty transport ships included; ships left next to several CP ships die to
+  pincers. The lake road is a kill zone: the CP patrol boats kill a land unit each per phase there; let
+  them follow you to the coast and die to the guns.
+- The landing: a supply car with 2 infantry and an elite drives onto the transport ship at [53,14]
+  (20–22), the cavalry boards from [52,13]; the ship sails [50,10], [44,9] (out of the bunker's reach),
+  [45,8] (30–34). Cargo leaves a carrier only onto adjacent hexes; it lands on [44,7], [43,8], [46,7],
+  two foot units kill the bunker from beside it at 37, and the cavalry goes [42,6], [39,4] and takes
+  [41,4] at 40 while CP's army still fights at the EC factory.
+- Depots ping-pong: retaking one flips every unit inside (retaking [8,14] won back CP's cavalry, CP's
+  retake took 5 of ours).
