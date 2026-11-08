@@ -31,7 +31,7 @@ commands to the prompt (training only; marked in the transcript header).
 prompt is ever rendered; ~130 ms/resolution including the two-resolution
 oracle lookahead on a Clone) and plays any level; on RHEIN it loses the CP HQ
 at resolution 30. **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
-at resolution 23, deterministically (pinned by `TestStrikeWinsRhein`; see
+at resolution 25, deterministically (pinned by `TestStrikeWinsRhein`; see
 [llmplay-strategy.md](llmplay-strategy.md)). `fallback` (dosai both sides) loses the HQ
 in 7 for comparison.
 

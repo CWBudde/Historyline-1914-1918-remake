@@ -1,17 +1,23 @@
 package llmplay
 
-// Strike wins RHEIN (1918-02:cp) by capturing the EC HQ at resolution 23,
-// three resolutions before the CP HQ would fall. It rests on how dosai walks:
+// Strike wins RHEIN (1918-02:cp) by capturing the EC HQ at resolution 25,
+// one resolution before the CP HQ would fall. It rests on how dosai walks:
 // every unit heads for the nearest seen enemy, planes included, so
 //
 //   - two planes parked at the south edge pull the EC mouth force (lines 30-40,
 //     cols 12-16) away from the neck and hold it there; most of it cannot hurt
-//     them, and the same force no longer marches on the CP HQ (falls r26, not r18);
+//     them, and the same force no longer marches on the CP HQ;
+//   - the rail transport at {14 9} runs north from r17: the EC cavalry hunting
+//     it would turn on the CP HQ at r22, and turns early instead, into the
+//     artillery by the door, which stops and kills it;
 //   - the eastern ship sails at r7 with two built cavalry and the four old
-//     capturers and lands at {31 17} at r13. Cavalry is the fast capturer;
-//     the slower old units stay in the neck, where they absorb what comes back;
+//     capturers, reaches {31 17} and lands them at r15, so the cavalry passes
+//     the heavy gun's reach only after the Junkers has bombed it (r20);
+//   - from r19 the factory puts one fresh unit beside it each move: the Camels
+//     that hunt the east enclave stay there instead of catching the run;
 //   - the Junkers leaves the bait at r11 and bombs the heavy gun at {19 14}, the
-//     one mobile-range threat in the pocket, then the pocket's last mobile units;
+//     one mobile-range threat in the pocket, then the bunker at {11 13} that
+//     covers the EC HQ door, then the pocket's last mobile units;
 //   - landed units stop where the bunkers and long guns reach least, and hold
 //     their fire: return fire costs strength the run needs.
 //
@@ -36,22 +42,27 @@ type Strike struct {
 }
 
 const (
-	strikeSail      = 7  // the resolution the lift ship loads and sails
-	strikeJunkers   = 11 // the resolution the Junkers leaves the bait
-	strikeShip      = 65 // the eastern transport ship's record
-	strikeDanger    = 3  // route cost per unit of fixed fire on a stopping hex
-	strikeShipZOC   = 30 // a hex next to an enemy costs a ship its move
-	typeCavalry     = 21
-	typeAntiTank    = 19
-	typeBunker      = 13
-	typeHeavyGun    = 12
-	typeMediumGun   = 11
-	bunkerReach     = 3
-	heavyGunReach   = 6
-	mediumGunReach  = 5
-	heavyGunFire    = 3
-	mediumGunFire   = 2
-	strikePocketHex = 10 // a heavy gun this near the EC HQ is the Junkers' target
+	strikeSail        = 7  // the resolution the lift ship loads and sails
+	strikeJunkers     = 11 // the resolution the Junkers leaves the bait
+	strikeShip        = 65 // the eastern transport ship's record
+	strikeDanger      = 3  // route cost per unit of fixed fire on a stopping hex
+	strikeShipZOC     = 30 // a hex next to an enemy costs a ship its move
+	typeCavalry       = 21
+	typeAntiTank      = 19
+	typeBunker        = 13
+	typeHeavyGun      = 12
+	typeMediumGun     = 11
+	bunkerReach       = 3
+	heavyGunReach     = 6
+	mediumGunReach    = 5
+	heavyGunFire      = 3
+	mediumGunFire     = 2
+	strikePocketHex   = 10 // a heavy gun this near the EC HQ is the Junkers' target
+	strikeLure        = 18 // the rail transport's record
+	strikeLureFrom    = 17 // the resolution it starts to run north
+	strikeLand        = 15 // the first resolution the cargo may land
+	strikeFactoryBait = 19 // the first resolution the factory puts out Camel bait
+	strikeDoorBunker  = 21 // the first resolution the Junkers flies to doorBunker
 )
 
 var (
@@ -61,6 +72,8 @@ var (
 	landingSea = hexgrid.Coord{Line: 31, Col: 17}
 	fokkerBait = hexgrid.Coord{Line: 44, Col: 14}
 	junkerBait = hexgrid.Coord{Line: 44, Col: 9}
+	cpHQ       = hexgrid.Coord{Line: 27, Col: 7}
+	doorBunker = hexgrid.Coord{Line: 11, Col: 13} // the bunker that covers the EC HQ door
 	liftOld    = []hexgrid.Coord{{Line: 31, Col: 22}, {Line: 30, Col: 23}, {Line: 28, Col: 23}, {Line: 27, Col: 22}}
 )
 
@@ -274,8 +287,67 @@ func (st *Strike) move(s *dosplay.Session, side int) ([]dosplay.Event, error) {
 			return evs, err
 		}
 	}
-	e, err := st.strikers(s, side)
+	e, err := st.lure(s, side)
+	evs = append(evs, e...)
+	if err != nil {
+		return evs, err
+	}
+	e, err = st.factoryBait(s, side)
+	evs = append(evs, e...)
+	if err != nil {
+		return evs, err
+	}
+	e, err = st.strikers(s, side)
 	return append(evs, e...), err
+}
+
+// factoryBait puts one unit built in the factory next to it from
+// strikeFactoryBait on: the Camels that hunted the east enclave stay there
+// instead of flying on to the run.
+func (st *Strike) factoryBait(s *dosplay.Session, side int) ([]dosplay.Event, error) {
+	if st.r < strikeFactoryBait {
+		return nil, nil
+	}
+	_, inF, _ := s.Contents(side, cpFactory)
+	for _, u := range inF {
+		if u.Side != side || s.CanOrder(side, u.Index) != nil {
+			continue
+		}
+		d, err := s.ExitDestinations(side, u.In, u.Slot)
+		if err != nil || len(d) == 0 {
+			continue
+		}
+		best, bv := hexgrid.Coord{}, 1<<20
+		for _, c := range dosplay.Coords(d) {
+			if x := hexgrid.Distance(c, cpFactory); x < bv {
+				best, bv = c, x
+			}
+		}
+		return s.Exit(side, u.In, u.Slot, best)
+	}
+	return nil, nil
+}
+
+// lure runs the rail transport away from the CP HQ from strikeLureFrom on.
+func (st *Strike) lure(s *dosplay.Session, side int) ([]dosplay.Event, error) {
+	u, ok := st.find(s, side, strikeLure)
+	if !ok || st.r < strikeLureFrom || u.Moved {
+		return nil, nil
+	}
+	d, err := s.Destinations(side, u.Index)
+	if err != nil {
+		return nil, nil //nolint:nilerr // A transport that may not move stays.
+	}
+	best, bv := u.At, hexgrid.Distance(u.At, cpHQ)
+	for _, c := range dosplay.Coords(d) {
+		if x := hexgrid.Distance(c, cpHQ); x > bv {
+			best, bv = c, x
+		}
+	}
+	if best == u.At {
+		return nil, nil
+	}
+	return s.Move(side, u.Index, best)
 }
 
 // strikers lands the cargo of the arrived ship and marches every landed unit,
@@ -292,7 +364,7 @@ func (st *Strike) strikers(s *dosplay.Session, side int) ([]dosplay.Event, error
 		if s.CanOrder(side, u.Index) != nil || u.In < 0 {
 			continue
 		}
-		if v, ok := st.find(s, side, strikeShip); ok && v.At == u.At && u.At == landingSea {
+		if v, ok := st.find(s, side, strikeShip); ok && v.At == u.At && u.At == landingSea && st.r >= strikeLand {
 			list = append(list, mv{u, 0})
 			st.landed[u.Index] = true
 		}
@@ -357,7 +429,8 @@ func (st *Strike) strikers(s *dosplay.Session, side int) ([]dosplay.Event, error
 }
 
 // waypoint is a plane's goal: the south edge, for the Junkers from strikeJunkers
-// the heavy gun by the EC HQ, then the mobile unit nearest the EC HQ in the pocket.
+// the heavy gun by the EC HQ, from strikeDoorBunker the bunker by its door, then
+// the mobile unit nearest the EC HQ in the pocket.
 func (st *Strike) waypoint(u dosplay.UnitView) hexgrid.Coord {
 	if !strings.Contains(u.ID, "junkers") {
 		return fokkerBait
@@ -369,6 +442,9 @@ func (st *Strike) waypoint(u dosplay.UnitView) hexgrid.Coord {
 		if x := st.view.Units[c]; x.Side == 1 && x.Type == typeHeavyGun && hexgrid.Distance(c, ecHQ) < strikePocketHex {
 			return c
 		}
+	}
+	if x, ok := st.view.Units[doorBunker]; ok && x.Side == 1 && st.r >= strikeDoorBunker {
+		return doorBunker
 	}
 	best, bd := junkerBait, 1<<20
 	for _, c := range coordsOf(st.view.Units) {
