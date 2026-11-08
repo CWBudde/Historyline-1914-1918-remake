@@ -350,3 +350,29 @@ hold CP-type units ([30,8] a medium gun, two infantry and an elite; [37,2] a lig
   reach [5,3]; an elite takes the HQ at 71.
 - Rules seen in play: entering a hex next to an enemy ends the move; cargo can leave a carrier in the
   phase the carrier moved, but not in the phase it boarded.
+
+# GOOSE (1914-10:ec)
+
+The mirror of CIVIL, as EC; coach and fallback both lost by resolution 23.
+
+## The recorded win (HQ capture, resolution 68, score 1244)
+
+- Opening: cavalry takes [10,4] and u29 takes [27,2] on the first move; every doorstep of both factories
+  and the HQ stays occupied; CP's light gun e11 (north) and armoured train e58 (south rail) die early.
+  The heavy and medium guns at the HQ and at [27,2] one-shot CP's first army: about three mobile CP
+  units are left by resolution 23. [30,8] cannot be reached before CP takes it at 3.
+- The centre (lines 19–33, columns 5–9) is a kill zone: CP builds guns at [30,8] that cover road and
+  rail with bunkers e26 and e32. Cavalry sent into it die at their old hex, and do about 1 damage to
+  guns. The rail is the fast lane instead: a transport train with cavalry covers about 6 rail hexes.
+  Undefended [37,2] falls to one cavalry at about 34.
+- The finish: only the transport train runs the rail to [36,6] (when everything advanced, CP's heavy gun
+  e51 stayed and threatened it); the light gun (experience 6) unloads beside e51 and kills it in one
+  shot. An elite takes the CP depot [44,7] with the second heavy gun inside (contents change side), and
+  cavalry takes the factory [45,6], which ends CP's builds next to its HQ.
+- The doorstep [38,9] is in reach of the medium gun e83 [29,9] and bunkers e45 [34,9] and e49 [36,8]:
+  every cavalry that waited there died (battles resolve before moves). The captured heavy gun at [39,8],
+  outside e83's reach of 5 but covering all three with its 6, kills e49 and halves e83; an elite steps to
+  [39,9] and takes the HQ door [39,10] round by [37,9], [36,9], [37,10] while a cavalry at [37,8] draws
+  the fire.
+- Rules seen in play: bunkers take no damage from cavalry or elite infantry, only from guns; a gun that
+  moved cannot fire the next resolution; the threat list can name fewer shooters than fire.

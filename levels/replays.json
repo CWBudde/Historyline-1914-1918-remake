@@ -41,6 +41,14 @@
       "score": 933
     },
     {
+      "level": "1914-10:ec",
+      "code": "GOOSE",
+      "side": 1,
+      "driver": "llm",
+      "resolutions": 68,
+      "score": 1244
+    },
+    {
       "level": "1914-11:cp",
       "code": "POLYG",
       "side": 0,
