@@ -323,3 +323,30 @@ starts with 14 units; the plain coach stalls on both setups (no end in 300 resol
 - The end game stalls. CP's two medium guns hover at lines 21–25, out of the heavy gun's range, and the
   terrain there is too rough for the supply car to carry the last infantry past them. Keep two
   infantry back for the march on [6,1].
+
+# CIVIL (1914-10:cp)
+
+EC starts with far more units; coach and fallback both lost by resolution 28. Four neutral factories
+hold CP-type units ([30,8] a medium gun, two infantry and an elite; [37,2] a light gun and two infantry;
+[27,2] five units; [8,10] six): a capture takes the units and about 10 income. EC takes [8,10] and
+[27,2] by resolution 6.
+
+## The recorded win (HQ capture, resolution 71, score 933)
+
+- Cavalry from [31,7] via [33,8] takes [30,8] at resolution 3. Its doorsteps [28,8] and [29,9] are open
+  grass: keep a blocker on each and let the guns kill the EC capturers that stop beside them. That holds
+  the factory until about resolution 20.
+- Defend at lines 33–37, not forward: light and medium guns behind units in forest or hills. EC infantry
+  rarely attacks against the exact outcome; it walks to the buildings and dies to the guns, 3–5 kills per
+  action phase. By resolution 25 the experienced medium guns kill infantry, cavalry, armoured cars and
+  even bunkers in one shot. The EC west group (nine units from [27,2]) retakes [37,2], then crosses the
+  mountains at lines 36–40 onto the rail and dies to the heavy and light guns.
+- One EC medium gun on the road at lines 22–26 kills a unit per turn: kill it from range 5, or with the
+  heavy gun from 6.
+- Finish: supply cars (4 foot units plus 1 medium gun) carry the guns up the road; bunkers [19,8],
+  [17,6] and [19,4] fall at 54–58, and from [17,6]/[18,6] the guns kill [7,6] outside the reach of the
+  EC heavy gun at [7,4]. A car lands a medium gun at [9,5] and elites at [5,4] and [3,4]; an elite takes
+  the EC factory [10,4]. At 70 the gun kills the door bunker [4,3], and with it gone three capturers can
+  reach [5,3]; an elite takes the HQ at 71.
+- Rules seen in play: entering a hex next to an enemy ends the move; cargo can leave a carrier in the
+  phase the carrier moved, but not in the phase it boarded.

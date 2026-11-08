@@ -33,6 +33,14 @@
       "score": 380
     },
     {
+      "level": "1914-10:cp",
+      "code": "CIVIL",
+      "side": 0,
+      "driver": "llm",
+      "resolutions": 71,
+      "score": 933
+    },
+    {
       "level": "1914-11:cp",
       "code": "POLYG",
       "side": 0,
