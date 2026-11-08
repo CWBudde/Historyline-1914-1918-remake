@@ -18,6 +18,9 @@ import (
 type Window struct {
 	Lines [][2]int
 	Full  bool
+	// Brief drops what a player has seen once: the order format and the
+	// destination legend, and keeps events short (BriefDigest).
+	Brief bool
 }
 
 // ParseLines reads a line window such as "1-20,75-95" or "8".

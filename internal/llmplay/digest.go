@@ -101,3 +101,55 @@ func Digest(evs []dosplay.Event) string {
 	}
 	return b.String()
 }
+
+// BriefDigest is Digest for side in fewer words: units as uN (side's) and
+// eN (the enemy's) without the side prefix, battles without the zero
+// support terms, enemy moves as start->goal, and side's own moves left
+// out (YOUR UNITS shows where they ended).
+func BriefDigest(evs []dosplay.Event, side int) string {
+	name := func(u dosplay.UnitView) string {
+		p := "u"
+		if u.Side != side {
+			p = "e"
+		}
+		id := u.ID
+		if _, rest, ok := strings.Cut(id, "_"); ok {
+			id = rest
+		}
+		return fmt.Sprintf("%s%d %s", p, u.Index, id)
+	}
+	fighter := func(f dosplay.Fighter) string {
+		return fmt.Sprintf("%s %d->%d%s", name(f.Unit), f.Before, f.After, dead(f.Destroyed))
+	}
+	var b strings.Builder
+	for _, ev := range evs {
+		switch ev.Kind {
+		case dosplay.Battle:
+			if bi := ev.Battle; bi != nil {
+				fmt.Fprintf(&b, " %s: %s hits %s", show(ev.To), fighter(bi.Attacker), fighter(bi.Defender))
+				if bi.Pincer != 0 {
+					fmt.Fprintf(&b, " pincer=%d", bi.Pincer)
+				}
+				b.WriteByte('\n')
+			}
+		case dosplay.Revealed:
+			if ev.Side != side && len(ev.Path) > 0 {
+				fmt.Fprintf(&b, " e%d moved %s->%s\n", ev.Unit, show(ev.Path[0]), show(ev.Path[len(ev.Path)-1]))
+			}
+		case dosplay.Credited:
+			if ev.Side == side {
+				fmt.Fprintf(&b, " energy %d\n", ev.Energy)
+			}
+		case dosplay.Repaired, dosplay.Built:
+			verb := map[dosplay.EventKind]string{dosplay.Repaired: "repaired", dosplay.Built: "built"}[ev.Kind]
+			if ev.Side == side {
+				fmt.Fprintf(&b, " %s u%d at %s, energy left %d\n", verb, ev.Unit, show(ev.To), ev.Energy)
+			} else {
+				fmt.Fprintf(&b, " enemy %s e%d at %s\n", verb, ev.Unit, show(ev.To))
+			}
+		case dosplay.Skipped, dosplay.Captured, dosplay.Dug, dosplay.Constructed, dosplay.Ended, dosplay.PhaseChanged:
+			b.WriteString(Digest([]dosplay.Event{ev}))
+		}
+	}
+	return b.String()
+}

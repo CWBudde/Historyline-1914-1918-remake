@@ -6,9 +6,10 @@
 // Usage:
 //
 //	hl llmplay new    [-level 1918-02:cp] [-out DIR] [-oracle] [-frames] [-lessons FILE]
-//	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full]   print the current phase prompt
+//	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full] [-brief]   print the current phase prompt
 //	hl llmplay suggest -dir GAME          print the coach's action-phase orders (repairs, builds, focus fire) as JSONL
-//	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback; {"op":"done"} orders nothing)
+//	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] [-brief] [-auto-action] validate+play one resolution (FILE "-" = fallback; {"op":"done"} orders nothing;
+//	                                    -auto-action: suggest plays the action phase that follows; -brief: shorter prompt and events)
 //	hl llmplay run    [-level REF] [-out DIR] [-driver file|coach|fallback|strike] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hl llmplay replay  -dir GAME|FILE     verify the transcript reproduces every state hash
 //	hl llmplay fork    -dir GAME|FILE [-at N] -out NEW   a new game from the first N resolutions
@@ -176,14 +177,15 @@ func (c *command) cmdPrompt(args []string) (err error) {
 	return os.WriteFile(filepath.Join(*dir, "prompt.txt"), []byte(p), 0o644)
 }
 
-// windowFlags registers -lines and -full; the returned func builds the
-// prompt window after parsing.
+// windowFlags registers -lines, -full and -brief; the returned func
+// builds the prompt window after parsing.
 func windowFlags(fs *flag.FlagSet) func() (llmplay.Window, error) {
 	lines := fs.String("lines", "", "show only map lines in these 1-based spans, e.g. 1-20,75-95")
 	full := fs.Bool("full", false, "list every legal destination instead of a sample")
+	brief := fs.Bool("brief", false, "leave out the order format and legends, short events (step: no separate RESOLUTION EVENTS)")
 	return func() (llmplay.Window, error) {
 		spans, err := llmplay.ParseLines(*lines)
-		return llmplay.Window{Lines: spans, Full: *full}, err
+		return llmplay.Window{Lines: spans, Full: *full, Brief: *brief}, err
 	}
 }
 
@@ -193,6 +195,7 @@ func (c *command) cmdStep(args []string) (err error) {
 	dir := fs.String("dir", "", "game dir")
 	orders := fs.String("orders", "-", "orders JSONL file, or - for the fallback")
 	frames := fs.Bool("frames", false, "render a PNG frame")
+	auto := fs.Bool("auto-action", false, "play the action phase that follows (or this one, without -orders) with suggest's orders")
 	window := windowFlags(fs)
 	if err := fs.Parse(args); err != nil {
 		return err
@@ -224,15 +227,27 @@ func (c *command) cmdStep(args []string) (err error) {
 			return rejected([]string{`empty orders file: {"op":"done"} orders nothing, -orders - plays the fallback`})
 		}
 	}
-	rej, evs, err := g.Step(text)
+	step := g.Step
+	if *auto {
+		step = g.StepAuto
+	}
+	rej, evs, err := step(text)
 	if err != nil {
 		return err
 	}
 	if len(rej) > 0 {
 		return rejected(rej)
 	}
-	if _, err := fmt.Fprint(c.stdout, "RESOLUTION EVENTS:\n"+llmplay.Digest(evs)); err != nil {
-		return err
+	// The next prompt repeats the events (EVENTS SINCE YOUR LAST ORDERS);
+	// brief prints them once, here only at the end.
+	if !g.Window.Brief || g.Ended() != nil {
+		d := llmplay.Digest(evs)
+		if g.Window.Brief {
+			d = llmplay.BriefDigest(evs, g.Side)
+		}
+		if _, err := fmt.Fprint(c.stdout, "RESOLUTION EVENTS:\n"+d); err != nil {
+			return err
+		}
 	}
 	if end := g.Ended(); end != nil {
 		if _, err := fmt.Fprintf(c.stdout, "GAME OVER winner=side%d won=%v score=%d\n", end.Winner, end.Won, end.Score); err != nil {

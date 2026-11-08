@@ -14,7 +14,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
 )
 
-const corpusUsage = "usage: hl llmplay corpus status|verify|regen|adopt|sweep [flags]"
+const corpusUsage = "usage: hl llmplay corpus status|verify|regen|adopt|sweep|best [flags]"
 
 // cmdCorpus manages the winning recordings beside the level folders.
 func (c *command) cmdCorpus(args []string) error {
@@ -37,6 +37,8 @@ func (c *command) cmdCorpus(args []string) error {
 		return c.corpusAdopt(args[1:])
 	case "sweep":
 		return c.corpusSweep(args[1:])
+	case "best":
+		return c.corpusBest(args[1:])
 	default:
 		return fmt.Errorf("unknown corpus command %q; %s", args[0], corpusUsage)
 	}
@@ -232,6 +234,37 @@ func (c *command) corpusAdopt(args []string) error {
 	}
 	_, err = fmt.Fprintf(c.stdout, "%s: %s's win at %d, score %d -> %s\n", e.Level, e.Driver, e.Resolutions, e.Score, path)
 	return err
+}
+
+// corpusBest lists the swept games of a target by where they stood best,
+// each with the fork command that starts a played game there.
+func (c *command) corpusBest(args []string) error {
+	fs := flag.NewFlagSet("hl llmplay corpus best", flag.ContinueOnError)
+	fs.SetOutput(c.stderr)
+	level := fs.String("level", "", "the target, e.g. 1915-08:ec")
+	root := fs.String("root", filepath.Join("build", "review", "llmplay", "corpus"), "the sweep folders' parent")
+	n := fs.Int("n", 5, "list at most this many games")
+	if err := parseNoArgs(fs, args); err != nil {
+		return err
+	}
+	if *level == "" {
+		return errors.New("corpus best: -level is required")
+	}
+	ps, err := llmplay.ForkPoints(*root, *level)
+	if err != nil {
+		return err
+	}
+	if len(ps) == 0 {
+		return fmt.Errorf("corpus best: no games of %s below %s (run corpus sweep -only %s)", *level, *root, *level)
+	}
+	name := strings.NewReplacer(":", "-").Replace(*level)
+	for _, p := range ps[:min(*n, len(ps))] {
+		if _, err := fmt.Fprintf(c.stdout, "%-14s %s %d (%d:%d); best at %d (%d:%d)\n  hl llmplay fork -dir %s -at %d -out build/review/llmplay/%s/f%d\n",
+			p.Driver, p.Result, p.Resolutions, p.Units[0], p.Units[1], p.At, p.AtUnits[0], p.AtUnits[1], p.Dir, p.At, name, p.At); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // corpusSweep plays the registered players on the targets and, with

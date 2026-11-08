@@ -14,6 +14,7 @@ just llmplay prompt -dir ... -lines 1-20,75-95 -full       # one front, every de
 just llmplay suggest -dir ...                              # action phase: the coach's repairs, builds, focus fire as JSONL
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
+just llmplay step -dir ... -orders orders.jsonl -brief -auto-action   # cheap loop: movement orders only
 just llmplay replay -dir ...                               # verify every state hash (a game dir or a .jsonl)
 just llmplay fork -dir ... -at 12 -out build/review/llmplay/try2   # go on from resolution 12
 just llmplay render -dir ... [-backdrop level] [-density 2] [-div 2] [-fps 2] [-width 3840] [-crf 16]
@@ -70,7 +71,11 @@ strength, captures, revealed moves, income), and the legal orders of the phase:
 ≈3.5–5.5k tokens per prompt on RHEIN (32×47), ≈10k on CANDL (16×95, 145
 units). `-lines 1-20,75-95` (on `prompt` and `step`) keeps only the units,
 buildings, threats, orders and events on those map lines; header and holdings
-stay whole, omitted units hold position. Coordinates are `[line,col]`, but lines are
+stay whole, omitted units hold position. `-brief` leaves out what a player has
+read once (the order format, the destination legend) and shortens the events:
+units as `uN`/`eN` without the side prefix, enemy moves as start->goal, own
+moves left out; `step -brief` prints the events once, in the next prompt,
+instead of also as RESOLUTION EVENTS. Coordinates are `[line,col]`, but lines are
 half rows: a hex touches the two hexes diagonally above and below it and the
 hexes two lines up and down (`[l±2,c]`), never `[l,c±1]` on its own line, so
 `map.txt` with its half-shifted even lines draws the true layout. PNG frames are the human recording
@@ -84,7 +89,11 @@ line with the rules engine's reason). Ops: `move`, `exit`, `attack`, `repair`,
 `build`, `surrender`. Capture/loading are implicit in moves. `suggest` prints
 the coach's action phase for the side (repairs, builds by its doctrine, sapper
 work, sequential focus fire scored by the exact outcome) as a batch to take,
-edit or ignore; it never reads the opponent's plan. After 3 bad
+edit or ignore; it never reads the opponent's plan. `step -auto-action` plays
+the action phase that follows the step with `suggest`'s batch (marked
+`(action phase played by suggest)` in the events), so a player orders the
+movement phases only, at half the steps; without `-orders` in an action phase
+it plays that one by `suggest` too. After 3 bad
 batches (or driver failure) a deterministic fallback plays the phase
 (`dosai.Planner`) so a game never stalls.
 
@@ -177,6 +186,7 @@ just llmplay corpus verify                 # the same, failing on any recording 
 just llmplay corpus sweep [-drivers coach,lookahead,fallback] [-only 1918-02,1916-05:ec] [-j 4] [-adopt]
                                            # play the players on the targets; -adopt takes each new win
 just llmplay corpus adopt -dir GAME        # take a finished winning game (any driver) into the corpus
+just llmplay corpus best -level 1915-08:ec # the swept games by where they stood best, with fork commands
 just llmplay corpus regen [-level REF]     # make recordings again after an engine or dosai change
 ```
 
@@ -189,8 +199,12 @@ again, for example from a `fork` before the resolution where it broke.
 
 The workflow per target: `corpus status` and the last sweep
 (`build/review/llmplay/corpus/sweep/sweep.json`) show what the players
-achieve; play the target with `new`/`prompt`/`step` (fork to retry from a
-checkpoint) or a new player in `llmplay.Players`; `corpus adopt` the win.
+achieve; `corpus best` lists the swept games by the resolution where the
+recorded side stood best (most units over the enemy's) with a ready `fork`
+command, so a played game can skip an opening an automatic player already
+won (and the tokens it costs); play the target with `new`/`prompt`/`step`
+(fork to retry from a checkpoint) or a new player in `llmplay.Players`;
+`corpus adopt` the win.
 
 ## Learn — review and lessons
 

@@ -233,6 +233,52 @@ func (g *Game) Step(ordersText string) (rejected []string, evs []dosplay.Event, 
 		return nil, evs, err
 	}
 	g.digest = Digest(evs)
+	if g.Window.Brief {
+		g.digest = BriefDigest(evs, g.Side)
+	}
+	return nil, evs, nil
+}
+
+// StepAuto is Step followed by the side's action phase, if that comes
+// next, played with SuggestAct's orders (the coach's repairs, builds and
+// focus fire), so the player orders movement phases only. Called in an
+// action phase with ordersText "", it plays that phase by SuggestAct too
+// (not the fallback). The digest covers every resolution played;
+// rejected reasons are only ever ordersText's.
+func (g *Game) StepAuto(ordersText string) (rejected []string, evs []dosplay.Event, err error) {
+	if g.S.Ended() != nil {
+		return g.Step(ordersText)
+	}
+	var digest strings.Builder
+	for i := 0; g.S.Ended() == nil; i++ {
+		action := g.S.Phase(g.Side) != dosrules.PhaseMovement
+		if i > 0 && !action {
+			break
+		}
+		text := ordersText
+		if action && (i > 0 || text == "") {
+			if text, err = SuggestAct(g.S, g.Side); err != nil {
+				return nil, evs, err
+			}
+			if strings.TrimSpace(text) == "" {
+				text = `{"op":"done"}`
+			}
+			digest.WriteString("(action phase played by suggest)\n")
+		}
+		rej, stepEvs, err := g.Step(text)
+		if err != nil {
+			return nil, evs, err
+		}
+		if len(rej) > 0 {
+			if i == 0 {
+				return rej, nil, nil
+			}
+			return nil, evs, fmt.Errorf("llmplay: suggested action orders rejected: %s", strings.Join(rej, "; "))
+		}
+		evs = append(evs, stepEvs...)
+		digest.WriteString(g.digest)
+	}
+	g.digest = digest.String()
 	return nil, evs, nil
 }
 
