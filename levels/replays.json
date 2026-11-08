@@ -113,6 +113,14 @@
       "score": 664
     },
     {
+      "level": "1915-04:cp",
+      "code": "NOISE",
+      "side": 0,
+      "driver": "llm",
+      "resolutions": 83,
+      "score": 1301
+    },
+    {
       "level": "1915-04:ec",
       "code": "TEMPO",
       "side": 1,

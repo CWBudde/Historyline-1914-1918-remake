@@ -449,3 +449,28 @@ BEAST's map as EC. The coach was wiped out at 64; the lookahead player and the f
   [41,4] at 40 while CP's army still fights at the EC factory.
 - Depots ping-pong: retaking one flips every unit inside (retaking [8,14] won back CP's cavalry, CP's
   retake took 5 of ours).
+
+# NOISE (1915-04:cp)
+
+The computer's EC keeps building (the automatic players ended facing 100 units); the fallback lost at
+30, the coach at 120, the lookahead player at 132.
+
+## The recorded win (HQ capture, resolution 83, score 1301)
+
+- EC cavalry take the three north factories at 4, [29,10] and [37,3] at 12. CP takes the near depots and
+  the factory first: u16 walks to [46,11] (7); u19 leaves the transport train at [54,9] for [57,9] (7),
+  then walks [51,7], [51,6] to [52,4] (15).
+- The centre is a kill zone: the train artillery parked at [46,12] kills almost any EC unit outright from
+  17, the armoured train at [45,12] kills cavalry and, with the Fokkers, both planes. 42 EC units at 14,
+  15 at 62. The two rail networks do not connect (roads at lines 33–44): CP trains cannot go north, the
+  EC train artillery roams the west rail to [34,2]. A gun or train that moved cannot fire the next
+  action phase.
+- Once the EC aircraft and elites are dead, only the EC armoured train hurts the Fokkers: three or four
+  around a unit kill it outright, and with cavalry they killed the EC heavy gun [29,3] and the EC train
+  artillery.
+- Front factories need every doorstep filled: [37,3] fell twice and [22,4] once to a single infantry
+  walking through an open doorstep (zone of control did not stop it). Take [37,3] (47) and [22,4] (61)
+  only with all four doorsteps filled (Fokkers count) and every enemy capturer within two moves dead.
+- The EC HQ has no garrison. Ground units cannot pass north of line 12 at columns 1–3; the way in is the
+  road: cavalry on [13,4] reaches [7,5] in one move, nothing fires at it next to the bunker [6,5], and
+  the next move takes [7,4] round by [6,4]. A cavalry on the road could do this much earlier.
