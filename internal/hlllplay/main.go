@@ -9,7 +9,7 @@
 //	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full] [-brief]   print the current phase prompt
 //	hl llmplay suggest -dir GAME          print the coach's action-phase orders (repairs, builds, focus fire) as JSONL
 //	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] [-brief] [-auto-action] validate+play one resolution (FILE "-" = fallback; {"op":"done"} orders nothing;
-//	                                    -auto-action: suggest plays the action phase that follows; -brief: shorter prompt and events)
+//	                                    -auto-action: suggest plays the action phase that follows; -brief: shorter prompt and events, only the changed enemy units)
 //	hl llmplay run    [-level REF] [-out DIR] [-driver file|coach|fallback|strike] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hl llmplay replay  -dir GAME|FILE     verify the transcript reproduces every state hash
 //	hl llmplay fork    -dir GAME|FILE [-at N] -out NEW   a new game from the first N resolutions
@@ -45,6 +45,15 @@ import (
 type rejected []string
 
 func (r rejected) Error() string { return "REJECTED, nothing applied: " + strings.Join(r, "; ") }
+
+// reject reports a rejected batch on stdout too (a caller piping stdout
+// would miss stderr) and returns it as the error (exit 2).
+func (c *command) reject(rej []string) error {
+	if _, err := fmt.Fprintln(c.stdout, "REJECTED, nothing applied:\n "+strings.Join(rej, "\n ")); err != nil {
+		return err
+	}
+	return rejected(rej)
+}
 
 func gameDir(out, ref string) string {
 	if out != "" {
@@ -182,7 +191,7 @@ func (c *command) cmdPrompt(args []string) (err error) {
 func windowFlags(fs *flag.FlagSet) func() (llmplay.Window, error) {
 	lines := fs.String("lines", "", "show only map lines in these 1-based spans, e.g. 1-20,75-95")
 	full := fs.Bool("full", false, "list every legal destination instead of a sample")
-	brief := fs.Bool("brief", false, "leave out the order format and legends, short events (step: no separate RESOLUTION EVENTS)")
+	brief := fs.Bool("brief", false, "leave out the order format and legends, short events (step: no separate RESOLUTION EVENTS, only the enemy units that changed)")
 	return func() (llmplay.Window, error) {
 		spans, err := llmplay.ParseLines(*lines)
 		return llmplay.Window{Lines: spans, Full: *full, Brief: *brief}, err
@@ -224,7 +233,7 @@ func (c *command) cmdStep(args []string) (err error) {
 		}
 		text = string(raw)
 		if strings.TrimSpace(text) == "" { // "" would play the fallback for us
-			return rejected([]string{`empty orders file: {"op":"done"} orders nothing, -orders - plays the fallback`})
+			return c.reject([]string{`empty orders file: {"op":"done"} orders nothing, -orders - plays the fallback`})
 		}
 	}
 	step := g.Step
@@ -236,7 +245,7 @@ func (c *command) cmdStep(args []string) (err error) {
 		return err
 	}
 	if len(rej) > 0 {
-		return rejected(rej)
+		return c.reject(rej)
 	}
 	// The next prompt repeats the events (EVENTS SINCE YOUR LAST ORDERS);
 	// brief prints them once, here only at the end.

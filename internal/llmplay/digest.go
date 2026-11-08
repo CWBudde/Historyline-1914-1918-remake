@@ -104,8 +104,8 @@ func Digest(evs []dosplay.Event) string {
 
 // BriefDigest is Digest for side in fewer words: units as uN (side's) and
 // eN (the enemy's) without the side prefix, battles without the zero
-// support terms, enemy moves as start->goal, and side's own moves left
-// out (YOUR UNITS shows where they ended).
+// support terms, and the moves left out (YOUR UNITS shows where side's
+// ended, the brief ENEMY list where the enemy's did, with their start).
 func BriefDigest(evs []dosplay.Event, side int) string {
 	name := func(u dosplay.UnitView) string {
 		p := "u"
@@ -132,10 +132,6 @@ func BriefDigest(evs []dosplay.Event, side int) string {
 				}
 				b.WriteByte('\n')
 			}
-		case dosplay.Revealed:
-			if ev.Side != side && len(ev.Path) > 0 {
-				fmt.Fprintf(&b, " e%d moved %s->%s\n", ev.Unit, show(ev.Path[0]), show(ev.Path[len(ev.Path)-1]))
-			}
 		case dosplay.Credited:
 			if ev.Side == side {
 				fmt.Fprintf(&b, " energy %d\n", ev.Energy)
@@ -147,6 +143,7 @@ func BriefDigest(evs []dosplay.Event, side int) string {
 			} else {
 				fmt.Fprintf(&b, " enemy %s e%d at %s\n", verb, ev.Unit, show(ev.To))
 			}
+		case dosplay.Revealed: // in the brief enemy list
 		case dosplay.Skipped, dosplay.Captured, dosplay.Dug, dosplay.Constructed, dosplay.Ended, dosplay.PhaseChanged:
 			b.WriteString(Digest([]dosplay.Event{ev}))
 		}

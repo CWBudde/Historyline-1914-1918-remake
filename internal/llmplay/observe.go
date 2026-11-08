@@ -185,8 +185,22 @@ func Observe(s *dosplay.Session, side int, lastDigest string, w Window) string {
 	}
 	b.WriteString("ENEMY LAST-KNOWN (positions stale since last phase change):\n")
 	slices.SortFunc(enemy, func(a, b dosplay.UnitView) int { return a.Index - b.Index })
+	same := 0
 	for _, u := range enemy {
-		fmt.Fprintf(&b, " e%d %s %d/%d %s\n", u.Index, u.ID, u.Size, u.Full, show(u.At))
+		line := enemyLine(u)
+		if w.Brief && w.known != nil {
+			if w.known.lines[line] {
+				same++
+				continue
+			}
+			if was, ok := w.known.at[u.Index]; ok && u.Head == nil && was != u.At {
+				line = strings.TrimSuffix(line, "\n") + " from " + show(was) + "\n"
+			}
+		}
+		b.WriteString(line)
+	}
+	if same > 0 {
+		fmt.Fprintf(&b, " (%d more unchanged since your last orders; a prompt without -brief lists them)\n", same)
 	}
 	if d := w.digest(lastDigest); d != "" {
 		b.WriteString("EVENTS SINCE YOUR LAST ORDERS:\n" + d)
@@ -455,4 +469,28 @@ func Gain(p dosrules.Profile, b *dosrules.Battlefield, attacker int, o dosrules.
 		}
 	}
 	return sc
+}
+
+func enemyLine(u dosplay.UnitView) string {
+	return fmt.Sprintf(" e%d %s %d/%d %s\n", u.Index, u.ID, u.Size, u.Full, show(u.At))
+}
+
+// enemySnapshot is the enemy list a player saw: its lines, and where
+// each unit (its head) stood.
+type enemySnapshot struct {
+	lines map[string]bool
+	at    map[int]hexgrid.Coord
+}
+
+func knownEnemies(s *dosplay.Session, side int) *enemySnapshot {
+	k := &enemySnapshot{lines: map[string]bool{}, at: map[int]hexgrid.Coord{}}
+	for _, u := range s.View(side).Units {
+		if u.Side == 1-side {
+			k.lines[enemyLine(u)] = true
+			if u.Head == nil {
+				k.at[u.Index] = u.At
+			}
+		}
+	}
+	return k
 }

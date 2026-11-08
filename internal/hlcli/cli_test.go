@@ -182,9 +182,9 @@ func TestLLMSessionRejectsAtomicallyAndReplays(t *testing.T) {
 	if err := os.WriteFile(orders, []byte("{\"op\":\"unknown\"}\n"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	code, _, errs = invoke("llmplay", "step", "-dir", dir, "-orders", orders)
-	if code != 2 || !strings.Contains(errs, "REJECTED") {
-		t.Fatalf("rejected step: code=%d errors=%q", code, errs)
+	code, out, errs = invoke("llmplay", "step", "-dir", dir, "-orders", orders)
+	if code != 2 || !strings.Contains(errs, "REJECTED") || !strings.Contains(out, "REJECTED") {
+		t.Fatalf("rejected step: code=%d out=%q errors=%q", code, out, errs)
 	}
 	after, err := os.ReadFile(filepath.Join(dir, "save.json"))
 	if err != nil || !bytes.Equal(before, after) {

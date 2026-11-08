@@ -89,6 +89,7 @@ type Game struct {
 	Frames         func(s *dosplay.Session, resolution int) (string, error)
 	tr             *Transcript
 	digest         string
+	seen           *enemySnapshot // the enemy list before the last step
 	resolution     int
 	FallbackPhases int
 }
@@ -137,7 +138,9 @@ func (g *Game) Close() error { return g.tr.Close() }
 
 // Prompt is the text the model gets for the current phase.
 func (g *Game) Prompt() (string, error) {
-	p := Observe(g.S, g.Side, g.digest, g.Window)
+	w := g.Window
+	w.known = g.seen
+	p := Observe(g.S, g.Side, g.digest, w)
 	if !g.Oracle {
 		return p, nil
 	}
@@ -171,6 +174,7 @@ func (g *Game) Step(ordersText string) (rejected []string, evs []dosplay.Event, 
 		return nil, nil, err
 	}
 	phaseLLM := phaseName(s, g.Side) // the phase these orders belong to
+	seen := knownEnemies(s, g.Side)
 	mark := s.Mark()
 	fallback := ordersText == ""
 	if !fallback {
@@ -233,6 +237,7 @@ func (g *Game) Step(ordersText string) (rejected []string, evs []dosplay.Event, 
 		return nil, evs, err
 	}
 	g.digest = Digest(evs)
+	g.seen = seen
 	if g.Window.Brief {
 		g.digest = BriefDigest(evs, g.Side)
 	}
@@ -249,6 +254,7 @@ func (g *Game) StepAuto(ordersText string) (rejected []string, evs []dosplay.Eve
 	if g.S.Ended() != nil {
 		return g.Step(ordersText)
 	}
+	seen := knownEnemies(g.S, g.Side)
 	var digest strings.Builder
 	for i := 0; g.S.Ended() == nil; i++ {
 		action := g.S.Phase(g.Side) != dosrules.PhaseMovement
@@ -279,6 +285,7 @@ func (g *Game) StepAuto(ordersText string) (rejected []string, evs []dosplay.Eve
 		digest.WriteString(g.digest)
 	}
 	g.digest = digest.String()
+	g.seen = seen
 	return nil, evs, nil
 }
 

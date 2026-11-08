@@ -1,6 +1,7 @@
 package llmplay
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -33,6 +34,35 @@ func TestStepAutoBrief(t *testing.T) {
 		}
 		if !strings.Contains(g.digest, "(action phase played by suggest)") {
 			t.Errorf("digest does not mark the suggested phase:\n%s", g.digest)
+		}
+	}
+	// After a step the brief enemy list holds the changed units only and
+	// counts the rest.
+	enemies := func(p string) (lines []string, same int) {
+		_, sec, _ := strings.Cut(p, "ENEMY LAST-KNOWN")
+		for _, l := range strings.Split(sec, "\n")[1:] {
+			if !strings.HasPrefix(l, " e") {
+				if _, err := fmt.Sscanf(l, " (%d more unchanged", &same); err != nil {
+					same = 0
+				}
+				break
+			}
+			lines = append(lines, l)
+		}
+		return lines, same
+	}
+	brief, err = g.Prompt()
+	if err != nil {
+		t.Fatal(err)
+	}
+	all, _ := enemies(Observe(g.S, g.Side, "", Window{}))
+	changed, same := enemies(brief)
+	if same == 0 || len(changed)+same != len(all) {
+		t.Errorf("brief enemy list: %d changed + %d unchanged, want %d in all", len(changed), same, len(all))
+	}
+	for _, l := range changed {
+		if g.seen.lines[l+"\n"] {
+			t.Errorf("unchanged enemy listed: %q", l)
 		}
 	}
 	if g.resolution != 6 {

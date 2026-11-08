@@ -19,8 +19,12 @@ type Window struct {
 	Lines [][2]int
 	Full  bool
 	// Brief drops what a player has seen once: the order format and the
-	// destination legend, and keeps events short (BriefDigest).
+	// destination legend, keeps events short (BriefDigest) and, after a
+	// step, lists only the enemy units that changed since the last prompt.
 	Brief bool
+	// known is the set of enemy lines the player saw before the step, nil
+	// when unknown; set by Game.Prompt.
+	known *enemySnapshot
 }
 
 // ParseLines reads a line window such as "1-20,75-95" or "8".

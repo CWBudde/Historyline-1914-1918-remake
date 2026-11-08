@@ -13,7 +13,7 @@ just llmplay prompt -dir build/review/llmplay/mygame       # state + legal order
 just llmplay prompt -dir ... -lines 1-20,75-95 -full       # one front, every destination
 just llmplay suggest -dir ...                              # action phase: the coach's repairs, builds, focus fire as JSONL
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
-just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, reasons on stderr
+just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, nothing applied (REJECTED on stdout and stderr)
 just llmplay step -dir ... -orders orders.jsonl -brief -auto-action   # cheap loop: movement orders only
 just llmplay replay -dir ...                               # verify every state hash (a game dir or a .jsonl)
 just llmplay fork -dir ... -at 12 -out build/review/llmplay/try2   # go on from resolution 12
@@ -73,9 +73,10 @@ units). `-lines 1-20,75-95` (on `prompt` and `step`) keeps only the units,
 buildings, threats, orders and events on those map lines; header and holdings
 stay whole, omitted units hold position. `-brief` leaves out what a player has
 read once (the order format, the destination legend) and shortens the events:
-units as `uN`/`eN` without the side prefix, enemy moves as start->goal, own
-moves left out; `step -brief` prints the events once, in the next prompt,
-instead of also as RESOLUTION EVENTS. Coordinates are `[line,col]`, but lines are
+units as `uN`/`eN` without the side prefix, moves left out; `step -brief` prints
+the events once, in the next prompt, instead of also as RESOLUTION EVENTS, and
+its enemy list holds only the units that changed since the step (a moved one
+with `from [l,c]`) and counts the rest. Coordinates are `[line,col]`, but lines are
 half rows: a hex touches the two hexes diagonally above and below it and the
 hexes two lines up and down (`[l±2,c]`), never `[l,c±1]` on its own line, so
 `map.txt` with its half-shifted even lines draws the true layout. PNG frames are the human recording
