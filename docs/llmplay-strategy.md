@@ -520,3 +520,28 @@ A sea map. Every automatic player was ground down by CP's army (the fallback las
   out of bunker e3's reach (only heavy gun e7 hits it, for about 1), and onto the HQ [4,17] (46).
 - At home, units on the three HQ doorsteps [61,2], [62,1], [62,2] and the heavy gun [61,6] killing a
   capturer per turn hold the EC HQ.
+
+# ORKAN (1915-08:cp)
+
+A sea map. CP's army stands on an island (lines 62–79) without a land link; the CP HQ [4,17] in the
+north-west has only armoured car u1 beside it, and EC cavalry reaches its doorsteps by 22.
+
+## The recorded win (HQ capture, resolution 31, score 2408)
+
+- Plug the CP HQ with aircraft: Fokkers stand on all three doorsteps [2,17], [3,17], [3,18] from 17
+  (fly them north at once along the east edge, columns 19–20, and build a third). Cavalry, infantry,
+  charrons, guns and bunker e0 cannot hit planes; only elite infantry and EC fighters can, and none came.
+  The plug held to the end, and the Fokkers get free shots at cavalry every action phase.
+- The CP fleet wins the EC north fleet (keep outside the envelopes: battleship 12 = move 5 + range 7,
+  destroyer 9, torpedo boat 8, then strike together) but dies to the south fleet by 21. EC battleship e57
+  cannot be sunk (every shot predicts 1, adjacent attackers die to return fire): plan around where it is.
+  It chases the nearest unit it can attack, planes included, and stays while it has targets in range; a
+  fresh Fokker E.III parked at [64,15] drew it east from 24 and bought the landing four resolutions.
+- Kill heavy gun e31 [61,6] from the air first (a Fokker E.I does 1 per hit, no return fire; three did it
+  by 24). Transport route [61,18] (13), [62,15], [62,13], [63,11] (19), [62,8] (21), [65,6] (23), landing
+  at 25 from [63,5] and [65,5]: cargo exits only onto a land hex beside the ship ("ls" counts as water).
+- Bunker e30 [62,2] (a Fokker does 0) falls to the landed medium gun on [62,4] and the elite on [63,3]
+  (the only e30-adjacent hex a landed unit reaches in one move: [64,4], [63,4], [64,3], [63,3]), at 30.
+  At 31 the elite walks [63,3], [62,2] onto the HQ [63,2].
+- The suggested action phases spend energy on infantry at the island factory, where they never leave;
+  save for the Fokker E.III (85) instead.

@@ -185,6 +185,14 @@
       "score": 922
     },
     {
+      "level": "1915-08:cp",
+      "code": "ORKAN",
+      "side": 0,
+      "driver": "llm",
+      "resolutions": 31,
+      "score": 2408
+    },
+    {
       "level": "1915-08:ec",
       "code": "BUMMM",
       "side": 1,
@@ -321,6 +329,14 @@
       "score": 1388
     },
     {
+      "level": "1916-09:ec",
+      "code": "TANKS",
+      "side": 1,
+      "driver": "lookahead-deep",
+      "resolutions": 118,
+      "score": 1121
+    },
+    {
       "level": "1916-10:cp",
       "code": "BALON",
       "side": 0,
@@ -351,6 +367,14 @@
       "driver": "fallback",
       "resolutions": 40,
       "score": 1612
+    },
+    {
+      "level": "1917-02:cp",
+      "code": "ELITE",
+      "side": 0,
+      "driver": "lookahead-wide",
+      "resolutions": 31,
+      "score": 1132
     },
     {
       "level": "1917-02:ec",
@@ -393,6 +417,14 @@
       "score": 940
     },
     {
+      "level": "1917-06:ec",
+      "code": "MOVES",
+      "side": 1,
+      "driver": "lookahead-wide",
+      "resolutions": 46,
+      "score": 1256
+    },
+    {
       "level": "1917-07:cp",
       "code": "AUDIO",
       "side": 0,
@@ -423,6 +455,22 @@
       "driver": "fallback",
       "resolutions": 24,
       "score": 756
+    },
+    {
+      "level": "1917-10:cp",
+      "code": "ATLAS",
+      "side": 0,
+      "driver": "lookahead-deep",
+      "resolutions": 69,
+      "score": 1805
+    },
+    {
+      "level": "1917-11:cp",
+      "code": "CAMEL",
+      "side": 0,
+      "driver": "lookahead-wide",
+      "resolutions": 77,
+      "score": 2581
     },
     {
       "level": "1917-11:ec",
@@ -504,6 +552,14 @@
       "driver": "coach",
       "resolutions": 27,
       "score": 1938
+    },
+    {
+      "level": "1918-06:ec",
+      "code": "SODOM",
+      "side": 1,
+      "driver": "lookahead-deep",
+      "resolutions": 24,
+      "score": 2108
     },
     {
       "level": "1918-07:cp",
