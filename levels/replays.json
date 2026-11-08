@@ -193,6 +193,14 @@
       "score": 1381
     },
     {
+      "level": "1915-11:cp",
+      "code": "BEAST",
+      "side": 0,
+      "driver": "llm",
+      "resolutions": 113,
+      "score": 2833
+    },
+    {
       "level": "1916-01:cp",
       "code": "BISON",
       "side": 0,

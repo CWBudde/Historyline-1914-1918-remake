@@ -376,3 +376,29 @@ The mirror of CIVIL, as EC; coach and fallback both lost by resolution 23.
   the fire.
 - Rules seen in play: bunkers take no damage from cavalry or elite infantry, only from guns; a gun that
   moved cannot fire the next resolution; the threat list can name fewer shooters than fire.
+
+# BEAST (1915-11:cp)
+
+Every automatic player stalls here: the lookahead player was 89 units to 19 at resolution 100 and the
+coach ran to 300 without a winner.
+
+## The recorded win (HQ capture, resolution 113, score 2833)
+
+- The map: a sea channel (columns 8–10, line 29 to the southern sea) parts the CP HQ [41,4] on the west
+  strip from the EC HQ [46,15] on the east strip; the middle (lines 12–28, neutral depot [19,9]) is an
+  island. The only ground crossing is in the far north, over the bridges to the CP depot [7,10] and the
+  bridge chain [6,11]-[5,12]-[4,12], where EC's light guns kill one jammed CP unit per resolution. That
+  is why the automatic players stall with their infantry stuck in the north-west.
+- The recording is the lookahead player's game to 100 (a fork) and a finish by sea from the prompt: a
+  supply car with 4 elites and a medium gun drives to [45,7]; the transport ship sails [29,10] → [38,10]
+  → [42,8], takes the loaded car (room for one, not two) and sails on to [46,10] in the same phase.
+  Cargo exits only onto the shore hexes beside the ship ([45,11], [47,11], [48,10]); the elites walk
+  [47,12]-[47,13]-[47,14] to [44,14] and step onto the entrance [46,15]. Boarding to capture: 12
+  resolutions.
+- By then the EC HQ is bare (the army is the light-gun group in the north and the guns at its factory
+  [27,13], on 2000 banked energy); the one defender met, a medium gun at strength 1, had just moved and
+  could not fire on the ship.
+- Rules seen in play: a car keeps its cargo when it drives onto a ship (the ship lists it as its own
+  slots); a carrier that moved this phase cannot take on units; a unit that left a ship cannot board a
+  car that left it in the same phase. In the action phase the windowed prompt (`-lines`) leaves out the
+  legal attacks: use the full prompt or `suggest`.
