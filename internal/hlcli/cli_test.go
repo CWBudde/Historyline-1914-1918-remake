@@ -190,6 +190,17 @@ func TestLLMSessionRejectsAtomicallyAndReplays(t *testing.T) {
 	if err != nil || !bytes.Equal(before, after) {
 		t.Fatalf("rejected orders changed save: %v", err)
 	}
+	// An empty file is no silent fallback: it is rejected, nothing applied.
+	if err := os.WriteFile(orders, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	code, _, errs = invoke("llmplay", "step", "-dir", dir, "-orders", orders)
+	if code != 2 || !strings.Contains(errs, `{"op":"done"}`) {
+		t.Fatalf("empty orders: code=%d errors=%q", code, errs)
+	}
+	if after, err = os.ReadFile(filepath.Join(dir, "save.json")); err != nil || !bytes.Equal(before, after) {
+		t.Fatalf("empty orders changed save: %v", err)
+	}
 	code, out, errs = invoke("llmplay", "step", "-dir", dir)
 	if code != 0 || !strings.Contains(out, "RESOLUTION EVENTS") || errs != "" {
 		t.Fatalf("step: code=%d out=%q errors=%q", code, out, errs)

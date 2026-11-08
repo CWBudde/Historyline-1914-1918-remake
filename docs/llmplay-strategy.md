@@ -294,3 +294,32 @@ by 75, 79, 83 and 87 and the EC HQ at 103, with 87 CP and 23 EC units left.
   or 109, so settings were compared over repeated whole games; the recording
   itself replays exactly. The faster game costs score: 2828 against 3156 at 105,
   with fewer units left.
+
+# PULSE (1914-08:cp) and BATLE (1914-08:ec)
+
+The first month: an 8-column corridor, CP HQ [6,1], EC HQ [42,6], depots [19,6] and [34,1]. Each side
+starts with 14 units; the plain coach stalls on both setups (no end in 300 resolutions).
+
+## PULSE: the recorded win (HQ capture, resolution 31, score 561)
+
+1. Take the near depot [19,6] with infantry on turn 2: it holds a heavy artillery, the best gun on the
+   map (from [17,6] it kills infantry 9 lines away).
+2. Hold a line at lines 17–19 with the light, medium and heavy guns right behind it and let dosai's
+   cavalry and infantry walk in one by one; focus fire kills two or three units per action phase.
+3. When only its guns and bunkers are left, walk down the middle. dosai pulls a heavy artillery into the
+   far depot [34,1]: moving a cavalry onto the entrance takes the depot with the gun inside.
+4. An infantry walks onto the HQ entrance [42,6].
+
+## BATLE: what the map has shown (no played win yet; the shipped recording is fallback's)
+
+- A depot is a trap. Whoever steps onto the entrance takes everything inside, and the other side takes
+  it all back the next movement phase unless every hex next to the entrance is blocked. [34,1]
+  changed hands twice for 3, then 5 units.
+- The opponent's attacks resolve on the positions before your move, so moving a threatened unit does not
+  save it from a DESTROY. The side that moves into range shoots first.
+- The heavy artillery at [41,5] wins the defence on its own: a compact block around the HQ entrance
+  ([40,6], [41,6], [41,7] held) kills the whole CP assault by turn 12.
+- Do not send cavalry or a forward wedge out early: lost both cavalry and a bunker for two kills.
+- The end game stalls. CP's two medium guns hover at lines 21–25, out of the heavy gun's range, and the
+  terrain there is too rough for the supply car to carry the last infantry past them. Keep two
+  infantry back for the march on [6,1].

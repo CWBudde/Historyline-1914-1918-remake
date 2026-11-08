@@ -8,7 +8,7 @@
 //	hl llmplay new    [-level 1918-02:cp] [-out DIR] [-oracle] [-frames] [-lessons FILE]
 //	hl llmplay prompt  -dir GAME [-lines 1-20,75-95] [-full]   print the current phase prompt
 //	hl llmplay suggest -dir GAME          print the coach's action-phase orders (repairs, builds, focus fire) as JSONL
-//	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback)
+//	hl llmplay step    -dir GAME -orders FILE [-lines …] [-full] validate+play one resolution (FILE "-" = fallback; {"op":"done"} orders nothing)
 //	hl llmplay run    [-level REF] [-out DIR] [-driver file|coach|fallback|strike] [-max 300] [-frames] [-lessons FILE] [-oracle]
 //	hl llmplay replay  -dir GAME|FILE     verify the transcript reproduces every state hash
 //	hl llmplay fork    -dir GAME|FILE [-at N] -out NEW   a new game from the first N resolutions
@@ -220,6 +220,9 @@ func (c *command) cmdStep(args []string) (err error) {
 			return err
 		}
 		text = string(raw)
+		if strings.TrimSpace(text) == "" { // "" would play the fallback for us
+			return rejected([]string{`empty orders file: {"op":"done"} orders nothing, -orders - plays the fallback`})
+		}
 	}
 	rej, evs, err := g.Step(text)
 	if err != nil {

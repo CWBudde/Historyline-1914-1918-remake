@@ -4,9 +4,9 @@
       "level": "1914-08:cp",
       "code": "PULSE",
       "side": 0,
-      "driver": "fallback",
-      "resolutions": 27,
-      "score": 436
+      "driver": "llm",
+      "resolutions": 31,
+      "score": 561
     },
     {
       "level": "1914-08:ec",

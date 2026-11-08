@@ -193,7 +193,7 @@ func Observe(s *dosplay.Session, side int, lastDigest string, w Window) string {
 	}
 	b.WriteString(threats(s, side, v, w))
 	b.WriteString(legal(s, side, v, w))
-	b.WriteString("Reply with JSONL orders only, one per line: {\"op\":\"move\",\"unit\":N,\"to\":[l,c]} | {\"op\":\"exit\",\"hold\":H,\"slot\":S,\"to\":[l,c]} | {\"op\":\"attack\",\"unit\":N,\"target\":[l,c]} | {\"op\":\"repair\",\"hold\":H,\"slot\":S} | {\"op\":\"build\",\"hold\":H,\"type\":T} | {\"op\":\"surrender\"}. Coordinates 1-based. Omitted units hold position. Whole batch is validated atomically.\n")
+	b.WriteString("Reply with JSONL orders only, one per line: {\"op\":\"move\",\"unit\":N,\"to\":[l,c]} | {\"op\":\"exit\",\"hold\":H,\"slot\":S,\"to\":[l,c]} | {\"op\":\"attack\",\"unit\":N,\"target\":[l,c]} | {\"op\":\"repair\",\"hold\":H,\"slot\":S} | {\"op\":\"build\",\"hold\":H,\"type\":T} | {\"op\":\"done\"} | {\"op\":\"surrender\"}. Coordinates 1-based. Omitted units hold position; {\"op\":\"done\"} alone orders nothing. Whole batch is validated atomically.\n")
 	return b.String()
 }
 
