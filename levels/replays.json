@@ -570,6 +570,14 @@
       "score": 2749
     },
     {
+      "level": "1918-07:ec",
+      "code": "HAMEL",
+      "side": 1,
+      "driver": "lookahead-deep",
+      "resolutions": 124,
+      "score": 2471
+    },
+    {
       "level": "1918-08:cp",
       "code": "TROLL",
       "side": 0,
