@@ -30,7 +30,7 @@
       "side": 1,
       "driver": "coach",
       "resolutions": 22,
-      "score": 355
+      "score": 380
     },
     {
       "level": "1914-11:cp",
@@ -237,8 +237,8 @@
       "code": "FLAGS",
       "side": 0,
       "driver": "coach",
-      "resolutions": 58,
-      "score": 817
+      "resolutions": 54,
+      "score": 772
     },
     {
       "level": "1918-01:ec",

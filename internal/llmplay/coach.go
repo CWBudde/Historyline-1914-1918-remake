@@ -21,7 +21,11 @@ package llmplay
 //     isolated garrisons embark on ships, loaded ships sail to the
 //     coast nearest the cargo's goal and unload there;
 //   - aircraft camp on bridge hexes (a unit on a hex blocks it) when a
-//     front bridge is out of AA reach, else hunt artillery/aircraft.
+//     front bridge is out of AA reach, else hunt artillery/aircraft;
+//   - the end game: once only guns and bunkers are left to the enemy,
+//     every capturer races for its HQ and the HQ screen joins the
+//     assault, the doorstep guards too when the enemy cannot build or
+//     unload any more units.
 //
 // Coach is deterministic: every list is sorted, no randomness.
 
@@ -197,12 +201,26 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachC
 			}
 		}
 	}
+	// Siege: with the enemy broken, the whole army converges on its
+	// HQ and its bunker ring. Without it v24 stalled 550 resolutions
+	// at 46:7 — the armour mass sat in a support cluster in the east
+	// while 6 bunkers guarded the EC HQ untouched.
+	p.siege = len(p.enemies) <= 12
+	p.siegeHard = p.siege
+	for _, e := range p.enemies {
+		if e.Budget > 0 && !p.longRange(e) && e.Domain != dosplay.Artillery {
+			p.siegeHard = false
+		}
+	}
 	p.findDashers()
 	// Home guard: the 8 ground units nearest an own HQ form its
 	// screen. In v1–v6 the west infantry rushed foreign buildings and
 	// the HQ front thinned to two units by the time EC arrived.
+	// In a hard siege nothing can walk up to the HQ any more: the
+	// screen joins the assault (1914-08 stalled 300 resolutions with
+	// the whole army parked around its own HQ).
 	p.homeGuard = map[int]bool{}
-	if len(p.ownHQs) > 0 {
+	if len(p.ownHQs) > 0 && !p.siegeHard {
 		type du struct {
 			idx, d int
 		}
@@ -294,17 +312,6 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachC
 			}
 		}
 	}
-	// Siege: with the enemy broken, the whole army converges on its
-	// HQ and its bunker ring. Without it v24 stalled 550 resolutions
-	// at 46:7 — the armour mass sat in a support cluster in the east
-	// while 6 bunkers guarded the EC HQ untouched.
-	p.siege = len(p.enemies) <= 12
-	p.siegeHard = p.siege
-	for _, e := range p.enemies {
-		if e.Budget > 0 && !p.longRange(e) && e.Domain != dosplay.Artillery {
-			p.siegeHard = false
-		}
-	}
 	p.bridges = bridgeHexes(s)
 	// HQ doorstep guards: a unit cannot park ON its own entrance
 	// (moving there enters the building), so up to three tough ground
@@ -313,6 +320,9 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachC
 	// screen's exact fire (v2–v5 kept losing the HQ this way; the
 	// scout's doorstep analysis names these hexes).
 	p.guardOf = map[int]hexgrid.Coord{}
+	if p.siegeHard && p.enemyCannotReinforce() {
+		return p // nobody is left to walk up: the guards join the assault
+	}
 	for _, hq := range p.ownHQs {
 		var steps []hexgrid.Coord
 		ring := hexgrid.Around(hq)
@@ -392,7 +402,7 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachC
 				if _, taken := p.guardOf[u.Index]; taken {
 					continue
 				}
-				if u.Armour*u.Size < 120 { // tough enough to sit under fire
+				if u.Armour*u.Size < 120 || p.siegeHard && p.dash[u.Index] { // tough enough to sit under fire; in a hard siege dashers race
 					continue
 				}
 				if d := hexgrid.Distance(u.At, b); d < bestD {
@@ -409,14 +419,29 @@ func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachC
 
 // findDashers picks the foot capturers that race for the enemy HQ. dosai
 // leaves its HQ empty and chases the nearest unit, so those with a long
-// way round draw its army off as well.
+// way round draw its army off as well. In a hard siege every capturer
+// races, sappers too: no enemy is left that needs a trench.
 func (p *coachPlan) findDashers() {
 	p.dash = map[int]bool{}
 	for _, u := range p.own {
-		if p.cfg.Dash && u.Domain == dosplay.Infantry && p.canCapture(u) && !strings.HasSuffix(u.ID, "_antiTank") && !p.s.Sapper(u.Index) {
+		if !p.cfg.Dash || !p.canCapture(u) || strings.HasSuffix(u.ID, "_antiTank") {
+			continue
+		}
+		if p.siegeHard || u.Domain == dosplay.Infantry && !p.s.Sapper(u.Index) {
 			p.dash[u.Index] = true
 		}
 	}
+}
+
+// enemyCannotReinforce: the enemy owns no factory and holds no unit in a
+// building, so the units on the map are all it will ever have.
+func (p *coachPlan) enemyCannotReinforce() bool {
+	for _, at := range p.foreign {
+		if bv := p.view.Buildings[at]; bv.Kind == dosplay.Factory && p.s.SideOf(bv.Owner) == p.opp {
+			return false
+		}
+	}
+	return p.s.Stats().Sides[p.opp].Units == len(p.enemies)
 }
 
 // bridgeHexes are the passage hexes an aircraft can block: road/rail
