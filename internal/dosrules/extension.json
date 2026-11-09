@@ -1,0 +1,11 @@
+{
+  "build": "+units1",
+  "types": [
+    {"armour": 20, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 15, "waterPower": 15, "attackMask": 4, "strengthFlags": 0, "cost": 60}
+  ],
+  "move": {
+    "types": [
+      {"budget": 12, "speed": 4, "mask": 122, "class": 4, "flags": 33601, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1}
+    ]
+  }
+}

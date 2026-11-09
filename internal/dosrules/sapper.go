@@ -169,6 +169,8 @@ func (g *Game) work(a int) ([]Event, int) {
 			}
 		case actionDepot:
 			evs = append(evs, g.depotWork(a, i))
+		case actionGas:
+			evs = append(evs, g.releaseGas(a, i))
 		}
 	}
 	return evs, won

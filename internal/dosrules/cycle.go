@@ -65,6 +65,13 @@ type Game struct {
 	Ended     *End
 	Energy    [2]int
 	Buildings map[int]Building
+	// Gas is the gas cloud (gas.go): the turns each cell has left, nil
+	// while no cell has any. GasTurns and GasLoss are a cloud's duration
+	// and a foot unit's loss per turn in percent of its group (0: GasTurns
+	// and GasLoss).
+	Gas      []int
+	GasTurns int
+	GasLoss  int
 }
 
 // Placement is a unit as a scenario places it: its type, owner (0 or 1, 2
@@ -144,8 +151,8 @@ func NewGame(p Profile, width, height int, terrain []int, units map[int]Placemen
 			Budget: typ.Budget, Exp: u.Exp, Size: size, Alt: u.Alt, Flags4: typ.Class | [3]int{0, 1, 2}[u.Owner],
 			Flags6: typ.Flags, Type: u.Type, Hold: 0xFF,
 		}
-		if p.builder(u.Type) {
-			l.Hold = builderCharges
+		if n, ok := p.charges(u.Type); ok {
+			l.Hold = n
 		}
 		if l.Flags4&0x1000 != 0 {
 			l.Hold = -1
@@ -261,6 +268,12 @@ const (
 	// EvDepot: a construction unit completed the depot at Cell: Cells took
 	// the depot's records and Hold is its new container record (builder.go).
 	EvDepot EventKind = "depot"
+	// EvGasCloud: gas pioneers released a cloud at Cell over Cells (gas.go).
+	EvGasCloud EventKind = "gasCloud"
+	// EvGassed: Unit of Side lost Loss strength to the gas at Cell (gas.go).
+	EvGassed EventKind = "gassed"
+	// EvGasCleared: the cloud left Cells (gas.go).
+	EvGasCleared EventKind = "gasCleared"
 )
 
 // Event is one thing that happened, in order.
@@ -278,6 +291,7 @@ type Event struct {
 	Energy   int       `json:"energy,omitempty"`
 	Hold     int       `json:"hold,omitempty"`
 	Cells    []int     `json:"cells,omitempty"`
+	Loss     int       `json:"loss,omitempty"`
 }
 
 // unitOf is the unit a command orders.
@@ -375,6 +389,9 @@ func (g *Game) Check(c Command) error {
 	if c.Kind == CmdAttack && u.Builder() {
 		return g.checkBuilder(c.Side, u, idx, c.Cell)
 	}
+	if c.Kind == CmdAttack && u.GasPioneer() {
+		return g.checkGas(c.Side, u, c.Cell)
+	}
 	if c.Kind == CmdAttack && u.Sapper() {
 		if !g.trenchTarget(c.Side, u, c.Cell) {
 			return refuse(MsgNoTarget, "no trench work there")
@@ -452,6 +469,9 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 	}
 	if c.Kind == CmdAttack && g.Units[c.Unit].Builder() {
 		return []Event{g.orderDepot(c.Side, c.Unit, c.Cell)}, nil
+	}
+	if c.Kind == CmdAttack && g.Units[c.Unit].GasPioneer() {
+		return []Event{g.orderGas(c.Side, c.Unit, c.Cell)}, nil
 	}
 	if c.Kind == CmdAttack && g.Units[c.Unit].Sapper() {
 		u := g.Units[c.Unit]
@@ -727,6 +747,7 @@ func (g *Game) Resolve() ([]Event, error) {
 	}
 	caps, hq := g.work(a)
 	evs = append(evs, caps...)
+	evs = append(evs, g.gasTurn()...)
 	ev, err := g.changePhase(a)
 	evs = append(evs, ev...)
 	if err != nil {

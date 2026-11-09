@@ -145,8 +145,8 @@ func (g *Game) repair(c Command) []Event {
 	u := g.Units[i]
 	g.Energy[c.Side] -= g.Profile.repairCost(u.Type)
 	u.Size = g.Profile.Tables.Types[u.Type].Group
-	if g.Profile.builder(u.Type) {
-		u.Hold = builderCharges
+	if n, ok := g.Profile.charges(u.Type); ok {
+		u.Hold = n
 	}
 	u.Flags4 |= 0x200
 	g.Units[i] = u
@@ -162,8 +162,8 @@ func (g *Game) build(c Command) []Event {
 		Budget: m.Budget, Size: g.Profile.Tables.Types[c.Type].Group, Flags4: m.Class | c.Side | 0x4200,
 		Flags6: m.Flags, Type: c.Type, Serial: g.serial(c.Side), Hold: 0xFF, Pos: [2]int{h.Cells[0], h.Cells[0]},
 	}
-	if g.Profile.builder(c.Type) {
-		u.Hold = builderCharges
+	if n, ok := g.Profile.charges(c.Type); ok {
+		u.Hold = n
 	}
 	if m.Class&0x1000 != 0 {
 		u.Hold = g.freeCarrier()

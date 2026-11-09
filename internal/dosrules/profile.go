@@ -11,6 +11,7 @@ package dosrules
 import (
 	_ "embed"
 	"encoding/json"
+	"slices"
 )
 
 // Type is the part of a UNIT.DAT type record that combat and production read.
@@ -112,9 +113,40 @@ var Demo = Profile{
 	Builders: []int{16}, Repair: 15, BuilderRepair: 50,
 }
 
+//go:embed extension.json
+var extensionJSON []byte
+
+// ExtendedTables are the full tables with the extension's type records
+// appended from index 51 (extension.json, docs/new-units.md): the original
+// records keep their indices, so they bind and play as before. Their build
+// is the full build's with the extension's suffix, which names them in a
+// save.
+var ExtendedTables = extend(FullTables, extensionJSON)
+
+// Extended is the full profile on the extended tables: the original rules
+// plus the new units' (gas.go).
+var Extended = Profile{
+	Name: "dos-0.1+units1", Tables: ExtendedTables, TransposedDistance: true,
+	Builders: []int{16}, Repair: 15, BuilderRepair: 50,
+}
+
 // Profiles are the profiles of the identified builds by build name (the
 // directories under testdata/).
 var Profiles = map[string]Profile{"full": Full, "demo": Demo}
+
+// extend is base with the type records of the extension ext appended.
+func extend(base *Tables, ext []byte) *Tables {
+	x := mustTables(ext)
+	t := *base
+	t.Build = base.Build + x.Build
+	t.Types = append(slices.Clone(base.Types), x.Types...)
+	if base.Move != nil && x.Move != nil {
+		m := *base.Move
+		m.Types = append(slices.Clone(base.Move.Types), x.Move.Types...)
+		t.Move = &m
+	}
+	return &t
+}
 
 func mustTables(b []byte) *Tables {
 	var t Tables
