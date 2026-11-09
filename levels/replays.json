@@ -249,6 +249,14 @@
       "score": 1620
     },
     {
+      "level": "1915-12:cp",
+      "code": "RATIO",
+      "side": 0,
+      "driver": "plan",
+      "resolutions": 81,
+      "score": 848
+    },
+    {
       "level": "1916-01:cp",
       "code": "BISON",
       "side": 0,
@@ -441,6 +449,14 @@
       "score": 807
     },
     {
+      "level": "1917-08:ec",
+      "code": "BLADE",
+      "side": 1,
+      "driver": "plan",
+      "resolutions": 56,
+      "score": 1291
+    },
+    {
       "level": "1917-09:cp",
       "code": "SPELL",
       "side": 0,
@@ -503,6 +519,14 @@
       "driver": "strike",
       "resolutions": 25,
       "score": 3967
+    },
+    {
+      "level": "1918-02:ec",
+      "code": "MOSEL",
+      "side": 1,
+      "driver": "plan",
+      "resolutions": 94,
+      "score": 2186
     },
     {
       "level": "1918-03:cp",

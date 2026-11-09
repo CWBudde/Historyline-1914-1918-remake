@@ -30,7 +30,7 @@ just llmplay gif -dir ...                                  # frames/*.png -> gam
 ```
 
 `run -driver NAME` plays a whole game unattended with a registered player
-(`llmplay.Players`: `coach`, `lookahead`, `lookahead-deep`, `lookahead-wide`, `fallback`, `strike`) or, with `file`, the orders
+(`llmplay.Players`: `coach`, `lookahead`, `lookahead-deep`, `lookahead-wide`, `plan`, `fallback`, `strike`) or, with `file`, the orders
 an outside agent writes to `orders.jsonl` for each `prompt.txt`; `-frames`
 records a PNG per resolution (omniscient `TrueView` projected through
 `maprender`) plus `game.gif`. `-oracle` appends the opponent's exact planned
@@ -49,6 +49,11 @@ times slower than the coach (its rollouts skip the coach's own oracle).
 `lookahead-deep` plays 16 resolutions ahead instead of 8; `lookahead-wide`
 also weighs the grab postures (foot capturers take buildings instead of
 racing for the enemy HQ).
+**`plan`** (`Strategist`) searches standing plans beside the postures: for each foreign building within
+eight moves it weighs a squad of the three nearest capturers sent to take it, alone (`take`) or with three
+fighters (`storm`), plays every plan 16 resolutions ahead side by side and values the end with
+`EvaluatePlan` (`Evaluate` plus the income difference and the energy in hand). It took three targets no
+other player wins (1915-12:cp, 1917-08:ec, 1918-02:ec).
 **`strike`** is RHEIN's scripted win as CP: it captures the EC HQ
 at resolution 25, deterministically (pinned by `TestStrikeWinsRhein`; see
 [llmplay-strategy.md](llmplay-strategy.md)). `fallback` (dosai both sides) loses the HQ
