@@ -22,8 +22,30 @@ func Fork(src string, at int, dst string) error {
 	if at < 0 || at > len(rp.Lines) {
 		return fmt.Errorf("llmplay: fork at %d, the recording has %d resolutions", at, len(rp.Lines))
 	}
-	s := rp.Session
-	for _, l := range rp.Lines[:at] {
+	h := rp.Header
+	h.Driver = DriverLLM
+	return rp.rewind(at, dst, h)
+}
+
+// Undo takes the last n resolutions of the game in dir back: the
+// transcript loses their lines and the save is the state before them.
+func Undo(dir string, n int) (left int, err error) {
+	rp, err := OpenReplay(dir)
+	if err != nil {
+		return 0, err
+	}
+	if n < 1 || n > len(rp.Lines) {
+		return 0, fmt.Errorf("llmplay: undo %d, the game has %d resolutions", n, len(rp.Lines))
+	}
+	left = len(rp.Lines) - n
+	return left, rp.rewind(left, dir, rp.Header)
+}
+
+// rewind writes the game after its first at resolutions to dst under
+// header h, every hash checked on the way.
+func (rp *Replay) rewind(at int, dst string, h Header) error {
+	s, lines := rp.Session, rp.Lines[:at]
+	for _, l := range lines {
 		if _, err := s.Replay(l.Commands); err != nil {
 			return fmt.Errorf("resolution %d: %w", l.Resolution, err)
 		}
@@ -41,12 +63,10 @@ func Fork(src string, at int, dst string) error {
 	if err != nil {
 		return err
 	}
-	h := rp.Header
-	h.Driver = DriverLLM
 	if err := tr.Write(h); err != nil {
 		return err
 	}
-	for _, l := range rp.Lines[:at] {
+	for _, l := range lines {
 		if err := tr.Write(l); err != nil {
 			return err
 		}

@@ -12,6 +12,10 @@ just llmplay new -level 1918-02:cp -out build/review/llmplay/mygame [-lessons LE
 just llmplay prompt -dir build/review/llmplay/mygame       # state + legal orders
 just llmplay prompt -dir ... -lines 1-20,75-95 -full       # one front, every destination
 just llmplay suggest -dir ...                              # action phase: the coach's repairs, builds, focus fire as JSONL
+just llmplay query -dir ... "eta u32 [42,10]" "reach e27" income   # distances, arrivals, reach, threats, types, income
+just llmplay try -dir ... -orders a.jsonl -plan raid.json -res 12  # play candidates ahead, commit none
+just llmplay advance -dir ... -plan raid.json              # play on under a standing plan until it stops
+just llmplay undo -dir ... [-n 3]                          # take the last resolutions back
 # write orders.jsonl (one JSON object per line, 1-based [line,col])
 just llmplay step -dir ... -orders orders.jsonl            # exit 2 = rejected, nothing applied (REJECTED on stdout and stderr)
 just llmplay step -dir ... -orders orders.jsonl -brief -auto-action   # cheap loop: movement orders only
@@ -105,6 +109,56 @@ movement phases only, at half the steps; without `-orders` in an action phase
 it plays that one by `suggest` too. After 3 bad
 batches (or driver failure) a deterministic fallback plays the phase
 (`dosai.Planner`) so a game never stalls.
+
+## Plan — queries, standing plans, what-if
+
+A game runs 30 to 110 resolutions and is won by a plan of 20 or more, so a player works above the single
+phase where it can.
+
+**`query`** answers questions about the side's own view (fair: enemy positions are last-known), several
+per call:
+
+| Query | Answer |
+|---|---|
+| `dist A B` | hex distance; `A`, `B` are `[l,c]`, `uN` or `eN` |
+| `near A r` | units and buildings within `r` hexes |
+| `eta uN [l,c]`, `eta uN buildings` | movement phases to arrive over terrain, with the stop of each; every foreign building, nearest first |
+| `reach eN` | an enemy's moves from its last-known hex and which of your units it then has in range |
+| `threat uN`, `threat [l,c]` | the enemies that can hit there within the next resolution, each exact outcome and the focus-fire worst case |
+| `type ID`, `type uN` | a type's budget, armour, weapons and ranges, cost, flags |
+| `income` | both sides' energy and income by building |
+
+**A standing plan** (`Directives`, a JSON file) tells the coach what named units do and what the factories
+build; everything it does not name plays the coach's doctrine:
+
+```json
+{"posture": "cautious",
+ "groups": [{"units": [32, 34, 33], "goal": "capture", "to": [42, 10]},
+            {"units": [30, 28], "goal": "hold", "to": [44, 7], "radius": 2},
+            {"units": [9], "goal": "escort", "of": 32},
+            {"units": [5], "goal": "stay"}],
+ "build": [{"hold": 83, "types": ["eliteInf", "antiTank"], "reserve": 20}],
+ "stop": {"res": 12, "lost": 3, "enemyNear": 4, "captured": true, "arrived": true}}
+```
+
+Goals: `goto` (march to the hex, progress first, then hold it), `capture` (the same for a building
+entrance), `hold` (fight within `radius` of the hex), `escort` (stay beside unit `of`), `stay` (no move).
+`posture` is one of the lookahead's (`cautious`, `bold`, `siege`, `assault`, `turtle`, `grab`,
+`grab-cautious`). A build rule replaces the coach's production in building `hold` (none: every own
+building): the first listed type the energy allows above `reserve`, `count` per action phase (1); no types
+build nothing. `stop` hands back after `res` resolutions (10, at most 60), once `lost` own units were
+destroyed, when an enemy first comes within `enemyNear` hexes of an own HQ, when a building changes hands,
+or when a `goto`/`capture` unit arrived or was lost.
+
+**`advance -plan P`** plays the game on under the plan and prints a line per resolution, the stop reason
+and the next prompt; every resolution is recorded as ordinary commands. Without a plan it is the plain
+coach for 10 resolutions; `-res N` overrides the plan's count.
+
+**`try`** plays candidates ahead on clones against dosai's exact replies and commits none: each `-orders`
+file (the current phase, the coach playing on after it), each `-plan`, and the plain coach for comparison.
+Per candidate: `Evaluate`'s value after `-res` resolutions (8), units, energy, income, own losses, kills
+and buildings taken; `-v` adds the first resolution's events. Like the lookahead it knows the opponent's
+answers; `tries.log` in the game dir keeps what was tried. `undo` rewinds the game in place.
 
 ## Record — always on
 

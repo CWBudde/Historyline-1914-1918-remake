@@ -64,7 +64,9 @@ just webapp-e2e    # Playwright against the production build, in real browser en
 - `internal/llmplay` + `internal/hlllplay` (`hl llmplay`, `just llmplay`, `docs/llmplay.md`): an external agent plays a shipped
   level against `dosai` through fair text prompts (legal orders with exact `Engage` gains and threat
   warnings) and atomic JSONL orders; every game is recorded (replayable transcript, per-resolution save,
-  optional frames/GIF) and reviewed into counted `LESSONS.md` patterns. `hl llmplay corpus` keeps the
+  optional frames/GIF) and reviewed into counted `LESSONS.md` patterns. For long plans the agent asks `query`
+  (distances, arrivals, reach, threats), compares order batches and standing plans (`Directives`: goals for
+  named units, build rules, stop conditions) ahead with `try`, and lets the coach play a plan with `advance`. `hl llmplay corpus` keeps the
   winning recordings per level and side (`levels/replays.json`, `levels/<month>/replays/`), checked against
   the current `dosai` by `TestShippedReplays`; `corpus regen` after a rules or `dosai` change.
 - `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen under

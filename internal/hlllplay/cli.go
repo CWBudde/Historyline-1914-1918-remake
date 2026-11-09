@@ -24,7 +24,7 @@ func Run(args []string, stdout, stderr io.Writer) error {
 func RunContext(ctx context.Context, args []string, stdout, stderr io.Writer) error {
 	c := command{ctx: ctx, stdout: stdout, stderr: stderr}
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hl llmplay new|prompt|suggest|step|run|replay|fork|corpus|render|review|gif [flags]")
+		return fmt.Errorf("usage: hl llmplay new|prompt|suggest|query|try|advance|step|undo|run|replay|fork|corpus|render|review|gif [flags]")
 	}
 	switch args[0] {
 	case "new":
@@ -33,6 +33,14 @@ func RunContext(ctx context.Context, args []string, stdout, stderr io.Writer) er
 		return c.cmdPrompt(args[1:])
 	case "suggest":
 		return c.cmdSuggest(args[1:])
+	case "query":
+		return c.cmdQuery(args[1:])
+	case "try":
+		return c.cmdTry(args[1:])
+	case "advance":
+		return c.cmdAdvance(args[1:])
+	case "undo":
+		return c.cmdUndo(args[1:])
 	case "step":
 		return c.cmdStep(args[1:])
 	case "run":

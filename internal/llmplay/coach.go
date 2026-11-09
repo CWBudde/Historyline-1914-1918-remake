@@ -76,6 +76,9 @@ type CoachConfig struct {
 	Caution int  // percent weight of the threat penalty (0: 100)
 	Siege   int  // 1: siege whatever the enemy has left, 2: hard siege
 	Turtle  bool // every non-capturer ground unit holds at the own HQ
+
+	// Directives are a standing plan on top of the doctrine (directives.go).
+	Directives *Directives
 }
 
 // DefaultCoachConfig is the configuration the zero Coach plays: RHEIN's.
@@ -142,11 +145,13 @@ type coachPlan struct {
 	seal      []hexgrid.Coord               // the hexes that shut the HQ ground off
 	plug      map[int]hexgrid.Coord         // unit index -> seal hex it holds
 	inside    map[hexgrid.Coord]bool        // the ground behind the seal
+	directed  map[int]directed              // units the plan's groups name
 }
 
 type fieldKey struct {
 	typ  int
 	goal goalKind
+	dir  directed // goalDirected: the unit's goal under the plan
 }
 
 type goalKind int
@@ -160,6 +165,7 @@ const (
 	goalDash      // the enemy HQ alone, around the enemy units
 	goalHold      // behind the seal: in reach of the plugs on the ground
 	goalDashSouth // goalDash, not through the mountain pass
+	goalDirected  // the hex the plan's group names
 )
 
 func newCoachPlan(s *dosplay.Session, side int, sticky map[int]bool, cfg *CoachConfig) *coachPlan {
@@ -498,7 +504,10 @@ func (p *coachPlan) costsFor(u dosplay.UnitView) (map[hexgrid.Coord]int, error) 
 // of kind g, for units of u's movement type (Dijkstra over Costs, as in
 // dosai). Fight goals ring the enemy units at the unit's own reach.
 func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int, error) {
-	k := fieldKey{u.Type, g}
+	k := fieldKey{typ: u.Type, goal: g}
+	if g == goalDirected {
+		k.dir = p.directed[u.Index]
+	}
 	if g == goalDash && p.cfg.South && p.southDasher(u) {
 		k.goal = goalDashSouth
 	}
@@ -555,6 +564,8 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 		return f, nil
 	}
 	switch g {
+	case goalDirected:
+		directedSeeds(k.dir, costs, seed)
 	case goalHold:
 		p.holdField(u, costs, seed)
 	case goalCapture:
@@ -713,6 +724,7 @@ func (c *Coach) plan(s *dosplay.Session, side int) *coachPlan {
 		p.reinforce = map[int]bool{} // nothing marches in through the own seal
 	}
 	c.stickyReinforce = p.reinforce
+	p.applyDirectives()
 	return p
 }
 
@@ -940,6 +952,9 @@ func (p *coachPlan) cost(typ int) int {
 }
 
 func (p *coachPlan) goalFor(u dosplay.UnitView) goalKind {
+	if d, ok := p.directed[u.Index]; ok && d.goal != dirStay {
+		return goalDirected
+	}
 	if _, isGuard := p.guardOf[u.Index]; isGuard {
 		return goalHome
 	}
@@ -1034,6 +1049,9 @@ func (p *coachPlan) scoreDest(u dosplay.UnitView, from, c hexgrid.Coord, f map[h
 	if p.dash[u.Index] {
 		return score*4 - p.threat(u, c)/10
 	}
+	if d, ok := p.directed[u.Index]; ok && d.march() {
+		return score*4 - p.threat(u, c)/20
+	}
 	siegeAssault := p.siege && !p.homeGuard[u.Index] &&
 		(strings.HasSuffix(u.ID, "_antiTank") || p.canCapture(u) || u.Domain == dosplay.Air || p.siegeHard)
 	if p.reinforce[u.Index] || p.s.Sapper(u.Index) && p.goalFor(u) == goalHQ || siegeAssault || p.cfg.MarchRace && p.goalFor(u) == goalRace {
@@ -1112,6 +1130,10 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 	// (or on its guard hex) holds position. Shuffling west units lost
 	// terrain/support every phase and dosai's exact fire punished
 	// the old hex anyway (v17/v18 west fell at 20).
+	dir, isDirected := p.directed[u.Index]
+	if isDirected && dir.goal == dirStay {
+		return from, false, nil
+	}
 	if p.homeGuard[u.Index] && !p.damaged(u) && !p.siege && (len(p.seal) == 0 || !p.cfg.Hold) {
 		if g, isGuard := p.guardOf[u.Index]; isGuard && from == g {
 			return from, false, nil
@@ -1129,6 +1151,12 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 	}
 	best, bestScore := from, p.scoreDest(u, from, from, f)
 	for _, c := range dosplay.Coords(dests) {
+		if isDirected {
+			if sc := p.scoreDest(u, from, c, f); sc > bestScore {
+				best, bestScore = c, sc
+			}
+			continue // the plan's units pass the doctrine's own bars
+		}
 		if slices.Contains(p.seal, c) {
 			continue // kept for its plug
 		}
@@ -1315,20 +1343,21 @@ func (p *coachPlan) move() ([]dosplay.Event, error) {
 			}
 			continue
 		}
-		if u.Carrier {
+		_, isDirected := p.directed[u.Index]
+		if u.Carrier && !isDirected {
 			if err := add(p.moveCarrier(u)); err != nil {
 				return evs, err
 			}
 			continue
 		}
-		if p.cfg.Escort && u.Domain == dosplay.Air {
+		if p.cfg.Escort && u.Domain == dosplay.Air && !isDirected {
 			if done, err := p.moveEscort(u, add); err != nil {
 				return evs, err
 			} else if done {
 				continue
 			}
 		}
-		if u.Domain == dosplay.Air && p.isPlugger(u) {
+		if u.Domain == dosplay.Air && p.isPlugger(u) && !isDirected {
 			if done, err := p.movePlane(u, add); err != nil {
 				return evs, err
 			} else if done {
@@ -1575,6 +1604,9 @@ func (p *coachPlan) service() []dosplay.Event {
 			return evs
 		}
 		evs = append(evs, ev...)
+	}
+	if ev, done := p.buildByRules(); done {
+		return append(evs, ev...)
 	}
 	// Role counts drive production. ONE build per building per action
 	// phase: exits drain about one unit per movement phase through a
