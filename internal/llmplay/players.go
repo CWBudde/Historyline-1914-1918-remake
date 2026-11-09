@@ -28,6 +28,7 @@ var Players = []Player{
 	{Name: "lookahead", Doc: "the coach choosing its posture by playing each ahead against dosai (an oracle)", New: func(ref string) PhasePlayer { return &Lookahead{Config: CoachConfigFor(ref)} }},
 	{Name: "lookahead-deep", Doc: "lookahead playing 16 resolutions ahead", New: func(ref string) PhasePlayer { return &Lookahead{Config: CoachConfigFor(ref), Horizon: 16} }},
 	{Name: "lookahead-wide", Doc: "lookahead also weighing the grab postures", New: func(ref string) PhasePlayer { return &Lookahead{Config: CoachConfigFor(ref), Wide: true} }},
+	{Name: "plan", Doc: "lookahead searching standing plans (squads sent for single buildings) beside the postures, valued with income", New: func(ref string) PhasePlayer { return &Strategist{Config: CoachConfigFor(ref)} }},
 	{Name: "fallback", Doc: "the computer side's own planner", New: func(string) PhasePlayer { return &FallbackPlayer{} }},
 	{Name: "strike", Doc: "RHEIN's scripted HQ strike", Levels: []string{"1918-02:cp"}, New: func(string) PhasePlayer { return &Strike{} }},
 }
