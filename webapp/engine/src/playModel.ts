@@ -26,7 +26,13 @@ export const Moved = 0,
   Captured = 13,
   Tasked = 14,
   Dug = 15,
-  Constructed = 16;
+  Constructed = 16,
+  /** Gas pioneers released a cloud: from the pioneers, to the hex, hexes the cloud, text. */
+  Released = 17,
+  /** A unit lost strength to gas: unit, to its hex, loss, text. */
+  Gassed = 18,
+  /** The gas left hexes: hexes, text. */
+  Cleared = 19;
 export const Infantry = 0,
   Armour = 1,
   Artillery = 2,
@@ -38,10 +44,18 @@ export const HQ = 0,
 export type Command = Omit<RuleCommand, "kind"> & {
   kind: RuleCommand["kind"] | "confirm" | "unconfirm" | "resolve" | "surrender";
 };
+/**
+ * Options are a session's game options. profile plays the original units; extended (dosrules' Extended, the
+ * full profile on the extension's tables) binds every level and plays a level that places or builds an
+ * extension unit, or every level with extendedUnits, which also brings the extension units into every factory
+ * (docs/new-units.md).
+ */
 export interface Options {
   profile: Profile;
   limit?: number;
   computer?: [boolean, boolean];
+  extended?: Profile;
+  extendedUnits?: boolean;
 }
 export interface Session {
   game: Game;
@@ -138,6 +152,8 @@ export interface Event {
   raw: RawEvent;
   rear: Coord[];
   hexes: Coord[];
+  /** The strength a unit lost to gas (Gassed). */
+  loss: number;
 }
 export function newEvent(fields: Partial<Event> = {}): Event {
   return {
@@ -157,6 +173,7 @@ export function newEvent(fields: Partial<Event> = {}): Event {
     raw: zeroRawEvent(),
     rear: [],
     hexes: [],
+    loss: 0,
     ...fields,
   };
 }

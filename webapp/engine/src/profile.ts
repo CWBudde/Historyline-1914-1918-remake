@@ -162,12 +162,58 @@ export function demoProfile(tables: Tables): Profile {
 /** Builds are the identified builds by name (the directories under testdata/). */
 export type Build = "full" | "demo";
 
-/** profilesOf is Profiles: the profiles of the identified builds by build name. */
+/**
+ * Profiles are the profiles a save may name: the identified builds and, where the caller has the extension's
+ * tables, the extended profile (Go's Full, Demo and Extended).
+ */
+export type Profiles = Readonly<Record<Build, Profile>> & {
+  readonly extended?: Profile;
+};
+
+/**
+ * profilesOf is Profiles: the profiles of the identified builds by build name, and the extended profile on the
+ * full tables when the parsed extension.json is given.
+ */
 export function profilesOf(
   full: Tables,
   demo: Tables,
-): Readonly<Record<Build, Profile>> {
-  return { full: fullProfile(full), demo: demoProfile(demo) };
+  extension?: unknown,
+): Profiles {
+  const p = { full: fullProfile(full), demo: demoProfile(demo) };
+  return extension === undefined
+    ? p
+    : { ...p, extended: extendedProfile(extendTables(full, extension)) };
+}
+
+/**
+ * extendTables is base with the type records of the extension (the parsed extension.json) appended from index
+ * 51: the original records keep their indices. The build is the base's with the extension's suffix (Go's
+ * ExtendedTables).
+ */
+export function extendTables(base: Tables, extension: unknown): Tables {
+  const x = mustTables(extension);
+  const move =
+    base.move !== null && x.move !== null
+      ? { ...base.move, types: [...base.move.types, ...x.move.types] }
+      : base.move;
+  return {
+    ...base,
+    build: base.build + x.build,
+    types: [...base.types, ...x.types],
+    move,
+  };
+}
+
+/** extendedProfile is Extended: the full profile on the extended tables, the original rules plus the new units' (gas.ts). */
+export function extendedProfile(tables: Tables): Profile {
+  return newProfile({
+    name: "dos-0.1+units1",
+    tables,
+    transposedDistance: true,
+    builders: [16],
+    repair: 15,
+    builderRepair: 50,
+  });
 }
 
 /**

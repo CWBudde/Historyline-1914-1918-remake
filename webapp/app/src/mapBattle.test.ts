@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { ai, level, play } from "@historyline/engine";
 import { Full, Builds } from "../../engine/src/testing/tables.ts";
 import { playData, shippedLevel } from "../../engine/src/testing/play.ts";
-import { MapBattle } from "./mapBattle.ts";
+import { MapBattle, gasStatus } from "./mapBattle.ts";
 
 function start(month = "1914-08") {
   return play.newSession(shippedLevel(month), playData, {
@@ -164,3 +164,16 @@ it("exposes legal action targets and queues a selected attack", () => {
   }
   throw new Error("fixture never offered an attack");
 }, 30_000);
+
+it("words a resolution's gas for each side", () => {
+  const ev = (fields: Partial<play.Event>): play.Event => play.newEvent(fields);
+  const evs = [
+    ev({ kind: play.Released, side: 1, text: "Gas released." }),
+    ev({ kind: play.Gassed, side: 0, text: "Infantry lose 2 to gas." }),
+  ];
+  expect(gasStatus(evs, 1)).toBe("Gas released. Infantry lose 2 to gas.");
+  expect(gasStatus(evs, 0)).toBe(
+    "The enemy released gas. Infantry lose 2 to gas.",
+  );
+  expect(gasStatus([ev({ kind: play.Battle })], 0)).toBeNull();
+});

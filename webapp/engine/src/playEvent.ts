@@ -4,6 +4,7 @@ import { GoError } from "./goruntime.ts";
 import { liveCell } from "./board.ts";
 import * as rules from "./cycle.ts";
 import { coord as boundCoord } from "./bind.ts";
+import type { Coord } from "./hexgrid.ts";
 import {
   type Session,
   type Event,
@@ -27,8 +28,11 @@ import {
   Tasked,
   Dug,
   Constructed,
+  Released,
+  Gassed,
+  Cleared,
 } from "./playModel.ts";
-import { kindOf, slots } from "./playView.ts";
+import { kindOf, slots, typeName, unitID } from "./playView.ts";
 
 const messages: Readonly<Record<number, string>> = {
   0: "",
@@ -50,7 +54,16 @@ const messages: Readonly<Record<number, string>> = {
   0x47: "No more depots can be built.",
   0x4b: "There is no room for a depot here.",
   0x4c: "The unit has nothing left to build with.",
+  0x100: "Gas release ordered.",
+  0x101: "The unit has no gas left.",
 };
+/** levelHexes are the level hexes of cells, leaving out cells off the level. */
+export function levelHexes(s: Session, cells: readonly number[]): Coord[] {
+  return cells.flatMap((c) => {
+    const p = boundCoord(s.board, c);
+    return p === null ? [] : [p];
+  });
+}
 export function messageText(code: number): string {
   return messages[code] ?? `Message 0x${code.toString(16)}.`;
 }
@@ -270,6 +283,30 @@ export function event(
         const p = boundCoord(s.board, c);
         return p === null ? [] : [p];
       });
+      break;
+    case "gasCloud":
+      ev.kind = Released;
+      ev.to = hex(s, r.cell);
+      ev.text = "Gas released.";
+      ev.from = hex(s, liveCell(rules.liveOf(s.game, r.unit), r.side));
+      ev.hexes = levelHexes(s, r.cells);
+      break;
+    case "gassed": {
+      ev.kind = Gassed;
+      ev.to = hex(s, r.cell);
+      ev.loss = r.loss;
+      const u = rules.liveOf(s.game, r.unit),
+        name = typeName(s, unitID(s, r.unit), u.type);
+      ev.text =
+        u.size === 0
+          ? `${name} destroyed by gas.`
+          : `${name} lose ${String(r.loss)} to gas.`;
+      break;
+    }
+    case "gasCleared":
+      ev.kind = Cleared;
+      ev.hexes = levelHexes(s, r.cells);
+      ev.text = "The gas has cleared.";
       break;
     case "moved":
     case "refused":

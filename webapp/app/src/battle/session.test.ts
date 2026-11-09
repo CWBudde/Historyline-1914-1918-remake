@@ -2,13 +2,18 @@ import { expect, it } from "vitest";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { play, scenario } from "@historyline/engine";
-import { loadBattleData, newBattleSession } from "./session.ts";
+import {
+  extendedFromURL,
+  loadBattleData,
+  newBattleSession,
+} from "./session.ts";
 
 const files: Record<string, string> = {
   "units.json": "internal/data/units.json",
   "records.json": "internal/dosbind/records.json",
   "full.json": "internal/dosrules/full.json",
   "demo.json": "internal/dosrules/demo.json",
+  "extension.json": "internal/dosrules/extension.json",
 };
 const rule = async (name: string): Promise<unknown> => {
   if (name === "sprites.json")
@@ -92,4 +97,43 @@ it("restores exact Go-format state without applying new menu game values to it",
   expect(() =>
     newBattleSession(file, "ec", 1, { limit: 0, computer: false }, data, "{}"),
   ).toThrow();
+});
+it("takes the extension units in on ?extended", async () => {
+  expect(extendedFromURL("?extended")).toBe(true);
+  expect(extendedFromURL("?extended=1")).toBe(true);
+  expect(extendedFromURL("?extended=0")).toBe(false);
+  expect(extendedFromURL("")).toBe(false);
+  const data = await loadBattleData({ rule }),
+    file = await shippedScenario("1918-02");
+  expect(data.profiles.extended?.tables?.build).toBe(
+    `${data.profiles.full.tables?.build ?? ""}+units1`,
+  );
+  const plain = newBattleSession(
+    file,
+    "cp",
+    0,
+    { limit: 0, computer: true },
+    data,
+  );
+  expect(plain.game.profile).toBe(data.profiles.full);
+  const s = newBattleSession(
+    file,
+    "cp",
+    0,
+    { limit: 0, computer: true },
+    { ...data, extendedUnits: true },
+  );
+  expect(s.game.profile.tables).toBe(data.profiles.extended?.tables);
+  expect(
+    [...s.game.buildings.values()].some((b) => b.builds.includes(51)),
+  ).toBe(true);
+  const resumed = newBattleSession(
+    file,
+    "cp",
+    0,
+    { limit: 0, computer: true },
+    data,
+    play.save(s),
+  );
+  expect(resumed.game.profile.tables?.build).toBe(s.game.profile.tables?.build);
 });

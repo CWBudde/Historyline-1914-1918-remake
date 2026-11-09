@@ -23,6 +23,12 @@ import {
 import { rimFor } from "./unitDress.ts";
 import type { MapBattle } from "./mapBattle.ts";
 
+// The gas cloud (drawGas): puffs per hex, the turns left from which a cloud shows at full strength, a puff's peak
+// opacity and its chlorine yellow-green, as the desktop draws it.
+const gasPuffs = 7,
+  gasFullTurn = 2,
+  gasOpacity = 0.5,
+  gasColour = 0xc4cc5c;
 const ownerColor = (owner: number): number =>
   owner === 1 ? 0x55c3f3 : owner === 2 ? 0xe7d365 : 0xc4c4b8;
 interface Catalog {
@@ -52,6 +58,9 @@ export class MapRenderer {
   private readonly markers = new Container();
   private readonly plates = new Graphics();
   private readonly walkingLayer = new Container();
+  /** The extension's gas cloud over the units (drawGas). */
+  private readonly gasLayer = new Graphics();
+  private gasCells: hexgrid.Coord[] = [];
   private readonly overlays = new Graphics();
   private readonly effects = new Container();
   private readonly sprites = new Map<string, Sprite>();
@@ -117,6 +126,7 @@ export class MapRenderer {
       this.unitLayer,
       this.markers,
       this.walkingLayer,
+      this.gasLayer,
       this.overlays,
       this.effects,
     );
@@ -149,7 +159,10 @@ export class MapRenderer {
     this.dirty = true;
   }
   render(): void {
-    if (!this.dirty && this.lastVersion === this.battle.version) return;
+    if (!this.dirty && this.lastVersion === this.battle.version) {
+      if (!this.battle.playback.reducedMotion) this.drawGas();
+      return;
+    }
     this.dirty = false;
     this.lastVersion = this.battle.version;
     const camera = this.camera,
@@ -289,6 +302,8 @@ export class MapRenderer {
         );
       }
     }
+    this.gasCells = cells;
+    this.drawGas();
     this.drawOverlays(view);
     const screens = this.catalogs.get("screens");
     for (const effect of this.battle.playback.effects()) {
@@ -303,6 +318,40 @@ export class MapRenderer {
       }
     this.images.cache.end();
     this.stats.decodedBytes = this.images.cache.bytes;
+  }
+  /**
+   * drawGas draws the gas pioneers' cloud (docs/new-units.md) on the visible hexes: soft yellow-green puffs that
+   * drift slowly and fade as the cloud thins; still under reduced motion. Each puff is four concentric discs, a
+   * cheap falloff to its rim.
+   */
+  private drawGas(): void {
+    const g = this.gasLayer;
+    g.clear();
+    const gas = play.gas(this.battle.session);
+    if (gas.size === 0) return;
+    const t = this.battle.playback.reducedMotion
+      ? 0
+      : performance.now() / (1000 / 60);
+    for (const c of this.gasCells) {
+      const turns = gas.get(level.coordKey(c)) ?? 0;
+      if (turns === 0) continue;
+      const strength = Math.min(1, 0.55 + (0.45 * turns) / gasFullTurn),
+        [cx, cy] = hexgrid.center(c),
+        seed = c.line * 31 + c.col * 17;
+      for (let k = 0; k < gasPuffs; k++) {
+        const a = seed + k * 2.39996, // the golden angle spreads the puffs round the centre
+          r = 8 + 22 * Math.abs(Math.sin(a * 1.7)),
+          dx = r * Math.cos(a) + 6 * Math.sin(t / 95 + a),
+          dy = 0.7 * r * Math.sin(a) + 4 * Math.cos(t / 120 + a * 1.3),
+          rad = 40 + 10 * Math.sin(t / 75 + a * 0.8),
+          alpha = gasOpacity * strength * (0.7 + 0.3 * Math.sin(t / 60 + a));
+        for (const f of [1, 0.75, 0.5, 0.25])
+          g.circle(cx + dx, cy + dy, rad * f).fill({
+            color: gasColour,
+            alpha: alpha * 0.3,
+          });
+      }
+    }
   }
   private sprite(
     key: string,

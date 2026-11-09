@@ -67,6 +67,10 @@ export class MapPlayback {
     readonly side: number,
     private reduced = false,
   ) {}
+  /** reducedMotion reports whether effects play short and still. */
+  get reducedMotion(): boolean {
+    return this.reduced;
+  }
 
   move(event: play.Event, unit: play.UnitView): void {
     if (event.kind === play.Revealed) {

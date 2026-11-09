@@ -96,7 +96,7 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	if index.Packs["interface"], _, err = b.catalog(ctx, tmp, "interface"); err != nil {
 		return err
 	}
-	for _, path := range []string{"internal/data/terrain.json", "internal/data/units.json", "internal/data/weapons.json", "internal/data/notes.json", "internal/dosrules/full.json", "internal/dosrules/demo.json", "internal/dosbind/records.json", "assets/interface/animations.json", "assets/interface/bindings.json"} {
+	for _, path := range []string{"internal/data/terrain.json", "internal/data/units.json", "internal/data/weapons.json", "internal/data/notes.json", "internal/dosrules/full.json", "internal/dosrules/demo.json", "internal/dosrules/extension.json", "internal/dosbind/records.json", "assets/interface/animations.json", "assets/interface/bindings.json"} {
 		raw, err := os.ReadFile(path)
 		if err != nil {
 			return err

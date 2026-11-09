@@ -93,9 +93,12 @@ export {
   type Tables,
   type Profile,
   type Build,
+  type Profiles,
   newProfile,
   fullProfile,
   demoProfile,
+  extendedProfile,
+  extendTables,
   profilesOf,
   mustTables,
 } from "./profile.ts";
@@ -304,6 +307,18 @@ export {
   depotCells,
   sites,
 } from "./builder.ts";
+export {
+  flagGas,
+  gasCharges,
+  gasTurnsDefault,
+  gasLossDefault,
+  msgGas,
+  msgNoGas,
+  gasPioneer,
+  releasing,
+  gasCells,
+  gasAt,
+} from "./gas.ts";
 export { type Building, income } from "./energy.ts";
 export {
   maxScore,

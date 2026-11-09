@@ -278,6 +278,7 @@ export function level(f: File, m: Mode): Level {
       backdrop: f.backdrop,
       season: f.season,
       seasons: new Map(f.seasons),
+      month: f.month,
     },
   };
   for (const b of s.buildings) {

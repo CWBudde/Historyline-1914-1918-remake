@@ -4,8 +4,11 @@
 import {
   type Build,
   type Profile,
+  type Profiles as ProfileSet,
   type Tables,
   demoProfile,
+  extendTables,
+  extendedProfile,
   fullProfile,
   mustTables,
 } from "../profile.ts";
@@ -28,16 +31,26 @@ export const Full: Profile = fullProfile(FullTables);
 /** Demo is profile dos-0.1 on the demo build. */
 export const Demo: Profile = demoProfile(DemoTables);
 
+/** ExtendedTables are the full tables with the extension's type records (Go's ExtendedTables). */
+export const ExtendedTables: Tables = extendTables(
+  FullTables,
+  readJSON("internal/dosrules/extension.json"),
+);
+
+/** Extended is the full profile on the extended tables (Go's Extended). */
+export const Extended: Profile = extendedProfile(ExtendedTables);
+
 /** Profiles are the profiles of the identified builds by build name, in a fixed order. */
 export const Profiles: readonly (readonly [Build, Profile])[] = [
   ["demo", Demo],
   ["full", Full],
 ];
 
-/** Builds are the profiles by build name, the profiles loadGame knows (Go's Full and Demo). */
-export const Builds: Readonly<Record<Build, Profile>> = {
+/** Builds are the profiles by build name, the profiles loadGame knows (Go's Full, Demo and Extended). */
+export const Builds: ProfileSet = {
   full: Full,
   demo: Demo,
+  extended: Extended,
 };
 
 /** cInfantry and cPanzer are the infantry and panzer types the scene tests place (cycle_test.go). */
@@ -55,7 +68,7 @@ export const cSapper = 20;
 /** moveTables is motion_test.go moveTables: the profile's movement tables, which must hold all 51 types. */
 export function moveTables(p: Profile): MoveTables {
   const m = p.tables?.move ?? null;
-  if (m === null || m.types.length !== 51 || m.terrains.length === 0) {
+  if (m === null || m.types.length < 51 || m.terrains.length === 0) {
     throw new Error(`${p.tables?.build ?? ""}: no movement tables`);
   }
   return m;

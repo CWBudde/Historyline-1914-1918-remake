@@ -3,7 +3,9 @@ import * as board from "./board.ts";
 import * as binding from "./bind.ts";
 import { type Coord } from "./hexgrid.ts";
 import { type Level, grid, coordKey } from "./level.ts";
-import { type Build, type Profile } from "./profile.ts";
+import { type Profiles } from "./profile.ts";
+import { extend, usesExtension } from "./playGas.ts";
+import { gasPioneer as ruleGasPioneer } from "./gas.ts";
 import { save as saveGame, loadGame } from "./save.ts";
 import { surrender as surrenderGame } from "./victory.ts";
 import { slotFree } from "./container.ts";
@@ -64,7 +66,7 @@ export function newSession(
   d: binding.BindingData,
   o: Options,
 ): Session {
-  return newBoard(binding.bind(l, d, o.profile), l, d, o);
+  return newBoard(binding.bind(l, d, o.extended ?? o.profile), l, d, o);
 }
 export function newBoard(
   b: binding.Board,
@@ -73,7 +75,17 @@ export function newBoard(
   o: Options,
 ): Session {
   fits(b, l);
-  const g = binding.game(b, o.profile);
+  let p = o.profile;
+  if (o.extendedUnits === true || usesExtension(b)) {
+    if (o.extended === undefined)
+      throw new GoError(
+        "dosplay: the extension units need the extended profile",
+      );
+    p = o.extended;
+  }
+  const g = binding.game(b, p);
+  if (o.extended !== undefined && p === o.extended)
+    extend(g, d, l.extra?.month ?? "", o.extendedUnits === true);
   g.limit = o.limit ?? 0;
   for (const k of [0, 1]) at(g.players, k).computer = o.computer?.[k] ?? false;
   return session(g, b, l, d);
@@ -82,16 +94,22 @@ export function load(
   l: Level,
   d: binding.BindingData,
   raw: Uint8Array | string,
-  profiles: Readonly<Record<Build, Profile>>,
+  profiles: Profiles,
 ): Session {
-  return loadBoard(binding.bind(l, d, profiles.full), l, d, raw, profiles);
+  return loadBoard(
+    binding.bind(l, d, profiles.extended ?? profiles.full),
+    l,
+    d,
+    raw,
+    profiles,
+  );
 }
 export function loadBoard(
   b: binding.Board,
   l: Level,
   d: binding.BindingData,
   raw: Uint8Array | string,
-  profiles: Readonly<Record<Build, Profile>>,
+  profiles: Profiles,
 ): Session {
   fits(b, l);
   const g = loadGame(raw, profiles);
@@ -325,7 +343,8 @@ export function targets(s: Session, side: number, unit: number): Set<string> {
   }
   const work =
       ruleSapper(rules.liveOf(s.game, unit)) ||
-      ruleBuilder(rules.liveOf(s.game, unit)),
+      ruleBuilder(rules.liveOf(s.game, unit)) ||
+      ruleGasPioneer(rules.liveOf(s.game, unit)),
     m = at(s.game.maps, side);
   for (let c = 0; c < s.game.width * s.game.height; c++)
     if (
@@ -501,11 +520,12 @@ export function orders(s: Session, side: number): Event[] {
     };
   });
 }
-export function clone(
-  s: Session,
-  profiles: Readonly<Record<Build, Profile>>,
-): Session {
-  const g = loadGame(save(s), profiles);
+export function clone(s: Session, profiles: Profiles): Session {
+  // The game's own profile reads its save back, an extended one too.
+  const g = loadGame(save(s), {
+    ...profiles,
+    extended: profiles.extended ?? s.game.profile,
+  });
   g.profile = s.game.profile;
   return {
     ...session(g, s.board, s.level, s.data),

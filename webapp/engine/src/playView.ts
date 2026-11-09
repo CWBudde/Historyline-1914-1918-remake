@@ -7,6 +7,7 @@ import { coordKey } from "./level.ts";
 import type { Coord } from "./hexgrid.ts";
 import { tablesOf, type Tables } from "./profile.ts";
 import { working } from "./sapper.ts";
+import { releasing } from "./gas.ts";
 import {
   type Session,
   type UnitView,
@@ -164,7 +165,8 @@ export function target(s: Session, side: number, idx: number): Coord | null {
     (side !== 0 && side !== 1) ||
     at(s.game.players, side).phase !== rules.phaseAction ||
     (!at(s.game.players, side).orders.includes(idx) &&
-      !working(rules.liveOf(s.game, idx)))
+      !working(rules.liveOf(s.game, idx)) &&
+      !releasing(rules.liveOf(s.game, idx)))
   )
     return null;
   return hex(s, Math.trunc(rules.liveOf(s.game, idx).target / 2));

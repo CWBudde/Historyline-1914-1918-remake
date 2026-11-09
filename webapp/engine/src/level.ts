@@ -24,6 +24,8 @@ export interface Extra {
   backdrop: string;
   season: string;
   seasons: Map<string, string>;
+  /** The scenario's campaign month ("1915-04"), which dates the extension units' rules; absent or "" for none. */
+  month?: string;
 }
 export interface Level {
   mapName: string;

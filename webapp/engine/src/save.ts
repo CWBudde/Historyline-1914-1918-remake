@@ -35,7 +35,7 @@ import {
   quote,
   unmarshal,
 } from "./gojson.ts";
-import type { Build, Profile } from "./profile.ts";
+import type { Profile, Profiles } from "./profile.ts";
 import type { End, EndReason } from "./victory.ts";
 
 /** SaveSchema is the version of the saved command-cycle state. loadGame also reads schema 2, which had no season (summer). */
@@ -73,6 +73,9 @@ interface SavedGame {
   ended: End | null;
   energy: number[];
   buildings: Map<number, SavedBuilding> | null;
+  gas: number[] | null;
+  gasTurns: number;
+  gasLoss: number;
 }
 
 // pair is a Go [2]T held as a TS pair.
@@ -149,6 +152,9 @@ const savedGameCodec = goStruct<SavedGame>("savedGame", "dosrules.savedGame", {
   ended: ["ended", goPointer(endCodec)],
   energy: ["energy", goArray(goInt, 2)],
   buildings: ["buildings", goIntMap(buildingCodec)],
+  gas: ["gas", goSlice(goInt)],
+  gasTurns: ["gasTurns", goInt],
+  gasLoss: ["gasLoss", goInt],
 });
 
 const ints = (a: readonly number[]): string => encodeArray(a.map(encodeInt));
@@ -247,6 +253,15 @@ export function save(g: Game): Uint8Array {
   if (g.buildings.size > 0) {
     f.push(["buildings", encodeIntMap(g.buildings, encodeBuilding)]);
   }
+  if ((g.gas?.length ?? 0) > 0) {
+    f.push(["gas", ints(g.gas ?? [])]);
+  }
+  if ((g.gasTurns ?? 0) !== 0) {
+    f.push(["gasTurns", encodeInt(g.gasTurns ?? 0)]);
+  }
+  if ((g.gasLoss ?? 0) !== 0) {
+    f.push(["gasLoss", encodeInt(g.gasLoss ?? 0)]);
+  }
   return new TextEncoder().encode(encodeObject(f));
 }
 
@@ -262,10 +277,7 @@ function loadError(err: unknown): GoError {
  * another schema, of tables it does not know or a season they lack, or whose maps, units, order lists and phases
  * do not fit together. A map's occupant byte is a unit (up to slotFree) or a marker above it, such as inBuilding.
  */
-export function loadGame(
-  data: Uint8Array | string,
-  profiles: Readonly<Record<Build, Profile>>,
-): Game {
+export function loadGame(data: Uint8Array | string, profiles: Profiles): Game {
   const bytes =
     typeof data === "string" ? new TextEncoder().encode(data) : data;
   let s: SavedGame;
@@ -283,7 +295,10 @@ export function loadGame(
     );
   }
   let p: Profile | null = null;
-  for (const q of [profiles.full, profiles.demo]) {
+  for (const q of [profiles.full, profiles.demo, profiles.extended]) {
+    if (q === undefined) {
+      continue;
+    }
     if (q.tables !== null && q.tables.build === s.build) {
       p = q;
     }
@@ -301,6 +316,12 @@ export function loadGame(
   if (s.width < 1 || s.height < 1) {
     throw new GoError(
       `dosrules: load: ${String(s.width)}\u00d7${String(s.height)} map`,
+    );
+  }
+  const gasLen = s.gas?.length ?? 0;
+  if (gasLen !== 0 && gasLen !== s.width * s.height) {
+    throw new GoError(
+      `dosrules: load: gas on ${String(gasLen)} cells for ${String(s.width * s.height)}`,
     );
   }
   const units = new Map<number, Live>();
@@ -392,6 +413,10 @@ export function loadGame(
     ended: s.ended,
     energy: [e0, e1],
     buildings,
+    // The gas fields are optional: a game without them is Go's nil and zeros.
+    ...(gasLen > 0 && s.gas !== null ? { gas: s.gas } : {}),
+    ...(s.gasTurns !== 0 ? { gasTurns: s.gasTurns } : {}),
+    ...(s.gasLoss !== 0 ? { gasLoss: s.gasLoss } : {}),
   };
   try {
     action(g);

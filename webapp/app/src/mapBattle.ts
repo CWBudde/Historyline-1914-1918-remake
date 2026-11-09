@@ -288,7 +288,9 @@ export class MapBattle {
       try {
         play.canOrder(this.session, this.side, unit.index);
         this.selected = unit.index;
-        this.status = `${unit.name}: ${this.movement() ? "pick where to move" : play.sapper(this.session, unit.index) ? "pick a hex to dig or fill" : play.builder(this.session, unit.index) ? "pick where to build a depot" : "pick a target"}`;
+        this.status = `${unit.name}: ${this.movement() ? "pick where to move" : play.sapper(this.session, unit.index) ? "pick a hex to dig or fill" : play.builder(this.session, unit.index) ? "pick where to build a depot" : play.gasPioneer(this.session, unit.index) ? `pick where to release gas (${String(play.charges(this.session, unit.index))} left)` : "pick a target"}`;
+        if (!this.movement() && play.gasPioneer(this.session, unit.index))
+          play.canRelease(this.session, this.side, unit.index);
       } catch (e) {
         this.refused(e);
       }
@@ -519,7 +521,7 @@ export class MapBattle {
           events,
         );
         this.onResolution?.(before, events);
-        this.status = "Orders resolved.";
+        this.status = gasStatus(events, this.side) ?? "Orders resolved.";
       }
     } catch (e) {
       while (this.isPaused()) await this.resumeGate;
@@ -656,4 +658,22 @@ export class MapBattle {
     this.status = error instanceof Error ? error.message : String(error);
     this.touch();
   }
+}
+
+/**
+ * gasStatus words a resolution's gas for side (the extension's gas pioneers): its own release, the enemy's, the
+ * losses and the clearing; null without gas.
+ */
+export function gasStatus(
+  events: readonly play.Event[],
+  side: number,
+): string | null {
+  const parts: string[] = [];
+  for (const e of events) {
+    if (e.kind === play.Released)
+      parts.push(e.side === side ? e.text : "The enemy released gas.");
+    else if (e.kind === play.Gassed || e.kind === play.Cleared)
+      parts.push(e.text);
+  }
+  return parts.length === 0 ? null : parts.join(" ");
 }

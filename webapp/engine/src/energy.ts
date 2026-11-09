@@ -39,6 +39,7 @@ import {
   refuse,
 } from "./cycle.ts";
 import { serial } from "./capture.ts";
+import { gasCharges, gasType } from "./gas.ts";
 import { type GoError, at, setAt } from "./goruntime.ts";
 import { div } from "./int.ts";
 import { type MoveType, owns } from "./move.ts";
@@ -60,6 +61,20 @@ export const builderCharges = 2;
 /** profileBuilder reports whether typ is a construction unit (Go's Profile.builder). */
 export function profileBuilder(p: Profile, typ: number): boolean {
   return p.builders.includes(typ);
+}
+
+/**
+ * charges are the charges a unit of typ holds in live +0x0a when placed, built or repaired, and whether it holds
+ * any (Go's Profile.charges).
+ */
+export function charges(p: Profile, typ: number): [number, boolean] {
+  if (profileBuilder(p, typ)) {
+    return [builderCharges, true];
+  }
+  if (gasType(p, typ)) {
+    return [gasCharges, true];
+  }
+  return [0, false];
 }
 
 /** repairCost is the energy a repair of a unit of typ costs. */
@@ -196,8 +211,9 @@ export function repair(g: Game, c: Command): Event[] {
   const u = liveOf(g, i);
   setAt(g.energy, c.side, at(g.energy, c.side) - repairCost(g.profile, u.type));
   u.size = at(tablesOf(g.profile).types, u.type).group;
-  if (profileBuilder(g.profile, u.type)) {
-    u.hold = builderCharges;
+  const [n, ok] = charges(g.profile, u.type);
+  if (ok) {
+    u.hold = n;
   }
   u.flags4 |= 0x200;
   g.units.set(i, u);
@@ -232,8 +248,9 @@ export function build(g: Game, c: Command): Event[] {
     hold: 0xff,
     pos: [first, first],
   };
-  if (profileBuilder(g.profile, typ)) {
-    u.hold = builderCharges;
+  const [n, ok] = charges(g.profile, typ);
+  if (ok) {
+    u.hold = n;
   }
   if ((m.class & 0x1000) !== 0) {
     u.hold = freeCarrier(g);

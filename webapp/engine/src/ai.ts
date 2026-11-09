@@ -206,7 +206,7 @@ function score(
   f: ReadonlyMap<string, number>,
   c: Coord,
 ): number {
-  let sc = defence(pl, c);
+  let sc = defence(pl, c) - gasPenalty(pl, u, c);
   if (
     (at(moveTablesOf(pl.profile).types, u.type).flags & 1) === 0 &&
     nearest(c, pl.hqs) === 1
@@ -317,7 +317,8 @@ function candidates(pl: Plan): [Candidate[], number[]] {
       u.side !== pl.side ||
       u.moved ||
       play.sapper(pl.s, u.index) ||
-      play.builder(pl.s, u.index)
+      play.builder(pl.s, u.index) ||
+      play.gasPioneer(pl.s, u.index)
     )
       continue;
     for (const t of play.coords(play.targets(pl.s, pl.side, u.index))) {
@@ -494,6 +495,87 @@ function dig(
     report(pl, done + i + 1, total);
   }
 }
+// The gas pioneers' release (gas.go, docs/new-units.md): a cloud is worth releasing over at least gasEnemies
+// enemy units and never over an own one.
+const gasEnemies = 2,
+  gasFoot = 3,
+  gasOther = 1,
+  gasCost = 60;
+function gasWorth(u: play.UnitView): number {
+  if (u.domain === play.Air) return 0;
+  return u.domain === play.Infantry ? gasFoot : gasOther;
+}
+function gassers(pl: Plan): number[] {
+  const out: number[] = [];
+  for (const c of sorted(pl.view.units)) {
+    const u = pl.view.units.get(coordKey(c));
+    if (
+      u === undefined ||
+      u.side !== pl.side ||
+      u.moved ||
+      !play.gasPioneer(pl.s, u.index) ||
+      !canOrder(pl, u.index) ||
+      refused(() => {
+        play.canRelease(pl.s, pl.side, u.index);
+      })
+    )
+      continue;
+    out.push(u.index);
+  }
+  return out;
+}
+function gasScore(pl: Plan, hexes: Coord[], covered: Set<string>): number {
+  let sc = 0,
+    n = 0;
+  for (const c of hexes) {
+    const v = pl.view.units.get(coordKey(c));
+    if (v === undefined) continue;
+    if (v.side === pl.side) return 0;
+    if (
+      v.side !== 1 - pl.side ||
+      covered.has(coordKey(c)) ||
+      play.gasAt(pl.s, c) > 1
+    )
+      continue;
+    const w = gasWorth(v);
+    if (w > 0) {
+      sc += w;
+      n++;
+    }
+  }
+  return n < gasEnemies ? 0 : sc;
+}
+function release(
+  pl: Plan,
+  gs: number[],
+  done: number,
+  total: number,
+  out: play.Event[],
+): void {
+  const covered = new Set<string>();
+  for (const [i, unit] of gs.entries()) {
+    let best: Coord = { line: 0, col: 0 },
+      bestHexes: Coord[] = [],
+      bestScore = 0;
+    for (const t of play.coords(play.targets(pl.s, pl.side, unit))) {
+      const hexes = play.cloud(pl.s, pl.side, unit, t),
+        sc = gasScore(pl, hexes, covered);
+      if (sc > bestScore) {
+        best = t;
+        bestHexes = hexes;
+        bestScore = sc;
+      }
+    }
+    if (bestScore > 0) {
+      out.push(...play.attack(pl.s, pl.side, unit, best));
+      for (const c of bestHexes) covered.add(coordKey(c));
+    }
+    report(pl, done + i + 1, total);
+  }
+}
+function gasPenalty(pl: Plan, u: play.UnitView, c: Coord): number {
+  return u.domain === play.Air || play.gasAt(pl.s, c) === 0 ? 0 : gasCost;
+}
 // The computer's economy, as the original's computer side plans it (service.go).
 export const repairFloor = 14,
   reserve = 61,
@@ -505,12 +587,16 @@ const computerBuilds: readonly (readonly number[])[] = [
     47, 48, 49, 50,
   ],
 ];
-/** mayBuild: the building's map list holds both sides' types, side 0 builds none above 35, side 1 none below 10; an empty list is the side's default. */
+/**
+ * mayBuild: the building's map list holds both sides' types, side 0 builds none above 35, side 1 none below 10; an
+ * empty list is the side's default. Both sides may build an extension type the factory builds.
+ */
 export function mayBuild(
   list: readonly number[],
   side: number,
   type: number,
 ): boolean {
+  if (type >= play.originalTypes) return true;
   if (list.length === 0) return at(computerBuilds, side).includes(type);
   if ((side === 0 && type > 35) || (side === 1 && type < 10)) return false;
   return list.includes(type);
@@ -610,10 +696,12 @@ export function plan(p: Planner, s: play.Session, side: number): play.Event[] {
       const energy = play.energy(s, side),
         [cands, units] = candidates(pl),
         ds = diggers(pl),
-        total = units.length + ds.length;
+        gs = gassers(pl),
+        total = units.length + ds.length + gs.length;
       report(pl, 0, total);
       attack(pl, cands, units.length, total, out);
       dig(pl, ds, units.length, total, out);
+      release(pl, gs, units.length + ds.length, total, out);
       repairs(pl, energy, out);
       produce(pl, energy, out);
     }

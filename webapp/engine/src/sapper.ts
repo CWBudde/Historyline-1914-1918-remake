@@ -20,6 +20,7 @@ import {
   halfDepotWork,
 } from "./builder.ts";
 import { capture } from "./capture.ts";
+import { actionGas, releaseGas } from "./gas.ts";
 import {
   type Event,
   type Game,
@@ -65,7 +66,7 @@ type TrenchCell = readonly [dx: number, dy: number, rec: number];
  * the neighbour in the order of steps (32f7:0061 and 00cd, indexed there by the column and row differences); the
  * target is the middle one.
  */
-const trenchWork: readonly (readonly (readonly TrenchCell[])[])[] = [
+export const trenchWork: readonly (readonly (readonly TrenchCell[])[])[] = [
   [
     [
       [-1, -1, 0xaa],
@@ -268,6 +269,9 @@ export function work(g: Game, a: number): [evs: Event[], won: number] {
       }
       case actionDepot:
         evs.push(depotWork(g, a, i));
+        break;
+      case actionGas:
+        evs.push(releaseGas(g, a, i));
         break;
     }
   }

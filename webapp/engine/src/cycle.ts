@@ -44,13 +44,13 @@ import { markKinds } from "./capture.ts";
 import { type Battlefield, type Outcome, type Unit } from "./engage.ts";
 import {
   type Building,
-  builderCharges,
+  charges,
   checkBuilding,
   credit,
   build as buildUnit,
-  profileBuilder,
   repair,
 } from "./energy.ts";
+import { checkGas, gasPioneer, gasTurn, orderGas } from "./gas.ts";
 import { GoError, at, setAt } from "./goruntime.ts";
 import { div } from "./int.ts";
 import { layoutDistance } from "./distance.ts";
@@ -132,6 +132,14 @@ export interface Game {
   energy: [number, number];
   /** Go's nil map is an empty Map. */
   buildings: Map<number, Building>;
+  /**
+   * The gas cloud (gas.ts): the turns each cell has left, null or absent while no cell has any. gasTurns and
+   * gasLoss are a cloud's duration and a foot unit's loss per turn in percent of its group (0 or absent: the
+   * defaults).
+   */
+  gas?: number[] | null;
+  gasTurns?: number;
+  gasLoss?: number;
 }
 
 /** Placement is a unit as a scenario places it: its type, owner (0 or 1, 2 neutral), cell and strength; absent fields are 0. */
@@ -316,8 +324,9 @@ export function newGame(
       type: u.type,
       hold: 0xff,
     };
-    if (profileBuilder(p, u.type)) {
-      l.hold = builderCharges;
+    const [n, ok] = charges(p, u.type);
+    if (ok) {
+      l.hold = n;
     }
     if ((l.flags4 & 0x1000) !== 0) {
       l.hold = -1;
@@ -454,7 +463,10 @@ export type EventKind =
   | "dug"
   | "filled"
   | "halfDepot"
-  | "depot";
+  | "depot"
+  | "gasCloud"
+  | "gassed"
+  | "gasCleared";
 
 /** A move or an exit ran: route. */
 export const evMoved = "moved" satisfies EventKind;
@@ -509,6 +521,8 @@ export interface Event {
   energy: number;
   hold: number;
   cells: number[];
+  /** The strength a unit lost to gas (evGassed). */
+  loss: number;
 }
 
 /** newEvent is a Go Event literal: the fields not given are zero. */
@@ -526,6 +540,7 @@ export function newEvent(fields: Partial<Event> & { kind: EventKind }): Event {
     energy: 0,
     hold: 0,
     cells: [],
+    loss: 0,
     ...fields,
   };
 }
@@ -640,6 +655,9 @@ export function check(g: Game, c: Command): GoError | null {
   if (c.kind === cmdAttack && builder(u)) {
     return checkBuilder(g, c.side, u, idx, c.cell);
   }
+  if (c.kind === cmdAttack && gasPioneer(u)) {
+    return checkGas(g, c.side, u, c.cell);
+  }
   if (c.kind === cmdAttack && sapper(u)) {
     if (!trenchTarget(g, c.side, u, c.cell)) {
       return refuse(msgNoTarget, "no trench work there");
@@ -733,6 +751,9 @@ export function apply(g: Game, c: Command): Event[] {
   const unit = c.unit ?? 0;
   if (c.kind === cmdAttack && builder(liveOf(g, unit))) {
     return [orderDepot(g, c.side, unit, c.cell)];
+  }
+  if (c.kind === cmdAttack && gasPioneer(liveOf(g, unit))) {
+    return [orderGas(g, c.side, unit, c.cell)];
   }
   if (c.kind === cmdAttack && sapper(liveOf(g, unit))) {
     const u = liveOf(g, unit);
@@ -1074,6 +1095,7 @@ export function resolve(g: Game): Event[] {
   const evs = attack(g, a);
   const [caps, hq] = work(g, a);
   evs.push(...caps);
+  evs.push(...gasTurn(g));
   const ev = gameChangePhase(g, a);
   evs.push(...ev);
   const ph = at(ev, 0);

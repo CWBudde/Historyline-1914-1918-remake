@@ -13,17 +13,26 @@ export interface BattleData {
   binding: bind.BindingData;
   profiles: ReturnType<typeof profilesOf>;
   families: Readonly<Record<string, SpriteFamily>>;
+  /** New battles take the extension units in (?extended, docs/new-units.md). */
+  extendedUnits?: boolean;
+}
+
+/** extendedFromURL reports whether a page query asks for the extension units: ?extended or ?extended=1. */
+export function extendedFromURL(search: string): boolean {
+  const v = new URLSearchParams(search).get("extended");
+  return v !== null && v !== "0" && v !== "false";
 }
 export async function loadBattleData(
   loader: Pick<AssetLoader, "rule">,
 ): Promise<BattleData> {
-  const [units, records, full, demo, sprites] = await Promise.all(
+  const [units, records, full, demo, sprites, extension] = await Promise.all(
     [
       "units.json",
       "records.json",
       "full.json",
       "demo.json",
       "sprites.json",
+      "extension.json",
     ].map((name) => loader.rule(name)),
   );
   const families: Record<string, SpriteFamily> = {};
@@ -41,7 +50,7 @@ export async function loadBattleData(
   }
   return {
     binding: bind.bindingData(units, records),
-    profiles: profilesOf(mustTables(full), mustTables(demo)),
+    profiles: profilesOf(mustTables(full), mustTables(demo), extension),
     families,
   };
 }
@@ -62,6 +71,10 @@ export function newBattleSession(
   computer[1 - side] = options.computer;
   return play.newSession(lv, data.binding, {
     profile: data.profiles.full,
+    ...(data.profiles.extended === undefined
+      ? {}
+      : { extended: data.profiles.extended }),
+    extendedUnits: data.extendedUnits === true,
     limit: options.limit,
     computer,
   });
