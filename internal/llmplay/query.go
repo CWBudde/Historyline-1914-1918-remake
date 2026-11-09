@@ -321,7 +321,7 @@ func (x *querier) etaText(u dosplay.UnitView, k int) string {
 	if k == 0 {
 		return "0 moves (there now)"
 	}
-	return fmt.Sprintf("%d moves (resolution %d, now=1)", k, x.resolution(u, k))
+	return fmt.Sprintf("%d moves (there after %d resolutions)", k, x.resolution(u, k))
 }
 
 // approach is the hex next to c the unit reaches first, for a hex it cannot

@@ -36,6 +36,12 @@ type Group struct {
 	To     *[2]int `json:"to,omitempty"`
 	Radius int     `json:"radius,omitempty"`
 	Of     *int    `json:"of,omitempty"`
+	// Quiet units give no attack orders (a raid that must not stop to
+	// fight); Avoid are hexes they neither cross nor end on, each with
+	// the hexes within AvoidRadius of it.
+	Quiet       bool     `json:"quiet,omitempty"`
+	Avoid       [][2]int `json:"avoid,omitempty"`
+	AvoidRadius int      `json:"avoidRadius,omitempty"`
 }
 
 // BuildRule replaces the coach's production in building Hold (0: every
@@ -51,15 +57,18 @@ type BuildRule struct {
 
 // Stop is when Advance hands back: after Res resolutions (0: 10), once
 // Lost own units were destroyed, when an enemy comes within EnemyNear
-// hexes of an own HQ, when a building changes hands (Captured), when a
-// goto or capture unit reached its hex or was lost (Arrived). The game's
-// end always stops.
+// hexes of an own HQ, when a building changes hands (Captured: any; Taken:
+// the side took one; LostBuilding: the enemy took one), when a goto or
+// capture unit reached its hex or was lost (Arrived). The game's end
+// always stops.
 type Stop struct {
-	Res       int  `json:"res,omitempty"`
-	Lost      int  `json:"lost,omitempty"`
-	EnemyNear int  `json:"enemyNear,omitempty"`
-	Captured  bool `json:"captured,omitempty"`
-	Arrived   bool `json:"arrived,omitempty"`
+	Res          int  `json:"res,omitempty"`
+	Lost         int  `json:"lost,omitempty"`
+	EnemyNear    int  `json:"enemyNear,omitempty"`
+	Captured     bool `json:"captured,omitempty"`
+	Taken        bool `json:"taken,omitempty"`
+	LostBuilding bool `json:"lostBuilding,omitempty"`
+	Arrived      bool `json:"arrived,omitempty"`
 }
 
 const (
@@ -128,10 +137,24 @@ func onBoard(s *dosplay.Session, c hexgrid.Coord) bool {
 }
 
 // Check names what is wrong with the plan on the session: unknown
-// postures, goals, units and hexes. A plan with errors is not played.
+// postures, goals and hexes. A plan with errors is not played.
 func (d *Directives) Check(s *dosplay.Session, side int) []string {
-	var errs []string
+	errs, _ := d.check(s, side)
+	return errs
+}
+
+// Warnings name what the plan asks that the position cannot give now: a
+// unit that is gone or not there yet, a building not held. The plan is
+// played without them, so it survives a loss and may name a building it
+// is about to take.
+func (d *Directives) Warnings(s *dosplay.Session, side int) []string {
+	_, warns := d.check(s, side)
+	return warns
+}
+
+func (d *Directives) check(s *dosplay.Session, side int) (errs, warns []string) {
 	bad := func(format string, a ...any) { errs = append(errs, fmt.Sprintf(format, a...)) }
+	warn := func(format string, a ...any) { warns = append(warns, fmt.Sprintf(format, a...)) }
 	if d.Posture != "" {
 		if _, ok := findPosture(d.Posture); !ok {
 			bad("posture %q unknown", d.Posture)
@@ -153,7 +176,7 @@ func (d *Directives) Check(s *dosplay.Session, side int) []string {
 			if g.Of == nil {
 				bad("group %d (escort): no \"of\" unit", i+1)
 			} else if _, ok := own[*g.Of]; !ok {
-				bad("group %d: escorted u%d is not yours", i+1, *g.Of)
+				warn("group %d: escorted u%d is not yours (now)", i+1, *g.Of)
 			}
 		case dirStay:
 		default:
@@ -162,9 +185,14 @@ func (d *Directives) Check(s *dosplay.Session, side int) []string {
 		if len(g.Units) == 0 {
 			bad("group %d: no units", i+1)
 		}
+		for _, a := range g.Avoid {
+			if !onBoard(s, parseCoord(a)) {
+				bad("group %d: avoid %s is off the map", i+1, show(parseCoord(a)))
+			}
+		}
 		for _, u := range g.Units {
 			if _, ok := own[u]; !ok {
-				bad("group %d: u%d is not yours", i+1, u)
+				warn("group %d: u%d is not yours (now)", i+1, u)
 			}
 			if seen[u] {
 				bad("group %d: u%d is in an earlier group", i+1, u)
@@ -183,10 +211,10 @@ func (d *Directives) Check(s *dosplay.Session, side int) []string {
 			}
 		}
 		if !found {
-			bad("build rule %d: hold %d is not your building", i+1, r.Hold)
+			warn("build rule %d: hold %d is not your building (now)", i+1, r.Hold)
 		}
 	}
-	return errs
+	return errs, warns
 }
 
 // Coach is a coach that plays the plan on top of base (nil: the default
@@ -212,6 +240,7 @@ type directed struct {
 	goal   string
 	to     hexgrid.Coord
 	radius int
+	group  int // index into Directives.Groups: its Quiet and Avoid
 }
 
 // march reports whether the unit values progress to its hex above all.
@@ -226,8 +255,8 @@ func (p *coachPlan) applyDirectives() {
 	}
 	p.directed = map[int]directed{}
 	var at map[int]dosplay.UnitView
-	for _, g := range d.Groups {
-		r := directed{goal: g.Goal, radius: g.Radius}
+	for gi, g := range d.Groups {
+		r := directed{goal: g.Goal, radius: g.Radius, group: gi}
 		switch g.Goal {
 		case dirGoto, dirCapture, dirHold:
 			if g.To == nil {
@@ -259,6 +288,23 @@ func (p *coachPlan) applyDirectives() {
 			delete(p.plug, u)
 		}
 	}
+}
+
+// quiet reports whether the plan keeps unit from attacking.
+func (p *coachPlan) quiet(unit int) bool {
+	d, ok := p.directed[unit]
+	return ok && p.cfg.Directives.Groups[d.group].Quiet
+}
+
+// avoided reports whether the plan bars c for a unit under d.
+func (p *coachPlan) avoided(d directed, c hexgrid.Coord) bool {
+	g := p.cfg.Directives.Groups[d.group]
+	for _, a := range g.Avoid {
+		if hexgrid.Distance(parseCoord(a), c) <= g.AvoidRadius {
+			return true
+		}
+	}
+	return false
 }
 
 // directedSeeds seeds the field of a directed unit: the hexes within its

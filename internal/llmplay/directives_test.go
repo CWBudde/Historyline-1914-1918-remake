@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -57,7 +58,7 @@ func TestAdvanceFollowsPlan(t *testing.T) {
 		},
 		Stop: Stop{Res: 4, Arrived: true},
 	}
-	rep, err := g.Advance(d, nil)
+	rep, err := g.Advance(d, nil, "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -91,12 +92,13 @@ func TestDirectivesCheck(t *testing.T) {
 	}
 	d.Groups = append(d.Groups, Group{Units: []int{u.Index}, Goal: dirEscort, Of: &one}, Group{Units: []int{u.Index}, Goal: dirStay})
 	errs := strings.Join(d.Check(g.S, g.Side), "\n")
+	errs += "\n" + strings.Join(d.Warnings(g.S, g.Side), "\n")
 	for _, want := range []string{"posture", "u9999 is not yours", "goal \"dance\"", "off the map", "no building entrance", "escorted u9999", "earlier group", "hold 9999", "no units"} {
 		if !strings.Contains(errs, want) {
 			t.Errorf("check does not name %q:\n%s", want, errs)
 		}
 	}
-	if _, err := g.Advance(d, nil); err == nil {
+	if _, err := g.Advance(d, nil, ""); err == nil {
 		t.Error("a refused plan was played")
 	}
 	if _, err := ParseDirectives(`{"groupz":[]}`); err == nil {
@@ -186,3 +188,47 @@ func TestUndo(t *testing.T) {
 		t.Error("undo beyond the start")
 	}
 }
+
+// Orders given by hand for the first phase are played as given; the plan
+// orders the other units, keeps its units off the hexes it is to avoid and
+// survives a unit that is gone.
+func TestAdvanceHandOrdersAndAvoid(t *testing.T) {
+	g := rhein(t)
+	u, to := walker(t, g, -1)
+	other, far := walker(t, g, u.Index)
+	gone := 9999
+	d := &Directives{
+		Groups: []Group{
+			{Units: []int{other.Index, gone}, Goal: dirGoto, To: &[2]int{far.Line + 1, far.Col + 1}, Avoid: [][2]int{{far.Line + 1, far.Col + 1}}, Quiet: true},
+		},
+		Stop: Stop{Res: 1},
+	}
+	if errs := d.Check(g.S, g.Side); len(errs) > 0 {
+		t.Fatalf("plan refused: %v", errs)
+	}
+	if w := d.Warnings(g.S, g.Side); len(w) != 1 {
+		t.Errorf("warnings %v, want one for u%d", w, gone)
+	}
+	if _, err := g.Advance(d, nil, `{"op":"move","unit":9999,"to":[1,1]}`); err == nil {
+		t.Fatal("bad hand orders were played")
+	}
+	if _, lines, err := ReadTranscript(g.Dir); err != nil || len(lines) != 0 {
+		t.Fatalf("refused orders left %d resolutions, %v", len(lines), err)
+	}
+	first := `{"op":"move","unit":` + itoa(u.Index) + `,"to":[` + itoa(to.Line+1) + `,` + itoa(to.Col+1) + `]}`
+	if _, err := g.Advance(d, nil, first); err != nil {
+		t.Fatal(err)
+	}
+	own := ownUnits(g.S, g.Side)
+	if got := own[u.Index].At; got != to {
+		t.Errorf("u%d ordered by hand to %s stands at %s", u.Index, show(to), show(got))
+	}
+	if got := own[other.Index].At; got == far {
+		t.Errorf("u%d ended on %s, which its plan avoids", other.Index, show(far))
+	}
+	if _, _, err := VerifyReplay(g.Dir); err != nil {
+		t.Errorf("verify: %v", err)
+	}
+}
+
+func itoa(n int) string { return strconv.Itoa(n) }

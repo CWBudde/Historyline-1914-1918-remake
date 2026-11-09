@@ -124,7 +124,7 @@ func TestQueryEta(t *testing.T) {
 		cs := dosplay.Coords(dests)
 		for _, c := range []hexgrid.Coord{cs[0], cs[len(cs)-1]} {
 			got := mustQuery(t, s, fmt.Sprintf("eta u%d %s", u.Index, show(c)))
-			if !strings.Contains(got, ": 1 moves (resolution 1, now=1), stops "+show(c)+"\n") {
+			if !strings.Contains(got, ": 1 moves (there after 1 resolutions), stops "+show(c)+"\n") {
 				t.Errorf("u%d to its destination %s: %q", u.Index, show(c), got)
 			}
 		}

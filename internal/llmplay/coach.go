@@ -565,6 +565,14 @@ func (p *coachPlan) field(u dosplay.UnitView, g goalKind) (map[hexgrid.Coord]int
 	}
 	switch g {
 	case goalDirected:
+		if len(p.cfg.Directives.Groups[k.dir.group].Avoid) > 0 {
+			costs = maps.Clone(costs)
+			for c := range costs {
+				if p.avoided(k.dir, c) {
+					delete(costs, c)
+				}
+			}
+		}
 		directedSeeds(k.dir, costs, seed)
 	case goalHold:
 		p.holdField(u, costs, seed)
@@ -1152,6 +1160,9 @@ func (p *coachPlan) bestDest(u dosplay.UnitView, from hexgrid.Coord, dests map[h
 	best, bestScore := from, p.scoreDest(u, from, from, f)
 	for _, c := range dosplay.Coords(dests) {
 		if isDirected {
+			if p.avoided(dir, c) {
+				continue
+			}
 			if sc := p.scoreDest(u, from, c, f); sc > bestScore {
 				best, bestScore = c, sc
 			}
@@ -1728,7 +1739,7 @@ func (p *coachPlan) attacks() ([]dosplay.Event, error) {
 	}
 	var cands []cand
 	for _, u := range p.own {
-		if u.Moved || u.Held || p.s.Sapper(u.Index) || p.s.Builder(u.Index) || p.s.GasPioneer(u.Index) {
+		if u.Moved || u.Held || p.s.Sapper(u.Index) || p.s.Builder(u.Index) || p.s.GasPioneer(u.Index) || p.quiet(u.Index) {
 			continue
 		}
 		for _, t := range dosplay.Coords(p.s.Targets(p.side, u.Index)) {

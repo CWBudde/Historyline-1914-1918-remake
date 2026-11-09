@@ -2,6 +2,8 @@ package llmplay
 
 import (
 	"fmt"
+	"maps"
+	"slices"
 	"strings"
 	"sync"
 
@@ -33,6 +35,7 @@ type TryResult struct {
 	Captured    []string
 	End         *dosrules.End
 	First       string // the first resolution's events (BriefDigest)
+	Ends        string // where the side's units stand at the end
 }
 
 // Try plays every candidate res resolutions ahead from s on a clone of
@@ -118,6 +121,13 @@ func tryOne(s *dosplay.Session, side int, c Candidate, res int, base *CoachConfi
 	r.Units = [2]int{st.Sides[side].Units, st.Sides[1-side].Units}
 	r.Energy, r.Income = clone.Energy(side), [2]int{st.Income[side], st.Income[1-side]}
 	r.Lost, r.Killed, r.Captured, r.End = t.lost, t.killed, t.captured, clone.Ended()
+	own := ownUnits(clone, side)
+	var ends []string
+	for _, i := range slices.Sorted(maps.Keys(own)) {
+		u := own[i]
+		ends = append(ends, fmt.Sprintf("u%d %s %d/%d", i, show(u.At), u.Size, u.Full))
+	}
+	r.Ends = strings.Join(ends, ", ")
 	return r, nil
 }
 
@@ -130,7 +140,7 @@ func FormatTry(s *dosplay.Session, side int, results []TryResult, verbose bool) 
 		st.Sides[side].Units, st.Sides[1-side].Units, s.Energy(side), st.Income[side], st.Income[1-side])
 	best := -1
 	for i, r := range results {
-		if r.Rejected == nil && (best < 0 || r.Value > results[best].Value) {
+		if r.Rejected == nil && (r.End == nil || r.End.Winner == side) && (best < 0 || r.Value > results[best].Value) {
 			best = i
 		}
 	}
@@ -156,6 +166,9 @@ func FormatTry(s *dosplay.Session, side int, results []TryResult, verbose bool) 
 			if len(l.items) > 0 {
 				fmt.Fprintf(&b, "   %s %d: %s\n", l.label, len(l.items), strings.Join(l.items, ", "))
 			}
+		}
+		if verbose && r.Ends != "" {
+			b.WriteString("   your units at the end: " + r.Ends + "\n")
 		}
 		if verbose && r.First != "" {
 			b.WriteString("   first resolution:\n")

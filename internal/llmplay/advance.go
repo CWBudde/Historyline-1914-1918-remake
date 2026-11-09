@@ -19,7 +19,7 @@ const (
 // tally is what a resolution's events did to side.
 type tally struct {
 	lost, killed, captured []string
-	built                  int
+	built, taken, yielded  int // units built; buildings the side took and lost
 }
 
 func (t *tally) add(evs []dosplay.Event, side int) {
@@ -44,13 +44,18 @@ func (t *tally) add(evs []dosplay.Event, side int) {
 				switch {
 				case !f.Destroyed:
 				case f.Unit.Side == side:
-					t.lost = append(t.lost, name(f.Unit))
+					t.lost = append(t.lost, name(f.Unit)+" at "+show(f.Unit.At))
 				default:
 					t.killed = append(t.killed, name(f.Unit))
 				}
 			}
 		case dosplay.Captured:
 			t.captured = append(t.captured, fmt.Sprintf("%s took %s", Sides[ev.Side], show(ev.To)))
+			if ev.Side == side {
+				t.taken++
+			} else {
+				t.yielded++
+			}
 		case dosplay.Built:
 			if ev.Side == side {
 				t.built++
@@ -76,13 +81,36 @@ func (t tally) line() string {
 }
 
 // planPlayer is the coach under a plan; the transcript's orders text
-// names the plan.
+// names the plan. first, if set, are orders given by hand for the first
+// phase: they are applied before the coach, which then orders only the
+// units they left alone.
 type planPlayer struct {
 	*Coach
-	text string
+	text  string
+	first string
 }
 
-func (p planPlayer) OrdersText() string { return p.text }
+func (p *planPlayer) OrdersText() string { return p.text }
+
+// PlayPhase implements PhasePlayer.
+func (p *planPlayer) PlayPhase(s *dosplay.Session, side int) ([]dosplay.Event, error) {
+	if p.first != "" {
+		text := p.first
+		p.first = ""
+		orders, err := ParseOrders(text)
+		if err != nil {
+			return nil, err
+		}
+		_, errs, err := Apply(s, side, orders)
+		if err != nil {
+			return nil, err
+		}
+		if len(errs) > 0 {
+			return nil, fmt.Errorf("orders refused: %s", strings.Join(errs, "; "))
+		}
+	}
+	return p.Coach.PlayPhase(s, side)
+}
 
 // AdvanceReport is what Advance played.
 type AdvanceReport struct {
@@ -141,6 +169,10 @@ func (d *Directives) stopReason(s *dosplay.Session, side int, t tally, wasNear b
 		return fmt.Sprintf("%d units lost", len(t.lost))
 	case st.Captured && len(t.captured) > 0:
 		return "a building changed hands"
+	case st.Taken && t.taken > 0:
+		return "you took a building"
+	case st.LostBuilding && t.yielded > 0:
+		return "the enemy took a building"
 	case st.EnemyNear > 0 && !wasNear && enemyNearHQ(s, side, st.EnemyNear):
 		return fmt.Sprintf("enemy within %d hexes of your HQ", st.EnemyNear)
 	}
@@ -153,8 +185,10 @@ func (d *Directives) stopReason(s *dosplay.Session, side int, t tally, wasNear b
 // Advance plays the game on with the coach under plan d (base: the
 // level's coach configuration, nil for the default) until the plan's stop
 // condition holds or the game ends. Every resolution is recorded like any
-// other; the report has a line for each.
-func (g *Game) Advance(d *Directives, base *CoachConfig) (AdvanceReport, error) {
+// other; the report has a line for each. first, if not empty, are JSONL
+// orders for the phase at hand: the plan plays only the units they do
+// not name.
+func (g *Game) Advance(d *Directives, base *CoachConfig, first string) (AdvanceReport, error) {
 	var rep AdvanceReport
 	if errs := d.Check(g.S, g.Side); len(errs) > 0 {
 		return rep, fmt.Errorf("plan refused: %s", strings.Join(errs, "; "))
@@ -167,7 +201,23 @@ func (g *Game) Advance(d *Directives, base *CoachConfig) (AdvanceReport, error) 
 	if err != nil {
 		return rep, err
 	}
-	pl := planPlayer{coach, "advance " + string(raw)}
+	pl := &planPlayer{Coach: coach, text: "advance " + string(raw), first: first}
+	if first != "" {
+		// Refuse bad orders before anything is recorded.
+		orders, err := ParseOrders(first)
+		if err != nil {
+			return rep, err
+		}
+		clone, err := g.S.Clone()
+		if err != nil {
+			return rep, err
+		}
+		if _, errs, err := Apply(clone, g.Side, orders); err != nil {
+			return rep, err
+		} else if len(errs) > 0 {
+			return rep, fmt.Errorf("orders refused: %s", strings.Join(errs, "; "))
+		}
+	}
 	limit := d.Stop.Res
 	if limit <= 0 {
 		limit = defaultStopRes

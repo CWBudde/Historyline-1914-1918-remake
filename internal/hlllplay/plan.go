@@ -101,6 +101,7 @@ func (c *command) cmdAdvance(args []string) (err error) {
 	dir := fs.String("dir", "", "game dir")
 	plan := fs.String("plan", "", "standing plan JSON; none: the plain coach for 10 resolutions")
 	res := fs.Int("res", 0, "resolutions to play at most (overrides the plan's stop.res)")
+	orders := fs.String("orders", "", "orders JSONL given by hand for the phase at hand; the plan plays the units they leave alone")
 	window := windowFlags(fs)
 	if err := fs.Parse(args); err != nil {
 		return err
@@ -128,7 +129,20 @@ func (c *command) cmdAdvance(args []string) (err error) {
 	if errs := d.Check(g.S, g.Side); len(errs) > 0 {
 		return c.reject(errs)
 	}
-	rep, err := g.Advance(d, llmplay.CoachConfigFor(g.Level))
+	first := ""
+	if *orders != "" {
+		raw, err := os.ReadFile(*orders)
+		if err != nil {
+			return err
+		}
+		first = string(raw)
+	}
+	for _, w := range d.Warnings(g.S, g.Side) {
+		if _, err := fmt.Fprintln(c.stdout, "warning:", w); err != nil {
+			return err
+		}
+	}
+	rep, err := g.Advance(d, llmplay.CoachConfigFor(g.Level), first)
 	if err != nil {
 		return err
 	}

@@ -115,6 +115,9 @@ batches (or driver failure) a deterministic fallback plays the phase
 A game runs 30 to 110 resolutions and is won by a plan of 20 or more, so a player works above the single
 phase where it can.
 
+Hexes are `[line,col]` from 1; odd lines have one hex less and are shifted half a hex, so the hex straight
+below `[l,c]` is `[l+2,c]` and distances are best asked, not counted.
+
 **`query`** answers questions about the side's own view (fair: enemy positions are last-known), several
 per call:
 
@@ -133,7 +136,7 @@ build; everything it does not name plays the coach's doctrine:
 
 ```json
 {"posture": "cautious",
- "groups": [{"units": [32, 34, 33], "goal": "capture", "to": [42, 10]},
+ "groups": [{"units": [32, 34, 33], "goal": "capture", "to": [42, 10], "quiet": true, "avoid": [[29, 8]], "avoidRadius": 2},
             {"units": [30, 28], "goal": "hold", "to": [44, 7], "radius": 2},
             {"units": [9], "goal": "escort", "of": 32},
             {"units": [5], "goal": "stay"}],
@@ -142,22 +145,29 @@ build; everything it does not name plays the coach's doctrine:
 ```
 
 Goals: `goto` (march to the hex, progress first, then hold it), `capture` (the same for a building
-entrance), `hold` (fight within `radius` of the hex), `escort` (stay beside unit `of`), `stay` (no move).
+entrance), `hold` (fight within `radius` of the hex; around an own HQ it is the guard), `escort` (stay
+beside unit `of`), `stay` (no move). A `quiet` group gives no attack orders and `avoid` keeps it off the
+named hexes and those within `avoidRadius` of them, on the way and at the end: a raid that slips past a
+bunker instead of fighting it. A unit that is gone and a building not held are skipped with a warning, so
+a plan outlives its losses and may name the factory it is about to take.
 `posture` is one of the lookahead's (`cautious`, `bold`, `siege`, `assault`, `turtle`, `grab`,
 `grab-cautious`). A build rule replaces the coach's production in building `hold` (none: every own
 building): the first listed type the energy allows above `reserve`, `count` per action phase (1); no types
 build nothing. `stop` hands back after `res` resolutions (10, at most 60), once `lost` own units were
-destroyed, when an enemy first comes within `enemyNear` hexes of an own HQ, when a building changes hands,
-or when a `goto`/`capture` unit arrived or was lost.
+destroyed, when an enemy first comes within `enemyNear` hexes of an own HQ, when a building changes hands
+(`captured`: any, `taken`: you took one, `lostBuilding`: the enemy took one), or when a `goto`/`capture`
+unit arrived or was lost.
 
 **`advance -plan P`** plays the game on under the plan and prints a line per resolution, the stop reason
 and the next prompt; every resolution is recorded as ordinary commands. Without a plan it is the plain
-coach for 10 resolutions; `-res N` overrides the plan's count.
+coach for 10 resolutions; `-res N` overrides the plan's count. `-orders F` gives the phase at hand orders
+by hand first (the last hexes of a raid, a boarding); the plan then orders only the units they left alone.
 
 **`try`** plays candidates ahead on clones against dosai's exact replies and commits none: each `-orders`
 file (the current phase, the coach playing on after it), each `-plan`, and the plain coach for comparison.
 Per candidate: `Evaluate`'s value after `-res` resolutions (8), units, energy, income, own losses, kills
-and buildings taken; `-v` adds the first resolution's events. Like the lookahead it knows the opponent's
+and buildings taken (the best open or won game is starred); `-v` adds where the units stand at the end
+and the first resolution's events. Like the lookahead it knows the opponent's
 answers; `tries.log` in the game dir keeps what was tried. `undo` rewinds the game in place.
 
 ## Record — always on
