@@ -3,6 +3,8 @@ package dosrules
 import (
 	"encoding/json"
 	"fmt"
+	"maps"
+	"slices"
 )
 
 // SaveSchema is the version of the saved command-cycle state. LoadGame also
@@ -147,4 +149,31 @@ func LoadGame(data []byte) (*Game, error) {
 	}
 	g.markKinds()
 	return g, nil
+}
+
+// Clone is an independent copy of the game: what LoadGame makes of Save,
+// without the encoding. The tables are shared; no command changes them.
+func (g *Game) Clone() *Game {
+	c := *g
+	for k := range c.Maps {
+		c.Maps[k] = slices.Clone(g.Maps[k])
+	}
+	c.Units = maps.Clone(g.Units)
+	c.Holds = maps.Clone(g.Holds)
+	for k := range c.Players {
+		c.Players[k].Orders = slices.Clone(g.Players[k].Orders)
+	}
+	if g.Ended != nil {
+		e := *g.Ended
+		c.Ended = &e
+	}
+	if g.Buildings != nil {
+		c.Buildings = make(map[int]Building, len(g.Buildings))
+		for r, b := range g.Buildings {
+			b.Builds, b.ComputerBuilds = slices.Clone(b.Builds), slices.Clone(b.ComputerBuilds)
+			c.Buildings[r] = b
+		}
+	}
+	c.Gas = slices.Clone(g.Gas)
+	return &c
 }

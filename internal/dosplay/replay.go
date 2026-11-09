@@ -28,16 +28,7 @@ const (
 // changes (the board, the level and the data set), so the clone may run on
 // another goroutine while the session is played on.
 func (s *Session) Clone() (*Session, error) {
-	raw, err := s.Game.Save()
-	if err != nil {
-		return nil, err
-	}
-	g, err := dosrules.LoadGame(raw)
-	if err != nil {
-		return nil, err
-	}
-	// A save names the profile by its tables; keep the session's own.
-	g.Profile = s.Game.Profile
+	g := s.Game.Clone()
 	c := &Session{
 		Game: g, Board: s.Board, Level: s.Level, set: s.set, version: s.version, ids: maps.Clone(s.ids),
 		log: slices.Clone(s.log),
