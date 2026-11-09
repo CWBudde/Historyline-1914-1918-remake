@@ -128,7 +128,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)
 		}
 	}
-	if len(bindings) != 75 {
+	if len(bindings) != 77 {
 		t.Errorf("got %d runtime unit bindings", len(bindings))
 	}
 	for _, id := range []string{"sprite/a7v", "portrait/a7v"} {
