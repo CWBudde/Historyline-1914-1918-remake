@@ -27,7 +27,7 @@ observation balloon, ships and trains. The candidates below fill what it lacks.
 
 | Unit | Side, from | Rules | Engine work | State |
 |---|---|---|---|---|
-| Gas pioneers | both, 1915-04 | lasting gas cloud (below) | ability, per-cell gas field | open |
+| Gas pioneers | both, 1915-04 | lasting gas cloud (below) | ability, per-cell gas field | done |
 | Trench mortar | both, 1915 | range 1–2, foot unit that enters trenches, fires after a move | type record only | open |
 | Stormtroopers | CP, 1916 | strong close attack, fast foot unit, captures | type record only | open |
 | Zeppelin | CP, 1915–17 | slow air unit, strong bombing, weak against fighters and AA | type record only | open |

@@ -632,8 +632,9 @@ build embeds every backdrop). Decided (defaults, open to override):
 
 New units, as an opt-in extension of the original tables ([docs/new-units.md](docs/new-units.md)):
 
-- [ ] Gas pioneers: a lasting gas cloud on the trench's three cells, with friendly fire; masks and mustard
-      gas set by the level's month.
+- [x] Gas pioneers: a lasting gas cloud on the trench's three cells, with friendly fire; masks and mustard
+      gas set by the level's month. Go and the web edition; the computer side releases gas in played-out
+      battles (`TestGasPlayOut`: 4 releases, 7 enemy and 0 own losses on 1915-05, the same in TS).
 - [ ] Trench mortar, stormtroopers, Zeppelin, Whippet, Mark V, Schneider CA1, Paris Gun (type records only).
 - [ ] Flamethrower: ignores the defender's terrain defence term.
 - [ ] Barbed wire laid by sappers (extension terrain records; tanks crush it).
