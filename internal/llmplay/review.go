@@ -55,7 +55,7 @@ func Review(dir, lessonsPath string) (*Report, error) {
 	if err != nil {
 		return nil, err
 	}
-	s, err := NewSession(lvl, h.LLMSide)
+	s, err := NewUnitsSession(lvl, h.LLMSide, ExtendedRef(h.Level))
 	if err != nil {
 		return nil, err
 	}

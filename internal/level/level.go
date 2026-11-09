@@ -45,6 +45,9 @@ type Extra struct {
 	Season string
 	// Seasons are the hexes drawn in another season than Season.
 	Seasons map[hexgrid.Coord]string
+	// Month is the scenario's campaign month ("1915-04"), which dates the
+	// extension units' rules (docs/new-units.md); "" for none.
+	Month string
 }
 
 // SeasonAt is the season hex c is drawn in: its entry in Seasons, else

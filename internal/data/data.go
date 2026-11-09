@@ -54,6 +54,14 @@ type Unit struct {
 	Weapons      [4]*Slot `json:"weapons"` // nil for an empty slot
 }
 
+// OriginalTypes is the number of the original's unit types (UNIT.DAT); a
+// Dos from here on is an extension type (docs/new-units.md).
+const OriginalTypes = 51
+
+// Extension reports whether the unit is an extension type, which only a game
+// on the extended rules fields.
+func (u Unit) Extension() bool { return u.Dos >= OriginalTypes }
+
 // CrossesLightBridge reports whether the unit may cross a light bridge
 // (LightBridge): at most a light artillery piece's weight (3), and not an
 // armoured vehicle — the armoured cars and tanks carry armour over 25,

@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"slices"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 )
 
@@ -24,8 +25,12 @@ var computerBuilds = [2][]int{
 
 // mayBuild reports whether the computer may build type typ for side, given the
 // building's map list (nil: its side's default). A map list holds both sides'
-// types: side 0 builds none above 35, side 1 none below 10.
+// types: side 0 builds none above 35, side 1 none below 10. Both sides may
+// build an extension type the factory builds (docs/new-units.md).
 func mayBuild(list []int, side, typ int) bool {
+	if typ >= data.OriginalTypes {
+		return true
+	}
 	if len(list) == 0 {
 		return slices.Contains(computerBuilds[side], typ)
 	}

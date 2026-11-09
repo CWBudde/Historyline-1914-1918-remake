@@ -87,7 +87,7 @@ func preamble(s *dosplay.Session, lessons string) string {
 func (c *command) cmdNew(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay new", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
-	level := fs.String("level", "1918-02:cp", "shipped level ref MONTH:cp|ec")
+	level := fs.String("level", "1918-02:cp", "shipped level ref MONTH:cp|ec, +units for the extension units (docs/new-units.md)")
 	out := fs.String("out", "", "game dir (default build/review/llmplay/<level>-<ts>)")
 	oracle := fs.Bool("oracle", false, "append opponent's exact orders to prompts (training)")
 	frames := fs.Bool("frames", false, "render a PNG frame per resolution")
@@ -277,7 +277,7 @@ func (c *command) cmdStep(args []string) (err error) {
 func (c *command) cmdRun(args []string) (err error) {
 	fs := flag.NewFlagSet("hl llmplay run", flag.ContinueOnError)
 	fs.SetOutput(c.stderr)
-	level := fs.String("level", "1918-02:cp", "shipped level ref")
+	level := fs.String("level", "1918-02:cp", "shipped level ref, +units for the extension units")
 	out := fs.String("out", "", "game dir")
 	driver := fs.String("driver", "fallback", "file (prompt.txt/orders.jsonl in the game dir) or a player: "+strings.Join(llmplay.PlayerNames(), ", "))
 	maxR := fs.Int("max", 300, "max resolutions")

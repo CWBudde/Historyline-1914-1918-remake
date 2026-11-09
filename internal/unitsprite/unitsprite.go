@@ -56,9 +56,19 @@ var families = map[string]string{
 	"CP_balloon": "static-balloon", "EC_balloon": "static-balloon",
 }
 
+// placeholders draw the extension types (docs/new-units.md), which have no
+// art of their own yet, with an existing family. The family's art does not
+// list them.
+var placeholders = map[string]string{
+	"CP_gasPioneers": "sappers", "EC_gasPioneers": "sappers",
+}
+
 // Family returns the sprite family of a unit type (a key of data.Set.Units).
 func Family(unitType string) (string, bool) {
-	f, ok := families[unitType]
+	if f, ok := families[unitType]; ok {
+		return f, true
+	}
+	f, ok := placeholders[unitType]
 	return f, ok
 }
 

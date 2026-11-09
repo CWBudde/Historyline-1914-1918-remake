@@ -163,7 +163,7 @@ func (s *Session) unitView(idx, side int) UnitView {
 // if none.
 func (s *Session) target(side, unit int) *hexgrid.Coord {
 	if side != 0 && side != 1 || s.Phase(side) != dosrules.PhaseAction ||
-		!slices.Contains(s.Game.Players[side].Orders, unit) && !s.Game.Units[unit].Working() {
+		!slices.Contains(s.Game.Players[side].Orders, unit) && !s.Game.Units[unit].Working() && !s.Game.Units[unit].Releasing() {
 		return nil
 	}
 	c := s.coord(s.Game.Units[unit].Target / 2)

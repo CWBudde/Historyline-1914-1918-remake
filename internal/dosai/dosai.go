@@ -373,9 +373,9 @@ func hasLower(f map[hexgrid.Coord]int, c, b hexgrid.Coord) bool {
 // fight from (field) is better, a long-range unit wants its weapon's full
 // reach to the nearest enemy unit and no enemy next to it, a unit that
 // cannot capture keeps off the hexes next to an enemy HQ entrance, and the
-// terrain's defence term counts.
+// terrain's defence term counts. A gassed hex costs gasCost.
 func (pl *plan) score(u dosplay.UnitView, f map[hexgrid.Coord]int, c hexgrid.Coord) int {
-	sc := pl.defence(c)
+	sc := pl.defence(c) - pl.gasPenalty(u, c)
 	if pl.profile.Tables.Move.Types[u.Type].Flags&captureFlag == 0 && nearest(c, pl.hqs) == 1 {
 		sc -= adjacentCost
 	}
@@ -492,18 +492,25 @@ type candidate struct {
 }
 
 // action gives the action phase's orders: the attacks (attack), then the
-// sappers' work (dig). The progress counts the attackers, then the diggers.
+// sappers' work (dig), then the gas pioneers' releases (release). The
+// progress counts the attackers, then the diggers, then the gas pioneers.
 func (pl *plan) action() ([]dosplay.Event, error) {
 	energy := pl.s.Energy(pl.side)
 	cands, units := pl.candidates()
 	diggers := pl.diggers()
-	total := len(units) + len(diggers)
+	gassers := pl.gassers()
+	total := len(units) + len(diggers) + len(gassers)
 	pl.report(0, total)
 	evs, err := pl.attack(cands, len(units), total)
 	if err != nil {
 		return evs, err
 	}
 	ev, err := pl.dig(diggers, len(units), total)
+	evs = append(evs, ev...)
+	if err != nil {
+		return evs, err
+	}
+	ev, err = pl.release(gassers, len(units)+len(diggers), total)
 	evs = append(evs, ev...)
 	if err != nil {
 		return evs, err
@@ -517,12 +524,13 @@ func (pl *plan) action() ([]dosplay.Event, error) {
 }
 
 // candidates are the possible attack orders and the units that have one.
-// Sappers and construction units have none: their work is no battle.
+// Sappers, construction units and gas pioneers have none: their work is no
+// battle.
 func (pl *plan) candidates() ([]candidate, []int) {
 	var cands []candidate
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
-		if u.Side != pl.side || u.Moved || pl.s.Sapper(u.Index) || pl.s.Builder(u.Index) {
+		if u.Side != pl.side || u.Moved || pl.s.Sapper(u.Index) || pl.s.Builder(u.Index) || pl.s.GasPioneer(u.Index) {
 			continue
 		}
 		for _, t := range dosplay.Coords(pl.s.Targets(pl.side, u.Index)) {

@@ -91,7 +91,7 @@ func StartGame(ref, dir, driver string, oracle bool) (*Game, error) {
 		return nil, err
 	}
 	side := LLMSide(mode)
-	s, err := NewSession(lvl, side)
+	s, err := NewUnitsSession(lvl, side, ExtendedRef(ref))
 	if err != nil {
 		return nil, err
 	}

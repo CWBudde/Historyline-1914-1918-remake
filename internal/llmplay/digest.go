@@ -89,6 +89,12 @@ func Digest(evs []dosplay.Event) string {
 			fmt.Fprintf(&b, " built u%d at %s, energy left %d\n", ev.Unit, show(ev.To), ev.Energy)
 		case dosplay.Dug:
 			fmt.Fprintf(&b, " sapper work at %s: %s\n", show(ev.To), ev.Text)
+		case dosplay.Released:
+			fmt.Fprintf(&b, " %s gas released at %s over %d hexes\n", Sides[ev.Side], show(ev.To), len(ev.Hexes))
+		case dosplay.Gassed:
+			fmt.Fprintf(&b, " gas at %s: u%d %s\n", show(ev.To), ev.Unit, ev.Text)
+		case dosplay.Cleared:
+			fmt.Fprintf(&b, " gas cleared from %d hexes\n", len(ev.Hexes))
 		case dosplay.Constructed:
 			fmt.Fprintf(&b, " %s depot work at %s: %s\n", Sides[ev.Side], show(ev.To), ev.Text)
 		case dosplay.Ended:

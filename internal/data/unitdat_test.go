@@ -55,6 +55,9 @@ func TestUnitsFollowUnitDat(t *testing.T) {
 		t.Fatalf("fixture has %d records, want %d", len(recs), 51)
 	}
 	for id, u := range s.Units {
+		if u.Extension() {
+			continue // an extension type (docs/new-units.md): dosbind checks it against dosrules' tables
+		}
 		r := recs[u.Dos]
 		var cost *int
 		if r.Cost != 255 {
@@ -154,6 +157,8 @@ func TestRosterCoversUnitDat(t *testing.T) {
 		"EC_markI": {48, "Britain", MoveNormal}, "CP_markI": {48, "Germany", MoveNormal},
 		"EC_stChamond": {49, "France", MoveNormal},
 		"EC_markIV":    {50, "Britain", MoveNormal}, "CP_markIV": {50, "Germany", MoveNormal},
+		// Extension types (docs/new-units.md).
+		"CP_gasPioneers": {51, "Germany", MoveNormal}, "EC_gasPioneers": {51, "France", MoveNormal},
 	}
 	if len(s.Units) != len(roster) {
 		t.Errorf("%d unit types, want %d", len(s.Units), len(roster))

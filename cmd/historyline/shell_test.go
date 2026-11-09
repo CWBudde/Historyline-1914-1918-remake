@@ -631,7 +631,7 @@ func TestMonthlyFlanders(t *testing.T) {
 	if _, err := bd.on(cp.lvl.Grid()); err != nil {
 		t.Fatalf("backdrop %s: %v", cp.lvl.Extra.Backdrop, err)
 	}
-	// Every unit type of the game takes part, on the map or in a building.
+	// Every unit type of the original takes part, on the map or in a building.
 	set := testSet(t)
 	seen := map[string]bool{}
 	for _, line := range cp.lvl.Lines {
@@ -646,8 +646,8 @@ func TestMonthlyFlanders(t *testing.T) {
 			}
 		}
 	}
-	for id := range set.Units {
-		if !seen[id] {
+	for id, u := range set.Units {
+		if !seen[id] && !u.Extension() {
 			t.Errorf("no %s", id)
 		}
 	}

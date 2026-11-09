@@ -68,6 +68,14 @@ strength, captures, revealed moves, income), and the legal orders of the phase:
 - action: every target with its **exact** `Profile.Engage` prediction and gain
   score, repair options, buildable types with costs.
 
+A level ref ending in `+units` (`-level 1915-04:cp+units`) takes the extension
+units in ([new-units.md](new-units.md)); the ref stays in the header, so replays
+and reviews start the same game. The prompt then lists the gas cloud (`GAS`,
+turns left per hex), a gas pioneer's charges and units standing in gas
+(`IN-GAS`), and a pioneer's options as `release gas over` the cloud's hexes
+with the units under it (`OWN UNITS GASSED` warns). The coach leaves gas
+pioneers idle.
+
 ≈3.5–5.5k tokens per prompt on RHEIN (32×47), ≈10k on CANDL (16×95, 145
 units). `-lines 1-20,75-95` (on `prompt` and `step`) keeps only the units,
 buildings, threats, orders and events on those map lines; header and holdings

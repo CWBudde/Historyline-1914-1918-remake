@@ -34,12 +34,16 @@ import (
 
 // Options are the game options of a session: the move limit (4, 8 or 16
 // orders per side and phase, 0 none), which sides the computer plays (the
-// limit holds for human sides only) and the rules profile (nil:
-// dosrules.Full; the board applies the level's season).
+// limit holds for human sides only), the rules profile (nil: dosrules.Full,
+// or dosrules.Extended for a level that places or builds an extension unit;
+// the board applies the level's season) and whether the extension units
+// join the game (docs/new-units.md): the extended rules, with every factory
+// building them too.
 type Options struct {
-	Limit    int
-	Computer [2]bool
-	Profile  *dosrules.Profile
+	Limit         int
+	Computer      [2]bool
+	Profile       *dosrules.Profile
+	ExtendedUnits bool
 }
 
 // Session is a battle on the original rules. Game and Board are exposed for
@@ -81,12 +85,22 @@ func NewBoard(b *dosbind.Board, lvl *level.Level, set *data.Set, o Options) (*Se
 		return nil, err
 	}
 	p := dosrules.Full
-	if o.Profile != nil {
+	switch {
+	case o.Profile != nil:
 		p = *o.Profile
+	case o.ExtendedUnits || usesExtension(b):
+		p = dosrules.Extended
 	}
 	g, err := b.Game(p)
 	if err != nil {
 		return nil, fmt.Errorf("dosplay: %w", err)
+	}
+	if p.Tables.Build == dosrules.ExtendedTables.Build {
+		month := ""
+		if lvl != nil && lvl.Extra != nil {
+			month = lvl.Extra.Month
+		}
+		extend(g, set, month, o.ExtendedUnits)
 	}
 	g.Limit = o.Limit
 	for k := range 2 {
@@ -416,7 +430,7 @@ func (s *Session) Targets(side, unit int) map[hexgrid.Coord]bool {
 		return out
 	}
 	m := s.Game.Maps[side]
-	work := s.Sapper(unit) || s.Builder(unit)
+	work := s.Sapper(unit) || s.Builder(unit) || s.GasPioneer(unit)
 	for c := range s.Game.Width * s.Game.Height {
 		if !work && m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
 			continue

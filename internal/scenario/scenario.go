@@ -608,7 +608,7 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 		MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
 		Extra: &level.Extra{
 			Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), ComputerBuilds: slices.Clone(s.ComputerBuilds), Backdrop: f.Backdrop,
-			Season: f.Season, Seasons: maps.Clone(f.Seasons),
+			Season: f.Season, Seasons: maps.Clone(f.Seasons), Month: f.Month,
 		},
 	}
 	for i, line := range f.Map {

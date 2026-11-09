@@ -18,6 +18,7 @@ package llmplay
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
@@ -39,14 +40,27 @@ func ShipLevel(month string, mode scenario.Mode) (*level.Level, error) {
 // NewSession starts a DOS-rules session on lvl with side llmSide human and
 // the other side computer-controlled.
 func NewSession(lvl *level.Level, llmSide int) (*dosplay.Session, error) {
+	return NewUnitsSession(lvl, llmSide, false)
+}
+
+// NewUnitsSession is NewSession, with the extension units in the game when
+// extended (dosplay.Options.ExtendedUnits, a level ref with UnitsSuffix).
+func NewUnitsSession(lvl *level.Level, llmSide int, extended bool) (*dosplay.Session, error) {
 	set, err := data.Load()
 	if err != nil {
 		return nil, err
 	}
 	var comp [2]bool
 	comp[1-llmSide] = true
-	return dosplay.New(lvl, set, dosplay.Options{Computer: comp})
+	return dosplay.New(lvl, set, dosplay.Options{Computer: comp, ExtendedUnits: extended})
 }
+
+// UnitsSuffix ends a level ref whose game takes the extension units in
+// ("1915-04:cp+units", docs/new-units.md).
+const UnitsSuffix = "+units"
+
+// ExtendedRef reports whether a level ref takes the extension units in.
+func ExtendedRef(ref string) bool { return strings.HasSuffix(ref, UnitsSuffix) }
 
 // LoadSession resumes a session from Session.Save bytes on its level.
 func LoadSession(lvl *level.Level, saved []byte) (*dosplay.Session, error) {
@@ -57,8 +71,10 @@ func LoadSession(lvl *level.Level, saved []byte) (*dosplay.Session, error) {
 	return dosplay.Load(lvl, set, saved)
 }
 
-// ParseLevelRef parses "1918-02:cp" (mode cp|ec|2p, default cp).
+// ParseLevelRef parses "1918-02:cp" (mode cp|ec|2p, default cp), with or
+// without UnitsSuffix.
 func ParseLevelRef(ref string) (month string, mode scenario.Mode, err error) {
+	ref = strings.TrimSuffix(ref, UnitsSuffix)
 	month, mode = ref, scenario.CP
 	for i := 0; i < len(ref); i++ {
 		if ref[i] == ':' {

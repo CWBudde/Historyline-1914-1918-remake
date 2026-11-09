@@ -30,11 +30,15 @@ const (
 	Tasked                        // a sapper got its work order: From the sapper, To the hex
 	Dug                           // a sapper dug or filled a trench: From the sapper, To the hex, Hexes, Text
 	Constructed                   // a construction unit built half a depot or completed one: From, To the N hex, Hexes, Hold (complete), Text
+	Released                      // gas pioneers released a cloud: From the pioneers, To the hex, Hexes the cloud, Text
+	Gassed                        // a unit lost strength to gas: Unit, To its hex, Loss, Text
+	Cleared                       // the gas left hexes: Hexes, Text
 )
 
 var kindNames = [...]string{
 	"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
 	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug", "constructed",
+	"released", "gassed", "cleared",
 }
 
 func (k EventKind) String() string {
@@ -85,8 +89,11 @@ type Event struct {
 	// Path: from the rear's hex to the one before the goal.
 	Rear []hexgrid.Coord
 	// Hexes are the hexes whose terrain a sapper's or construction unit's
-	// work changed (Dug, Constructed).
+	// work changed (Dug, Constructed), a gas cloud's (Released) or those it
+	// left (Cleared).
 	Hexes []hexgrid.Coord
+	// Loss is the strength a unit lost to gas (Gassed).
+	Loss int
 }
 
 // The status messages of the rules engine that events carry, beyond the
@@ -142,6 +149,10 @@ func MessageText(code int) string {
 		return "There is no room for a depot here."
 	case dosrules.MsgNoCharge:
 		return "The unit has nothing left to build with."
+	case dosrules.MsgGas:
+		return "Gas release ordered."
+	case dosrules.MsgNoGas:
+		return "The unit has no gas left."
 	case 0:
 		return ""
 	}
@@ -236,6 +247,19 @@ func (s *Session) event(r dosrules.Event, b *battles) Event {
 				ev.Hexes = append(ev.Hexes, p)
 			}
 		}
+	case dosrules.EvGasCloud:
+		ev.Kind, ev.To, ev.Text = Released, s.coord(r.Cell), "Gas released."
+		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
+		ev.Hexes = s.levelHexes(r.Cells)
+	case dosrules.EvGassed:
+		ev.Kind, ev.To, ev.Loss = Gassed, s.coord(r.Cell), r.Loss
+		name := s.typeName(s.unitID(r.Unit), s.Game.Units[r.Unit].Type)
+		ev.Text = fmt.Sprintf("%s lose %d to gas.", name, r.Loss)
+		if s.Game.Units[r.Unit].Size == 0 {
+			ev.Text = name + " destroyed by gas."
+		}
+	case dosrules.EvGasCleared:
+		ev.Kind, ev.Hexes, ev.Text = Cleared, s.levelHexes(r.Cells), "The gas has cleared."
 	case dosrules.EvHalfDepot, dosrules.EvDepot:
 		ev.Kind, ev.To, ev.Text = Constructed, s.coord(r.Cell), "Half a depot built."
 		if r.Kind == dosrules.EvDepot {

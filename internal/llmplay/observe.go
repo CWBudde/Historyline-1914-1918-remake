@@ -103,7 +103,14 @@ func unitLine(s *dosplay.Session, rew map[hexgrid.Coord]level.Hex, u dosplay.Uni
 	if id == "" {
 		id = fmt.Sprintf("type%d", u.Type)
 	}
-	return fmt.Sprintf("u%d %s %d/%d e%d %s %s %s", u.Index, id, u.Size, u.Full, u.Exp, show(u.At), terrainAt(s, rew, u.At), state)
+	line := fmt.Sprintf("u%d %s %d/%d e%d %s %s %s", u.Index, id, u.Size, u.Full, u.Exp, show(u.At), terrainAt(s, rew, u.At), state)
+	if s.GasPioneer(u.Index) {
+		line += fmt.Sprintf(" gas-charges %d", s.Charges(u.Index))
+	}
+	if t := s.GasAt(u.At); t > 0 && !u.Held {
+		line += fmt.Sprintf(" IN-GAS %d", t)
+	}
+	return line
 }
 
 func sortedCoords[V any](m map[hexgrid.Coord]V) []hexgrid.Coord {
@@ -137,6 +144,13 @@ func Observe(s *dosplay.Session, side int, lastDigest string, w Window) string {
 		b.WriteString("REWORKED (overrides static map):")
 		for _, c := range sortedCoords(rew) {
 			fmt.Fprintf(&b, " %s=%s", show(c), TerrainCode(rew[c].Terrain, rew[c].Infra))
+		}
+		b.WriteByte('\n')
+	}
+	if gas := s.Gas(); len(gas) > 0 {
+		b.WriteString("GAS (turns left; once a turn every unit on it loses strength, friend and foe; aircraft are immune):")
+		for _, c := range sortedCoords(gas) {
+			fmt.Fprintf(&b, " %s=%d", show(c), gas[c])
 		}
 		b.WriteByte('\n')
 	}
@@ -232,8 +246,8 @@ func threats(s *dosplay.Session, side int, v dosplay.View, w Window) string {
 	var b strings.Builder
 	for _, at := range sortedCoords(v.Units) {
 		e := v.Units[at]
-		if e.Side != opp {
-			continue
+		if e.Side != opp || s.GasPioneer(e.Index) {
+			continue // gas pioneers fight no battle
 		}
 		for _, t := range dosplay.Coords(s.Targets(opp, e.Index)) {
 			mine, ok := v.Units[t]
@@ -357,6 +371,10 @@ func legal(s *dosplay.Session, side int, v dosplay.View, w Window) string {
 			}
 			if s.Builder(u.Index) {
 				parts = append(parts, fmt.Sprintf("%s build depot", show(t)))
+				continue
+			}
+			if s.GasPioneer(u.Index) {
+				parts = append(parts, gasOption(s, v, side, u.Index, t))
 				continue
 			}
 			if err == nil && occupied {
@@ -493,4 +511,27 @@ func knownEnemies(s *dosplay.Session, side int) *enemySnapshot {
 		}
 	}
 	return k
+}
+
+// gasOption is the legal-order text of a gas release on t: the cloud's
+// hexes and the units under it, with a warning for own ones.
+func gasOption(s *dosplay.Session, v dosplay.View, side, unit int, t hexgrid.Coord) string {
+	var hexes []string
+	enemies, own := 0, 0
+	for _, c := range s.Cloud(side, unit, t) {
+		hexes = append(hexes, show(c))
+		if u, ok := v.Units[c]; ok {
+			switch u.Side {
+			case side:
+				own++
+			case 1 - side:
+				enemies++
+			}
+		}
+	}
+	out := fmt.Sprintf("%s release gas over %s (%d enemy units", show(t), strings.Join(hexes, " "), enemies)
+	if own > 0 {
+		out += fmt.Sprintf(", %d OWN UNITS GASSED", own)
+	}
+	return out + ")"
 }

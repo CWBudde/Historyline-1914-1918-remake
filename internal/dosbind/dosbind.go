@@ -401,7 +401,7 @@ func unitType(set *data.Set, id string) (int, int, error) {
 	if !ok {
 		return 0, 0, fmt.Errorf("unknown unit %q", id)
 	}
-	types := dosrules.Full.Tables.Move.Types
+	types := dosrules.ExtendedTables.Move.Types
 	if u.Dos < 0 || u.Dos >= len(types) {
 		return 0, 0, fmt.Errorf("unit %q: no type %d", id, u.Dos)
 	}
@@ -418,7 +418,7 @@ func shipType(set *data.Set, id string) (typ, side int, ship bool, err error) {
 	if !ok {
 		return 0, 0, false, fmt.Errorf("unknown unit %q", id)
 	}
-	types := dosrules.Full.Tables.Move.Types
+	types := dosrules.ExtendedTables.Move.Types
 	if u.Dos < 0 || u.Dos >= len(types) {
 		return 0, 0, false, fmt.Errorf("unit %q: no type %d", id, u.Dos)
 	}
@@ -584,7 +584,7 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 
 // bindTransporters gives every transporter on the map a container record.
 func (b *Board) bindTransporters() error {
-	types := dosrules.Full.Tables.Move.Types
+	types := dosrules.ExtendedTables.Move.Types
 	next := 0
 	for i := range len(b.Units) {
 		u := b.Units[i]
