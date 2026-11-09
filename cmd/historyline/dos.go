@@ -294,6 +294,13 @@ func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 					d.Message = u.Name + ": no room for a depot"
 				}
 			}
+			if d.s.GasPioneer(u.Index) {
+				d.Message = fmt.Sprintf("%s: pick where to release gas (%d left)", u.Name, d.s.Charges(u.Index))
+				if err := d.s.CanRelease(d.side, u.Index); err != nil {
+					d.Message = u.Name + ": " + reason(err)
+					d.targets = nil
+				}
+			}
 		} else {
 			d.moves, err = d.s.Destinations(d.side, u.Index)
 			d.Message = u.Name + ": pick where to move"
@@ -604,6 +611,17 @@ func (d *dosControl) step() {
 				d.Message = "The enemy filled a trench."
 			}
 		}
+	case dosplay.Released:
+		d.lookAt(d.side, ev.To)
+		d.lookAt(1-d.side, ev.To)
+		d.Message = ev.Text
+		if ev.Side != d.side {
+			d.Message = "The enemy released gas."
+		}
+	case dosplay.Gassed:
+		d.Message = ev.Text
+	case dosplay.Cleared:
+		d.Message = ev.Text
 	case dosplay.Constructed:
 		d.rework = true
 		d.Message = ev.Text

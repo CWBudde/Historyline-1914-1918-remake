@@ -72,6 +72,7 @@ type game struct {
 	terrainFill    map[string]color.RGBA
 	ctl            *control
 	dos            *dosControl // set on the original rules (-rules dos); ctl and state are nil then
+	gasTick        int         // frames drawn, for the drift of the gas cloud (gas.go)
 	art            *artPacks   // unit sprite packs (-units); nil draws placeholder dots
 	screens        *screenArt  // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
 	finale         struct {    // the finale's art and the catalog it was cut from (taking.go)
@@ -277,6 +278,7 @@ func (g *game) advance() {
 }
 
 func (g *game) Update() error {
+	g.gasTick++
 	if u, ok := arrived(&g.hdUnits); ok {
 		g.art.release()
 		g.art = u
@@ -570,6 +572,7 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 		}
 	}
 	g.drawUnitMarks(dst, inView)
+	g.drawGas(dst, inView)
 	if w := g.walkShown(human); !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
@@ -774,6 +777,7 @@ type matchConfig struct {
 	rules      string       // dos (default, original) or standard (the remake rules)
 	opponent   string       // ai or pass
 	limit      int          // dos: orders per phase, 0 for no limit
+	extended   bool         // dos: the extension units join the battle (-extended, docs/new-units.md)
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
@@ -800,7 +804,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 			gm = replayGame(c.replay, c.reveal)
 			break
 		}
-		o := dosplay.Options{Limit: c.limit}
+		o := dosplay.Options{Limit: c.limit, ExtendedUnits: c.extended}
 		var planner dosPlanner = passPlanner{}
 		if c.opponent == "ai" {
 			o.Computer[1-dosbind.Side(c.player)] = true
@@ -887,6 +891,7 @@ func main() {
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
+	extended := flag.Bool("extended", false, "dos: the extension units join the battle, every factory builds them (docs/new-units.md)")
 	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the -units catalog downloaded fast")
 	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the -units catalog downloaded fast")
 	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
@@ -946,7 +951,7 @@ func main() {
 		log.Fatalf("unknown -rules %q (want dos or standard)", *rules)
 	}
 	c := matchConfig{
-		set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
+		set: set, rules: *rules, opponent: *opponent, extended: *extended, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
 	}
 	// The web page shows how much of the art has arrived until the game starts.

@@ -2,8 +2,10 @@
 
 These units go beyond the original's 51 unit types. They live in an **opt-in extension**: the original
 tables (`internal/dosrules/full.json`), their fixtures, the shipped levels and the winning-replay corpus stay
-unchanged. A game uses the extension when its session asks for it (`-units extended`, `?units=extended`)
-or when its level places or builds an extension unit.
+unchanged. A game uses the extension when its session asks for it (`dosplay.Options.ExtendedUnits`: the
+desktop's `-extended`, the web edition's `?extended`, a `hl llmplay` level ref ending in `+units` such as
+`1915-04:cp+units`) or when its level places or builds an extension unit. Asked for, every factory also
+builds the extension units.
 
 The original already has tanks (A7V, FT-17, Mark I, Mark IV, Saint-Chamond), fighters, bombers, the
 observation balloon, ships and trains. The candidates below fill what it lacks.
@@ -16,8 +18,10 @@ observation balloon, ships and trains. The candidates below fill what it lacks.
   the full tables'.
 - `dosbind` looks types up in the extended tables. They are a superset, so the original maps bind as before.
 - A unit's remake entry in `internal/data/units.json` points at its type with `dos` (51 and up).
-- Placeholder art: `internal/unitsprite` maps an extension family to an existing family's art until the
-  graphics track paints its own.
+- `data.Unit.Extension` tells an extension unit from an original one; the computer side may build an
+  extension type its factory offers on either side.
+- Placeholder art: `internal/unitsprite` draws an extension unit with an existing family's art
+  (`placeholders`) until the graphics track paints its own.
 
 ## Units
 
@@ -61,10 +65,11 @@ A reconnaissance aircraft is left out: the game has no line of sight, so it woul
 
 ## Gas pioneers
 
-Unit ids `CP_gasPioneers` and `EC_gasPioneers`, type 51, art family `gasPioneers` (sapper art as the
-placeholder for now).
+Unit ids `CP_gasPioneers` and `EC_gasPioneers`, type 51, drawn with the sappers' art for now. The rules
+are in `internal/dosrules/gas.go`, the session's view in `internal/dosplay/gas.go`, the computer side's
+in `internal/dosai/gas.go`.
 
-- **The unit.** A foot unit with sapper movement (it enters trenches) and a weak rifle. It does not capture.
+- **The unit.** A foot unit with the sappers' movement (it enters trenches) and a weak rifle.
   It carries **two charges** of cylinders, held where a construction unit holds its charges. A depot, factory
   or HQ refills them, as it repairs.
 - **The order.** The attack order on an adjacent hex, empty or occupied, releases a cloud and spends a
