@@ -23,7 +23,7 @@ func TestExtendedTables(t *testing.T) {
 	if !slices.Equal(x.Types[:51], f.Types) || !slices.Equal(x.Move.Types[:51], f.Move.Types) {
 		t.Error("the extension changes an original record")
 	}
-	if x.Build != f.Build+"+units1" || x.Terms != f.Terms || len(x.Move.Terrains) != len(f.Move.Terrains) {
+	if x.Build != f.Build+"+units1" || x.Terms != f.Terms || len(x.Move.Terrains) != len(f.Move.Terrains)+2 {
 		t.Errorf("extended build %q, terms or terrains differ", x.Build)
 	}
 	if !Extended.gasType(cGas) || Full.gasType(cGas) || Extended.gasType(cSapper) {

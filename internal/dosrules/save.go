@@ -37,6 +37,7 @@ type savedGame struct {
 	Gas       []int             `json:"gas,omitempty"`
 	GasTurns  int               `json:"gasTurns,omitempty"`
 	GasLoss   int               `json:"gasLoss,omitempty"`
+	Tunnels   []Tunnel          `json:"tunnels,omitempty"`
 }
 
 type savedPlayer struct {
@@ -70,7 +71,7 @@ func (g *Game) Save() ([]byte, error) {
 	s := savedGame{
 		Schema: SaveSchema, Build: g.Profile.Tables.Build, Winter: g.Profile.Winter(), Width: g.Width, Height: g.Height,
 		Maps: g.Maps, Units: map[int]savedUnit{}, Holds: g.Holds, Turn: g.Turn, Limit: g.Limit, Concealed: g.Concealed, Ended: g.Ended,
-		Energy: g.Energy, Buildings: g.Buildings, Gas: g.Gas, GasTurns: g.GasTurns, GasLoss: g.GasLoss,
+		Energy: g.Energy, Buildings: g.Buildings, Gas: g.Gas, GasTurns: g.GasTurns, GasLoss: g.GasLoss, Tunnels: g.Tunnels,
 	}
 	for i, u := range g.Units {
 		s.Units[i] = savedUnit(u)
@@ -108,13 +109,18 @@ func LoadGame(data []byte) (*Game, error) {
 	g := &Game{
 		Profile: p, Width: s.Width, Height: s.Height, Maps: s.Maps, Units: map[int]Live{},
 		Holds: map[int]Hold{}, Turn: s.Turn, Limit: s.Limit, Concealed: s.Concealed, Ended: s.Ended,
-		Energy: s.Energy, Buildings: s.Buildings, Gas: s.Gas, GasTurns: s.GasTurns, GasLoss: s.GasLoss,
+		Energy: s.Energy, Buildings: s.Buildings, Gas: s.Gas, GasTurns: s.GasTurns, GasLoss: s.GasLoss, Tunnels: s.Tunnels,
 	}
 	if s.Width < 1 || s.Height < 1 {
 		return nil, fmt.Errorf("dosrules: load: %d×%d map", s.Width, s.Height)
 	}
 	if len(s.Gas) != 0 && len(s.Gas) != s.Width*s.Height {
 		return nil, fmt.Errorf("dosrules: load: gas on %d cells for %d", len(s.Gas), s.Width*s.Height)
+	}
+	for _, t := range s.Tunnels {
+		if n := s.Width * s.Height; t.Cell < 0 || t.Cell >= n || t.From < 0 || t.From >= n || t.Side != 0 && t.Side != 1 {
+			return nil, fmt.Errorf("dosrules: load: tunnel %+v", t)
+		}
 	}
 	for i, u := range s.Units {
 		if i < 0 || i > SlotFree || u.Type < 0 || u.Type >= len(p.Tables.Types) {
@@ -175,5 +181,6 @@ func (g *Game) Clone() *Game {
 		}
 	}
 	c.Gas = slices.Clone(g.Gas)
+	c.Tunnels = slices.Clone(g.Tunnels)
 	return &c
 }

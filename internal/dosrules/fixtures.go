@@ -82,7 +82,7 @@ func (f *CasualtyFixture) Inputs(t *Tables) (a, d Fighter, c Context, err error)
 		return
 	}
 	x := f.Context
-	return a, d, Context{x.Distance, x.AttackerTerrainClass, x.DefenderTerrainClass, x.Pincer, x.Blocking, x.ReturnFire}, nil
+	return a, d, Context{x.Distance, x.AttackerTerrainClass, x.DefenderTerrainClass, x.Pincer, x.Blocking, x.ReturnFire, false}, nil
 }
 
 // errorName is the fixture spelling of an error.

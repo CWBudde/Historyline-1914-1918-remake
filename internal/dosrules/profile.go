@@ -134,7 +134,8 @@ var Extended = Profile{
 // directories under testdata/).
 var Profiles = map[string]Profile{"full": Full, "demo": Demo}
 
-// extend is base with the type records of the extension ext appended.
+// extend is base with the type and terrain records of the extension ext
+// appended (terrain records from index 175: TerrainWire, TerrainCrater).
 func extend(base *Tables, ext []byte) *Tables {
 	x := mustTables(ext)
 	t := *base
@@ -143,6 +144,10 @@ func extend(base *Tables, ext []byte) *Tables {
 	if base.Move != nil && x.Move != nil {
 		m := *base.Move
 		m.Types = append(slices.Clone(base.Move.Types), x.Move.Types...)
+		m.Terrains = append(slices.Clone(base.Move.Terrains), x.Move.Terrains...)
+		if base.Move.Winter != nil {
+			m.Winter = append(slices.Clone(base.Move.Winter), x.Move.Winter...)
+		}
 		t.Move = &m
 	}
 	return &t

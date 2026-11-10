@@ -1,11 +1,41 @@
 {
   "build": "+units1",
   "types": [
-    {"armour": 20, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 15, "waterPower": 15, "attackMask": 4, "strengthFlags": 0, "cost": 60}
+    {"armour": 20, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 15, "waterPower": 15, "attackMask": 4, "strengthFlags": 0, "cost": 60},
+    {"armour": 18, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 3, "airPower": 0, "groundPower": 45, "waterPower": 20, "attackMask": 4, "strengthFlags": 0, "cost": 50},
+    {"armour": 28, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 52, "waterPower": 40, "attackMask": 4, "strengthFlags": 0, "cost": 60},
+    {"armour": 18, "group": 3, "targetFlags": 28, "airRange": 2, "surfaceRange": 2, "airPower": 8, "groundPower": 80, "waterPower": 85, "attackMask": 16, "strengthFlags": 0, "cost": 120},
+    {"armour": 35, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 42, "waterPower": 35, "attackMask": 4, "strengthFlags": 0, "cost": 65},
+    {"armour": 52, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 60, "waterPower": 55, "attackMask": 4, "strengthFlags": 0, "cost": 100},
+    {"armour": 34, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 55, "waterPower": 50, "attackMask": 4, "strengthFlags": 0, "cost": 70},
+    {"armour": 40, "group": 6, "targetFlags": 76, "airRange": 1, "surfaceRange": 12, "airPower": 0, "groundPower": 110, "waterPower": 100, "attackMask": 4, "strengthFlags": 1, "cost": 200},
+    {"armour": 15, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 60, "waterPower": 20, "attackMask": 4, "strengthFlags": 0, "cost": 55},
+    {"armour": 20, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 10, "waterPower": 10, "attackMask": 4, "strengthFlags": 0, "cost": 40},
+    {"armour": 20, "group": 6, "targetFlags": 12, "airRange": 1, "surfaceRange": 2, "airPower": 0, "groundPower": 10, "waterPower": 10, "attackMask": 4, "strengthFlags": 0, "cost": 70},
+    {"armour": 15, "group": 6, "targetFlags": 128, "airRange": 1, "surfaceRange": 1, "airPower": 0, "groundPower": 0, "waterPower": 0, "attackMask": 4, "strengthFlags": 0, "cost": 60}
   ],
   "move": {
     "types": [
-      {"budget": 12, "speed": 4, "mask": 122, "class": 4, "flags": 33601, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1}
+      {"budget": 12, "speed": 4, "mask": 122, "class": 4, "flags": 33601, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1},
+      {"budget": 8, "speed": 2, "mask": 122, "class": 4, "flags": 833, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 2},
+      {"budget": 14, "speed": 5, "mask": 122, "class": 4, "flags": 833, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1},
+      {"budget": 8, "speed": 4, "mask": 63, "class": 16, "flags": 0, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 0},
+      {"budget": 20, "speed": 8, "mask": 50, "class": 4, "flags": 768, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 3},
+      {"budget": 14, "speed": 5, "mask": 26, "class": 4, "flags": 768, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 5},
+      {"budget": 12, "speed": 4, "mask": 26, "class": 4, "flags": 768, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 4},
+      {"budget": 10, "speed": 3, "mask": 2, "class": 4, "flags": 0, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 0},
+      {"budget": 10, "speed": 3, "mask": 122, "class": 4, "flags": 2881, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1},
+      {"budget": 12, "speed": 4, "mask": 122, "class": 4, "flags": 4929, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1},
+      {"budget": 10, "speed": 3, "mask": 122, "class": 4, "flags": 1857, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 1},
+      {"budget": 14, "speed": 6, "mask": 50, "class": 4, "flags": 896, "distanceWeight": 5, "costWeight": 7, "capacity": 0, "weight": 3}
+    ],
+    "terrains": [
+      {"flags": 32776, "mask": 8, "cost": 12, "airCost": 2, "class": 8},
+      {"flags": 32776, "mask": 26, "cost": 9, "airCost": 2, "class": 6}
+    ],
+    "winter": [
+      {"flags": 32776, "mask": 8, "cost": 12, "airCost": 2, "class": 8},
+      {"flags": 32776, "mask": 26, "cost": 9, "airCost": 2, "class": 6}
     ]
   }
 }

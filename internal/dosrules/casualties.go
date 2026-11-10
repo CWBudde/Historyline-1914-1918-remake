@@ -29,6 +29,9 @@ type Context struct {
 	ATerrain, DTerrain int // terrain classes 0-8
 	Pincer, Blocking   int // support percentages (pincer a byte, blocking at most 150)
 	ReturnFire         bool
+	// Flame: the attacker is a flamethrower (an extension type, flame.go),
+	// which the defender's terrain does not shelter from.
+	Flame bool
 }
 
 // Result holds the strengths after the battle.
@@ -117,6 +120,9 @@ func (p Profile) Casualties(a, d Fighter, c Context) (res Result, err error) {
 	armourD = percent(armourD, int64(c.Blocking))
 
 	at, dt := terms[c.ATerrain], terms[c.DTerrain]
+	if c.Flame && dt.Defence > 0 {
+		dt.Defence = 0
+	}
 	attackA := strengthTerm(power, sizeA, expA, int64(at.Attack), 256)
 	defenceA := strengthTerm(armourA, sizeA, expA, int64(at.Defence), 256)
 	attackD := strengthTerm(counter, sizeD, expD, int64(dt.Attack), 256)

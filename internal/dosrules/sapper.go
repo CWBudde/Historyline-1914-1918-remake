@@ -171,6 +171,10 @@ func (g *Game) work(a int) ([]Event, int) {
 			evs = append(evs, g.depotWork(a, i))
 		case actionGas:
 			evs = append(evs, g.releaseGas(a, i))
+		case actionWire:
+			evs = append(evs, g.layWire(a, i))
+		case actionTunnel:
+			evs = append(evs, g.startTunnel(a, i))
 		}
 	}
 	return evs, won

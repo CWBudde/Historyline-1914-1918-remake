@@ -108,7 +108,7 @@ func (p Profile) Engage(b *Battlefield, attacker, target int) (Outcome, error) {
 	ctx := Context{
 		Distance: p.Distance(b.Width, a.Cell, d.Cell),
 		ATerrain: b.class(a.Cell), DTerrain: b.class(d.Cell),
-		Pincer: o.Pincer, Blocking: o.Blocking, ReturnFire: o.ReturnFire,
+		Pincer: o.Pincer, Blocking: o.Blocking, ReturnFire: o.ReturnFire, Flame: a.Flags6&flagFlame != 0,
 	}
 	o.Returned = firesBack(ta, td, o.ReturnFire)
 	if o.Result, err = p.Casualties(

@@ -67,6 +67,8 @@ func (p Profile) charges(typ int) (int, bool) {
 		return builderCharges, true
 	case p.gasType(typ):
 		return GasCharges, true
+	case p.typeFlag(typ, flagWire):
+		return WireCharges, true
 	}
 	return 0, false
 }
@@ -195,15 +197,14 @@ func gasCell(u Live) int {
 	return u.Cell(0)
 }
 
-// gasTurn is the turn's gas in side a's resolution: the losses of the units
-// on gassed cells, then the thinning. It runs only when the coming phase
-// change counts the turn.
-func (g *Game) gasTurn() []Event {
-	if g.Gas == nil || g.Players[0].Phase != PhaseAction {
+// gasTurn is the turn's gas (turnEffects): the losses of the units on gassed
+// cells, then the thinning. Units the gas destroys join gone.
+func (g *Game) gasTurn(gone *[]int) []Event {
+	if g.Gas == nil {
 		return nil
 	}
 	var evs []Event
-	var gone, cleared []int
+	var cleared []int
 	for _, i := range slices.Sorted(maps.Keys(g.Units)) {
 		u := g.Units[i]
 		if u.Destroyed() || u.Flags4&0xC0 == 0x40 {
@@ -223,7 +224,7 @@ func (g *Game) gasTurn() []Event {
 		u.Size -= loss
 		if u.Size == 0 {
 			u.Action[1] |= 4
-			gone = append(gone, i)
+			*gone = append(*gone, i)
 		}
 		g.Units[i] = u
 		if ship {
@@ -248,7 +249,6 @@ func (g *Game) gasTurn() []Event {
 	if !left {
 		g.Gas = nil
 	}
-	g.vacate(gone)
 	if len(cleared) > 0 {
 		evs = append(evs, Event{Kind: EvGasCleared, Side: -1, Cells: cleared})
 	}

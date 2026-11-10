@@ -72,6 +72,8 @@ type Game struct {
 	Gas      []int
 	GasTurns int
 	GasLoss  int
+	// Tunnels are the mines being dug (tunnel.go), in the order they opened.
+	Tunnels []Tunnel
 }
 
 // Placement is a unit as a scenario places it: its type, owner (0 or 1, 2
@@ -274,6 +276,18 @@ const (
 	EvGassed EventKind = "gassed"
 	// EvGasCleared: the cloud left Cells (gas.go).
 	EvGasCleared EventKind = "gasCleared"
+	// EvWired: a wiring party laid wire at Cell over Cells (wire.go).
+	EvWired EventKind = "wired"
+	// EvTunnel: tunnellers began a mine under Cell (tunnel.go).
+	EvTunnel EventKind = "tunnel"
+	// EvTunnelLost: the tunnellers left or lost their mine under Cell.
+	EvTunnelLost EventKind = "tunnelLost"
+	// EvMine: the mine under Cell blew; Cells holds Cell where it left a crater.
+	EvMine EventKind = "mine"
+	// EvMined: Unit of Side lost Loss strength to the mine at Cell.
+	EvMined EventKind = "mined"
+	// EvHealed: Unit of Side regained Gain strength from an ambulance (ambulance.go).
+	EvHealed EventKind = "healed"
 )
 
 // Event is one thing that happened, in order.
@@ -292,6 +306,7 @@ type Event struct {
 	Hold     int       `json:"hold,omitempty"`
 	Cells    []int     `json:"cells,omitempty"`
 	Loss     int       `json:"loss,omitempty"`
+	Gain     int       `json:"gain,omitempty"`
 }
 
 // unitOf is the unit a command orders.
@@ -389,6 +404,12 @@ func (g *Game) Check(c Command) error {
 	if c.Kind == CmdAttack && u.Builder() {
 		return g.checkBuilder(c.Side, u, idx, c.Cell)
 	}
+	if c.Kind == CmdAttack && u.Wiring() {
+		return g.checkWire(c.Side, u, c.Cell)
+	}
+	if c.Kind == CmdAttack && u.Tunneller() {
+		return g.checkTunnel(c.Side, u, idx, c.Cell)
+	}
 	if c.Kind == CmdAttack && u.GasPioneer() {
 		return g.checkGas(c.Side, u, c.Cell)
 	}
@@ -469,6 +490,12 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 	}
 	if c.Kind == CmdAttack && g.Units[c.Unit].Builder() {
 		return []Event{g.orderDepot(c.Side, c.Unit, c.Cell)}, nil
+	}
+	if c.Kind == CmdAttack && g.Units[c.Unit].Wiring() {
+		return []Event{g.orderWork(c.Side, c.Unit, c.Cell, actionWire, MsgWire)}, nil
+	}
+	if c.Kind == CmdAttack && g.Units[c.Unit].Tunneller() {
+		return []Event{g.orderWork(c.Side, c.Unit, c.Cell, actionTunnel, MsgTunnel)}, nil
 	}
 	if c.Kind == CmdAttack && g.Units[c.Unit].GasPioneer() {
 		return []Event{g.orderGas(c.Side, c.Unit, c.Cell)}, nil
@@ -747,7 +774,7 @@ func (g *Game) Resolve() ([]Event, error) {
 	}
 	caps, hq := g.work(a)
 	evs = append(evs, caps...)
-	evs = append(evs, g.gasTurn()...)
+	evs = append(evs, g.turnEffects()...)
 	ev, err := g.changePhase(a)
 	evs = append(evs, ev...)
 	if err != nil {
