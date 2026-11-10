@@ -13,30 +13,36 @@ observation balloon, ships and trains. The candidates below fill what it lacks.
 ## Engine
 
 - `internal/dosrules/extension.json` appends type records from index 51 to the full tables' `types` and
-  `move.types`. `dosrules.ExtendedTables` is the full tables plus these records. Its build name is the full
+  `move.types`, and terrain records from index 175 (`TerrainWire`, `TerrainCrater`) to the summer and winter
+  terrain tables. `dosrules.ExtendedTables` is the full tables plus these records. Its build name is the full
   build's plus `+units1`, so saves name it. `dosrules.Extended` is the profile on them. Indices 0–50 equal
-  the full tables'.
+  the full tables', and so do terrain records 0–174.
+- The abilities ride on live +6 bits the original types leave unused: 0x8000 gas pioneers, 0x0800
+  flamethrower, 0x1000 wiring party, 0x0400 tunnellers, 0x0080 field ambulance. Once per game turn, in
+  side 0's action resolution, the turn's effects run in order: mines, gas, healing (`turnEffects`).
 - `dosbind` looks types up in the extended tables. They are a superset, so the original maps bind as before.
 - A unit's remake entry in `internal/data/units.json` points at its type with `dos` (51 and up).
-- `data.Unit.Extension` tells an extension unit from an original one; the computer side may build an
-  extension type its factory offers on either side.
-- Placeholder art: `internal/unitsprite` draws an extension unit with an existing family's art
-  (`placeholders`) until the graphics track paints its own.
+- `data.Unit.Extension` tells an extension unit from an original one. `From` and `Until` date the
+  campaign months a factory builds a type in; a session with the extension gives every factory the month's
+  types, and each side builds those it has a unit for.
+- Each unit has its own sprite family and portrait (`art/units`, `art/portraits`).
 
 ## Units
 
-| Unit | Side, from | Rules | Engine work | State |
+| Unit | Type | Side, built | Rules | Code |
 |---|---|---|---|---|
-| Gas pioneers | both, 1915-04 | lasting gas cloud (below) | ability, per-cell gas field | done |
-| Trench mortar | both, 1915 | range 1–2, foot unit that enters trenches, fires after a move | type record only | open |
-| Stormtroopers | CP, 1916 | strong close attack, fast foot unit, captures | type record only | open |
-| Zeppelin | CP, 1915–17 | slow air unit, strong bombing, weak against fighters and AA | type record only | open |
-| Whippet, Mark V, Schneider CA1 | EC, 1917–18 | late tanks: the Whippet fast and light, the Mark V tougher | type records only | open |
-| Paris Gun | CP, 1918-03 to 08 | train artillery with extreme range, sets up, very expensive | type record only | open |
-| Flamethrower | both, 1915 | range 1, ignores the defender's terrain defence term, low armour | flag, casualty hook | open |
-| Barbed wire | both | laid by sappers: foot units pay a high cost, cavalry and wheels cannot enter, tanks crush it | extension terrain records | open |
-| Mine tunnel | both, 1916 | dig two or three turns under an adjacent hex, then blow it: heavy loss to the occupant, a crater | per-unit work counter, crater record | open |
-| Field ambulance | both | at the phase change, restores strength to adjacent foot units outside depots | phase-change hook | open |
+| Gas pioneers | 51 | both, 1915-04 on | lasting gas cloud (below) | `gas.go` |
+| Trench mortar | 52 | both, 1915-01 on | range 1–2, a slow foot unit that enters trenches, fires after a move | type record |
+| Stormtroopers | 53 | CP, 1916-01 on | strong close attack, fast foot unit, captures | type record |
+| Zeppelin | 54 | CP, 1915-01 to 1917-12 | slow aircraft, strong bombing, weak against fighters and AA (armour 18, group 3) | type record |
+| Whippet | 55 | EC, 1918-03 on | fast light tank; it cannot enter trenches or wire | type record |
+| Mark V | 56 | EC, 1918-06 on | the toughest tank | type record |
+| Schneider CA1 | 57 | EC, 1917-04 on | heavy tank, thin armour for its weight | type record |
+| Paris Gun | 58 | CP, 1918-03 to 1918-08 | train artillery, range 2–11, sets up, cost 200 | type record |
+| Flamethrower | 59 | both, 1915-02 on | range 1, the defender's terrain gives no defence, low armour | `wire.go` (flag), `casualties.go` |
+| Wiring party | 60 | both | lays barbed wire (below) | `wire.go` |
+| Tunnellers | 61 | both, 1915-02 on | dig a mine under a neighbouring hex (below) | `tunnel.go` |
+| Field ambulance | 62 | both | heals the foot units next to it (below) | `ambulance.go` |
 
 A reconnaissance aircraft is left out: the game has no line of sight, so it would add nothing.
 
@@ -65,7 +71,7 @@ A reconnaissance aircraft is left out: the game has no line of sight, so it woul
 
 ## Gas pioneers
 
-Unit ids `CP_gasPioneers` and `EC_gasPioneers`, type 51, drawn with the sappers' art for now. The rules
+Unit ids `CP_gasPioneers` and `EC_gasPioneers`, type 51. The rules
 are in `internal/dosrules/gas.go`, the session's view in `internal/dosplay/gas.go`, the computer side's
 in `internal/dosai/gas.go`.
 
@@ -94,3 +100,43 @@ in `internal/dosai/gas.go`.
 - **Moving.** Units may enter a gassed hex; it costs nothing extra.
 - **Computer side.** It releases gas when the front holds at least two enemy units and none of its own. It
   avoids ending a move on gas.
+
+## Flamethrower
+
+Unit ids `CP_flamethrower` and `EC_flamethrower`, type 59. It attacks like any unit at range 1, but the
+defender's terrain lends it no defence: a positive defence term counts as 0 (`dosrules.Context.Flame`).
+Its armour is low, so it pays for closing in.
+
+## Wiring party
+
+Unit ids `CP_wiring` and `EC_wiring`, type 60; `internal/dosrules/wire.go`.
+
+- **The order.** The attack order on a neighbouring hex of open ground (terrain a sapper works) that is no
+  trench and no wire yet, with or without a unit on it, lays wire after the battles on the trench's three
+  cells where they are such ground. It carries **two charges**, refilled by a repair like a construction
+  unit's.
+- **The wire** is terrain record 0xAF: it lets in only the types whose mask enters trenches (foot units,
+  heavy tanks, light guns), not cavalry, cars or the Whippet, costs 12 (a whole foot move) and shelters
+  nobody. Sappers clear it as they fill a trench. The map draws grass with barbed wire.
+- **Computer side.** It wires within 4 hexes of an enemy unit, toward the enemy, never over a unit or next
+  to its own HQ entrance.
+
+## Tunnellers
+
+Unit ids `CP_tunnellers` and `EC_tunnellers`, type 61; `internal/dosrules/tunnel.go`.
+
+- **The order.** The attack order on a neighbouring hex that is no water starts a mine under it
+  (`Game.Tunnels`), one at a time.
+- **The mine** gains a turn once per game turn while the tunnellers stay on the hex they dug from; if they
+  move or are destroyed, it is abandoned. After **two turns** it blows: every unit on the hex but an
+  aircraft or one held in a building loses 70 % of its full group (at least 1), own units too, and open
+  ground becomes a crater (terrain record 0xB0: cost 9, it shelters like a trench; the map draws a crater
+  field). Each side sees only its own mines.
+- **Computer side.** Tunnellers mine the most valuable enemy unit next to them and stay until it blows.
+
+## Field ambulance
+
+Unit ids `CP_ambulance` and `EC_ambulance`, type 62; `internal/dosrules/ambulance.go`. A motor
+ambulance with no weapon that never fires back. Once per game turn, after the gas, each foot unit of its
+side next to it regains 1 strength up to its full group, once even next to two ambulances; neither may
+be held in a building or transporter. The computer side moves it next to its wounded foot units.

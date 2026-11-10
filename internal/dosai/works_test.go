@@ -1,9 +1,12 @@
 package dosai
 
 import (
+	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 func TestTunnellersMineAnEnemy(t *testing.T) {
@@ -37,5 +40,37 @@ func TestWiringPartyWiresTheFront(t *testing.T) {
 	s = session(t, grassLevel(map[hexgrid.Coord]string{from: "EC_wiring", {Line: 18, Col: 3}: "CP_infantry"}))
 	if tasked := digs(t, s); len(tasked) != 0 {
 		t.Errorf("wire far from the enemy: %+v", tasked)
+	}
+}
+
+// In a played-out battle the computer side wires, mines and heals with the
+// new work units in place of some infantry.
+func TestWorksPlayOut(t *testing.T) {
+	lv, err := scenario.ShippedLevel("1915-05", scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	swap := []string{"_wiring", "_tunnellers", "_ambulance", "_flamethrower"}
+	n := 0
+	for l, line := range lv.Lines {
+		for c, h := range line {
+			if strings.HasSuffix(h.Unit, "_infantry") {
+				if n%2 == 0 {
+					lv.Lines[l][c].Unit = strings.TrimSuffix(h.Unit, "_infantry") + swap[n/2%len(swap)]
+				}
+				n++
+			}
+		}
+	}
+	s := session(t, lv)
+	_, evs := play(t, s, [2]*Planner{{}, {}})
+	count := map[dosplay.EventKind]int{}
+	for _, ev := range evs {
+		count[ev.Kind]++
+	}
+	t.Logf("wired %d, tunnels %d (lost %d), mines %d hitting %d units, healed %d",
+		count[dosplay.Wired], count[dosplay.Tunnelled], count[dosplay.TunnelLost], count[dosplay.Blown], count[dosplay.Mined], count[dosplay.Healed])
+	if count[dosplay.Wired] == 0 || count[dosplay.Healed] == 0 || count[dosplay.Tunnelled] == 0 {
+		t.Errorf("the work units did nothing: %v", count)
 	}
 }

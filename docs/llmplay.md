@@ -82,8 +82,11 @@ units in ([new-units.md](new-units.md)); the ref stays in the header, so replays
 and reviews start the same game. The prompt then lists the gas cloud (`GAS`,
 turns left per hex), a gas pioneer's charges and units standing in gas
 (`IN-GAS`), and a pioneer's options as `release gas over` the cloud's hexes
-with the units under it (`OWN UNITS GASSED` warns). The coach leaves gas
-pioneers idle.
+with the units under it (`OWN UNITS GASSED` warns). A wiring party lists
+`lay wire on` its hexes, tunnellers `tunnel under` a neighbour (`TUNNELLING` on
+the unit line counts the turns; moving abandons it), an ambulance and a
+flamethrower are tagged, and wired hexes show `+WIRE`. The coach leaves the work
+units and ambulances idle.
 
 ≈3.5–5.5k tokens per prompt on RHEIN (32×47), ≈10k on CANDL (16×95, 145
 units). `-lines 1-20,75-95` (on `prompt` and `step`) keeps only the units,
