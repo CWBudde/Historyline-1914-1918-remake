@@ -122,13 +122,13 @@ func TestCurrentGameSelection(t *testing.T) {
 			}
 		}
 	}
-	want := map[string]int{"Terrain": 912, "Sprites": 48, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
+	want := map[string]int{"Terrain": 912, "Sprites": 60, "Portraits": 60, "Interface": 117, "Screens": 36, "Screen components": 73}
 	for k, n := range want {
 		if counts[k] != n {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)
 		}
 	}
-	if len(bindings) != 77 {
+	if len(bindings) != 93 {
 		t.Errorf("got %d runtime unit bindings", len(bindings))
 	}
 	for _, id := range []string{"sprite/a7v", "portrait/a7v"} {

@@ -163,4 +163,7 @@ var catalogueSubjects = map[string]string{
 	"se5a": "SE5a", "spad-xiii": "SPAD XIII", "sopwith-camel": "Sopwith Camel", "voisin-iii": "Voisin III",
 	"handley-page-0400": "Handley Page 0/400", "dh4": "DH4", "construction-unit": "Construction unit",
 	"infantry-1": "Infantry, one man", "infantry-2": "Infantry, two men", "infantry-3": "Infantry, three men", "infantry-4": "Infantry, four men", "infantry-5": "Infantry, five men", "elite-infantry-1": "Elite infantry, strength 1-3",
+	"gas-pioneers": "Gas pioneers", "flamethrower": "Flamethrower", "stormtroopers": "Stormtroopers", "tunnellers": "Tunnellers",
+	"trench-mortar": "Trench mortar", "field-ambulance": "Field ambulance", "paris-gun": "Paris Gun", "airship": "Zeppelin airship",
+	"whippet": "Medium Mark A Whippet", "mark-v": "Mark V tank", "schneider-ca1": "Schneider CA1 tank", "wiring-party": "Wiring party",
 }

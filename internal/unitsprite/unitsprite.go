@@ -54,27 +54,19 @@ var families = map[string]string{
 	"CP_mobileAA": "mobile-aa", "EC_mobileAA": "mobile-aa",
 	"CP_antiTank": "anti-tank", "EC_antiTank": "anti-tank",
 	"CP_balloon": "static-balloon", "EC_balloon": "static-balloon",
-}
-
-// placeholders draw the extension types (docs/new-units.md), which have no
-// art of their own yet, with an existing family. The family's art does not
-// list them.
-var placeholders = map[string]string{
-	"CP_gasPioneers": "sappers", "EC_gasPioneers": "sappers",
-	"CP_trenchMortar": "light-artillery", "EC_trenchMortar": "light-artillery",
-	"CP_stormtroopers": "elite-infantry", "CP_zeppelin": "zeppelin-staaken-r-vi",
-	"EC_whippet": "renault-ft17", "EC_markV": "mark-iv", "EC_schneider": "st-chamond",
-	"CP_parisGun": "train-artillery", "CP_flamethrower": "sappers", "EC_flamethrower": "sappers",
-	"CP_wiring": "sappers", "EC_wiring": "sappers", "CP_tunnellers": "sappers", "EC_tunnellers": "sappers",
-	"CP_ambulance": "supply-car", "EC_ambulance": "supply-car",
+	// The extension types (docs/new-units.md).
+	"CP_gasPioneers": "gas-pioneers", "EC_gasPioneers": "gas-pioneers",
+	"CP_trenchMortar": "trench-mortar", "EC_trenchMortar": "trench-mortar",
+	"CP_stormtroopers": "stormtroopers", "CP_zeppelin": "airship",
+	"EC_whippet": "whippet", "EC_markV": "mark-v", "EC_schneider": "schneider-ca1",
+	"CP_parisGun": "paris-gun", "CP_flamethrower": "flamethrower", "EC_flamethrower": "flamethrower",
+	"CP_wiring": "wiring-party", "EC_wiring": "wiring-party", "CP_tunnellers": "tunnellers", "EC_tunnellers": "tunnellers",
+	"CP_ambulance": "field-ambulance", "EC_ambulance": "field-ambulance",
 }
 
 // Family returns the sprite family of a unit type (a key of data.Set.Units).
 func Family(unitType string) (string, bool) {
-	if f, ok := families[unitType]; ok {
-		return f, true
-	}
-	f, ok := placeholders[unitType]
+	f, ok := families[unitType]
 	return f, ok
 }
 

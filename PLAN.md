@@ -640,7 +640,8 @@ New units, as an opt-in extension of the original tables ([docs/new-units.md](do
 - [ ] Barbed wire laid by sappers (extension terrain records; tanks crush it).
 - [ ] Mine tunnel: dig under an adjacent hex for several turns, then blow it and leave a crater.
 - [ ] Field ambulance: restores adjacent foot units at the phase change.
-- [ ] Real art for each extension family (the graphics track); placeholders until then.
+- [x] Real art for each extension family: twelve sprite families and portraits, bound in `unitsprite` (no
+      placeholders left); the airship flies (rim and shadow of aircraft).
 
 ## Open questions
 

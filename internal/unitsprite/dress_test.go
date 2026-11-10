@@ -109,7 +109,7 @@ func TestFlyingShadowSitsApart(t *testing.T) {
 	if ground, air := centre(false), centre(true); air <= ground+4 {
 		t.Errorf("flying shadow centre %.1f, grounded %.1f", air, ground)
 	}
-	if !Flies("spad-xiii") || Flies("infantry") || Flies("static-balloon") {
+	if !Flies("spad-xiii") || !Flies("airship") || Flies("infantry") || Flies("static-balloon") {
 		t.Error("Flies follows the aircraft movement type")
 	}
 }
