@@ -49,7 +49,9 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   phase change, the command cycle `Game` with save/resume, building capture, sapper trenches, depot
   construction, victory and score, energy, repair and production), pinned by fixtures under `testdata/`;
   not wired into `game` yet. The opt-in extension (`Extended`, `extension.json`, type records from 51 on)
-  adds new units beyond the original: the gas pioneers' lasting cloud (`gas.go`); see `docs/new-units.md`.
+  adds twelve units beyond the original: stats-only types, the gas pioneers' lasting cloud (`gas.go`), the
+  flamethrower, barbed wire (`wire.go`), mines (`tunnel.go`) and the field ambulance (`ambulance.go`); see
+  `docs/new-units.md`.
 - `internal/dosbind`: binds a shipped level to `dosrules` records (cells, terrain records from the
   numbers-only `records.json`, units, container records, building energy); checked against the local
   original maps.
