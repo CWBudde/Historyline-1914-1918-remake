@@ -228,7 +228,7 @@ func (pl *plan) movers() []mover {
 	goals := pl.goals()
 	var out []mover
 	add := func(u dosplay.UnitView, at hexgrid.Coord, held, leave bool) {
-		if u.Side != pl.side || pl.s.CanOrder(pl.side, u.Index) != nil {
+		if u.Side != pl.side || pl.s.CanOrder(pl.side, u.Index) != nil || pl.digging(u.Index) {
 			return
 		}
 		out = append(out, mover{unit: u.Index, at: at, held: held, leave: leave, dist: nearest(at, goals), value: pl.missions[u.Index].value})
@@ -375,7 +375,7 @@ func hasLower(f map[hexgrid.Coord]int, c, b hexgrid.Coord) bool {
 // cannot capture keeps off the hexes next to an enemy HQ entrance, and the
 // terrain's defence term counts. A gassed hex costs gasCost.
 func (pl *plan) score(u dosplay.UnitView, f map[hexgrid.Coord]int, c hexgrid.Coord) int {
-	sc := pl.defence(c) - pl.gasPenalty(u, c)
+	sc := pl.defence(c) - pl.gasPenalty(u, c) + pl.ambulanceScore(u, c)
 	if pl.profile.Tables.Move.Types[u.Type].Flags&captureFlag == 0 && nearest(c, pl.hqs) == 1 {
 		sc -= adjacentCost
 	}
@@ -499,7 +499,9 @@ func (pl *plan) action() ([]dosplay.Event, error) {
 	cands, units := pl.candidates()
 	diggers := pl.diggers()
 	gassers := pl.gassers()
-	total := len(units) + len(diggers) + len(gassers)
+	wirers := pl.wirers()
+	tunnellers := pl.tunnellers()
+	total := len(units) + len(diggers) + len(gassers) + len(wirers) + len(tunnellers)
 	pl.report(0, total)
 	evs, err := pl.attack(cands, len(units), total)
 	if err != nil {
@@ -515,6 +517,17 @@ func (pl *plan) action() ([]dosplay.Event, error) {
 	if err != nil {
 		return evs, err
 	}
+	done := len(units) + len(diggers) + len(gassers)
+	ev, err = pl.wire(wirers, done, total)
+	evs = append(evs, ev...)
+	if err != nil {
+		return evs, err
+	}
+	ev, err = pl.mine(tunnellers, done+len(wirers), total)
+	evs = append(evs, ev...)
+	if err != nil {
+		return evs, err
+	}
 	if ev, err = pl.repairs(energy); err != nil {
 		return append(evs, ev...), err
 	}
@@ -524,13 +537,13 @@ func (pl *plan) action() ([]dosplay.Event, error) {
 }
 
 // candidates are the possible attack orders and the units that have one.
-// Sappers, construction units and gas pioneers have none: their work is no
-// battle.
+// The work units (sappers, construction units, gas pioneers, wiring parties,
+// tunnellers) and field ambulances have none: their work is no battle.
 func (pl *plan) candidates() ([]candidate, []int) {
 	var cands []candidate
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
-		if u.Side != pl.side || u.Moved || pl.s.Sapper(u.Index) || pl.s.Builder(u.Index) || pl.s.GasPioneer(u.Index) {
+		if u.Side != pl.side || u.Moved || pl.s.Worker(u.Index) || pl.s.Ambulance(u.Index) {
 			continue
 		}
 		for _, t := range dosplay.Coords(pl.s.Targets(pl.side, u.Index)) {

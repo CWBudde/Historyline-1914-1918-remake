@@ -18,11 +18,11 @@ import (
 // three hexes after the battles, and fights no battle.
 func (s *Session) GasPioneer(unit int) bool { return s.Game.Units[unit].GasPioneer() }
 
-// Charges is what a construction unit or a gas pioneer has left to work
-// with, -1 for a unit without charges.
+// Charges is what a construction unit, gas pioneers or a wiring party have
+// left to work with, -1 for a unit without charges.
 func (s *Session) Charges(unit int) int {
 	u, ok := s.Game.Units[unit]
-	if !ok || !u.Builder() && !u.GasPioneer() {
+	if !ok || !u.Builder() && !u.GasPioneer() && !u.Wiring() {
 		return -1
 	}
 	return int(int8(byte(u.Hold)))
@@ -101,11 +101,12 @@ func GasRates(month string) (turns, loss int) {
 	return turns, loss
 }
 
-// extensionTypes are the extension types of the remake's units, ascending.
-func extensionTypes(set *data.Set) []int {
+// extensionTypes are the extension types of the remake's units that
+// factories build in month ("" for any), ascending.
+func extensionTypes(set *data.Set, month string) []int {
 	var out []int
 	for _, u := range set.Units {
-		if u.Extension() && !slices.Contains(out, u.Dos) {
+		if u.Extension() && u.BuiltIn(month) && !slices.Contains(out, u.Dos) {
 			out = append(out, u.Dos)
 		}
 	}
@@ -131,10 +132,10 @@ func usesExtension(b *dosbind.Board) bool {
 }
 
 // extend sets a new game on the extended rules up: every factory also
-// builds the extension types, and the cloud follows the month.
+// builds the extension types of the month, and the cloud follows it.
 func extend(g *dosrules.Game, set *data.Set, month string, builds bool) {
 	if builds {
-		ext := extensionTypes(set)
+		ext := extensionTypes(set, month)
 		for i, bd := range g.Buildings {
 			if dosrules.BuildingKind(i) != dosrules.KindFactory {
 				continue

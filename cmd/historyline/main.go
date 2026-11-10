@@ -567,6 +567,7 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 	}
 	g.drawUnitMarks(dst, inView)
 	g.drawGas(dst, inView)
+	g.drawTunnels(dst)
 	if w := g.walkShown(human); !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)

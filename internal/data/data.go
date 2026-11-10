@@ -52,6 +52,11 @@ type Unit struct {
 	Skills       []int    `json:"skills"`
 	MovementType int      `json:"movementType"`
 	Weapons      [4]*Slot `json:"weapons"` // nil for an empty slot
+	// From and Until are the first and the last campaign month ("1915-04")
+	// in which a factory builds an extension type; "" for no bound. All units
+	// of a type share them.
+	From  string `json:"from,omitempty"`
+	Until string `json:"until,omitempty"`
 }
 
 // OriginalTypes is the number of the original's unit types (UNIT.DAT); a
@@ -61,6 +66,12 @@ const OriginalTypes = 51
 // Extension reports whether the unit is an extension type, which only a game
 // on the extended rules fields.
 func (u Unit) Extension() bool { return u.Dos >= OriginalTypes }
+
+// BuiltIn reports whether a factory builds the unit in campaign month
+// ("1915-04"; "" for any month).
+func (u Unit) BuiltIn(month string) bool {
+	return month == "" || (u.From == "" || month >= u.From) && (u.Until == "" || month <= u.Until)
+}
 
 // CrossesLightBridge reports whether the unit may cross a light bridge
 // (LightBridge): at most a light artillery piece's weight (3), and not an

@@ -301,6 +301,26 @@ func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 					d.targets = nil
 				}
 			}
+			if d.s.Wiring(u.Index) {
+				d.Message = fmt.Sprintf("%s: pick where to lay wire (%d left)", u.Name, d.s.Charges(u.Index))
+				if err := d.s.CanWire(d.side, u.Index); err != nil {
+					d.Message = u.Name + ": " + reason(err)
+					d.targets = nil
+				} else if len(d.targets) == 0 {
+					d.Message = u.Name + ": no open ground to wire"
+				}
+			}
+			if d.s.Tunneller(u.Index) {
+				d.Message = fmt.Sprintf("%s: pick a hex to mine (it blows in %d turns if they stay)", u.Name, dosrules.TunnelTurns)
+				if t, ok := d.s.TunnelOf(u.Index); ok {
+					d.Message = fmt.Sprintf("%s: digging under %d,%d (%d/%d turns)", u.Name, t.Mine.Line, t.Mine.Col, t.Dug, t.Turns)
+					d.targets = nil
+				}
+			}
+			if d.s.Ambulance(u.Index) {
+				d.Message = u.Name + ": heals the foot units next to it each turn"
+				d.targets = nil
+			}
 		} else {
 			d.moves, err = d.s.Destinations(d.side, u.Index)
 			d.Message = u.Name + ": pick where to move"
@@ -618,9 +638,24 @@ func (d *dosControl) step() {
 		if ev.Side != d.side {
 			d.Message = "The enemy released gas."
 		}
-	case dosplay.Gassed:
+	case dosplay.Gassed, dosplay.Mined, dosplay.Healed:
 		d.Message = ev.Text
 	case dosplay.Cleared:
+		d.Message = ev.Text
+	case dosplay.Wired:
+		d.rework = true
+		d.Message = ev.Text
+		if ev.Side != d.side {
+			d.Message = "The enemy laid wire."
+		}
+	case dosplay.Tunnelled, dosplay.TunnelLost:
+		if ev.Side == d.side {
+			d.Message = ev.Text // the enemy's tunnels stay hidden
+		}
+	case dosplay.Blown:
+		d.rework = true
+		d.lookAt(d.side, ev.To)
+		d.lookAt(1-d.side, ev.To)
 		d.Message = ev.Text
 	case dosplay.Constructed:
 		d.rework = true

@@ -572,7 +572,7 @@ func (x *querier) reach(enemy string) (string, error) {
 	var now, later []string
 	for _, u := range own {
 		w := weaponOn(tv, u.Domain)
-		if w.Power == 0 || x.s.GasPioneer(e.Index) {
+		if w.Power == 0 || x.s.Worker(e.Index) || x.s.Ambulance(e.Index) {
 			continue
 		}
 		if d := hexgrid.Distance(e.At, u.At); d >= 1 && d <= w.Range {
@@ -659,7 +659,7 @@ func (x *querier) threat(target string) (string, error) {
 	var list []attacker
 	for _, at := range sortedCoords(x.v.Units) {
 		e := x.v.Units[at]
-		if e.Side != 1-x.side || e.Head != nil || x.s.GasPioneer(e.Index) {
+		if e.Side != 1-x.side || e.Head != nil || x.s.Worker(e.Index) || x.s.Ambulance(e.Index) {
 			continue
 		}
 		tv, ok := x.s.TypeInfo(e.Side, e.Type)

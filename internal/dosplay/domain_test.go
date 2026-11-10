@@ -56,7 +56,7 @@ func TestTypeDomain(t *testing.T) {
 		if u.Dos == balloon {
 			continue
 		}
-		d := TypeDomain(tables, u.Dos)
+		d := TypeDomain(dosrules.ExtendedTables, u.Dos)
 		if (u.MovementType == 3) != (d == Air) || (u.MovementType == 2) != (d == Naval) {
 			t.Errorf("%s: movement type %d, domain %v", id, u.MovementType, d)
 		}

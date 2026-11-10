@@ -27,7 +27,9 @@ const (
 	plain ground = iota
 	trench
 	filled
-	depotN // a complete depot's pieces
+	wired    // barbed wire (dosrules.TerrainWire)
+	cratered // a mine's crater (dosrules.TerrainCrater)
+	depotN   // a complete depot's pieces
 	depotE
 	depotS
 	depotW
@@ -52,6 +54,10 @@ func groundOf(rec int) ground {
 		return trench
 	case rec == dosrules.TerrainFilled:
 		return filled
+	case rec == dosrules.TerrainWire:
+		return wired
+	case rec == dosrules.TerrainCrater:
+		return cratered
 	}
 	if g, ok := depotGround[rec]; ok {
 		return g
@@ -107,7 +113,8 @@ func (s *Session) Work(side, unit int, to hexgrid.Coord) (hexes []hexgrid.Coord,
 // Reworked are the level's hexes whose terrain sappers or construction
 // units changed, as the current terrain records make them: a dug hex is
 // grass with a trench whose ports lead to its trench neighbours, a filled one
-// grass without its trench (its record, 0x51, plays as grass), a depot's hex,
+// grass without its trench (its record, 0x51, plays as grass), a wired one
+// grass with barbed wire, a mine's crater a crater field (mud), a depot's hex,
 // half or complete, the depot's piece without infrastructure. A complete
 // depot's N piece holds its owner as content; a half depot has none, which
 // the map draws as the construction site (a depot the level gives no content
@@ -132,10 +139,18 @@ func (s *Session) Reworked() map[hexgrid.Coord]level.Hex {
 			out[c] = h
 			continue
 		}
-		ids := slices.DeleteFunc(slices.Clone(h.Infra.IDs), func(id string) bool { return strings.HasPrefix(id, "trench") })
+		ids := slices.DeleteFunc(slices.Clone(h.Infra.IDs), func(id string) bool { return strings.HasPrefix(id, "trench") || id == "barbedWire" })
 		h.Terrain = s.season("grass")
-		if groundOf(rec) == trench {
+		switch groundOf(rec) {
+		case trench:
 			ids = append(ids, s.trenchPiece(c))
+		case wired:
+			ids = append(ids, "barbedWire")
+		case cratered:
+			h.Terrain = "mud"
+			if s.Board.Winter {
+				h.Terrain = "shelled_w"
+			}
 		}
 		h.Infra = level.Infra{IDs: ids, List: len(ids) > 1}
 		out[c] = h

@@ -61,6 +61,12 @@ var families = map[string]string{
 // list them.
 var placeholders = map[string]string{
 	"CP_gasPioneers": "sappers", "EC_gasPioneers": "sappers",
+	"CP_trenchMortar": "light-artillery", "EC_trenchMortar": "light-artillery",
+	"CP_stormtroopers": "elite-infantry", "CP_zeppelin": "zeppelin-staaken-r-vi",
+	"EC_whippet": "renault-ft17", "EC_markV": "mark-iv", "EC_schneider": "st-chamond",
+	"CP_parisGun": "train-artillery", "CP_flamethrower": "sappers", "EC_flamethrower": "sappers",
+	"CP_wiring": "sappers", "EC_wiring": "sappers", "CP_tunnellers": "sappers", "EC_tunnellers": "sappers",
+	"CP_ambulance": "supply-car", "EC_ambulance": "supply-car",
 }
 
 // Family returns the sprite family of a unit type (a key of data.Set.Units).

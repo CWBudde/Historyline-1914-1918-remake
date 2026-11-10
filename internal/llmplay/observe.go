@@ -64,6 +64,9 @@ func TerrainCode(terrain string, infra level.Infra) string {
 
 func terrainAt(s *dosplay.Session, reworked map[hexgrid.Coord]level.Hex, c hexgrid.Coord) string {
 	if h, ok := reworked[c]; ok {
+		if slices.Contains(h.Infra.IDs, "barbedWire") {
+			return h.Terrain + "+WIRE"
+		}
 		return h.Terrain
 	}
 	if c.Line < 0 || c.Line >= len(s.Level.Lines) || c.Col < 0 || c.Col >= len(s.Level.Lines[c.Line]) {
@@ -104,8 +107,18 @@ func unitLine(s *dosplay.Session, rew map[hexgrid.Coord]level.Hex, u dosplay.Uni
 		id = fmt.Sprintf("type%d", u.Type)
 	}
 	line := fmt.Sprintf("u%d %s %d/%d e%d %s %s %s", u.Index, id, u.Size, u.Full, u.Exp, show(u.At), terrainAt(s, rew, u.At), state)
-	if s.GasPioneer(u.Index) {
+	switch {
+	case s.GasPioneer(u.Index):
 		line += fmt.Sprintf(" gas-charges %d", s.Charges(u.Index))
+	case s.Wiring(u.Index):
+		line += fmt.Sprintf(" wire-charges %d", s.Charges(u.Index))
+	case s.Ambulance(u.Index):
+		line += " ambulance (heals adjacent own foot units +1/turn)"
+	case s.Flamethrower(u.Index):
+		line += " flamethrower (ignores cover)"
+	}
+	if t, ok := s.TunnelOf(u.Index); ok {
+		line += fmt.Sprintf(" TUNNELLING under %s %d/%d (moving abandons it)", show(t.Mine), t.Dug, t.Turns)
 	}
 	if t := s.GasAt(u.At); t > 0 && !u.Held {
 		line += fmt.Sprintf(" IN-GAS %d", t)
@@ -246,8 +259,8 @@ func threats(s *dosplay.Session, side int, v dosplay.View, w Window) string {
 	var b strings.Builder
 	for _, at := range sortedCoords(v.Units) {
 		e := v.Units[at]
-		if e.Side != opp || s.GasPioneer(e.Index) {
-			continue // gas pioneers fight no battle
+		if e.Side != opp || s.Worker(e.Index) || s.Ambulance(e.Index) {
+			continue // work units and ambulances fight no battle
 		}
 		for _, t := range dosplay.Coords(s.Targets(opp, e.Index)) {
 			mine, ok := v.Units[t]
@@ -375,6 +388,22 @@ func legal(s *dosplay.Session, side int, v dosplay.View, w Window) string {
 			}
 			if s.GasPioneer(u.Index) {
 				parts = append(parts, gasOption(s, v, side, u.Index, t))
+				continue
+			}
+			if s.Wiring(u.Index) {
+				var hexes []string
+				for _, c := range s.WireHexes(side, u.Index, t) {
+					hexes = append(hexes, show(c))
+				}
+				parts = append(parts, fmt.Sprintf("%s lay wire on %s", show(t), strings.Join(hexes, " ")))
+				continue
+			}
+			if s.Tunneller(u.Index) {
+				what := "empty"
+				if occupied {
+					what = tv.ID
+				}
+				parts = append(parts, fmt.Sprintf("%s tunnel under (%s; blows in %d turns if you stay)", show(t), what, dosrules.TunnelTurns))
 				continue
 			}
 			if err == nil && occupied {

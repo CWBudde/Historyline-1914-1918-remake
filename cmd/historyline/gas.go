@@ -6,6 +6,7 @@ import (
 	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
@@ -79,6 +80,35 @@ func (g *game) drawGas(dst *ebiten.Image, cells []hexgrid.Coord) {
 			alpha := float32(gasOpacity * strength * (0.7 + 0.3*math.Sin(t/60+a)))
 			op.ColorScale.Scale(float32(gasColour.R)/255*alpha, float32(gasColour.G)/255*alpha, float32(gasColour.B)/255*alpha, alpha)
 			dst.DrawImage(gasPuff, op)
+		}
+	}
+}
+
+// tunnelColour marks the side's own mines being dug.
+var tunnelColour = color.RGBA{150, 100, 50, 230}
+
+// drawTunnels marks the hexes the shown side's tunnellers mine with a dashed
+// ring that closes as the tunnel nears its blast; the other side's stay
+// hidden.
+func (g *game) drawTunnels(dst *ebiten.Image) {
+	if g.dos == nil {
+		return
+	}
+	e := float32(g.cam.Effective())
+	for _, t := range g.dos.s.Tunnels(g.shownSide()) {
+		sx, sy := g.cam.WorldToScreen(hexgrid.Center(t.Mine))
+		const dashes = 12
+		lit := dashes * (t.Dug + 1) / (t.Turns + 1)
+		for k := range dashes {
+			a0 := 2 * math.Pi * float64(k) / dashes
+			a1 := a0 + math.Pi/dashes
+			c := tunnelColour
+			if k >= lit {
+				c.A = 90
+			}
+			r := float64(30 * e)
+			vector.StrokeLine(dst, float32(sx+r*math.Cos(a0)), float32(sy+r*math.Sin(a0)), float32(sx+r*math.Cos(a1)),
+				float32(sy+r*math.Sin(a1)), 3*e, c, true)
 		}
 	}
 }

@@ -430,7 +430,7 @@ func (s *Session) Targets(side, unit int) map[hexgrid.Coord]bool {
 		return out
 	}
 	m := s.Game.Maps[side]
-	work := s.Sapper(unit) || s.Builder(unit) || s.GasPioneer(unit)
+	work := s.Worker(unit)
 	for c := range s.Game.Width * s.Game.Height {
 		if !work && m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
 			continue

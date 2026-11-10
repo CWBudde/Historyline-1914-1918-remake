@@ -159,6 +159,14 @@ func TestRosterCoversUnitDat(t *testing.T) {
 		"EC_markIV":    {50, "Britain", MoveNormal}, "CP_markIV": {50, "Germany", MoveNormal},
 		// Extension types (docs/new-units.md).
 		"CP_gasPioneers": {51, "Germany", MoveNormal}, "EC_gasPioneers": {51, "France", MoveNormal},
+		"CP_trenchMortar": {52, "Germany", MoveNormal}, "EC_trenchMortar": {52, "Britain", MoveNormal},
+		"CP_stormtroopers": {53, "Germany", MoveNormal}, "CP_zeppelin": {54, "Germany", MoveAir},
+		"EC_whippet": {55, "Britain", MoveNormal}, "EC_markV": {56, "Britain", MoveNormal},
+		"EC_schneider": {57, "France", MoveNormal}, "CP_parisGun": {58, "Germany", MoveTracks},
+		"CP_flamethrower": {59, "Germany", MoveNormal}, "EC_flamethrower": {59, "France", MoveNormal},
+		"CP_wiring": {60, "Germany", MoveNormal}, "EC_wiring": {60, "Britain", MoveNormal},
+		"CP_tunnellers": {61, "Germany", MoveNormal}, "EC_tunnellers": {61, "Britain", MoveNormal},
+		"CP_ambulance": {62, "Germany", MoveNormal}, "EC_ambulance": {62, "Britain", MoveNormal},
 	}
 	if len(s.Units) != len(roster) {
 		t.Errorf("%d unit types, want %d", len(s.Units), len(roster))

@@ -33,12 +33,18 @@ const (
 	Released                      // gas pioneers released a cloud: From the pioneers, To the hex, Hexes the cloud, Text
 	Gassed                        // a unit lost strength to gas: Unit, To its hex, Loss, Text
 	Cleared                       // the gas left hexes: Hexes, Text
+	Wired                         // a wiring party laid wire: From the party, To the hex, Hexes, Text
+	Tunnelled                     // tunnellers began a mine: From the tunnellers, To the mined hex, Text
+	TunnelLost                    // tunnellers left or lost their mine: To the mined hex, Text
+	Blown                         // a mine blew: To its hex, Hexes the crater (none off open ground), Text
+	Mined                         // a unit lost strength to a mine: Unit, To its hex, Loss, Text
+	Healed                        // an ambulance healed a unit: Unit, To its hex, Gain, Text
 )
 
 var kindNames = [...]string{
 	"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
 	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug", "constructed",
-	"released", "gassed", "cleared",
+	"released", "gassed", "cleared", "wired", "tunnelled", "tunnelLost", "blown", "mined", "healed",
 }
 
 func (k EventKind) String() string {
@@ -92,8 +98,10 @@ type Event struct {
 	// work changed (Dug, Constructed), a gas cloud's (Released) or those it
 	// left (Cleared).
 	Hexes []hexgrid.Coord
-	// Loss is the strength a unit lost to gas (Gassed).
+	// Loss is the strength a unit lost to gas or a mine (Gassed, Mined).
 	Loss int
+	// Gain is the strength a unit regained from an ambulance (Healed).
+	Gain int
 }
 
 // The status messages of the rules engine that events carry, beyond the
@@ -153,6 +161,14 @@ func MessageText(code int) string {
 		return "Gas release ordered."
 	case dosrules.MsgNoGas:
 		return "The unit has no gas left."
+	case dosrules.MsgWire:
+		return "Wire laying ordered."
+	case dosrules.MsgNoWire:
+		return "The unit has no wire left."
+	case dosrules.MsgTunnel:
+		return "Tunnelling ordered."
+	case dosrules.MsgTunnelBusy:
+		return "The tunnellers are digging a mine already."
 	case 0:
 		return ""
 	}
@@ -260,6 +276,27 @@ func (s *Session) event(r dosrules.Event, b *battles) Event {
 		}
 	case dosrules.EvGasCleared:
 		ev.Kind, ev.Hexes, ev.Text = Cleared, s.levelHexes(r.Cells), "The gas has cleared."
+	case dosrules.EvWired:
+		ev.Kind, ev.To, ev.Hexes, ev.Text = Wired, s.coord(r.Cell), s.levelHexes(r.Cells), "Wire laid."
+		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
+	case dosrules.EvTunnel:
+		ev.Kind, ev.To, ev.Text = Tunnelled, s.coord(r.Cell), "Tunnelling begun."
+		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
+	case dosrules.EvTunnelLost:
+		ev.Kind, ev.To, ev.Text = TunnelLost, s.coord(r.Cell), "The tunnel was abandoned."
+	case dosrules.EvMine:
+		ev.Kind, ev.To, ev.Hexes, ev.Text = Blown, s.coord(r.Cell), s.levelHexes(r.Cells), "A mine went up."
+	case dosrules.EvMined:
+		ev.Kind, ev.To, ev.Loss = Mined, s.coord(r.Cell), r.Loss
+		name := s.typeName(s.unitID(r.Unit), s.Game.Units[r.Unit].Type)
+		ev.Text = fmt.Sprintf("%s lose %d to a mine.", name, r.Loss)
+		if s.Game.Units[r.Unit].Size == 0 {
+			ev.Text = name + " destroyed by a mine."
+		}
+	case dosrules.EvHealed:
+		ev.Kind, ev.To, ev.Gain = Healed, s.coord(r.Cell), r.Gain
+		name := s.typeName(s.unitID(r.Unit), s.Game.Units[r.Unit].Type)
+		ev.Text = fmt.Sprintf("%s regain %d.", name, r.Gain)
 	case dosrules.EvHalfDepot, dosrules.EvDepot:
 		ev.Kind, ev.To, ev.Text = Constructed, s.coord(r.Cell), "Half a depot built."
 		if r.Kind == dosrules.EvDepot {

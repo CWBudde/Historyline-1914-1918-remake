@@ -56,7 +56,7 @@ func TestUnitSpriteFollowsOwnerStateAndFacing(t *testing.T) {
 			t.Errorf("unitSprite(%s) = %s %s %v, want %s %s", c.typ, family, id, ok, c.family, c.id)
 		}
 	}
-	if _, _, ok := unitSprite("CP_zeppelin", 0, state.CentralPowers, false, false, unitsprite.N); ok {
+	if _, _, ok := unitSprite("CP_noSuchUnit", 0, state.CentralPowers, false, false, unitsprite.N); ok {
 		t.Error("unknown unit type got a sprite")
 	}
 }

@@ -51,8 +51,8 @@ func TestExtensionUnitsFollowTables(t *testing.T) {
 		}
 	}
 	for dos := len(dosrules.FullTables.Types); dos < len(x.Types); dos++ {
-		if seen[dos] != 2 {
-			t.Errorf("extension type %d has %d remake ids, want one per side", dos, seen[dos])
+		if seen[dos] < 1 || seen[dos] > 2 {
+			t.Errorf("extension type %d has %d remake ids, want one or one per side", dos, seen[dos])
 		}
 	}
 }
