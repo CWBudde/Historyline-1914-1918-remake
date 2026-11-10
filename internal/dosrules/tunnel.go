@@ -60,14 +60,14 @@ func (g *Game) TunnelOf(unit int) (Tunnel, bool) {
 	return Tunnel{}, false
 }
 
-// mineable reports whether tunnellers may dig under cell: on the map and no
-// water.
-func (g *Game) mineable(cell int) bool {
+// mineable reports whether tunnellers may dig under cell on side's
+// map: on the map and no water.
+func (g *Game) mineable(side, cell int) bool {
 	t, err := g.Profile.moveTables()
 	if err != nil || cell < 0 || cell >= g.Width*g.Height {
 		return false
 	}
-	rec := g.Maps[0][2*cell]
+	rec := g.Maps[side][2*cell]
 	return rec < len(t.Terrains) && t.Terrains[rec].Mask&0x80 == 0
 }
 
@@ -77,7 +77,7 @@ func (g *Game) checkTunnel(side int, u Live, idx, cell int) error {
 		return refuse(MsgTunnelBusy, "the tunnellers dig a tunnel already")
 	}
 	n := neighbours(u.Cell(side), g.Width, g.Height)
-	if !slices.Contains(n[:], cell) || !g.mineable(cell) {
+	if !slices.Contains(n[:], cell) || !g.mineable(side, cell) {
 		return refuse(MsgNoTarget, "no tunnel there")
 	}
 	return nil

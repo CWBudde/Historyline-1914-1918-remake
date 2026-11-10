@@ -75,13 +75,13 @@ export function tunnelOf(g: Game, unit: number): Tunnel | null {
   return null;
 }
 
-/** mineable reports whether tunnellers may dig under cell: on the map and no water. */
-export function mineable(g: Game, cell: number): boolean {
+/** mineable reports whether tunnellers may dig under cell on side's map: on the map and no water. */
+export function mineable(g: Game, side: number, cell: number): boolean {
   const t = moveTablesOrNull(g.profile);
   if (t === null || cell < 0 || cell >= g.width * g.height) {
     return false;
   }
-  const rec = at(g.maps[0], 2 * cell);
+  const rec = at(at(g.maps, side), 2 * cell);
   return rec < t.terrains.length && (at(t.terrains, rec).mask & 0x80) === 0;
 }
 
@@ -97,7 +97,7 @@ export function checkTunnel(
     return refuse(msgTunnelBusy, "the tunnellers dig a tunnel already");
   }
   const n = neighbours(liveCell(u, side), g.width, g.height);
-  if (!n.includes(cell) || !mineable(g, cell)) {
+  if (!n.includes(cell) || !mineable(g, side, cell)) {
     return refuse(msgNoTarget, "no tunnel there");
   }
   return null;
