@@ -125,6 +125,7 @@ export function casualtyInputs(
       pincer: x.pincer,
       blocking: x.blocking,
       returnFire: x.returnFire,
+      flame: false,
     },
   ];
 }

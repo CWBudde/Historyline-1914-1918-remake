@@ -23,6 +23,8 @@ export const airTarget = 0x10;
 export const longRange = 0x40;
 /** TargetFlags: never returns fire. */
 export const noReturn = 0x80;
+/** Live +6 of the attacker: a flamethrower (extension types only, wire.ts), the source of Context.flame. */
+export const flagFlame = 0x0800;
 
 /** Fighter is one side of a battle: its type and its live values. */
 export interface Fighter {
@@ -47,6 +49,8 @@ export interface Context {
   pincer: number;
   blocking: number;
   returnFire: boolean;
+  /** The attacker is a flamethrower (an extension type, wire.ts), which the defender's terrain does not shelter from. */
+  flame: boolean;
 }
 
 /** Result holds the strengths after the battle. */
@@ -152,7 +156,10 @@ export function casualties(
   armourD = percent(armourD, c.blocking);
 
   const aTerms = at(terms, c.aTerrain);
-  const dTerms = at(terms, c.dTerrain);
+  let dTerms = at(terms, c.dTerrain);
+  if (c.flame && dTerms.defence > 0) {
+    dTerms = { ...dTerms, defence: 0 };
+  }
   const attackA = strengthTerm(power, sizeA, expA, aTerms.attack, 256);
   const defenceA = strengthTerm(armourA, sizeA, expA, aTerms.defence, 256);
   const attackD = strengthTerm(counter, sizeD, expD, dTerms.attack, 256);

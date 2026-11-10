@@ -50,7 +50,8 @@ import {
   build as buildUnit,
   repair,
 } from "./energy.ts";
-import { checkGas, gasPioneer, gasTurn, orderGas } from "./gas.ts";
+import { turnEffects } from "./ambulance.ts";
+import { checkGas, gasPioneer, orderGas } from "./gas.ts";
 import { GoError, at, setAt } from "./goruntime.ts";
 import { div } from "./int.ts";
 import { layoutDistance } from "./distance.ts";
@@ -72,8 +73,16 @@ import {
   trenchTarget,
   work,
 } from "./sapper.ts";
+import {
+  type Tunnel,
+  actionTunnel,
+  checkTunnel,
+  msgTunnel,
+  tunneller,
+} from "./tunnel.ts";
 import { type End, end } from "./victory.ts";
 import { type Sighted, type PhaseChange, changePhase } from "./visibility.ts";
+import { actionWire, checkWire, msgWire, orderWork, wiring } from "./wire.ts";
 
 /** The phases (player record +0x16). */
 export const phaseMovement = 1;
@@ -140,6 +149,8 @@ export interface Game {
   gas?: number[] | null;
   gasTurns?: number;
   gasLoss?: number;
+  /** The mines being dug (tunnel.ts), in the order they opened; absent (Go's nil) while there is none. */
+  tunnels?: Tunnel[];
 }
 
 /** Placement is a unit as a scenario places it: its type, owner (0 or 1, 2 neutral), cell and strength; absent fields are 0. */
@@ -466,7 +477,13 @@ export type EventKind =
   | "depot"
   | "gasCloud"
   | "gassed"
-  | "gasCleared";
+  | "gasCleared"
+  | "wired"
+  | "tunnel"
+  | "tunnelLost"
+  | "mine"
+  | "mined"
+  | "healed";
 
 /** A move or an exit ran: route. */
 export const evMoved = "moved" satisfies EventKind;
@@ -521,8 +538,10 @@ export interface Event {
   energy: number;
   hold: number;
   cells: number[];
-  /** The strength a unit lost to gas (evGassed). */
+  /** The strength a unit lost to gas (evGassed) or a mine (evMined). */
   loss: number;
+  /** The strength a unit regained from an ambulance (evHealed). */
+  gain: number;
 }
 
 /** newEvent is a Go Event literal: the fields not given are zero. */
@@ -541,6 +560,7 @@ export function newEvent(fields: Partial<Event> & { kind: EventKind }): Event {
     hold: 0,
     cells: [],
     loss: 0,
+    gain: 0,
     ...fields,
   };
 }
@@ -655,6 +675,12 @@ export function check(g: Game, c: Command): GoError | null {
   if (c.kind === cmdAttack && builder(u)) {
     return checkBuilder(g, c.side, u, idx, c.cell);
   }
+  if (c.kind === cmdAttack && wiring(u)) {
+    return checkWire(g, c.side, u, c.cell);
+  }
+  if (c.kind === cmdAttack && tunneller(u)) {
+    return checkTunnel(g, c.side, u, idx, c.cell);
+  }
   if (c.kind === cmdAttack && gasPioneer(u)) {
     return checkGas(g, c.side, u, c.cell);
   }
@@ -751,6 +777,12 @@ export function apply(g: Game, c: Command): Event[] {
   const unit = c.unit ?? 0;
   if (c.kind === cmdAttack && builder(liveOf(g, unit))) {
     return [orderDepot(g, c.side, unit, c.cell)];
+  }
+  if (c.kind === cmdAttack && wiring(liveOf(g, unit))) {
+    return [orderWork(g, c.side, unit, c.cell, actionWire, msgWire)];
+  }
+  if (c.kind === cmdAttack && tunneller(liveOf(g, unit))) {
+    return [orderWork(g, c.side, unit, c.cell, actionTunnel, msgTunnel)];
   }
   if (c.kind === cmdAttack && gasPioneer(liveOf(g, unit))) {
     return [orderGas(g, c.side, unit, c.cell)];
@@ -1095,7 +1127,7 @@ export function resolve(g: Game): Event[] {
   const evs = attack(g, a);
   const [caps, hq] = work(g, a);
   evs.push(...caps);
-  evs.push(...gasTurn(g));
+  evs.push(...turnEffects(g));
   const ev = gameChangePhase(g, a);
   evs.push(...ev);
   const ph = at(ev, 0);

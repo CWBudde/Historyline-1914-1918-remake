@@ -36,6 +36,7 @@ import {
   unmarshal,
 } from "./gojson.ts";
 import type { Profile, Profiles } from "./profile.ts";
+import type { Tunnel } from "./tunnel.ts";
 import type { End, EndReason } from "./victory.ts";
 
 /** SaveSchema is the version of the saved command-cycle state. loadGame also reads schema 2, which had no season (summer). */
@@ -76,6 +77,7 @@ interface SavedGame {
   gas: number[] | null;
   gasTurns: number;
   gasLoss: number;
+  tunnels: Tunnel[] | null;
 }
 
 // pair is a Go [2]T held as a TS pair.
@@ -136,6 +138,14 @@ const buildingCodec = goStruct<SavedBuilding>("Building", "dosrules.Building", {
   computerBuilds: ["computerBuilds", goSlice(goInt)],
 });
 
+const tunnelCodec = goStruct<Tunnel>("Tunnel", "dosrules.Tunnel", {
+  unit: ["unit", goInt],
+  side: ["side", goInt],
+  from: ["from", goInt],
+  cell: ["cell", goInt],
+  dug: ["dug", goInt],
+});
+
 const savedGameCodec = goStruct<SavedGame>("savedGame", "dosrules.savedGame", {
   schema: ["schema", goInt],
   build: ["build", goString("string")],
@@ -155,6 +165,7 @@ const savedGameCodec = goStruct<SavedGame>("savedGame", "dosrules.savedGame", {
   gas: ["gas", goSlice(goInt)],
   gasTurns: ["gasTurns", goInt],
   gasLoss: ["gasLoss", goInt],
+  tunnels: ["tunnels", goSlice(tunnelCodec)],
 });
 
 const ints = (a: readonly number[]): string => encodeArray(a.map(encodeInt));
@@ -206,6 +217,16 @@ function encodeEnd(e: End): string {
     ["winner", encodeInt(e.winner)],
     ["won", encodeArray([0, 1].map((k) => encodeString(e.won[k] ?? "")))],
     ["score", encodeInt(e.score)],
+  ]);
+}
+
+function encodeTunnel(t: Tunnel): string {
+  return encodeObject([
+    ["unit", encodeInt(t.unit)],
+    ["side", encodeInt(t.side)],
+    ["from", encodeInt(t.from)],
+    ["cell", encodeInt(t.cell)],
+    ["dug", encodeInt(t.dug)],
   ]);
 }
 
@@ -262,7 +283,15 @@ export function save(g: Game): Uint8Array {
   if ((g.gasLoss ?? 0) !== 0) {
     f.push(["gasLoss", encodeInt(g.gasLoss ?? 0)]);
   }
+  if ((g.tunnels?.length ?? 0) > 0) {
+    f.push(["tunnels", encodeArray((g.tunnels ?? []).map(encodeTunnel))]);
+  }
   return new TextEncoder().encode(encodeObject(f));
+}
+
+// tunnelString is Go's %+v of a Tunnel.
+function tunnelString(t: Tunnel): string {
+  return `{Unit:${String(t.unit)} Side:${String(t.side)} From:${String(t.from)} Cell:${String(t.cell)} Dug:${String(t.dug)}}`;
 }
 
 // load wraps err as Go's fmt.Errorf("dosrules: load: %w", err).
@@ -323,6 +352,18 @@ export function loadGame(data: Uint8Array | string, profiles: Profiles): Game {
     throw new GoError(
       `dosrules: load: gas on ${String(gasLen)} cells for ${String(s.width * s.height)}`,
     );
+  }
+  for (const t of s.tunnels ?? []) {
+    const n = s.width * s.height;
+    if (
+      t.cell < 0 ||
+      t.cell >= n ||
+      t.from < 0 ||
+      t.from >= n ||
+      (t.side !== 0 && t.side !== 1)
+    ) {
+      throw new GoError(`dosrules: load: tunnel ${tunnelString(t)}`);
+    }
   }
   const units = new Map<number, Live>();
   for (const i of [...(s.units?.keys() ?? [])].sort((a, b) => a - b)) {
@@ -417,6 +458,9 @@ export function loadGame(data: Uint8Array | string, profiles: Profiles): Game {
     ...(gasLen > 0 && s.gas !== null ? { gas: s.gas } : {}),
     ...(s.gasTurns !== 0 ? { gasTurns: s.gasTurns } : {}),
     ...(s.gasLoss !== 0 ? { gasLoss: s.gasLoss } : {}),
+    ...(s.tunnels !== null && s.tunnels.length > 0
+      ? { tunnels: s.tunnels }
+      : {}),
   };
   try {
     action(g);

@@ -45,6 +45,7 @@ import { div } from "./int.ts";
 import { type MoveType, owns } from "./move.ts";
 import { type Profile, tablesOf } from "./profile.ts";
 import { liveUnits } from "./visibility.ts";
+import { flagWire, typeFlag, wireCharges } from "./wire.ts";
 
 /** Building is what the scenario gives a building record: the energy it credits each cycle and the types it builds (none: it only repairs). */
 export interface Building {
@@ -73,6 +74,9 @@ export function charges(p: Profile, typ: number): [number, boolean] {
   }
   if (gasType(p, typ)) {
     return [gasCharges, true];
+  }
+  if (typeFlag(p, typ, flagWire)) {
+    return [wireCharges, true];
   }
   return [0, false];
 }

@@ -1,7 +1,7 @@
 // One attack order through the order handler (engage.go): the battlefield, the defender, support, casualties
 // and the experience window.
 
-import { type Result, casualties, firesBack } from "./casualties.ts";
+import { type Result, casualties, firesBack, flagFlame } from "./casualties.ts";
 import { distance } from "./distance.ts";
 import { at } from "./goruntime.ts";
 import { type Profile, type Type, alternate, tablesOf } from "./profile.ts";
@@ -189,6 +189,7 @@ export function engage(
       pincer,
       blocking,
       returnFire,
+      flame: (a.flags6 & flagFlame) !== 0,
     },
   );
 

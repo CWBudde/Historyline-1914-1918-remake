@@ -186,15 +186,23 @@ export function profilesOf(
 }
 
 /**
- * extendTables is base with the type records of the extension (the parsed extension.json) appended from index
- * 51: the original records keep their indices. The build is the base's with the extension's suffix (Go's
- * ExtendedTables).
+ * extendTables is base with the type and terrain records of the extension (the parsed extension.json) appended:
+ * the type records from index 51, the terrain records from index 175 (terrainWire, terrainCrater, wire.ts). The
+ * original records keep their indices. The build is the base's with the extension's suffix (Go's ExtendedTables).
  */
 export function extendTables(base: Tables, extension: unknown): Tables {
   const x = mustTables(extension);
   const move =
     base.move !== null && x.move !== null
-      ? { ...base.move, types: [...base.move.types, ...x.move.types] }
+      ? {
+          ...base.move,
+          types: [...base.move.types, ...x.move.types],
+          terrains: [...base.move.terrains, ...x.move.terrains],
+          winter:
+            base.move.winter === null
+              ? null
+              : [...base.move.winter, ...(x.move.winter ?? [])],
+        }
       : base.move;
   return {
     ...base,

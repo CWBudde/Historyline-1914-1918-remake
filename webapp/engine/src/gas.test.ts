@@ -91,6 +91,7 @@ describe("TestExtendedTables", () => {
     expect(x.move?.types.slice(0, 51)).toStrictEqual(f.move?.types);
     expect(x.build).toBe(f.build + "+units1");
     expect(x.terms).toStrictEqual(f.terms);
+    expect(x.move?.terrains.length).toBe((f.move?.terrains.length ?? 0) + 2);
     expect(gasType(Extended, cGas)).toBe(true);
     expect(gasType(Full, cGas)).toBe(false);
     expect(gasType(Extended, cSapper)).toBe(false);

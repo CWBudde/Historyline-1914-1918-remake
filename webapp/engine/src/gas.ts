@@ -23,10 +23,8 @@ import {
   liveOf,
   msgNoTarget,
   newEvent,
-  phaseAction,
   refuse,
   sortedKeys,
-  vacate,
 } from "./cycle.ts";
 import { type GoError, at } from "./goruntime.ts";
 import { div, rem } from "./int.ts";
@@ -221,7 +219,7 @@ export function unitGasCell(u: Readonly<Live>): number {
 }
 
 /** ownerOf is the side a unit belongs to: 0, 1 or 2 for neutral. */
-function ownerOf(u: Readonly<Live>): number {
+export function ownerOf(u: Readonly<Live>): number {
   if ((u.flags4 & 1) !== 0) {
     return 1;
   }
@@ -229,19 +227,14 @@ function ownerOf(u: Readonly<Live>): number {
 }
 
 /**
- * gasTurn is the turn's gas in a resolution: the losses of the units on gassed cells, then the thinning. It runs
- * only when the coming phase change counts the turn (Go's Game.gasTurn).
+ * gasTurn is the turn's gas (turnEffects, ambulance.ts): the losses of the units on gassed cells, then the
+ * thinning. Units the gas destroys join gone (Go's Game.gasTurn).
  */
-export function gasTurn(g: Game): Event[] {
-  if (
-    g.gas === undefined ||
-    g.gas === null ||
-    g.players[0].phase !== phaseAction
-  ) {
+export function gasTurn(g: Game, gone: number[]): Event[] {
+  if (g.gas === undefined || g.gas === null) {
     return [];
   }
   const evs: Event[] = [];
-  const gone: number[] = [];
   const cleared: number[] = [];
   for (const i of sortedKeys(g.units)) {
     const u = liveOf(g, i);
@@ -304,7 +297,6 @@ export function gasTurn(g: Game): Event[] {
   if (!left) {
     delete g.gas;
   }
-  vacate(g, gone);
   if (cleared.length > 0) {
     evs.push(newEvent({ kind: evGasCleared, side: -1, cells: cleared }));
   }

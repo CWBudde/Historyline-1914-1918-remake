@@ -34,6 +34,8 @@ import {
 import { at, setAt } from "./goruntime.ts";
 import { div, rem } from "./int.ts";
 import { neighbours } from "./support.ts";
+import { actionTunnel, startTunnel } from "./tunnel.ts";
+import { actionWire, layWire } from "./wire.ts";
 
 /** Live +6: a sapper. */
 export const flagSapper = 0x2000;
@@ -235,7 +237,7 @@ export function gameTrench(g: Game, a: number, i: number): Event {
 
 /**
  * work is the action pass for side a's resolution, in unit order: the captures (capture), the sappers' work
- * (gameTrench) and the construction units' (builder.ts). It returns their events and the side that took an HQ
+ * (gameTrench), the construction units' (builder.ts) and the extension work units' (gas.ts, wire.ts, tunnel.ts). It returns their events and the side that took an HQ
  * (-1 if none), the order handler's return value.
  */
 export function work(g: Game, a: number): [evs: Event[], won: number] {
@@ -272,6 +274,12 @@ export function work(g: Game, a: number): [evs: Event[], won: number] {
         break;
       case actionGas:
         evs.push(releaseGas(g, a, i));
+        break;
+      case actionWire:
+        evs.push(layWire(g, a, i));
+        break;
+      case actionTunnel:
+        evs.push(startTunnel(g, a, i));
         break;
     }
   }

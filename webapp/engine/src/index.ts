@@ -319,6 +319,30 @@ export {
   gasCells,
   gasAt,
 } from "./gas.ts";
+export {
+  flagFlame,
+  flagWire,
+  terrainWire,
+  terrainCrater,
+  wireCharges,
+  msgWire,
+  msgNoWire,
+  flamethrower,
+  wiring,
+  wire,
+  wireCells,
+} from "./wire.ts";
+export {
+  type Tunnel,
+  flagTunnel,
+  tunnelTurns,
+  tunnelLoss,
+  msgTunnel,
+  msgTunnelBusy,
+  tunneller,
+  tunnelOf,
+} from "./tunnel.ts";
+export { flagMedic, ambulanceHeal, ambulance } from "./ambulance.ts";
 export { type Building, income } from "./energy.ts";
 export {
   maxScore,
