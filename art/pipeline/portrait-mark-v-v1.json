@@ -1,0 +1,8 @@
+{
+  "family": "mark-v",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/mark-v/portrait.png",
+    "source_sha256": "dc37642896138a0ab283cb18ef233ec6bacacbef4fee16adca58f116e007409a"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "family": "whippet",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/whippet/portrait.png",
+    "source_sha256": "3d45b04661e8029463d1f4b9c3adca3a3a22c4ca13ae010e80f830c0be444b02"
+  }
+}

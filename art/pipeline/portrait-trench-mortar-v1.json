@@ -1,0 +1,8 @@
+{
+  "family": "trench-mortar",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/trench-mortar/portrait.png",
+    "source_sha256": "da592e2cef788a32df79c4b2f1a0787a477001756c8b7c42bd6aa5ea0364f0db"
+  }
+}

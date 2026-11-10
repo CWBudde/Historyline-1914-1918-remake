@@ -1,0 +1,8 @@
+{
+  "family": "gas-pioneers",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/gas-pioneers/portrait.png",
+    "source_sha256": "12baa24cb880a11127924792c0b29cb41d04e4304277a906843c8a4b50bf03f5"
+  }
+}

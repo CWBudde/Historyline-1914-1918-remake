@@ -1,0 +1,8 @@
+{
+  "family": "paris-gun",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/paris-gun/portrait.png",
+    "source_sha256": "e73db5d54c4afb105718c3eb6b9810754b212fb6e00ef72dbbc18916694300ee"
+  }
+}

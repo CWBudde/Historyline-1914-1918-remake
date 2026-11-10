@@ -1,0 +1,8 @@
+{
+  "family": "field-ambulance",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/field-ambulance/portrait.png",
+    "source_sha256": "b0f3141df6a4024e7140cb7a76997e147c89f898d8f8b60ce102f6b7d69aad15"
+  }
+}

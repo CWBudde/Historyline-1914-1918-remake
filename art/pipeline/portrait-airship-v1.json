@@ -1,0 +1,8 @@
+{
+  "family": "airship",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/airship/portrait.png",
+    "source_sha256": "d3842804f2a95445cf4230f5eeb355409320f1c3892db9c9fa01e39873462320"
+  }
+}

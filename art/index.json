@@ -2216,6 +2216,56 @@
       }
     },
     {
+      "id": "portraits/airship",
+      "title": "Zeppelin airship",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_zeppelin"
+      ],
+      "dir": "art/portraits/airship",
+      "assets_dir": "assets/portraits/airship",
+      "prompt": "art/portraits/airship/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/airship/portrait.png",
+          "sha256": "d3842804f2a95445cf4230f5eeb355409320f1c3892db9c9fa01e39873462320",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a silver-grey rigid Zeppelin with two gondolas over a village,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a WWI rigid Zeppelin airship seen from below and to the side, flying over a quiet countryside on a quiet day: the long silver-grey cigar-shaped hull crossing the upper middle from the rounded nose at the left to the cruciform tail fins at the right, two engine gondolas hanging beneath; small fields, a village church spire and hedgerows far below at the bottom; broad, pale, cloudy\nochre sky. Paint wool, leather, wood, metal and natural surfaces with broad, visible, connected oil-sketch brushwork (no photographic skin or fabric texture)\nand selective detail. Fully opaque full-bleed landscape illustration at 105:94, at least 1260x1128,\npreferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene\nnaturally to all edges. No national colours, flags, insignia, magenta or faction tint; no frame, bevel, UI, text or numbers; no muzzle flash, explosions or casualties.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_zeppelin"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-airship-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/airship`. Promote into `assets/portraits/airship/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/airship/portrait-4x.png"
+        ]
+      }
+    },
+    {
       "id": "portraits/albatros-d-iii",
       "title": "Albatros D.III",
       "kind": "portrait",
@@ -2884,6 +2934,111 @@
       }
     },
     {
+      "id": "portraits/field-ambulance",
+      "title": "Field ambulance",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_ambulance",
+        "EC_ambulance"
+      ],
+      "dir": "art/portraits/field-ambulance",
+      "assets_dir": "assets/portraits/field-ambulance",
+      "prompt": "art/portraits/field-ambulance/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/field-ambulance/portrait.png",
+          "sha256": "b0f3141df6a4024e7140cb7a76997e147c89f898d8f8b60ce102f6b7d69aad15",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a canvas-covered motor ambulance with a red cross, bearers loading a covered stretcher,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a WWI motor field ambulance on a muddy country road seen from the front three-quarter: a tall boxy canvas-covered ambulance body at the centre with a small red cross on a white square on its side, the short bonnet and radiator to the right, spoked front wheel low right; two stretcher bearers carrying a covered stretcher towards the open rear at the lower left, a medical orderly in a white armband beside them, poplars behind; broad, pale, cloudy\nochre sky. Paint wool, leather, wood, metal and natural surfaces with broad, visible, connected oil-sketch brushwork (no photographic skin or fabric texture)\nand selective detail. Fully opaque full-bleed landscape illustration at 105:94, at least 1260x1128,\npreferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene\nnaturally to all edges. No national colours, flags, insignia, magenta or faction tint; no frame, bevel, UI, text or numbers; no muzzle flash, explosions or casualties.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_ambulance",
+            "EC_ambulance"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-field-ambulance-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/field-ambulance`. Promote into `assets/portraits/field-ambulance/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/field-ambulance/portrait-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "portraits/flamethrower",
+      "title": "Flamethrower",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_flamethrower",
+        "EC_flamethrower"
+      ],
+      "dir": "art/portraits/flamethrower",
+      "assets_dir": "assets/portraits/flamethrower",
+      "prompt": "art/portraits/flamethrower/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/flamethrower/portrait.png",
+          "sha256": "b79e6fe7a2f2ef9921c2d4bcccac6bbb7e0b18d731a756c246ab5f9c71c3aa7a",
+          "width": 1327,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a two-man flamethrower team with a backpack tank and an unlit lance in a trench,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a two-man flamethrower team crouching in a shallow trench before an assault: the rear man in a steel helmet carries a large backpack tank of two round steel cylinders on a frame, a hose leads to the front man who holds a long straight metal lance pointing to the left over the trench lip; the lance is unlit, no flame, no fire, no smoke; the two men fill the lower middle; broad, pale, cloudy ochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork and selective detail. Fully opaque full-bleed LANDSCAPE illustration at 105:94 (slightly wider than tall), at least 1260x1128, preferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene naturally to all edges. Owner-neutral: no magenta, no national colours, no faction tint, no insignia or flags.\nCORRECTION TO THE PREVIOUS TRY: it painted the lance as a scoped rifle with a stock and a muzzle brake, and the hose ended at the front man's belt. The flamethrower lance is a plain, long, thin steel tube about 1.2 m long with a small conical nozzle at its tip and a simple handle and valve lever at its rear end, held in both hands; NO stock, NO scope, NO muzzle brake, NO magazine, NO trigger guard of a rifle. The thick dark rubber hose runs visibly all the way from the bottom of the two backpack tanks to the rear end of the lance. Unlit: no flame, no pilot light.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_flamethrower",
+            "EC_flamethrower"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-flamethrower-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/flamethrower`. Promote into `assets/portraits/flamethrower/` and re-index.\n\nThe portrait is imagegen output `exec-24da3cc6` (2026-11-10, try 2), 1327x1186 RGB. Its prompt was the `art/style.md` Preamble and Portraits text, then the base prompt above; no attachments.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties",
+        "flame, fire or smoke"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/flamethrower/portrait-4x.png"
+        ]
+      }
+    },
+    {
       "id": "portraits/fokker-d-vii",
       "title": "Fokker D.VII",
       "kind": "portrait",
@@ -3080,6 +3235,59 @@
         ],
         "samples": [
           "assets/portraits/fokker-e-iii/portrait-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "portraits/gas-pioneers",
+      "title": "Gas pioneers",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_gasPioneers",
+        "EC_gasPioneers"
+      ],
+      "dir": "art/portraits/gas-pioneers",
+      "assets_dir": "assets/portraits/gas-pioneers",
+      "prompt": "art/portraits/gas-pioneers/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/gas-pioneers/portrait.png",
+          "sha256": "12baa24cb880a11127924792c0b29cb41d04e4304277a906843c8a4b50bf03f5",
+          "width": 1327,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: two masked gas pioneers at a row of gas cylinders in a trench,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a gas-pioneer team at a front-line trench parapet: two soldiers in steel helmets and gas masks with round eyepieces and snout filters kneel beside a row of four tall upright grey-green steel gas cylinders set into the sandbagged parapet, a rubber hose running from a cylinder valve over the parapet; one man turns a valve with a spanner; men and cylinders fill the lower middle of the picture; no visible gas cloud, calm; broad, pale, cloudy ochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork and selective detail. Fully opaque full-bleed LANDSCAPE illustration at 105:94 (slightly wider than tall), at least 1260x1128, preferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene naturally to all edges. Owner-neutral: no magenta, no national colours, no faction tint, no insignia or flags.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_gasPioneers",
+            "EC_gasPioneers"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-gas-pioneers-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/gas-pioneers`. Promote into `assets/portraits/gas-pioneers/` and re-index.\n\nThe portrait is imagegen output `exec-589fe31a` (2026-11-10, try 1), 1327x1186 RGB. Its prompt was the `art/style.md` Preamble and Portraits text, then the base prompt above; no attachments.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties",
+        "a visible gas cloud"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/gas-pioneers/portrait-4x.png"
         ]
       }
     },
@@ -3494,6 +3702,56 @@
       }
     },
     {
+      "id": "portraits/mark-v",
+      "title": "Mark V tank",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "EC_markV"
+      ],
+      "dir": "art/portraits/mark-v",
+      "assets_dir": "assets/portraits/mark-v",
+      "prompt": "art/portraits/mark-v/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/mark-v/portrait.png",
+          "sha256": "dc37642896138a0ab283cb18ef233ec6bacacbef4fee16adca58f116e007409a",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a Mark V heavy tank with its raised rear cupola, unditching rails and timber beam, beside a ditch in a field, in subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, LANDSCAPE 105:94 aspect, ideally 1680x1504 (at least 1260x1128). Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914-1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, magenta, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A British Mark V heavy tank with large rhomboid wraparound tracks, side gun sponsons, a forward driver cab, a raised boxy observation cupola on the rear of the roof and two long unditching-beam rails along the tops of the tracks carrying a heavy square timber beam at the rear. No turret, no trailing steering wheels. Left-facing three-quarter view crossing a shallow trench in a churned field, the cupola and beam clearly visible.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "EC_markV"
+          ],
+          "delta": "The scene above."
+        }
+      ],
+      "edges": "",
+      "post": "Selected source: pmk5-01 of gen-2026-11-10, exec-aa3bbeed, 1326x1187. The prompt followed the `art/style.md` Preamble and Portraits text, with\n`art/portraits/renault-ft17/portrait.png` attached for palette, brushwork, sky and light only.\n`art-review -portrait art/pipeline/portrait-mark-v-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/mark-v`. Promote into `assets/portraits/mark-v/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/mark-v/portrait-4x.png"
+        ]
+      }
+    },
+    {
       "id": "portraits/medium-artillery",
       "title": "Medium artillery",
       "kind": "portrait",
@@ -3698,6 +3956,56 @@
       }
     },
     {
+      "id": "portraits/paris-gun",
+      "title": "Paris Gun",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_parisGun"
+      ],
+      "dir": "art/portraits/paris-gun",
+      "assets_dir": "assets/portraits/paris-gun",
+      "prompt": "art/portraits/paris-gun/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/paris-gun/portrait.png",
+          "sha256": "e73db5d54c4afb105718c3eb6b9810754b212fb6e00ef72dbbc18916694300ee",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: the Paris Gun's extremely long braced barrel on its railway carriage in a wooded clearing,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: the Paris Gun on its railway carriage in side view in a wooded clearing: an extremely long, slender gun barrel braced by a truss of rods on top, rising from the breech on the heavy multi-axle railway carriage at lower right to the muzzle far away at upper left, the carriage on rails along the bottom, a few small gunners beside the carriage for scale, camouflage netting poles and tall trees at the edges; broad, pale, cloudy\nochre sky. Paint wool, leather, wood, metal and natural surfaces with broad, visible, connected oil-sketch brushwork (no photographic skin or fabric texture)\nand selective detail. Fully opaque full-bleed landscape illustration at 105:94, at least 1260x1128,\npreferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene\nnaturally to all edges. No national colours, flags, insignia, magenta or faction tint; no frame, bevel, UI, text or numbers; no muzzle flash, explosions or casualties.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_parisGun"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-paris-gun-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/paris-gun`. Promote into `assets/portraits/paris-gun/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/paris-gun/portrait-4x.png"
+        ]
+      }
+    },
+    {
       "id": "portraits/patrol-boat",
       "title": "Patrol boat",
       "kind": "portrait",
@@ -3850,6 +4158,56 @@
         ],
         "samples": [
           "assets/portraits/sappers/portrait-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "portraits/schneider-ca1",
+      "title": "Schneider CA1 tank",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "EC_schneider"
+      ],
+      "dir": "art/portraits/schneider-ca1",
+      "assets_dir": "assets/portraits/schneider-ca1",
+      "prompt": "art/portraits/schneider-ca1/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/schneider-ca1/portrait.png",
+          "sha256": "bcb339d4f42c11e3e18058daa96cc68aa8c712749f49a025d82ba1ae37619f2a",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a Schneider CA1 with its pointed wire-cutter prow and right-front 75 mm sponson, crossing broken wire in a field, in subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, LANDSCAPE 105:94 aspect, ideally 1680x1504 (at least 1260x1128). Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914-1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, magenta, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A French Schneider CA1 tank: a tall box-like riveted armoured hull on a short Holt tractor track chassis, a pointed boat-like wire-cutter prow projecting at the front, a short stubby 75 mm gun in a small sponson on the hull's right front side. No turret. Three-quarter view from the vehicle's right front, the prow pointing to the right of the picture, so the gun sponson faces the viewer; crossing a field of broken barbed-wire entanglements, muted French horizon-blue-grey paint toned down to the sepia palette.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "EC_schneider"
+          ],
+          "delta": "The scene above."
+        }
+      ],
+      "edges": "",
+      "post": "Selected source: pca1-01 of gen-2026-11-10, exec-6f1ab71d, 1326x1187. The prompt followed the `art/style.md` Preamble and Portraits text, with\n`art/portraits/mark-iv/portrait.png` attached for palette, brushwork, sky and light only.\n`art-review -portrait art/pipeline/portrait-schneider-ca1-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/schneider-ca1`. Promote into `assets/portraits/schneider-ca1/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/schneider-ca1/portrait-4x.png"
         ]
       }
     },
@@ -4208,6 +4566,57 @@
       }
     },
     {
+      "id": "portraits/stormtroopers",
+      "title": "Stormtroopers",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_stormtroopers"
+      ],
+      "dir": "art/portraits/stormtroopers",
+      "assets_dir": "assets/portraits/stormtroopers",
+      "prompt": "art/portraits/stormtroopers/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/stormtroopers/portrait.png",
+          "sha256": "003a4f966f9abb981b55e04116ddb4fcd34154c18336914c946f97e60d3cbc76",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: three German assault troops with stick grenades, a carbine and a light machine gun at a trench edge,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: three German assault troops in coal-scuttle steel helmets crouching ready to advance from a shell-scarred trench edge: grenade bags across their chests, stick grenades in their belts, the front man holding a stick grenade, one with a short carbine, one with a light machine gun on a bipod; men in the lower two thirds facing left; no explosions, no muzzle flash, no casualties; broad, pale, cloudy ochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork and selective detail. Fully opaque full-bleed LANDSCAPE illustration at 105:94 (slightly wider than tall), at least 1260x1128, preferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene naturally to all edges. Owner-neutral: no magenta, no national colours, no faction tint, no insignia or flags.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_stormtroopers"
+          ],
+          "delta": "The scene above; the CP side only."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-stormtroopers-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/stormtroopers`. Promote into `assets/portraits/stormtroopers/` and re-index.\n\nThe portrait is imagegen output `exec-c78d13e3` (2026-11-10, try 1), 1326x1187 RGB. Its prompt was the `art/style.md` Preamble and Portraits text, then the base prompt above; no attachments.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties",
+        "explosions"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/stormtroopers/portrait-4x.png"
+        ]
+      }
+    },
+    {
       "id": "portraits/submarine",
       "title": "Submarine",
       "kind": "portrait",
@@ -4520,6 +4929,111 @@
       }
     },
     {
+      "id": "portraits/trench-mortar",
+      "title": "Trench mortar",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_trenchMortar",
+        "EC_trenchMortar"
+      ],
+      "dir": "art/portraits/trench-mortar",
+      "assets_dir": "assets/portraits/trench-mortar",
+      "prompt": "art/portraits/trench-mortar/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/trench-mortar/portrait.png",
+          "sha256": "da592e2cef788a32df79c4b2f1a0787a477001756c8b7c42bd6aa5ea0364f0db",
+          "width": 1327,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a light trench mortar on a baseplate and bipod with two helmeted crewmen in a sandbagged pit,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a WWI trench mortar emplacement in a shallow sandbagged pit seen from the side three-quarter: a short stubby mortar tube on a square baseplate and thin bipod, angled steeply up to the upper left, at the centre; two crewmen in steel helmets and greatcoats kneeling beside it, the one on the right holding a finned bomb ready above the muzzle, a small stack of bombs at lower right; trench parapet and a few bare stakes behind; broad, pale, cloudy\nochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork\nand selective detail. Fully opaque full-bleed landscape illustration at 105:94, at least 1260x1128,\npreferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene\nnaturally to all edges. No national colours, flags, insignia, magenta or faction tint; no frame, bevel, UI, text or numbers; no muzzle flash, explosions or casualties.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_trenchMortar",
+            "EC_trenchMortar"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-trench-mortar-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/trench-mortar`. Promote into `assets/portraits/trench-mortar/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/trench-mortar/portrait-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "portraits/tunnellers",
+      "title": "Tunnellers",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_tunnellers",
+        "EC_tunnellers"
+      ],
+      "dir": "art/portraits/tunnellers",
+      "assets_dir": "assets/portraits/tunnellers",
+      "prompt": "art/portraits/tunnellers/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/tunnellers/portrait.png",
+          "sha256": "4cdffe618012b3b6994f39cc99a410537445910494c06d1036167ed4dc18027d",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: two tunnelling miners at a timbered shaft head with a windlass,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a tunnelling party at a timbered shaft head behind the lines: a square frame of heavy timbers around a dark shaft opening with a wooden windlass and a rope going down, one miner in a cloth cap with rolled sleeves leaning on a pick, another carrying a sandbag on his shoulder, a pile of filled sandbags and spoil beside the shaft; the shaft head and miners in the lower middle; no explosion; broad, pale, cloudy ochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork and selective detail. Fully opaque full-bleed LANDSCAPE illustration at 105:94 (slightly wider than tall), at least 1260x1128, preferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene naturally to all edges. Owner-neutral: no magenta, no national colours, no faction tint, no insignia or flags.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_tunnellers",
+            "EC_tunnellers"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -portrait art/pipeline/portrait-tunnellers-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/tunnellers`. Promote into `assets/portraits/tunnellers/` and re-index.\n\nThe portrait is imagegen output `exec-666d34f5` (2026-11-10, try 1), 1326x1187 RGB. Its prompt was the `art/style.md` Preamble and Portraits text, then the base prompt above; no attachments.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties",
+        "explosions or mine craters"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/tunnellers/portrait-4x.png"
+        ]
+      }
+    },
+    {
       "id": "portraits/voisin-iii",
       "title": "Voisin III (LA)",
       "kind": "portrait",
@@ -4566,6 +5080,109 @@
         ],
         "samples": [
           "assets/portraits/voisin-iii/portrait-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "portraits/whippet",
+      "title": "Medium Mark A Whippet",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "EC_whippet"
+      ],
+      "dir": "art/portraits/whippet",
+      "assets_dir": "assets/portraits/whippet",
+      "prompt": "art/portraits/whippet/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/whippet/portrait.png",
+          "sha256": "3d45b04661e8029463d1f4b9c3adca3a3a22c4ca13ae010e80f830c0be444b02",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a Whippet medium tank, low hull with its tall machine-gun cab at the rear, on a muddy rural track in subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, LANDSCAPE 105:94 aspect, ideally 1680x1504 (at least 1260x1128). Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914-1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, magenta, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A British Medium Mark A Whippet tank: a low, long hull with tracks running straight along the sides (not rhomboid), a long low engine deck at the front and a tall fixed boxy armoured fighting compartment at the rear with small machine-gun ports. No turret. Left-facing three-quarter view, the engine end leading, driving along a muddy rural track past a broken hedge.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "EC_whippet"
+          ],
+          "delta": "The scene above."
+        }
+      ],
+      "edges": "",
+      "post": "Selected source: pwhip-01 of gen-2026-11-10, exec-500b7f3e, 1326x1187. The prompt followed the `art/style.md` Preamble and Portraits text, with\n`art/portraits/mark-iv/portrait.png` attached for palette, brushwork, sky and light only.\n`art-review -portrait art/pipeline/portrait-whippet-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/whippet`. Promote into `assets/portraits/whippet/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/whippet/portrait-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "portraits/wiring-party",
+      "title": "Wiring party",
+      "kind": "portrait",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_wiring",
+        "EC_wiring"
+      ],
+      "dir": "art/portraits/wiring-party",
+      "assets_dir": "assets/portraits/wiring-party",
+      "prompt": "art/portraits/wiring-party/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/wiring-party/portrait.png",
+          "sha256": "443d0931f396c2eba4d104a171701acc5dde4c9083957253a75932694a46b3cf",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: two soldiers carrying a barbed-wire coil on a\npole and a bundle of screw pickets across a cratered field, in subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, LANDSCAPE 105:94 aspect, ideally 1680x1504 (at least 1260x1128). Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914-1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, magenta, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A two-man WWI wiring party in pale daylight: two soldiers in drab greatcoats and soft caps, thick leather gauntlets, carrying a big round coil of barbed wire hung from a wooden pole on their shoulders between them, the rear man with a bundle of corkscrew iron screw pickets under his arm; no rifles. Three-quarter view, the men walking left across a cratered field towards a line of half-finished wire entanglements on screw pickets.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [
+            "CP_wiring",
+            "EC_wiring"
+          ],
+          "delta": "The scene above; one image serves both sides."
+        }
+      ],
+      "edges": "",
+      "post": "Selected source: pwire-01 of gen-2026-11-10, exec-de765e9a, 1326x1187. The prompt followed the `art/style.md`\nPreamble and Portraits text, with `art/portraits/sappers/portrait.png` attached for palette, brushwork, sky and\nlight only. `art-review -portrait art/pipeline/portrait-wiring-party-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/wiring-party`. Promote into `assets/portraits/wiring-party/` and re-index.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels or UI",
+        "photographic skin and fabric texture",
+        "action spectacle, muzzle flash or casualties",
+        "rifles or other weapons"
+      ],
+      "runtime": {
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/wiring-party/portrait-4x.png"
         ]
       }
     },
@@ -13748,6 +14365,87 @@
       }
     },
     {
+      "id": "units/airship",
+      "title": "Zeppelin airship",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_zeppelin"
+      ],
+      "dir": "art/units/airship",
+      "assets_dir": "assets/units/airship",
+      "prompt": "art/units/airship/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/airship/atlas.png",
+          "sha256": "4e0d6ebe0942bb4768c345cf9370a98129b77fba640b5593e5f70db8f12e433e",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "A WWI rigid Zeppelin airship flying high: a slender silver-grey doped-fabric hull with a rounded nose, cruciform tail fins and two engine gondolas. It flies on a 96x96 logical sprite above the hex centre with no ground; the owner colour is a broad band behind the nose and the four fins, the rest stays natural silver. The master is a layout-corrected (20 % smaller) edit of the generated atlas.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas of six elevated overhead painted views of the same unit.\nSUBJECT in every cell: one WWI rigid Zeppelin airship flying high: a long cigar-shaped hull of silver-grey doped fabric with faint longitudinal girder lines and ring frames, a rounded blunt NOSE, a tapered tail with four cruciform tail fins (two horizontal, two vertical, each with a rudder or elevator), and two small engine gondolas slung under the hull, one forward and one aft, each with a small propeller. FRONT = the rounded nose; the cruciform fins are at the rear. The hull length is at most 290 px so that on the diagonals NW, SW, SE, NE the airship, lying along the cell diagonal, still fits the 320x320 box with 80 px clear to every cell edge; the hull is level in the world, never tilted up like a balloon. It flies: nothing below it, no ground, no shadow, no clouds. Owner tint: saturated, naturally shaded MAGENTA only on one broad painted band around the hull behind the nose and on the four tail fins; the rest of the hull natural doped silver-grey fabric, gondolas natural grey metal and dark wood propellers. No crew figures, no bombs falling, no searchlights.\nCORRECTION: the previous try had all six headings right but the airships were too large (up to 424 px long, only 37 px from the cell edge), too fat (hull length only about 3 times its diameter, like a blimp) and the owner paint was a dull rose pink. Now: a SLENDER rigid Zeppelin, hull length about 7 times its diameter, with a long parallel-sided middle section; each whole airship including fins, gondolas and propellers at most 300 px long and inside a 300x300 box centred on (256,261), at least 100 px clear to every cell edge (N and S views at most 300 px tall). Owner band and fins in saturated, naturally shaded pure MAGENTA (lit about RGB 215,40,200, shaded about RGB 120,10,115), not pink or rose. Every pixel outside the airship exactly alpha 0, no faint veil (the previous try had alpha 1-31 haze over 37 percent of the canvas). Keep the same six headings.\nSECOND CORRECTION: the second try fixed the shape and colour (keep exactly that slender hull, magenta band and fins) but the airships still measured up to 356 px wide and 349 px tall, only 66 px from the cell edge, and the empty canvas still carried faint alpha 1-31 haze over 27 percent of its area. Paint each airship at about 78 percent of that size: hull plus fins at most 270 px long, inside a 270x270 box centred on (256,261), at least 120 px of exactly alpha 0 space to every cell edge. The background must be perfectly clear: alpha exactly 0 everywhere outside the airship, no soft atmospheric veil, glow, cloud wisp or speckle.\n\nLAYOUT CORRECTION TO THE PROVIDED ATLAS: keep exactly the same airship design, the same six headings, the same painting and the same magenta band and fins, but make ALL SIX airships uniformly 20 percent SMALLER around their cell pivots (256,261). Each whole airship including fins, gondolas and propellers must fit a 290x290 box centred on (256,261) of its own cell (the previous atlas measured 370 px tall in the N cell and up to 350 px wide on the diagonals), with at least 110 completely transparent pixels between every extremity and each cell edge. Output an EXACT 1024x1536 RGBA canvas with genuine alpha transparency: alpha exactly 0 outside the six airships, no ground, shadow, cloud, haze, glow, backdrop, checkerboard, frame or visible grid. Exactly six clean, disconnected airships, one per cell; no text, numbers, insignia or flags.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (the rounded nose, with the cruciform fins at the rear) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (the rounded nose, with the cruciform fins at the rear) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (the rounded nose, with the cruciform fins at the rear) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (the rounded nose, with the cruciform fins at the rear) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (the rounded nose, with the cruciform fins at the rear) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (the rounded nose, with the cruciform fins at the rear) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-airship-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/airship/<palette>/<facing>-<state>`. Promote into `assets/units/airship/` and re-index.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood or horses",
+        "national insignia, flags or text",
+        "a stubby blimp hull or a hull tilted up like a balloon",
+        "clouds, searchlights or falling bombs"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/airship/cp/n-normal-4x.png",
+          "assets/units/airship/cp/nw-normal-4x.png",
+          "assets/units/airship/cp/sw-normal-4x.png",
+          "assets/units/airship/cp/s-normal-4x.png",
+          "assets/units/airship/cp/se-normal-4x.png",
+          "assets/units/airship/cp/ne-normal-4x.png",
+          "assets/units/airship/ec/n-normal-4x.png",
+          "assets/units/airship/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/albatros-d-iii",
       "title": "Albatros D.III",
       "kind": "unit",
@@ -14865,6 +15563,170 @@
       }
     },
     {
+      "id": "units/field-ambulance",
+      "title": "Field ambulance",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_ambulance",
+        "EC_ambulance"
+      ],
+      "dir": "art/units/field-ambulance",
+      "assets_dir": "assets/units/field-ambulance",
+      "prompt": "art/units/field-ambulance/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/field-ambulance/atlas.png",
+          "sha256": "1d4e157d998df738aeb7e7208274a96d5662ec1035f445edebe3dc89c4a977ae",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "A WWI motor field ambulance: a light truck chassis with an open cab and a tall canvas-covered body. It stands on a 96x96 logical sprite above the hex centre and must read at 48 pixels on any terrain, with the owner colour on the canvas body only; the small red crosses on white squares stay pure red. The master is a layout-corrected (25 % smaller) edit of the generated atlas.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas of six elevated overhead painted views of the same unit.\nSUBJECT in every cell: one WWI motor field ambulance: a light truck chassis with an open-sided driver's cab under a small roof, a short bonnet with radiator at the front, and behind the cab a tall boxy canvas-covered ambulance body (a canvas tilt stretched over hoops, rear flaps closed), four thin spoked wheels with dark tyres. FRONT = the radiator and bonnet end. The vehicle is about 290 px long and fits the 320x320 box on every heading including the diagonals. Saturated, naturally shaded MAGENTA only on the canvas body/tilt (owner tint mask); bonnet, cab, chassis, mudguards and wheels natural dark olive-grey painted steel and wood, tyres dark. On each long side of the canvas body one small red cross on a small white square (pure red RGB about 200,30,30, never magenta), and the same on the rear flap if visible; nothing else on the canvas. No driver figure sticking out, no text, no numbers, no other markings.\nSIZE AND ALPHA CORRECTION: two previous tries had all six headings right but the vehicles stayed too large: 415x426 px, then still 350 px wide and 364 px tall (only 64 px from the top edge in the S cell) although 310 was asked. Paint every ambulance at about 75 percent of that last size: each whole vehicle including mudguards, lamps, roof and wheels about 260 px wide and 270 px tall (never more than 290), centred on (256,261), with at least 110 px of empty transparent space to every cell edge. Keep the same design, the same small red crosses and the same six headings. Every pixel outside the vehicle exactly alpha 0, no faint veil or speckle (the last try had alpha 1-31 haze over 10 percent of the canvas).\n\nLAYOUT CORRECTION TO THE PROVIDED ATLAS: keep exactly the same vehicle design, the same six headings, the same painting, the same magenta canvas and the same small red crosses, but make ALL SIX ambulances uniformly 25 percent SMALLER around their cell pivots (256,261). Each vehicle including mudguards, lamps, roof and wheels must fit a 280x280 box centred on (256,261) of its own cell (the previous atlas measured up to 359 px wide and 364 px tall), with at least 110 completely transparent pixels between every extremity and each cell edge. Output an EXACT 1024x1536 RGBA canvas with genuine alpha transparency: alpha exactly 0 outside the six vehicles, no ground, shadow, haze, glow, backdrop, checkerboard, frame or visible grid. Exactly six clean, disconnected vehicles, one per cell; no text, numbers or other markings.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (the radiator and bonnet end) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (the radiator and bonnet end) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (the radiator and bonnet end) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (the radiator and bonnet end) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (the radiator and bonnet end) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (the radiator and bonnet end) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-field-ambulance-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/field-ambulance/<palette>/<facing>-<state>`. Promote into `assets/units/field-ambulance/` and re-index.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood or horses",
+        "national insignia, flags or text",
+        "magenta crosses or magenta on the cab, bonnet or chassis",
+        "text, numbers or other markings",
+        "driver figures sticking out"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/field-ambulance/cp/n-normal-4x.png",
+          "assets/units/field-ambulance/cp/nw-normal-4x.png",
+          "assets/units/field-ambulance/cp/sw-normal-4x.png",
+          "assets/units/field-ambulance/cp/s-normal-4x.png",
+          "assets/units/field-ambulance/cp/se-normal-4x.png",
+          "assets/units/field-ambulance/cp/ne-normal-4x.png",
+          "assets/units/field-ambulance/ec/n-normal-4x.png",
+          "assets/units/field-ambulance/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/flamethrower",
+      "title": "Flamethrower",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_flamethrower",
+        "EC_flamethrower"
+      ],
+      "dir": "art/units/flamethrower",
+      "assets_dir": "assets/units/flamethrower",
+      "prompt": "art/units/flamethrower/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/flamethrower/atlas.png",
+          "sha256": "9727b81aae8c35fbb1d30fecd71f469acbe4302deffcb3a861965d65f9febaab",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "A two-man flamethrower team: one carries a backpack of two round fuel cylinders, the other aims the long lance; unlit, no flame. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
+      "base_prompt": "LAYOUT: EXACT 1024x1536 PORTRAIT transparent RGBA canvas, TWO columns by THREE rows of 512x512 cells, invisible grid, no gutters. Six independently painted views of exactly the same group, one per cell, identical people, equipment and scale. Pivot at (256,261) in each cell; each whole group, including every tool, hose, helmet and boot, fits inside a maximum 270x270 box centred on the pivot, at least 120 completely transparent pixels between all extremities and every cell edge. Exactly six clean, disconnected groups, one per cell, nothing crossing into a neighbouring cell, no stray fragments.\nCRITICAL DIRECTION ORDER (the FRONT is where the men face and work): top LEFT = NORTH, front points UP away from the viewer, backs of the men nearest the viewer; top RIGHT = NORTHWEST, front points to the upper LEFT, rear right quarter nearest the viewer; middle LEFT = SOUTHWEST, front points to the lower LEFT towards the viewer, front left quarter visible; middle RIGHT = SOUTH, front points DOWN towards the viewer, faces visible; bottom LEFT = SOUTHEAST, front points to the lower RIGHT towards the viewer, front right quarter visible; bottom RIGHT = NORTHEAST, front points to the upper RIGHT away, rear left quarter nearest the viewer. True separate orientations of one 3D group seen from one fixed elevated camera, never rotated or mirrored flat images.\nCOLOUR: saturated, naturally shaded MAGENTA (lit about RGB 225,40,185, shaded about 120,15,95) ONLY on the uniform tunics and trousers, as a technical owner colour; helmets, gas masks, skin, boots, puttees, belts, leather, wood, canvas and all metal stay natural dull colours (grey steel, brown leather, khaki canvas). Chunky, crisp, high-contrast silhouette that reads at 48 px. No national insignia, symbols, flags, letters or numbers.\nGenuine alpha TRANSPARENCY outside the figures and between limbs. Absolutely NO ground, earth patch, grass, contact shadow, glow, haze, vignette, colour wash, checkerboard, frame or visible grid. Six isolated cut-out groups only; game-ready sprites, not a presentation illustration.\n\nSUBJECT in every cell: a WWI flamethrower team of exactly TWO men in steel helmets: the rear man carries on his back a large backpack fuel tank made of TWO round upright steel cylinders side by side on a carrying frame, a dark flexible hose runs from the tanks to the front man; the front man crouches forward aiming a long straight metal lance (about one man-height long) with both hands, its nozzle pointing forward towards the heading. The lance is UNLIT: no flame, no fire, no sparks, no smoke, no glow at the nozzle. No rifles.\nSIZE CORRECTION: keep this exact design, but the previous try drew every group far too large: 347-376 px wide on the diagonal views and 415-446 px TALL on the N and S views (the lance and the two men stacked in a long vertical line). Draw ALL SIX groups about 30 percent SMALLER: each group (both men, the tanks and the whole lance) at most 270 px wide and at most 270 px tall. On the N and S views place the two men side by side, slightly offset, rather than one behind the other, so the group is not a tall column; keep the lance short enough to stay inside the 270 px box. Same scale in all six cells.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (where the lance nozzle and both men point) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (where the lance nozzle and both men point) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (where the lance nozzle and both men point) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (where the lance nozzle and both men point) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (where the lance nozzle and both men point) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (where the lance nozzle and both men point) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-flamethrower-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/flamethrower/<palette>/<facing>-<state>`. Promote into `assets/units/flamethrower/` and re-index.\n\nThe atlas is imagegen output `exec-0467f5d9` (2026-11-10, try 2), 1024x1536 RGBA, per-cell boxes 217-319 x 280-346 px (N 346 px tall with the raised lance), groups about 30 px below the pivot, alpha haze 6 %. Its prompt was the `art/style.md` Preamble and Units text, then the base prompt above; no attachments.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood or the fuel tanks",
+        "national insignia, flags or text",
+        "flame, fire, smoke or a glowing nozzle; rifles"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/flamethrower/cp/n-normal-4x.png",
+          "assets/units/flamethrower/cp/nw-normal-4x.png",
+          "assets/units/flamethrower/cp/sw-normal-4x.png",
+          "assets/units/flamethrower/cp/s-normal-4x.png",
+          "assets/units/flamethrower/cp/se-normal-4x.png",
+          "assets/units/flamethrower/cp/ne-normal-4x.png",
+          "assets/units/flamethrower/ec/n-normal-4x.png",
+          "assets/units/flamethrower/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/fokker-d-vii",
       "title": "Fokker D.VII",
       "kind": "unit",
@@ -15169,6 +16031,87 @@
           "assets/units/fokker-e-iii/cp/ne-normal-4x.png",
           "assets/units/fokker-e-iii/ec/n-normal-4x.png",
           "assets/units/fokker-e-iii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/gas-pioneers",
+      "title": "Gas pioneers",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_gasPioneers",
+        "EC_gasPioneers"
+      ],
+      "dir": "art/units/gas-pioneers",
+      "assets_dir": "assets/units/gas-pioneers",
+      "prompt": "art/units/gas-pioneers/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/gas-pioneers/atlas.png",
+          "sha256": "497ebd6fd859e5722cf46e0c1fd5a36e4c2e9bc36347dc4d0c993c8a9edcb419",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Two gas pioneers in steel helmets and snout respirators kneeling behind a row of four upright gas cylinders with a hose; no rifles, no visible cloud. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
+      "base_prompt": "LAYOUT: EXACT 1024x1536 PORTRAIT transparent RGBA canvas, TWO columns by THREE rows of 512x512 cells, invisible grid, no gutters. Six independently painted views of exactly the same group, one per cell, identical people, equipment and scale. Pivot at (256,261) in each cell; each whole group, including every tool, hose, helmet and boot, fits inside a maximum 260x260 box centred on the pivot, at least 126 completely transparent pixels between all extremities and every cell edge. Exactly six clean, disconnected groups, one per cell, nothing crossing into a neighbouring cell, no stray fragments.\nCRITICAL DIRECTION ORDER (the FRONT is where the men face and work): top LEFT = NORTH, front points UP away from the viewer, backs of the men nearest the viewer; top RIGHT = NORTHWEST, front points to the upper LEFT, rear right quarter nearest the viewer; middle LEFT = SOUTHWEST, front points to the lower LEFT towards the viewer, front left quarter visible; middle RIGHT = SOUTH, front points DOWN towards the viewer, faces visible; bottom LEFT = SOUTHEAST, front points to the lower RIGHT towards the viewer, front right quarter visible; bottom RIGHT = NORTHEAST, front points to the upper RIGHT away, rear left quarter nearest the viewer. True separate orientations of one 3D group seen from one fixed elevated camera, never rotated or mirrored flat images.\nCOLOUR: saturated, naturally shaded MAGENTA (lit about RGB 225,40,185, shaded about 120,15,95) ONLY on the uniform tunics and trousers, as a technical owner colour; helmets, gas masks, skin, boots, puttees, belts, leather, wood, canvas and all metal stay natural dull colours (grey steel, brown leather, khaki canvas). Chunky, crisp, high-contrast silhouette that reads at 48 px. No national insignia, symbols, flags, letters or numbers.\nGenuine alpha TRANSPARENCY outside the figures and between limbs. Absolutely NO ground, earth patch, grass, contact shadow, glow, haze, vignette, colour wash, checkerboard, frame or visible grid. Six isolated cut-out groups only; game-ready sprites, not a presentation illustration.\n\nSUBJECT in every cell: a WWI gas-pioneer team: exactly TWO men in steel helmets wearing gas masks with round eyepieces and a short snout filter (respirator), kneeling side by side behind a short row of exactly FOUR upright tall steel gas cylinders (dark grey-green, rounded tops, valve caps) that stand close together in a line across the front of the men; a dark rubber hose runs from one cylinder valve forward over the front. One man works a cylinder valve with a spanner, the other holds the hose end. No rifles, no weapons, no visible gas cloud, no smoke, no sandbags, no trench.\nSIZE: keep this exact design and these six headings, but the previous try still drew every group too large, 325-373 px wide and 337-366 px tall per cell. Draw ALL SIX groups about 30 percent SMALLER: each group (both men and all four cylinders) about 230-250 px wide and at most 250 px tall, so that well over half of each cell stays empty transparent space around it. The cylinders are about as tall as a kneeling man, not taller. Same scale in all six cells.\nPLACEMENT RULE FOR THE HEADINGS: the row of cylinders always lies on the heading side of the two men, the men kneel behind it facing the heading. N cell: cylinders at the TOP, men below them showing their backs. NW cell: cylinder row at the UPPER LEFT running diagonally, men at the LOWER RIGHT of it, backs and right shoulders visible. SW cell: cylinder row at the LOWER LEFT, men above-right of it, masks turned to the lower left. S cell: cylinders at the BOTTOM, men behind them, masks facing the viewer. SE cell: cylinder row at the LOWER RIGHT, men above-left of it, masks turned to the lower right. NE cell: cylinder row at the UPPER RIGHT, men at the LOWER LEFT of it, backs and left shoulders visible. The previous try painted the NW cell as a near copy of the N cell; every cell must be a clearly different view.\nALPHA: an earlier try left a faint semi-transparent haze (about 21 percent of the canvas at alpha 1-31) around the figures; every pixel outside the figures must be exactly alpha zero.\nImage 1 is the previous try (the same atlas layout): keep its design, its six headings and its rendering exactly, but paint all six groups about 30 percent smaller around their cell pivots; do not copy its size.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (where the two pioneers face and the cylinder row stands) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (where the two pioneers face and the cylinder row stands) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (where the two pioneers face and the cylinder row stands) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (where the two pioneers face and the cylinder row stands) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (where the two pioneers face and the cylinder row stands) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (where the two pioneers face and the cylinder row stands) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-gas-pioneers-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/gas-pioneers/<palette>/<facing>-<state>`. Promote into `assets/units/gas-pioneers/` and re-index.\n\nThe atlas is imagegen output `exec-688b6afa` (2026-11-10, try 4 of 4), 1024x1536 RGBA, per-cell boxes 252-287 x 255-275 px, alpha haze 5.5 % (threshold when cutting). Its prompt was the `art/style.md` Preamble and Units text, then the base prompt above, with try 3 (`exec-465901fb`, the same design drawn 1.35x too large) attached as image 1.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood, gas masks or cylinders",
+        "national insignia, flags or text",
+        "rifles, a visible gas cloud or smoke"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/gas-pioneers/cp/n-normal-4x.png",
+          "assets/units/gas-pioneers/cp/nw-normal-4x.png",
+          "assets/units/gas-pioneers/cp/sw-normal-4x.png",
+          "assets/units/gas-pioneers/cp/s-normal-4x.png",
+          "assets/units/gas-pioneers/cp/se-normal-4x.png",
+          "assets/units/gas-pioneers/cp/ne-normal-4x.png",
+          "assets/units/gas-pioneers/ec/n-normal-4x.png",
+          "assets/units/gas-pioneers/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -16197,6 +17140,84 @@
       }
     },
     {
+      "id": "units/mark-v",
+      "title": "Mark V tank",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "EC_markV"
+      ],
+      "dir": "art/units/mark-v",
+      "assets_dir": "assets/units/mark-v",
+      "prompt": "art/units/mark-v/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/mark-v/atlas.png",
+          "sha256": "e5f0303a04fe9482e2e7014a5fba7b395c2e8e9a9d070c0d7255fadea8db4701",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI heavy tank: Mark IV-like rhomboid tracks and sponsons, told apart by the raised rear cupola, the unditching-beam rails along the track tops and the timber beam at the rear.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, PORTRAIT orientation, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same Mark V vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: British Mark V male heavy WWI tank: long RHOMBOID wraparound track assemblies on both sides, high pointed curved track noses, two angular side sponsons each with a short 6-pounder gun, NO turret and NO rear steering wheels. Forward driver cab with two frontal slit windows identifies the nose. Distinct Mark V features: a RAISED boxy observation CUPOLA/cab on the roof near the REAR, clearly standing up above the roof line, and TWO long parallel UNDITCHING-BEAM RAILS running lengthwise along the top of both track frames from front to back, with a heavy dark wooden unditching beam (a square timber) lying across the rails at the rear. Rear: the raised cupola and beam always opposite the nose. Magenta hull, sponsons, cab and cupola; natural dark steel tracks, rails and guns, natural dark timber beam.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.\nSIZE AND MARGINS: each individual tank including every track end and gun barrel must fit into a maximum 320x320 box centred on (256,261) in its own 512x512 cell. At least 80 completely transparent pixels between ALL extremities and each of the cell's four edges; nothing crosses x=512 or the row lines y=512 and y=1024. Exactly six clean disconnected tank silhouettes, one per cell, no extra fragments anywhere.\nLAYOUT CORRECTION TO THE PROVIDED Mark V ATLAS (image 1): keep exactly the same design, colours, six headings, camera and rendering as image 1, but make ALL SIX tanks uniformly 25 percent SMALLER around their cell centres. Image 1 measured 394-413 px wide and 335-355 px tall, with only 46 px clear to the cell edge in the NW cell; now every tank including every track end and gun barrel must fit into a maximum 320x320 box centred on (256,261) in its 512x512 cell, with at least 90 completely transparent pixels to all four cell edges. Exactly six clean disconnected silhouettes. Strictly transparent background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas (umk5-02 of gen-2026-11-10, exec-6bb3b847, 1024x1536). The prompt followed the `art/style.md` Preamble and Units text; image 1 was the\nprevious try at full size. `art-review -unit art/pipeline/unit-mark-v-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-v/`. Bound classes are listed above; final visual acceptance remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "a plain Mark IV without the rear cupola, the rails or the beam",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/mark-v/cp/n-normal-4x.png",
+          "assets/units/mark-v/cp/nw-normal-4x.png",
+          "assets/units/mark-v/cp/sw-normal-4x.png",
+          "assets/units/mark-v/cp/s-normal-4x.png",
+          "assets/units/mark-v/cp/se-normal-4x.png",
+          "assets/units/mark-v/cp/ne-normal-4x.png",
+          "assets/units/mark-v/ec/n-normal-4x.png",
+          "assets/units/mark-v/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/medium-artillery",
       "title": "Medium artillery",
       "kind": "unit",
@@ -16510,6 +17531,87 @@
       }
     },
     {
+      "id": "units/paris-gun",
+      "title": "Paris Gun",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_parisGun"
+      ],
+      "dir": "art/units/paris-gun",
+      "assets_dir": "assets/units/paris-gun",
+      "prompt": "art/units/paris-gun/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/paris-gun/atlas.png",
+          "sha256": "77ab5a9a6496f82ba2ed018c99ace465165350dab6bf8ddbac78244c09b3e488",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "The Paris Gun: an extremely long, slender, braced barrel on a heavy multi-bogie railway carriage on a short rail stretch, drawn compact so that the whole gun stays inside the central 65 percent of the cell on the diagonals too. It stands on a 96x96 logical sprite above the hex centre, with the owner colour on the carriage paint. The master is a layout-corrected (20 % smaller) edit of the generated atlas.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas of six elevated overhead painted views of the same unit.\nSUBJECT in every cell: the WWI Paris Gun: an extremely long, very slender steel gun barrel, braced along its upper side by a thin truss of tension rods, raised at a modest angle on a heavy box-girder railway carriage with two multi-axle rail bogies (many small steel rail wheels), the whole carriage standing on a short straight stretch of standard railway track (two steel rails on wooden sleepers) that is only as long as the carriage. FRONT = the muzzle end of the barrel; the breech sits over the carriage. The barrel is clearly far longer than the carriage, but the whole gun must stay compact: total length of barrel plus carriage plus rails at most 300 px measured along the gun, so it fits the 320x320 box on every heading including the diagonals NW, SW, SE, NE; on the diagonals the gun lies along the cell diagonal and never reaches closer than 80 px to any cell edge. Saturated, naturally shaded MAGENTA only on the carriage girders and gun cradle paint (owner tint mask); barrel natural dark blued steel, bracing rods dark steel, rail wheels and rails natural steel, sleepers natural brown wood. No crew, no smoke, no muzzle flash, no locomotive, no ground beyond the sleepers.\nCORRECTION: the previous try had all six headings right and a fine design, but it painted the guns far too large: up to 453 px wide and 450 px tall, only 35 px from the cell edge. Paint every gun about 35 percent SMALLER around the pivot (256,261): each whole gun including the muzzle tip, railings and the rail stretch must fit inside a 300x300 box centred on (256,261), at least 100 px clear to every cell edge; in the N and S cells the gun is at most 300 px tall, on the diagonals at most 300 px wide and 300 px tall. Keep the barrel clearly about twice as long as the carriage. The carriage paint was a dull raspberry; make it saturated, naturally shaded pure MAGENTA (lit about RGB 215,40,200, shaded about RGB 120,10,115). Every pixel outside the gun exactly alpha 0, no faint veil (the previous try had alpha 1-31 haze over 33 percent of the canvas).\n\nLAYOUT CORRECTION TO THE PROVIDED ATLAS: keep exactly the same gun design, the same six headings, the same painting and the same magenta carriage, but make ALL SIX guns uniformly 20 percent SMALLER around their cell pivots (256,261). Each whole gun including the muzzle tip, railings and the rail stretch must fit a 290x290 box centred on (256,261) of its own cell (the previous atlas measured up to 366 px wide in the SW cell and 362 px tall in the N cell), with at least 110 completely transparent pixels between every extremity and each cell edge. Output an EXACT 1024x1536 RGBA canvas with genuine alpha transparency: alpha exactly 0 outside the six guns, no ground beyond the sleepers, no shadow, haze, glow, backdrop, checkerboard, frame or visible grid. Exactly six clean, disconnected guns, one per cell; no text, numbers, insignia or flags.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (the muzzle end of the barrel) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (the muzzle end of the barrel) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (the muzzle end of the barrel) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (the muzzle end of the barrel) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (the muzzle end of the barrel) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (the muzzle end of the barrel) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-paris-gun-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/paris-gun/<palette>/<facing>-<state>`. Promote into `assets/units/paris-gun/` and re-index.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood or horses",
+        "national insignia, flags or text",
+        "crew, smoke, muzzle flash or a locomotive",
+        "a barrel reaching beyond the central 65 percent of the cell"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/paris-gun/cp/n-normal-4x.png",
+          "assets/units/paris-gun/cp/nw-normal-4x.png",
+          "assets/units/paris-gun/cp/sw-normal-4x.png",
+          "assets/units/paris-gun/cp/s-normal-4x.png",
+          "assets/units/paris-gun/cp/se-normal-4x.png",
+          "assets/units/paris-gun/cp/ne-normal-4x.png",
+          "assets/units/paris-gun/ec/n-normal-4x.png",
+          "assets/units/paris-gun/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/patrol-boat",
       "title": "Patrol boat",
       "kind": "unit",
@@ -16746,6 +17848,84 @@
           "assets/units/sappers/cp/ne-normal-4x.png",
           "assets/units/sappers/ec/n-normal-4x.png",
           "assets/units/sappers/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/schneider-ca1",
+      "title": "Schneider CA1 tank",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "EC_schneider"
+      ],
+      "dir": "art/units/schneider-ca1",
+      "assets_dir": "assets/units/schneider-ca1",
+      "prompt": "art/units/schneider-ca1/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/schneider-ca1/atlas.png",
+          "sha256": "fee28d2f71f8acf03362a1803cf478ff4905e73421a77fc9255979f670bc9005",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same French WWI tank: a tall box hull on short Holt tracks, a pointed wire-cutter prow leading and a short 75 mm gun in a sponson on the vehicle's right front.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, PORTRAIT orientation, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same Schneider CA1 vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: French Schneider CA1 WWI tank: a tall BOX-like riveted armoured hull sitting on a low Holt tractor track chassis whose short tracks are mostly hidden under the hull skirts; at the FRONT a POINTED, boat-like wire-cutter PROW (a sharp wedge with a steel cutting bar) projecting forward low beyond the tracks; a SHORT stubby 75 mm gun in a small rounded sponson on the hull's RIGHT front side (right as seen by the driver, so on the vehicle's starboard side); one small machine-gun mount on each side further back; a flat roof with a small hatch and a low rectangular commander's hump, two small rear doors and short rear tail hooks at the back. NO turret, NO rhomboid tracks. The pointed prow ALWAYS leads toward the heading; the 75 mm gun is ALWAYS on the vehicle's own right side next to the prow (in the N view on the RIGHT side of the hull, in the S view on the LEFT side of the image). Magenta hull, prow plating and sponson; natural dark steel tracks, cutter bar and gun barrel.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.\nSIZE AND MARGINS: each individual tank including every track end and gun barrel must fit into a maximum 320x320 box centred on (256,261) in its own 512x512 cell. At least 80 completely transparent pixels between ALL extremities and each of the cell's four edges; nothing crosses x=512 or the row lines y=512 and y=1024. Exactly six clean disconnected tank silhouettes, one per cell, no extra fragments anywhere.\nLAYOUT CORRECTION TO THE PROVIDED SCHNEIDER CA1 ATLAS (image 1): keep exactly the same design, colours, six headings, gun side, camera and rendering as image 1, but make ALL SIX tanks uniformly 25 percent SMALLER around their cell centres. Image 1 measured 236-380 px wide and 343-406 px tall, with only 51 px clear above the prow in the N cell; now every tank including the prow tip, gun barrel and tow hooks must fit into a maximum 320x320 box centred on (256,261) in its 512x512 cell, with at least 90 completely transparent pixels to all four cell edges. Exactly six clean disconnected silhouettes. Strictly transparent background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas (uca1-02 of gen-2026-11-10, exec-1d330027, 1024x1536). The prompt followed the `art/style.md` Preamble and Units text; image 1 was the\nprevious try at full size. `art-review -unit art/pipeline/unit-schneider-ca1-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/schneider-ca1/`. Bound classes are listed above; final visual acceptance remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "a turret, rhomboid tracks or the 75 mm gun on the left side",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/schneider-ca1/cp/n-normal-4x.png",
+          "assets/units/schneider-ca1/cp/nw-normal-4x.png",
+          "assets/units/schneider-ca1/cp/sw-normal-4x.png",
+          "assets/units/schneider-ca1/cp/s-normal-4x.png",
+          "assets/units/schneider-ca1/cp/se-normal-4x.png",
+          "assets/units/schneider-ca1/cp/ne-normal-4x.png",
+          "assets/units/schneider-ca1/ec/n-normal-4x.png",
+          "assets/units/schneider-ca1/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -17291,6 +18471,86 @@
       }
     },
     {
+      "id": "units/stormtroopers",
+      "title": "Stormtroopers",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_stormtroopers"
+      ],
+      "dir": "art/units/stormtroopers",
+      "assets_dir": "assets/units/stormtroopers",
+      "prompt": "art/units/stormtroopers/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/stormtroopers/atlas.png",
+          "sha256": "cf922f9623ae2b01e301bac0ba917eb204883535e1deee28541618b120b5565e",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Three German assault troops in Stahlhelm with grenade bags, stick grenades, a carbine and a light machine gun, crouching forward to attack. The CP side only, but painted with the magenta owner colour like every unit. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
+      "base_prompt": "LAYOUT: EXACT 1024x1536 PORTRAIT transparent RGBA canvas, TWO columns by THREE rows of 512x512 cells, invisible grid, no gutters. Six independently painted views of exactly the same group, one per cell, identical people, equipment and scale. Pivot at (256,261) in each cell; each whole group, including every tool, hose, helmet and boot, fits inside a maximum 270x270 box centred on the pivot, at least 120 completely transparent pixels between all extremities and every cell edge. Exactly six clean, disconnected groups, one per cell, nothing crossing into a neighbouring cell, no stray fragments.\nCRITICAL DIRECTION ORDER (the FRONT is where the men face and work): top LEFT = NORTH, front points UP away from the viewer, backs of the men nearest the viewer; top RIGHT = NORTHWEST, front points to the upper LEFT, rear right quarter nearest the viewer; middle LEFT = SOUTHWEST, front points to the lower LEFT towards the viewer, front left quarter visible; middle RIGHT = SOUTH, front points DOWN towards the viewer, faces visible; bottom LEFT = SOUTHEAST, front points to the lower RIGHT towards the viewer, front right quarter visible; bottom RIGHT = NORTHEAST, front points to the upper RIGHT away, rear left quarter nearest the viewer. True separate orientations of one 3D group seen from one fixed elevated camera, never rotated or mirrored flat images.\nCOLOUR: saturated, naturally shaded MAGENTA (lit about RGB 225,40,185, shaded about 120,15,95) ONLY on the uniform tunics and trousers, as a technical owner colour; helmets, gas masks, skin, boots, puttees, belts, leather, wood, canvas and all metal stay natural dull colours (grey steel, brown leather, khaki canvas). Chunky, crisp, high-contrast silhouette that reads at 48 px. No national insignia, symbols, flags, letters or numbers.\nGenuine alpha TRANSPARENCY outside the figures and between limbs. Absolutely NO ground, earth patch, grass, contact shadow, glow, haze, vignette, colour wash, checkerboard, frame or visible grid. Six isolated cut-out groups only; game-ready sprites, not a presentation illustration.\n\nSUBJECT in every cell: a WWI German assault squad of exactly THREE men crouching forward together in an attack posture: coal-scuttle steel helmets (Stahlhelm), canvas grenade bags slung across the chest, stick grenades (wooden handle, metal head) tucked in their belts, one carries a short carbine, one holds a stick grenade raised ready to throw, one carries a light machine gun with a bipod and a drum or box magazine. All three lean towards the heading. No national insignia, no explosions, no smoke, no muzzle flash.\nCORRECTIONS TO THE PREVIOUS TRY: keep the same three-man design and headings, but (1) the previous try drew every group far too large, 383-416 px wide and 383-407 px tall per cell: draw ALL SIX groups about 35 percent SMALLER, each group (all three men, the raised grenade, the carbine muzzle and the machine-gun bipod) at most 260 px wide and at most 260 px tall, so that about half of each cell stays empty around it; (2) the tunics were blotchy, mottled crimson-purple like camouflage: paint the tunics and trousers in clean, evenly and smoothly shaded saturated magenta with no blotches or stains; (3) in the SW cell the men must clearly turn to the lower LEFT (their guns and faces pointing to the lower left corner), distinct from the S cell where they face straight down.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (where the three men lean and their weapons point) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (where the three men lean and their weapons point) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (where the three men lean and their weapons point) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (where the three men lean and their weapons point) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (where the three men lean and their weapons point) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (where the three men lean and their weapons point) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-stormtroopers-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/stormtroopers/<palette>/<facing>-<state>`. Promote into `assets/units/stormtroopers/` and re-index.\n\nThe atlas is imagegen output `exec-59ba5ffa` (2026-11-10, try 2), 1024x1536 RGBA, per-cell boxes 286-352 x 302-341 px (about 1.2x the installed foot teams), alpha haze 10 %. Its prompt was the `art/style.md` Preamble and Units text, then the base prompt above; no attachments.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood, helmets or grenade bags",
+        "national insignia, flags or text",
+        "explosions, smoke or muzzle flash"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/stormtroopers/cp/n-normal-4x.png",
+          "assets/units/stormtroopers/cp/nw-normal-4x.png",
+          "assets/units/stormtroopers/cp/sw-normal-4x.png",
+          "assets/units/stormtroopers/cp/s-normal-4x.png",
+          "assets/units/stormtroopers/cp/se-normal-4x.png",
+          "assets/units/stormtroopers/cp/ne-normal-4x.png",
+          "assets/units/stormtroopers/ec/n-normal-4x.png",
+          "assets/units/stormtroopers/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/submarine",
       "title": "Submarine",
       "kind": "unit",
@@ -17771,6 +19031,169 @@
       }
     },
     {
+      "id": "units/trench-mortar",
+      "title": "Trench mortar",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_trenchMortar",
+        "EC_trenchMortar"
+      ],
+      "dir": "art/units/trench-mortar",
+      "assets_dir": "assets/units/trench-mortar",
+      "prompt": "art/units/trench-mortar/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/trench-mortar/atlas.png",
+          "sha256": "1d2212da430addb06af75e4054963ac8b2bc66976651d62c416b1c1c44ffbdfe",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "A light trench mortar team: a short stubby tube on a baseplate and bipod, two kneeling crewmen and a small stack of finned rounds. It stands on a 96x96 logical sprite above the hex centre and must read at 48 pixels on any terrain, with the owner colour clearly on the crew's tunics and trousers. The master is a layout-corrected (25 % smaller) edit of the generated atlas.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas of six elevated overhead painted views of the same unit.\nSUBJECT in every cell: one WWI light trench mortar team: a short, stubby, wide-mouthed steel mortar tube (Stokes mortar or light Minenwerfer type) set steeply angled on a square steel baseplate and a thin bipod, with exactly TWO crewmen kneeling beside it, one on each side of the tube, and a small neat stack of four or five finned practice rounds on the ground just behind the baseplate. FRONT = the direction the mouth of the tilted tube leans and points (the bipod stands on the front side, the baseplate and round stack at the rear). The group is compact, roughly as wide as it is deep, about 240 to 300 px across inside the 320x320 box. Saturated, naturally shaded MAGENTA only on the two crewmen's uniform tunics and trousers (owner tint mask); steel tube, baseplate, bipod and rounds dark natural grey steel, helmets natural grey-green steel, skin, boots and belts natural. No rifles, no smoke, no firing, no sandbags, no ground patch.\nSIZE, DIRECTION AND ALPHA CORRECTION: two previous tries painted each team 340 to 378 px wide and up to 338 px tall although 300 was asked; paint the figures and the mortar HALF their previous size relative to the cell, so each whole team including boots, bipod feet and round stack is about 250 px wide and 250 px tall (at most 270), centred on (256,261), with at least 120 px of empty transparent space to every cell edge. The tube is steeply tilted (about 45 degrees) and its MOUTH clearly leans toward the heading: in the SE cell the mouth and bipod point to the lower RIGHT, in the NE cell the mouth leans to the upper RIGHT and away (never vertical), in the N cell up and away. Uniforms in saturated, naturally shaded pure MAGENTA (lit about RGB 215,40,200, shaded about RGB 120,10,115), not raspberry. Every pixel outside the painted objects exactly alpha 0, no faint veil or speckle.\n\nLAYOUT CORRECTION TO THE PROVIDED ATLAS: keep exactly the same design, poses, the six orientations, painting and magenta uniforms, but make ALL SIX groups uniformly 25 percent SMALLER around their cell pivots (256,261). Each whole group including boots, bipod feet and the canister stack must fit a 270x270 box centred on (256,261) of its own cell (the provided atlas measures up to 352 px wide and 340 px tall), with at least 115 completely transparent pixels between every extremity and each cell edge. Output an EXACT 1024x1536 RGBA canvas with genuine alpha transparency: alpha exactly 0 outside the six groups, no ground, shadow, haze, glow, backdrop, checkerboard, frame or visible grid. Exactly six clean, disconnected groups, one per cell; no text, numbers, insignia or flags.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (where the mouth of the tilted tube leans, with the bipod in front and the baseplate behind) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (where the mouth of the tilted tube leans, with the bipod in front and the baseplate behind) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (where the mouth of the tilted tube leans, with the bipod in front and the baseplate behind) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (where the mouth of the tilted tube leans, with the bipod in front and the baseplate behind) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (where the mouth of the tilted tube leans, with the bipod in front and the baseplate behind) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (where the mouth of the tilted tube leans, with the bipod in front and the baseplate behind) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-trench-mortar-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/trench-mortar/<palette>/<facing>-<state>`. Promote into `assets/units/trench-mortar/` and re-index.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood or horses",
+        "national insignia, flags or text",
+        "rifles, smoke, firing or explosions",
+        "an upright tube that hides the heading"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/trench-mortar/cp/n-normal-4x.png",
+          "assets/units/trench-mortar/cp/nw-normal-4x.png",
+          "assets/units/trench-mortar/cp/sw-normal-4x.png",
+          "assets/units/trench-mortar/cp/s-normal-4x.png",
+          "assets/units/trench-mortar/cp/se-normal-4x.png",
+          "assets/units/trench-mortar/cp/ne-normal-4x.png",
+          "assets/units/trench-mortar/ec/n-normal-4x.png",
+          "assets/units/trench-mortar/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/tunnellers",
+      "title": "Tunnellers",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_tunnellers",
+        "EC_tunnellers"
+      ],
+      "dir": "art/units/tunnellers",
+      "assets_dir": "assets/units/tunnellers",
+      "prompt": "art/units/tunnellers/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/tunnellers/atlas.png",
+          "sha256": "53a3fa8847641eb1f1ae716793044c44528f5a95ed4b3c5eb0d5cd8312a080a0",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Two tunnelling miners at a timbered shaft head with a windlass, one with a pick, one with a sandbag; no rifles, no explosion. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on uniform tunics and trousers.",
+      "base_prompt": "LAYOUT: EXACT 1024x1536 PORTRAIT transparent RGBA canvas, TWO columns by THREE rows of 512x512 cells, invisible grid, no gutters. Six independently painted views of exactly the same group, one per cell, identical people, equipment and scale. Pivot at (256,261) in each cell; each whole group, including every tool, hose, helmet and boot, fits inside a maximum 270x270 box centred on the pivot, at least 120 completely transparent pixels between all extremities and every cell edge. Exactly six clean, disconnected groups, one per cell, nothing crossing into a neighbouring cell, no stray fragments.\nCRITICAL DIRECTION ORDER (the FRONT is where the men face and work): top LEFT = NORTH, front points UP away from the viewer, backs of the men nearest the viewer; top RIGHT = NORTHWEST, front points to the upper LEFT, rear right quarter nearest the viewer; middle LEFT = SOUTHWEST, front points to the lower LEFT towards the viewer, front left quarter visible; middle RIGHT = SOUTH, front points DOWN towards the viewer, faces visible; bottom LEFT = SOUTHEAST, front points to the lower RIGHT towards the viewer, front right quarter visible; bottom RIGHT = NORTHEAST, front points to the upper RIGHT away, rear left quarter nearest the viewer. True separate orientations of one 3D group seen from one fixed elevated camera, never rotated or mirrored flat images.\nCOLOUR: saturated, naturally shaded MAGENTA (lit about RGB 225,40,185, shaded about 120,15,95) ONLY on the uniform tunics and trousers, as a technical owner colour; helmets, gas masks, skin, boots, puttees, belts, leather, wood, canvas and all metal stay natural dull colours (grey steel, brown leather, khaki canvas). Chunky, crisp, high-contrast silhouette that reads at 48 px. No national insignia, symbols, flags, letters or numbers.\nGenuine alpha TRANSPARENCY outside the figures and between limbs. Absolutely NO ground, earth patch, grass, contact shadow, glow, haze, vignette, colour wash, checkerboard, frame or visible grid. Six isolated cut-out groups only; game-ready sprites, not a presentation illustration.\n\nSUBJECT in every cell: two WWI tunnelling miners at a timbered shaft head: a small SQUARE wooden frame of heavy timbers around a dark square shaft opening, with a wooden windlass (a horizontal log drum on two posts with a crank handle and a rope going down into the shaft) on the frame; one miner in a cloth cap and rolled sleeves swings a pick, the other carries a full sandbag on his shoulder. The two miners stand at the FRONT side of the shaft frame, facing the heading, the windlass behind them. Exactly two men, one frame, one windlass. No rifles, no explosion, no smoke, no ground patch around the shaft beyond the timber frame itself.\nCORRECTIONS TO THE PREVIOUS TRY: (1) the previous try painted the shaft frame and windlass as the SAME unrotated copy in all six cells (windlass always at the top, drum always horizontal): the WHOLE group, frame and windlass included, must turn with the heading. Rule: the two miners stand side by side on the side of the shaft TOWARDS the heading and face the heading; the windlass stands on the opposite, rear side of the shaft, its drum lying crosswise to the heading. So the windlass is at the BOTTOM of the group (nearest the viewer, in front of the men's backs) in the N cell; at the lower RIGHT in the NW cell; at the upper RIGHT in the SW cell; at the TOP behind the men in the S cell; at the upper LEFT in the SE cell; at the lower LEFT in the NE cell. The square frame is seen from a different side in every cell. (2) the previous try drew every group far too large, 325-377 px wide and 380-398 px tall: draw ALL SIX groups about 30 percent SMALLER, each whole group (frame, windlass with crank, both miners, pick and sandbag) at most 260 px wide and at most 260 px tall, so that about half of each cell stays empty around it. Same scale in all six cells.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (where the two miners face, the side of the shaft away from the windlass) points up, away from the viewer; the rear and top are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (where the two miners face, the side of the shaft away from the windlass) points to the upper left; the rear quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (where the two miners face, the side of the shaft away from the windlass) points to the lower left; the front quarter and the flank facing lower right are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (where the two miners face, the side of the shaft away from the windlass) points down, towards the viewer; the front is visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (where the two miners face, the side of the shaft away from the windlass) points to the lower right; the front quarter and the flank facing lower left are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (where the two miners face, the side of the shaft away from the windlass) points to the upper right; the rear quarter and the flank facing lower right are visible."
+        }
+      ],
+      "edges": "",
+      "post": "`art-review -unit art/pipeline/unit-tunnellers-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/tunnellers/<palette>/<facing>-<state>`. Promote into `assets/units/tunnellers/` and re-index.\n\nThe atlas is imagegen output `exec-3a77f0fc` (2026-11-10, try 2), 1024x1536 RGBA, per-cell boxes 232-308 x 285-331 px, alpha haze 25 % at alpha 1-31 (threshold when cutting). Its prompt was the `art/style.md` Preamble and Units text, then the base prompt above; no attachments.",
+      "avoid": [
+        "rotated or mirrored copies of one view; a shaft frame that does not turn with the heading",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood or sacking",
+        "national insignia, flags or text",
+        "rifles, explosions or smoke"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/tunnellers/cp/n-normal-4x.png",
+          "assets/units/tunnellers/cp/nw-normal-4x.png",
+          "assets/units/tunnellers/cp/sw-normal-4x.png",
+          "assets/units/tunnellers/cp/s-normal-4x.png",
+          "assets/units/tunnellers/cp/se-normal-4x.png",
+          "assets/units/tunnellers/cp/ne-normal-4x.png",
+          "assets/units/tunnellers/ec/n-normal-4x.png",
+          "assets/units/tunnellers/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/voisin-iii",
       "title": "Voisin III",
       "kind": "unit",
@@ -17844,6 +19267,164 @@
           "assets/units/voisin-iii/cp/ne-normal-4x.png",
           "assets/units/voisin-iii/ec/n-normal-4x.png",
           "assets/units/voisin-iii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/whippet",
+      "title": "Medium Mark A Whippet",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "EC_whippet"
+      ],
+      "dir": "art/units/whippet",
+      "assets_dir": "assets/units/whippet",
+      "prompt": "art/units/whippet/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/whippet/atlas.png",
+          "sha256": "3c259f1ce48de1658775a0bfd0dc3798902e5f7ffaa661366d3f1e6c02728918",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI medium tank: a low long hull with straight side tracks, the engine deck leading and a tall boxy machine-gun cab at the rear.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, PORTRAIT orientation, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same Medium Mark A Whippet vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: British Medium Mark A \"Whippet\" WWI tank: a LOW, LONG, narrow hull with low track frames running the full length along both sides (straight low tracks with a slightly raised front end, NOT rhomboid, NOT wraparound over the roof). At the FRONT (nose) a long low engine compartment with a louvred grille and a rounded armoured fuel tank at the very front tip. At the REAR a TALL fixed boxy fighting compartment (an angular armoured cab, clearly the highest part, rising well above the tracks) with small machine-gun ports and short MG barrels in its faces. NO turret, NO sponsons. The tall cab is ALWAYS at the rear, opposite the heading; the low engine deck always leads toward the heading. Magenta hull, engine covers and cab; natural dark steel tracks and MG barrels.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.\nSIZE AND MARGINS: each individual tank including every track end and gun barrel must fit into a maximum 320x320 box centred on (256,261) in its own 512x512 cell. At least 80 completely transparent pixels between ALL extremities and each of the cell's four edges; nothing crosses x=512 or the row lines y=512 and y=1024. Exactly six clean disconnected tank silhouettes, one per cell, no extra fragments anywhere.\nLAYOUT CORRECTION TO THE PROVIDED Whippet ATLAS (image 1): keep exactly the same design, colours, six headings, camera and rendering as image 1, but make ALL SIX tanks uniformly 25 percent SMALLER around their cell centres. Image 1 measured 352-408 px wide and 337-399 px tall, with only 41 px clear to the cell edge in the NW cell; now every tank including every track end and gun barrel must fit into a maximum 320x320 box centred on (256,261) in its 512x512 cell, with at least 90 completely transparent pixels to all four cell edges. Exactly six clean disconnected silhouettes. Strictly transparent background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas (uwhip-02 of gen-2026-11-10, exec-4d1f5e54, 1024x1536). The prompt followed the `art/style.md` Preamble and Units text; image 1 was the\nprevious try at full size. `art-review -unit art/pipeline/unit-whippet-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/whippet/`. Bound classes are listed above; final visual acceptance remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/whippet/cp/n-normal-4x.png",
+          "assets/units/whippet/cp/nw-normal-4x.png",
+          "assets/units/whippet/cp/sw-normal-4x.png",
+          "assets/units/whippet/cp/s-normal-4x.png",
+          "assets/units/whippet/cp/se-normal-4x.png",
+          "assets/units/whippet/cp/ne-normal-4x.png",
+          "assets/units/whippet/ec/n-normal-4x.png",
+          "assets/units/whippet/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/wiring-party",
+      "title": "Wiring party",
+      "kind": "unit",
+      "status": "approved",
+      "runtime_ids": [
+        "CP_wiring",
+        "EC_wiring"
+      ],
+      "dir": "art/units/wiring-party",
+      "assets_dir": "assets/units/wiring-party",
+      "prompt": "art/units/wiring-party/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/wiring-party/atlas.png",
+          "sha256": "4266cdc800771285a5832dac0eaf9452eff9ff23fc8b31ea263aba00319c6ac7",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Two soldiers carrying a barbed-wire coil on a shoulder pole and a bundle of screw pickets. It stands on a 96x96\nlogical sprite above the hex centre and must read at 48 pixels on any terrain, with the owner colour clearly on\nuniform tunics and trousers.",
+      "base_prompt": "Asset: six-direction tactical sprite atlas, high elevated strategy camera looking steeply down (about 55 degrees), so the men are foreshortened and their caps, shoulders, the pole and the top of the coil are seen from above, EXACT 1024x1536 transparent RGBA canvas, PORTRAIT orientation, 2 columns by 3 rows of 512x512 cells, invisible grid, row-major headings N, NW, SW, S, SE, NE. Subject in every cell: a two-man WWI WIRING PARTY walking in single file in the direction of the heading: the two soldiers carry between them, on their shoulders, one long wooden pole threaded through a big round coil of barbed wire (the coil hangs from the pole midway between them); the rear man also carries a bundle of four or five corkscrew iron screw pickets (twisted iron stakes) under his free arm. Both wear peaked caps or soft caps, thick leather gauntlets and puttees; NO rifles, no weapons. The two men, the pole and the coil form ONE compact group; same two men, same coil, same stakes and same scale in all six cells.\nIn each cell the front, where the leading man walks and both men face, points towards that cell's heading: the pole and the line of the two men run along the heading.\nDIRECTIONS: top LEFT = N: the men walk UP and away from the viewer, their backs visible. Top RIGHT = NW: walking to the upper LEFT, backs and right flanks visible. Middle LEFT = SW: walking to the lower LEFT towards the viewer, faces and right flanks visible. Middle RIGHT = S: walking DOWN towards the viewer, faces visible. Bottom LEFT = SE: walking to the lower RIGHT towards the viewer, faces and left flanks visible. Bottom RIGHT = NE: walking to the upper RIGHT, backs and left flanks visible. Each cell is an independently painted pose; never a rotated or mirrored copy.\nSaturated, naturally shaded MAGENTA only on the uniform tunics and trousers of both men; caps, skin, leather gauntlets, puttees, boots, the wooden pole, the grey steel barbed-wire coil and the rusty iron stakes stay in natural colours. Fine believable painted detail, strong light/dark separation, the group must read at 48 px.\nReal alpha transparency outside the figures and between legs, pole and coil: no ground, shadow, haze, glow or backdrop. No insignia, flags, text or labels.\nLAYOUT CORRECTION TO THE PROVIDED WIRING-PARTY ATLAS (image 1): keep exactly the same two men, uniforms, coil, pole, stakes, six headings, poses, size ratio and painting style as image 1, and only fix the placement: make every group about 12 percent smaller and centre it vertically on y=261 of its cell. Image 1 measured groups 126-230 px wide and 273-311 px tall; the top-left N group spans y=145-455 in its cell (centre 300, only 57 px above the cell's bottom edge) and the middle-right S group spans y=113-424. Now each whole group, including caps, boots, pole ends and stakes, must fit into a maximum 270 px tall and 240 px wide box whose centre is (256,261) of its own 512x512 cell: caps no higher than y=126 and boots no lower than y=396 within the cell, at least 110 completely transparent pixels to all four cell edges. Alpha exactly zero outside the figures, crisp antialiased edges only, no halo, no glow, no shadow.",
+      "variants": [
+        {
+          "variant": "N (`n`)",
+          "runtime_ids": [],
+          "delta": "Top-left cell: the front (where the leading man walks and both men face) points up, away from the viewer; their backs are visible."
+        },
+        {
+          "variant": "NW (`nw`)",
+          "runtime_ids": [],
+          "delta": "Top-right cell: the front (where the leading man walks and both men face) points to the upper left; backs and right flanks are visible."
+        },
+        {
+          "variant": "SW (`sw`)",
+          "runtime_ids": [],
+          "delta": "Middle-left cell: the front (where the leading man walks and both men face) points to the lower left; faces and right flanks are visible."
+        },
+        {
+          "variant": "S (`s`)",
+          "runtime_ids": [],
+          "delta": "Middle-right cell: the front (where the leading man walks and both men face) points down, towards the viewer; faces are visible."
+        },
+        {
+          "variant": "SE (`se`)",
+          "runtime_ids": [],
+          "delta": "Bottom-left cell: the front (where the leading man walks and both men face) points to the lower right; faces and left flanks are visible."
+        },
+        {
+          "variant": "NE (`ne`)",
+          "runtime_ids": [],
+          "delta": "Bottom-right cell: the front (where the leading man walks and both men face) points to the upper right; backs and left flanks are visible."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas: uwire-04 of gen-2026-11-10 (exec-a9baee8a, 1024x1536). The prompt followed the `art/style.md`\nPreamble and Units text; image 1 was the previous try at full size. The N group sits about 41 px below the cell\ncentre. `art-review -unit art/pipeline/unit-wiring-party-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/wiring-party/<palette>/<facing>-<state>`. Promote into `assets/units/wiring-party/` and re-index.",
+      "avoid": [
+        "rotated or mirrored copies of one view",
+        "ground, shadows, haze or backdrop",
+        "magenta on skin, leather, metal, wood, the coil or the stakes",
+        "national insignia, flags or text",
+        "rifles, mines or explosions"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/wiring-party/cp/n-normal-4x.png",
+          "assets/units/wiring-party/cp/nw-normal-4x.png",
+          "assets/units/wiring-party/cp/sw-normal-4x.png",
+          "assets/units/wiring-party/cp/s-normal-4x.png",
+          "assets/units/wiring-party/cp/se-normal-4x.png",
+          "assets/units/wiring-party/cp/ne-normal-4x.png",
+          "assets/units/wiring-party/ec/n-normal-4x.png",
+          "assets/units/wiring-party/neutral/n-normal-4x.png"
         ]
       }
     },

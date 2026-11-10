@@ -1,0 +1,8 @@
+{
+  "family": "wiring-party",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/wiring-party/portrait.png",
+    "source_sha256": "443d0931f396c2eba4d104a171701acc5dde4c9083957253a75932694a46b3cf"
+  }
+}

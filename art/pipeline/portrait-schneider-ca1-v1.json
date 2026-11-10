@@ -1,0 +1,8 @@
+{
+  "family": "schneider-ca1",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/schneider-ca1/portrait.png",
+    "source_sha256": "bcb339d4f42c11e3e18058daa96cc68aa8c712749f49a025d82ba1ae37619f2a"
+  }
+}

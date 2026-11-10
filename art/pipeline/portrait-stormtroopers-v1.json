@@ -1,0 +1,8 @@
+{
+  "family": "stormtroopers",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/stormtroopers/portrait.png",
+    "source_sha256": "003a4f966f9abb981b55e04116ddb4fcd34154c18336914c946f97e60d3cbc76"
+  }
+}

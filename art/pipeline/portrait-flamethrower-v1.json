@@ -1,0 +1,8 @@
+{
+  "family": "flamethrower",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/flamethrower/portrait.png",
+    "source_sha256": "b79e6fe7a2f2ef9921c2d4bcccac6bbb7e0b18d731a756c246ab5f9c71c3aa7a"
+  }
+}
