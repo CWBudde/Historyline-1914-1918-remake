@@ -86,8 +86,14 @@ func DefaultCoachConfig() *CoachConfig {
 	return &CoachConfig{
 		Dash: true, DashWanted: 8, DashGo: 16, EastCol: 14, SouthCol: 20,
 		PassHexes: []hexgrid.Coord{
-			{Line: 27, Col: 18}, {Line: 28, Col: 18}, {Line: 27, Col: 19}, {Line: 28, Col: 19},
-			{Line: 27, Col: 20}, {Line: 28, Col: 20}, {Line: 29, Col: 17}, {Line: 30, Col: 17},
+			{Line: 27, Col: 18},
+			{Line: 28, Col: 18},
+			{Line: 27, Col: 19},
+			{Line: 28, Col: 19},
+			{Line: 27, Col: 20},
+			{Line: 28, Col: 20},
+			{Line: 29, Col: 17},
+			{Line: 30, Col: 17},
 		},
 		SouthArmour: true, MarchRace: true, RaceSight: 3, TankFirst: 90, AA: 1,
 	}
