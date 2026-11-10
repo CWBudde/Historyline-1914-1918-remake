@@ -20,7 +20,8 @@ import (
 // it needs.
 
 // screenPack is a runtime pack a recording draws with, relative to the
-// repository root.
+// repository root, and the flag that passes it; the unit pack has none, the
+// game always loads it from there.
 type screenPack struct{ flag, dir string }
 
 // terrainPack is the flag of the pack that takes the most memory, several GB.
@@ -28,7 +29,7 @@ const terrainPack = "-terrain"
 
 // screenPacks are the runtime packs of a recording.
 var screenPacks = []screenPack{
-	{"-units", "build/packs/units"},
+	{"", "build/packs/units"},
 	{terrainPack, "build/packs/terrain"},
 	{"-screens", "build/packs/screens"},
 }
@@ -85,7 +86,9 @@ func screenRecordArgs(root, dir string, packs []screenPack, record [][2]string) 
 		"-replay", rel, "-record", filepath.ToSlash(filepath.Join(rel, screenVideo)),
 	}
 	for _, p := range packs {
-		args = append(args, p.flag, p.dir)
+		if p.flag != "" {
+			args = append(args, p.flag, p.dir)
+		}
 	}
 	for _, f := range record {
 		args = append(args, "-record-"+f[0], f[1])

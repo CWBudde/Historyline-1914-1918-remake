@@ -244,30 +244,29 @@ func (g *game) unitRim(c hexgrid.Coord) unitsprite.Rim {
 
 // drawUnitSprite draws a unit sprite on hex c, dressed with the hex's rim and
 // its contact shadow, with its logical anchor on screen point (sx, sy), the hex
-// centre, and reports whether it could. Errors go to the status
-// line once and the caller falls back to the placeholder dot.
-func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, size int, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
+// centre. Errors go to the status line once.
+func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, size int, owner state.Player, spent, remembered bool, face unitsprite.Facing) {
 	if g.art == nil || typ == "" {
-		return false
+		return
 	}
 	family, id, ok := unitSprite(typ, size, owner, spent, remembered, face)
 	if !ok {
 		g.artErr = fmt.Sprintf("no sprite family for unit type %s", typ)
-		return false
+		return
 	}
-	return g.drawSprite(dst, c, family, id, sx, sy, remembered)
+	g.drawSprite(dst, c, family, id, sx, sy, remembered)
 }
 
 // drawSprite draws sprite id of family as drawUnitSprite does.
-func (g *game) drawSprite(dst *ebiten.Image, c hexgrid.Coord, family, id string, sx, sy float64, remembered bool) bool {
+func (g *game) drawSprite(dst *ebiten.Image, c hexgrid.Coord, family, id string, sx, sy float64, remembered bool) {
 	if g.art == nil {
-		return false
+		return
 	}
 	d := spriteDensity(g.cam.Effective())
 	img, e, border, err := g.art.mapImage(family, id, d, g.unitRim(c))
 	if err != nil {
 		g.artErr = err.Error()
-		return false
+		return
 	}
 	var op ebiten.DrawImageOptions
 	op.GeoM = anchorGeoM(e, d, border, g.cam.Effective(), sx, sy)
@@ -276,7 +275,6 @@ func (g *game) drawSprite(dst *ebiten.Image, c hexgrid.Coord, family, id string,
 		op.ColorScale.Scale(0.6, 0.6, 0.65, 1)
 	}
 	dst.DrawImage(img, &op)
-	return true
 }
 
 // loadUnitArt opens the unit catalog in dir, counting its fetches in m. The

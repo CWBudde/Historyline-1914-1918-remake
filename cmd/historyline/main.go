@@ -73,7 +73,7 @@ type game struct {
 	ctl            *control
 	dos            *dosControl // set on the original rules (-rules dos); ctl and state are nil then
 	gasTick        int         // frames drawn, for the drift of the gas cloud (gas.go)
-	art            *artPacks   // unit sprite packs (-units); nil draws placeholder dots
+	art            *artPacks   // unit sprite packs; nil only in tests, which draw no units
 	screens        *screenArt  // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
 	finale         struct {    // the finale's art and the catalog it was cut from (taking.go)
 		from *screenArt
@@ -206,23 +206,20 @@ func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
 }
 
 // drawUnit draws the unit shown on c at screen point (sx, sy): the live unit, or
-// the player's last-seen snapshot greyed. Without unit packs it is a dot.
+// the player's last-seen snapshot greyed.
 func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, remembered bool) {
 	if g.dos != nil {
 		g.drawDosUnit(dst, c, sx, sy)
 		return
 	}
-	col := color.RGBA{230, 230, 230, 255}
 	if remembered {
-		col = rememberedUnit
-		if m, _ := g.state.Remembered(g.player, c); m.Unit != nil &&
-			g.drawUnitSprite(dst, c, sx, sy, m.Unit.Type, m.Unit.Size, m.Unit.Owner, false, true, unitsprite.N) {
-			return
+		if m, _ := g.state.Remembered(g.player, c); m.Unit != nil {
+			g.drawUnitSprite(dst, c, sx, sy, m.Unit.Type, m.Unit.Size, m.Unit.Owner, false, true, unitsprite.N)
 		}
-	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u)) {
 		return
 	}
-	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)
+	u := g.state.At(c).Unit
+	g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u))
 }
 
 // ownerShown is the building owner the player knows for c: live when Visible,
@@ -247,9 +244,6 @@ func (g *game) ownerShown(c hexgrid.Coord) state.Player {
 func ownerColour(p state.Player) color.RGBA {
 	return sideShade(p).Lit
 }
-
-// rememberedUnit is the colour of a last-seen unit (main view and minimap).
-var rememberedUnit = color.RGBA{120, 120, 128, 255}
 
 func (g *game) fill(terrain string) color.RGBA {
 	if c, ok := g.terrainFill[terrain]; ok {
@@ -577,9 +571,7 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
 		face, _ := unitsprite.Toward(w.Heading())
-		if !g.drawWalker(dst, w, w.Hex(), sx, sy, face) {
-			vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
-		}
+		g.drawWalker(dst, w, w.Hex(), sx, sy, face)
 	}
 	if human {
 		if g.dos != nil {
@@ -782,7 +774,7 @@ type matchConfig struct {
 	hexNumbers bool
 	reduced    bool
 	scroll     float64         // map scroll speed, screen pixels per frame
-	units      *artPacks       // shared by every battle; nil draws placeholder dots
+	units      *artPacks       // shared by every battle; nil only in tests
 	screens    *screenArt      // the screen catalog for the portraits; nil shows blank photos
 	scores     *scores.Store   // the best scores, opened once; nil keeps none
 	saves      *saves.Store    // the single saved battle; nil keeps none
@@ -887,15 +879,14 @@ func main() {
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
-	units := flag.String("units", "", "unit sprite catalog built by hl assets build-units (default: build/packs/units when present, else placeholder dots)")
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
 	extended := flag.Bool("extended", false, "dos: the extension units join the battle, every factory builds them (docs/new-units.md)")
-	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the -units catalog downloaded fast")
-	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the -units catalog downloaded fast")
-	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
-	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
+	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the unit catalog downloaded fast")
+	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the unit catalog downloaded fast")
+	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the unit catalog downloaded fast")
+	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires the terrain pack)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
 	snapshotPath := flag.String("snapshot", "", "start in a saved dos battle: the save slot file (save.json in the config directory, naming its level and side) or a bare dos save such as an llmplay game's save.json (then -level names the level; -player overrides the side)")
@@ -924,7 +915,7 @@ func main() {
 	})
 
 	// The painted art is the default: the packs just packs builds, where they are.
-	for name, path := range map[string]*string{"units": units, "terrain": terrain, "screens": screens} {
+	for name, path := range map[string]*string{"terrain": terrain, "screens": screens} {
 		if !given[name] {
 			*path = defaultPack(name)
 		}
@@ -956,10 +947,9 @@ func main() {
 	}
 	// The web page shows how much of the art has arrived until the game starts.
 	boot := &meter{fetched: pageFetched}
-	if *units != "" {
-		if c.units, err = loadUnitArt(*units, boot); err != nil {
-			log.Fatal(err)
-		}
+	// The unit art is always there: a battle draws no unit without it.
+	if c.units, err = loadUnitArt(unitCatalog(), boot); err != nil {
+		log.Fatalf("unit art: %v (build it with just packs)", err)
 	}
 	// Only a fast connection loads the full-quality art as well.
 	hd := hdDirs{units: *unitsHD, screens: *screensHD, terrain: *terrainHD}
@@ -1049,8 +1039,8 @@ func main() {
 		log.Fatal(err)
 	}
 	if *capture != "" {
-		if gm.art == nil || gm.terrain == nil {
-			log.Fatal("-capture requires both -units and -terrain")
+		if gm.terrain == nil {
+			log.Fatal("-capture requires the terrain pack")
 		}
 		if err := writeReviewFrames(gm, *capture, *captureLook); err != nil {
 			log.Fatal(err)

@@ -68,39 +68,36 @@ func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 	if g.drawOrigUnit(dst, u, sx, sy, face, g.dosSpent(u)) {
 		return
 	}
-	if ship {
-		if !g.shipDrawnFrom(dst, c, head, rear) || g.drawShip(dst, c, u.ID, u.Owner, g.dosSpent(u), hx, hy, rx, ry) {
-			return
-		}
-		sx, sy = g.cam.WorldToScreen((hx+rx)/2, (hy+ry)/2)
-	} else if g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Size, u.Owner, g.dosSpent(u), false, face) {
-		return
+	switch {
+	case !ship:
+		g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Size, u.Owner, g.dosSpent(u), false, face)
+	case g.shipDrawnFrom(dst, c, head, rear):
+		g.drawShip(dst, c, u.ID, u.Owner, g.dosSpent(u), hx, hy, rx, ry)
 	}
-	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 }
 
-// drawWalker draws the unit of walk w, now on hex c, and reports whether a
-// sprite was drawn.
-func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) bool {
+// drawWalker draws the unit of walk w, now on hex c.
+func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) {
 	switch u := w.unit.(type) {
 	case *state.Unit:
-		return u != nil && g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, face)
+		if u != nil {
+			g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, face)
+		}
 	case int:
 		if g.dos == nil {
-			return false
+			return
 		}
 		v := g.dos.s.Unit(u)
-		if g.drawOrigUnit(dst, v, sx, sy, face, false) {
-			return true
-		}
-		if len(w.tail) > 0 {
+		switch {
+		case g.drawOrigUnit(dst, v, sx, sy, face, false):
+		case len(w.tail) > 0:
 			hx, hy := w.Pos()
 			rx, ry := w.TailPos()
-			return g.drawShip(dst, c, v.ID, v.Owner, false, hx, hy, rx, ry)
+			g.drawShip(dst, c, v.ID, v.Owner, false, hx, hy, rx, ry)
+		default:
+			g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Size, v.Owner, false, false, face)
 		}
-		return g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Size, v.Owner, false, false, face)
 	}
-	return false
 }
 
 // orderColour marks queued attack orders.

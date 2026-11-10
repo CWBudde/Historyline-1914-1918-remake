@@ -58,8 +58,9 @@ skip the menu and start that battle directly.
 v1 is one-player: two human players are not in v1. Maps 48-71 are two-player maps in the original;
 here you play one side against the computer or a passive opponent.
 
-The game loads its art from `build/packs/` when it finds it there (`-units`, `-terrain` and `-screens`
-name other packs); without packs it draws placeholders. In battle F8 cycles the map's look: the painted
+The game always draws its units from `build/packs/units` (`just packs`) and does not start without it.
+The terrain and screen art come from `build/packs/` when it finds them there (`-terrain` and `-screens`
+name other packs); without them it draws placeholders. In battle F8 cycles the map's look: the painted
 backdrop with the remake's units, the remake's terrain tiles, and the original game's tiles and units, the
 last only when a local copy of the original game lies in `original/extracted/dos-full` (never shipped).
 

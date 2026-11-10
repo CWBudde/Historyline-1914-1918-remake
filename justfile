@@ -202,7 +202,7 @@ gfx-study *args: packs
     set -eu
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
-    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -capture "$study_dir/captures"
+    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -terrain build/packs/terrain -capture "$study_dir/captures"
     go run ./cmd/hl review gallery -captures "$study_dir/captures" "$@"
 
 # Extract the original manual's pictures into the ignored build/manual/img/

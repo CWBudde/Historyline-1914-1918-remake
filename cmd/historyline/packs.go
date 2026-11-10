@@ -9,7 +9,7 @@ import (
 const packsDir = "build/packs"
 
 // defaultPack is the built pack of that name below packsDir, "" when it is
-// not there (the web build passes its packs explicitly).
+// not there (the web build passes its packs as URLs).
 func defaultPack(name string) string {
 	dir := filepath.Join(packsDir, name)
 	if fi, err := os.Stat(dir); err != nil || !fi.IsDir() {

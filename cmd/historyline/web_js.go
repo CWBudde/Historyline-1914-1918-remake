@@ -3,6 +3,7 @@
 package main
 
 import (
+	"flag"
 	"syscall/js"
 	"time"
 )
@@ -35,3 +36,9 @@ func pageFetched(n int64) {
 		f.Invoke(n)
 	}
 }
+
+// unitCatalogURL is the unit catalog's URL, which the web page passes.
+var unitCatalogURL = flag.String("units", "", "web: the unit catalog's URL, passed by the page")
+
+// unitCatalog is the unit art the web page passes.
+func unitCatalog() string { return *unitCatalogURL }

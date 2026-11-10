@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -73,20 +75,22 @@ func (g *game) shipHalfShown(dst *ebiten.Image, c hexgrid.Coord) bool {
 
 // drawShip draws the long sprite of a two-cell ship of unit type typ with its
 // head at world point (hx, hy) and its rear at (rx, ry), dressed with the rim
-// of hex c, and reports whether it could.
-func (g *game) drawShip(dst *ebiten.Image, c hexgrid.Coord, typ string, owner state.Player, spent bool, hx, hy, rx, ry float64) bool {
+// of hex c. A missing sprite goes to the status line.
+func (g *game) drawShip(dst *ebiten.Image, c hexgrid.Coord, typ string, owner state.Player, spent bool, hx, hy, rx, ry float64) {
 	family, ok := unitsprite.Family(typ)
 	if !ok {
-		return false
+		g.artErr = fmt.Sprintf("no sprite family for unit type %s", typ)
+		return
 	}
 	long, ok := unitsprite.Long(family)
 	if !ok {
-		return false
+		g.artErr = fmt.Sprintf("no long sprite for ship family %s", family)
+		return
 	}
 	st := unitsprite.Normal
 	if spent {
 		st = unitsprite.Spent
 	}
 	sx, sy := g.cam.WorldToScreen((hx+rx)/2, (hy+ry)/2)
-	return g.drawSprite(dst, c, long, unitsprite.ID(long, unitsprite.PaletteOf(owner), shipFacing(hx, hy, rx, ry), st), sx, sy, false)
+	g.drawSprite(dst, c, long, unitsprite.ID(long, unitsprite.PaletteOf(owner), shipFacing(hx, hy, rx, ry), st), sx, sy, false)
 }

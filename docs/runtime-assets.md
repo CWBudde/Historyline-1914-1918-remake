@@ -361,7 +361,8 @@ writes their compressed copies to `build/web/packs/<catalog>-lite/` (`hl assets 
 any other as lossy WebP, a PNG where that is smaller; about a fifth of the bytes) and lists each catalog in
 `files.txt` (`<size> <path>` per line), since HTTP cannot list directories. `index.html` passes the catalogs it
 finds to the game as URLs, the compressed ones as `-units`, `-terrain`, `-screens` and the full ones as
-`-units-hd`, `-terrain-hd`, `-screens-hd`; the game fetches a whole catalog when opening it and loads no 4×
+`-units-hd`, `-terrain-hd`, `-screens-hd` (`-units` exists only in the web build: the desktop game always loads
+`build/packs/units`); the game fetches a whole catalog when opening it and loads no 4×
 packs in the browser. It boots from the compressed catalogs; when they arrived at 4 MiB/s or faster it loads
 the full unit and screen catalogs in the background and swaps them in, and each battle's full terrain likewise. `build.json` holds a hash of the whole build and the size of the
 wasm; the page adds the hash to every URL as `?v=`, so a browser never combines cached files of an older build
