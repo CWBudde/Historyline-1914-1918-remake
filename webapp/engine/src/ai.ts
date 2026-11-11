@@ -2,12 +2,12 @@
 import * as play from "./play.ts";
 import { type Coord, distance, around } from "./hexgrid.ts";
 import { coordKey } from "./level.ts";
-import { cell } from "./bind.ts";
+import { cell, coord } from "./bind.ts";
 import { type Profile, type Type, tablesOf } from "./profile.ts";
-import { moveTablesOf } from "./board.ts";
+import { liveCell, moveTablesOf } from "./board.ts";
 import { type Battlefield, defaultClass, engage } from "./engage.ts";
 import { type Order, resolveOrders } from "./orders.ts";
-import { weaponAgainst } from "./cycle.ts";
+import { liveOf, weaponAgainst } from "./cycle.ts";
 import { GoError, at } from "./goruntime.ts";
 import { dijkstra } from "./aiField.ts";
 export { dijkstra } from "./aiField.ts";
@@ -113,7 +113,7 @@ function movers(pl: Plan): Mover[] {
     held: boolean,
     leave: boolean,
   ): void => {
-    if (u.side === pl.side && canOrder(pl, u.index))
+    if (u.side === pl.side && canOrder(pl, u.index) && !digging(pl, u.index))
       out.push({
         unit: u.index,
         at: c,
@@ -206,7 +206,7 @@ function score(
   f: ReadonlyMap<string, number>,
   c: Coord,
 ): number {
-  let sc = defence(pl, c) - gasPenalty(pl, u, c);
+  let sc = defence(pl, c) - gasPenalty(pl, u, c) + ambulanceScore(pl, u, c);
   if (
     (at(moveTablesOf(pl.profile).types, u.type).flags & 1) === 0 &&
     nearest(c, pl.hqs) === 1
@@ -316,9 +316,8 @@ function candidates(pl: Plan): [Candidate[], number[]] {
       u === undefined ||
       u.side !== pl.side ||
       u.moved ||
-      play.sapper(pl.s, u.index) ||
-      play.builder(pl.s, u.index) ||
-      play.gasPioneer(pl.s, u.index)
+      play.worker(pl.s, u.index) ||
+      play.ambulance(pl.s, u.index)
     )
       continue;
     for (const t of play.coords(play.targets(pl.s, pl.side, u.index))) {
@@ -576,6 +575,167 @@ function release(
 function gasPenalty(pl: Plan, u: play.UnitView, c: Coord): number {
   return u.domain === play.Air || play.gasAt(pl.s, c) === 0 ? 0 : gasCost;
 }
+// The extension's work units beyond the gas pioneers (works.go, docs/new-units.md): wiring parties wire the ground
+// in front of the enemy, tunnellers mine an enemy unit next to them and stay until it blows, field ambulances keep
+// next to the side's wounded foot units.
+const wireRadius = 4, // a wiring party wires within this distance of an enemy unit
+  wireFront = 2, // a wired hex nearer the nearest enemy unit than the party counts this much
+  ambulanceBonus = 6; // per wounded own foot unit next to an ambulance's destination
+// wirers are the side's wiring parties on the map that may lay wire now and have an enemy unit within wireRadius,
+// in hex order.
+function wirers(pl: Plan): number[] {
+  const out: number[] = [];
+  for (const c of sorted(pl.view.units)) {
+    const u = pl.view.units.get(coordKey(c));
+    if (
+      u === undefined ||
+      u.side !== pl.side ||
+      u.moved ||
+      !play.wiring(pl.s, u.index) ||
+      !canOrder(pl, u.index) ||
+      refused(() => {
+        play.canWire(pl.s, pl.side, u.index);
+      })
+    )
+      continue;
+    const e = nearest(c, pl.enemies);
+    if (e >= 0 && e <= wireRadius) out.push(u.index);
+  }
+  return out;
+}
+// wire gives each wiring party the wire order that scores best (wireScore), if one scores above 0. A hex an order
+// of this plan wires already counts no more. The progress runs from done to done+ws.length of total.
+function wire(
+  pl: Plan,
+  ws: number[],
+  done: number,
+  total: number,
+  out: play.Event[],
+): void {
+  const wired = new Set<string>();
+  for (const [i, unit] of ws.entries()) {
+    const from = coord(
+      pl.s.board,
+      liveCell(liveOf(pl.s.game, unit), pl.side),
+    ) ?? { line: 0, col: 0 };
+    let best: Coord = { line: 0, col: 0 },
+      bestHexes: Coord[] = [],
+      bestScore = 0;
+    for (const t of play.coords(play.targets(pl.s, pl.side, unit))) {
+      const hexes = play.wireHexes(pl.s, pl.side, unit, t),
+        sc = wireScore(pl, from, hexes, wired);
+      // Between equal scores the target nearer the enemy.
+      if (
+        sc > bestScore ||
+        (sc === bestScore &&
+          sc > 0 &&
+          nearest(t, pl.enemies) < nearest(best, pl.enemies))
+      ) {
+        best = t;
+        bestHexes = hexes;
+        bestScore = sc;
+      }
+    }
+    if (bestScore > 0) {
+      out.push(...play.attack(pl.s, pl.side, unit, best));
+      for (const c of bestHexes) wired.add(coordKey(c));
+    }
+    report(pl, done + i + 1, total);
+  }
+}
+// wireScore rates wire from a party on from over hexes: per hex no order of this plan wires, 1, or wireFront where
+// it lies nearer the nearest enemy unit than the party; 0 when a hex holds a unit or lies next to an own HQ
+// entrance, which the wire would close to vehicles.
+function wireScore(
+  pl: Plan,
+  from: Coord,
+  hexes: Coord[],
+  wired: ReadonlySet<string>,
+): number {
+  let sc = 0;
+  const own = nearest(from, pl.enemies);
+  for (const c of hexes) {
+    if (pl.view.units.has(coordKey(c))) return 0;
+    const h = nearest(c, pl.ownHQs);
+    if (h >= 0 && h <= 1) return 0;
+    if (wired.has(coordKey(c))) continue;
+    sc += nearest(c, pl.enemies) < own ? wireFront : 1;
+  }
+  return sc;
+}
+// tunnellers are the side's tunnellers on the map that may start a tunnel now, in hex order.
+function tunnellers(pl: Plan): number[] {
+  const out: number[] = [];
+  for (const c of sorted(pl.view.units)) {
+    const u = pl.view.units.get(coordKey(c));
+    if (
+      u === undefined ||
+      u.side !== pl.side ||
+      u.moved ||
+      !play.tunneller(pl.s, u.index) ||
+      !canOrder(pl, u.index) ||
+      refused(() => {
+        play.canTunnel(pl.s, pl.side, u.index);
+      })
+    )
+      continue;
+    out.push(u.index);
+  }
+  return out;
+}
+// mine starts each tunneller's tunnel under the neighbouring enemy unit on the map that is worth most: an aircraft
+// or a unit held in a building is safe from it. The progress runs from done to done+ts.length of total.
+function mine(
+  pl: Plan,
+  ts: number[],
+  done: number,
+  total: number,
+  out: play.Event[],
+): void {
+  for (const [i, unit] of ts.entries()) {
+    let best: Coord = { line: 0, col: 0 },
+      bestScore = 0;
+    for (const t of play.coords(play.targets(pl.s, pl.side, unit))) {
+      const v = pl.view.units.get(coordKey(t));
+      if (
+        v === undefined ||
+        v.side !== 1 - pl.side ||
+        v.held ||
+        v.domain === play.Air
+      )
+        continue;
+      const sc = v.size * at(tablesOf(pl.profile).types, v.type).cost;
+      if (sc > bestScore) {
+        best = t;
+        bestScore = sc;
+      }
+    }
+    if (bestScore > 0) out.push(...play.attack(pl.s, pl.side, unit, best));
+    report(pl, done + i + 1, total);
+  }
+}
+// digging reports whether unit digs a tunnel, which it loses if it moves.
+function digging(pl: Plan, unit: number): boolean {
+  return play.tunnelOf(pl.s, unit) !== null;
+}
+// ambulanceScore is what hex c is worth to field ambulance u: ambulanceBonus per wounded own foot unit next to it;
+// 0 for any other unit.
+function ambulanceScore(pl: Plan, u: play.UnitView, c: Coord): number {
+  if (!play.ambulance(pl.s, u.index)) return 0;
+  let sc = 0;
+  for (const n of around(c)) {
+    const v = pl.view.units.get(coordKey(n));
+    if (
+      v !== undefined &&
+      v.side === pl.side &&
+      v.index !== u.index &&
+      v.domain === play.Infantry &&
+      v.size < v.full
+    )
+      sc += ambulanceBonus;
+  }
+  return sc;
+}
 // The computer's economy, as the original's computer side plans it (service.go).
 export const repairFloor = 14,
   reserve = 61,
@@ -697,11 +857,16 @@ export function plan(p: Planner, s: play.Session, side: number): play.Event[] {
         [cands, units] = candidates(pl),
         ds = diggers(pl),
         gs = gassers(pl),
-        total = units.length + ds.length + gs.length;
+        ws = wirers(pl),
+        ts = tunnellers(pl),
+        total = units.length + ds.length + gs.length + ws.length + ts.length;
       report(pl, 0, total);
       attack(pl, cands, units.length, total, out);
       dig(pl, ds, units.length, total, out);
       release(pl, gs, units.length + ds.length, total, out);
+      const done = units.length + ds.length + gs.length;
+      wire(pl, ws, done, total, out);
+      mine(pl, ts, done + ws.length, total, out);
       repairs(pl, energy, out);
       produce(pl, energy, out);
     }

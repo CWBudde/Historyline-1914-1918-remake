@@ -1,6 +1,7 @@
 import * as rules from "./cycle.ts";
 import * as sappers from "./sapper.ts";
 import { builder as ruleBuilder } from "./builder.ts";
+import { terrainCrater, terrainWire } from "./wire.ts";
 import { cell, coord } from "./bind.ts";
 import { type Coord, around } from "./hexgrid.ts";
 import { type Hex, coordKey } from "./level.ts";
@@ -52,24 +53,31 @@ export function work(
   }
   return out;
 }
+// The grounds of the sappers' and the other work units' terrain (Go's ground): plain, trench, filled, wired,
+// cratered, then a complete depot's pieces N, E, S, W from depotN and a half depot's from depotN + 4.
+const trenchGround = 1,
+  filledGround = 2,
+  wiredGround = 3,
+  crateredGround = 4,
+  depotN = 5;
 const depotGround: Readonly<Record<number, number>> = {
-  15: 3,
-  16: 3,
-  17: 3,
-  18: 5,
-  19: 6,
-  20: 4,
-  21: 7,
-  22: 9,
-  23: 10,
-  24: 8,
+  15: depotN,
+  16: depotN,
+  17: depotN,
+  18: depotN + 2,
+  19: depotN + 3,
+  20: depotN + 1,
+  21: depotN + 4,
+  22: depotN + 6,
+  23: depotN + 7,
+  24: depotN + 5,
 };
 function groundOf(rec: number): number {
-  return sappers.trench(rec)
-    ? 1
-    : rec === sappers.terrainFilled
-      ? 2
-      : (depotGround[rec] ?? 0);
+  if (sappers.trench(rec)) return trenchGround;
+  if (rec === sappers.terrainFilled) return filledGround;
+  if (rec === terrainWire) return wiredGround;
+  if (rec === terrainCrater) return crateredGround;
+  return depotGround[rec] ?? 0;
 }
 function seasonal(s: Session, t: string): string {
   return s.board.winter ? t + "_w" : t;
@@ -93,8 +101,8 @@ export function reworked(s: Session): Map<string, Hex> {
     if (c === null || groundOf(rec) === groundOf(orig)) continue;
     const h = { ...at(at(s.level.lines, c.line), c.col) },
       g = groundOf(rec);
-    if (g >= 3) {
-      h.terrain = seasonal(s, "cmp" + "NESW".charAt((g - 3) % 4));
+    if (g >= depotN) {
+      h.terrain = seasonal(s, "cmp" + "NESW".charAt((g - depotN) % 4));
       h.infra = { ids: [], list: false };
       h.content = null;
       if (rec === 15 || rec === 16 || rec === 17)
@@ -105,9 +113,14 @@ export function reworked(s: Session): Map<string, Hex> {
       out.set(coordKey(c), h);
       continue;
     }
-    const ids = h.infra.ids.filter((id) => !id.startsWith("trench"));
+    const ids = h.infra.ids.filter(
+      (id) => !id.startsWith("trench") && id !== "barbedWire",
+    );
     h.terrain = seasonal(s, "grass");
-    if (g === 1) ids.push(trenchPiece(s, c));
+    if (g === trenchGround) ids.push(trenchPiece(s, c));
+    else if (g === wiredGround) ids.push("barbedWire");
+    else if (g === crateredGround)
+      h.terrain = s.board.winter ? "shelled_w" : "mud";
     h.infra = { ids, list: ids.length > 1 };
     out.set(coordKey(c), h);
   }

@@ -5,13 +5,11 @@ import { type Coord } from "./hexgrid.ts";
 import { type Level, grid, coordKey } from "./level.ts";
 import { type Profiles } from "./profile.ts";
 import { extend, usesExtension } from "./playGas.ts";
-import { gasPioneer as ruleGasPioneer } from "./gas.ts";
+import { worker } from "./playWorks.ts";
 import { save as saveGame, loadGame } from "./save.ts";
 import { surrender as surrenderGame } from "./victory.ts";
 import { slotFree } from "./container.ts";
 import { costs as moveCosts, pieceAt, type Movement } from "./move.ts";
-import { sapper as ruleSapper } from "./sapper.ts";
-import { builder as ruleBuilder } from "./builder.ts";
 import { GoError, at } from "./goruntime.ts";
 import {
   type Session,
@@ -341,10 +339,7 @@ export function targets(s: Session, side: number, unit: number): Set<string> {
   } catch {
     return out;
   }
-  const work =
-      ruleSapper(rules.liveOf(s.game, unit)) ||
-      ruleBuilder(rules.liveOf(s.game, unit)) ||
-      ruleGasPioneer(rules.liveOf(s.game, unit)),
+  const work = worker(s, unit),
     m = at(s.game.maps, side);
   for (let c = 0; c < s.game.width * s.game.height; c++)
     if (

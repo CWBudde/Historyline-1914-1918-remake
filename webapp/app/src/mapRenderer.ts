@@ -29,6 +29,14 @@ const gasPuffs = 7,
   gasFullTurn = 2,
   gasOpacity = 0.5,
   gasColour = 0xc4cc5c;
+// The side's own mines (drawTunnels): dashes round the ring, its radius and line width, its earth brown and the
+// opacity of the dashes lit and still dark, as the desktop draws it.
+const tunnelDashes = 12,
+  tunnelRadius = 30,
+  tunnelWidth = 3,
+  tunnelColour = 0x966432,
+  tunnelLit = 230 / 255,
+  tunnelDark = 90 / 255;
 const ownerColor = (owner: number): number =>
   owner === 1 ? 0x55c3f3 : owner === 2 ? 0xe7d365 : 0xc4c4b8;
 interface Catalog {
@@ -61,6 +69,8 @@ export class MapRenderer {
   /** The extension's gas cloud over the units (drawGas). */
   private readonly gasLayer = new Graphics();
   private gasCells: hexgrid.Coord[] = [];
+  /** The side's own mines being dug (drawTunnels). */
+  private readonly tunnelLayer = new Graphics();
   private readonly overlays = new Graphics();
   private readonly effects = new Container();
   private readonly sprites = new Map<string, Sprite>();
@@ -127,6 +137,7 @@ export class MapRenderer {
       this.markers,
       this.walkingLayer,
       this.gasLayer,
+      this.tunnelLayer,
       this.overlays,
       this.effects,
     );
@@ -304,6 +315,7 @@ export class MapRenderer {
     }
     this.gasCells = cells;
     this.drawGas();
+    this.drawTunnels();
     this.drawOverlays(view);
     const screens = this.catalogs.get("screens");
     for (const effect of this.battle.playback.effects()) {
@@ -318,6 +330,36 @@ export class MapRenderer {
       }
     this.images.cache.end();
     this.stats.decodedBytes = this.images.cache.bytes;
+  }
+  /**
+   * drawTunnels marks the hexes the shown side's tunnellers mine with a dashed ring that closes as the tunnel nears
+   * its blast; the other side's stay hidden.
+   */
+  private drawTunnels(): void {
+    const g = this.tunnelLayer;
+    g.clear();
+    for (const t of play.tunnels(this.battle.session, this.battle.side)) {
+      const [cx, cy] = hexgrid.center(t.mine),
+        lit = Math.trunc((tunnelDashes * (t.dug + 1)) / (t.turns + 1));
+      for (let k = 0; k < tunnelDashes; k++) {
+        const a0 = (2 * Math.PI * k) / tunnelDashes,
+          a1 = a0 + Math.PI / tunnelDashes;
+        g.moveTo(
+          cx + tunnelRadius * Math.cos(a0),
+          cy + tunnelRadius * Math.sin(a0),
+        )
+          .lineTo(
+            cx + tunnelRadius * Math.cos(a1),
+            cy + tunnelRadius * Math.sin(a1),
+          )
+          .stroke({
+            color: tunnelColour,
+            width: tunnelWidth,
+            alpha: k < lit ? tunnelLit : tunnelDark,
+            cap: "round",
+          });
+      }
+    }
   }
   /**
    * drawGas draws the gas pioneers' cloud (docs/new-units.md) on the visible hexes: soft yellow-green puffs that

@@ -32,7 +32,19 @@ export const Moved = 0,
   /** A unit lost strength to gas: unit, to its hex, loss, text. */
   Gassed = 18,
   /** The gas left hexes: hexes, text. */
-  Cleared = 19;
+  Cleared = 19,
+  /** A wiring party laid wire: from the party, to the hex, hexes, text. */
+  Wired = 20,
+  /** Tunnellers began a mine: from the tunnellers, to the mined hex, text. */
+  Tunnelled = 21,
+  /** Tunnellers left or lost their mine: to the mined hex, text. */
+  TunnelLost = 22,
+  /** A mine blew: to its hex, hexes the crater (none off open ground), text. */
+  Blown = 23,
+  /** A unit lost strength to a mine: unit, to its hex, loss, text. */
+  Mined = 24,
+  /** An ambulance healed a unit: unit, to its hex, gain, text. */
+  Healed = 25;
 export const Infantry = 0,
   Armour = 1,
   Artillery = 2,
@@ -152,8 +164,10 @@ export interface Event {
   raw: RawEvent;
   rear: Coord[];
   hexes: Coord[];
-  /** The strength a unit lost to gas (Gassed). */
+  /** The strength a unit lost to gas or a mine (Gassed, Mined). */
   loss: number;
+  /** The strength a unit regained from an ambulance (Healed). */
+  gain: number;
 }
 export function newEvent(fields: Partial<Event> = {}): Event {
   return {
@@ -174,6 +188,7 @@ export function newEvent(fields: Partial<Event> = {}): Event {
     rear: [],
     hexes: [],
     loss: 0,
+    gain: 0,
     ...fields,
   };
 }

@@ -6,6 +6,7 @@ import {
   bind,
   exitMovement,
   route as ruleRoute,
+  tunnelTurns,
 } from "@historyline/engine";
 import { MapPlayback } from "./mapPlayback.ts";
 import { toward } from "./unitFrame.ts";
@@ -195,7 +196,7 @@ export class MapBattle {
   targets(): Set<string> {
     return !this.canAct() || this.selected === null || this.movement()
       ? new Set()
-      : play.targets(this.session, this.side, this.selected);
+      : actionTargets(this.session, this.side, this.selected);
   }
   route(to: hexgrid.Coord): hexgrid.Coord[] {
     if (!this.destinations().has(level.coordKey(to)) || this.selected === null)
@@ -288,9 +289,9 @@ export class MapBattle {
       try {
         play.canOrder(this.session, this.side, unit.index);
         this.selected = unit.index;
-        this.status = `${unit.name}: ${this.movement() ? "pick where to move" : play.sapper(this.session, unit.index) ? "pick a hex to dig or fill" : play.builder(this.session, unit.index) ? "pick where to build a depot" : play.gasPioneer(this.session, unit.index) ? `pick where to release gas (${String(play.charges(this.session, unit.index))} left)` : "pick a target"}`;
-        if (!this.movement() && play.gasPioneer(this.session, unit.index))
-          play.canRelease(this.session, this.side, unit.index);
+        this.status = this.movement()
+          ? `${unit.name}: pick where to move`
+          : actionPrompt(this.session, this.side, unit, this.targets().size);
       } catch (e) {
         this.refused(e);
       }
@@ -521,7 +522,7 @@ export class MapBattle {
           events,
         );
         this.onResolution?.(before, events);
-        this.status = gasStatus(events, this.side) ?? "Orders resolved.";
+        this.status = effectStatus(events, this.side) ?? "Orders resolved.";
       }
     } catch (e) {
       while (this.isPaused()) await this.resumeGate;
@@ -585,7 +586,7 @@ export class MapBattle {
       play.canOrder(this.session, this.side, unit.index);
       return action === "attack"
         ? !this.movement() &&
-            play.targets(this.session, this.side, unit.index).size > 0
+            actionTargets(this.session, this.side, unit.index).size > 0
         : this.movement() &&
             play.destinations(this.session, this.side, unit.index).size > 0;
     } catch {
@@ -661,19 +662,84 @@ export class MapBattle {
 }
 
 /**
- * gasStatus words a resolution's gas for side (the extension's gas pioneers): its own release, the enemy's, the
- * losses and the clearing; null without gas.
+ * actionPrompt words the action phase's prompt for side's unit as the desktop does (dos.go selectUnit): what the
+ * unit's order does, a work unit's charges, the tunnel a tunneller digs. It throws why a gas pioneer or a wiring
+ * party has no order now.
  */
-export function gasStatus(
+export function actionPrompt(
+  s: play.Session,
+  side: number,
+  unit: play.UnitView,
+  targets: number,
+): string {
+  const i = unit.index,
+    name = unit.name;
+  if (play.sapper(s, i)) return `${name}: pick a hex to dig or fill`;
+  if (play.builder(s, i)) return `${name}: pick where to build a depot`;
+  if (play.gasPioneer(s, i)) {
+    play.canRelease(s, side, i);
+    return `${name}: pick where to release gas (${String(play.charges(s, i))} left)`;
+  }
+  if (play.wiring(s, i)) {
+    play.canWire(s, side, i);
+    return targets === 0
+      ? `${name}: no open ground to wire`
+      : `${name}: pick where to lay wire (${String(play.charges(s, i))} left)`;
+  }
+  if (play.tunneller(s, i)) {
+    const t = play.tunnelOf(s, i);
+    return t === null
+      ? `${name}: pick a hex to mine (it blows in ${String(tunnelTurns)} turns if they stay)`
+      : `${name}: digging under ${String(t.mine.line)},${String(t.mine.col)} (${String(t.dug)}/${String(t.turns)} turns)`;
+  }
+  if (play.ambulance(s, i))
+    return `${name}: heals the foot units next to it each turn`;
+  return `${name}: pick a target`;
+}
+
+/**
+ * actionTargets are the hexes side's unit may be ordered to in the action phase: none for tunnellers that dig a
+ * tunnel already or a field ambulance, which has no order.
+ */
+export function actionTargets(
+  s: play.Session,
+  side: number,
+  unit: number,
+): Set<string> {
+  if (play.ambulance(s, unit) || play.tunnelOf(s, unit) !== null)
+    return new Set();
+  return play.targets(s, side, unit);
+}
+
+/**
+ * effectStatus words a resolution's lasting work for side (the extension's work units): gas released, wire laid,
+ * the side's own tunnels (the enemy's stay hidden), mines, the losses to gas and mines, healing and the clearing;
+ * null without any.
+ */
+export function effectStatus(
   events: readonly play.Event[],
   side: number,
 ): string | null {
   const parts: string[] = [];
   for (const e of events) {
-    if (e.kind === play.Released)
-      parts.push(e.side === side ? e.text : "The enemy released gas.");
-    else if (e.kind === play.Gassed || e.kind === play.Cleared)
-      parts.push(e.text);
+    switch (e.kind) {
+      case play.Released:
+        parts.push(e.side === side ? e.text : "The enemy released gas.");
+        break;
+      case play.Wired:
+        parts.push(e.side === side ? e.text : "The enemy laid wire.");
+        break;
+      case play.Tunnelled:
+      case play.TunnelLost:
+        if (e.side === side) parts.push(e.text);
+        break;
+      case play.Gassed:
+      case play.Cleared:
+      case play.Blown:
+      case play.Mined:
+      case play.Healed:
+        parts.push(e.text);
+    }
   }
   return parts.length === 0 ? null : parts.join(" ");
 }

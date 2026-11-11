@@ -10,19 +10,19 @@ export const playData = bindingData(
 const terrain = new Set(
   Object.keys(object(readJSON("internal/data/terrain.json"), "terrain")),
 );
+// shippedLevel is a shipped setup as Go's scenario.ShippedLevel reads it, the folder's month included.
 export function shippedLevel(month: string, mode: Mode = "cp") {
-  return level(
-    decode(
-      new Map(
-        ["map.json", "cp.json", "ec.json", "2p.json"].map((name) => [
-          name,
-          readJSON(`levels/${month}/${name}`),
-        ]),
-      ),
-      terrain,
+  const f = decode(
+    new Map(
+      ["map.json", "cp.json", "ec.json", "2p.json"].map((name) => [
+        name,
+        readJSON(`levels/${month}/${name}`),
+      ]),
     ),
-    mode,
+    terrain,
   );
+  f.month = month;
+  return level(f, mode);
 }
 
 // Convert Go's public field names and nil slices to the port's value representation.

@@ -3,6 +3,7 @@ export * from "./playSession.ts";
 export * from "./playInfo.ts";
 export * from "./playTerrain.ts";
 export * from "./playGas.ts";
+export * from "./playWorks.ts";
 export { OrderError, ReplayError, messageText } from "./playEvent.ts";
 export {
   typeDomain,

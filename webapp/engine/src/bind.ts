@@ -30,6 +30,12 @@ export interface UnitDefinition {
   name: string;
   weight: number;
   armour: number;
+  /**
+   * from and until are the first and the last campaign month ("1915-04") in which a factory builds an extension
+   * type; "" for no bound (Go's data.Unit From, Until).
+   */
+  from: string;
+  until: string;
 }
 export interface BindingData {
   units: ReadonlyMap<string, UnitDefinition>;
@@ -75,6 +81,8 @@ export function bindingData(rawUnits: unknown, records: unknown): BindingData {
       name: stringField(o, "name", id),
       weight: intField(o, "weight", id),
       armour: intField(o, "armour", id),
+      from: stringField(o, "from", id),
+      until: stringField(o, "until", id),
     });
   }
   const r = object(records, "records");

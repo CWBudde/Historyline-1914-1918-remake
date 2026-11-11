@@ -137,3 +137,19 @@ it("takes the extension units in on ?extended", async () => {
   );
   expect(resumed.game.profile.tables?.build).toBe(s.game.profile.tables?.build);
 });
+it("lets the factories build only the month's extension units", async () => {
+  const data = await loadBattleData({ rule }),
+    file = await shippedScenario("1915-05");
+  file.month = "1915-05";
+  const s = newBattleSession(
+    file,
+    "cp",
+    0,
+    { limit: 0, computer: true },
+    { ...data, extendedUnits: true },
+  );
+  const builds = [...s.game.buildings.values()].flatMap((b) => b.builds);
+  // Gas pioneers from April 1915; stormtroopers only from 1916.
+  expect(builds).toContain(51);
+  expect(builds).not.toContain(53);
+});

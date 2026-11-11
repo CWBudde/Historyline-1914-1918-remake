@@ -1,8 +1,13 @@
 import { expect, it } from "vitest";
-import { ai, level, play } from "@historyline/engine";
-import { Full, Builds } from "../../engine/src/testing/tables.ts";
+import { ai, hexgrid, level, play } from "@historyline/engine";
+import { Full, Builds, Extended } from "../../engine/src/testing/tables.ts";
 import { playData, shippedLevel } from "../../engine/src/testing/play.ts";
-import { MapBattle, gasStatus } from "./mapBattle.ts";
+import {
+  MapBattle,
+  actionPrompt,
+  actionTargets,
+  effectStatus,
+} from "./mapBattle.ts";
 
 function start(month = "1914-08") {
   return play.newSession(shippedLevel(month), playData, {
@@ -171,9 +176,96 @@ it("words a resolution's gas for each side", () => {
     ev({ kind: play.Released, side: 1, text: "Gas released." }),
     ev({ kind: play.Gassed, side: 0, text: "Infantry lose 2 to gas." }),
   ];
-  expect(gasStatus(evs, 1)).toBe("Gas released. Infantry lose 2 to gas.");
-  expect(gasStatus(evs, 0)).toBe(
+  expect(effectStatus(evs, 1)).toBe("Gas released. Infantry lose 2 to gas.");
+  expect(effectStatus(evs, 0)).toBe(
     "The enemy released gas. Infantry lose 2 to gas.",
   );
-  expect(gasStatus([ev({ kind: play.Battle })], 0)).toBeNull();
+  expect(effectStatus([ev({ kind: play.Battle })], 0)).toBeNull();
+});
+
+it("words a resolution's work units, the enemy's tunnels hidden", () => {
+  const ev = (fields: Partial<play.Event>): play.Event => play.newEvent(fields);
+  const evs = [
+    ev({ kind: play.Wired, side: 0, text: "Wire laid." }),
+    ev({ kind: play.Tunnelled, side: 0, text: "Tunnelling begun." }),
+    ev({ kind: play.TunnelLost, side: 0, text: "The tunnel was abandoned." }),
+    ev({ kind: play.Blown, side: 0, text: "A mine went up." }),
+    ev({ kind: play.Mined, side: 1, text: "Infantry lose 4 to a mine." }),
+    ev({ kind: play.Healed, side: 1, text: "Infantry regain 1." }),
+  ];
+  expect(effectStatus(evs, 0)).toBe(
+    "Wire laid. Tunnelling begun. The tunnel was abandoned. A mine went up. Infantry lose 4 to a mine. Infantry regain 1.",
+  );
+  expect(effectStatus(evs, 1)).toBe(
+    "The enemy laid wire. A mine went up. Infantry lose 4 to a mine. Infantry regain 1.",
+  );
+});
+
+it("prompts the wiring party, the tunnellers and the field ambulance", () => {
+  const enemy = hexgrid.around({ line: 6, col: 3 })[3] ?? { line: 0, col: 0 };
+  const units: [hexgrid.Coord, string][] = [
+    [{ line: 4, col: 3 }, "CP_wiring"],
+    [{ line: 6, col: 3 }, "CP_tunnellers"],
+    [{ line: 6, col: 5 }, "CP_ambulance"],
+    [enemy, "EC_infantry"],
+  ];
+  const lv: level.Level = {
+    mapName: "grass",
+    mapNo: 0,
+    player: "Central Powers",
+    extra: null,
+    lines: Array.from({ length: 11 }, (_, l) =>
+      Array.from({ length: 8 - (l % 2) }, (): level.Hex => ({
+        terrain: "grass",
+        infra: { ids: [], list: false },
+        unit: "",
+        content: null,
+      })),
+    ),
+  };
+  for (const [c, id] of units) {
+    const h = lv.lines[c.line]?.[c.col];
+    if (h !== undefined) h.unit = id;
+  }
+  const s = play.newSession(lv, playData, {
+    profile: Full,
+    extended: Extended,
+  });
+  while (play.phase(s, 0) !== 2) {
+    play.confirm(s, 0);
+    play.confirm(s, 1);
+    play.resolve(s);
+  }
+  const v = play.view(s, 0),
+    at = (c: hexgrid.Coord): play.UnitView => {
+      const u = v.units.get(level.coordKey(c));
+      if (u === undefined) throw new Error("no unit");
+      return u;
+    },
+    wiring = at({ line: 4, col: 3 }),
+    tun = at({ line: 6, col: 3 }),
+    amb = at({ line: 6, col: 5 }),
+    prompt = (u: play.UnitView) =>
+      actionPrompt(s, 0, u, actionTargets(s, 0, u.index).size);
+  expect(prompt(wiring)).toBe("Wiring Party: pick where to lay wire (2 left)");
+  expect(prompt(tun)).toBe(
+    "Tunnellers: pick a hex to mine (it blows in 2 turns if they stay)",
+  );
+  expect(prompt(amb)).toBe(
+    "Field Ambulance: heals the foot units next to it each turn",
+  );
+  expect(actionTargets(s, 0, amb.index).size).toBe(0);
+  expect(actionTargets(s, 0, tun.index).has(level.coordKey(enemy))).toBe(true);
+  play.attack(s, 0, tun.index, enemy);
+  play.confirm(s, 0);
+  play.confirm(s, 1);
+  play.resolve(s);
+  expect(play.tunnels(s, 0)).toHaveLength(1);
+  expect(play.tunnels(s, 1)).toStrictEqual([]);
+  expect(prompt(tun)).toMatch(
+    new RegExp(
+      `^Tunnellers: digging under ${String(enemy.line)},${String(enemy.col)} \\(\\d/2 turns\\)$`,
+    ),
+  );
+  expect(actionTargets(s, 0, tun.index).size).toBe(0);
 });

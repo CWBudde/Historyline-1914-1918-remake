@@ -31,6 +31,12 @@ import {
   Released,
   Gassed,
   Cleared,
+  Wired,
+  Tunnelled,
+  TunnelLost,
+  Blown,
+  Mined,
+  Healed,
 } from "./playModel.ts";
 import { kindOf, slots, typeName, unitID } from "./playView.ts";
 
@@ -56,6 +62,10 @@ const messages: Readonly<Record<number, string>> = {
   0x4c: "The unit has nothing left to build with.",
   0x100: "Gas release ordered.",
   0x101: "The unit has no gas left.",
+  0x102: "Wire laying ordered.",
+  0x103: "The unit has no wire left.",
+  0x104: "Tunnelling ordered.",
+  0x105: "The tunnellers are digging a mine already.",
 };
 /** levelHexes are the level hexes of cells, leaving out cells off the level. */
 export function levelHexes(s: Session, cells: readonly number[]): Coord[] {
@@ -308,6 +318,50 @@ export function event(
       ev.hexes = levelHexes(s, r.cells);
       ev.text = "The gas has cleared.";
       break;
+    case "wired":
+      ev.kind = Wired;
+      ev.to = hex(s, r.cell);
+      ev.hexes = levelHexes(s, r.cells);
+      ev.text = "Wire laid.";
+      ev.from = hex(s, liveCell(rules.liveOf(s.game, r.unit), r.side));
+      break;
+    case "tunnel":
+      ev.kind = Tunnelled;
+      ev.to = hex(s, r.cell);
+      ev.text = "Tunnelling begun.";
+      ev.from = hex(s, liveCell(rules.liveOf(s.game, r.unit), r.side));
+      break;
+    case "tunnelLost":
+      ev.kind = TunnelLost;
+      ev.to = hex(s, r.cell);
+      ev.text = "The tunnel was abandoned.";
+      break;
+    case "mine":
+      ev.kind = Blown;
+      ev.to = hex(s, r.cell);
+      ev.hexes = levelHexes(s, r.cells);
+      ev.text = "A mine went up.";
+      break;
+    case "mined": {
+      ev.kind = Mined;
+      ev.to = hex(s, r.cell);
+      ev.loss = r.loss;
+      const u = rules.liveOf(s.game, r.unit),
+        name = typeName(s, unitID(s, r.unit), u.type);
+      ev.text =
+        u.size === 0
+          ? `${name} destroyed by a mine.`
+          : `${name} lose ${String(r.loss)} to a mine.`;
+      break;
+    }
+    case "healed": {
+      ev.kind = Healed;
+      ev.to = hex(s, r.cell);
+      ev.gain = r.gain;
+      const u = rules.liveOf(s.game, r.unit);
+      ev.text = `${typeName(s, unitID(s, r.unit), u.type)} regain ${String(r.gain)}.`;
+      break;
+    }
     case "moved":
     case "refused":
       return moved(s, r, -1);
