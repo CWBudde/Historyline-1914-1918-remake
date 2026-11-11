@@ -635,11 +635,15 @@ New units, as an opt-in extension of the original tables ([docs/new-units.md](do
 - [x] Gas pioneers: a lasting gas cloud on the trench's three cells, with friendly fire; masks and mustard
       gas set by the level's month. Go and the web edition; the computer side releases gas in played-out
       battles (`TestGasPlayOut`: 4 releases, 7 enemy and 0 own losses on 1915-05, the same in TS).
-- [ ] Trench mortar, stormtroopers, Zeppelin, Whippet, Mark V, Schneider CA1, Paris Gun (type records only).
-- [ ] Flamethrower: ignores the defender's terrain defence term.
-- [ ] Barbed wire laid by sappers (extension terrain records; tanks crush it).
-- [ ] Mine tunnel: dig under an adjacent hex for several turns, then blow it and leave a crater.
-- [ ] Field ambulance: restores adjacent foot units at the phase change.
+- [x] Trench mortar, stormtroopers, Zeppelin, Whippet, Mark V, Schneider CA1, Paris Gun: type records,
+      units dated by month (factories build only the level's), Go and the web edition.
+- [x] Flamethrower: ignores the defender's terrain defence term (`TestFlameIgnoresTerrain`, TS twin).
+- [x] Barbed wire laid by a wiring party (record 0xAF: foot units, heavy tanks and light guns cross it,
+      cavalry and wheels do not; sappers clear it).
+- [x] Mine tunnel: tunnellers dig under an adjacent hex for two turns, then it blows and leaves a crater.
+- [x] Field ambulance: restores adjacent foot units once per game turn. The computer side wires, mines and
+      heals in played-out battles (`TestWorksPlayOut` on 1915-05: 5 wired, 3 tunnels, 1 mine, 5 healed, the
+      same in TS).
 - [x] Real art for each extension family: twelve sprite families and portraits, bound in `unitsprite` (no
       placeholders left); the airship flies (rim and shadow of aircraft).
 

@@ -131,7 +131,7 @@ Unit ids `CP_tunnellers` and `EC_tunnellers`, type 61; `internal/dosrules/tunnel
   move or are destroyed, it is abandoned. After **two turns** it blows: every unit on the hex but an
   aircraft or one held in a building loses 70 % of its full group (at least 1), own units too, and open
   ground becomes a crater (terrain record 0xB0: cost 9, it shelters like a trench; the map draws a crater
-  field). Each side sees only its own mines.
+  field; sappers fill it). Each side sees only its own mines.
 - **Computer side.** Tunnellers mine the most valuable enemy unit next to them and stay until it blows.
 
 ## Field ambulance
