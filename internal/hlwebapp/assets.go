@@ -8,6 +8,8 @@ import (
 	"flag"
 	"fmt"
 	"image"
+	_ "image/jpeg" // the shipped backdrops
+	_ "image/png"  // their lossless sources
 	"io"
 	"io/fs"
 	"os"
@@ -49,6 +51,7 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	f := flag.NewFlagSet("hl webapp assets", flag.ContinueOnError)
 	f.SetOutput(stderr)
 	out := f.String("out", "build/webapp/data", "output directory")
+	sources := f.String("levels", "levels", "folder of the level months with the lossless backdrop sources (backdrop.png), tried before the embedded JPEGs")
 	packs := f.String("packs", "", "reuse an existing validated native pack catalog (default: update build/packs)")
 	if err := f.Parse(args); err != nil {
 		return err
@@ -188,19 +191,16 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 				return err
 			}
 		}
-		raw, err := levels.Levels.ReadFile(month + "/backdrop.jpg")
-		if err == nil {
-			im, _, err := image.Decode(bytes.NewReader(raw))
-			if err != nil {
-				return err
-			}
+		im, err := backdropImage(*sources, month)
+		if err != nil {
+			return err
+		}
+		if im != nil {
 			ref, err := b.backdrop(ctx, im)
 			if err != nil {
 				return err
 			}
 			entry.BackdropFile = &ref
-		} else if !errors.Is(err, fs.ErrNotExist) {
-			return err
 		}
 		index.Levels[month] = entry
 		if _, err := fmt.Fprintf(stdout, "exported %s: %d setups\n", month, len(entry.Layers)); err != nil {
@@ -268,4 +268,26 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	}
 	_, err = fmt.Fprintf(stdout, "wrote %d levels to %s (index %s)\n", len(index.Levels), *out, ref.SHA256)
 	return err
+}
+
+// backdropImage is a month's painting: its lossless source in dir when there is
+// one, else the shipped JPEG, nil when the month has none. The JPEG is that
+// source encoded once already, so encoding the tiles from it would add a
+// second generation of loss.
+func backdropImage(dir, month string) (image.Image, error) {
+	raw, err := os.ReadFile(filepath.Join(dir, month, "backdrop.png"))
+	if errors.Is(err, fs.ErrNotExist) {
+		raw, err = levels.Levels.ReadFile(month + "/backdrop.jpg")
+	}
+	if errors.Is(err, fs.ErrNotExist) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	im, _, err := image.Decode(bytes.NewReader(raw))
+	if err != nil {
+		return nil, fmt.Errorf("%s backdrop: %w", month, err)
+	}
+	return im, nil
 }

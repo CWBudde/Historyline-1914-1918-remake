@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlasset"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/seasonblend"
@@ -164,7 +165,7 @@ func (w *waterBaker) seasonLayer(ctx context.Context, blend *seasonblend.Blend, 
 		return result, false, err
 	}
 	result.Lite = result.Full
-	compressed, err := cachedLite(straight, raw.Bytes())
+	compressed, err := cachedLite(straight, raw.Bytes(), hlasset.LiteWebP)
 	if err != nil {
 		return result, false, err
 	}

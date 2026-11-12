@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlasset"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 )
@@ -127,7 +128,7 @@ func (w *waterBaker) bakeField(s *mapcompose.Scene, c hexgrid.Coord, id string, 
 		return BakedBackground{}, err
 	}
 	result := BakedBackground{ID: id, Width: e.Width, Height: e.Height, Density: d, Anchor: e.Anchor, TileOnly: true}
-	compressed, err := cachedLite(im, raw.Bytes())
+	compressed, err := cachedLite(im, raw.Bytes(), hlasset.FieldWebP)
 	if err != nil {
 		return result, err
 	}

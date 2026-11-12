@@ -9,13 +9,14 @@ import (
 	"errors"
 	"fmt"
 	"image"
-	"image/jpeg"
 	"image/png"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/gen2brain/webp"
 	"golang.org/x/image/draw"
+	"golang.org/x/sync/errgroup"
 )
 
 // FileRef pins an exported file. Every path is relative to data/index.json.
@@ -115,32 +116,56 @@ func (b blobWriter) backdrop(ctx context.Context, im image.Image) (FileRef, erro
 	return b.json(p)
 }
 
+// Qualities of a painting's WebP tiles: the full-resolution level (about three
+// quarters of the bytes) matches what the desktop game's JPEG shows, the
+// smaller levels, seen zoomed out, are lighter.
+const (
+	backdropQuality    = 92
+	backdropMipQuality = 85
+	// backdropWorkers bounds the tiles encoded at once: each encoder instance holds a few MB.
+	backdropWorkers = 4
+)
+
 func (b blobWriter) pyramid(ctx context.Context, im image.Image) (Pyramid, error) {
 	p := Pyramid{Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), TileSize: 512}
 	for scale := 1; ; scale *= 2 {
 		m := Mip{Scale: scale, Width: im.Bounds().Dx(), Height: im.Bounds().Dy()}
+		quality := backdropMipQuality
+		if scale == 1 {
+			quality = backdropQuality
+		}
 		for y := 0; y < m.Height; y += p.TileSize {
 			for x := 0; x < m.Width; x += p.TileSize {
-				if err := ctx.Err(); err != nil {
-					return p, err
-				}
 				t := Tile{X: x, Y: y, Width: min(p.TileSize, m.Width-x), Height: min(p.TileSize, m.Height-y)}
 				// A two-pixel neighbour gutter prevents clamped texture filtering
 				// from introducing seams between the independently loaded tiles.
 				src := image.Rect(max(0, x-2), max(0, y-2), min(m.Width, x+t.Width+2), min(m.Height, y+t.Height+2))
 				t.SourceX, t.SourceY, t.SourceWidth, t.SourceHeight = src.Min.X, src.Min.Y, src.Dx(), src.Dy()
-				pic := image.NewRGBA(image.Rect(0, 0, src.Dx(), src.Dy()))
-				draw.Copy(pic, image.Point{}, im, src.Add(im.Bounds().Min), draw.Src, nil)
-				var buf bytes.Buffer
-				if err := jpeg.Encode(&buf, pic, &jpeg.Options{Quality: 85}); err != nil {
-					return p, err
-				}
-				var err error
-				if t.File, err = b.put("jpg", buf.Bytes()); err != nil {
-					return p, err
-				}
 				m.Tiles = append(m.Tiles, t)
 			}
+		}
+		var g errgroup.Group
+		g.SetLimit(backdropWorkers)
+		for i := range m.Tiles {
+			t := &m.Tiles[i]
+			g.Go(func() error {
+				if err := ctx.Err(); err != nil {
+					return err
+				}
+				src := image.Rect(t.SourceX, t.SourceY, t.SourceX+t.SourceWidth, t.SourceY+t.SourceHeight)
+				pic := image.NewNRGBA(image.Rect(0, 0, src.Dx(), src.Dy()))
+				draw.Draw(pic, pic.Rect, im, src.Min.Add(im.Bounds().Min), draw.Src)
+				var buf bytes.Buffer
+				if err := webp.Encode(&buf, pic, webp.Options{Quality: quality, Method: 4}); err != nil {
+					return err
+				}
+				var err error
+				t.File, err = b.put("webp", buf.Bytes())
+				return err
+			})
+		}
+		if err := g.Wait(); err != nil {
+			return p, err
 		}
 		p.Mips = append(p.Mips, m)
 		if m.Width <= p.TileSize && m.Height <= p.TileSize {

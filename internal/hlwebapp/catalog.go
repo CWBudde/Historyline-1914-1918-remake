@@ -172,7 +172,7 @@ func (b blobWriter) catalog(ctx context.Context, dir, name string) (_ map[int]Qu
 					entry.File = ref
 					full.Entries[start+i] = entry
 					if e.ID != worldmaterial.MeadowID && e.ID != worldmaterial.ScrubID {
-						compressed, err := cachedLite(im, raw)
+						compressed, err := cachedLite(im, raw, hlasset.LiteWebP)
 						if err != nil {
 							return err
 						}
@@ -222,21 +222,26 @@ type encodedImage struct {
 	Data []byte
 }
 
-func cachedLite(im image.Image, raw []byte) (_ encodedImage, err error) {
-	sum := sha256.Sum256(raw)
+// cachedLite compresses im for the browser, cached by its PNG bytes raw and the
+// WebP quality it is encoded at (a JPEG for an opaque image has one quality).
+func cachedLite(im image.Image, raw []byte, quality int) (_ encodedImage, err error) {
+	h := sha256.New()
+	h.Write(raw)
+	h.Write([]byte{byte(quality)})
+	sum := h.Sum(nil)
 	cache, err := os.UserCacheDir()
 	if err != nil {
 		return encodedImage{}, err
 	}
-	dir := filepath.Join(cache, "historyline", "webapp-lite-v1")
-	name := filepath.Join(dir, hex.EncodeToString(sum[:])+".json")
+	dir := filepath.Join(cache, "historyline", "webapp-lite-v2")
+	name := filepath.Join(dir, hex.EncodeToString(sum)+".json")
 	if data, err := os.ReadFile(name); err == nil {
 		var v encodedImage
 		if json.Unmarshal(data, &v) == nil && slices.Contains([]string{"jpg", "webp"}, v.Ext) && len(v.Data) > 0 {
 			return v, nil
 		}
 	}
-	ext, data, err := hlasset.EncodeLite(im)
+	ext, data, err := hlasset.EncodeAt(im, quality)
 	if err != nil {
 		return encodedImage{}, err
 	}

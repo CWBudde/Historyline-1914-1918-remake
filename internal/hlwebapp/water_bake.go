@@ -15,6 +15,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hlasset"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
@@ -234,7 +235,7 @@ func (w *waterBaker) shade(ctx context.Context, field *waterdepth.Field, c hexgr
 		return result, err
 	}
 	result.Lite = result.Full
-	compressed, err := cachedLite(shaded, raw.Bytes())
+	compressed, err := cachedLite(shaded, raw.Bytes(), hlasset.LiteWebP)
 	if err != nil {
 		return result, err
 	}

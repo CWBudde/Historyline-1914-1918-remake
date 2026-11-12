@@ -9,13 +9,13 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"image/jpeg"
 	"image/png"
 	"os"
 	"path/filepath"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"github.com/gen2brain/webp"
 )
 
 func TestBlobsPinBytesAndDeduplicate(t *testing.T) {
@@ -131,11 +131,11 @@ func TestBackdropPyramidCoversOddEdges(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			pic, err := jpeg.Decode(bytes.NewReader(raw))
+			pic, err := webp.DecodeConfig(bytes.NewReader(raw))
 			if err != nil {
 				t.Fatal(err)
 			}
-			if pic.Bounds().Dx() != tile.SourceWidth || pic.Bounds().Dy() != tile.SourceHeight || tile.X+tile.Width > w || tile.Y+tile.Height > h {
+			if pic.Width != tile.SourceWidth || pic.Height != tile.SourceHeight || tile.X+tile.Width > w || tile.Y+tile.Height > h {
 				t.Fatal("tile geometry")
 			}
 			if tile.SourceX != max(0, tile.X-2) || tile.SourceY != max(0, tile.Y-2) || tile.SourceX+tile.SourceWidth != min(w, tile.X+tile.Width+2) || tile.SourceY+tile.SourceHeight != min(h, tile.Y+tile.Height+2) {
