@@ -449,8 +449,9 @@
   padding: 0;
 }
 .shell-page-main .shell-heading h1 {
-  margin: calc(10 * var(--u)) 0 calc(5 * var(--u));
+  margin: calc(10 * var(--u)) calc(-12 * var(--u)) calc(5 * var(--u)) 0;
   font-size: calc(36 * var(--u));
+  white-space: nowrap;
 }
 .shell-years {
   margin: 0 0 0 calc(2 * var(--u)) !important;
@@ -603,6 +604,20 @@
   .shell-flags .shell-art {
     width: calc(34 * var(--u));
     height: calc(24 * var(--u));
+  }
+}
+
+/* A phone held sideways: the column scrolls, so it drops the help and packs its rows. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .shell-columned .shell-help {
+    display: none;
+  }
+  .shell-columned .shell-menu {
+    gap: calc(6 * var(--u));
+  }
+  .shell-page-main .shell-heading h1 {
+    margin-top: 0;
+    font-size: calc(30 * var(--u));
   }
 }
 
