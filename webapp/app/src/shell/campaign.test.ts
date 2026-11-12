@@ -71,6 +71,7 @@ function files(
   cp = "FIRST",
   ec = "OTHER",
   news: unknown = article,
+  building = "hq",
 ): Map<string, unknown> {
   const result = new Map<string, unknown>([
     [
@@ -83,7 +84,7 @@ function files(
         map: {
           line1: [
             ["grass", ""],
-            ["hq", ""],
+            [building, ""],
             ["grass", ""],
           ],
         },
@@ -116,7 +117,7 @@ function loader(months: Record<string, Map<string, unknown>>) {
     ),
   };
   const rules: Record<string, unknown> = {
-    "terrain.json": { grass: {}, hq: {} },
+    "terrain.json": { grass: {}, hq: {}, factoryN: {} },
     "units.json": units,
     "sprites.json": Object.fromEntries(
       Object.keys(units).map((id) => [id, { family: id.slice(3) }]),
@@ -175,9 +176,14 @@ it("links calendar-ordered side chains, skips empty codes and switches the selec
 
 it("introduces deployed, held and buildable side types once, with native per-slot powers and ranges", async () => {
   const campaign = await loadCampaign(
-    loader({ "1914-08": files(), "1914-09": files("NEXT", "ENTENTE") }),
+    loader({
+      "1914-08": files(),
+      "1914-09": files("NEXT", "ENTENTE", article, "factoryN"),
+      "1914-10": files("LAST", "FINAL", article, "factoryN"),
+    }),
   );
-  expect(campaign.first(0).newUnits).toEqual([
+  // The first map has no factory: its build list introduces nothing.
+  expect(campaign.byKey.get("1914-09:cp")?.newUnits).toEqual([
     {
       id: "CP_lArtillery",
       family: "lArtillery",
@@ -190,6 +196,8 @@ it("introduces deployed, held and buildable side types once, with native per-slo
       reach: "Range 1–5",
       note: "A field gun.",
     },
+  ]);
+  expect(campaign.first(0).newUnits).toEqual([
     {
       id: "CP_infantry",
       family: "infantry",
@@ -215,9 +223,12 @@ it("introduces deployed, held and buildable side types once, with native per-slo
       note: "",
     },
   ]);
-  expect(campaign.first(1).newUnits.map((c) => c.id)).toEqual(["EC_infantry"]);
-  expect(campaign.byKey.get("1914-09:cp")?.newUnits).toEqual([]);
-  expect(campaign.byKey.get("1914-09:ec")?.newUnits).toEqual([]);
+  expect(campaign.first(1).newUnits).toEqual([]);
+  expect(campaign.byKey.get("1914-09:ec")?.newUnits.map((c) => c.id)).toEqual([
+    "EC_infantry",
+  ]);
+  expect(campaign.byKey.get("1914-10:cp")?.newUnits).toEqual([]);
+  expect(campaign.byKey.get("1914-10:ec")?.newUnits).toEqual([]);
   expect(campaign.first(0).file.month).toBe("1914-08");
   expect(scenario.level(campaign.first(0).file, "cp").mapName).toBe("FIRST");
 });
@@ -357,6 +368,12 @@ it("loads all 104 shipped missions with both 52-month chains, codes, issues and 
     expect(chain.map((m) => m.month)).toEqual(months);
     const seen = new Set<string>();
     for (const [i, mission] of chain.entries()) {
+      const ground = readJSON(`levels/${mission.month}/map.json`) as {
+        map: Record<string, [string, ...unknown[]][]>;
+      };
+      const factory = Object.values(ground.map).some((line) =>
+        line.some((hex) => hex[0].startsWith("factory")),
+      );
       interface RawSetup {
         code: string;
         from?: string;
@@ -371,7 +388,7 @@ it("loads all 104 shipped missions with both 52-month chains, codes, issues and 
       const available = new Set([
         ...(content.units ?? []).map((u) => u[2]),
         ...(content.buildings ?? []).flatMap((b) => b.units ?? []),
-        ...(content.builds ?? []),
+        ...(factory ? (content.builds ?? []) : []),
       ]);
       const introduced = [...available].filter(
         (id) => id.startsWith(side === 0 ? "CP_" : "EC_") && !seen.has(id),
@@ -410,13 +427,10 @@ it("loads all 104 shipped missions with both 52-month chains, codes, issues and 
     expect(seen.size).toBe(side === 0 ? 44 : 48);
   }
   expect(campaign.first(0).newUnits.map((c) => c.id)).toEqual([
-    "CP_armCar",
-    "CP_fokkerEI",
     "CP_lArtillery",
     "CP_mArtillery",
     "CP_hArtillery",
     "CP_bunker",
-    "CP_construction",
     "CP_eliteInf",
     "CP_infantry",
     "CP_cavalry",

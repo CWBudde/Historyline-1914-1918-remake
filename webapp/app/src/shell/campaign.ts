@@ -187,10 +187,14 @@ export async function loadCampaign(
       if (setup === null || setup.code === "") continue;
       // Check the same setup-to-level invariants as the native catalog.
       scenario.level(file, mode);
+      // The build list counts only where a factory stands to build from it.
+      const factory = file.map.some((line) =>
+        line.some((hex) => hex.terrain.startsWith("factory")),
+      );
       const ids = new Set([
         ...setup.units.map((u) => u.id),
         ...setup.buildings.flatMap((b) => b.units ?? []),
-        ...setup.builds,
+        ...(factory ? setup.builds : []),
       ]);
       const newUnits: UnitCard[] = [];
       for (const id of ids) {

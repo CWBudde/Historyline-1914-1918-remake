@@ -11,6 +11,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/campaign"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -261,8 +262,8 @@ func newCard(set *data.Set, id string) unitCard {
 }
 
 // sideUnits are the unit types of mode's own side in setup s: on the map,
-// in its buildings and among the builds.
-func sideUnits(s *scenario.Setup, mode scenario.Mode) []string {
+// in its buildings and, on a map of file f with a factory, among the builds.
+func sideUnits(f *scenario.File, s *scenario.Setup, mode scenario.Mode) []string {
 	prefix := "CP_"
 	if mode == scenario.EC {
 		prefix = "EC_"
@@ -281,8 +282,14 @@ func sideUnits(s *scenario.Setup, mode scenario.Mode) []string {
 			add(id)
 		}
 	}
-	for _, id := range s.Builds {
-		add(id)
+	// The build list counts only where a factory stands to build from it.
+	factory := slices.ContainsFunc(f.Map, func(line []level.Hex) bool {
+		return slices.ContainsFunc(line, func(h level.Hex) bool { return strings.HasPrefix(h.Terrain, "factory") })
+	})
+	if factory {
+		for _, id := range s.Builds {
+			add(id)
+		}
 	}
 	return ids
 }

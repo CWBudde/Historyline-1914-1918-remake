@@ -72,8 +72,10 @@ func TestNewUnitsFollowTheChain(t *testing.T) {
 	if got := ids("1914-09:cp"); !slices.Equal(got, []string{"CP_ambulance"}) {
 		t.Errorf("1914-09 cp new units %v", got)
 	}
-	if n := len(ids("1914-08:cp")); n < 10 {
-		t.Errorf("1914-08 cp introduces %d unit types, want the whole force", n)
+	// PULSE has a build list but no factory: only its force is new.
+	first := ids("1914-08:cp")
+	if len(first) < 8 || slices.Contains(first, "CP_armCar") || slices.Contains(first, "CP_fokkerEI") {
+		t.Errorf("1914-08 cp introduces %v, want its force and nothing from the build list", first)
 	}
 	for _, m := range s.maps {
 		for _, c := range m.newUnits {

@@ -160,7 +160,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 				article: pages[f.Month], issue: issues[f.Month],
 			}
 			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.season)
-			m.newUnits = newCards(set, sideUnits(s, mode), seen)
+			m.newUnits = newCards(set, sideUnits(f, s, mode), seen)
 			if len(maps) > first {
 				maps[len(maps)-1].next = len(maps)
 			}
