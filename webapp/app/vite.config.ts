@@ -16,6 +16,11 @@ function precacheManifest(): Plugin {
       const files = [
         "./",
         "index.json",
+        "manifest.webmanifest",
+        "icon-192.png",
+        "icon-512.png",
+        "icon-maskable-512.png",
+        "apple-touch-icon.png",
         ...built.filter((file) => file !== "index.html"),
       ].sort();
       const version = createHash("sha256")

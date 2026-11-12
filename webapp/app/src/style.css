@@ -4,9 +4,12 @@
   --muted: #6e8088;
   --slate: #162630;
   --ui-scale: 1;
-  --top-height: calc(64px * var(--ui-scale));
+  --top-height: calc(64px * var(--ui-scale) + env(safe-area-inset-top, 0px));
   --dock-width: min(calc(320px * var(--ui-scale)), 45vw);
   --dock-height: min(44dvh, calc(400px * var(--ui-scale)));
+  /* Set by viewport.ts from the visual viewport (on-screen keyboard, browser bars). */
+  --app-top: 0px;
+  --app-height: 100dvh;
   color-scheme: dark;
 }
 
@@ -25,6 +28,9 @@ body {
 #ui {
   position: fixed;
   inset: 0;
+  top: var(--app-top);
+  bottom: auto;
+  height: var(--app-height);
 }
 
 /* The DOM UI lies over the canvas; only its panels take the pointer. */
@@ -33,8 +39,14 @@ body {
 }
 
 .in-battle #stage {
-  top: var(--top-height);
+  top: calc(var(--app-top) + var(--top-height));
+  height: calc(var(--app-height) - var(--top-height));
   right: var(--dock-width);
+}
+
+/* The top bar's own padding makes room for the notch. */
+.in-battle .battle-ui .battle-top {
+  padding-top: calc(5px + env(safe-area-inset-top, 0px));
 }
 
 #stage canvas {
@@ -45,7 +57,7 @@ body {
 @media (max-width: 900px), (orientation: portrait) {
   .in-battle #stage {
     right: 0;
-    bottom: var(--dock-height);
+    height: calc(var(--app-height) - var(--top-height) - var(--dock-height));
   }
 }
 
