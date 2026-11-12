@@ -114,6 +114,11 @@ func writeTrace(ctx context.Context, w io.Writer, name string, lv *level.Level, 
 	if err != nil {
 		return err
 	}
+	return writeSessionTrace(ctx, w, name, s, capResolutions)
+}
+
+// writeSessionTrace writes the trace of session s, both sides planned by dosai.
+func writeSessionTrace(ctx context.Context, w io.Writer, name string, s *dosplay.Session, capResolutions int) error {
 	raw, err := s.Save()
 	if err != nil {
 		return err
