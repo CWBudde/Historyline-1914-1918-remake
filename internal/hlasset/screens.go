@@ -141,7 +141,11 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 			})
 		}
 	}
-	return files, nil
+	parts, err := planArmour(artDir, d)
+	if err != nil {
+		return nil, err
+	}
+	return append(files, parts...), nil
 }
 
 // newsW, newsH are the logical size of a newspaper illustration (3:2).
@@ -186,12 +190,21 @@ func scaleTile(src string, w, h int) (_ []byte, err error) {
 		return nil, fmt.Errorf("%s: %w", src, err)
 	}
 	b := im.Bounds()
-	sw, sh := b.Dx(), b.Dy()
-	if sw < w || sh < h {
-		return nil, fmt.Errorf("%s: %dx%d is smaller than %dx%d; no upscaling", src, sw, sh, w, h)
+	if b.Dx() < w || b.Dy() < h {
+		return nil, fmt.Errorf("%s: %dx%d is smaller than %dx%d; no upscaling", src, b.Dx(), b.Dy(), w, h)
 	}
-	img := image.NewRGBA(image.Rect(0, 0, sw, sh))
+	img := image.NewRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
 	draw.Draw(img, img.Bounds(), im, b.Min, draw.Src)
+	var out bytes.Buffer
+	if err := png.Encode(&out, shrink(img, w, h)); err != nil {
+		return nil, err
+	}
+	return out.Bytes(), nil
+}
+
+// shrink scales img (at least w×h, premultiplied) down to w×h by area means.
+func shrink(img *image.RGBA, w, h int) *image.RGBA {
+	sw, sh := img.Rect.Dx(), img.Rect.Dy()
 	rows, tx := make([]float64, 4*w*sh), taps(sw, w) // shrunk along the rows
 	for y := range sh {
 		for x, ts := range tx {
@@ -214,11 +227,7 @@ func scaleTile(src string, w, h int) (_ []byte, err error) {
 			}
 		}
 	}
-	var out bytes.Buffer
-	if err := png.Encode(&out, dst); err != nil {
-		return nil, err
-	}
-	return out.Bytes(), nil
+	return dst
 }
 
 // tap is a source sample and its weight.

@@ -366,7 +366,10 @@ just play -backdrop off        # PULSE with the terrain tiles
 `build-screens` writes one pack per screen family and density (1× and 2×) into `<d>x/<family>/`: the
 unpacked `screens/` files of the index (frames, buttons, country swatches, widgets, the backdrop) and, as
 `scene/<family>`, each `art/screens/<family>/illustration.png` painting trimmed by one pixel per edge and
-scaled to 640×400 logical pixels (never enlarged). The game's menus (`-screens`) draw a painting, the frame
+scaled to 640×400 logical pixels (never enlarged). The web edition's menus are built of the painted parts in
+`art/screens/armour` (family `armour`): each cleared of its alpha haze (16 and below) and trimmed, at half its master's
+size (smaller where `internal/hlasset/armour.go` scales it), the rivet sheet as a repeating row and column; the
+browser takes only their lite art at the drawn density. The game's menus (`-screens`) draw a painting, the frame
 over it, live text in the Go fonts and the button states; without the catalog they draw plain panels.
 
 ## Open

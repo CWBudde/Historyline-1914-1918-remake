@@ -41,6 +41,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"effect":         {"effect/explosion-00", "effect/explosion-08", "effect/hit"},
 			"surface":        {"surface/steel", "surface/ground", "surface/rivets", "surface/plate", "surface/plate-4", "surface/newsprint"},
 			"news":           {"news/1914-08", "news/1918-06"},
+			"armour":         {"armour/plate", "armour/title", "armour/nameplate", "armour/nameplate-polished", "armour/embrasure", "armour/rivets-row", "armour/rivets-column", "armour/plaque-germany", "armour/plaque-france"},
 			"capture":        {"capture/depot", "capture/factory", "capture/hand", "capture/hq", "capture/hq-open", "capture/surrender", "capture/surrender-offer", "capture/surrender-accepted"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
@@ -60,7 +61,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 					t.Fatal(err)
 				}
 				full := !strings.HasPrefix(id, "button/") && !strings.HasPrefix(id, "country/") && !strings.HasPrefix(id, "portrait/") &&
-					!strings.HasPrefix(id, "rank/") && !strings.HasPrefix(id, "effect/")
+					!strings.HasPrefix(id, "rank/") && !strings.HasPrefix(id, "effect/") && !strings.HasPrefix(id, "armour/")
 				// The tiles and the hand are square, the rivet sheet twice as
 				// wide as high, the plates 3:2, the map room as high as its
 				// masters' 1122x1402.
