@@ -13,7 +13,9 @@ import (
 	"testing/fstest"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
@@ -86,7 +88,11 @@ func TestShippedRoundTrip(t *testing.T) {
 					t.Error(err)
 					continue
 				}
-				if _, err := game.New(lv, set); err != nil {
+				b, err := dosbind.Bind(lv, set)
+				if err == nil {
+					_, err = b.Game(dosrules.Extended)
+				}
+				if err != nil {
 					t.Errorf("%s: %v", m, err)
 				}
 			}
@@ -187,14 +193,14 @@ func TestLevel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if lv.Player != game.Entente.String() || lv.MapName != "TESTB" || lv.MapNo != 0 {
+	if lv.Player != faction.Entente.String() || lv.MapName != "TESTB" || lv.MapNo != 0 {
 		t.Errorf("level %q %d %q", lv.MapName, lv.MapNo, lv.Player)
 	}
 	if lv.Lines[0][0].Unit != "CP_infantry" || lv.Lines[2][2].Unit != "EC_infantry" {
 		t.Errorf("units %q %q", lv.Lines[0][0].Unit, lv.Lines[2][2].Unit)
 	}
 	c := lv.Lines[0][1].Content
-	if c == nil || c.Owner != int(game.CentralPowers) || !reflect.DeepEqual(c.Units, []string{"CP_cavalry"}) {
+	if c == nil || c.Owner != int(faction.CentralPowers) || !reflect.DeepEqual(c.Units, []string{"CP_cavalry"}) {
 		t.Errorf("content %+v", c)
 	}
 	if lv.Extra.Credits[hexgrid.Coord{Line: 0, Col: 1}] != 5 || !reflect.DeepEqual(lv.Extra.Builds, []string{"CP_infantry"}) || lv.Extra.Backdrop != BackdropFile {

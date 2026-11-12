@@ -9,7 +9,7 @@ import (
 	"slices"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -38,14 +38,11 @@ func terrainDensity(eff float64) int {
 	return min(assetDensity(eff), terrainDensities[len(terrainDensities)-1])
 }
 
-// unitSpent reports whether u has acted this turn and is drawn greyscale.
-func unitSpent(u *state.Unit) bool { return u.Moved || u.Attacked }
-
 // unitSprite picks the sprite of a unit of type typ and strength size (0 for the
 // full strength) owned by owner. The palette
 // follows the owner, so captured units change colour; remembered units use the
 // greyscale spent sprite.
-func unitSprite(typ string, size int, owner state.Player, spent, remembered bool, face unitsprite.Facing) (family, id string, ok bool) {
+func unitSprite(typ string, size int, owner faction.Player, spent, remembered bool, face unitsprite.Facing) (family, id string, ok bool) {
 	family, ok = unitsprite.Family(typ)
 	if !ok {
 		return "", "", false
@@ -238,7 +235,7 @@ func (g *game) unitRim(c hexgrid.Coord) unitsprite.Rim {
 // drawUnitSprite draws a unit sprite on hex c, dressed with the hex's rim and
 // its contact shadow, with its logical anchor on screen point (sx, sy), the hex
 // centre. Errors go to the status line once.
-func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, size int, owner state.Player, spent, remembered bool, face unitsprite.Facing) {
+func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, size int, owner faction.Player, spent, remembered bool, face unitsprite.Facing) {
 	if g.art == nil || typ == "" {
 		return
 	}

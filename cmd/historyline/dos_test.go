@@ -11,7 +11,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
@@ -61,7 +61,7 @@ func nearestEnemy(d *dosControl, choices []hexgrid.Coord) hexgrid.Coord {
 	if len(goals) == 0 {
 		// None in sight: the enemy's HQ.
 		for p, b := range d.own().Buildings {
-			if b.HQ && b.Owner != state.None && dosbind.Side(b.Owner) == 1-d.side {
+			if b.HQ && b.Owner != faction.None && dosbind.Side(b.Owner) == 1-d.side {
 				goals = append(goals, p)
 			}
 		}
@@ -321,7 +321,7 @@ func TestDosBattles(t *testing.T) {
 			}
 			battles++
 			b := p.ev.Battle
-			if p.fight == nil || p.fight.ev.Battle != b || p.fight.battle.Defender.After != b.Defender.After || d.report.Active() {
+			if p.fight == nil || p.fight.ev.Battle != b || p.fight.battle.Defender.After != b.Defender.After {
 				t.Fatalf("battle stage %+v for %+v", p.fight, b)
 			}
 			for _, f := range []dosplay.Fighter{b.Attacker, b.Defender} {
@@ -400,7 +400,7 @@ func TestDosExitThroughContents(t *testing.T) {
 		t.Fatalf("the unit cannot leave: %q", d.boxDetails())
 	}
 	d.runBox(gesture.MoveOut)
-	if !d.selected || d.hold < 0 || len(d.moves) == 0 || d.box != nil || d.MenuOpen() {
+	if !d.selected || d.hold < 0 || len(d.moves) == 0 || d.box != nil {
 		t.Fatalf("exit choice: selected %v hold %d, %d blue hexes, %q", d.selected, d.hold, len(d.moves), d.Message)
 	}
 	to := dosplay.Coords(d.moves)[0]
@@ -438,8 +438,8 @@ func TestDosInfoAndStatus(t *testing.T) {
 	if g.artErr = "broken"; !strings.Contains(g.statusText(), "unit sprites: broken") {
 		t.Errorf("art failure not shown: %q", g.statusText())
 	}
-	if shown, remembered := g.unitShown(at); !shown || remembered || g.fogOf(at) != state.Visible {
-		t.Errorf("unit on %v: shown %v remembered %v", at, shown, remembered)
+	if !g.unitShown(at) || g.fogOf(at) != fogVisible {
+		t.Errorf("unit on %v not shown", at)
 	}
 	if g.drv() != driver(d) {
 		t.Error("the game does not drive the session")

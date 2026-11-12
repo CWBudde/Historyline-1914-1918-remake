@@ -5,8 +5,10 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -59,13 +61,13 @@ func TestCampaign(t *testing.T) {
 	if h := unit([2]int{1, 2}); h.Unit != "EC_supplyCar" || h.Content != nil {
 		t.Errorf("transporter (its cargo left out): %+v", h)
 	}
-	if h := unit([2]int{0, 0}); !reflect.DeepEqual(h.Content, &level.Content{Owner: int(game.Entente), Units: []string{"EC_eliteInf", "EC_lArtillery"}}) {
+	if h := unit([2]int{0, 0}); !reflect.DeepEqual(h.Content, &level.Content{Owner: int(faction.Entente), Units: []string{"EC_eliteInf", "EC_lArtillery"}}) {
 		t.Errorf("HQ content: %+v", h.Content)
 	}
-	if h := unit([2]int{1, 0}); !reflect.DeepEqual(h.Content, &level.Content{Owner: int(game.None), Units: []string{"EC_infantry", "EC_charron"}}) {
+	if h := unit([2]int{1, 0}); !reflect.DeepEqual(h.Content, &level.Content{Owner: int(faction.None), Units: []string{"EC_infantry", "EC_charron"}}) {
 		t.Errorf("neutral depot content: %+v", h.Content)
 	}
-	if got.MapName != "30" || got.MapNo != 31 || got.Player != game.Entente.String() {
+	if got.MapName != "30" || got.MapNo != 31 || got.Player != faction.Entente.String() {
 		t.Errorf("header %q %d %q", got.MapName, got.MapNo, got.Player)
 	}
 
@@ -86,9 +88,8 @@ func TestCampaign(t *testing.T) {
 	}
 }
 
-// Every numbered original map makes a campaign level that the remake rules
-// load under both rule sets with all of the map's units and building
-// contents.
+// Every numbered original map makes a campaign level that binds to the
+// original rules with all of the map's units and building contents.
 func TestOriginalCampaign(t *testing.T) {
 	set := loadSet(t)
 	for _, src := range originalMaps(t) {
@@ -121,7 +122,11 @@ func TestOriginalCampaign(t *testing.T) {
 		if units != len(src.Units) || inside != want {
 			t.Errorf("%s: %d units and %d in buildings, the map has %d and %d", stem, units, inside, len(src.Units), want)
 		}
-		if _, err := game.New(lv, set); err != nil {
+		b, err := dosbind.Bind(lv, set)
+		if err == nil {
+			_, err = b.Game(dosrules.Full)
+		}
+		if err != nil {
 			t.Errorf("%s: %v", stem, err)
 		}
 	}

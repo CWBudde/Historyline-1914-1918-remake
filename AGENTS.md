@@ -5,12 +5,11 @@ Guidance for AI coding agents (Claude Code, Codex, …) in this repository. `CLA
 ## What this is
 
 A Go/Ebitengine remake of Historyline 1914-1918 with newly authored art. `PLAN.md` is the roadmap and the
-source of truth for what is done (tick boxes only with evidence you ran). `legacy/` holds the upstream
-Python remake, used only as a test reference.
+source of truth for what is done (tick boxes only with evidence you ran).
 
 ## Language policy
 
-Write code and tooling in **Go**. Python remains only in `legacy/`; do not add new Python. TypeScript only
+Write code and tooling in **Go**; do not add Python. TypeScript only
 in `webapp/`, the web edition's browser runtime (PLAN.md §7); its exports and goldens are `hl` commands in Go.
 
 ## Commands
@@ -19,7 +18,7 @@ in `webapp/`, the web edition's browser runtime (PLAN.md §7); its exports and g
 just ci          # everything CI runs: lint, test, build, art-check, reference-check, webapp-check
 just check       # ci without the tools/ tests (about 25 min, never cached): for changes outside tools/
 just test        # go test ./...
-go test ./internal/game -run TestName   # single test
+go test ./internal/dosrules -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml); just lint-fix applies its fixes
 just fmt         # treefmt (treefmt.toml): gofumpt, gci, typstyle, prettier, shfmt; just fix = lint-fix + fmt
 just check-formatted  # fails if just fmt would change a tracked file (formats a copy)
@@ -40,15 +39,15 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   (`cmd/hleffectpreview`) and explicit tagged authoring generators run as child processes.
 - `cmd/historyline`: the Ebitengine front end; `shell.go` holds the menus around a battle, `app.go` runs
   and draws them.
-- `internal/game`: rules engine with **no rendering**; UI and AI drive it through commands
-  (`commands.go`). A single rule set (the former `Standard`); the Classic (Python) set was removed.
+- `internal/faction`: the two sides (`Player`, the level files' owner numbers) and the side of a unit's
+  country (`faction.Of`).
 - `internal/data`: embedded JSON tables (terrain, weapons, units). Unit stats and per-slot attacks follow
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
   phase change, the command cycle `Game` with save/resume, building capture, sapper trenches, depot
-  construction, victory and score, energy, repair and production), pinned by fixtures under `testdata/`;
-  not wired into `game` yet. The opt-in extension (`Extended`, `extension.json`, type records from 51 on)
+  construction, victory and score, energy, repair and production), pinned by fixtures under `testdata/`.
+  The opt-in extension (`Extended`, `extension.json`, type records from 51 on)
   adds twelve units beyond the original: stats-only types, the gas pioneers' lasting cloud (`gas.go`), the
   flamethrower, barbed wire (`wire.go`), mines (`tunnel.go`) and the field ambulance (`ambulance.go`); see
   `docs/new-units.md`.
@@ -71,8 +70,8 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   named units, build rules, stop conditions) ahead with `try`, and lets the coach play a plan with `advance`. `hl llmplay corpus` keeps the
   winning recordings per level and side (`levels/replays.json`, `levels/<month>/replays/`), checked against
   the current `dosai` by `TestShippedReplays`; `corpus regen` after a rules or `dosai` change.
-- `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen under
-  `-rules dos` (layout, frame, panel views, cursor gestures); see `docs/dos-screen.md`.
+- `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen
+  (layout, frame, panel views, cursor gestures); see `docs/dos-screen.md`.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: the legacy level format read/write, what a scenario setup becomes; as files only the
   PULSE reference map (`art/reference/pulse/level.json`) and test fixtures. `internal/tpwm`: Turbo Packer
@@ -115,7 +114,12 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   rules port, pure (ESLint forbids rendering, DOM and Node imports outside tests) and checked against the Go
   fixtures in `internal/dosrules/testdata`; `webapp/app` is the browser front end (Vite, PixiJS for the map,
   Preact for the DOM UI), `webapp/app/e2e` its Playwright tests. It is the site GitHub Pages serves; a service worker
-  keeps the app, and the months around the last battle stay in the content cache for offline play. `node_modules` only links into pnpm's global store; when the project's drive is not
+  keeps the app, and the months around the last battle stay in the content cache for offline play. The player can
+  import their own copy of the original game (Extras → Original game; kept in IndexedDB, never uploaded): the engine
+  reads and binds its maps exactly (`origmaps.ts`, `finmap.ts`, `original.ts`, `origview.ts`) as `original/NN`
+  missions, and the map design "original" draws its tiles and units; `hl webapp original` exports Go's bindings and
+  traces from the local `original/` for the tests (`docs/runtime-assets.md`). It installs as an app (manifest from
+  `hl webapp assets`). `node_modules` only links into pnpm's global store; when the project's drive is not
   the home folder's, set `pnpm config set store-dir ~/.local/share/pnpm/store --location=global`.
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the

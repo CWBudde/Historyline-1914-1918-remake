@@ -17,7 +17,7 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -242,21 +242,21 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 }
 
 func (r *Renderer) drawUnits(m *Map, lvl *level.Level, density int) error {
-	st, err := game.New(lvl, r.set)
-	if err != nil {
-		return err
-	}
 	for line, hs := range lvl.Lines {
 		for col, hx := range hs {
 			if hx.Unit == "" {
 				continue
 			}
 			at := hexgrid.Coord{Line: line, Col: col}
+			def, ok := r.set.Units[hx.Unit]
+			if !ok {
+				return fmt.Errorf("unknown unit %q", hx.Unit)
+			}
 			family, ok := unitsprite.Family(hx.Unit)
 			if !ok {
 				return fmt.Errorf("missing unit family %s", hx.Unit)
 			}
-			id := fmt.Sprintf("unit/%s/%s/n-normal", family, unitsprite.PaletteOf(st.At(at).Unit.Owner))
+			id := fmt.Sprintf("unit/%s/%s/n-normal", family, unitsprite.PaletteOf(faction.Of(def.Country)))
 			if err := r.draw(m.Image, id, at, density); err != nil {
 				return err
 			}

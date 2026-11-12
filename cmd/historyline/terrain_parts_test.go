@@ -9,7 +9,6 @@ import (
 	"testing/fstest"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -71,7 +70,7 @@ func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 	if a.group[id] != "context-ground-2" || !a.bleed["context-ground-2"] || a.scene.Cells[gap.At.Line][gap.At.Col].Background != id {
 		t.Errorf("second part not selected with opaque borders: group=%q bleed=%t", a.group[id], a.bleed["context-ground-2"])
 	}
-	bg, _, _, _, dim := terrainLayers(&a.scene, gap.At, func(hexgrid.Coord) state.Fog { return state.Unseen })
+	bg, _, _, _, dim := terrainLayers(&a.scene, gap.At, func(hexgrid.Coord) fogState { return fogUnseen })
 	if bg != mapcompose.TileID("unseen") || dim {
 		t.Errorf("part changed fog: %q,dim=%t", bg, dim)
 	}

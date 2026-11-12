@@ -11,10 +11,6 @@ default:
 hl *args:
     go run ./cmd/hl "$@"
 
-# Run the legacy Python remake (test reference only)
-py *args:
-    cd legacy/python && python3 main.py {{args}}
-
 # Run the game with the painted art (builds the packs first; the game finds them in build/packs)
 run *args: packs
     go run ./cmd/historyline {{args}}
@@ -77,7 +73,7 @@ check-formatted: _build-dir
     set -eu
     tmp=$(mktemp -d "$PWD/build/scratch/fmt.XXXXXX")
     trap 'rm -rf "$tmp"' EXIT
-    git ls-files -z -- ':!:art' ':!:assets' ':!:legacy' | git checkout-index -z --stdin --prefix="$tmp/"
+    git ls-files -z -- ':!:art' ':!:assets' | git checkout-index -z --stdin --prefix="$tmp/"
     cp treefmt.toml "$tmp/"
     cd "$tmp"
     git init -q . && git add -A
@@ -104,9 +100,10 @@ webapp-install:
 webapp *args: webapp-install webapp-assets
     cd webapp/app && pnpm exec vite "$@"
 
-# Regenerate Go AI command/event/save goldens for the web engine's replay tests
+# Regenerate Go AI command/event/save goldens for the web engine's replay tests (and the local original maps')
 webapp-golden:
     go run ./cmd/hl webapp golden
+    go run ./cmd/hl webapp original
 
 # Export the browser's packs, tiled backdrops, baked map layers and fonts
 webapp-assets:
@@ -192,7 +189,7 @@ gfx-study *args: packs
     set -eu
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
-    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -terrain build/packs/terrain -capture "$study_dir/captures"
+    go run ./cmd/historyline -level art/reference/pulse/level.json -terrain build/packs/terrain -capture "$study_dir/captures" -capture-map
     go run ./cmd/hl review gallery -captures "$study_dir/captures" "$@"
 
 # Extract the original manual's pictures into the ignored build/manual/img/

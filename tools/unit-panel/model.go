@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 )
 
 type Stat struct {
@@ -45,11 +45,47 @@ type Fixture struct {
 	Panel Panel  `json:"panel"`
 }
 
-func panelFor(u *game.Unit, visible bool) Panel {
+// unit is the state of one unit the panel shows.
+type unit struct {
+	Def        data.Unit
+	Owner      faction.Player
+	Size       int // current size, 0..MaxSize
+	MaxSize    int
+	Experience int // rank 0..10
+	Fuel       int
+	Weapons    [4]*data.Weapon // per weapon slot; nil for an empty slot
+	Ammo       [4]*int         // per weapon slot; nil for an empty slot or unlimited ammo
+	Moved      bool
+	Attacked   bool
+}
+
+// newUnit is a fresh unit of type id at the full strength of its original
+// group, with no experience and full fuel and ammo.
+func newUnit(set *data.Set, id string) (*unit, error) {
+	def, ok := set.Units[id]
+	if !ok {
+		return nil, fmt.Errorf("unknown unit %q", id)
+	}
+	u := &unit{Def: def, Owner: faction.Of(def.Country), Size: def.Group, MaxSize: def.Group, Fuel: def.Fuel}
+	for i, sl := range def.Weapons {
+		if sl == nil {
+			continue
+		}
+		wd := set.SlotWeapon(sl)
+		u.Weapons[i] = &wd
+		if a := wd.Ammo; a != nil {
+			v := *a
+			u.Ammo[i] = &v
+		}
+	}
+	return u, nil
+}
+
+func panelFor(u *unit, visible bool) Panel {
 	if !visible || u == nil {
 		return Panel{}
 	}
-	p := Panel{Available: true, Title: u.Def.Name, Country: u.Def.Country, Owner: u.Owner.String(), Rank: u.Experience, Tactical: map[game.Player]string{game.None: "neutral", game.CentralPowers: "cp", game.Entente: "ec"}[u.Owner]}
+	p := Panel{Available: true, Title: u.Def.Name, Country: u.Def.Country, Owner: u.Owner.String(), Rank: u.Experience, Tactical: map[faction.Player]string{faction.None: "neutral", faction.CentralPowers: "cp", faction.Entente: "ec"}[u.Owner]}
 	p.Stats = []Stat{{"Sight", strconv.Itoa(u.Def.Sight), "sight"}, {"Speed", strconv.Itoa(u.Def.Speed), "speed"}, {"Size", fmt.Sprintf("%d/%d", u.Size, u.MaxSize), "size"}, {"Armour", strconv.Itoa(u.Def.Armour), "armour"}, {"Weight", strconv.Itoa(u.Def.Weight), "weight"}, {"Fuel", strconv.Itoa(u.Fuel), "fuel"}}
 	for _, s := range u.Def.Skills {
 		if s == 1 {
@@ -95,15 +131,15 @@ func makeFixtures() ([]Fixture, error) {
 		if i == 1 {
 			typ = "EC_infantry"
 		}
-		u, e := game.NewUnit(set, typ)
+		u, e := newUnit(set, typ)
 		if e != nil {
 			return nil, e
 		}
 		switch i {
 		case 2:
-			u.Owner = game.Entente
+			u.Owner = faction.Entente
 		case 3:
-			u.Owner = game.None
+			u.Owner = faction.None
 		case 4:
 			u.Moved = true
 		case 5:

@@ -461,8 +461,8 @@ var liveWidths = map[string]int{
 }
 
 // No foreign rules: the profile's code imports only the standard library,
-// so neither the Classic/Standard tables (internal/data) nor the Python
-// rules (internal/game) can enter it, and a live unit is the 26 bytes of
+// so neither the remake's tables (internal/data) nor other rules can enter
+// it, and a live unit is the 26 bytes of
 // the original record and nothing else (no ammo, fuel or sight field).
 func gateForeign(t *testing.T) {
 	files, err := filepath.Glob("*.go")

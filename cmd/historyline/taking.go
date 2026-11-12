@@ -7,7 +7,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -36,7 +36,7 @@ type taking struct {
 	plantAt int    // the stage frame the building changes hands on the map
 	planted bool
 	factory bool
-	owner   state.Player // the capturer
+	owner   faction.Player // the capturer
 }
 
 // startCapture shows building capture ev; an HQ's capture waits for the

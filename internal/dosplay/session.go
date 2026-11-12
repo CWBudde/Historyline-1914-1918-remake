@@ -27,7 +27,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
@@ -148,15 +148,15 @@ func fits(b *dosbind.Board, lvl *level.Level) error {
 func (s *Session) Save() ([]byte, error) { return s.Game.Save() }
 
 // Faction is the remake player of a side (2: neutral).
-func (s *Session) Faction(side int) game.Player {
+func (s *Session) Faction(side int) faction.Player {
 	if side < 0 || side > 2 {
-		return game.None
+		return faction.None
 	}
 	return dosbind.Factions[side]
 }
 
 // SideOf is the side of a remake player, 2 for none.
-func (s *Session) SideOf(p game.Player) int { return dosbind.Side(p) }
+func (s *Session) SideOf(p faction.Player) int { return dosbind.Side(p) }
 
 // Phase is a side's phase: dosrules.PhaseMovement or PhaseAction.
 func (s *Session) Phase(side int) int { return s.Game.Players[side].Phase }

@@ -6,14 +6,15 @@ import (
 	"slices"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The minimap of the single-map HUD (the remake rules): the cell-exact raster
+// The minimap of the single-map view (-capture-map): the cell-exact raster
 // of internal/minimap in the bottom-right corner, terrain under the player's
 // fog, unit dots in the side colours (greyish once acted) and the camera
 // rectangle. Only a press that starts on it moves the camera.
@@ -35,22 +36,14 @@ func (g *game) layoutMinimap() {
 
 // sideShade is the minimap colour of a player: the Central Powers (the
 // German side) blue, the Entente yellow.
-func sideShade(p state.Player) minimap.Shade {
+func sideShade(p faction.Player) minimap.Shade {
 	switch p {
-	case state.CentralPowers:
+	case faction.CentralPowers:
 		return minimap.Blue
-	case state.Entente:
+	case faction.Entente:
 		return minimap.Yellow
 	}
 	return minimap.Neutral
-}
-
-// dimShade is the dimmed look of a remembered unit.
-func dimShade(s minimap.Shade) minimap.Shade {
-	dim := func(c color.RGBA) color.RGBA {
-		return color.RGBA{c.R / 2, c.G / 2, c.B / 2, c.A}
-	}
-	return minimap.Shade{Lit: dim(s.Lit), Mid: dim(s.Mid), Dark: dim(s.Dark)}
 }
 
 // spentShade is the greyish look of a unit that has acted this turn, as its
@@ -65,7 +58,7 @@ func spentShade(s minimap.Shade) minimap.Shade {
 }
 
 // unitShade is the minimap colour of a unit of owner, greyish once spent.
-func unitShade(owner state.Player, spent bool) minimap.Shade {
+func unitShade(owner faction.Player, spent bool) minimap.Shade {
 	if spent {
 		return spentShade(sideShade(owner))
 	}
@@ -129,30 +122,21 @@ func averageColour(img image.Image) color.RGBA {
 }
 
 // minimapScene is what the minimap shows: a colour per hex in line order and
-// the unit dots (greyish once the unit has acted), with the walking unit on the
-// hex it walks through.
+// the dots of the units the shown side sees (greyish once the unit has acted).
 func (g *game) minimapScene() (fills []color.RGBA, units []minimap.Unit) {
 	for l, line := range g.lvl.Lines {
 		for c := range line {
 			coord := hexgrid.Coord{Line: l, Col: c}
 			fills = append(fills, fogShade(g.fogOf(coord), g.hexColour(coord)))
-			shown, remembered := g.unitShown(coord)
-			switch {
-			case !shown:
-			case remembered:
-				if m, _ := g.state.Remembered(g.player, coord); m.Unit != nil {
-					units = append(units, minimap.Unit{At: coord, Shade: dimShade(sideShade(m.Unit.Owner))})
-				}
-			default:
-				u := g.state.At(coord).Unit
-				units = append(units, minimap.Unit{At: coord, Shade: unitShade(u.Owner, unitSpent(u))})
-			}
 		}
 	}
-	if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
-		if u, ok := w.unit.(*state.Unit); ok && u != nil {
-			units = append(units, minimap.Unit{At: w.Hex(), Shade: unitShade(u.Owner, unitSpent(u))})
-		}
+	if g.dos == nil {
+		return fills, nil
+	}
+	us := g.dos.unitsOf(g.shownSide(), g.reveal)
+	for _, c := range dosplay.Coords(toSet(us)) {
+		u := us[c]
+		units = append(units, minimap.Unit{At: c, Shade: unitShade(u.Owner, g.dosSpent(u))})
 	}
 	return fills, units
 }

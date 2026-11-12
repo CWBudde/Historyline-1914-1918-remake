@@ -5,7 +5,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -24,11 +24,11 @@ func shipMatch(t *testing.T) *game {
 	if err != nil {
 		t.Fatal(err)
 	}
-	player, err := state.PlayerByName(lvl.Player)
+	player, err := faction.ByName(lvl.Player)
 	if err != nil {
 		t.Fatal(err)
 	}
-	gm, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"})
+	gm, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, opponent: "pass"})
 	if err != nil || gm.dos == nil {
 		t.Fatalf("dos match: %v", err)
 	}

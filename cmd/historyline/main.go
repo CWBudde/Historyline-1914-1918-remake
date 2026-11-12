@@ -16,14 +16,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
@@ -52,31 +51,25 @@ const (
 )
 
 type game struct {
-	menuMX, menuMY int       // last cursor position seen by the menu
-	menuFocus      int       // focused menu row, menuNone when unset
-	menuPress      menuPress // row the mouse button went down on
-	lvl            *level.Level
-	state          *state.State
-	player         state.Player // whose fog is shown
-	reveal         bool         // dev: ignore fog
-	hexNumbers     bool         // dev: print line,col on every hex
-	grid           hexgrid.Grid
-	cam            *camera.Camera
-	mini           minimap.Minimap
-	miniMap        miniMap // the minimap's raster, picture and press
-	hover          hexgrid.Coord
-	hoverOnMap     bool
-	view           view // device and logical screen sizes, UI scale
-	w, h           int  // logical HUD size (view.LogW, view.LogH)
-	hud            hudLayout
-	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
-	terrainFill    map[string]color.RGBA
-	ctl            *control
-	dos            *dosControl // set on the original rules (-rules dos); ctl and state are nil then
-	gasTick        int         // frames drawn, for the drift of the gas cloud (gas.go)
-	art            *artPacks   // unit sprite packs; nil only in tests, which draw no units
-	screens        *screenArt  // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
-	finale         struct {    // the finale's art and the catalog it was cut from (taking.go)
+	lvl         *level.Level
+	reveal      bool // dev: ignore fog
+	hexNumbers  bool // dev: print line,col on every hex
+	grid        hexgrid.Grid
+	cam         *camera.Camera
+	mini        minimap.Minimap
+	miniMap     miniMap // the minimap's raster, picture and press
+	hover       hexgrid.Coord
+	hoverOnMap  bool
+	view        view // device and logical screen sizes, UI scale
+	w, h        int  // logical HUD size (view.LogW, view.LogH)
+	hud         hudLayout
+	hudImg      *ebiten.Image // logical HUD canvas, magnified onto the screen
+	terrainFill map[string]color.RGBA
+	dos         *dosControl // the original rules' controller
+	gasTick     int         // frames drawn, for the drift of the gas cloud (gas.go)
+	art         *artPacks   // unit sprite packs; nil only in tests, which draw no units
+	screens     *screenArt  // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
+	finale      struct {    // the finale's art and the catalog it was cut from (taking.go)
 		from *screenArt
 		art  *dospanel.FinaleArt
 	}
@@ -95,17 +88,12 @@ type game struct {
 	reworkedHex    map[hexgrid.Coord]bool // the hexes the sappers changed (trench.go)
 	scroll         float64                // map scroll speed, screen pixels per frame
 
-	split    *split // the split screen of -rules dos, nil otherwise
+	split    *split // the split screen; nil before the first layout and in map-only captures
+	mapOnly  bool   // draw the whole map without the split screen (-capture-map)
 	drawing  bool   // a dos panel is being drawn: drawSide's map
 	drawSide int
 	tileTint map[string]color.RGBA // average colour of a terrain tile, by asset ID
 	orig     *origArt              // the original tiles and units (F8, origtiles.go); nil until first asked for
-}
-
-func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
-	gm := newMapGame(lvl, reveal)
-	gm.state, gm.player, gm.ctl = st, player, &control{st: st, player: player}
-	return gm
 }
 
 // newMapGame is the map view of lvl without a rules engine.
@@ -118,7 +106,6 @@ func newMapGame(lvl *level.Level, reveal bool) *game {
 		cam:         camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		terrainFill: map[string]color.RGBA{},
 		scroll:      scrollSpeed,
-		menuPress:   newMenuPress(),
 	}
 	gm.applyLayout(startWidth, startHeight, 1)
 	return gm
@@ -150,21 +137,17 @@ func (g *game) cursor() (px, py, hx, hy int) {
 	return px, py, hx, hy
 }
 
-// fogOf is what the shown player knows about c; everything is visible in reveal mode.
-func (g *game) fogOf(c hexgrid.Coord) state.Fog {
-	if g.reveal || g.dos != nil {
-		return state.Visible
-	}
-	return g.state.Fog(g.player, c)
-}
+// fogOf is what the shown player knows about c: under the original rules
+// every hex is visible, and the units decide what is shown.
+func (g *game) fogOf(hexgrid.Coord) fogState { return fogVisible }
 
 // fogShade applies what the player knows to a terrain colour. Unseen hexes show
 // nothing of the terrain and remembered ones are dimmed and grey.
-func fogShade(f state.Fog, c color.RGBA) color.RGBA {
+func fogShade(f fogState, c color.RGBA) color.RGBA {
 	switch f {
-	case state.Visible:
+	case fogVisible:
 		return c
-	case state.Seen:
+	case fogSeen:
 		grey := uint8((int(c.R) + int(c.G) + int(c.B)) / 3 / 2)
 		return color.RGBA{R: grey, G: grey, B: grey + 8, A: 255}
 	}
@@ -174,73 +157,32 @@ func fogShade(f state.Fog, c color.RGBA) color.RGBA {
 // walking reports whether the unit standing on at is still being animated
 // there. A building or carrier the unit walks into stays drawn.
 func (g *game) walking(at hexgrid.Coord) bool {
-	if g.dos != nil {
-		return g.dosWalking(at)
-	}
-	w := g.drv().ui().walk
-	return !w.Done() && w.path[len(w.path)-1] == at && g.state.At(at).Unit == w.unit
+	return g.dos != nil && g.dosWalking(at)
 }
 
-// showsUnit reports whether live units on a hex of the given fog state are drawn.
-func showsUnit(f state.Fog) bool { return f == state.Visible }
-
-// unitShown reports whether a unit is drawn on c and whether it is only the
-// player's last-seen snapshot (it may have gone since). Live units show only on
-// Visible hexes; remembered own units are skipped because the player always
-// knows where those are.
-func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
-	if g.dos != nil {
-		_, ok := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
-		return ok && !g.walking(c), false
+// unitShown reports whether a unit is drawn on c: one the shown side sees
+// that is not walking.
+func (g *game) unitShown(c hexgrid.Coord) bool {
+	if g.dos == nil {
+		return false
 	}
-	f := g.fogOf(c)
-	if showsUnit(f) {
-		return g.state.At(c).Unit != nil && !g.walking(c), false
-	}
-	if f != state.Seen {
-		return false, false
-	}
-	m, ok := g.state.Remembered(g.player, c)
-	return ok && m.Unit != nil && m.Unit.Owner != g.player, true
+	_, ok := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
+	return ok && !g.walking(c)
 }
 
-// drawUnit draws the unit shown on c at screen point (sx, sy): the live unit, or
-// the player's last-seen snapshot greyed.
-func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, remembered bool) {
-	if g.dos != nil {
-		g.drawDosUnit(dst, c, sx, sy)
-		return
+// ownerShown is the building owner the shown side knows for c, None when
+// not a building.
+func (g *game) ownerShown(c hexgrid.Coord) faction.Player {
+	if g.dos == nil {
+		return faction.None
 	}
-	if remembered {
-		if m, _ := g.state.Remembered(g.player, c); m.Unit != nil {
-			g.drawUnitSprite(dst, c, sx, sy, m.Unit.Type, m.Unit.Size, m.Unit.Owner, false, true, unitsprite.N)
-		}
-		return
-	}
-	u := g.state.At(c).Unit
-	g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u))
-}
-
-// ownerShown is the building owner the player knows for c: live when Visible,
-// last seen when Seen, None when Unseen or not a building.
-func (g *game) ownerShown(c hexgrid.Coord) state.Player {
-	if g.dos != nil {
-		return g.dos.buildingsOf(g.shownSide())[c].Owner // None when no building
-	}
-	if g.fogOf(c) == state.Visible {
-		if h := g.state.At(c); h.Container != nil {
-			return h.Owner
-		}
-		return state.None
-	}
-	m, _ := g.state.Remembered(g.player, c)
-	return m.Owner
+	return g.dos.buildingsOf(g.shownSide())[c].Owner // None when no building
 }
 
 // ownerColour marks the two sides' buildings and unit plates in their
 // minimap colours, as the original does: the German side blue, the Entente
 // yellow.
-func ownerColour(p state.Player) color.RGBA {
+func ownerColour(p faction.Player) color.RGBA {
 	return sideShade(p).Lit
 }
 
@@ -276,11 +218,8 @@ func (g *game) Update() error {
 		g.scrollKeys()
 	}
 	anyInput := len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)
-	if ui := g.drv().ui(); ui.report.Active() && anyInput {
-		ui.DismissReport()
-	}
 	if g.dos != nil && g.dos.scene() && anyInput {
-		g.dos.SkipScene() // as the battle panel, any key or click skips a scene
+		g.dos.SkipScene() // any key or click skips a scene
 	}
 	g.advance()
 	if g.dos != nil && g.dos.replay != nil {
@@ -300,16 +239,12 @@ func (g *game) Update() error {
 		}
 	}
 	if g.split != nil {
-		// Under -rules dos the wheel steps the zoom levels and the cursor
-		// takes the mouse and the keys; the menu keeps the keys while it is
-		// open.
-		menu := g.dos.MenuOpen()
-		if _, wheel := ebiten.Wheel(); !menu {
-			mx, my := ebiten.CursorPosition()
-			g.wheelSplit(wheel, mx, my)
-		}
-		g.updateMenu()
-		g.updateCursor(menu || g.dos.MenuOpen())
+		// The wheel steps the zoom levels and the cursor takes the mouse
+		// and the keys.
+		_, wheel := ebiten.Wheel()
+		mx, my := ebiten.CursorPosition()
+		g.wheelSplit(wheel, mx, my)
+		g.updateCursor()
 		return nil
 	}
 	showPointer(true)
@@ -318,9 +253,6 @@ func (g *game) Update() error {
 	// on the map never drives the minimap.
 	onMini := g.mini.Contains(float64(hx), float64(hy))
 	drive := g.miniMap.press.Update(ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft), onMini)
-	if g.updateMenu() {
-		return nil
-	}
 	if _, wheel := ebiten.Wheel(); wheel != 0 {
 		factor := 1.1
 		if wheel < 0 {
@@ -364,107 +296,6 @@ func (g *game) scrollKeys() {
 	g.cam.Scroll(dx*float64(g.view.UI), dy*float64(g.view.UI))
 }
 
-// menuRow is the HUD rectangle of menu row i: beside the selected unit for
-// the action menu, at the bottom left for the weapon and contents menus.
-func (g *game) menuRow(i int) (x, y, w, h int) {
-	ui := g.drv().ui()
-	if ui.menuKind != menuActions {
-		r := g.hud.menuRowRect(i, len(ui.menu))
-		return r.X, r.Y, r.W, r.H
-	}
-	r := g.actionMenu()
-	return r.X, r.Y + i*menuRowHeight, r.W, menuRowHeight
-}
-
-// actionMenu is the HUD rectangle of the action menu beside the selected unit.
-func (g *game) actionMenu() rect {
-	ui := g.drv().ui()
-	mw := 0
-	for i, o := range ui.menu {
-		mw = max(mw, textWidth(menuLabel(i, o))+8)
-	}
-	px, py := g.cam.WorldToScreen(hexgrid.Center(ui.from))
-	cx, cy := g.view.toHUD(int(px), int(py))
-	half := int(float64(hexgrid.HexWidth) / 2 * g.cam.Effective() / float64(max(g.view.UI, 1)))
-	return actionMenuRect(cx, cy, half, mw, len(ui.menu), g.w, g.h)
-}
-
-// updateMenu handles the open menu (arrow keys, Enter or Space, number keys, or
-// a press and release on a row) and reports whether it consumed this frame's
-// input.
-func (g *game) updateMenu() bool {
-	ui := g.drv().ui()
-	if !ui.MenuOpen() {
-		g.menuFocus = menuNone
-		g.menuPress = newMenuPress()
-		return false
-	}
-	g.menuFocus = menuFocusValid(g.menuFocus, ui.menu)
-	_, _, mx, my := g.cursor()
-	if mx != g.menuMX || my != g.menuMY {
-		g.menuMX, g.menuMY = mx, my
-		if h := menuHit(mx, my, len(ui.menu), g.menuRow); h != menuNone {
-			g.menuFocus = h
-		}
-	}
-	switch {
-	case inpututil.IsKeyJustPressed(ebiten.KeyArrowDown):
-		g.menuFocus = menuStep(g.menuFocus, 1, ui.menu)
-	case inpututil.IsKeyJustPressed(ebiten.KeyArrowUp):
-		g.menuFocus = menuStep(g.menuFocus, -1, ui.menu)
-	case inpututil.IsKeyJustPressed(ebiten.KeyEnter), inpututil.IsKeyJustPressed(ebiten.KeyNumpadEnter),
-		inpututil.IsKeyJustPressed(ebiten.KeySpace):
-		if g.menuFocus != menuNone {
-			g.drv().ChooseMenu(g.menuFocus)
-			return true
-		}
-	}
-	for i, k := range []ebiten.Key{ebiten.Key1, ebiten.Key2, ebiten.Key3, ebiten.Key4, ebiten.Key5, ebiten.Key6, ebiten.Key7, ebiten.Key8, ebiten.Key9} {
-		if inpututil.IsKeyJustPressed(k) && i < len(ui.menu) {
-			g.drv().ChooseMenu(i)
-			return true
-		}
-	}
-	row, used := g.menuPress.update(inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft),
-		inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft),
-		ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft),
-		menuHit(mx, my, len(ui.menu), g.menuRow))
-	if row != menuNone {
-		g.drv().ChooseMenu(row)
-	}
-	return used
-}
-
-func (g *game) drawMenu(dst *ebiten.Image) {
-	ui := g.drv().ui()
-	for i, o := range ui.menu {
-		x, y, w, h := g.menuRow(i)
-		bg := color.RGBA{30, 60, 30, 230}
-		if !o.Usable {
-			bg = color.RGBA{50, 40, 40, 200}
-		}
-		if i == g.menuFocus {
-			bg = color.RGBA{70, 110, 60, 245}
-			if !o.Usable {
-				bg = color.RGBA{100, 50, 50, 245}
-			}
-		}
-		pressed := i == g.menuPress.Row() && menuHit(g.menuMX, g.menuMY, len(ui.menu), g.menuRow) == i
-		if pressed {
-			bg = color.RGBA{bg.R / 2, bg.G / 2, bg.B / 2, 250}
-		}
-		vector.FillRect(dst, float32(x), float32(y), float32(w), float32(h), bg, false)
-		if i == g.menuFocus {
-			vector.StrokeRect(dst, float32(x), float32(y), float32(w), float32(h), 2, color.RGBA{240, 220, 120, 255}, false)
-		}
-		dx := 0
-		if pressed {
-			dx = 1 // the label sinks with the row
-		}
-		ebitenutil.DebugPrintAt(dst, menuLabel(i, o), x+4+dx, y+1+dx)
-	}
-}
-
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(mapGround)
 	vx, vy, vw, vh := g.cam.Visible()
@@ -493,8 +324,6 @@ func (g *game) Draw(screen *ebiten.Image) {
 	if g.split == nil {
 		g.drawMinimap(hud)
 	}
-	g.drawMenu(hud)
-	g.drawReport(hud)
 	g.drawBanner(hud)
 	g.drawInfo(hud)
 	if dev := g.devIndicators(); dev != "" {
@@ -541,82 +370,49 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 		}
 	}
 	for _, coord := range inView {
-		if owner := g.ownerShown(coord); owner != state.None {
+		if owner := g.ownerShown(coord); owner != faction.None {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
 			e := float32(g.cam.Effective())
 			vector.FillRect(dst, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(g.fogOf(coord), ownerColour(owner)), false)
 		}
 	}
 	for _, coord := range inView {
-		if shown, remembered := g.unitShown(coord); shown {
+		if g.dos != nil && g.unitShown(coord) {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
-			g.drawUnit(dst, coord, sx, sy, remembered)
+			g.drawDosUnit(dst, coord, sx, sy)
 		}
 	}
 	g.drawUnitMarks(dst, inView)
 	g.drawGas(dst, inView)
 	g.drawTunnels(dst)
-	if w := g.walkShown(human); !w.Done() && g.fogOf(w.Hex()) == state.Visible {
+	if w := g.walkShown(); !w.Done() && g.fogOf(w.Hex()) == fogVisible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
 		face, _ := unitsprite.Toward(w.Heading())
 		g.drawWalker(dst, w, w.Hex(), sx, sy, face)
 	}
-	if human {
-		if g.dos != nil {
-			g.darken(dst, inView) // the cursor is drawn over the frame (drawCursor)
-		} else {
-			g.drawOverlays(dst)
-		}
+	if human && g.dos != nil {
+		g.darken(dst, inView) // the cursor is drawn over the frame (drawCursor)
 		g.drawOrders(dst)
-		if g.hoverOnMap && g.dos == nil {
-			cx, cy := hexgrid.Center(g.hover)
-			sx, sy := g.cam.WorldToScreen(cx, cy)
-			g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
-		}
 	}
 	// Hit marks show on both sides' maps: both see the battle.
 	g.drawMarks(dst)
 }
 
-// walkShown is the walk drawn on the map being drawn: under -rules dos the
-// shown side's own, else the walk on the human side's map only.
-func (g *game) walkShown(human bool) *walk {
-	switch {
-	case g.dos != nil:
-		return g.dos.walkOf(g.shownSide())
-	case human:
-		return g.drv().ui().walk
+// walkShown is the walk drawn on the map being drawn: the shown side's own.
+func (g *game) walkShown() *walk {
+	if g.dos == nil {
+		return nil
 	}
-	return nil
+	return g.dos.walkOf(g.shownSide())
 }
 
 // drawStatus prints the status and help text at the top left of the HUD.
 func (g *game) drawStatus(dst *ebiten.Image) { ebitenutil.DebugPrint(dst, g.statusText()) }
 
-// statusText is the status and help text. It names nothing of the hovered hex:
-// the info box shows that, fog-safe. Under -rules dos the status wells carry the
-// state and the message, and only art failures stay here.
-func (g *game) statusText() string {
-	if g.dos != nil {
-		return g.splitErrors()
-	}
-	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit for its menu or click a blue/red hex (1-9 picks menu row; click own building for contents; click skips a walk), F1 end turn, F8 map design, F11 fullscreen, Esc/right-click cancel",
-		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
-	if g.state.Winner != state.None {
-		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
-	}
-	if m := g.drv().ui().Message; m != "" {
-		msg += "\n" + m
-	}
-	if g.artErr != "" {
-		msg += "\nunit sprites: " + g.artErr
-	}
-	if g.terrainErr != "" {
-		msg += "\nterrain tiles: " + g.terrainErr
-	}
-	return msg
-}
+// statusText is the status text: the status wells carry the state and the
+// message, and only art failures stay here.
+func (g *game) statusText() string { return g.splitErrors() }
 
 // drawnDensity is the asset density the map is drawn with: the terrain density
 // once terrain packs are loaded, else the sprite density once unit packs are
@@ -670,30 +466,6 @@ func (g *game) drawHexNumbers(dst *ebiten.Image, vx, vy, vw, vh float64) {
 	}
 }
 
-// drawOverlays tints the hexes the selected unit may reach (blue) or attack
-// (red) and outlines the selection, all taken from the rules engine's queries
-// (the remake rules; -rules dos darkens what is out of reach instead).
-func (g *game) drawOverlays(dst *ebiten.Image) {
-	ui := g.drv().ui()
-	if !ui.selected {
-		return
-	}
-	tint := func(at hexgrid.Coord, col color.RGBA) {
-		cx, cy := hexgrid.Center(at)
-		sx, sy := g.cam.WorldToScreen(cx, cy)
-		g.drawHex(dst, float32(sx), float32(sy), col, false)
-	}
-	for at := range g.ctl.moves {
-		tint(at, color.RGBA{60, 120, 255, 90})
-	}
-	for at := range ui.targets {
-		tint(at, color.RGBA{255, 50, 40, 130})
-	}
-	cx, cy := hexgrid.Center(ui.from)
-	sx, sy := g.cam.WorldToScreen(cx, cy)
-	g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
-}
-
 func (g *game) drawHex(dst *ebiten.Image, cx, cy float32, fill color.RGBA, outline bool) {
 	z, ui := float32(g.cam.Effective()), float32(g.view.UI)
 	var p vector.Path
@@ -722,8 +494,8 @@ func pathOptions(c color.RGBA) *vector.DrawPathOptions {
 }
 
 // Layout returns the screen in device pixels, so the map is drawn at full
-// resolution; the HUD is magnified separately (see view). The split screen of
-// -rules dos keeps the window large enough for its smallest panels.
+// resolution; the HUD is magnified separately (see view). The split screen
+// keeps the window large enough for its smallest panels.
 func (g *game) Layout(outsideW, outsideH int) (int, int) {
 	dpi := ebiten.Monitor().DeviceScaleFactor()
 	g.applyLayout(outsideW, outsideH, dpi)
@@ -754,10 +526,9 @@ type matchConfig struct {
 	lvl        *level.Level
 	board      *dosbind.Board // an original map's exact binding (loadMap); nil binds lvl
 	set        *data.Set
-	player     state.Player // the human side, whose view is shown
-	rules      string       // dos (default, original) or standard (the remake rules)
-	opponent   string       // ai or pass
-	limit      int          // dos: orders per phase, 0 for no limit
+	player     faction.Player // the human side, whose view is shown
+	opponent   string         // ai or pass
+	limit      int            // dos: orders per phase, 0 for no limit
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
@@ -776,54 +547,9 @@ type matchConfig struct {
 
 // newMatch starts the battle of c.
 func newMatch(c matchConfig) (*game, error) {
-	var gm *game
-	switch c.rules {
-	case "dos":
-		if c.replay != nil {
-			gm = replayGame(c.replay, c.reveal)
-			break
-		}
-		o := dosplay.Options{Limit: c.limit}
-		var planner dosPlanner = passPlanner{}
-		if c.opponent == "ai" {
-			o.Computer[1-dosbind.Side(c.player)] = true
-			planner = computerPlanner()
-		}
-		var s *dosplay.Session
-		var err error
-		switch {
-		case c.saved != nil && c.board != nil:
-			s, err = dosplay.LoadBoard(c.board, c.lvl, c.set, c.saved)
-		case c.saved != nil:
-			s, err = dosplay.Load(c.lvl, c.set, c.saved)
-		case c.board != nil:
-			s, err = dosplay.NewBoard(c.board, c.lvl, c.set, o)
-		default:
-			s, err = dosplay.New(c.lvl, c.set, o)
-		}
-		if err != nil {
-			return nil, err
-		}
-		if c.saved != nil {
-			// The save carries Computer flags and the limit; the planner
-			// follows the other side's flag.
-			planner = passPlanner{}
-			if s.Game.Players[1-s.SideOf(c.player)].Computer {
-				planner = computerPlanner()
-			}
-		}
-		gm = newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
-	case "standard":
-		st, err := state.New(c.lvl, c.set)
-		if err != nil {
-			return nil, err
-		}
-		gm = newGame(c.lvl, st, c.player, c.reveal)
-		if c.opponent == "ai" {
-			gm.ctl.ai = &ai.Planner{}
-		}
-	default:
-		return nil, fmt.Errorf("unknown -rules %q (want dos or standard)", c.rules)
+	gm, err := newDosMatch(c)
+	if err != nil {
+		return nil, err
 	}
 	gm.hexNumbers = c.hexNumbers
 	gm.drv().SetReducedMotion(c.reduced)
@@ -833,19 +559,16 @@ func newMatch(c matchConfig) (*game, error) {
 	gm.art, gm.screens, gm.scores = c.units, c.screens, c.scores
 	bd := c.backdrop
 	if bd == nil && !c.noBackdrop && c.lvl.Extra != nil && c.lvl.Extra.Backdrop != "" {
-		var err error
 		if bd, err = levelBackdrop(c.levels, c.lvl.Extra.Backdrop); err != nil {
 			return nil, err
 		}
 	}
 	if bd != nil {
-		var err error
 		if gm.backdrop, err = bd.on(c.lvl.Grid()); err != nil {
 			return nil, err
 		}
 	}
 	if c.terrain != "" {
-		var err error
 		if gm.terrain, err = loadTerrainArt(c.terrain, c.lvl); err != nil {
 			return nil, err
 		}
@@ -853,22 +576,59 @@ func newMatch(c matchConfig) (*game, error) {
 	return gm, nil
 }
 
+// newDosMatch is the battle of c under the original rules, without its art.
+func newDosMatch(c matchConfig) (*game, error) {
+	if c.replay != nil {
+		return replayGame(c.replay, c.reveal), nil
+	}
+	o := dosplay.Options{Limit: c.limit}
+	var planner dosPlanner = passPlanner{}
+	if c.opponent == "ai" {
+		o.Computer[1-dosbind.Side(c.player)] = true
+		planner = computerPlanner()
+	}
+	var s *dosplay.Session
+	var err error
+	switch {
+	case c.saved != nil && c.board != nil:
+		s, err = dosplay.LoadBoard(c.board, c.lvl, c.set, c.saved)
+	case c.saved != nil:
+		s, err = dosplay.Load(c.lvl, c.set, c.saved)
+	case c.board != nil:
+		s, err = dosplay.NewBoard(c.board, c.lvl, c.set, o)
+	default:
+		s, err = dosplay.New(c.lvl, c.set, o)
+	}
+	if err != nil {
+		return nil, err
+	}
+	if c.saved != nil {
+		// The save carries Computer flags and the limit; the planner
+		// follows the other side's flag.
+		planner = passPlanner{}
+		if s.Game.Players[1-s.SideOf(c.player)].Computer {
+			planner = computerPlanner()
+		}
+	}
+	return newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal), nil
+}
+
 func main() {
 	name := flag.String("level", "1914-08:cp", "a level folder's setup (1914-08:ec, 1918-11:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level folders")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
-	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
-	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires the terrain pack)")
-	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
+	capture := flag.String("capture", "", "dev: render review frames of the battle screen to a directory under build/ and exit (requires the terrain pack)")
+	captureMap := flag.Bool("capture-map", false, "with -capture: render the nine 720p/1080p/4K whole-map frames of the PULSE study (hl review gallery -captures) instead")
+	captureLook := flag.Bool("capture-look", false, "with -capture: render whole-map revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
 	snapshotPath := flag.String("snapshot", "", "start in a saved dos battle: the save slot file (save.json in the config directory, naming its level and side) or a bare dos save such as an llmplay game's save.json (then -level names the level; -player overrides the side)")
-	replayDir := flag.String("replay", "", "a recorded llmplay game directory (build/review/llmplay/<game>): watch it in the battle screen, both sides played from its transcript (implies -rules dos; the level and side come from the transcript)")
+	replayDir := flag.String("replay", "", "a recorded llmplay game directory (build/review/llmplay/<game>): watch it in the battle screen, both sides played from its transcript (the level and side come from the transcript)")
 	record := recordConfig{}
 	flag.StringVar(&record.out, "record", "", "with -replay: record the replay as an MP4 video of the battle screen under build/ (needs ffmpeg) and exit")
 	recordSize := flag.String("record-size", "1920x1080", "with -record: the video's size, WxH, both even")
@@ -879,16 +639,16 @@ func main() {
 	flag.IntVar(&record.maxFrames, "record-max-frames", 0, "with -record: stop after this many video frames (0: record to the end)")
 	flag.IntVar(&record.zoom, "record-zoom", -2, "with -record: zoom levels from the fitted zoom, as many mouse wheel steps; negative zooms out, kept within the levels the screen has")
 	flag.Parse()
-	if *captureLook && *capture == "" {
-		log.Fatal("-capture-look requires -capture")
+	if (*captureLook || *captureMap) && *capture == "" {
+		log.Fatal("-capture-look and -capture-map require -capture")
 	}
 	direct := *capture != "" || *replayDir != "" || *snapshotPath != ""
 	given := map[string]bool{}
 	flag.Visit(func(f *flag.Flag) {
 		given[f.Name] = true
 		direct = direct || f.Name == "level" || f.Name == "player"
-		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent" || f.Name == "rules" && *rules != "dos") {
-			log.Fatalf("-replay takes the level, the sides and the rules from the transcript: drop -%s", f.Name)
+		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent") {
+			log.Fatalf("-replay takes the level and the sides from the transcript: drop -%s", f.Name)
 		}
 	})
 
@@ -916,11 +676,8 @@ func main() {
 	if *opponent != "ai" && *opponent != "pass" {
 		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
 	}
-	if *rules != "dos" && *rules != "standard" {
-		log.Fatalf("unknown -rules %q (want dos or standard)", *rules)
-	}
 	c := matchConfig{
-		set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
+		set: set, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
 	}
 	// The unit art is always there: a battle draws no unit without it.
@@ -973,7 +730,7 @@ func main() {
 	} else {
 		level := *name
 		if *snapshotPath != "" {
-			if snap, err = startSnapshot(*snapshotPath, *rules, given["level"], *name); err != nil {
+			if snap, err = startSnapshot(*snapshotPath, given["level"], *name); err != nil {
 				log.Fatal(err)
 			}
 			if snap.level != "" {
@@ -984,15 +741,15 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	if c.player, err = state.PlayerByName(c.lvl.Player); err != nil {
+	if c.player, err = faction.ByName(c.lvl.Player); err != nil {
 		log.Fatal(err)
 	}
 	switch *side {
 	case "":
 	case "central":
-		c.player = state.CentralPowers
+		c.player = faction.CentralPowers
 	case "entente":
-		c.player = state.Entente
+		c.player = faction.Entente
 	default:
 		log.Fatalf("unknown -player %q (want central or entente)", *side)
 	}
@@ -1010,6 +767,9 @@ func main() {
 		if gm.terrain == nil {
 			log.Fatal("-capture requires the terrain pack")
 		}
+		if *captureMap || *captureLook {
+			gm.mapOnly, gm.split = true, nil // the whole map, without the battle screen
+		}
 		if err := writeReviewFrames(gm, *capture, *captureLook); err != nil {
 			log.Fatal(err)
 		}
@@ -1023,19 +783,5 @@ func main() {
 	}
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
-	}
-}
-
-// drawReport shows the battle panel at the top centre while it is active.
-func (g *game) drawReport(dst *ebiten.Image) {
-	r := g.drv().ui().report
-	if !r.Active() {
-		return
-	}
-	p := g.hud.Report
-
-	vector.FillRect(dst, float32(p.X), float32(p.Y), float32(p.W), float32(p.H), color.RGBA{20, 20, 40, 235}, false)
-	for i, l := range r.Lines() {
-		ebitenutil.DebugPrintAt(dst, l, p.X+6, p.Y+4+i*32)
 	}
 }

@@ -14,9 +14,12 @@ An empty mixed pass suppresses that pass; stamps and shadows keep the main scene
 
 Vite serves this directory at its base path and copies it into the site build. The browser's
 `AssetLoader` requests only the selected IDs, delivers lite before full, and chooses density from
-zoom × DPR. Full images wait for the first battle frame (lite at the lowest density until then, or eight
-seconds in the menus); offline, or after a failed transfer, it keeps the lite art without an error. A
-disposed map or panel cancels its transfers. Its `AssetStore` verifies byte counts and hashes, limits
+zoom × DPR; units never below 2×, menu paintings by the size they cover the window at. Full images wait
+for the first battle frame (lite at the lowest density until then, menu paintings at their drawn density,
+or eight seconds in the menus); offline, or after a failed transfer, it keeps the lite art without an
+error. The loading page stays until the battle's first frame has decoded all its images, and a sprite keeps
+its decoded image until its successor (another density, full art) has decoded, so no frame shows holes.
+Map textures are mipmapped. A disposed map or panel cancels its transfers. Its `AssetStore` verifies byte counts and hashes, limits
 concurrent requests and uses CacheStorage by content hash (bounded memory when unavailable). Lite
 encodes are cached under the system user cache directory.
 Regenerate assets before starting Vite; restart it after another export so it discovers the new blobs.

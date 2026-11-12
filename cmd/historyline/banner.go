@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"image/color"
 
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -114,12 +114,6 @@ func (e *effects) Show(text string, frames int) {
 // Capture shows the capture-in-progress banner for a depot entered by a unit.
 func (e *effects) Capture(unit string) { e.Show("CAPTURING DEPOT - "+unit, captureFrames) }
 
-// AddBattle marks the defender and, when it fired back or died, the attacker,
-// from the engine's Battle result.
-func (e *effects) AddBattle(from, to hexgrid.Coord, b state.Battle) {
-	e.AddHits(from, to, b.Damage > 0, b.DefenderDestroyed, b.CounterDamage > 0, b.AttackerDestroyed)
-}
-
 // Mark marks the hex at with a hit, or with an explosion when its unit was
 // destroyed.
 func (e *effects) Mark(at hexgrid.Coord, destroyed bool) {
@@ -145,13 +139,13 @@ func (e *effects) AddHits(from, to hexgrid.Coord, defHit, defDead, atkHit, atkDe
 }
 
 // Round shows the round banner after a turn ended.
-func (e *effects) Round(round int, turn state.Player) {
+func (e *effects) Round(round int, turn faction.Player) {
 	e.Show(fmt.Sprintf("ROUND %d - %v to move", round, turn), roundFrames)
 }
 
 // Victory shows the HQ-capture banner; it replaces a round banner.
-func (e *effects) Victory(winner state.Player) {
-	if winner == state.None {
+func (e *effects) Victory(winner faction.Player) {
+	if winner == faction.None {
 		return
 	}
 	e.Show(fmt.Sprintf("%v captured the HQ and wins", winner), victoryFrames)
@@ -203,7 +197,7 @@ func (e *effects) Marks() []mark {
 func (g *game) drawMarks(dst *ebiten.Image) {
 	fx := &g.drv().ui().fx
 	for _, m := range fx.Marks() {
-		if g.fogOf(m.At) != state.Visible {
+		if g.fogOf(m.At) != fogVisible {
 			continue // no hint of what the player cannot see
 		}
 		cx, cy := hexgrid.Center(m.At)

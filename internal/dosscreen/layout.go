@@ -1,5 +1,5 @@
-// Package dosscreen lays out and frames the original's split battle screen for
-// `-rules dos`: two equal map panels side by side, a divider post between them
+// Package dosscreen lays out and frames the original's split battle screen:
+// two equal map panels side by side, a divider post between them
 // and a status bar under each, inside a riveted steel frame whose inner edge
 // follows the outline of the visible hex cells.
 //

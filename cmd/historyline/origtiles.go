@@ -9,8 +9,8 @@ import (
 
 // origArt is the original game's map art: the terrain tiles, summer and
 // winter, by terrain record, and the unit sprites. One of the map designs F8
-// cycles through (design.go), drawn in place of the remake's art under
-// -rules dos, for comparison on a local machine: it loads them from the
+// cycles through (design.go), drawn in place of the remake's art, for
+// comparison on a local machine: it loads them from the
 // git-ignored original/ folder when that holds the original game; without it
 // F8 skips this design and says why. None of it is shipped.
 type origArt struct {

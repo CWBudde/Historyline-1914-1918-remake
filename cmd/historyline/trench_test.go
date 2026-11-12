@@ -8,7 +8,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 )
 
 // dig has the first sapper of original map 03 dig next to it on the session
@@ -67,11 +67,11 @@ func TestSapperWorkRedrawsTerrain(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	player, err := state.PlayerByName(lvl.Player)
+	player, err := faction.ByName(lvl.Player)
 	if err != nil {
 		t.Fatal(err)
 	}
-	gm, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"})
+	gm, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, opponent: "pass"})
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -16,7 +16,6 @@ import (
 	"testing/fstest"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -152,12 +151,12 @@ func TestTerrainLayersFollowFog(t *testing.T) {
 		return mapcompose.Hex{Terrain: rows[c.Line][c.Col]}
 	}, func(id string) bool { return have[id] })
 	house, crater, rim := hexgrid.Coord{Line: 0, Col: 0}, hexgrid.Coord{Line: 0, Col: 1}, hexgrid.Coord{Line: 1, Col: 0}
-	fog := map[hexgrid.Coord]state.Fog{house: state.Seen, rim: state.Unseen}
-	fogOf := func(c hexgrid.Coord) state.Fog {
+	fog := map[hexgrid.Coord]fogState{house: fogSeen, rim: fogUnseen}
+	fogOf := func(c hexgrid.Coord) fogState {
 		if f, ok := fog[c]; ok {
 			return f
 		}
-		return state.Visible
+		return fogVisible
 	}
 	if bg, _, _, st, dim := terrainLayers(&s, house, fogOf); bg != "tile/house" || !slices.Equal(st, []string{"standing/house"}) || !dim {
 		t.Errorf("seen: %s %v %v", bg, st, dim)
@@ -169,7 +168,7 @@ func TestTerrainLayersFollowFog(t *testing.T) {
 	if bg, stamp, _, _, dim := terrainLayers(&s, crater, fogOf); bg != "tile/mud" || stamp != "" || dim {
 		t.Errorf("partly known crater: %s %s %v", bg, stamp, dim)
 	}
-	fog[rim] = state.Visible
+	fog[rim] = fogVisible
 	if bg, got, _, _, _ := terrainLayers(&s, crater, fogOf); bg != "tile/grass" || got != stamp {
 		t.Errorf("known crater: %s %s", bg, got)
 	}
@@ -181,13 +180,13 @@ func TestTerrainLayersFollowFog(t *testing.T) {
 
 func TestTerrainShadowsFollowFog(t *testing.T) {
 	s := mapcompose.Scene{Cells: [][]mapcompose.Cell{{{Standing: []string{"standing/forest"}, Shadows: []string{"standing/shadow/forest"}}}}}
-	for _, f := range []state.Fog{state.Unseen, state.Seen, state.Visible} {
-		got, dim := terrainShadows(&s, hexgrid.Coord{}, func(hexgrid.Coord) state.Fog { return f })
-		if f == state.Unseen {
+	for _, f := range []fogState{fogUnseen, fogSeen, fogVisible} {
+		got, dim := terrainShadows(&s, hexgrid.Coord{}, func(hexgrid.Coord) fogState { return f })
+		if f == fogUnseen {
 			if len(got) != 0 || dim {
 				t.Errorf("unseen shadows %v dim %v", got, dim)
 			}
-		} else if !slices.Equal(got, []string{"standing/shadow/forest"}) || dim != (f == state.Seen) {
+		} else if !slices.Equal(got, []string{"standing/shadow/forest"}) || dim != (f == fogSeen) {
 			t.Errorf("fog %v shadows %v dim %v", f, got, dim)
 		}
 	}
@@ -219,7 +218,7 @@ func TestLevelHex(t *testing.T) {
 }
 
 func TestDrawnDensity(t *testing.T) {
-	g := newGame(testLevel(t), newTestControl(t).st, state.CentralPowers, false)
+	g := newMapGame(testLevel(t), false)
 	g.cam.Zoom = 1
 	if d := g.drawnDensity(); d != assetDensity(g.cam.Effective()) {
 		t.Errorf("without packs: %dx", d)

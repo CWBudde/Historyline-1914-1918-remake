@@ -13,8 +13,8 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -190,8 +190,8 @@ func TestLevel(t *testing.T) {
 		return level.Hex{Terrain: terrain, Infra: level.Infra{IDs: infra}}
 	}
 	hq := hex("hqN_w")
-	hq.Content = &level.Content{Owner: int(game.Entente)}
-	want := &level.Level{MapName: "07", MapNo: 8, Player: game.Entente.String(), Lines: [][]level.Hex{
+	hq.Content = &level.Content{Owner: int(faction.Entente)}
+	want := &level.Level{MapName: "07", MapNo: 8, Player: faction.Entente.String(), Lines: [][]level.Hex{
 		{hq, hex("grass_w", "stream25")},
 		{hex("forest_w")},
 		{hex("water"), hex("grass_w")},
@@ -207,7 +207,7 @@ func TestLevel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got.MapName != "STATMAP" || got.MapNo != -1 || got.Player != game.CentralPowers.String() ||
+	if got.MapName != "STATMAP" || got.MapNo != -1 || got.Player != faction.CentralPowers.String() ||
 		got.Lines[0][0].Terrain != "hqN" || got.Lines[3][0].Terrain != "mud" {
 		t.Errorf("a map without a mission: %s %d %q %+v", got.MapName, got.MapNo, got.Player, got.Lines)
 	}
@@ -341,11 +341,11 @@ func checkShape(t *testing.T, stem string, src *finmap.Level, lv *level.Level) {
 	if no, err := strconv.Atoi(stem); err == nil && lv.MapNo != no+1 || err != nil && lv.MapNo != -1 {
 		t.Errorf("%s: MapNo %d", stem, lv.MapNo)
 	}
-	player := game.CentralPowers
+	player := faction.CentralPowers
 	if src.Mission != nil && src.Mission.HumanSides[0] == finmap.Allied {
-		player = game.Entente
+		player = faction.Entente
 	}
-	if p, err := game.PlayerByName(lv.Player); err != nil || p != player {
+	if p, err := faction.ByName(lv.Player); err != nil || p != player {
 		t.Errorf("%s: Player %q, want %v", stem, lv.Player, player)
 	}
 	if len(lv.Lines) != 2*src.Height-1 {
@@ -364,7 +364,7 @@ func checkCells(t *testing.T, stem string, src *finmap.Level, lv *level.Level) {
 	g := lv.Grid()
 	owners := map[hexgrid.Coord]int{}
 	for _, b := range src.Buildings {
-		owners[finmap.Coord(b.Cell[0], b.Cell[1])] = int([]game.Player{game.CentralPowers, game.Entente, game.None}[b.Owner])
+		owners[finmap.Coord(b.Cell[0], b.Cell[1])] = int([]faction.Player{faction.CentralPowers, faction.Entente, faction.None}[b.Owner])
 	}
 	for row := range src.Height {
 		for col := range src.Width {
@@ -400,7 +400,7 @@ func checkCells(t *testing.T, stem string, src *finmap.Level, lv *level.Level) {
 	}
 }
 
-// Every look binds for -rules dos to a terrain record of its own: what
+// Every look binds to a terrain record of its own: what
 // hlcampaign writes from the original maps never loses an overlay to the
 // fallback that drops unrecorded infrastructure (a road bridge over open
 // water would bind as the water). Buildings bind by owner.

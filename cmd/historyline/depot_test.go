@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -68,7 +68,7 @@ func TestDosCaptureDepot(t *testing.T) {
 			if d.Message != p.ev.Text {
 				t.Errorf("message %q, want %q", d.Message, p.ev.Text)
 			}
-			if got, want := panelOwners(g, depot), d.s.Faction(d.side); got != [2]state.Player{want, want} {
+			if got, want := panelOwners(g, depot), d.s.Faction(d.side); got != [2]faction.Player{want, want} {
 				t.Errorf("the panels mark the captured depot as %v, want %v", got, want)
 			}
 			return
@@ -78,7 +78,7 @@ func TestDosCaptureDepot(t *testing.T) {
 }
 
 // panelOwners is the owner each side's panel marks at c.
-func panelOwners(g *game, c hexgrid.Coord) (out [2]state.Player) {
+func panelOwners(g *game, c hexgrid.Coord) (out [2]faction.Player) {
 	defer func() { g.drawing = false }()
 	for side := range out {
 		g.drawing, g.drawSide = true, side

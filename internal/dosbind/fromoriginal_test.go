@@ -9,8 +9,8 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
@@ -197,7 +197,7 @@ func TestFromOriginalImportedMaps(t *testing.T) {
 			if id := b.IDs[i]; id != want {
 				t.Errorf("%s: unit %d %+v named %q, want %q", name, i, p, id, want)
 			}
-			if u := set.Units[want]; want != "" && (u.Dos != p.Type || Side(game.FactionOf(u.Country)) != p.Owner) {
+			if u := set.Units[want]; want != "" && (u.Dos != p.Type || Side(faction.Of(u.Country)) != p.Owner) {
 				t.Errorf("%s: unit %d %+v: remake unit %q", name, i, p, want)
 			}
 		}

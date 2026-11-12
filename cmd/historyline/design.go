@@ -3,7 +3,7 @@ package main
 import "strings"
 
 // The map designs F8 cycles through: the level's painted backdrop where it
-// has one, the remake's terrain tiles, and — under -rules dos, where the
+// has one, the remake's terrain tiles, and —, where the
 // original art can be loaded — the original (DOS) tiles and units. A design
 // that is unavailable on this level or build is skipped, and the message
 // says so; the backdrop and the tiles always remain reachable.
@@ -111,7 +111,7 @@ func (g *game) setOrig(on bool) {
 // cannot be shown, or "" when it can.
 func (g *game) origAvailable() string {
 	if g.dos == nil {
-		return "only under -rules dos"
+		return "only in a battle"
 	}
 	if g.orig == nil {
 		g.orig = &origArt{}

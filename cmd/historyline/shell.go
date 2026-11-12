@@ -11,7 +11,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/campaign"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
@@ -94,7 +94,7 @@ func frontPages(fsys fs.FS, months []string) (map[string]*campaign.Article, map[
 // briefingLine is the one-line briefing from the map's own facts, its season
 // where known ("" for none); there is no briefing text in the map files (PLAN
 // open question), so it is derived.
-func briefingLine(code string, players int, humanSides []int, side state.Player, season string) string {
+func briefingLine(code string, players int, humanSides []int, side faction.Player, season string) string {
 	if season != "" {
 		season = ", " + season
 	}
@@ -175,7 +175,7 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 
 // forSide is the menu map of the selected map's month for side: its setup
 // for that side where the month has one, else the selected map.
-func (s *shell) forSide(side state.Player) int {
+func (s *shell) forSide(side faction.Player) int {
 	cur := s.maps[s.code]
 	if cur.mode.Human() == side {
 		return s.code
@@ -220,17 +220,6 @@ var scrollSpeeds = []struct {
 // moveLimits are the move limits of the game values menu, 0 for none.
 var moveLimits = []int{0, 5, 10, 15, 20}
 
-// ruleModes are the rule sets of the game values menu, in cycle order:
-// the original (DOS) rules are the default product mode; New (Standard)
-// is the alternative remake engine.
-var ruleModes = []struct {
-	token string
-	label string
-}{
-	{"dos", "RULES  ORIGINAL (DOS)"},
-	{"standard", "RULES  NEW (STANDARD)"},
-}
-
 // outcome is how the last battle ended, from the human side.
 type outcome struct {
 	won, draw bool
@@ -248,7 +237,7 @@ type shell struct {
 	typing bool   // the code row takes letters
 	typed  string // the code typed so far
 	note   [2]string
-	side   state.Player // country chosen, or focused on the country page
+	side   faction.Player // country chosen, or focused on the country page
 
 	fights   bool // full walks and effects; off is reduced motion
 	computer bool // player B is the computer; off passes every phase
@@ -261,7 +250,6 @@ type shell struct {
 	result outcome
 	quit   bool // leave the program
 
-	rules       string
 	scores      *scores.Store
 	saves       *saves.Store
 	scoreList   []scores.Entry
@@ -272,11 +260,7 @@ type shell struct {
 }
 
 func newShell(maps []mapLevel, c matchConfig) *shell {
-	rules := c.rules
-	if rules == "" {
-		rules = "dos"
-	}
-	return &shell{maps: maps, fights: !c.reduced, computer: c.opponent != "pass", rules: rules, scores: c.scores, saves: c.saves}
+	return &shell{maps: maps, fights: !c.reduced, computer: c.opponent != "pass", scores: c.scores, saves: c.saves}
 }
 
 // config is the battle the menus describe: base with the selected map, side
@@ -292,10 +276,6 @@ func (s *shell) config(base matchConfig) matchConfig {
 	c.limit = moveLimits[s.limit]
 	c.reduced = !s.fights
 	c.scroll = scrollSpeeds[s.scroll].speed
-	c.rules = s.rules
-	if c.rules == "" {
-		c.rules = "dos"
-	}
 	if s.pendingSave != nil {
 		c.saved, c.player = s.pendingSave, dosbind.Factions[s.pendingSide]
 		s.pendingSave = nil // consumed: a later START starts fresh
@@ -307,29 +287,8 @@ func (s *shell) config(base matchConfig) matchConfig {
 func row(n int) rect { return rect{40, 104 + n*44, 216, 30} }
 
 // valueRow is the n-th row of the game values page, packed tighter so
-// the rules row fits above the help box.
+// the rows fit above the help box.
 func valueRow(n int) rect { return rect{40, 96 + n*40, 216, 30} }
-
-// ruleLabel is the game values label of the selected rule set.
-func (s *shell) ruleLabel() string {
-	for _, m := range ruleModes {
-		if m.token == s.rules {
-			return m.label
-		}
-	}
-	return ruleModes[0].label
-}
-
-// cycleRules advances to the next rule set: dos -> standard -> dos.
-func (s *shell) cycleRules() {
-	for i, m := range ruleModes {
-		if m.token == s.rules {
-			s.rules = ruleModes[(i+1)%len(ruleModes)].token
-			return
-		}
-	}
-	s.rules = ruleModes[0].token
-}
 
 var (
 	footerRect = rect{464, 346, 152, 30} // exit, back and continue
@@ -341,7 +300,7 @@ var (
 
 // cardSides are the countries of the two cards: France on the left and
 // Germany on the right, as in the original.
-var cardSides = [2]state.Player{state.Entente, state.CentralPowers}
+var cardSides = [2]faction.Player{faction.Entente, faction.CentralPowers}
 
 // buttons are the controls of the current page in focus order.
 func (s *shell) buttons() []button {
@@ -392,24 +351,19 @@ func (s *shell) buttons() []button {
 		if n := moveLimits[s.limit]; n > 0 {
 			limit = fmt.Sprintf("MOVES  %d A PHASE", n)
 		}
-		rulesHelp := [2]string{"Original (DOS) is the default mode.", "New: the alternative remake rules."}
 		return []button{
 			{
-				r: valueRow(0), label: s.ruleLabel(), left: true, help: rulesHelp,
-				do: func(s *shell) { s.cycleRules() },
-			},
-			{
-				r: valueRow(1), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
+				r: valueRow(0), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
 				do: func(s *shell) { s.fights = !s.fights },
 			},
-			{r: valueRow(2), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose.", "Two human players are not in v1."}},
+			{r: valueRow(1), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose.", "Two human players are not in v1."}},
 			{
-				r: valueRow(3), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders. (1-player v1)"},
+				r: valueRow(2), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders. (1-player v1)"},
 				do: func(s *shell) { s.computer = !s.computer },
 			},
-			{r: valueRow(4), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
+			{r: valueRow(3), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
 			{
-				r: valueRow(5), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
+				r: valueRow(4), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
 				do: func(s *shell) { s.limit = (s.limit + 1) % len(moveLimits) },
 			},
 			back(pageMain),
@@ -436,10 +390,7 @@ func (s *shell) buttons() []button {
 		}
 	case pageExtras:
 		loadOff, loadHelp := false, [2]string{"Continue a saved battle (one slot).", "Started from the leave menu: SAVE AND LEAVE."}
-		switch {
-		case s.rules != "dos":
-			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "Saved battles need -rules dos."}
-		case s.saves == nil || !s.saves.Has():
+		if s.saves == nil || !s.saves.Has() {
 			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "No saved battle yet."}
 		}
 		return []button{
@@ -489,10 +440,10 @@ func (s *shell) buttons() []button {
 	case pageOutcome:
 		return []button{{r: footerRect, label: "CONTINUE", help: [2]string{"Back to the main menu."}, do: func(s *shell) { s.open(pageMain) }}}
 	case pageLeave:
-		saveOff := s.saveBattle == nil || s.rules != "dos" || s.saves == nil
+		saveOff := s.saveBattle == nil || s.saves == nil
 		return []button{
 			{r: stayRect, label: "STAY", help: [2]string{"Go on with the battle."}, do: func(s *shell) { s.open(pageBattle) }},
-			{r: saveRect, label: "SAVE AND LEAVE", off: saveOff, help: [2]string{"Save this dos battle (one slot)", "and return to the main menu."}, do: func(s *shell) {
+			{r: saveRect, label: "SAVE AND LEAVE", off: saveOff, help: [2]string{"Save this battle (one slot)", "and return to the main menu."}, do: func(s *shell) {
 				if s.saveBattle != nil {
 					if err := s.saveBattle(); err == nil {
 						s.open(pageMain)
@@ -538,10 +489,10 @@ func (s *shell) open(p page) {
 }
 
 // levelSide is the side the selected map is written for.
-func (s *shell) levelSide() state.Player {
-	p, err := state.PlayerByName(s.maps[s.code].lvl.Player)
+func (s *shell) levelSide() faction.Player {
+	p, err := faction.ByName(s.maps[s.code].lvl.Player)
 	if err != nil {
-		return state.CentralPowers
+		return faction.CentralPowers
 	}
 	return p
 }
@@ -682,16 +633,16 @@ func (s *shell) finish(o outcome) {
 }
 
 // countryName is the country the original lets a side choose.
-func countryName(p state.Player) string {
-	if p == state.Entente {
+func countryName(p faction.Player) string {
+	if p == faction.Entente {
 		return "FRANCE"
 	}
 	return "GERMANY"
 }
 
 // factionName names the alliance of a side.
-func factionName(p state.Player) string {
-	if p == state.Entente {
+func factionName(p faction.Player) string {
+	if p == faction.Entente {
 		return "The Entente"
 	}
 	return "The Central Powers"

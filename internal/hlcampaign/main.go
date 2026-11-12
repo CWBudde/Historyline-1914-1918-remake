@@ -33,8 +33,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
@@ -177,9 +177,6 @@ func check(f *scenario.File, set *data.Set) error {
 		if err == nil {
 			_, err = b.Game(dosrules.Full)
 		}
-		if err == nil {
-			_, err = game.New(lv, set)
-		}
 		if err != nil {
 			return fmt.Errorf("setup %s: %w", m, err)
 		}
@@ -268,13 +265,13 @@ func month(cpMap, ecMap *finmap.Level, set *data.Set, ids map[[2]int]string) (*s
 	// Two players: each side's units and buildings from its own campaign.
 	two := &scenario.Setup{}
 	for _, u := range cp.Units {
-		if side(set, u.ID) == game.CentralPowers {
+		if side(set, u.ID) == faction.CentralPowers {
 			two.Units = append(two.Units, u)
 		}
 	}
 	var ecUnits []scenario.Unit
 	for _, u := range ec.Units {
-		if side(set, u.ID) == game.Entente {
+		if side(set, u.ID) == faction.Entente {
 			ecUnits = append(ecUnits, u)
 		}
 	}
@@ -282,9 +279,9 @@ func month(cpMap, ecMap *finmap.Level, set *data.Set, ids map[[2]int]string) (*s
 	for i, b := range cp.Buildings {
 		e := ec.Buildings[i]
 		switch {
-		case b.Owner == game.CentralPowers:
+		case b.Owner == faction.CentralPowers:
 			two.Buildings = append(two.Buildings, b)
-		case e.Owner == game.Entente:
+		case e.Owner == faction.Entente:
 			two.Buildings = append(two.Buildings, e)
 		default:
 			two.Buildings = append(two.Buildings, b)
@@ -309,8 +306,8 @@ func show(h level.Hex) string {
 }
 
 // side is the side of a unit id.
-func side(set *data.Set, id string) game.Player {
-	return game.FactionOf(set.Units[id].Country)
+func side(set *data.Set, id string) faction.Player {
+	return faction.Of(set.Units[id].Country)
 }
 
 // baseBoard binds the map with the Central Powers setup's buildings (no
@@ -432,7 +429,7 @@ func (m *merger) buildings(ec, base []scenario.Building, report []string) ([]sce
 			}
 		}
 		if best < 0 {
-			if e.Owner != game.None || len(e.Units) > 0 || e.Credits != 0 {
+			if e.Owner != faction.None || len(e.Units) > 0 || e.Credits != 0 {
 				report = append(report, fmt.Sprintf("ec: building at line%d[%d] (%s) has no match: owner %v, credits %d, units %v left out",
 					e.At.Line+1, e.At.Col+1, ek, e.Owner, e.Credits, e.Units))
 			}

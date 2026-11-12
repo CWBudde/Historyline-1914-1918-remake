@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -76,7 +76,7 @@ func (g *game) shipHalfShown(dst *ebiten.Image, c hexgrid.Coord) bool {
 // drawShip draws the long sprite of a two-cell ship of unit type typ with its
 // head at world point (hx, hy) and its rear at (rx, ry), dressed with the rim
 // of hex c. A missing sprite goes to the status line.
-func (g *game) drawShip(dst *ebiten.Image, c hexgrid.Coord, typ string, owner state.Player, spent bool, hx, hy, rx, ry float64) {
+func (g *game) drawShip(dst *ebiten.Image, c hexgrid.Coord, typ string, owner faction.Player, spent bool, hx, hy, rx, ry float64) {
 	family, ok := unitsprite.Family(typ)
 	if !ok {
 		g.artErr = fmt.Sprintf("no sprite family for unit type %s", typ)

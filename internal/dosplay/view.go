@@ -7,7 +7,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -19,7 +19,7 @@ type UnitView struct {
 	Name   string
 	Domain Domain // the kind of fighting
 	Side   int    // 0, 1, 2 neutral
-	Owner  game.Player
+	Owner  faction.Player
 	// At is the hex the unit stands on, for a held unit its container's.
 	At                                   hexgrid.Coord
 	Size, Full, Alt, Exp, Budget, Armour int
@@ -43,7 +43,7 @@ type UnitView struct {
 // it is an HQ, and the units the viewing side's slots list.
 type BuildingView struct {
 	Hold  int
-	Owner game.Player
+	Owner faction.Player
 	Kind  BuildingKind
 	HQ    bool
 	Units []UnitView
@@ -120,7 +120,7 @@ func (s *Session) idType(id string) int {
 func (s *Session) typeID(typ, side int) string {
 	for _, id := range slices.Sorted(maps.Keys(s.set.Units)) {
 		d := s.set.Units[id]
-		if d.Dos == typ && (side == 2 || dosbind.Side(game.FactionOf(d.Country)) == side) {
+		if d.Dos == typ && (side == 2 || dosbind.Side(faction.Of(d.Country)) == side) {
 			return id
 		}
 	}

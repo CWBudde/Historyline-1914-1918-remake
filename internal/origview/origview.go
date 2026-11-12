@@ -32,8 +32,8 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
@@ -109,7 +109,7 @@ func (k Look) Hex(winter bool) level.Hex {
 }
 
 // owners are the level owners of sides 0, 1 and 2 (neutral).
-var owners = [3]game.Player{game.CentralPowers, game.Entente, game.None}
+var owners = [3]faction.Player{faction.CentralPowers, faction.Entente, faction.None}
 
 // Level is the view of an imported map. MapName is the map's file stem
 // ("05", "STATMAP"), MapNo its number plus one (-1 when the stem is none),
@@ -133,7 +133,7 @@ func Level(l *finmap.Level) (*level.Level, error) {
 		}
 	}
 	winter := l.Mission != nil && l.Mission.Winter
-	lv := &level.Level{MapName: l.Source.Map, MapNo: -1, Player: game.CentralPowers.String(), Lines: make([][]level.Hex, g.Lines)}
+	lv := &level.Level{MapName: l.Source.Map, MapNo: -1, Player: faction.CentralPowers.String(), Lines: make([][]level.Hex, g.Lines)}
 	if n, err := strconv.Atoi(l.Source.Map); err == nil {
 		lv.MapNo = n + 1
 	}

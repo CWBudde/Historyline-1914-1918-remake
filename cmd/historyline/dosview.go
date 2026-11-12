@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
@@ -79,10 +78,6 @@ func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 // drawWalker draws the unit of walk w, now on hex c.
 func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) {
 	switch u := w.unit.(type) {
-	case *state.Unit:
-		if u != nil {
-			g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Size, u.Owner, unitSpent(u), false, face)
-		}
 	case int:
 		if g.dos == nil {
 			return

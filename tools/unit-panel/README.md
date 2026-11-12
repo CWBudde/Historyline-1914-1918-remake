@@ -2,7 +2,7 @@
 
 Builds the 400×640 logical unit information panel (2× and 4×) from `art/pipeline/unit-panel-v1.json`
 (sources relative to the repository root): text-free vector frame and icons, live Go-font text, nine
-fixtures from real `data.Load` / `game.NewUnit` state.
+fixtures from real `data.Load` unit state.
 
 ```sh
 mkdir -p build/review/unit-panel

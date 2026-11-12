@@ -64,7 +64,7 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
@@ -98,11 +98,11 @@ var Modes = []Mode{CP, EC, TwoPlayer}
 
 // Human is the side a human plays first in the mode: the Entente in EC,
 // the Central Powers otherwise (they move first with two players).
-func (m Mode) Human() game.Player {
+func (m Mode) Human() faction.Player {
 	if m == EC {
-		return game.Entente
+		return faction.Entente
 	}
-	return game.CentralPowers
+	return faction.CentralPowers
 }
 
 // SetupFile is the file of the mode's setup in a level folder: "cp.json".
@@ -148,7 +148,7 @@ type Unit struct {
 // Building is the content of a building, at its entrance.
 type Building struct {
 	At      hexgrid.Coord
-	Owner   game.Player
+	Owner   faction.Player
 	Credits int
 	Units   []string
 }
@@ -235,7 +235,7 @@ type buildingJSON struct {
 
 var (
 	monthRE = regexp.MustCompile(`^(19\d\d)-(0[1-9]|1[0-2])$`)
-	owners  = map[string]game.Player{"": game.None, "cp": game.CentralPowers, "ec": game.Entente}
+	owners  = map[string]faction.Player{"": faction.None, "cp": faction.CentralPowers, "ec": faction.Entente}
 )
 
 // strict decodes the single JSON object raw into v, unknown keys an error.
@@ -756,9 +756,9 @@ func (f *File) Files() (map[string][]byte, error) {
 				}
 				fmt.Fprintf(&b, "\n\t\t{\"at\": [%d, %d]", bd.At.Line+1, bd.At.Col+1)
 				switch bd.Owner {
-				case game.CentralPowers:
+				case faction.CentralPowers:
 					b.WriteString(", \"owner\": \"cp\"")
-				case game.Entente:
+				case faction.Entente:
 					b.WriteString(", \"owner\": \"ec\"")
 				}
 				if bd.Credits != 0 {
@@ -856,7 +856,7 @@ func Split(lv *level.Level) (lines [][]level.Hex, s *Setup) {
 				s.Units = append(s.Units, Unit{At: c, ID: h.Unit})
 			}
 			if h.Content != nil {
-				bd := Building{At: c, Owner: game.Player(h.Content.Owner), Units: slices.Clone(h.Content.Units)}
+				bd := Building{At: c, Owner: faction.Player(h.Content.Owner), Units: slices.Clone(h.Content.Units)}
 				if lv.Extra != nil {
 					bd.Credits = lv.Extra.Credits[c]
 				}

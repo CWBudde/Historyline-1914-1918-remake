@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/seasonblend"
@@ -50,16 +49,16 @@ func (t *blendTiles) release(a *terrainArt) {
 
 // knownClusters reports whether a cluster is known to the player: none of
 // its hexes is unseen.
-func knownClusters(fog func(hexgrid.Coord) state.Fog) func(*mapcompose.Cluster) bool {
+func knownClusters(fog func(hexgrid.Coord) fogState) func(*mapcompose.Cluster) bool {
 	return func(cl *mapcompose.Cluster) bool {
-		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == fogUnseen })
 	}
 }
 
 // blendSeasons are the seasons mixed on hex c under the player's fog; nil
 // where c is drawn as composed.
 func (g *game) blendSeasons(c hexgrid.Coord) []mapcompose.Season {
-	if g.terrain.blend == nil || g.fogOf(c) == state.Unseen {
+	if g.terrain.blend == nil || g.fogOf(c) == fogUnseen {
 		return nil
 	}
 	return g.terrain.blend.blend.Seasons(c)
@@ -81,7 +80,7 @@ func (g *game) drawBlended(dst *ebiten.Image, c hexgrid.Coord, pass int, sx, sy 
 	if img == nil {
 		return true
 	}
-	if g.fogOf(c) == state.Seen {
+	if g.fogOf(c) == fogSeen {
 		img = g.terrain.dimmed(img)
 	}
 	var op ebiten.DrawImageOptions

@@ -11,7 +11,7 @@
 // out the last column and the odd cells of the last row.
 //
 // Sides: side 0 is the Central Powers, side 1 the Entente, 2 neutral
-// (Factions). The level's owner field (game.Player: 0 none, 1 Central Powers,
+// (Factions). The level's owner field (faction.Player: 0 none, 1 Central Powers,
 // 2 Entente) maps onto them.
 package dosbind
 
@@ -26,20 +26,20 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
 // Factions are the remake's players of side 0, side 1 and neutral (2).
-var Factions = [3]game.Player{game.CentralPowers, game.Entente, game.None}
+var Factions = [3]faction.Player{faction.CentralPowers, faction.Entente, faction.None}
 
 // Side is the side of a remake player: 0, 1, or 2 for none.
-func Side(p game.Player) int {
+func Side(p faction.Player) int {
 	switch p {
-	case game.CentralPowers:
+	case faction.CentralPowers:
 		return 0
-	case game.Entente:
+	case faction.Entente:
 		return 1
 	}
 	return 2
@@ -198,7 +198,7 @@ func (bd *building) state() string {
 	if bd.content == nil {
 		return "-"
 	}
-	return strconv.Itoa(Side(game.Player(bd.content.Owner)))
+	return strconv.Itoa(Side(faction.Player(bd.content.Owner)))
 }
 
 // buildings stamps the buildings of a level (level.Compounds): each N piece
@@ -408,7 +408,7 @@ func unitType(set *data.Set, id string) (int, int, error) {
 	if types[u.Dos].Class&twoCell != 0 {
 		return 0, 0, fmt.Errorf("unit %q: two-cell ships are not bound here", id)
 	}
-	return u.Dos, Side(game.FactionOf(u.Country)), nil
+	return u.Dos, Side(faction.Of(u.Country)), nil
 }
 
 // shipType is unitType for a map unit: ship reports whether the type is a
@@ -422,7 +422,7 @@ func shipType(set *data.Set, id string) (typ, side int, ship bool, err error) {
 	if u.Dos < 0 || u.Dos >= len(types) {
 		return 0, 0, false, fmt.Errorf("unit %q: no type %d", id, u.Dos)
 	}
-	return u.Dos, Side(game.FactionOf(u.Country)), types[u.Dos].Class&twoCell != 0, nil
+	return u.Dos, Side(faction.Of(u.Country)), types[u.Dos].Class&twoCell != 0, nil
 }
 
 // add places the next unit; an empty id names none.

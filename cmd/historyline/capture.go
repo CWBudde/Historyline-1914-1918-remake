@@ -77,7 +77,7 @@ func reviewFramePlan(look bool) []reviewFrame {
 	return frames
 }
 
-// splitFramePlan is the capture of the split screen of -rules dos at its fixed
+// splitFramePlan is the capture of the split screen at its fixed
 // cell scale: the opening position, each side's own view and the true view, at
 // 4:3 and the 720p/1080p/4K sizes, and at 1080p the cursor states staged by
 // stageCapture.
@@ -153,9 +153,9 @@ func (g *game) stageCapture(view string) {
 	case view == "split-ring":
 		x, y := g.cam.WorldToScreen(hexgrid.Center(at))
 		p := gesture.Pointer{X: x, Y: y, Active: true}
-		g.feedGesture(gesture.Input{Pointer: p}, false)
+		g.feedGesture(gesture.Input{Pointer: p})
 		p.RightPressed = true
-		g.feedGesture(gesture.Input{Pointer: p}, false)
+		g.feedGesture(gesture.Input{Pointer: p})
 	case view == "split-prompt":
 		g.setCursor(at)
 		d.openPrompt()

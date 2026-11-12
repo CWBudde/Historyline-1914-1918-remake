@@ -7,7 +7,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"golang.org/x/image/font"
@@ -61,9 +61,9 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 		t.Fatalf("names %s, %s, %s", s.maps[0].name, s.maps[52].name, s.maps[51].name)
 	}
 	for i, m := range s.maps {
-		want := state.CentralPowers
+		want := faction.CentralPowers
 		if i >= 52 {
-			want = state.Entente
+			want = faction.Entente
 		}
 		if s.code = i; s.levelSide() != want || m.mode.Human() != want {
 			t.Errorf("%s: side %v", m.name, s.levelSide())
@@ -137,19 +137,19 @@ func TestSaveLoadWiring(t *testing.T) {
 	if s.page != pageLoading {
 		t.Fatalf("load page %d", s.page)
 	}
-	c := s.config(matchConfig{rules: "dos", set: set})
+	c := s.config(matchConfig{set: set})
 	if c.saved == nil || c.lvl != s.maps[0].lvl {
 		t.Fatalf("loaded config saved %v lvl %v", c.saved != nil, c.lvl)
 	}
 	if _, err := dosplay.Load(c.lvl, set, c.saved); err != nil {
 		t.Fatal(err)
 	}
-	if s.config(matchConfig{rules: "dos"}).saved != nil {
+	if s.config(matchConfig{}).saved != nil {
 		t.Fatal("pending save was not consumed")
 	}
 	// An app with a battle saves through saveCurrentBattle.
 	gm := newDosGame(s.maps[0].lvl, sess, 0, passPlanner{}, false)
-	a := &app{shell: s, base: matchConfig{saves: store, rules: "dos"}, battle: gm, press: -1}
+	a := &app{shell: s, base: matchConfig{saves: store}, battle: gm, press: -1}
 	if err := a.saveCurrentBattle(); err != nil {
 		t.Fatal(err)
 	}
@@ -176,16 +176,15 @@ func TestDisabledRowsAreSkippedAndInert(t *testing.T) {
 	if s.page != pageValues {
 		t.Fatalf("page %d", s.page)
 	}
-	s.key(keyDown) // RULES -> BATTLES
 	if got := s.buttons()[s.focus].label; got != "BATTLES  FULL" {
-		t.Fatalf("down from RULES: %q", got)
+		t.Fatalf("first row: %q", got)
 	}
 	s.key(keyDown) // PLAYER A is disabled
 	if got := s.buttons()[s.focus].label; got != "PLAYER B  COMPUTER" {
 		t.Fatalf("down from BATTLES: %q", got)
 	}
-	s.activate(2)
-	if s.page != pageValues || s.buttons()[2].label != "PLAYER A  HUMAN" {
+	s.activate(1)
+	if s.page != pageValues || s.buttons()[1].label != "PLAYER A  HUMAN" {
 		t.Fatal("disabled row did something")
 	}
 	s.key(keyBack)
@@ -227,23 +226,9 @@ func TestCodeEntry(t *testing.T) {
 func TestGameValuesMakeTheMatch(t *testing.T) {
 	s := testShell(t)
 	s.activate(2)
-	// The rules row cycles dos (default) -> standard -> dos,
-	// and config carries the choice while the base says otherwise.
-	if got := s.buttons()[0].label; got != "RULES  ORIGINAL (DOS)" {
-		t.Fatalf("rules row %q", got)
-	}
-	for _, want := range []string{"standard", "dos"} {
-		s.activate(0)
-		if c := s.config(matchConfig{rules: "standard"}); c.rules != want {
-			t.Fatalf("cycled rules %q, want %q", c.rules, want)
-		}
-	}
-	if got := s.buttons()[0].label; got != "RULES  ORIGINAL (DOS)" {
-		t.Fatalf("rules row after cycle %q", got)
-	}
-	s.activate(1) // battles short
-	s.activate(3) // player B passive
-	s.activate(5) // 5 moves a phase
+	s.activate(0) // battles short
+	s.activate(2) // player B passive
+	s.activate(4) // 5 moves a phase
 	s.key(keyBack)
 	s.activate(3) // control
 	s.activate(1) // scrolling fast
@@ -260,37 +245,10 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 	s.activate(0) // CONTINUE
 	toBattle(t, s)
 	// France takes the month's Entente setup.
-	c := s.config(matchConfig{rules: "dos"})
-	if c.lvl != s.maps[52].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
-		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != "dos" {
+	c := s.config(matchConfig{})
+	if c.lvl != s.maps[52].lvl || c.board != nil || c.player != faction.Entente || c.opponent != "pass" || c.limit != 5 ||
+		!c.reduced || c.scroll != 2*scrollSpeed {
 		t.Fatalf("config %+v", c)
-	}
-}
-
-func TestRulesChoiceStartsBothEngines(t *testing.T) {
-	s := testShell(t)
-	set := testSet(t)
-	s.open(pageValues)
-	for _, want := range []string{"dos", "standard"} {
-		for s.rules != want {
-			s.cycleRules()
-		}
-		c := s.config(matchConfig{set: set, opponent: "pass"})
-		c.player = s.levelSide()
-		gm, err := newMatch(c)
-		if err != nil {
-			t.Fatalf("%s: %v", want, err)
-		}
-		if want == "dos" && gm.dos == nil {
-			t.Fatalf("%s: no dos session", want)
-		}
-		if want != "dos" && gm.state == nil {
-			t.Fatalf("%s: no remake state", want)
-		}
-	}
-	// The removed Classic (Python) mode stays rejected.
-	if _, err := newMatch(matchConfig{set: set, rules: "classic"}); err == nil {
-		t.Error("classic rules accepted")
 	}
 }
 
@@ -455,11 +413,11 @@ func TestCountryPicksTheSidesSetup(t *testing.T) {
 	s.code = 2 // CIVIL, the Central Powers' October 1914
 	s.open(pageCountry)
 	s.activate(0) // France
-	if s.maps[s.code].name != "1914-10:ec" || s.side != state.Entente {
+	if s.maps[s.code].name != "1914-10:ec" || s.side != faction.Entente {
 		t.Fatalf("France on CIVIL: %s, side %v", s.maps[s.code].name, s.side)
 	}
 	c := s.config(matchConfig{})
-	if c.lvl != s.maps[s.code].lvl || c.player != state.Entente {
+	if c.lvl != s.maps[s.code].lvl || c.player != faction.Entente {
 		t.Fatalf("config plays %s as %v", c.lvl.MapName, c.player)
 	}
 	// Under the original rules both sides earn the setup's credits.
@@ -483,7 +441,7 @@ func TestMonthlyMarne(t *testing.T) {
 	if m.code() != "MARNE" || m.name != "1914-09:ec" || m.month != "1914-09" || m.next != 54 {
 		t.Fatalf("monthly map %+v", m)
 	}
-	if k := s.maps[1]; k.code() != "KLUCK" || k.file != m.file || k.mode.Human() != state.CentralPowers {
+	if k := s.maps[1]; k.code() != "KLUCK" || k.file != m.file || k.mode.Human() != faction.CentralPowers {
 		t.Fatalf("Marne's German setup %+v", k)
 	}
 	// The code word selects it.
@@ -492,7 +450,7 @@ func TestMonthlyMarne(t *testing.T) {
 	if s.code != 53 {
 		t.Fatalf("code MARNE selected map %d", s.code)
 	}
-	if s.levelSide() != state.Entente || !strings.Contains(m.briefing, "The Entente") {
+	if s.levelSide() != faction.Entente || !strings.Contains(m.briefing, "The Entente") {
 		t.Fatalf("side %v, briefing %q", s.levelSide(), m.briefing)
 	}
 	// Its own September 1914 news comes before the battle.
@@ -526,9 +484,6 @@ func TestMonthlyMarne(t *testing.T) {
 	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
 		t.Fatalf("dos: %v", err)
 	}
-	if _, err := state.New(m.lvl, set); err != nil {
-		t.Fatalf("standard: %v", err)
-	}
 }
 
 func TestMonthlyYpres(t *testing.T) {
@@ -537,7 +492,7 @@ func TestMonthlyYpres(t *testing.T) {
 	if m.code() != "NONNE" || m.name != "1914-11:ec" || m.month != "1914-11" || m.next != 56 {
 		t.Fatalf("monthly map %+v", m)
 	}
-	if k := s.maps[3]; k.code() != "POLYG" || k.file != m.file || k.mode.Human() != state.CentralPowers || k.next != 4 {
+	if k := s.maps[3]; k.code() != "POLYG" || k.file != m.file || k.mode.Human() != faction.CentralPowers || k.next != 4 {
 		t.Fatalf("Ypres' German setup %+v", k)
 	}
 	if p, ok := m.news(); !ok || p.Label != "November 1914" {
@@ -562,9 +517,6 @@ func TestMonthlyYpres(t *testing.T) {
 	set := testSet(t)
 	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
 		t.Fatalf("dos: %v", err)
-	}
-	if _, err := state.New(m.lvl, set); err != nil {
-		t.Fatalf("standard: %v", err)
 	}
 }
 
@@ -596,7 +548,7 @@ func TestMonthlyCrouy(t *testing.T) {
 			}
 		}
 		human, computer := "CP_", "EC_"
-		if m.mode.Human() == state.Entente {
+		if m.mode.Human() == faction.Entente {
 			human, computer = computer, human
 		}
 		if n[human] <= n[computer] {
@@ -605,9 +557,6 @@ func TestMonthlyCrouy(t *testing.T) {
 		set := testSet(t)
 		if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
 			t.Fatalf("%s dos: %v", m.name, err)
-		}
-		if _, err := state.New(m.lvl, set); err != nil {
-			t.Fatalf("%s standard: %v", m.name, err)
 		}
 	}
 }
@@ -655,18 +604,15 @@ func TestMonthlyFlanders(t *testing.T) {
 		if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
 			t.Fatalf("%s dos: %v", m.name, err)
 		}
-		if _, err := state.New(m.lvl, set); err != nil {
-			t.Fatalf("%s standard: %v", m.name, err)
-		}
 	}
 }
 
 func TestWrapTextFitsWidth(t *testing.T) {
 	face := faceFor(textKey{size: 12, density: 1})
 	for _, b := range []string{
-		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, "summer"),
-		briefingLine("RHEIN", 2, nil, state.CentralPowers, "winter"),
-		briefingLine("RHEIN", 1, []int{0}, state.CentralPowers, "autumn"),
+		briefingLine("RHEIN", 1, []int{0}, faction.CentralPowers, "summer"),
+		briefingLine("RHEIN", 2, nil, faction.CentralPowers, "winter"),
+		briefingLine("RHEIN", 1, []int{0}, faction.CentralPowers, "autumn"),
 	} {
 		lines := wrapText(b, textKey{size: 12}, panelW-48)
 		if len(lines) > 3 || strings.Join(lines, " ") != b {

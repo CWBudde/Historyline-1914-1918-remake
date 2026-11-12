@@ -7,8 +7,8 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -225,7 +225,7 @@ func RemakeIDs(set *data.Set) map[[2]int]string {
 	out := map[[2]int]string{}
 	for _, id := range slices.Sorted(maps.Keys(set.Units)) {
 		u := set.Units[id]
-		k := [2]int{u.Dos, Side(game.FactionOf(u.Country))}
+		k := [2]int{u.Dos, Side(faction.Of(u.Country))}
 		if _, ok := out[k]; !ok {
 			out[k] = id
 		}

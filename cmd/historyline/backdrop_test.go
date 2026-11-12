@@ -9,7 +9,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 )
@@ -260,7 +260,7 @@ func TestLevelBackdrop(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, off := range []bool{false, true} {
-		gm, err := newMatch(matchConfig{lvl: lvl, set: set, player: state.CentralPowers, rules: "dos", opponent: "pass", noBackdrop: off})
+		gm, err := newMatch(matchConfig{lvl: lvl, set: set, player: faction.CentralPowers, opponent: "pass", noBackdrop: off})
 		if err != nil {
 			t.Fatal(err)
 		}

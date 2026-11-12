@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
@@ -193,16 +192,16 @@ func loadTerrainArt(dir string, lvl *level.Level) (*terrainArt, error) {
 // Standing items of a known hex may overhang an unseen neighbour. A cluster is
 // drawn as its stamp only while all its hexes are known; otherwise its known
 // hexes keep their per-hex art.
-func terrainLayers(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog) (bg, stamp string, overlays, standing []string, dim bool) {
+func terrainLayers(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) fogState) (bg, stamp string, overlays, standing []string, dim bool) {
 	f := fog(c)
-	if f == state.Unseen {
+	if f == fogUnseen {
 		return mapcompose.TileID("unseen"), "", nil, nil, false
 	}
 	known := func(cl *mapcompose.Cluster) bool {
-		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == fogUnseen })
 	}
 	bg, stamp, overlays, standing = s.Layers(c, known)
-	return bg, stamp, overlays, standing, f == state.Seen
+	return bg, stamp, overlays, standing, f == fogSeen
 }
 
 // remembered is the grey, darkened look of a seen but not visible hex.
@@ -237,15 +236,15 @@ func (a *terrainArt) forget(img *ebiten.Image) {
 
 // terrainShadows shares standing items' fog rules, including suppression under
 // a known cluster stamp and dimming of remembered terrain.
-func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog) ([]string, bool) {
+func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) fogState) ([]string, bool) {
 	f := fog(c)
-	if f == state.Unseen {
+	if f == fogUnseen {
 		return nil, false
 	}
 	known := func(cl *mapcompose.Cluster) bool {
-		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == fogUnseen })
 	}
-	return s.ShadowsAt(c, known), f == state.Seen
+	return s.ShadowsAt(c, known), f == fogSeen
 }
 
 // scatterLayers are the scattered items drawn after the tiles of a pass: ground
@@ -258,15 +257,15 @@ var scatterLayers = [5]func(*mapcompose.Scene, hexgrid.Coord, func(*mapcompose.C
 
 // terrainScatter returns the items of one scatter layer of hex c under the fog
 // rules of standing items.
-func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog, layer func(*mapcompose.Scene, hexgrid.Coord, func(*mapcompose.Cluster) bool) []mapcompose.Placed) ([]mapcompose.Placed, bool) {
+func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) fogState, layer func(*mapcompose.Scene, hexgrid.Coord, func(*mapcompose.Cluster) bool) []mapcompose.Placed) ([]mapcompose.Placed, bool) {
 	f := fog(c)
-	if f == state.Unseen {
+	if f == fogUnseen {
 		return nil, false
 	}
 	known := func(cl *mapcompose.Cluster) bool {
-		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == fogUnseen })
 	}
-	return layer(s, c, known), f == state.Seen
+	return layer(s, c, known), f == fogSeen
 }
 
 // drawTerrainTile draws id with its anchor on screen point (sx, sy); a bare
@@ -359,7 +358,7 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 // materialHex is c for a background that may sample the world material: any
 // but an unseen hex's.
 func (g *game) materialHex(c hexgrid.Coord) *hexgrid.Coord {
-	if g.fogOf(c) == state.Unseen {
+	if g.fogOf(c) == fogUnseen {
 		return nil
 	}
 	return &c

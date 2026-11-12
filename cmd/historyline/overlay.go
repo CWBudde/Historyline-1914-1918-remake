@@ -10,7 +10,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
@@ -19,7 +19,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// The info plates of -rules dos (internal/dospanel): the info gesture on an
+// The info plates (internal/dospanel): the info gesture on an
 // own unit opens the unit info of its type in the human side's panel, on a
 // cell without a unit (the own HQ too) the game info; enemy units give no
 // information. Fire, the cancel direction or Esc closes the plate; the other
@@ -159,7 +159,7 @@ func (g *game) panelUnit(u dosplay.UnitView, f unitsprite.Facing) *ebiten.Image 
 }
 
 // unitFacing is that sprite facing f.
-func (g *game) unitFacing(id string, owner state.Player, f unitsprite.Facing) *ebiten.Image {
+func (g *game) unitFacing(id string, owner faction.Player, f unitsprite.Facing) *ebiten.Image {
 	if g.art == nil {
 		return nil
 	}

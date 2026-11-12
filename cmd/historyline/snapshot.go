@@ -15,12 +15,9 @@ type snapshot struct {
 	side  int    // the human side the save names; -1 when the file does not say
 }
 
-// startSnapshot reads -snapshot for a direct start: dos rules only, and a
-// -level given beside a save that names its level must match it.
-func startSnapshot(path, rules string, levelGiven bool, level string) (snapshot, error) {
-	if rules != "dos" {
-		return snapshot{}, fmt.Errorf("-snapshot needs -rules dos")
-	}
+// startSnapshot reads -snapshot for a direct start: a -level given beside a
+// save that names its level must match it.
+func startSnapshot(path string, levelGiven bool, level string) (snapshot, error) {
 	snap, err := readSnapshot(path)
 	if err != nil {
 		return snapshot{}, err

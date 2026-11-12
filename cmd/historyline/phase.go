@@ -9,7 +9,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
@@ -19,7 +19,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The phase change of -rules dos. F1 (or the mode-change gesture) opens a
+// The phase change. F1 (or the mode-change gesture) opens a
 // prompt over both panels in grey: F1 again confirms, fire or Esc goes back to
 // the orders. Once both sides have confirmed the panels go black with only the
 // cursor plates left; each fought attack order then shows the battle site in
@@ -488,12 +488,12 @@ func (g *game) battleArt() dospanel.BattleArt {
 }
 
 // flagImages holds each owner's flag as an image, painted once.
-var flagImages = map[state.Player]*ebiten.Image{}
+var flagImages = map[faction.Player]*ebiten.Image{}
 
 // flagImage is owner's flag in the proportions of the well's, nil for the
 // neutral side.
-func flagImage(owner state.Player) *ebiten.Image {
-	if owner == state.None {
+func flagImage(owner faction.Player) *ebiten.Image {
+	if owner == faction.None {
 		return nil
 	}
 	img := flagImages[owner]

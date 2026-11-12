@@ -37,12 +37,6 @@ func TestLayoutHUDFitsScreen(t *testing.T) {
 	for _, sz := range [][2]int{{400, 700}, {320, 200}, {1280, 720}, {1800, 1000}, {50, 50}} {
 		w, h := sz[0], sz[1]
 		l := layoutHUD(w, h)
-		if l.MenuX+l.MenuW > w && w > 2*hudMargin {
-			t.Errorf("%dx%d: menu overflows", w, h)
-		}
-		if l.Report.X < 0 || l.Report.X+l.Report.W > w {
-			t.Errorf("%dx%d: report %+v outside screen", w, h, l.Report)
-		}
 		if l.MinimapMax < minimapMin || l.MinimapMax > minimapCap {
 			t.Errorf("%dx%d: minimap max %d", w, h, l.MinimapMax)
 		}
@@ -51,21 +45,8 @@ func TestLayoutHUDFitsScreen(t *testing.T) {
 		}
 	}
 	l := layoutHUD(1800, 1000)
-	if l.MenuW != menuMaxWidth || l.MinimapMax != minimapCap || l.Report.X != (1800-reportMaxW)/2 {
+	if l.MinimapMax != minimapCap {
 		t.Errorf("wide layout %+v", l)
-	}
-	if narrow := layoutHUD(300, 700); narrow.MenuW != 284 || narrow.Report.W != 292 {
-		t.Errorf("narrow layout %+v", narrow)
-	}
-}
-
-func TestMenuRowRect(t *testing.T) {
-	l := layoutHUD(800, 600)
-	if r := l.menuRowRect(2, 3); r.Y != 600-hudMargin-menuRowHeight || r.X != hudMargin {
-		t.Errorf("last row %+v", r)
-	}
-	if a, b := l.menuRowRect(0, 3), l.menuRowRect(1, 3); b.Y-a.Y != menuRowHeight {
-		t.Errorf("rows not contiguous: %+v %+v", a, b)
 	}
 }
 
@@ -88,18 +69,11 @@ func TestHUDHitTest(t *testing.T) {
 	for _, dpi := range []float64{1, 1.5, 2, 3} {
 		v := newView(1600, 900, dpi)
 		l := layoutHUD(v.LogW, v.LogH)
-		row := func(i int) (x, y, w, h int) {
-			r := l.menuRowRect(i, 3)
-			return r.X, r.Y, r.W, r.H
-		}
-		for i := range 3 {
-			x, y, w, h := row(i)
-			for _, p := range [][2]int{{x, y}, {x + w - 1, y + h - 1}} {
-				px, py := p[0]*v.UI+v.UI/2, p[1]*v.UI+v.UI/2
-				hx, hy := v.toHUD(px, py)
-				if got := menuHit(hx, hy, 3, row); got != i {
-					t.Errorf("dpi %v ui %d: physical %d,%d hit row %d, want %d", dpi, v.UI, px, py, got, i)
-				}
+		r := l.Banner
+		for _, p := range [][2]int{{r.X, r.Y}, {r.X + r.W - 1, r.Y + r.H - 1}} {
+			px, py := p[0]*v.UI+v.UI/2, p[1]*v.UI+v.UI/2
+			if hx, hy := v.toHUD(px, py); hx != p[0] || hy != p[1] {
+				t.Errorf("dpi %v ui %d: physical %d,%d is HUD %d,%d, want %d,%d", dpi, v.UI, px, py, hx, hy, p[0], p[1])
 			}
 		}
 	}
@@ -109,12 +83,11 @@ func TestHUDHitTest(t *testing.T) {
 // survive zoom, window resize and display-scale changes, and the map keeps its
 // apparent size when only the display scale changes.
 func TestWorldPointSurvivesZoomResizeAndDPI(t *testing.T) {
-	c := newTestControl(t)
 	lvl, err := loadLevel("", "1914-08:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
-	g := newGame(lvl, c.st, c.player, false)
+	g := newMapGame(lvl, false)
 	g.applyLayout(1800, 1000, 1)
 	g.cam.CenterOn(g.cam.World.W/2, g.cam.World.H/2)
 	pick := func() (wx, wy float64) {

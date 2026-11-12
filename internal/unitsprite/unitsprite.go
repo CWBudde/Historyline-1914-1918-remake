@@ -10,7 +10,7 @@ import (
 	"math"
 	"slices"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 )
 
 // families maps every unit type of internal/data to its sprite family. A family
@@ -185,11 +185,11 @@ const (
 var Palettes = []Palette{CP, EC, Neutral}
 
 // PaletteOf is the palette of a unit owned by p.
-func PaletteOf(p game.Player) Palette {
+func PaletteOf(p faction.Player) Palette {
 	switch p {
-	case game.CentralPowers:
+	case faction.CentralPowers:
 		return CP
-	case game.Entente:
+	case faction.Entente:
 		return EC
 	}
 	return Neutral

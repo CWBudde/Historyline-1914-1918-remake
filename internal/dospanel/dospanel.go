@@ -1,5 +1,5 @@
 // Package dospanel draws the views that open inside one map panel of the
-// original's battle screen (`-rules dos`): the unit info, the game info, a
+// original's battle screen: the unit info, the game info, a
 // container's contents and the battle scene: attacker above defender, each
 // with photo, flag, count and a hex holding a figure per man, the losses
 // falling one by one; and the capture scene, a hand planting the capturer's

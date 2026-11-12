@@ -11,13 +11,13 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// The tests below drive the phase change of -rules dos: the prompt, then
+// The tests below drive the phase change: the prompt, then
 // black, the battles, the new mode, the revealed moves and the computer's
 // planning.
 
@@ -280,7 +280,7 @@ func TestPhaseSequenceOrder(t *testing.T) {
 		}
 	}
 	if d.fx.Banner() != nil {
-		t.Errorf("a round banner under -rules dos: %+v", d.fx.Banner())
+		t.Errorf("a round banner: %+v", d.fx.Banner())
 	}
 }
 
@@ -365,9 +365,6 @@ func TestBattlePanelStages(t *testing.T) {
 		x.Before != b.Defender.Before || x.After != b.Defender.After || x.Destroyed != b.Defender.Destroyed {
 		t.Errorf("scene %+v / %+v for the battle %+v", a, x, b)
 	}
-	if d.report.Active() {
-		t.Error("the HUD battle report shows under -rules dos")
-	}
 	// The site panel looks at the fight.
 	if c, ok := d.takeFollow(d.side); !ok || c != f.at {
 		t.Errorf("the site panel looks at %v %v, the fight is at %v", c, ok, f.at)
@@ -434,7 +431,7 @@ func TestBattleScene(t *testing.T) {
 	if !x.Ship || !x.Destroyed || x.After != 0 || !s.ReturnFire {
 		t.Errorf("defender %+v, return fire %v", x, s.ReturnFire)
 	}
-	if flagImage(state.None) != nil || flagImage(state.CentralPowers) == nil || flagImage(state.Entente) == flagImage(state.CentralPowers) {
+	if flagImage(faction.None) != nil || flagImage(faction.CentralPowers) == nil || flagImage(faction.Entente) == flagImage(faction.CentralPowers) {
 		t.Error("flags: none for the neutral side, one per power")
 	}
 }
@@ -566,15 +563,6 @@ func TestPhaseSequenceDraw(t *testing.T) {
 	p := g.split.screen.Panels[d.side]
 	if g.split.grey[d.side] == nil || g.split.grey[d.side].Bounds().Size() != image.Pt(p.W, p.H) {
 		t.Error("no offscreen panel of the panel's size")
-	}
-}
-
-func TestBattlePanelRemakeUnaffected(t *testing.T) {
-	c := newTestControl(t)
-	g := newGame(testLevel(t), c.st, c.player, true)
-	g.applyAction(actScenes)
-	if c.Message != "" || g.dos != nil {
-		t.Errorf("F9 under the remake rules: %q", c.Message)
 	}
 }
 

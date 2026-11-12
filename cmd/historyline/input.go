@@ -18,8 +18,8 @@ const (
 	actQuit                // Python: Q
 	actToggleMotion        // new: reduced-motion toggle
 	actFullscreen          // new: F11 toggles fullscreen
-	actScenes              // new: F9 turns the battle scenes of -rules dos off or on
-	actSurrender           // new: F2 (twice) gives up the battle of -rules dos
+	actScenes              // new: F9 turns the battle scenes off or on
+	actSurrender           // new: F2 (twice) gives up the battle
 	actOrigTiles           // new: F8 cycles the map designs: backdrop, terrain tiles, original tiles (design.go)
 )
 
@@ -61,9 +61,6 @@ func actionsFor(pressed func(ebiten.Key) bool) (out []action) {
 func (g *game) applyAction(a action) (keepRunning bool) {
 	d := g.drv()
 	ui := d.ui()
-	if ui.MenuOpen() && (a == actSelectHex || a == actViewTop || a == actViewBottom) {
-		return true
-	}
 	if g.split != nil && (a == actCancel || a == actSelectHex) && g.closeGestures() {
 		return true // Esc or Enter closed the strategic map, the ring or a hold
 	}

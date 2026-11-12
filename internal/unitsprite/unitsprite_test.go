@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -149,13 +149,13 @@ func TestIDNamesFamilyOwnerFacingAndState(t *testing.T) {
 }
 
 func TestPaletteFollowsOwnerNotCountry(t *testing.T) {
-	if PaletteOf(game.CentralPowers) != CP || PaletteOf(game.Entente) != EC || PaletteOf(game.None) != Neutral {
+	if PaletteOf(faction.CentralPowers) != CP || PaletteOf(faction.Entente) != EC || PaletteOf(faction.None) != Neutral {
 		t.Fatal("owner palettes")
 	}
 	// A captured Entente unit owned by the Central Powers is drawn in CP colours:
 	// the palette ignores the "EC_" prefix of its type.
 	fam, _ := Family("EC_cavalry")
-	if got := ID(fam, PaletteOf(game.CentralPowers), S, Normal); !strings.HasPrefix(got, "unit/cavalry/cp/") {
+	if got := ID(fam, PaletteOf(faction.CentralPowers), S, Normal); !strings.HasPrefix(got, "unit/cavalry/cp/") {
 		t.Fatal(got)
 	}
 }

@@ -29,20 +29,3 @@ func TestKeyBindingsMatchPython(t *testing.T) {
 		seen[b.Key] = true
 	}
 }
-
-func TestEndTurnClearsSelectionAndReports(t *testing.T) {
-	c := newTestControl(t)
-	at := ownMovers(c)[0]
-	c.Click(at)
-	if !c.selected {
-		t.Fatal("setup: nothing selected")
-	}
-	c.Message = ""
-	c.EndTurn()
-	if c.selected || c.unit != nil || c.moves != nil || c.targets != nil || c.MenuOpen() {
-		t.Error("selection not cleared by end turn")
-	}
-	if c.Message == "" {
-		t.Error("no message after end turn")
-	}
-}

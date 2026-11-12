@@ -12,7 +12,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -237,9 +236,9 @@ func (g *game) drawBackdrop(dst *ebiten.Image, vx, vy, vw, vh float64, inView []
 	var seen, unseen []hexgrid.Coord
 	for _, c := range inView {
 		switch g.fogOf(c) {
-		case state.Seen:
+		case fogSeen:
 			seen = append(seen, c)
-		case state.Unseen:
+		case fogUnseen:
 			unseen = append(unseen, c)
 		}
 	}
@@ -298,7 +297,7 @@ func (g *game) drawBackdrop(dst *ebiten.Image, vx, vy, vw, vh float64, inView []
 	if len(unseen) > 0 {
 		var p vector.Path
 		g.hexPath(&p, unseen)
-		vector.FillPath(dst, &p, nil, pathOptions(fogShade(state.Unseen, color.RGBA{})))
+		vector.FillPath(dst, &p, nil, pathOptions(fogShade(fogUnseen, color.RGBA{})))
 	}
 	if g.split != nil && g.split.frame.Slim {
 		return // the slim frame shows the whole picture, edge to edge
@@ -341,7 +340,7 @@ func (g *game) hexPath(p *vector.Path, cells []hexgrid.Coord) {
 	}
 }
 
-// drawReworked draws the hexes in view the sappers changed (-rules dos), which
+// drawReworked draws the hexes in view the sappers changed, which
 // the picture cannot show: their ground and overlays from the terrain catalog,
 // or a coloured hex without one.
 func (g *game) drawReworked(dst *ebiten.Image, inView []hexgrid.Coord) {

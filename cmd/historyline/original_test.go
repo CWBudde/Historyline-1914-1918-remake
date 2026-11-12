@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
 
@@ -21,8 +21,8 @@ func skipMissingOriginal(t *testing.T, err error) {
 }
 
 // An imported original map loads from the embedded files with its campaign
-// level, plays its exact board on the original rules and its campaign level on
-// the remake rules, and names every unit, a ship's rear by its ship.
+// level, plays its exact board on the original rules and names every unit, a
+// ship's rear by its ship.
 func TestOriginalMap(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -36,11 +36,11 @@ func TestOriginalMap(t *testing.T) {
 	if b == nil || lvl.MapName != "06" || b.Width != 2*len(lvl.Lines[0]) || len(lvl.Lines) != 2*b.Height-1 {
 		t.Fatalf("map %s: board %v, %d lines of %d", lvl.MapName, b != nil, len(lvl.Lines), len(lvl.Lines[0]))
 	}
-	player, err := state.PlayerByName(lvl.Player)
+	player, err := faction.ByName(lvl.Player)
 	if err != nil {
 		t.Fatal(err)
 	}
-	c := matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}
+	c := matchConfig{lvl: lvl, board: b, set: set, player: player, opponent: "pass"}
 	gm, err := newMatch(c)
 	if err != nil || gm.dos == nil {
 		t.Fatalf("dos match: %v", err)
@@ -66,14 +66,6 @@ func TestOriginalMap(t *testing.T) {
 	if rears == 0 {
 		t.Error("map 06 has no ship")
 	}
-	c.rules = "standard"
-	gm, err = newMatch(c)
-	if err != nil {
-		t.Fatalf("standard: %v", err)
-	}
-	if gm.state == nil || gm.state.Name != "06" {
-		t.Error("standard: not the campaign level of map 06")
-	}
 	if _, _, err := loadMap(t.TempDir(), "original/99", set); err == nil {
 		t.Error("original/99 loaded")
 	}
@@ -87,11 +79,11 @@ func TestScenarioLevel(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, c := range []struct{ name, mapName, player string }{
-		{"1914-08:ec", "BATLE", state.Entente.String()},
-		{"1914-08", "PULSE", state.CentralPowers.String()},
-		{"1914-09", "KLUCK", state.CentralPowers.String()},
-		{"1915-05:2p", "Track", state.CentralPowers.String()},
-		{"1918-09:ec", "ARGON", state.Entente.String()},
+		{"1914-08:ec", "BATLE", faction.Entente.String()},
+		{"1914-08", "PULSE", faction.CentralPowers.String()},
+		{"1914-09", "KLUCK", faction.CentralPowers.String()},
+		{"1915-05:2p", "Track", faction.CentralPowers.String()},
+		{"1918-09:ec", "ARGON", faction.Entente.String()},
 	} {
 		lvl, b, err := loadMap(t.TempDir(), c.name, set)
 		if err != nil {

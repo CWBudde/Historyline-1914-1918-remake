@@ -49,7 +49,7 @@ func TestCycleDesignNoBackdrop(t *testing.T) {
 	}
 }
 
-// TestCycleDesignDosUnavailable: under -rules dos with the original art
+// TestCycleDesignDosUnavailable: with the original art
 // unavailable, F8 still cycles the backdrop and the terrain tiles.
 func TestCycleDesignDosUnavailable(t *testing.T) {
 	d := newDosTest(t, "1914-08:cp", passPlanner{})
@@ -70,7 +70,7 @@ func TestCycleDesignDosUnavailable(t *testing.T) {
 	}
 }
 
-// TestCycleDesignDos: under -rules dos with the original art loaded, F8 cycles
+// TestCycleDesignDos: with the original art loaded, F8 cycles
 // backdrop, terrain tiles and the original tiles and units.
 func TestCycleDesignDos(t *testing.T) {
 	d := newDosTest(t, "1914-08:cp", passPlanner{})

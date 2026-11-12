@@ -79,7 +79,7 @@ func newApp(base matchConfig, maps []mapLevel, art *screenArt) *app {
 // saveCurrentBattle saves the running dos battle into the single slot.
 func (a *app) saveCurrentBattle() error {
 	if a.battle == nil || a.battle.dos == nil || a.battle.dos.s == nil {
-		return errors.New("only a -rules dos battle can be saved")
+		return errors.New("no battle to save")
 	}
 	if a.base.saves == nil {
 		return errors.New("no place to keep the saved battle")
@@ -101,7 +101,7 @@ func (a *app) Update() error {
 		return ebiten.Termination
 	}
 	if s.page != pageBattle {
-		showPointer(true) // the battle hides it over its map (-rules dos)
+		showPointer(true) // the battle hides it over its map
 	}
 	switch s.page {
 	case pageLoading:

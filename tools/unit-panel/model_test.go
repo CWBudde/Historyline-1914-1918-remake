@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
 func TestRealFixtures(t *testing.T) {
@@ -47,7 +46,7 @@ func TestRealFixtures(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	u, err := game.NewUnit(set, "CP_infantry")
+	u, err := newUnit(set, "CP_infantry")
 	if err != nil {
 		t.Fatal(err)
 	}

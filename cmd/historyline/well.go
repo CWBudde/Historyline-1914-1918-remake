@@ -8,13 +8,13 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The status wells under the panels (-rules dos): one line of capitals per
+// The status wells under the panels: one line of capitals per
 // side in the panel's colour, numbers in amber. With the cursor on an own unit
 // the human side's well shows the unit line (group size, experience badge,
 // name, the owner's flag); otherwise each well says what its side is doing,
@@ -33,7 +33,7 @@ type well struct {
 	size  int
 	exp   int
 	name  string
-	owner state.Player
+	owner faction.Player
 
 	progress float64
 }
@@ -105,7 +105,7 @@ type unitLine struct {
 	Size  int
 	Exp   int
 	Name  string
-	Owner state.Player
+	Owner faction.Player
 }
 
 // orderCount is side's orders this phase, against the limit if there is one.
@@ -192,9 +192,9 @@ var (
 
 // drawFlag draws owner's flag in the w × h rectangle at (x, y): the Central
 // Powers in horizontal bands, the Entente in vertical ones.
-func drawFlag(dst *ebiten.Image, owner state.Player, x, y, w, h int) {
+func drawFlag(dst *ebiten.Image, owner faction.Player, x, y, w, h int) {
 	bands := [3]color.RGBA{flagBlack, flagWhite, flagRed}
-	across := owner != state.Entente
+	across := owner != faction.Entente
 	if !across {
 		bands = [3]color.RGBA{flagBlue, flagWhite, flagRed}
 	}

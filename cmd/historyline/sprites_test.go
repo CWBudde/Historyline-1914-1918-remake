@@ -14,7 +14,7 @@ import (
 	"testing/fstest"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
@@ -33,21 +33,21 @@ func TestUnitSpriteFollowsOwnerStateAndFacing(t *testing.T) {
 	cases := []struct {
 		typ               string
 		size              int
-		owner             state.Player
+		owner             faction.Player
 		spent, remembered bool
 		face              unitsprite.Facing
 		family, id        string
 	}{
-		{"CP_infantry", 0, state.CentralPowers, false, false, unitsprite.N, "infantry", "unit/infantry/cp/n-normal"},
-		{"EC_lArtillery", 0, state.Entente, true, false, unitsprite.SW, "light-artillery", "unit/light-artillery/ec/sw-spent"},
+		{"CP_infantry", 0, faction.CentralPowers, false, false, unitsprite.N, "infantry", "unit/infantry/cp/n-normal"},
+		{"EC_lArtillery", 0, faction.Entente, true, false, unitsprite.SW, "light-artillery", "unit/light-artillery/ec/sw-spent"},
 		// A captured unit takes its owner's colours, not its country's.
-		{"EC_cavalry", 0, state.CentralPowers, false, false, unitsprite.SE, "cavalry", "unit/cavalry/cp/se-normal"},
+		{"EC_cavalry", 0, faction.CentralPowers, false, false, unitsprite.SE, "cavalry", "unit/cavalry/cp/se-normal"},
 		// Remembered units are drawn with the greyscale sprite.
-		{"CP_armCar", 0, state.CentralPowers, false, true, unitsprite.NE, "armored-car", "unit/armored-car/cp/ne-spent"},
+		{"CP_armCar", 0, faction.CentralPowers, false, true, unitsprite.NE, "armored-car", "unit/armored-car/cp/ne-spent"},
 		// A weakened infantry group shows fewer men; other classes ignore the strength.
-		{"CP_infantry", 4, state.CentralPowers, false, false, unitsprite.S, "infantry-4", "unit/infantry-4/cp/s-normal"},
-		{"EC_infantry", 6, state.Entente, true, false, unitsprite.N, "infantry", "unit/infantry/ec/n-spent"},
-		{"CP_cavalry", 2, state.CentralPowers, false, false, unitsprite.N, "cavalry", "unit/cavalry/cp/n-normal"},
+		{"CP_infantry", 4, faction.CentralPowers, false, false, unitsprite.S, "infantry-4", "unit/infantry-4/cp/s-normal"},
+		{"EC_infantry", 6, faction.Entente, true, false, unitsprite.N, "infantry", "unit/infantry/ec/n-spent"},
+		{"CP_cavalry", 2, faction.CentralPowers, false, false, unitsprite.N, "cavalry", "unit/cavalry/cp/n-normal"},
 	}
 	// cases without a strength are the full group
 	for _, c := range cases {
@@ -56,23 +56,8 @@ func TestUnitSpriteFollowsOwnerStateAndFacing(t *testing.T) {
 			t.Errorf("unitSprite(%s) = %s %s %v, want %s %s", c.typ, family, id, ok, c.family, c.id)
 		}
 	}
-	if _, _, ok := unitSprite("CP_noSuchUnit", 0, state.CentralPowers, false, false, unitsprite.N); ok {
+	if _, _, ok := unitSprite("CP_noSuchUnit", 0, faction.CentralPowers, false, false, unitsprite.N); ok {
 		t.Error("unknown unit type got a sprite")
-	}
-}
-
-func TestUnitSpentAfterActing(t *testing.T) {
-	u := &state.Unit{}
-	if unitSpent(u) {
-		t.Fatal("fresh unit spent")
-	}
-	u.Moved = true
-	if !unitSpent(u) {
-		t.Fatal("moved unit not spent")
-	}
-	u.Moved, u.Attacked = false, true
-	if !unitSpent(u) {
-		t.Fatal("attacking unit not spent")
 	}
 }
 
@@ -197,74 +182,6 @@ func TestWalkHeading(t *testing.T) {
 	if f, _ := unitsprite.Toward(w.Heading()); f != unitsprite.N {
 		t.Errorf("after the walk faces %v, want the last step n", f)
 	}
-}
-
-func TestMoveTurnsUnitAlongLastStep(t *testing.T) {
-	c := newTestControl(t)
-	from := ownMovers(c)[0]
-	u := c.st.At(from).Unit
-	if c.Facing(u) != unitsprite.N {
-		t.Fatal("units start facing north")
-	}
-	c.Click(from)
-	var to hexgrid.Coord
-	for at, r := range c.moves {
-		if len(r.Path) >= 2 && c.st.At(at).Container == nil && c.st.At(at).Unit == nil {
-			to = at
-			break
-		}
-	}
-	c.Click(to)
-	if c.st.At(to).Unit != u {
-		t.Fatalf("unit did not arrive: %q", c.Message)
-	}
-	w := c.walk
-	if w == nil {
-		t.Fatal("no walk")
-	}
-	for !w.Done() {
-		w.Tick()
-	}
-	want, _ := unitsprite.Toward(w.Heading())
-	if got := c.Facing(u); got != want {
-		t.Errorf("after the move faces %v, want %v", got, want)
-	}
-}
-
-func TestAttackTurnsBothSides(t *testing.T) {
-	c := newTestControl(t)
-	for l, line := range c.st.Hexes {
-		for col := range line {
-			at := hexgrid.Coord{Line: l, Col: col}
-			u := c.st.At(at).Unit
-			if u == nil || u.Owner != c.player {
-				continue
-			}
-			c.Select(at)
-			for tgt := range c.targets {
-				def := c.st.At(tgt).Unit
-				c.OpenWeaponMenu(tgt)
-				for i, o := range c.menu {
-					if !o.Usable {
-						continue
-					}
-					c.ChooseWeapon(i)
-					ax, ay := hexgrid.Center(at)
-					tx, ty := hexgrid.Center(tgt)
-					want, _ := unitsprite.Toward(tx-ax, ty-ay)
-					if got := c.Facing(u); got != want {
-						t.Errorf("attacker faces %v, want %v", got, want)
-					}
-					back, _ := unitsprite.Toward(ax-tx, ay-ty)
-					if c.st.At(tgt).Unit == def && c.Facing(def) != back {
-						t.Errorf("defender faces %v, want %v", c.Facing(def), back)
-					}
-					return
-				}
-			}
-		}
-	}
-	t.Skip("PULSE has no unit with a target at the start")
 }
 
 // A unit in forest or on water gets the pale rim; on a forest road, on open
