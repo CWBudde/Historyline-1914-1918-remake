@@ -4,6 +4,7 @@ import type { MapBattle } from "../mapBattle.ts";
 import type { SpriteFamily } from "../unitFrame.ts";
 import type { UiAssets } from "./assets.ts";
 import type { RingLayout, Action } from "./ring.ts";
+import type { Layout } from "../storage/store.ts";
 
 export interface BattleUIProps {
   battle: MapBattle;
@@ -22,8 +23,9 @@ export interface BattleUIProps {
   embedded?: boolean;
   showScene?: boolean;
   readOnly?: boolean;
-  layout?: "responsive" | "original";
-  onLayout?(value: "responsive" | "original"): void;
+  /** The layout setting (auto, single or original). */
+  layout?: Layout;
+  onLayout?(value: Layout): void;
   onScale(value: number): void;
   onReduced(value: boolean): void;
   onScenes(value: boolean): void;

@@ -6,7 +6,12 @@ import type { Computer } from "../computer.ts";
 import { BattleRuntime, type BattleHooks } from "../battle/runtime.ts";
 import { missionSession, type BattleData } from "../battle/session.ts";
 import { MapBattle } from "../mapBattle.ts";
-import { decodeEnvelope, type Settings } from "../storage/store.ts";
+import {
+  decodeEnvelope,
+  splitByDefault,
+  type Layout,
+  type Settings,
+} from "../storage/store.ts";
 import type { BattleStart } from "../shell/controller.ts";
 import type { UiAssets } from "../ui/assets.ts";
 import type { BattleUIProps } from "../ui/types.ts";
@@ -243,9 +248,15 @@ export class SplitRuntime {
   private get paintedDesign(): boolean {
     return this.panels[0].design.value === "painted";
   }
+  /** original reports whether the battle shows the original split screen (the auto layout on a wide window). */
   get original(): boolean {
+    const layout = this.settings.layout;
     return (
-      this.settings.layout === "original" || this.local?.mode === "simultaneous"
+      layout === "original" ||
+      (layout === "auto" &&
+        typeof window !== "undefined" &&
+        splitByDefault(window.innerWidth, window.innerHeight)) ||
+      this.local?.mode === "simultaneous"
     );
   }
   get activeSide(): 0 | 1 {
@@ -399,11 +410,11 @@ export class SplitRuntime {
   private withLayout(props: BattleUIProps): BattleUIProps {
     return {
       ...props,
-      layout: this.original ? "original" : "responsive",
+      layout: this.settings.layout,
       ...(this.local?.mode === "simultaneous"
         ? {}
         : {
-            onLayout: (value: "responsive" | "original") => {
+            onLayout: (value: Layout) => {
               this.hooks.preference({ layout: value });
             },
           }),

@@ -1,7 +1,12 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
-import { battleReady, expectMapDrawn, openMenu } from "./battle.ts";
+import {
+  battleReady,
+  canEndPhase,
+  expectMapDrawn,
+  openMenu,
+} from "./battle.ts";
 
 // The player's own copy of the original game (git-ignored original/, absent in CI): imported through the menu's
 // folder picker, then original map 01 played to its outcome by a human who only ends each phase.
@@ -41,11 +46,14 @@ test("an imported original map plays through to its outcome page", async ({
   await page.getByRole("button", { name: /^Germany/ }).click();
   await expect(battleReady(page)).toBeVisible({ timeout: 120_000 });
   await expectMapDrawn(page);
-  // Map 01 starts in the painting of the month made from it; F8 reaches the original tiles and units.
+  // Map 01 starts in the painting of the month made from it; F8 reaches the original tiles and units (in each
+  // panel of the split screen, the default on wide windows).
   const original = page.locator("button", { hasText: "Map design: Original" });
   for (let i = 0; i < 3 && (await original.count()) === 0; i++)
     await page.keyboard.press("F8");
-  await expect(original).toHaveCount(1);
+  await expect(original).toHaveCount(
+    await page.locator(".battle-ui .battle-settings").count(),
+  );
 
   const ended = page.locator(".battle-ended button");
   const confirm = page.getByRole("button", { name: "Confirm (F1)" });
@@ -57,10 +65,7 @@ test("an imported original map plays through to its outcome page", async ({
       await skip.click({ timeout: 2_000 }).catch(() => undefined);
     else if (await confirm.isVisible())
       await confirm.click({ timeout: 2_000 }).catch(() => undefined);
-    else if (
-      (await ready.isEnabled()) &&
-      (await ready.innerText()).startsWith("Ready")
-    ) {
+    else if (await canEndPhase(page)) {
       await ready.click({ timeout: 2_000 }).catch(() => undefined);
       phases++;
     } else await page.waitForTimeout(100);

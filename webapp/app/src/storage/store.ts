@@ -1,4 +1,15 @@
 /** Browser persistence and the native internal/saves.Envelope file format. */
+
+/**
+ * The battle layout: auto is the original split screen on landscape windows at least splitMinWidth CSS pixels
+ * wide and the single map elsewhere; single and original keep one of them.
+ */
+export type Layout = "auto" | "single" | "original";
+export const splitMinWidth = 1000;
+/** splitByDefault reports whether the auto layout is the split screen on a window of CSS pixels. */
+export function splitByDefault(width: number, height: number): boolean {
+  return width >= splitMinWidth && width > height;
+}
 export interface Settings {
   uiScale: number;
   reduced: boolean;
@@ -8,7 +19,7 @@ export interface Settings {
   originalArt: boolean;
   scroll: "normal" | "fast" | "slow";
   opponent: "computer" | "passive";
-  layout: "responsive" | "original";
+  layout: Layout;
   playMode: "single" | "simultaneous" | "hotseat";
   limit: 0 | 5 | 10 | 15 | 20;
 }
@@ -62,7 +73,7 @@ export function defaultSettings(systemReduced = false): Settings {
     originalArt: false,
     scroll: "normal",
     opponent: "computer",
-    layout: "responsive",
+    layout: "auto",
     playMode: "single",
     limit: 0,
   };
@@ -98,9 +109,11 @@ export function validateSettings(value: unknown): Settings {
   }
   if (Object.hasOwn(value, "layout")) {
     const layout = value.layout;
-    if (layout !== "responsive" && layout !== "original")
-      throw new Error("Invalid settings layout");
-    result.layout = layout;
+    // "responsive" was the default before auto: those players get auto.
+    if (layout === "responsive") result.layout = "auto";
+    else if (layout === "auto" || layout === "single" || layout === "original")
+      result.layout = layout;
+    else throw new Error("Invalid settings layout");
   }
   if (Object.hasOwn(value, "playMode")) {
     const playMode = value.playMode;

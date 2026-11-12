@@ -3,14 +3,15 @@
 //
 //   cd webapp/app && node e2e/lookcapture.ts [--web] [--go] [--index]
 //        [--parts flow,attack,tiles] [--sizes 1920x1080,2560x1440,3840x2160,phone]
-//        [--layouts responsive,original] [--levels 1914-08,1914-10,1915-08]
+//        [--layouts default,original] [--levels 1914-08,1914-10,1915-08]
 //        [--browser chromium|firefox|webkit] [--soft] [--port 4191]
 //
 // Without --web/--go/--index all three run. The web part serves build/webapp/site itself (as e2e/server.ts
 // does) unless E2E_BASE_URL names a running server; it seeds the app's settings (layout, painted) into its
-// IndexedDB before the app starts. The Go part runs bin/historyline (go build when it is missing) on its
-// own Xvfb display, sized by xdotool, and drives it with the keyboard; it needs Xvfb, xdotool and
-// ImageMagick. Parts: flow = the menus and the opening of 1914-08:cp as Germany; attack = a game forked
+// IndexedDB before the app starts. Layouts: default = a fresh profile's (no layout seeded: the split screen
+// on wide windows, the single map on phones), single and original = that setting. The Go part runs
+// bin/historyline (go build when it is missing) on its own Xvfb display, sized by xdotool, and drives it
+// with the keyboard; it needs Xvfb, xdotool and ImageMagick. Parts: flow = the menus and the opening of 1914-08:cp as Germany; attack = a game forked
 // from the level's winning recording after nine resolutions (hl llmplay fork), CP in its attack phase, in
 // both front ends; tiles = the remake's tile design (web painted off, desktop -backdrop off) on --levels
 // at the default, the closest and the farthest zoom. The web runs on the machine's GPU (Chromium with
@@ -98,7 +99,7 @@ const runAll = !flag("web") && !flag("go") && !flag("index");
 const parts = option("parts", "flow,attack,tiles");
 const sizeNames = option("sizes", allSizes.map((s) => s.name).join(","));
 const sizes = allSizes.filter((s) => sizeNames.includes(s.name));
-const layouts = option("layouts", "responsive,original");
+const layouts = option("layouts", "default,original");
 const levels = option("levels", "1914-08,1914-10,1915-08");
 const browserName = option("browser", "chromium")[0] ?? "chromium";
 const port = Number(option("port", "4191")[0]);
@@ -318,7 +319,10 @@ class WebRun {
       reducedMotion: "no-preference",
     });
     await context.addInitScript(
-      seedSettings({ layout: this.layout, ...settings }),
+      seedSettings({
+        ...(this.layout === "default" ? {} : { layout: this.layout }),
+        ...settings,
+      }),
     );
     const page = await context.newPage();
     page.on("pageerror", (e) => this.errors.push(`pageerror: ${e.message}`));
@@ -994,14 +998,14 @@ function exists(path: string): boolean {
   return existsSync(join(out, path));
 }
 function writeIndex(): void {
-  const columns: { title: string; path: (size: string) => string }[] = [
-    { title: "Desktop game (Go)", path: (s) => `go/${s}` },
-    {
-      title: "Web, default (responsive) layout",
-      path: (s) => `web/${s}/responsive`,
-    },
-    { title: "Web, original split layout", path: (s) => `web/${s}/original` },
-  ];
+  const columns = (
+    [
+      { title: "Desktop game (Go)", path: (s) => `go/${s}` },
+      { title: "Web, fresh profile's layout", path: (s) => `web/${s}/default` },
+      { title: "Web, single map layout", path: (s) => `web/${s}/single` },
+      { title: "Web, original split layout", path: (s) => `web/${s}/original` },
+    ] satisfies { title: string; path: (size: string) => string }[]
+  ).filter((c) => allSizes.some((size) => exists(c.path(size.name))));
   const sections: [string, string][] = [
     ...flowScreens,
     ...Object.entries(tileLevels).flatMap(([month, [code, what]]) =>
@@ -1072,7 +1076,7 @@ body { margin: 0; padding: 16px 24px 64px; background: var(--bg); color: var(--f
 nav a { color: #d8b56a; margin-right: 12px; }
 h2 { margin-top: 40px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 h3 { font-size: 14px; margin: 24px 0 8px; color: var(--muted); font-weight: 600; }
-.pair { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.pair { display: grid; grid-template-columns: repeat(${columns.length}, minmax(0, 1fr)); gap: 12px; align-items: start; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; }
 figure { margin: 0; }
 figcaption { font-size: 12px; color: var(--muted); margin-bottom: 4px; }

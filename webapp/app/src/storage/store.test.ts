@@ -7,6 +7,7 @@ import {
   encodeEnvelope,
   parseSave,
   serializeSave,
+  splitByDefault,
   validateSettings,
 } from "./store.ts";
 
@@ -124,7 +125,7 @@ describe("persistent settings", () => {
       originalArt: false,
       scroll: "normal",
       opponent: "computer",
-      layout: "responsive",
+      layout: "auto",
       playMode: "single",
       limit: 0,
     });
@@ -140,7 +141,7 @@ describe("persistent settings", () => {
       originalArt: false,
       scroll: "fast",
       opponent: "computer",
-      layout: "responsive",
+      layout: "auto",
       playMode: "single",
       limit: 0,
     });
@@ -168,6 +169,23 @@ describe("persistent settings", () => {
       playMode: "hotseat",
       limit: 20,
     });
+  });
+
+  it("reads the former responsive default as auto and keeps an explicit choice", () => {
+    expect(validateSettings({ layout: "responsive" }).layout).toBe("auto");
+    expect(validateSettings({ layout: "single" }).layout).toBe("single");
+    expect(validateSettings({ layout: "auto" }).layout).toBe("auto");
+  });
+
+  it("splits landscape windows at least 1000 CSS pixels wide by default", () => {
+    expect(splitByDefault(1920, 1080)).toBe(true);
+    expect(splitByDefault(1280, 720)).toBe(true);
+    expect(splitByDefault(1000, 700)).toBe(true);
+    expect(splitByDefault(999, 600)).toBe(false);
+    // A phone held either way and a tall window keep the single map.
+    expect(splitByDefault(412, 915)).toBe(false);
+    expect(splitByDefault(915, 412)).toBe(false);
+    expect(splitByDefault(1200, 1600)).toBe(false);
   });
 
   it.each([

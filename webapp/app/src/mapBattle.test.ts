@@ -7,6 +7,7 @@ import {
   actionPrompt,
   actionTargets,
   effectStatus,
+  startHex,
 } from "./mapBattle.ts";
 
 function start(month = "1914-08") {
@@ -268,4 +269,34 @@ it("prompts the wiring party, the tunnellers and the field ambulance", () => {
     ),
   );
   expect(actionTargets(s, 0, tun.index).size).toBe(0);
+});
+
+it("starts each side's cursor on its own HQ, as the desktop does", () => {
+  const session = start();
+  for (const side of [0, 1]) {
+    const battle = new MapBattle(session, side),
+      view = play.view(session, side),
+      hq = [...view.buildings].find(([, b]) => b.hq && b.owner === side + 1);
+    expect(hq).toBeDefined();
+    expect(level.coordKey(battle.cursor)).toBe(hq?.[0]);
+  }
+  // Without an HQ: the first own unit in line and column order, else the middle.
+  const units = new Map([
+    [1, { side: 0, at: { line: 5, col: 2 } }],
+    [2, { side: 0, at: { line: 3, col: 7 } }],
+    [3, { side: 1, at: { line: 1, col: 1 } }],
+  ]);
+  const view = { buildings: new Map(), units } as unknown as play.View,
+    map = {
+      lines: Array.from({ length: 9 }, () => Array<null>(11).fill(null)),
+    };
+  expect(startHex(view, 0, map)).toEqual({ line: 3, col: 7 });
+  expect(startHex(view, 1, map)).toEqual({ line: 1, col: 1 });
+  expect(
+    startHex(
+      { buildings: new Map(), units: new Map() } as unknown as play.View,
+      0,
+      map,
+    ),
+  ).toEqual({ line: 4, col: 5 });
 });

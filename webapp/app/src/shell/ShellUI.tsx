@@ -3,6 +3,7 @@ import type { ComponentChildren } from "preact";
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { paintingScale, type UiAssets } from "../ui/assets.ts";
 import { makeInert } from "../ui/inert.ts";
+import { LayoutOptions, layoutValue } from "../ui/layout.tsx";
 import type { UnitCard } from "./campaign.ts";
 import {
   saveSlots,
@@ -502,13 +503,11 @@ export function ShellUI(p: ShellUIProps) {
                 value={s.settings.layout}
                 disabled={busy}
                 onChange={(event) => {
-                  const layout = event.currentTarget.value;
-                  if (layout === "responsive" || layout === "original")
-                    run(() => change({ layout }));
+                  const layout = layoutValue(event.currentTarget.value);
+                  if (layout !== null) run(() => change({ layout }));
                 }}
               >
-                <option value="responsive">Responsive</option>
-                <option value="original">Original split screen</option>
+                <LayoutOptions />
               </select>
             </label>
             {button(

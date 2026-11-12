@@ -132,6 +132,16 @@ function resize(): void {
   if (!appReady) return;
   const stage = document.getElementById("stage");
   if (stage === null) return;
+  // The automatic layout follows the window's shape: its stage insets change with it.
+  const battle = runtime ?? preparing;
+  if (
+    battle !== null &&
+    document.documentElement.classList.contains("original-layout") !==
+      battle.original
+  ) {
+    changed();
+    return;
+  }
   const dpr = window.devicePixelRatio,
     width = Math.max(1, stage.clientWidth),
     height = Math.max(1, stage.clientHeight);

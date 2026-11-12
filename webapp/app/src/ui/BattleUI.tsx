@@ -5,6 +5,7 @@ import type { TargetedKeyboardEvent } from "preact";
 import { spriteID } from "../unitFrame.ts";
 import type { BattleUIProps } from "./types.ts";
 import type { Action } from "./ring.ts";
+import { LayoutOptions, layoutValue } from "./layout.tsx";
 import "./battle.css";
 
 type Props = BattleUIProps;
@@ -695,17 +696,13 @@ function Settings({ p }: { p: Props }) {
           <label>
             Layout
             <select
-              value={p.layout ?? "responsive"}
+              value={p.layout ?? "auto"}
               onChange={(event) => {
-                p.onLayout?.(
-                  event.currentTarget.value === "original"
-                    ? "original"
-                    : "responsive",
-                );
+                const value = layoutValue(event.currentTarget.value);
+                if (value !== null) p.onLayout?.(value);
               }}
             >
-              <option value="responsive">Responsive</option>
-              <option value="original">Original split screen</option>
+              <LayoutOptions />
             </select>
           </label>
         )}

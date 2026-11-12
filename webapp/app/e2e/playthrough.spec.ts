@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import {
   battleReady,
+  canEndPhase,
   expectMapDrawn,
   openMenu,
   startFirstBattle,
@@ -26,10 +27,7 @@ test("a level plays through to its outcome page", async ({ page }) => {
       await skip.click({ timeout: 2_000 }).catch(() => undefined);
     else if (await confirm.isVisible())
       await confirm.click({ timeout: 2_000 }).catch(() => undefined);
-    else if (
-      (await ready.isEnabled()) &&
-      (await ready.innerText()).startsWith("Ready")
-    ) {
+    else if (await canEndPhase(page)) {
       await ready.click({ timeout: 2_000 }).catch(() => undefined);
       phases++;
     } else await page.waitForTimeout(100);

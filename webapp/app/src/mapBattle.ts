@@ -75,12 +75,7 @@ export class MapBattle {
         this.phasePrompt ||
         this.surrenderPrompt,
     );
-    this.cursor = {
-      ...([...this.view().units.values()].find((u) => u.side === side)?.at ?? {
-        line: 1,
-        col: 0,
-      }),
-    };
+    this.cursor = startHex(this.view(), side, session.level);
   }
   busy(): boolean {
     return this.planning || this.playback.busy();
@@ -742,4 +737,30 @@ export function effectStatus(
     }
   }
   return parts.length === 0 ? null : parts.join(" ");
+}
+
+/**
+ * startHex is where a side's cursor and camera start, as on the desktop (startHex): its own HQ, else its first unit
+ * in line and column order, else the middle of the map.
+ */
+export function startHex(
+  view: play.View,
+  side: number,
+  map: { lines: readonly unknown[][] },
+): hexgrid.Coord {
+  const hq = [...view.buildings]
+    .filter(([, b]) => b.hq && b.owner === side + 1)
+    .map(([key]) => play.coordFromKey(key))
+    .sort((a, b) => a.line - b.line || a.col - b.col)[0];
+  if (hq !== undefined) return { ...hq };
+  const unit = [...view.units.values()]
+    .filter((u) => u.side === side)
+    .map((u) => u.at)
+    .sort((a, b) => a.line - b.line || a.col - b.col)[0];
+  if (unit !== undefined) return { ...unit };
+  const lines = map.lines.length;
+  return {
+    line: Math.trunc(lines / 2),
+    col: Math.trunc((map.lines[0]?.length ?? 1) / 2),
+  };
 }
