@@ -103,23 +103,6 @@ func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 	}
 }
 
-func TestHTTPTerrainPackParts(t *testing.T) {
-	files, l, gap := terrainPartFixture(t)
-	fsys, done, err := openArtDir(serveCatalog(t, files), nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer done()
-	a, err := openTerrainArt(fsys, l)
-	if err != nil {
-		t.Fatal(err)
-	}
-	id := mapcompose.ContextID(gap.Family, mapcompose.Key(gap.Descriptor))
-	if a.group[id] != "context-ground-2" {
-		t.Errorf("HTTP ignored a context part: %q", a.group[id])
-	}
-}
-
 func TestOpenTerrainArtRejectsDuplicateInHigherDensity(t *testing.T) {
 	f, l, _ := terrainPartFixture(t)
 	name := "4x/context-ground/manifest.json"

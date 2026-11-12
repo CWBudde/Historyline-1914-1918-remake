@@ -16,7 +16,7 @@ type failingWriter struct{}
 func (failingWriter) Write([]byte) (int, error) { return 0, errors.New("output unavailable") }
 
 func TestOutputFailureReturnsFailure(t *testing.T) {
-	for _, args := range [][]string{nil, {"art"}, {"web", "--help"}, {"unknown"}, {"help", "web", "extra"}} {
+	for _, args := range [][]string{nil, {"art"}, {"artbook", "--help"}, {"unknown"}, {"help", "artbook", "extra"}} {
 		t.Run(strings.Join(args, " "), func(t *testing.T) {
 			if code := Run(t.Context(), args, strings.NewReader(""), failingWriter{}, failingWriter{}); code != 1 {
 				t.Fatalf("output failure returned exit %d, want 1", code)
@@ -54,15 +54,15 @@ func TestHelpWithoutDisplay(t *testing.T) {
 	for _, path := range []string{
 		"", "art", "art index", "art check", "art thumbs", "art pulse", "art map",
 		"assets", "assets build", "assets build-units", "assets build-terrain",
-		"assets build-screens", "assets packs", "assets lite", "assets terrain-gaps", "assets validate",
+		"assets build-screens", "assets packs", "assets terrain-gaps", "assets validate",
 		"export", "export materials", "export kits", "export terrain-stamps",
 		"export unit-topview", "export unit-squad", "export unit-panel", "export interface", "export generate",
 		"review", "review art", "review reference", "review candidates", "review gallery",
 		"levels", "levels extract", "levels campaign", "levels backdrop", "levels backdrop jpeg", "levels backdrop check",
-		"web", "webapp", "webapp golden", "webapp assets", "webapp size", "artbook", "manual",
+		"webapp", "webapp golden", "webapp assets", "webapp size", "artbook", "manual",
 		"llmplay", "llmplay new", "llmplay prompt", "llmplay step", "llmplay run",
 		"llmplay replay", "llmplay fork", "llmplay corpus", "llmplay render", "llmplay review", "llmplay gif",
-		"preview", "preview effects", "serve",
+		"preview", "preview effects",
 	} {
 		t.Run(path, func(t *testing.T) {
 			args := append(strings.Fields(path), "--help")

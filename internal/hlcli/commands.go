@@ -29,8 +29,8 @@ func commands() command {
 		"hl", "Historyline developer tools",
 		group("art", "Art catalogue, thumbnails and map renders", actions("index check thumbs pulse map", hlart.Run,
 			"Write the art catalogue", "Check prompts, masters, runtime files and catalogue", "Write catalogue thumbnails", "Render the PULSE reference map", "Render a level and detail crop")...),
-		group("assets", "Build and validate runtime art packs", actions("build build-units build-terrain build-screens packs lite terrain-gaps validate", hlasset.Run,
-			"Build an interface pack", "Build unit packs", "Build terrain packs", "Build screen packs", "Update changed runtime packs", "Compress packs for the web", "Report missing terrain clusters", "Validate a runtime pack")...),
+		group("assets", "Build and validate runtime art packs", actions("build build-units build-terrain build-screens packs terrain-gaps validate", hlasset.Run,
+			"Build an interface pack", "Build unit packs", "Build terrain packs", "Build screen packs", "Update changed runtime packs", "Report missing terrain clusters", "Validate a runtime pack")...),
 		group("export", "Export art from pinned sources",
 			leaf("materials", "Export reusable periodic world materials", tool(hlmaterial.Run)),
 			leaf("kits", "Prepare world kits; -install writes runtime cells", tool(hlkit.Run)),
@@ -54,14 +54,15 @@ func commands() command {
 		group("llmplay", "Play, record and review games with an external agent", contextActions("new prompt suggest query try advance undo step run replay fork corpus render review gif", hlllplay.RunContext,
 			"Start a recorded game", "Print the current phase prompt", "Print the coach's action-phase orders as JSONL", "Answer distance, arrival, reach, threat, type and income questions", "Play candidate orders and plans ahead without committing", "Play on under a standing plan until it stops", "Take the last resolutions back", "Apply one atomic batch of orders", "Play a recorded game through a driver", "Verify every replay state hash", "Start a new game from a recorded game's first resolutions", "Check, make again, adopt and sweep the winning recordings", "Render replay frames and video", "Write the game review and counted lessons", "Encode recorded frames as a GIF")...),
 		group("preview", "Native graphics previews", leaf("effects", "Preview unit movement and effects (requires a graphics display)", previewEffects)),
-		leaf("serve", "Serve the local web demo", webServer),
-		leaf("web", "Build the web demo into build/web (-port serves it)", webBuild),
 		group("webapp", "Export the TypeScript edition's data and parity fixtures",
 			leaf("assets", "Export browser packs, maps, baked layers and fonts", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
 				return hlwebapp.Assets(ctx, args, out, errs)
 			}),
 			leaf("golden", "Write Go AI-vs-AI replay traces for every shipped setup", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
 				return hlwebapp.Golden(ctx, args, out, errs)
+			}),
+			leaf("original", "Write the local original maps' Go bindings and traces for the TS tests", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
+				return hlwebapp.Original(ctx, args, out, errs)
 			}),
 			leaf("size", "Report the built site's size and fail above its limit", func(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
 				return hlwebapp.Size(ctx, args, out, errs)

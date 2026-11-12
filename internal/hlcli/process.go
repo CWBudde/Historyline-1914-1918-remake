@@ -11,12 +11,7 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/effectconfig"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/webserve"
 )
-
-func webServer(ctx context.Context, args []string, _ io.Reader, out, errs io.Writer) error {
-	return webserve.Run(ctx, args, out, errs)
-}
 
 func previewEffects(ctx context.Context, args []string, in io.Reader, out, errs io.Writer) error {
 	if _, err := effectconfig.Parse(args, errs); err != nil {

@@ -41,7 +41,7 @@ func TestOriginalMap(t *testing.T) {
 		t.Fatal(err)
 	}
 	c := matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}
-	gm, err := newMatch(c, nil)
+	gm, err := newMatch(c)
 	if err != nil || gm.dos == nil {
 		t.Fatalf("dos match: %v", err)
 	}
@@ -67,7 +67,7 @@ func TestOriginalMap(t *testing.T) {
 		t.Error("map 06 has no ship")
 	}
 	c.rules = "standard"
-	gm, err = newMatch(c, nil)
+	gm, err = newMatch(c)
 	if err != nil {
 		t.Fatalf("standard: %v", err)
 	}

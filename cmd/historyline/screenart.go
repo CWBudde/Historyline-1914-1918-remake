@@ -47,9 +47,9 @@ func openScreenArt(fsys fs.FS) (*screenArt, error) {
 	return s, nil
 }
 
-// loadScreenArt opens the screen catalog in dir, counting its fetches in m.
-func loadScreenArt(dir string, m *meter) (*screenArt, error) {
-	fsys, done, err := openArtDir(dir, m)
+// loadScreenArt opens the screen catalog in dir.
+func loadScreenArt(dir string) (*screenArt, error) {
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, err
 	}

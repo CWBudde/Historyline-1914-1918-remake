@@ -6,7 +6,6 @@ import (
 	"image/draw"
 	"io/fs"
 	"path"
-	"runtime"
 	"slices"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
@@ -17,14 +16,8 @@ import (
 )
 
 // spriteDensities are the unit pack densities the game loads: what hl assets
-// build-units writes, but only 2x in the web build, which downloads its packs
-// and cannot afford the 4x ones.
-var spriteDensities = func() []int {
-	if runtime.GOOS == "js" {
-		return []int{2}
-	}
-	return []int{2, 4}
-}()
+// build-units writes.
+var spriteDensities = []int{2, 4}
 
 // terrainDensities are the terrain pack densities the game loads: the sprite
 // densities plus the 1x packs hl assets build-terrain derives from the 2x ones,
@@ -277,13 +270,24 @@ func (g *game) drawSprite(dst *ebiten.Image, c hexgrid.Coord, family, id string,
 	dst.DrawImage(img, &op)
 }
 
-// loadUnitArt opens the unit catalog in dir, counting its fetches in m. The
-// packs snapshot their bytes, so the directory is closed again at once.
-func loadUnitArt(dir string, m *meter) (*artPacks, error) {
-	fsys, done, err := openArtDir(dir, m)
+// loadUnitArt opens the unit catalog in dir. The packs snapshot their bytes,
+// so the directory is closed again at once.
+func loadUnitArt(dir string) (*artPacks, error) {
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, err
 	}
 	defer done()
 	return openUnitArt(fsys)
+}
+
+// release frees the textures a catalog made; it is not drawn again.
+func (a *artPacks) release() {
+	if a == nil {
+		return
+	}
+	for k, img := range a.tex {
+		img.Deallocate()
+		delete(a.tex, k)
+	}
 }

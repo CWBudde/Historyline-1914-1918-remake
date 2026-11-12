@@ -4,7 +4,7 @@ A level folder may hold a backdrop (`levels/1914-08/backdrop.jpg`): one painting
 ground that the game draws in place of the terrain tiles (`-backdrop off` draws the tiles). It must match
 the level's world aspect; any resolution works.
 
-The game, `just play` and the web demo ship the JPEG; its lossless source is `backdrop.png` beside it
+The game, `just play` and the web edition ship the JPEG; its lossless source is `backdrop.png` beside it
 (`levels/1914-08/backdrop.png`), which the game does not embed. Edit the source only, then write the
 JPEG with `just backdrop-jpeg 1914-08`, which keeps the JPEG's own quality (90 for 1914-08 through
 1915-04, 95 later and for a new backdrop); the `hl levels backdrop check` test fails when a JPEG is not its source's

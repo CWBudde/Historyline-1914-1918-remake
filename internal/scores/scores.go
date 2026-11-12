@@ -1,6 +1,5 @@
 // Package scores keeps the best score of each level on this machine: a JSON
-// file in the user's config directory, or the browser's local storage in the
-// web build. A store that cannot be read counts as empty and a failed write is
+// file in the user's config directory. A store that cannot be read counts as empty and a failed write is
 // reported, but neither stops the game.
 package scores
 

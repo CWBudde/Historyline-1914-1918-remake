@@ -23,7 +23,7 @@ run *args: packs
 llmplay *args:
     go run ./cmd/hl llmplay {{args}}
 
-# Generated output lives in ignored build/: packs/<name>, web, manual,
+# Generated output lives in ignored build/: packs/<name>, webapp, manual,
 # review/<name>/ (studies and desks) and scratch/ (disposable). build/go.mod keeps stray
 # Go files there out of ./...
 
@@ -95,16 +95,6 @@ build-tools:
     go build -o bin/hl ./cmd/hl
     go build -o bin/hleffectpreview ./cmd/hleffectpreview
 
-# Build the WASM binary plus the wasm_exec.js loader
-wasm:
-    mkdir -p bin
-    GOOS=js GOARCH=wasm go build -o bin/{{binary}}.wasm ./cmd/historyline
-    cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" bin/
-
-# Build the web demo (page, wasm, loader and the art packs, each catalog as PNGs and as compressed lite files) into build/web; pass a port to serve it
-web port="":
-    go run ./cmd/hl web {{ if port != "" { "-port " + port } else { "" } }}
-
 # Install the web edition's dependencies (webapp/, pnpm; node_modules only links into pnpm's store)
 webapp-install:
     cd webapp && pnpm install --frozen-lockfile
@@ -143,10 +133,10 @@ webapp-check: webapp-install webapp-golden webapp-assets
     cd webapp && pnpm run check
 
 # Everything CI checks, each test once
-ci: lint test build build-tools wasm art-check reference-check webapp-check
+ci: lint test build build-tools art-check reference-check webapp-check
 
 # ci without the art tools' tests, for changes outside tools/ (a few minutes)
-check: lint test-quick build build-tools wasm art-check reference-check webapp-check
+check: lint test-quick build build-tools art-check reference-check webapp-check
 
 # Check the art catalogue, the PULSE reference data and the art tools (no original data required)
 gfx-check: art-check reference-check

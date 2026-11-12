@@ -1,5 +1,5 @@
 // Package saves keeps one saved battle (single slot) on this machine: a JSON
-// file in the user's config directory, or local storage in the web build.
+// file in the user's config directory.
 // It mirrors internal/scores. A store that cannot be read counts as empty.
 package saves
 

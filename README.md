@@ -12,7 +12,7 @@ newly painted art. The roadmap is [PLAN.md](PLAN.md).
 | `levels/` | Level files |
 | `art/` | Art masters and `prompt.md` per runtime family, style guide, PULSE reference; see the [art guide](art/README.md) |
 | `assets/` | Runtime art the game packs are built from, listed in `assets/index.json` |
-| `cmd/hl` | Unified developer CLI: art, assets, exports, reviews, levels, LLM play and web serving |
+| `cmd/hl` | Unified developer CLI: art, assets, exports, reviews, levels, and LLM play |
 | `tools/` | Importable offline art tooling and the PULSE reference design |
 | `docs/` | [CLI](docs/cli.md), [screen layout](docs/dos-screen.md), [LLM play](docs/llmplay.md), [runtime asset packs](docs/runtime-assets.md), [painted backdrops](docs/painted-backdrops.md), art book, reconstructed manual |
 | `legacy/` | The upstream Python remake, kept as a test reference only |
@@ -32,7 +32,6 @@ just lint       # go vet + golangci-lint
 just build      # bin/historyline
 just build-tools # bin/hl and its native preview helper
 just hl --help  # all developer tools; see docs/cli.md
-just web 8080   # Go WASM build with the art packs into build/web, served on :8080 (not published)
 just webapp     # the web edition (TypeScript), the site GitHub Pages serves
 just ci         # everything CI runs
 just check      # ci without the slow art tool tests

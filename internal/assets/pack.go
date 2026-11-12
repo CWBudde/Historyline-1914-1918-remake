@@ -1,6 +1,6 @@
 // Package assets loads bounded, hash-pinned image packs independently of rendering.
-// Images are PNG, or JPEG and WebP in the web build's compressed packs. Packs are
-// immutable snapshots; callers must treat returned images as read-only.
+// Images are PNG, JPEG or WebP. Packs are immutable snapshots; callers must
+// treat returned images as read-only.
 package assets
 
 import (

@@ -150,13 +150,9 @@ func (d *dosControl) startPlan(side int) bool {
 	r := &planRun{side: side, result: make(chan planResult, 1)}
 	if p, ok := cp.(*dosai.Planner); ok {
 		own := *p
-		pause := pagePauser()
 		own.Progress = func(done, total int) {
 			r.done.Store(int64(done))
 			r.total.Store(int64(total))
-			if pause != nil {
-				pause()
-			}
 		}
 		cp = &own
 	}

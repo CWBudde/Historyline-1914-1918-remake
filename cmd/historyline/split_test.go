@@ -522,7 +522,7 @@ func TestSplitStopsAtTheEdge(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}, nil)
+	g, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"})
 	if err != nil || g.dos == nil {
 		t.Fatalf("dos match: %v", err)
 	}

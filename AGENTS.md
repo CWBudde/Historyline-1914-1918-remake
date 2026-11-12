@@ -16,14 +16,14 @@ in `webapp/`, the web edition's browser runtime (PLAN.md §7); its exports and g
 ## Commands
 
 ```sh
-just ci          # everything CI runs: lint, test, build, wasm, art-check, reference-check, webapp-check
+just ci          # everything CI runs: lint, test, build, art-check, reference-check, webapp-check
 just check       # ci without the tools/ tests (about 25 min, never cached): for changes outside tools/
 just test        # go test ./...
 go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml); just lint-fix applies its fixes
 just fmt         # treefmt (treefmt.toml): gofumpt, gci, typstyle, prettier, shfmt; just fix = lint-fix + fmt
 just check-formatted  # fails if just fmt would change a tracked file (formats a copy)
-just run         # play with the painted art from build/packs (just play: the same); just build -> bin/; just web 8080 (hl web -port 8080)
+just run         # play with the painted art from build/packs (just play: the same); just build -> bin/
 just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates
 just artbook     # hl artbook: build/artbook/Historyline_Art.pdf (needs typst)
 just hl --help  # unified developer tools (docs/cli.md); just build-tools -> bin/hl + native preview helper
@@ -36,7 +36,7 @@ just webapp-e2e    # Playwright against the production build, in real browser en
 
 - `cmd/hl`, `internal/hlcli`: the one developer CLI (`docs/cli.md`); the `justfile` only forwards to it
   and wraps lint, fmt and test. Commands call the tooling packages in `internal/` and `tools/` directly
-  (`hl web`, `hl artbook`, `hl manual` orchestrate other commands); the native effects preview
+  (`hl artbook`, `hl manual` orchestrate other commands); the native effects preview
   (`cmd/hleffectpreview`) and explicit tagged authoring generators run as child processes.
 - `cmd/historyline`: the Ebitengine front end; `shell.go` holds the menus around a battle, `app.go` runs
   and draws them.
@@ -132,7 +132,7 @@ just webapp-e2e    # Playwright against the production build, in real browser en
 - `original/` (local original game files) and `build/` are git-ignored. Never commit original bytes,
   listings or strings; fixtures hold numbers only. The one exception are the maps' passwords, the menu
   codes in the scenario files. Do not document reverse-engineering methods in the repo.
-- Generated output goes under `build/packs/<name>`, `build/web`, `build/manual`, `build/artbook`,
+- Generated output goes under `build/packs/<name>`, `build/webapp`, `build/manual`, `build/artbook`,
   `build/review/<name>/` or `build/scratch/`, never loose files at the `build/` top level; `just clean` wipes it.
 - Keep docs short and current: describe what is, not how it came to be.
 - `docs/manual/` is the user's reconstruction of the original manual: leave it alone.

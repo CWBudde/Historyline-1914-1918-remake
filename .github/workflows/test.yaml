@@ -23,9 +23,6 @@ jobs:
   test-can-build:
     uses: ./.github/workflows/test-can-build.yaml
 
-  test-wasm:
-    uses: ./.github/workflows/test-wasm.yaml
-
   test-art:
     uses: ./.github/workflows/test-art.yaml
 

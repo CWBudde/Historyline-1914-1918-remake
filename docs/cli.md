@@ -11,7 +11,6 @@ hl review gallery
 hl review art -ground art/pipeline/ground-terrain-v1.json -out build/review/ground
 hl levels backdrop check
 hl llmplay new -level 1918-02:cp
-hl serve -dir build/web -addr localhost:8080
 ```
 
 Each group and command accepts `--help`; `hl help art map` also works. Run
@@ -24,7 +23,6 @@ The existing `just` shortcuts use `hl` too.
 | `art thumbs` / `pulse` / `map` | Catalogue thumbnails; the PULSE reference map; a level with a detail crop | |
 | `assets packs` | Update the changed runtime packs (`-out build/packs`) | `packs` |
 | `assets build` / `build-units` / `build-terrain` / `build-screens` | Build one pack kind: interface, units, terrain, screens | |
-| `assets lite` | Compress packs for the web build | |
 | `assets terrain-gaps` / `validate` | Report missing terrain clusters and the autumn and spring summer fallbacks; validate a pack | |
 | `export materials` / `kits` / `terrain-stamps` | Periodic world materials; world kits (`-install` writes runtime cells); pinned terrain cut-outs | |
 | `export unit-topview` / `unit-squad` / `unit-panel` / `interface` | Unit families, squad atlas, inspector panel, interface and effect candidates | |
@@ -40,8 +38,6 @@ The existing `just` shortcuts use `hl` too.
 | `llmplay query` / `try` / `advance` / `undo` | Ask about distances, arrivals, reach, threats, types and income; play candidate orders and plans ahead; play on under a standing plan; take resolutions back | |
 | `llmplay replay` / `render` / `review` / `gif` | Verify state hashes; frames and the map video, or with `-view screen` the player's battle screen video; lessons; GIF | |
 | `preview effects` | Unit movement and effects preview (needs a display) | |
-| `serve` | Local HTTP file server (`-dir`, `-addr`) | |
-| `web` | Build the web demo into `build/web`; `-port 8080` serves it | `web` |
 | `webapp golden` | Write Go AI-vs-AI command/event/save traces for all shipped setups into `build/webapp/golden`; `-resolutions` caps each trace (default 300) | `webapp-golden` |
 | `webapp assets` | Export hash-pinned packs, scenarios, tiled backdrop mipmaps, baked map layers and fonts into `build/webapp/data` | `webapp-assets` |
 | `webapp size` | Report the built site's size per file type; fails above the limit (`-dir`, `-max-mb`) | `webapp-size` |

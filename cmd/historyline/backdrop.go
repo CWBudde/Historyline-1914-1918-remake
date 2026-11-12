@@ -102,7 +102,7 @@ func loadBackdrop(path string) (*backdropImage, error) {
 	if i := strings.LastIndexAny(path, "/"+string(filepath.Separator)); i >= 0 {
 		dir, name = path[:i+1], path[i+1:]
 	}
-	fsys, done, err := openArtDir(dir, nil)
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, fmt.Errorf("backdrop: %w", err)
 	}

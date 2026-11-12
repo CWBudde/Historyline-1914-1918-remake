@@ -177,9 +177,9 @@ func (a *terrainArt) recompose(lvl *level.Level) error {
 	return nil
 }
 
-// loadTerrainArt opens the terrain catalog in dir for lvl, counting its fetches in m.
-func loadTerrainArt(dir string, lvl *level.Level, m *meter) (*terrainArt, error) {
-	fsys, done, err := openArtDir(dir, m)
+// loadTerrainArt opens the terrain catalog in dir for lvl.
+func loadTerrainArt(dir string, lvl *level.Level) (*terrainArt, error) {
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, err
 	}

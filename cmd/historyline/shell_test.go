@@ -277,7 +277,7 @@ func TestRulesChoiceStartsBothEngines(t *testing.T) {
 		}
 		c := s.config(matchConfig{set: set, opponent: "pass"})
 		c.player = s.levelSide()
-		gm, err := newMatch(c, nil)
+		gm, err := newMatch(c)
 		if err != nil {
 			t.Fatalf("%s: %v", want, err)
 		}
@@ -289,7 +289,7 @@ func TestRulesChoiceStartsBothEngines(t *testing.T) {
 		}
 	}
 	// The removed Classic (Python) mode stays rejected.
-	if _, err := newMatch(matchConfig{set: set, rules: "classic"}, nil); err == nil {
+	if _, err := newMatch(matchConfig{set: set, rules: "classic"}); err == nil {
 		t.Error("classic rules accepted")
 	}
 }

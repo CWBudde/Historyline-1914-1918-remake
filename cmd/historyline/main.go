@@ -12,6 +12,7 @@ import (
 	"image/color"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -87,8 +88,6 @@ type game struct {
 	artErr         string                 // last sprite failure, shown in the status line
 	terrain        *terrainArt            // composed terrain tiles (-terrain); nil draws coloured hexes
 	terrainErr     string                 // last terrain tile failure, shown in the status line
-	hdUnits        <-chan *artPacks       // full-quality unit art while it loads (-units-hd, without the menus)
-	hdTerrain      <-chan *terrainArt     // full-quality terrain while it loads (-terrain-hd)
 	records        []int                  // the terrain records as the sappers' work played left them, nil before (trench.go)
 	backdrop       *backdrop              // the painted ground drawn in place of the terrain (-backdrop); nil draws the terrain
 	backdropHidden *backdrop              // the backdrop while F8 shows another map design (design.go); nil when it is shown or there is none
@@ -273,17 +272,6 @@ func (g *game) advance() {
 
 func (g *game) Update() error {
 	g.gasTick++
-	if u, ok := arrived(&g.hdUnits); ok {
-		g.art.release()
-		g.art = u
-	}
-	if t, ok := arrived(&g.hdTerrain); ok {
-		g.terrain.release()
-		g.terrain = t
-		if g.records != nil {
-			g.reworkTerrain()
-		}
-	}
 	if g.split == nil {
 		g.scrollKeys()
 	}
@@ -780,15 +768,14 @@ type matchConfig struct {
 	saves      *saves.Store    // the single saved battle; nil keeps none
 	saved      []byte          // a saved battle to resume (dos only); nil starts fresh
 	terrain    string          // terrain catalog directory, composed per level; "" draws coloured hexes
-	terrainHD  string          // full-quality terrain catalog loaded in the background of a battle; "" for none
 	backdrop   *backdropImage  // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
 	noBackdrop bool            // draw the terrain even where the level has a backdrop (-backdrop off)
 	levels     string          // the directory of the level files (-levels)
 	replay     *llmplay.Replay // a recorded llmplay game played on both sides (-replay); nil plays a battle
 }
 
-// newMatch starts the battle of c, counting the art it fetches in m.
-func newMatch(c matchConfig, m *meter) (*game, error) {
+// newMatch starts the battle of c.
+func newMatch(c matchConfig) (*game, error) {
 	var gm *game
 	switch c.rules {
 	case "dos":
@@ -859,13 +846,8 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 	}
 	if c.terrain != "" {
 		var err error
-		if gm.terrain, err = loadTerrainArt(c.terrain, c.lvl, m); err != nil {
+		if gm.terrain, err = loadTerrainArt(c.terrain, c.lvl); err != nil {
 			return nil, err
-		}
-		if c.terrainHD != "" {
-			gm.hdTerrain = background("full-quality terrain", func() (*terrainArt, error) {
-				return loadTerrainArt(c.terrainHD, c.lvl, &meter{pause: pagePauser()})
-			})
 		}
 	}
 	return gm, nil
@@ -882,9 +864,6 @@ func main() {
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
-	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the unit catalog downloaded fast")
-	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the unit catalog downloaded fast")
-	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the unit catalog downloaded fast")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires the terrain pack)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
@@ -944,18 +923,10 @@ func main() {
 		set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
 	}
-	// The web page shows how much of the art has arrived until the game starts.
-	boot := &meter{fetched: pageFetched}
 	// The unit art is always there: a battle draws no unit without it.
-	if c.units, err = loadUnitArt(unitCatalog(), boot); err != nil {
+	if c.units, err = loadUnitArt(filepath.Join(packsDir, "units")); err != nil {
 		log.Fatalf("unit art: %v (build it with just packs)", err)
 	}
-	// Only a fast connection loads the full-quality art as well.
-	hd := hdDirs{units: *unitsHD, screens: *screensHD, terrain: *terrainHD}
-	if !boot.fast() {
-		hd = hdDirs{}
-	}
-	c.terrainHD = hd.terrain
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
@@ -969,7 +940,7 @@ func main() {
 		}
 	}
 	if *screens != "" {
-		if c.screens, err = loadScreenArt(*screens, boot); err != nil {
+		if c.screens, err = loadScreenArt(*screens); err != nil {
 			log.Fatal(err)
 		}
 		dospanel.SetSurfaces(c.screens.surfaces())
@@ -981,9 +952,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		pageReady()
 		a := newApp(c, campaign, c.screens)
-		a.hd = loadHDArt(hd)
 		if err := ebiten.RunGame(a); err != nil {
 			log.Fatal(err)
 		}
@@ -1033,7 +1002,7 @@ func main() {
 			c.player = dosbind.Factions[snap.side]
 		}
 	}
-	gm, err := newMatch(c, boot)
+	gm, err := newMatch(c)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -1052,12 +1021,6 @@ func main() {
 		}
 		return
 	}
-	if hd.units != "" {
-		gm.hdUnits = background("full-quality units", func() (*artPacks, error) {
-			return loadUnitArt(hd.units, &meter{pause: pagePauser()})
-		})
-	}
-	pageReady()
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
 	}

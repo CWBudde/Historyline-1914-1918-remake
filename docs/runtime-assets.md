@@ -25,7 +25,7 @@ cache the lite units, interface and screens at the current density, and the back
 the next two of its chain; it is skipped under Save-Data. A month not kept reports that it is not available
 offline. Nothing evicts old blobs yet, so the browser's storage quota is the only limit.
 
-`internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
+`internal/assets` loads versioned image packs (PNG, JPEG or WebP); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
 `build/packs/` until art is approved.
@@ -36,14 +36,12 @@ go run ./cmd/hl assets build-units   -out build/packs/units                  # 4
 go run ./cmd/hl assets build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hl assets build-screens -out build/packs/screens                # menu frames, controls, paintings
 go run ./cmd/hl assets packs -out build/packs                                # the three above, each only when changed
-go run ./cmd/hl assets lite -in build/packs/units -out <dir>                # compressed copy for the web
 go run ./cmd/hl assets validate -root <pack>
 go run ./cmd/hl assets terrain-gaps -terrain build/packs/terrain
 just run                                                                   # game with all three catalogs (found in build/packs)
-just web 8080                                                              # web build with the 2x catalogs
 ```
 
-`hl assets packs` (`just packs`, which `just run`, `just play` and `just web` run first) keeps `build/packs/units`,
+`hl assets packs` (`just packs`, which `just run` and `just play` run first) keeps `build/packs/units`,
 `terrain` and `screens` current: each catalog's `stamp` holds the sha256 of the hl binary and of the
 catalog's inputs (its `assets/index.json` entries with their file hashes; for the screens also every
 `art/screens/<family>/*.png`). A catalog whose stamp matches is kept; any other is built beside it and then
@@ -353,22 +351,6 @@ unpacked `screens/` files of the index (frames, buttons, country swatches, widge
 `scene/<family>`, each `art/screens/<family>/illustration.png` painting trimmed by one pixel per edge and
 scaled to 640×400 logical pixels (never enlarged). The game's menus (`-screens`) draw a painting, the frame
 over it, live text in the Go fonts and the button states; without the catalog they draw plain panels.
-
-## Web
-
-`just web` hard-links the 2× unit packs, the 1× and 2× terrain packs and both screen densities into `build/web/packs/<catalog>/`,
-writes their compressed copies to `build/web/packs/<catalog>-lite/` (`hl assets lite`: an opaque image as JPEG,
-any other as lossy WebP, a PNG where that is smaller; about a fifth of the bytes) and lists each catalog in
-`files.txt` (`<size> <path>` per line), since HTTP cannot list directories. `index.html` passes the catalogs it
-finds to the game as URLs, the compressed ones as `-units`, `-terrain`, `-screens` and the full ones as
-`-units-hd`, `-terrain-hd`, `-screens-hd` (`-units` exists only in the web build: the desktop game always loads
-`build/packs/units`); the game fetches a whole catalog when opening it and loads no 4×
-packs in the browser. It boots from the compressed catalogs; when they arrived at 4 MiB/s or faster it loads
-the full unit and screen catalogs in the background and swaps them in, and each battle's full terrain likewise. `build.json` holds a hash of the whole build and the size of the
-wasm; the page adds the hash to every URL as `?v=`, so a browser never combines cached files of an older build
-with a newer one. Until the menu runs, the page shows a title card over the menu painting with a progress bar
-over the wasm and the unit and screen catalogs (the game reports each fetched file); the battle's loading
-page shows the terrain download the same way.
 
 ## Open
 

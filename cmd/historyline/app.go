@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -33,10 +32,9 @@ var (
 // app runs the menus and the battle they start.
 type app struct {
 	shell  *shell
-	base   matchConfig  // the command line's settings; the menus fill in the rest
-	art    *screenArt   // nil draws plain panels
-	battle *game        // nil outside a battle
-	hd     <-chan hdArt // the full-quality art while it loads; nil when none is wanted
+	base   matchConfig // the command line's settings; the menus fill in the rest
+	art    *screenArt  // nil draws plain panels
+	battle *game       // nil outside a battle
 
 	view    view
 	canvas  *ebiten.Image // one page at the canvas density
@@ -48,9 +46,8 @@ type app struct {
 }
 
 // matchLoad is a battle being prepared in the background, so that the loading
-// page keeps drawing its progress meanwhile.
+// page keeps drawing meanwhile.
 type matchLoad struct {
-	m    meter
 	done chan matchLoaded
 }
 
@@ -63,7 +60,7 @@ type matchLoaded struct {
 func startLoad(c matchConfig) *matchLoad {
 	l := &matchLoad{done: make(chan matchLoaded, 1)}
 	go func() {
-		gm, err := newMatch(c, &l.m)
+		gm, err := newMatch(c)
 		l.done <- matchLoaded{gm, err}
 	}()
 	return l
@@ -98,35 +95,8 @@ func (a *app) saveCurrentBattle() error {
 	})
 }
 
-// upgrade swaps in the full-quality art hd, in the menus and a running battle.
-func (a *app) upgrade(hd hdArt) {
-	if hd.units != nil {
-		old := a.base.units
-		a.base.units = hd.units
-		if a.battle != nil {
-			a.battle.art = hd.units
-		}
-		old.release()
-	}
-	if hd.screens != nil {
-		old := a.art
-		a.art, a.base.screens = hd.screens, hd.screens
-		if a.battle != nil {
-			a.battle.screens = hd.screens
-		}
-		dospanel.SetSurfaces(hd.screens.surfaces())
-		dosscreen.SetArt(hd.screens.frameArt())
-		if old != nil {
-			old.packs.release()
-		}
-	}
-}
-
 func (a *app) Update() error {
 	s := a.shell
-	if hd, ok := arrived(&a.hd); ok {
-		a.upgrade(hd)
-	}
 	if s.quit {
 		return ebiten.Termination
 	}
@@ -436,15 +406,6 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 			drawText(dst, d, l, false, 12, 24, float64(172+i*17), cream, false)
 		}
 		drawText(dst, d, "The map is being prepared.", false, 13, 24, 238, cream, false)
-		// Only the web build fetches the terrain; on disk it opens at once.
-		if l := a.load; l != nil {
-			if f, ok := l.m.fraction(); ok {
-				a.drawProgress(dst, d, progressRect, f)
-				mb := func(n int64) float64 { return float64(n) / 1e6 }
-				drawText(dst, d, fmt.Sprintf("%.0f of %.0f MB", mb(l.m.done.Load()), mb(l.m.total.Load())),
-					false, 13, panelW/2, 284, muted, true)
-			}
-		}
 	case pageOutcome:
 		r := s.result
 		lines := []string{r.text}
@@ -560,28 +521,6 @@ func (a *app) drawButton(dst *ebiten.Image, d int, b button, focus, pressed bool
 	}
 	drawText(dst, d, b.label, true, 12, float64(b.r.X)+float64(b.r.W)/2+o, y+o, dospanel.SteelDark, true)
 	drawText(dst, d, b.label, true, 12, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
-}
-
-// progressRect is the loading page's progress bar, the size of the bar art.
-var progressRect = rect{24, 252, 256, 16}
-
-// drawProgress draws a progress bar over r, filled to share f.
-func (a *app) drawProgress(dst *ebiten.Image, d int, r rect, f float64) {
-	track, fill := a.art.image("progress/track", d), a.art.image("progress/fill", d)
-	if track == nil || fill == nil {
-		dospanel.SteelWell(dst, devRect(r, d), float64(d))
-		fillRect(dst, d, rect{r.X + 2, r.Y + 2, int(math.Round(f * float64(r.W-4))), r.H - 4}, brass)
-		return
-	}
-	w, h := track.Bounds().Dx(), track.Bounds().Dy()
-	op := &ebiten.DrawImageOptions{Filter: ebiten.FilterLinear}
-	op.GeoM.Scale(float64(r.W*d)/float64(w), float64(r.H*d)/float64(h))
-	op.GeoM.Translate(float64(r.X*d), float64(r.Y*d))
-	dst.DrawImage(track, op)
-	fb := fill.Bounds()
-	if fw := int(math.Round(f * float64(fb.Dx()))); fw > 0 {
-		dst.DrawImage(fill.SubImage(image.Rect(fb.Min.X, fb.Min.Y, fb.Min.X+fw, fb.Max.Y)).(*ebiten.Image), op)
-	}
 }
 
 // drawFlag draws a country swatch stretched over r.

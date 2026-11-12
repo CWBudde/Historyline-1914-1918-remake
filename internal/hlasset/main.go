@@ -21,7 +21,7 @@ import (
 // Run builds, compresses, reports on or validates runtime art packs.
 func Run(args []string, stdout, stderr io.Writer) (err error) {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hl assets build|build-units|build-terrain|build-screens|packs|lite|terrain-gaps|validate [flags]")
+		return fmt.Errorf("usage: hl assets build|build-units|build-terrain|build-screens|packs|terrain-gaps|validate [flags]")
 	}
 	switch args[0] {
 	case "build":
@@ -130,23 +130,6 @@ func Run(args []string, stdout, stderr io.Writer) (err error) {
 			names = strings.Split(*only, ",")
 		}
 		return updatePacks(*out, builder, catalogs(*dir, *art), names, stdout)
-	case "lite":
-		flags := flag.NewFlagSet("hl assets lite", flag.ContinueOnError)
-		flags.SetOutput(stderr)
-		in := flags.String("in", "", "pack catalog built by build-units, build-terrain or build-screens (required)")
-		out := flags.String("out", "", "new output directory (required)")
-		if err := flags.Parse(args[1:]); err != nil {
-			return err
-		}
-		if flags.NArg() != 0 || *in == "" || *out == "" {
-			return fmt.Errorf("lite requires -in DIRECTORY -out NEW_DIRECTORY and no positional arguments")
-		}
-		st, err := liteCatalog(*in, *out)
-		if err != nil {
-			return err
-		}
-		_, err = fmt.Fprintf(stdout, "compressed %s\n", st)
-		return err
 	case "terrain-gaps":
 		flags := flag.NewFlagSet("hl assets terrain-gaps", flag.ContinueOnError)
 		flags.SetOutput(stderr)
@@ -185,7 +168,7 @@ func Run(args []string, stdout, stderr io.Writer) (err error) {
 		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants\n", m.ID, len(m.Entries))
 		return err
 	default:
-		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, build-screens, packs, lite, terrain-gaps or validate", args[0])
+		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, build-screens, packs, terrain-gaps or validate", args[0])
 	}
 }
 

@@ -38,8 +38,7 @@ func loadMap(dir, name string, set *data.Set) (*level.Level, *dosbind.Board, err
 
 // levelFiles is the levels directory on disk over the embedded levels: a
 // file below the directory where it opens, else its embedded copy. Any
-// error falls back on the embedded copy: the web build has no file system
-// and fails with "not implemented", not fs.ErrNotExist.
+// error falls back on the embedded copy.
 type levelFiles struct{ disk fs.FS }
 
 // levelsFS is the levels directory dir over the embedded levels.
