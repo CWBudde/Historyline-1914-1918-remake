@@ -18,10 +18,11 @@ zoom × DPR; units never below 2×, menu paintings by the size they cover the wi
 for the first battle frame (lite at the lowest density until then, menu paintings at their drawn density,
 or eight seconds in the menus); offline, or after a failed transfer, it keeps the lite art without an
 error. The loading page stays until the battle's first frame has decoded all its images, and a sprite keeps
-its decoded image until its successor (another density, full art) has decoded, so no frame shows holes.
-Map textures are mipmapped. A disposed map or panel cancels its transfers. Its `AssetStore` verifies byte counts and hashes, limits
-concurrent requests and uses CacheStorage by content hash (bounded memory when unavailable). Lite
-encodes are cached under the system user cache directory.
+its decoded image until its successor (another density, full art) has decoded, so no frame shows holes;
+after the first frame the art of a ring around the view decodes ahead of panning. Map textures are
+mipmapped. A disposed map or panel cancels its transfers. Its `AssetStore` verifies byte counts and
+hashes, limits concurrent requests and uses CacheStorage by content hash (bounded memory when
+unavailable). Lite encodes are cached under the system user cache directory.
 Regenerate assets before starting Vite; restart it after another export so it discovers the new blobs.
 
 Offline play: the production build's service worker (`webapp/app/src/sw.ts`) precaches the app and `index.json`

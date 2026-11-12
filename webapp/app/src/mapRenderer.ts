@@ -7,7 +7,7 @@ import {
 } from "pixi.js";
 import { bind, hexgrid, level, play } from "@historyline/engine";
 import { Camera, type Point, type Rect } from "./camera.ts";
-import { assetDensity, type AssetLoader } from "./assets.ts";
+import { assetDensity, unitDensity, type AssetLoader } from "./assets.ts";
 import { type Pyramid, type Tile, record } from "./assetManifest.ts";
 import {
   backdropDraw,
@@ -197,7 +197,7 @@ export class MapRenderer {
     const d = assetDensity(this.camera.zoom, this.camera.scale);
     await Promise.all([
       this.load("terrain", d),
-      this.load("units", d),
+      this.load("units", unitDensity(d)),
       this.load("screens", Math.min(2, d)),
       this.loadGlyphs(),
     ]);
@@ -220,8 +220,9 @@ export class MapRenderer {
     const camera = this.camera,
       rect = camera.visible(),
       d = assetDensity(camera.zoom, camera.scale);
-    for (const name of ["terrain", "units", "screens"])
-      this.request(name, name === "screens" ? Math.min(2, d) : d);
+    this.request("terrain", d);
+    this.request("units", unitDensity(d));
+    this.request("screens", Math.min(2, d));
     this.root.scale.set(camera.zoom);
     this.root.position.set(
       -camera.origin.x * camera.zoom,

@@ -1,4 +1,4 @@
-import type { AssetLoader } from "./assets.ts";
+import { unitDensity, type AssetLoader } from "./assets.ts";
 import {
   fileRef,
   parseImageCatalog,
@@ -123,7 +123,7 @@ export async function keepForOffline(
 ): Promise<void> {
   const shared = await Promise.all(
     ["units", "interface", "screens"].map((name) =>
-      catalog(loader, name, density),
+      catalog(loader, name, name === "units" ? unitDensity(density) : density),
     ),
   );
   await fetchAll(

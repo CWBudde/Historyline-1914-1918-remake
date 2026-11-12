@@ -22,6 +22,13 @@ export function assetDensity(
     throw new Error("invalid asset scale");
   return effective <= 1 ? 1 : effective <= 2 ? 2 : 4;
 }
+/**
+ * unitDensity is the density units are drawn from: never below 2x, as the desktop game draws them, shrinking with
+ * mipmaps where the map is zoomed out (cmd/historyline/sprites.go).
+ */
+export function unitDensity(density: number): number {
+  return Math.max(2, density);
+}
 export interface LoadedImage {
   entry: ImageEntry;
   bytes: ArrayBuffer;

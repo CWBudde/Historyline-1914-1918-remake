@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { AssetLoader, assetDensity } from "./assets.ts";
+import { AssetLoader, assetDensity, unitDensity } from "./assets.ts";
 import {
   parseAssetIndex,
   parseImageCatalog,
@@ -555,4 +555,8 @@ it("rejects schema gaps, hash paths, missing mip tiles and catalog geometry", as
       2,
     ),
   ).toThrow(/geometry/);
+});
+
+it("draws units from 2x art at least, as the desktop game does", () => {
+  expect([1, 2, 4].map(unitDensity)).toEqual([2, 2, 4]);
 });
