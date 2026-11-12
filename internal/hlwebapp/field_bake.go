@@ -135,7 +135,7 @@ func (w *waterBaker) bakeField(s *mapcompose.Scene, c hexgrid.Coord, id string, 
 	if len(compressed.Data) < raw.Len() {
 		result.Lite, err = w.blobs.put(compressed.Ext, compressed.Data)
 	} else {
-		result.Lite, err = w.blobs.put("png", raw.Bytes())
+		result.Lite, err = w.blobs.fullArt("png", im, raw.Bytes())
 	}
 	result.Full = result.Lite
 	return result, err

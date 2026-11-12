@@ -231,7 +231,7 @@ func (w *waterBaker) shade(ctx context.Context, field *waterdepth.Field, c hexgr
 		return BakedBackground{}, err
 	}
 	result := BakedBackground{ID: id, Width: e.Width, Height: e.Height, Density: d, Anchor: e.Anchor}
-	if result.Full, err = w.blobs.put("png", raw.Bytes()); err != nil {
+	if result.Full, err = w.blobs.fullArt("png", shaded, raw.Bytes()); err != nil {
 		return result, err
 	}
 	result.Lite = result.Full

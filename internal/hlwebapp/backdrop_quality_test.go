@@ -182,4 +182,4 @@ func TestBackdropTilesKeepTheSource(t *testing.T) {
 	}
 }
 
-const minBackdropPSNR = 35.0
+const minBackdropPSNR = 36.0

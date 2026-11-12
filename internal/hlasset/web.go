@@ -21,6 +21,26 @@ const (
 	FieldWebP = 85
 )
 
+// LosslessWebP is the encoder setting of the web edition's full art: lossless, at a
+// mid effort that costs about a third of PNG's bytes less. Exact keeps the colour of
+// fully transparent pixels, which the compositor can read through its filters.
+var LosslessWebP = webp.Options{Lossless: true, Quality: 75, Method: 4, Exact: true}
+
+// EncodeLossless stores im as a lossless WebP that decodes to the same pixels
+// as the PNG of im, including the colour under alpha 0.
+func EncodeLossless(im image.Image) ([]byte, error) {
+	n, ok := im.(*image.NRGBA)
+	if !ok || n.Rect.Min != (image.Point{}) {
+		n = image.NewNRGBA(image.Rect(0, 0, im.Bounds().Dx(), im.Bounds().Dy()))
+		draw.Draw(n, n.Rect, im, im.Bounds().Min, draw.Src)
+	}
+	var buf bytes.Buffer
+	if err := webp.Encode(&buf, n, LosslessWebP); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
 // bleedPasses is how far the colour of a visible pixel is spread into the
 // transparent pixels around it: far enough to cover the blocks the encoder
 // transforms together.

@@ -68,7 +68,7 @@ func TestWaterBakeMatchesNativeShade(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				got, err := png.Decode(bytes.NewReader(raw))
+				got, err := decodeLossless(raw)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -82,7 +82,11 @@ func TestWaterBakeMatchesNativeShade(t *testing.T) {
 						}
 					}
 				}
-				if e.Lite.Bytes > e.Full.Bytes {
+				var asPNG bytes.Buffer
+				if err := png.Encode(&asPNG, got); err != nil {
+					t.Fatal(err)
+				}
+				if e.Lite.Bytes > asPNG.Len() {
 					t.Fatal("lite expanded image")
 				}
 				if _, err := os.Stat(filepath.Join(b.root, e.Lite.Path)); err != nil {
@@ -174,7 +178,7 @@ func TestWaterBakeKeepsTranslatedSurfOriginsSeparate(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			got, err := png.Decode(bytes.NewReader(raw))
+			got, err := decodeLossless(raw)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -233,7 +237,7 @@ func TestWaterBakeReusesTranslatedOpenWater(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			got, err := png.Decode(bytes.NewReader(raw))
+			got, err := decodeLossless(raw)
 			if err != nil {
 				t.Fatal(err)
 			}

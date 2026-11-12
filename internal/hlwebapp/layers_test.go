@@ -1,9 +1,7 @@
 package hlwebapp
 
 import (
-	"bytes"
 	"context"
-	"image/png"
 	"math"
 	"os"
 	"path/filepath"
@@ -38,7 +36,7 @@ func TestBakedLayersUseNativeSceneAndFields(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		im, err := png.Decode(bytes.NewReader(raw))
+		im, err := decodeLossless(raw)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -61,7 +59,7 @@ func TestBakedLayersUseNativeSceneAndFields(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			im, err := png.Decode(bytes.NewReader(raw))
+			im, err := decodeLossless(raw)
 			if err != nil {
 				t.Fatal(err)
 			}

@@ -72,7 +72,7 @@ func (b blobWriter) layers(ctx context.Context, lv *level.Level, has func(string
 				}
 				if some {
 					var err error
-					r.File, err = b.png(im)
+					r.File, err = b.raster(im)
 					if err != nil {
 						return out, err
 					}
@@ -94,7 +94,7 @@ func (b blobWriter) layers(ctx context.Context, lv *level.Level, has func(string
 					}
 				}
 				for _, im := range images {
-					ref, err := b.png(im)
+					ref, err := b.raster(im)
 					if err != nil {
 						return out, err
 					}

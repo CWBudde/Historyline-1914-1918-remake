@@ -86,7 +86,7 @@ func TestSeasonBakeMatchesNativeMix(t *testing.T) {
 					if err != nil {
 						t.Fatal(err)
 					}
-					pic, err := png.Decode(bytes.NewReader(raw))
+					pic, err := decodeLossless(raw)
 					if err != nil {
 						t.Fatal(err)
 					}
@@ -225,7 +225,7 @@ func TestSeasonBakeShadesWaterBeforeMix(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		pic, err := png.Decode(bytes.NewReader(raw))
+		pic, err := decodeLossless(raw)
 		if err != nil {
 			t.Fatal(err)
 		}

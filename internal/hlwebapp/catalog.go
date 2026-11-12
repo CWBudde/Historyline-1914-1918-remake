@@ -165,7 +165,7 @@ func (b blobWriter) catalog(ctx context.Context, dir, name string) (_ map[int]Qu
 						raw = buf.Bytes()
 						ext = "png"
 					}
-					ref, err := b.put(ext, raw)
+					ref, err := b.fullArt(ext, im, raw)
 					if err != nil {
 						return err
 					}
@@ -265,4 +265,39 @@ func cachedLite(im image.Image, raw []byte, quality int) (_ encodedImage, err er
 		return v, err
 	}
 	return v, os.Rename(f.Name(), name)
+}
+
+// cachedLossless stores the lossless WebP twin of a PNG, cached by the PNG's
+// bytes: an unchanged image is not encoded again by the next export. Bump the
+// directory's version when hlasset.LosslessWebP changes.
+func cachedLossless(im image.Image, raw []byte) (_ []byte, err error) {
+	sum := sha256.Sum256(raw)
+	cache, err := os.UserCacheDir()
+	if err != nil {
+		return nil, err
+	}
+	dir := filepath.Join(cache, "historyline", "webapp-lossless-v1")
+	name := filepath.Join(dir, hex.EncodeToString(sum[:])+".webp")
+	if data, err := os.ReadFile(name); err == nil && len(data) > 0 {
+		return data, nil
+	}
+	data, err := hlasset.EncodeLossless(im)
+	if err != nil {
+		return nil, err
+	}
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return data, err
+	}
+	f, err := os.CreateTemp(dir, ".lossless-")
+	if err != nil {
+		return data, err
+	}
+	defer func() { err = errors.Join(err, removeTemporary(f.Name())) }()
+	if _, err := f.Write(data); err != nil {
+		return data, errors.Join(err, f.Close())
+	}
+	if err := f.Close(); err != nil {
+		return data, err
+	}
+	return data, os.Rename(f.Name(), name)
 }

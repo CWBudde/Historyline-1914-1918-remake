@@ -161,7 +161,7 @@ func (w *waterBaker) seasonLayer(ctx context.Context, blend *seasonblend.Blend, 
 		return result, false, err
 	}
 	var err error
-	if result.Full, err = w.blobs.put("png", raw.Bytes()); err != nil {
+	if result.Full, err = w.blobs.fullArt("png", straight, raw.Bytes()); err != nil {
 		return result, false, err
 	}
 	result.Lite = result.Full

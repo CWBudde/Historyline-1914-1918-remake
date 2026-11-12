@@ -74,6 +74,28 @@ func (b blobWriter) json(v any) (FileRef, error) {
 	return b.put("json", raw)
 }
 
+// fullArt writes the full tier of an image: a PNG (raw, its encoding) becomes
+// a lossless WebP; any other format is stored as it is.
+func (b blobWriter) fullArt(ext string, im image.Image, raw []byte) (FileRef, error) {
+	if ext != "png" {
+		return b.put(ext, raw)
+	}
+	data, err := cachedLossless(im, raw)
+	if err != nil {
+		return FileRef{}, err
+	}
+	return b.put("webp", data)
+}
+
+// raster writes a lossless data raster (weights, depths).
+func (b blobWriter) raster(im *image.NRGBA) (FileRef, error) {
+	var buf bytes.Buffer
+	if err := png.Encode(&buf, im); err != nil {
+		return FileRef{}, err
+	}
+	return b.fullArt("png", im, buf.Bytes())
+}
+
 func (b blobWriter) png(im image.Image) (FileRef, error) {
 	var buf bytes.Buffer
 	if err := png.Encode(&buf, im); err != nil {
@@ -120,8 +142,8 @@ func (b blobWriter) backdrop(ctx context.Context, im image.Image) (FileRef, erro
 // quarters of the bytes) matches what the desktop game's JPEG shows, the
 // smaller levels, seen zoomed out, are lighter.
 const (
-	backdropQuality    = 92
-	backdropMipQuality = 85
+	backdropQuality    = 96
+	backdropMipQuality = 92
 	// backdropWorkers bounds the tiles encoded at once: each encoder instance holds a few MB.
 	backdropWorkers = 4
 )
