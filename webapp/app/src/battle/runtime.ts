@@ -178,18 +178,9 @@ export class BattleRuntime {
         // Both native key sets can repeat the mode gesture to confirm. The
         // prompt suppresses ordinary actions, but must retain this gesture.
         if (this.battle.phasePrompt) return { left: "mode" };
-        const allowed = new Set(this.battle.actions()),
-          p = placement(
-            play.phase(session, request.side) !== phaseMovement,
-            allowed.has("open"),
-            this.battle.contents.box !== null,
-          );
-        return Object.fromEntries(
-          Object.entries(p).map(([dir, action]) => [
-            dir,
-            allowed.has(action) ? action : "cancel",
-          ]),
-        );
+        // As on the desktop, a gesture towards an action not possible here runs nothing but its refusal; only
+        // a direction that is cancel itself goes back.
+        return this.placementAt(this.battle.cursor);
       },
       shortcut: (key) => this.shortcut(key),
     });
@@ -413,17 +404,7 @@ export class BattleRuntime {
         reach.has(level.coordKey(at)) ||
         (entrance !== null && reach.has(level.coordKey(entrance))),
       held = this.keys.holding(),
-      raw = placement(
-        !movement,
-        play.contents(b.session, b.side, entrance ?? at) !== null ||
-          [...b.view().units.values()].some(
-            (u) =>
-              u.side === b.side &&
-              u.carrier &&
-              level.coordKey(u.at) === level.coordKey(at),
-          ),
-        false,
-      ),
+      raw = this.placementAt(at),
       picked = held === null ? "cancel" : raw[held],
       allowed = picked === "cancel" || b.actions(at).includes(picked),
       look = cursorLook(
@@ -437,6 +418,22 @@ export class BattleRuntime {
     return look === null
       ? { kind: "ring", at }
       : { kind: "plate", at, ...look };
+  }
+  /** placementAt is the gesture placement on at (gesture.ForMap, ForContents): the left gesture opens an own container. */
+  private placementAt(at: hexgrid.Coord): ReturnType<typeof placement> {
+    const b = this.battle,
+      entrance = play.entrance(b.session, at);
+    return placement(
+      play.phase(b.session, b.side) !== phaseMovement,
+      play.contents(b.session, b.side, entrance ?? at) !== null ||
+        [...b.view().units.values()].some(
+          (u) =>
+            u.side === b.side &&
+            u.carrier &&
+            level.coordKey(u.at) === level.coordKey(at),
+        ),
+      b.contents.box !== null,
+    );
   }
   /** hitRing is the ring menu's item under the panel point p, "cancel" on its centre, or null. */
   private hitRing(p: Point): number | "cancel" | null {
