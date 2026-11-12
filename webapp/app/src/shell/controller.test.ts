@@ -391,7 +391,7 @@ it("follows native code, country, news, card pagination and Escape transitions",
     model.back();
     expect(model.page).toBe("main");
   }
-  for (const page of ["saves", "scores"] as const) {
+  for (const page of ["saves", "scores", "offline"] as const) {
     model.open(page);
     model.back();
     expect(model.page).toBe("extras");

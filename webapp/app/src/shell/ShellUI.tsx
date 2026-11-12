@@ -22,6 +22,8 @@ export interface ShellUIProps {
   revision: Signal<number>;
   onFullscreen: () => void;
   isFullscreen: boolean;
+  /** The offline maps page's content: download, progress and what is kept (src/offline). */
+  offlinePanel?: () => ComponentChildren;
 }
 const titles: Record<ShellPage, string> = {
   main: "HISTORYLINE",
@@ -39,6 +41,7 @@ const titles: Record<ShellPage, string> = {
   scores: "SCORE LIST",
   saves: "SAVED GAMES",
   original: "ORIGINAL GAME",
+  offline: "OFFLINE MAPS",
   closed: "HISTORYLINE 1914–1918",
 };
 /** Help is the two lines the column shows for the focused control, as the desktop game's menus do. */
@@ -56,7 +59,7 @@ const columnPages: readonly ShellPage[] = [
   "closed",
 ];
 /** The wide pages on a riveted steel board. */
-const boards: readonly ShellPage[] = ["saves", "original", "leave"];
+const boards: readonly ShellPage[] = ["saves", "original", "offline", "leave"];
 /** The pages with the two flags over the painting. */
 const flagPages: readonly ShellPage[] = ["main", "values", "control", "extras"];
 const maxImportBytes = 4 * Math.ceil((8 * 1024 * 1024) / 3) + 2048;
@@ -80,6 +83,7 @@ function pageScene(s: ShellController): string {
     case "scores":
     case "saves":
     case "original":
+    case "offline":
       return "scene/save";
     case "country":
       return "scene/side-selection";
@@ -724,6 +728,15 @@ export function ShellUI(p: ShellUIProps) {
                 busy,
                 ["Play the original game's maps", "from your own copy."],
               )}
+            {p.offlinePanel !== undefined &&
+              button(
+                "Offline maps",
+                () => {
+                  s.open("offline");
+                },
+                busy,
+                ["Keep maps on this device to play", "without a connection."],
+              )}
           </nav>
           <footer class="shell-actions">
             {back(["Back to the main menu."])}
@@ -1001,6 +1014,14 @@ export function ShellUI(p: ShellUIProps) {
       break;
     case "original":
       content = <OriginalPage shell={s} busy={busy} button={button} />;
+      break;
+    case "offline":
+      content = (
+        <>
+          {p.offlinePanel?.()}
+          <footer class="shell-actions">{back(["Back to extras."])}</footer>
+        </>
+      );
       break;
     case "closed":
       content = (

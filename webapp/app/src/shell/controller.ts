@@ -37,6 +37,7 @@ export type ShellPage =
   | "scores"
   | "saves"
   | "original"
+  | "offline"
   | "closed";
 export interface BattleStart {
   mission: Mission;
@@ -266,6 +267,7 @@ export class ShellController {
       case "scores":
       case "saves":
       case "original":
+      case "offline":
         this.show("extras");
         break;
       case "news":
