@@ -1,5 +1,8 @@
+/* The split screen fills the whole window: none of the single map's top bar or dock insets. */
 .original-layout.in-battle #stage {
   inset: 0;
+  top: var(--app-top);
+  height: var(--app-height);
 }
 .split-input {
   position: absolute;
