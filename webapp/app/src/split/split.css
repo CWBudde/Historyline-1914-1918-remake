@@ -51,6 +51,18 @@
 .split-panel .battle-settings {
   pointer-events: auto;
 }
+/* The settings and the help are reached through the game information (info on a cell without a unit, or Escape),
+   as the desktop keeps them off the battle screen. */
+.split-panel .battle-ui:not([data-panel="game"]) .battle-settings {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.split-panel .battle-settings-sheet .battle-help {
+  display: block;
+}
 .split-panel .battle-ui .battle-settings-sheet {
   right: 4px;
   top: calc(100% + 2px);
@@ -232,7 +244,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 5;
+  z-index: 1;
   pointer-events: none;
 }
 .split-panel .battle-ui[data-panel="game"] .battle-dock,

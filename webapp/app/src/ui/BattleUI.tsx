@@ -761,12 +761,34 @@ function Settings({ p }: { p: Props }) {
         >
           Leave battle
         </button>
+        {p.embedded === true && <Help />}
         {(p.settingsNote || p.settingsBusy) && (
           <p class="battle-reason" role="status">
             {p.settingsNote || "Saving settings…"}
           </p>
         )}
       </fieldset>
+    </details>
+  );
+}
+
+function Help() {
+  return (
+    <details class="battle-help">
+      <summary>Keys and touch</summary>
+      <p>
+        Tap to select, move or attack. Drag to pan; wheel or pinch to zoom.
+        Right-click or hold a touch for actions.
+      </p>
+      <p>
+        WASD pans. Arrows move the cursor; Space/Enter selects. Hold Space and
+        choose a direction for an action. Home/End and Page Up/Down look at the
+        map ends.
+      </p>
+      <p>
+        F1 ends the phase, F2 surrenders, Escape goes back. M: reduced motion;
+        F8: map design; F9: battle scenes; F11: fullscreen.
+      </p>
     </details>
   );
 }
@@ -1024,22 +1046,7 @@ export function BattleUI(p: BattleUIProps) {
         ) : (
           <Orders p={p} />
         )}
-        <details class="battle-help">
-          <summary>Keys and touch</summary>
-          <p>
-            Tap to select, move or attack. Drag to pan; wheel or pinch to zoom.
-            Right-click or hold a touch for actions.
-          </p>
-          <p>
-            WASD pans. Arrows move the cursor; Space/Enter selects. Hold Space
-            and choose a direction for an action. Home/End and Page Up/Down look
-            at the map ends.
-          </p>
-          <p>
-            F1 ends the phase, F2 surrenders, Escape goes back. M: reduced
-            motion; F8: map design; F9: battle scenes; F11: fullscreen.
-          </p>
-        </details>
+        {p.embedded !== true && <Help />}
       </aside>
 
       {ring !== null && (

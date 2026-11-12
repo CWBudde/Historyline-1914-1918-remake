@@ -58,6 +58,8 @@ export interface BattleRuntimeOptions {
     click(point: Point): boolean;
     context(point: Point): boolean;
   };
+  /** Whether Escape with nothing to go back from opens the game information (and its settings). */
+  escapeMenu?: boolean;
   /** Whether this panel shows its side's cursor (the player's panels); default true. */
   cursor?: boolean;
 }
@@ -554,8 +556,19 @@ export class BattleRuntime {
     this.ringHover = null;
   }
   private cancel(): void {
+    const b = this.battle;
     if (this.ring.value !== null) this.closeRing();
-    else this.battle.cancel();
+    else if (
+      this.options.escapeMenu === true &&
+      b.selected === null &&
+      b.contents.box === null &&
+      b.panel === "orders" &&
+      !b.phasePrompt &&
+      !b.surrenderPrompt &&
+      !b.playback.busy()
+    )
+      b.showGame();
+    else b.cancel();
   }
   private status(message: string): void {
     if (!this.stopped) {

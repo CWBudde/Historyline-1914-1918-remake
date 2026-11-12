@@ -228,6 +228,7 @@ export class SplitRuntime {
               local?.mode === "simultaneous"
                 ? side === 0
                 : local !== null || side === request.side,
+            escapeMenu: true,
             // The computer's panel shows no cursor, as on the desktop.
             cursor: local !== null || side === request.side,
             hitTest: (point) => host?.hitTest(side, point) ?? true,

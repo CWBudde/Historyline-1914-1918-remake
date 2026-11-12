@@ -334,6 +334,12 @@ export class MapBattle {
     } else this.panel = "game";
     this.touch();
   }
+  /** showGame opens the game information, which also leads to the settings on the split screen. */
+  showGame(): void {
+    this.clearSelection();
+    this.panel = "game";
+    this.touch();
+  }
   actions(at: hexgrid.Coord = this.cursor): Action[] {
     if (
       this.selected !== null ||
