@@ -1,5 +1,5 @@
-// Test-only: the Turbo Packer ("TPWM") unpacker of internal/tpwm for the DOS files (little-endian size), which
-// strength.test.ts uses to read the local original unit table.
+// internal/tpwm: the Turbo Packer ("TPWM") unpacker for the DOS files (little-endian size), which reads the
+// original game files the player imports (origmaps.ts) and the local original unit table in tests.
 
 const magic = [0x54, 0x50, 0x57, 0x4d]; // "TPWM"
 

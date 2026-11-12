@@ -10,7 +10,7 @@ import { tablesOf } from "./profile.ts";
 import { decodeCasualtyFixture, load } from "./testing/fixtures.ts";
 import { repo } from "./testing/files.ts";
 import { Profiles } from "./testing/tables.ts";
-import { unpack } from "./testing/tpwm.ts";
+import { unpack } from "./tpwm.ts";
 
 describe("TestShippedStrengthData", () => {
   it.each(Profiles)("%s", (_build, p) => {

@@ -15,6 +15,12 @@ export * as campaign from "./campaign.ts";
 export * as bind from "./bind.ts";
 export * as play from "./play.ts";
 export * as ai from "./ai.ts";
+export * as tpwm from "./tpwm.ts";
+export * as finmap from "./finmap.ts";
+export * as origmaps from "./origmaps.ts";
+export * as origview from "./origview.ts";
+export { fromOriginal, remakeIDs } from "./original.ts";
+export { moveTablesOf } from "./board.ts";
 
 export {
   int8,
