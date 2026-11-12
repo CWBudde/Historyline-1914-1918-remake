@@ -65,7 +65,7 @@ export class MapImages {
     private readonly error: (e: Error) => void,
   ) {
     this.cache = new RenderCache(
-      192 * 1024 * 1024,
+      256 * 1024 * 1024,
       decodeConcurrency,
       changed,
       error,
@@ -266,8 +266,14 @@ export class MapImages {
         anchor[1] += margin;
       }
       const base = Texture.from(source, true);
-      base.source.style.scaleMode =
-        image.nearest === true ? "nearest" : "linear";
+      if (image.nearest === true) base.source.style.scaleMode = "nearest";
+      else {
+        // Mipmaps: a zoomed-out map shrinks its art from a halved level instead of aliasing, as Ebiten's do. The
+        // nearest level, filtered bilinearly, keeps full detail down to 0.71 (trilinear would blur from 1).
+        base.source.style.scaleMode = "linear";
+        base.source.style.mipmapFilter = "nearest";
+        base.source.autoGenerateMipmaps = true;
+      }
       const texture =
         image.frame === undefined
           ? base
@@ -290,7 +296,10 @@ export class MapImages {
       this.keys.set(value, key);
       return {
         value,
-        bytes: source.width * source.height * 4,
+        // Mipmaps add a third.
+        bytes: Math.ceil(
+          source.width * source.height * (image.nearest === true ? 4 : 16 / 3),
+        ),
         dispose: () => {
           if (texture !== base) texture.destroy();
           base.destroy(true);

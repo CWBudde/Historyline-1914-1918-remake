@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { Texture } from "pixi.js";
+import { Texture, TextureSource } from "pixi.js";
 import { AssetLoader } from "./assets.ts";
 import { MapImages, type MapImage, type ReadyImage } from "./mapImages.ts";
 import type { FileRef } from "./assetManifest.ts";
@@ -449,6 +449,50 @@ it("holds an image decoded earlier as the stand-in of its successor", async () =
     expect(f.images.hold(ready)).toBe(true);
     expect(f.images.hold({ ...ready })).toBe(false);
     f.images.cache.end();
+  } finally {
+    f.images.dispose();
+    from.mockRestore();
+    vi.unstubAllGlobals();
+  }
+});
+
+it("mipmaps map art so that a zoomed-out map shrinks it smoothly, but not pixel glyphs", async () => {
+  const f = await catalogFixture();
+  vi.stubGlobal(
+    "createImageBitmap",
+    vi.fn(() => Promise.resolve({ width: 8, height: 6, close: () => {} })),
+  );
+  const from = vi
+    .spyOn(Texture, "from")
+    .mockImplementation(() => new Texture({ source: new TextureSource() }));
+  const tile: MapImage = {
+    id: "tile/test",
+    width: 8,
+    height: 6,
+    density: 1,
+    logicalAnchor: [4, 3],
+    lite: f.liteImage,
+    full: f.liteImage,
+  };
+  const glyph: MapImage = { ...tile, id: "glyph/1", nearest: true };
+  try {
+    f.images.cache.begin();
+    f.images.get(tile);
+    f.images.get(glyph);
+    f.images.cache.end();
+    await vi.waitFor(() => {
+      expect(f.images.peek(tile)).not.toBeNull();
+      expect(f.images.peek(glyph)).not.toBeNull();
+    });
+    const art = f.images.peek(tile)?.texture.source,
+      pixel = f.images.peek(glyph)?.texture.source;
+    expect(art?.autoGenerateMipmaps).toBe(true);
+    expect(art?.style.minFilter).toBe("linear");
+    expect(art?.style.mipmapFilter).toBe("nearest");
+    expect(pixel?.autoGenerateMipmaps).toBe(false);
+    expect(pixel?.style.minFilter).toBe("nearest");
+    // The budget counts the mipmaps' third.
+    expect(f.images.cache.bytes).toBe(Math.ceil((8 * 6 * 16) / 3) + 8 * 6 * 4);
   } finally {
     f.images.dispose();
     from.mockRestore();
