@@ -14,6 +14,7 @@ import "./shell.css";
 import { OriginalPage } from "./OriginalPage.tsx";
 import { design, designNames, nextDesign } from "../original/design.ts";
 import { hasOriginalArt } from "../original/state.ts";
+import { shellUnit, useShellMaterials } from "./materials.ts";
 
 export interface ShellUIProps {
   shell: ShellController;
@@ -40,6 +41,24 @@ const titles: Record<ShellPage, string> = {
   original: "ORIGINAL GAME",
   closed: "HISTORYLINE 1914–1918",
 };
+/** Help is the two lines the column shows for the focused control, as the desktop game's menus do. */
+type Help = readonly [string, string?];
+/** The pages whose controls stand in the steel column at the left, over the painting. */
+const columnPages: readonly ShellPage[] = [
+  "main",
+  "code",
+  "values",
+  "control",
+  "extras",
+  "scores",
+  "loading",
+  "outcome",
+  "closed",
+];
+/** The wide pages on a riveted steel board. */
+const boards: readonly ShellPage[] = ["saves", "original", "leave"];
+/** The pages with the two flags over the painting. */
+const flagPages: readonly ShellPage[] = ["main", "values", "control", "extras"];
 const maxImportBytes = 4 * Math.ceil((8 * 1024 * 1024) / 3) + 2048;
 const controls =
   'button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), [tabindex="0"]';
@@ -78,6 +97,7 @@ function Art({
   alt = "",
   className = "",
   cover = false,
+  drawn = false,
 }: {
   p: ShellUIProps;
   id: string;
@@ -85,12 +105,18 @@ function Art({
   className?: string;
   /** The painting covers the window: its art is chosen for the drawn size. */
   cover?: boolean;
+  /** The art is drawn at the steel's scale (shell.css --u) rather than its own size. */
+  drawn?: boolean;
 }) {
   const ui = p.shell.settings.uiScale,
     image = p.assets.image(
       "screens",
       id,
-      cover ? paintingScale(window.innerWidth, window.innerHeight, ui) : ui,
+      cover
+        ? paintingScale(window.innerWidth, window.innerHeight, ui)
+        : drawn
+          ? shellUnit(window.innerWidth, window.innerHeight, ui)
+          : ui,
       cover,
     ).value;
   return image.url === null ? (
@@ -113,7 +139,7 @@ function Art({
 }
 function Unit({ p, card }: { p: ShellUIProps; card: UnitCard }) {
   return (
-    <article class="shell-unit">
+    <article class="shell-unit shell-well">
       <Art
         p={p}
         id={`portrait/${card.family}`}
@@ -145,7 +171,30 @@ export function ShellUI(p: ShellUIProps) {
   const [fileError, setFileError] = useState("");
   const [reading, setReading] = useState(false);
   const [code, setCode] = useState("");
+  const [help, setHelp] = useState<Help | null>(null);
+  const materials = useShellMaterials(p.assets, s.settings.uiScale);
   const busy = s.busy || reading;
+  /** Focus and pointer show a control's help in the column. */
+  const helpOf = (lines: Help | undefined) =>
+    lines === undefined
+      ? {}
+      : {
+          onFocus: () => {
+            setHelp(lines);
+          },
+          onMouseEnter: () => {
+            setHelp(lines);
+          },
+        };
+  /** fieldHelp is helpOf for a label around its control. */
+  const fieldHelp = (lines: Help) => ({
+    onFocusCapture: () => {
+      setHelp(lines);
+    },
+    onMouseEnter: () => {
+      setHelp(lines);
+    },
+  });
   const run = (action: () => void | Promise<void>) => {
     setFileError("");
     try {
@@ -162,6 +211,7 @@ export function ShellUI(p: ShellUIProps) {
     label: string,
     action: () => void | Promise<void>,
     disabled = busy,
+    lines?: Help,
   ) => (
     <button
       type="button"
@@ -170,14 +220,20 @@ export function ShellUI(p: ShellUIProps) {
       onClick={() => {
         run(action);
       }}
+      {...helpOf(lines)}
     >
       {label}
     </button>
   );
-  const back = () =>
-    button("Back", () => {
-      s.back();
-    });
+  const back = (lines: Help = ["Back to the previous page."]) =>
+    button(
+      "Back",
+      () => {
+        s.back();
+      },
+      busy,
+      lines,
+    );
 
   useLayoutEffect(() => {
     // IndexedDB operations disable controls briefly. Restore the same control
@@ -197,6 +253,7 @@ export function ShellUI(p: ShellUIProps) {
 
   useLayoutEffect(() => {
     setFileError("");
+    setHelp(null);
     if (page === "code") setCode("");
     const node = root.current;
     if (!node || page === "battle") return;
@@ -310,14 +367,7 @@ export function ShellUI(p: ShellUIProps) {
 
   if (page === "battle") return null;
   const scene = pageScene(s);
-  const wide = [
-    "country",
-    "news",
-    "units",
-    "saves",
-    "leave",
-    "original",
-  ].includes(page);
+  const wide = !columnPages.includes(page);
   const title =
     page === "outcome"
       ? s.result?.draw
@@ -363,31 +413,60 @@ export function ShellUI(p: ShellUIProps) {
     case "main":
       content = (
         <>
-          <p class="shell-years">1 9 1 4 · 1 9 1 8</p>
           <nav class="shell-menu" aria-label="Main menu">
-            {button("Start", () => {
-              s.start();
-            })}
-            {button(`Code  ${s.mission.code}`, () => {
-              s.open("code");
-            })}
-            {button("Game values", () => {
-              s.open("values");
-            })}
-            {button("Control", () => {
-              s.open("control");
-            })}
-            {button("Extras", () => {
-              s.open("extras");
-            })}
+            {button(
+              "Start",
+              () => {
+                s.start();
+              },
+              busy,
+              [
+                "Begin the battle for the map",
+                `${s.mission.name}, ${s.mission.news?.label ?? s.mission.month}.`,
+              ],
+            )}
+            {button(
+              `Code  ${s.mission.code}`,
+              () => {
+                s.open("code");
+              },
+              busy,
+              ["Type the code of a map you have", "reached, then press Enter."],
+            )}
+            {button(
+              "Game values",
+              () => {
+                s.open("values");
+              },
+              busy,
+              ["Battles, players and the move", "limit."],
+            )}
+            {button(
+              "Control",
+              () => {
+                s.open("control");
+              },
+              busy,
+              ["Layout, screen, scrolling and", "the map's design."],
+            )}
+            {button(
+              "Extras",
+              () => {
+                s.open("extras");
+              },
+              busy,
+              ["Score list, saved games and the", "original game's maps."],
+            )}
           </nav>
-          <p class="shell-muted">
-            {s.mission.news?.label ?? s.mission.month} · {s.mission.name}
-          </p>
           <footer class="shell-actions">
-            {button("Exit", () => {
-              s.open("closed");
-            })}
+            {button(
+              "Exit",
+              () => {
+                s.open("closed");
+              },
+              busy,
+              ["Leave Historyline 1914–1918."],
+            )}
           </footer>
         </>
       );
@@ -395,7 +474,6 @@ export function ShellUI(p: ShellUIProps) {
     case "code":
       content = (
         <>
-          <p>Type the code of a map you have reached, then press Enter.</p>
           <form
             class="shell-menu"
             onSubmit={(event) => {
@@ -405,14 +483,18 @@ export function ShellUI(p: ShellUIProps) {
               });
             }}
           >
-            <label class="shell-field">
-              Map code
+            <label class="shell-field shell-code">
+              <span>Map code</span>
               <input
                 value={code}
                 maxLength={12}
                 autoComplete="off"
                 autoCapitalize="characters"
                 spellcheck={false}
+                {...helpOf([
+                  "Type the code of a map you have",
+                  "reached, then press Enter.",
+                ])}
                 onInput={(event) => {
                   const value = event.currentTarget.value
                     .toUpperCase()
@@ -423,24 +505,43 @@ export function ShellUI(p: ShellUIProps) {
                 }}
               />
             </label>
-            <button type="submit" class="shell-button" disabled={busy || !code}>
+            <button
+              type="submit"
+              class="shell-button"
+              disabled={busy || !code}
+              {...helpOf(["Open the map of this code."])}
+            >
               Confirm code
             </button>
           </form>
-          <footer class="shell-actions">{back()}</footer>
+          <footer class="shell-actions">
+            {back(["Back to the main menu."])}
+          </footer>
         </>
       );
       break;
     case "values":
       content = (
         <>
-          <div class="shell-menu">
+          <div class="shell-menu shell-menu-tight">
             <p class="shell-fixed">Rules · Original (DOS)</p>
-            {button(`Battles · ${s.settings.reduced ? "Short" : "Full"}`, () =>
-              change({ reduced: !s.settings.reduced }),
+            {button(
+              `Battles · ${s.settings.reduced ? "Short" : "Full"}`,
+              () => change({ reduced: !s.settings.reduced }),
+              busy,
+              [
+                "Full: units walk and fire in full.",
+                "Short: moves and fire are instant.",
+              ],
             )}
-            <label class="shell-field">
-              Play mode
+            <label
+              class="shell-field"
+              {...fieldHelp([
+                "Two humans: the split screen, B on",
+                "D/C/X/V + Ctrl. Hot-seat takes turns.",
+              ])}
+            >
+              <span>Play mode</span>
               <select
                 value={s.settings.playMode}
                 disabled={busy}
@@ -470,6 +571,11 @@ export function ShellUI(p: ShellUIProps) {
                         ? "passive"
                         : "computer",
                   }),
+                busy,
+                [
+                  "Computer: the computer commands.",
+                  "Passive: it confirms without orders.",
+                ],
               )
             ) : (
               <p class="shell-fixed">Player B · Human</p>
@@ -486,19 +592,31 @@ export function ShellUI(p: ShellUIProps) {
                     ] ?? 0,
                 });
               },
+              busy,
+              [
+                "Orders each side may give a phase.",
+                "Fewer orders score higher.",
+              ],
             )}
           </div>
-          <p class="shell-muted">Fewer orders score higher.</p>
-          <footer class="shell-actions">{back()}</footer>
+          <footer class="shell-actions">
+            {back(["Back to the main menu."])}
+          </footer>
         </>
       );
       break;
     case "control":
       content = (
         <>
-          <div class="shell-menu">
-            <label class="shell-field">
-              Layout
+          <div class="shell-menu shell-menu-tight">
+            <label
+              class="shell-field"
+              {...fieldHelp([
+                "The battle screen: the split screen",
+                "of the original or one map.",
+              ])}
+            >
+              <span>Layout</span>
               <select
                 value={s.settings.layout}
                 disabled={busy}
@@ -513,22 +631,34 @@ export function ShellUI(p: ShellUIProps) {
             {button(
               `Fullscreen · ${p.isFullscreen ? "On" : "Off"}`,
               p.onFullscreen,
+              busy,
+              ["Window or full screen (F11)."],
             )}
-            {button(`Scrolling · ${s.settings.scroll}`, () =>
-              change({
-                scroll:
-                  s.settings.scroll === "normal"
-                    ? "fast"
-                    : s.settings.scroll === "fast"
-                      ? "slow"
-                      : "normal",
-              }),
+            {button(
+              `Scrolling · ${s.settings.scroll}`,
+              () =>
+                change({
+                  scroll:
+                    s.settings.scroll === "normal"
+                      ? "fast"
+                      : s.settings.scroll === "fast"
+                        ? "slow"
+                        : "normal",
+                }),
+              busy,
+              ["How fast the arrow keys move the map."],
             )}
-            {button(`Motion · ${s.settings.reduced ? "Reduced" : "Full"}`, () =>
-              change({ reduced: !s.settings.reduced }),
+            {button(
+              `Motion · ${s.settings.reduced ? "Reduced" : "Full"}`,
+              () => change({ reduced: !s.settings.reduced }),
+              busy,
+              ["Full or reduced animation."],
             )}
-            {button(`Battle scenes · ${s.settings.scenes ? "On" : "Off"}`, () =>
-              change({ scenes: !s.settings.scenes }),
+            {button(
+              `Battle scenes · ${s.settings.scenes ? "On" : "Off"}`,
+              () => change({ scenes: !s.settings.scenes }),
+              busy,
+              ["Show the battle scenes between", "units, or skip them."],
             )}
             {(() => {
               // Painted where a month has a painting; Original once the original game's files are imported.
@@ -540,10 +670,18 @@ export function ShellUI(p: ShellUIProps) {
               return button(
                 `Map design · ${designNames[design(s.settings, a)]}`,
                 () => change(nextDesign(s.settings, a)),
+                busy,
+                [
+                  "The painted map, its tiles, or the",
+                  "original game's art once imported.",
+                ],
               );
             })()}
-            <label class="shell-field">
-              UI scale
+            <label
+              class="shell-field"
+              {...fieldHelp(["The size of the menus and panels."])}
+            >
+              <span>UI scale</span>
               <select
                 value={s.settings.uiScale}
                 disabled={busy}
@@ -560,12 +698,9 @@ export function ShellUI(p: ShellUIProps) {
               </select>
             </label>
           </div>
-          <p class="shell-muted">
-            Two humans uses the original split screen. Player A: mouse or arrows
-            + Space. Player B: D/C/X/V + Ctrl. Hot-seat passes control between
-            players.
-          </p>
-          <footer class="shell-actions">{back()}</footer>
+          <footer class="shell-actions">
+            {back(["Back to the main menu."])}
+          </footer>
         </>
       );
       break;
@@ -573,14 +708,26 @@ export function ShellUI(p: ShellUIProps) {
       content = (
         <>
           <nav class="shell-menu" aria-label="Extras">
-            {button("Score list", () => s.openStorage("scores"))}
-            {button("Load game", () => s.openStorage("saves"))}
+            {button("Score list", () => s.openStorage("scores"), busy, [
+              "The best score of each map.",
+            ])}
+            {button("Load game", () => s.openStorage("saves"), busy, [
+              "Load, export or import a saved",
+              "battle.",
+            ])}
             {s.originals !== null &&
-              button("Original game", () => {
-                s.open("original");
-              })}
+              button(
+                "Original game",
+                () => {
+                  s.open("original");
+                },
+                busy,
+                ["Play the original game's maps", "from your own copy."],
+              )}
           </nav>
-          <footer class="shell-actions">{back()}</footer>
+          <footer class="shell-actions">
+            {back(["Back to the main menu."])}
+          </footer>
         </>
       );
       break;
@@ -592,7 +739,7 @@ export function ShellUI(p: ShellUIProps) {
               <button
                 key={side}
                 type="button"
-                class="shell-country"
+                class="shell-plate shell-country"
                 data-side={side}
                 disabled={busy}
                 onClick={() => {
@@ -603,6 +750,7 @@ export function ShellUI(p: ShellUIProps) {
                   p={p}
                   id={side === 0 ? "country/germany" : "country/france"}
                   className="shell-country-flag"
+                  drawn
                 />
                 <strong>{side === 0 ? "Germany" : "France"}</strong>
                 <span>{side === 0 ? "The Central Powers" : "The Entente"}</span>
@@ -802,7 +950,7 @@ export function ShellUI(p: ShellUIProps) {
               return (
                 <section
                   key={slot}
-                  class="shell-save-slot"
+                  class="shell-save-slot shell-well"
                   aria-labelledby={`shell-slot-${slot}`}
                 >
                   <h2 id={`shell-slot-${slot}`}>Slot {slot}</h2>
@@ -873,22 +1021,49 @@ export function ShellUI(p: ShellUIProps) {
         if (event.target instanceof HTMLElement)
           lastFocused.current = event.target;
       }}
-      class={`shell-ui shell-page-${page}${wide ? " shell-wide" : ""}`}
-      style={{ "--shell-scale": s.settings.uiScale }}
+      class={`shell-ui shell-page-${page} ${wide ? "shell-wide" : "shell-columned"}`}
+      style={{ "--shell-scale": s.settings.uiScale, ...materials }}
       tabIndex={-1}
       role={page === "leave" ? "dialog" : undefined}
       aria-modal={page === "leave" ? true : undefined}
       aria-labelledby="shell-title"
       aria-busy={busy}
     >
-      <div class="shell-backdrop" aria-hidden="true">
+      <div
+        class={`shell-backdrop${scene || page === "leave" ? "" : " shell-hull"}`}
+        aria-hidden="true"
+      >
         {scene && <Art p={p} id={scene} className="shell-scene" cover />}
+        {flagPages.includes(page) && (
+          <div class="shell-flags">
+            <Art p={p} id="country/germany" drawn />
+            <Art p={p} id="country/france" drawn />
+          </div>
+        )}
       </div>
-      <main class="shell-sheet">
-        <header class="shell-heading">
+      <main
+        class={`shell-sheet${!wide || boards.includes(page) ? " shell-plate shell-panel" : ""}`}
+      >
+        <header
+          class={`shell-heading${page === "country" ? " shell-plate shell-name-plate" : ""}`}
+        >
           <h1 id="shell-title">{title}</h1>
+          {page === "main" && (
+            <>
+              <p class="shell-years">1 9 1 4 &nbsp; – &nbsp; 1 9 1 8</p>
+              <p class="shell-month">
+                {s.mission.news?.label ?? s.mission.month}
+              </p>
+            </>
+          )}
         </header>
         {content}
+        {!wide && help !== null && (
+          <aside class="shell-help">
+            <p>{help[0]}</p>
+            {help[1] !== undefined && <p class="shell-muted">{help[1]}</p>}
+          </aside>
+        )}
         {!s.storageAvailable() &&
           ["saves", "scores", "leave"].includes(page) && (
             <p class="shell-notice" role="status">

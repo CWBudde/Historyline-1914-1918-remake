@@ -1,7 +1,24 @@
+/*
+ * The menus in the desktop game's steel (cmd/historyline/app.go, internal/dospanel/menu.go). Lengths are reference
+ * pixels of its 640×400 menu canvas: --u is the CSS pixels of one, the canvas fitted to the window in landscape and a
+ * 340×560 column in portrait. Steel is a colour of the ramp under the graded steel tile (--hl-steel, overlay), see
+ * steel.ts; the tile, the rivet heads and the seams arrive from materials.ts, the plain colours stand until then.
+ */
 .shell-ui {
-  --shell-cream: #eee5d2;
-  --shell-brass: #c4a773;
-  --shell-muted: #afbab7;
+  --u: calc(
+    max(1.1px, min(100vw / 640, var(--app-height, 100dvh) / 400)) *
+      var(--shell-scale, 1)
+  );
+  --bw: max(1px, var(--u));
+  --cream: #fbe3c7;
+  --amber: #f0b858;
+  --muted: rgb(124 124 114);
+  --brass: #a8803c;
+  --brass-l: #e0bc6c;
+  --brass-d: #58401c;
+  --steel-dark: #24241c;
+  --plate-edge: #1c140c;
+  --engrave: calc(0.5 * var(--u)) calc(0.5 * var(--u)) 0 var(--steel-dark);
   position: fixed;
   inset: 0;
   z-index: 20;
@@ -9,18 +26,160 @@
   overscroll-behavior: contain;
   pointer-events: auto;
   touch-action: pan-y;
-  color: var(--shell-cream);
-  background: #172830;
+  color: var(--cream);
+  background: #000;
   font:
-    calc(15px * var(--shell-scale, 1)) / 1.5 "HL Sans",
+    calc(12 * var(--u)) / 1.5 "HL Sans",
     sans-serif;
-  scrollbar-color: #9d8b67 #172830;
+  scrollbar-color: var(--brass) var(--steel-dark);
+}
+@media (orientation: portrait) {
+  .shell-ui {
+    --u: calc(
+      max(1.1px, min(100vw / 340, var(--app-height, 100dvh) / 560)) *
+        var(--shell-scale, 1)
+    );
+    /* The painting's band above the column: the whole painting's width, at most two fifths of the height. */
+    --band: min(62.5vw, calc(var(--app-height, 100dvh) * 0.4));
+  }
 }
 .shell-ui *,
 .shell-ui *::before,
 .shell-ui *::after {
   box-sizing: border-box;
 }
+.shell-ui h1,
+.shell-ui h2,
+.shell-ui h3,
+.shell-ui p {
+  margin: 0 0 0.6em;
+}
+
+/* ---------------------------------------------------------------- materials */
+
+/*
+ * A steel plate: the face colour --c under the graded tile, a light falloff from the top left, a dark outer edge,
+ * two bevel bands (--lit/--unlit, then --lit2/--unlit2) and brass rivets in the corners when --rv is the rivet.
+ */
+.shell-ui .shell-plate,
+.shell-ui .shell-button,
+.shell-ui .shell-field,
+.shell-ui .shell-fixed,
+.shell-ui .shell-import,
+.shell-ui .shell-well {
+  --c: rgb(101 101 91);
+  --edge: rgb(47 47 39);
+  --lit: rgb(144 144 133);
+  --unlit: rgb(59 59 50);
+  --lit2: transparent;
+  --unlit2: rgb(73 73 64);
+  --rv: var(--hl-rivet, none);
+  --tile: var(--hl-steel, none);
+  /* menuSteel's light: +0.055 tone at the top, −0.045 towards the bottom right corner. */
+  --falloff: linear-gradient(rgb(178 178 166 / 8%), transparent);
+  --falloff2: radial-gradient(
+    farthest-corner at 100% 100%,
+    rgb(36 36 28 / 14%),
+    transparent
+  );
+  /* A rivet head of radius 1.7 at 5 from each corner (steel.ts rivetImage: 40 px, radius 14 at 16). */
+  --rs: calc(4.857 * var(--u));
+  --ra: calc(3.057 * var(--u));
+  --rb: calc(2.086 * var(--u));
+  background-color: var(--c);
+  background-image:
+    var(--rv), var(--rv), var(--rv), var(--rv), var(--tile), var(--falloff),
+    var(--falloff2);
+  background-blend-mode:
+    normal, normal, normal, normal, overlay, normal, normal;
+  background-position:
+    left var(--ra) top var(--ra),
+    right var(--rb) top var(--ra),
+    left var(--ra) bottom var(--rb),
+    right var(--rb) bottom var(--rb),
+    0 0,
+    0 0,
+    0 0;
+  background-size:
+    var(--rs) var(--rs),
+    var(--rs) var(--rs),
+    var(--rs) var(--rs),
+    var(--rs) var(--rs),
+    calc(256 * var(--u)) calc(256 * var(--u)),
+    100% 100%,
+    100% 100%;
+  background-repeat:
+    no-repeat, no-repeat, no-repeat, no-repeat, repeat, no-repeat, no-repeat;
+  background-origin: border-box;
+  border: var(--bw) solid var(--edge);
+  border-radius: 0;
+  box-shadow:
+    inset var(--bw) var(--bw) 0 var(--lit),
+    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
+    inset calc(2 * var(--bw)) calc(2 * var(--bw)) 0 var(--lit2),
+    inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
+}
+/* The menus' column: a raised plate of tone 0.30. */
+.shell-ui .shell-panel {
+  --c: rgb(79 79 69);
+  --edge: var(--steel-dark);
+  --lit: rgb(121 121 111);
+  --unlit: var(--steel-dark);
+  --unlit2: rgb(50 50 42);
+}
+/* A recessed well (menuWell): dark steel, a sunk bevel and a shadow under its top lip. */
+.shell-ui .shell-well {
+  --c: rgb(56 56 47);
+  --edge: rgb(39 39 31);
+  --lit: rgb(47 47 39);
+  --unlit: rgb(133 133 122);
+  --lit2: transparent;
+  --unlit2: transparent;
+  --rv: none;
+  --falloff: linear-gradient(
+    to bottom,
+    transparent calc(2 * var(--u)),
+    rgb(36 36 28 / 35%) calc(2 * var(--u)),
+    rgb(36 36 28 / 35%) calc(5 * var(--u)),
+    transparent calc(5 * var(--u))
+  );
+  --falloff2: none;
+}
+/* The brown name plate with brass lines (menuNamePlate). */
+.shell-ui .shell-name-plate {
+  --c: rgb(64 50 37);
+  --edge: var(--plate-edge);
+  --lit: var(--brass-l);
+  --unlit: var(--brass-d);
+  --lit2: transparent;
+  --unlit2: transparent;
+  --tile: var(--hl-brown, none);
+  --falloff: linear-gradient(transparent, rgb(28 20 12 / 34%));
+  --falloff2: none;
+}
+/* The hull plating behind pages without a painting: darker steel, seams with rivets, dim corners. */
+.shell-hull {
+  background-color: rgb(76 76 67);
+  background-image:
+    var(--hl-seams, none), var(--hl-steel, none),
+    radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgb(36 36 28 / 16%) 100%
+    );
+  background-blend-mode: normal, overlay, normal;
+  background-size:
+    calc(160 * var(--u)) calc(160 * var(--u)),
+    calc(256 * var(--u)) calc(256 * var(--u)),
+    100% 100%;
+  background-position:
+    calc(160 * var(--u)) calc(160 * var(--u)),
+    0 0,
+    0 0;
+}
+
+/* ---------------------------------------------------------------- the painting */
+
 .shell-backdrop {
   position: fixed;
   inset: 0;
@@ -35,269 +194,611 @@
 .shell-art-empty {
   background: #53606244;
 }
-.shell-backdrop .shell-art {
+.shell-backdrop .shell-scene {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.shell-sheet {
-  position: relative;
-  min-height: 100%;
-  width: min(31em, 48%);
-  padding: max(28px, env(safe-area-inset-top)) clamp(20px, 3vw, 48px)
-    max(28px, env(safe-area-inset-bottom));
-  background: linear-gradient(110deg, #2a3e47f7, #172830fa 75%);
-  border-right: 2px solid #95805b;
-  box-shadow: 8px 0 28px #0005;
-  overflow-wrap: anywhere;
+.shell-flags {
+  position: absolute;
+  top: calc(30 * var(--u));
+  right: calc(36 * var(--u));
+  display: flex;
+  gap: calc(8 * var(--u));
 }
-.shell-ui h1,
-.shell-ui h2,
-.shell-ui h3,
-.shell-ui p {
-  margin: 0 0 0.8em;
+.shell-flags .shell-art {
+  width: calc(42 * var(--u));
+  height: calc(30 * var(--u));
+  object-fit: fill;
 }
+
+/* ---------------------------------------------------------------- text */
+
 .shell-ui h1,
 .shell-ui h2 {
   font-family: "HL Display", "HL Serif", serif;
-  line-height: 1.15;
-  color: var(--shell-brass);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--amber);
+  text-shadow: var(--engrave);
 }
 .shell-ui h1 {
-  font-size: clamp(1.65em, 3.2vw, 2.8em);
+  font-size: calc(23 * var(--u));
 }
 .shell-ui h2 {
-  font-size: 1.25em;
+  font-size: calc(16 * var(--u));
 }
 .shell-ui h3 {
-  font-size: 0.9em;
+  font-size: calc(10 * var(--u));
 }
-.shell-heading {
-  margin-bottom: 1.6em;
-  border-bottom: 1px solid #9d8b67;
+.shell-muted {
+  color: var(--muted);
 }
-.shell-years {
-  letter-spacing: 0.12em;
-  color: var(--shell-brass);
+.shell-notice {
+  color: var(--amber);
+  margin: calc(10 * var(--u)) 0 0 !important;
+  border-top: var(--bw) solid var(--brass-d);
+  padding-top: calc(6 * var(--u));
 }
-.shell-menu {
-  display: grid;
-  gap: 0.65em;
-  margin: 1.3em 0;
-}
+
+/* ---------------------------------------------------------------- buttons and fields */
+
 .shell-ui button,
 .shell-ui input,
-.shell-ui select,
-.shell-import {
+.shell-ui select {
   font: inherit;
-  color: var(--shell-cream);
-  min-height: 44px;
-  border: 1px solid #9d8b67;
-  border-radius: 3px;
-  background: linear-gradient(#354b55, #1b2b34);
-  padding: 0.6em 0.85em;
+  color: var(--cream);
   max-width: 100%;
 }
-.shell-ui button {
+.shell-ui .shell-button,
+.shell-ui .shell-import {
+  /* menuButton, normal: a plate of tone 0.22 with a lit inner line. */
+  --c: rgb(67 67 58);
+  --edge: var(--steel-dark);
+  --lit: rgb(110 110 100);
+  --unlit: var(--steel-dark);
+  --lit2: rgb(84 84 75);
+  --unlit2: rgb(39 39 31);
+  min-height: calc(30 * var(--u));
+  padding: calc(4 * var(--u)) calc(12 * var(--u));
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: var(--engrave);
   cursor: pointer;
   touch-action: manipulation;
   overflow-wrap: anywhere;
 }
-.shell-menu .shell-button {
-  text-align: left;
+.shell-ui .shell-button:hover:not(:disabled),
+.shell-ui .shell-import:hover:not(.shell-disabled) {
+  --c: rgb(73 73 64);
+  --lit2: rgb(96 96 86);
 }
-.shell-ui button:hover:not(:disabled),
-.shell-import:hover:not(.shell-disabled) {
-  border-color: #f3d7a0;
-  background: #3c5057;
+/* Focus (menuButton, focus): tone 0.28 in brass lines, an amber label. */
+.shell-ui .shell-button:focus-visible,
+.shell-ui .shell-field:focus-within,
+.shell-ui .shell-import:focus-within {
+  --c: rgb(76 76 67);
+  --lit: var(--brass-d);
+  --unlit: var(--brass-d);
+  --lit2: var(--brass-l);
+  --unlit2: var(--brass);
+  color: var(--amber);
+  outline: none;
 }
-.shell-ui button:active:not(:disabled) {
-  background: #15252d;
+.shell-ui .shell-button:active:not(:disabled) {
+  /* Pressed: sunk steel without rivets. */
+  --c: rgb(64 64 56);
+  --edge: rgb(43 43 35);
+  --lit: rgb(47 47 39);
+  --unlit: rgb(133 133 122);
+  --lit2: transparent;
+  --unlit2: transparent;
+  --rv: none;
 }
-.shell-ui button:disabled,
-.shell-disabled {
-  opacity: 0.5;
+.shell-ui .shell-button:disabled,
+.shell-ui .shell-fixed,
+.shell-ui .shell-disabled {
+  /* Disabled: flat steel of tone 0.16, a muted label. */
+  --c: rgb(59 59 50);
+  --edge: rgb(39 39 31);
+  --lit: rgb(81 81 72);
+  --unlit: rgb(56 56 47);
+  --lit2: transparent;
+  --unlit2: transparent;
+  --rv: none;
+  color: var(--muted);
   cursor: default;
 }
-.shell-ui :focus-visible {
-  outline: 3px solid #f4d698;
-  outline-offset: 3px;
+.shell-ui .shell-fixed {
+  display: flex;
+  align-items: center;
+  min-height: calc(30 * var(--u));
+  margin: 0;
+  padding: calc(4 * var(--u)) calc(12 * var(--u));
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: var(--engrave);
 }
-.shell-ui input,
-.shell-ui select {
+/* A select or text field in one steel row: its name, then the control. */
+.shell-ui .shell-field {
+  --c: rgb(67 67 58);
+  --edge: var(--steel-dark);
+  --lit: rgb(110 110 100);
+  --unlit: var(--steel-dark);
+  --lit2: rgb(84 84 75);
+  --unlit2: rgb(39 39 31);
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  min-height: calc(30 * var(--u));
+  padding: 0 calc(8 * var(--u)) 0 calc(12 * var(--u));
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: var(--engrave);
+}
+.shell-ui .shell-field > span {
+  flex: none;
+}
+.shell-ui .shell-field select,
+.shell-ui .shell-field input {
+  flex: 1;
   min-width: 0;
-  width: 100%;
+  min-height: calc(22 * var(--u));
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-weight: 400;
+  text-align: right;
+  text-overflow: ellipsis;
+  text-transform: none;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+.shell-ui .shell-field select {
+  padding-right: calc(12 * var(--u));
+  background:
+    linear-gradient(45deg, transparent 50%, currentcolor 50%) right
+      calc(5 * var(--u)) center / calc(5 * var(--u)) calc(5 * var(--u))
+      no-repeat,
+    linear-gradient(135deg, currentcolor 50%, transparent 50%) right 0 center /
+      calc(5 * var(--u)) calc(5 * var(--u)) no-repeat;
 }
 .shell-ui option {
-  color: var(--shell-cream);
-  background: #263942;
+  color: var(--cream);
+  background: rgb(56 56 47);
 }
-.shell-field {
+/* The map code is typed into a well. */
+.shell-ui .shell-code input {
+  margin: calc(3 * var(--u)) 0;
+  padding: 0 calc(8 * var(--u));
+  min-height: calc(22 * var(--u));
+  color: var(--amber);
+  text-align: left;
+  letter-spacing: 0.12em;
+  background: rgb(43 43 35);
+  box-shadow:
+    inset var(--bw) var(--bw) 0 var(--steel-dark),
+    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 rgb(110 110 100);
+  cursor: text;
+}
+.shell-ui :focus-visible {
+  outline: calc(2 * var(--bw)) solid var(--brass-l);
+  outline-offset: calc(2 * var(--bw));
+}
+.shell-menu {
   display: grid;
-  gap: 0.35em;
+  gap: calc(14 * var(--u));
+  margin: 0;
 }
-.shell-fixed {
-  padding: 0.6em 0.85em;
-  margin: 0 !important;
-  color: var(--shell-muted);
-  border-bottom: 1px solid #687773;
-}
-.shell-muted {
-  color: var(--shell-muted);
-  font-size: 0.85em;
+.shell-menu-tight {
+  gap: calc(8 * var(--u));
 }
 .shell-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65em;
-  margin: 1em 0 0;
+  gap: calc(8 * var(--u));
+  margin: calc(14 * var(--u)) 0 0;
 }
-.shell-notice {
-  color: #ffe2a3;
-  margin: 1.4em 0 0 !important;
-  border-top: 1px solid #95805b;
-  padding-top: 0.8em;
+.shell-actions .shell-button {
+  min-width: calc(108 * var(--u));
 }
-.shell-wide .shell-sheet {
-  width: min(1200px, calc(100% - 48px));
-  min-height: 0;
-  margin: 24px auto;
-  border: 1px solid #95805b;
-  box-shadow: 0 8px 32px #0008;
+@media (pointer: coarse) {
+  .shell-ui .shell-button,
+  .shell-ui .shell-field,
+  .shell-ui .shell-import {
+    min-height: max(44px, calc(30 * var(--u)));
+  }
 }
-.shell-countries {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-}
-.shell-country {
+
+/* ---------------------------------------------------------------- the column */
+
+.shell-columned .shell-sheet {
+  position: relative;
   display: flex;
   flex-direction: column;
+  width: calc(304 * var(--u));
+  max-width: 100%;
+  min-height: 100%;
+  padding: calc(18 * var(--u)) calc(24 * var(--u)) calc(16 * var(--u));
+  overflow-wrap: anywhere;
+}
+/* The column is a riveted plate (shell-panel) with a brass divider at its right. */
+.shell-ui.shell-columned .shell-sheet {
+  box-shadow:
+    calc(2 * var(--u)) 0 0 var(--brass-d),
+    inset var(--bw) var(--bw) 0 var(--lit),
+    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
+    inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
+}
+.shell-columned .shell-heading {
+  margin: 0 0 calc(18 * var(--u));
+  padding-bottom: calc(6 * var(--u));
+  border-bottom: var(--bw) solid var(--brass);
+}
+.shell-columned .shell-heading h1 {
+  margin: calc(10 * var(--u)) 0 0;
+}
+.shell-page-main .shell-heading {
+  border: 0;
+  margin-bottom: calc(6 * var(--u));
+  padding: 0;
+}
+.shell-page-main .shell-heading h1 {
+  margin: calc(10 * var(--u)) 0 calc(5 * var(--u));
+  font-size: calc(36 * var(--u));
+}
+.shell-years {
+  margin: 0 0 0 calc(2 * var(--u)) !important;
+  font-size: calc(11 * var(--u));
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  white-space: pre;
+}
+/* The rule under the years with the month in its gap. */
+.shell-month {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 0.8em;
-  padding: 1.25em !important;
+  gap: calc(8 * var(--u));
+  margin: 0 !important;
+  color: var(--muted);
+  font-size: calc(9 * var(--u));
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-.shell-country-flag {
-  width: 100%;
-  height: clamp(110px, 25vh, 240px);
+.shell-month::before,
+.shell-month::after {
+  content: "";
+  border-top: var(--bw) solid var(--brass);
 }
-.shell-country strong {
+.shell-columned .shell-menu .shell-button,
+.shell-columned .shell-menu .shell-field,
+.shell-columned .shell-menu .shell-fixed {
+  width: calc(216 * var(--u));
+  max-width: 100%;
+  margin-left: calc(16 * var(--u));
+  text-align: left;
+}
+.shell-columned .shell-menu .shell-button {
+  justify-self: start;
+}
+/* The help of the focused control at the column's foot. */
+.shell-help {
+  margin-top: auto;
+  padding-top: calc(12 * var(--u));
+  border-top: var(--bw) solid var(--brass-d);
+  line-height: 1.5;
+}
+.shell-help p {
+  margin: 0;
+}
+.shell-columned .shell-sheet > :not(.shell-heading, .shell-help) {
+  flex: none;
+}
+/* Exit, Back and Continue stand at the painting's foot, as in the desktop game. */
+.shell-columned .shell-sheet > .shell-actions {
+  position: fixed;
+  right: calc(24 * var(--u));
+  bottom: calc(24 * var(--u));
+  z-index: 1;
+  flex-direction: row-reverse;
+  margin: 0;
+}
+.shell-columned .shell-sheet > .shell-actions .shell-button {
+  width: calc(152 * var(--u));
+  text-align: center;
+}
+.shell-columned .shell-sheet > p {
+  line-height: 1.5;
+}
+/* Loading: the month in amber, the map's name in bold, as the desktop game's column. */
+.shell-page-loading .shell-sheet > .shell-muted:first-of-type {
+  color: var(--amber);
+  font-weight: 600;
+}
+.shell-page-loading .shell-sheet > h2 {
   font:
-    1.65em "HL Display",
-    serif;
-  color: var(--shell-brass);
-}
-.shell-country span:last-child {
-  font-size: 0.9em;
-}
-.shell-section-heading {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  color: var(--shell-muted);
-  font-size: 0.85em;
-}
-.shell-units {
-  display: grid;
-  gap: 12px;
-}
-.shell-unit {
-  display: grid;
-  grid-template-columns: 110px minmax(160px, 0.8fr) minmax(0, 1.4fr);
-  gap: 18px;
-  padding: 12px;
-  background: #12252bcc;
-  border: 1px solid #687773;
-}
-.shell-portrait {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  background: #746752;
-  border: 1px solid #9d8b67;
-}
-.shell-unit h2 {
-  font-size: 1em;
-}
-.shell-unit p {
-  font-size: 0.85em;
-  margin-bottom: 0.2em;
-}
-.shell-unit-note {
-  align-self: center;
+    600 calc(16 * var(--u)) / 1.3 "HL Sans",
+    sans-serif;
+  color: var(--cream);
 }
 .shell-progress {
   width: 100%;
-  accent-color: var(--shell-brass);
-  height: 18px;
+  height: calc(10 * var(--u));
+  appearance: none;
+  border: var(--bw) solid var(--steel-dark);
+  background: rgb(43 43 35);
+  accent-color: var(--brass);
+}
+.shell-progress::-webkit-progress-bar {
+  background: rgb(43 43 35);
+}
+.shell-progress::-webkit-progress-value {
+  background: linear-gradient(var(--brass-l), var(--brass));
+}
+.shell-progress::-moz-progress-bar {
+  background: linear-gradient(var(--brass-l), var(--brass));
+}
+.shell-scores {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: calc(13 * var(--u));
+}
+.shell-scores th,
+.shell-scores td {
+  padding: calc(3 * var(--u)) 0;
+  text-align: left;
+  font-weight: 400;
+  border-bottom: var(--bw) solid var(--brass-d);
+}
+.shell-scores thead th {
+  color: var(--muted);
+}
+.shell-scores td,
+.shell-scores th:last-child {
+  text-align: right;
+}
+
+@media (orientation: portrait) {
+  /* The painting in a band at the top, the column below it across the width. */
+  .shell-columned .shell-backdrop {
+    bottom: auto;
+    height: var(--band);
+  }
+  .shell-columned .shell-sheet {
+    width: 100%;
+    margin-top: var(--band);
+    min-height: calc(100% - var(--band));
+    box-shadow:
+      0 calc(-2 * var(--u)) 0 var(--brass-d),
+      inset var(--bw) var(--bw) 0 var(--lit),
+      inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
+      inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
+  }
+  .shell-columned .shell-menu .shell-button,
+  .shell-columned .shell-menu .shell-field,
+  .shell-columned .shell-menu .shell-fixed {
+    width: 100%;
+    margin-left: 0;
+  }
+  .shell-columned .shell-sheet > .shell-actions {
+    position: static;
+    justify-content: flex-start;
+    margin-top: calc(18 * var(--u));
+  }
+  .shell-columned .shell-help {
+    margin-top: calc(18 * var(--u));
+  }
+  .shell-flags {
+    top: calc(12 * var(--u));
+    right: calc(12 * var(--u));
+  }
+  .shell-flags .shell-art {
+    width: calc(34 * var(--u));
+    height: calc(24 * var(--u));
+  }
+}
+
+/* ---------------------------------------------------------------- wide pages */
+
+.shell-wide .shell-sheet {
+  position: relative;
+  width: min(calc(616 * var(--u)), calc(100% - 24px));
+  margin: calc(12 * var(--u)) auto;
+  padding: calc(18 * var(--u)) calc(24 * var(--u));
+}
+.shell-wide .shell-heading {
+  margin-bottom: calc(14 * var(--u));
+  padding-bottom: calc(6 * var(--u));
+  border-bottom: var(--bw) solid var(--brass);
+}
+/* Saved games, the original game's import and leaving: a riveted steel board over the painting. */
+.shell-ui.shell-wide .shell-panel {
+  box-shadow:
+    0 calc(4 * var(--u)) calc(16 * var(--u)) #000a,
+    inset var(--bw) var(--bw) 0 var(--lit),
+    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
+    inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
+}
+.shell-page-leave {
+  display: grid;
+  align-items: center;
+  background: #000a;
+}
+.shell-page-leave .shell-sheet {
+  width: min(calc(420 * var(--u)), calc(100% - 24px));
 }
 .shell-save-leave {
   display: grid;
-  gap: 12px;
-  margin-top: 1.5em;
+  gap: calc(8 * var(--u));
+  margin-top: calc(12 * var(--u));
 }
 .shell-save-slots {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: calc(12 * var(--u));
 }
 .shell-save-slot {
   min-width: 0;
-  padding: 18px;
-  border: 1px solid #9d8b67;
-  background: #172830d9;
+  padding: calc(10 * var(--u)) calc(12 * var(--u));
+}
+.shell-save-slot h2 {
+  font-size: calc(14 * var(--u));
 }
 .shell-save-slot .shell-actions {
-  margin-bottom: 0.8em;
+  margin: calc(8 * var(--u)) 0;
 }
-.shell-import {
+.shell-save-slot .shell-actions .shell-button {
+  min-width: 0;
+  flex: 1;
+}
+.shell-ui .shell-import {
   display: grid;
-  gap: 8px;
-  cursor: pointer;
+  gap: calc(4 * var(--u));
+  align-content: center;
+  text-align: center;
 }
 .shell-import input {
   width: 100%;
   padding: 0;
   border: 0;
   background: transparent;
-  font-size: 0.8em;
-}
-.shell-import input::file-selector-button {
-  min-height: 36px;
-  border: 1px solid #9d8b67;
-  background: #354b55;
-  color: var(--shell-cream);
-  padding: 4px 8px;
+  font-size: calc(9 * var(--u));
+  font-weight: 400;
+  text-transform: none;
+  text-shadow: none;
   cursor: pointer;
 }
-.shell-scores {
-  width: 100%;
-  border-collapse: collapse;
+.shell-import input::file-selector-button {
+  display: none;
 }
-.shell-scores th,
-.shell-scores td {
-  padding: 0.5em 0.25em;
-  text-align: left;
-  border-bottom: 1px solid #687773;
+
+/* The country choice: a name plate and two riveted plates with the flags (app.go drawCountryPage). */
+.shell-page-country .shell-sheet {
+  width: min(calc(592 * var(--u)), calc(100% - 24px));
+  margin: calc(20 * var(--u)) auto;
+  padding: 0;
 }
-.shell-scores td,
-.shell-scores th:last-child {
-  text-align: right;
-}
-.shell-page-leave {
-  background: #050a0dbb;
-  display: grid;
+.shell-page-country .shell-heading {
+  display: flex;
   align-items: center;
+  min-height: calc(50 * var(--u));
+  margin: 0 0 calc(18 * var(--u));
+  padding: calc(6 * var(--u)) calc(16 * var(--u));
 }
-.shell-page-leave .shell-sheet {
-  width: min(680px, calc(100% - 32px));
+.shell-page-country .shell-heading h1 {
+  margin: 0;
+  font-size: calc(26 * var(--u));
 }
-.shell-page-leave .shell-backdrop {
-  opacity: 0.3;
+.shell-countries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(24 * var(--u));
 }
+.shell-ui .shell-country {
+  /* A raised plate of tone 0.46. */
+  --c: rgb(101 101 91);
+  --edge: rgb(47 47 39);
+  --lit: rgb(144 144 133);
+  --unlit: rgb(59 59 50);
+  --lit2: transparent;
+  --unlit2: rgb(73 73 64);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(238 * var(--u));
+  padding: calc(28 * var(--u)) calc(20 * var(--u)) calc(14 * var(--u));
+  text-transform: none;
+}
+.shell-ui .shell-country:hover:not(:disabled) {
+  --c: rgb(106 106 96);
+  --lit2: transparent;
+}
+.shell-ui .shell-country:focus-visible {
+  --c: rgb(101 101 91);
+  --lit: rgb(144 144 133);
+  --unlit: rgb(59 59 50);
+  --lit2: transparent;
+  --unlit2: rgb(73 73 64);
+  outline: var(--bw) solid var(--brass-l);
+  outline-offset: calc(2 * var(--u));
+  color: var(--cream);
+}
+.shell-country-flag {
+  width: 100%;
+  max-width: none;
+  height: calc(140 * var(--u));
+  object-fit: fill;
+}
+.shell-country strong {
+  margin-top: calc(22 * var(--u));
+  font:
+    700 calc(20 * var(--u)) / 1.1 "HL Display",
+    serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: var(--engrave);
+}
+.shell-country span:last-child {
+  margin-top: calc(4 * var(--u));
+  font-size: calc(13 * var(--u));
+  font-weight: 400;
+  color: var(--muted);
+  text-shadow: none;
+}
+.shell-page-country .shell-actions {
+  justify-content: flex-end;
+  margin-top: calc(20 * var(--u));
+}
+.shell-page-country .shell-actions .shell-button {
+  width: calc(152 * var(--u));
+}
+
+/* ---------------------------------------------------------------- the page of new units */
+
+.shell-section-heading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: calc(6 * var(--u));
+  color: var(--muted);
+  font-size: calc(11 * var(--u));
+}
+.shell-units {
+  display: grid;
+  gap: calc(6 * var(--u));
+}
+.shell-unit {
+  display: grid;
+  grid-template-columns: calc(69 * var(--u)) calc(144 * var(--u)) minmax(0, 1fr);
+  gap: calc(12 * var(--u));
+  padding: calc(3 * var(--u));
+}
+.shell-portrait {
+  width: calc(69 * var(--u));
+  height: calc(62 * var(--u));
+  object-fit: cover;
+}
+.shell-unit h2 {
+  font-size: calc(11 * var(--u));
+}
+.shell-unit p {
+  margin-bottom: 0;
+}
+.shell-unit-note {
+  align-self: center;
+}
+
+/* ---------------------------------------------------------------- the newspaper */
+
 .shell-page-news .shell-sheet {
   background: #e9dfc8;
   color: #302c23;
@@ -311,7 +812,7 @@
 }
 .shell-page-news h1 {
   color: #302c23;
-  font-size: clamp(1.65em, 4vw, 3.2em);
+  text-shadow: none;
 }
 .shell-paper {
   font-family: "HL Serif", serif;
@@ -333,7 +834,7 @@
 }
 .shell-paper h2 {
   color: #302c23;
-  font-size: clamp(1.5em, 3vw, 2.5em);
+  text-shadow: none;
 }
 .shell-deck {
   font-style: italic;
@@ -375,7 +876,6 @@
 }
 .shell-news-copy > p {
   text-indent: 1em;
-  text-align: start;
 }
 .shell-briefs {
   border-top: 1px solid #514b3c;
@@ -386,60 +886,64 @@
   padding-left: 1.1em;
   margin: 0;
 }
-.shell-briefs li {
-  margin-bottom: 0.5em;
-}
 .shell-page-news .shell-notice {
   color: #573f1a;
 }
-@media (max-width: 900px), (orientation: portrait) {
-  .shell-sheet {
-    width: min(38em, 78%);
-  }
-  .shell-wide .shell-sheet {
-    width: calc(100% - 24px);
-    margin: 12px auto;
-    padding: 20px;
-  }
-  .shell-save-slots {
-    grid-template-columns: 1fr;
-  }
-  .shell-save-slot .shell-import {
-    max-width: 28em;
-  }
-  .shell-news-layout {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 18px;
-  }
-  .shell-unit {
-    grid-template-columns: 90px minmax(0, 1fr);
-    gap: 12px;
-  }
-  .shell-portrait {
-    width: 90px;
-    height: 90px;
-  }
-  .shell-unit-note {
-    grid-column: 1 / -1;
-  }
+
+/* ---------------------------------------------------------------- the original game's import */
+
+.shell-drop {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(140 * var(--u)), 1fr));
+  gap: calc(8 * var(--u));
+  padding: calc(10 * var(--u));
+  margin: calc(10 * var(--u)) 0;
+  border: var(--bw) dashed var(--brass);
 }
-@media (max-width: 560px) {
-  .shell-sheet {
-    width: 100%;
-    border-right: 0;
-    background: #172830ed;
-    padding: 24px 18px;
+.shell-drop-over {
+  border-style: solid;
+  border-color: var(--brass-l);
+  background: rgb(224 188 108 / 12%);
+}
+.shell-drop .shell-muted {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.shell-original-maps h2 {
+  font-size: calc(13 * var(--u));
+  margin: calc(10 * var(--u)) 0 calc(6 * var(--u));
+}
+.shell-original-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(110 * var(--u)), 1fr));
+  gap: calc(6 * var(--u));
+}
+
+@media (orientation: portrait), (max-width: 560px) {
+  .shell-wide .shell-sheet {
+    width: calc(100% - 16px);
+    margin: 8px auto;
+    padding: calc(14 * var(--u));
+  }
+  .shell-page-country .shell-sheet {
+    padding: 0;
   }
   .shell-countries {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: calc(12 * var(--u));
+  }
+  .shell-ui .shell-country {
+    min-height: 0;
+    padding: calc(16 * var(--u));
   }
   .shell-country-flag {
-    height: 100px;
+    height: calc(100 * var(--u));
   }
-  .shell-country {
-    gap: 0.4em;
-    padding: 0.8em !important;
+  .shell-country strong {
+    margin-top: calc(10 * var(--u));
+  }
+  .shell-save-slots {
+    grid-template-columns: 1fr;
   }
   .shell-news-layout {
     grid-template-columns: 1fr;
@@ -447,42 +951,10 @@
   .shell-news-copy {
     columns: auto;
   }
-  .shell-edition {
-    flex-wrap: wrap;
-    font-size: 0.7em;
+  .shell-unit {
+    grid-template-columns: calc(69 * var(--u)) minmax(0, 1fr);
   }
-  .shell-page-news .shell-sheet {
-    padding: 14px;
+  .shell-unit-note {
+    grid-column: 1 / -1;
   }
-  .shell-page-leave .shell-sheet {
-    width: calc(100% - 24px);
-  }
-}
-/* The original game's import: a drop zone around the two pickers, then its maps by campaign. */
-.shell-drop {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
-  gap: 12px;
-  padding: 14px;
-  margin: 1em 0;
-  border: 1px dashed #9d8b67;
-  border-radius: 3px;
-}
-.shell-drop-over {
-  border-style: solid;
-  border-color: #f3d7a0;
-  background: #3c505755;
-}
-.shell-drop .shell-muted {
-  grid-column: 1 / -1;
-  margin: 0;
-}
-.shell-original-maps h2 {
-  font-size: 1em;
-  margin: 1em 0 0.5em;
-}
-.shell-original-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
-  gap: 8px;
 }
