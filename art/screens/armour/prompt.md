@@ -12,7 +12,7 @@ The web edition's start screen and shell pages as the inside of a field-grey riv
 (the "armour plate" concept draft chosen on 2026-11-12): thick chipped grey-green plate with rust
 bleeding from dome rivets, the title stencilled in worn bone-white paint, the menu entries on cast
 brass nameplates fixed with slotted screws (dull when idle, rubbed bright when selected), two enamel
-flag plaques and a heavy embrasure frame with its shutter pushed open, through which the menu's
+flag plaques and a heavy embrasure frame with its shutter swung up out of sight, through which the menu's
 landscape painting shows. Worn out and sad rather than heroic. Every part is painted alone; all text
 but the title is live.
 
@@ -39,7 +39,7 @@ Attachment: Image 1 is the chosen concept draft of the whole start screen. Take 
 | title | | `start-parts-title1` (exec-c06072a0), 1536x1024 RGBA, lettering 1420x303, spelled HISTORYLINE / 1914 - 1918: worn stencil paint. |
 | nameplate | | `start-parts-name1` (exec-40015ca6), 1536x1024 RGBA, plate 1446x236, mean RGB 102,79,50: the blank dull brass plate. |
 | nameplate-polished | | `start-parts-name2` (exec-3aa4a066), 1536x1024 RGBA, plate 1446x233, mean RGB 158,117,65: the same plate rubbed bright; `nameplate.png` attached as image 2. |
-| embrasure | | `start-parts-emb1` (exec-0453baab), 1672x941 RGBA, frame 1605x866, clear opening and margin, mean RGB 74,64,50. |
+| embrasure | | `start-parts-emb3` (exec-0087c3a6, 2026-11-12), 1672x941 RGBA, frame 1622x874, opening 89 % of its width and 74 % of its height; the present frame (`start-parts-emb1`, its opening 52 % of the height) attached as image 2. |
 | rivets | | `start-parts-rivet1` (exec-108bc84a), 1774x887 RGBA, 4x2 heads of about 183 px with rust runs of 220-268 px. |
 | plaque-germany | | `start-parts-de1` (exec-613f42e4), 1536x1024 RGBA, plaque 1410x898: black-white-red enamel. |
 | plaque-france | | `start-parts-fr1` (exec-73de1a56), 1536x1024 RGBA, plaque 1367x874: blue-white-red enamel. |
@@ -96,13 +96,14 @@ Attachment: Image 1 is the chosen concept draft of the whole start screen. Take 
 embrasure:
 
 ```text
-PART: THE EMBRASURE FRAME (a window frame; the game shows its own landscape painting through the opening). Single interface piece, LANDSCAPE 16:9, 1672x941 pixels canvas, true transparency.
-Subject: the heavy steel frame of a wide horizontal embrasure (vision slit) cut through armour plate, seen straight on, like the embrasure in image 1 but alone: a thick riveted steel frame around a wide rectangular opening with rounded corners. The frame band is about 64 px wide on the left, right and bottom, with dome-head rivets spaced evenly around it (about 30 px across); the top band is deeper, about 210 px, and carries the heavy sliding shutter plate pushed up and open on a horizontal rail, with a latch and a worn steel pull handle near its right end, as in image 1.
-Geometry: the frame's outer edge runs about 24 px inside the canvas edges. The opening's edge runs about 88 px inside the left, right and bottom canvas edges and about 240 px below the top canvas edge; its corners are rounded with a radius of about 36 px. The inner lip of the opening shows a dark bevel, the depth of the thick steel.
-Inside the opening: alpha zero, fully transparent, nothing visible through it (no landscape, no sky, no glass, no colour). Outside the frame's outer edge: alpha zero too (no plate around the frame, no ground).
-Material: the same chipped field-grey green paint over steel as in image 1 (mean about RGB 78,80,68), rust bleeding from the rivets and along the shutter rail, dark grime in the corners, scratches and dents. No lettering, no numbers. No halo, no glow, no cast shadow outside the frame, no checkerboard.
+PART: THE EMBRASURE FRAME, WIDE OPEN (a window frame; the game shows its own landscape painting through the opening). Single interface piece, LANDSCAPE 16:9, 1672x941 pixels canvas, true transparency.
+Subject: the heavy steel frame of a large rectangular embrasure (observation port) cut through armour plate, seen straight on: the same frame as in image 2, with the same steel, paint, rust and dome rivets, but with a MUCH TALLER opening. The opening takes almost the whole frame; the shutter no longer hangs in front of the upper part. Its shutter plate is swung up and away out of sight, so only its hardware remains on the top band.
+The frame band is a thick riveted steel band about 64 px wide on the left, right and bottom, with dome-head rivets spaced evenly around it (about 30 px across). The top band is only a little deeper, about 100 px (about 1/9 of the canvas height, NOT a third as in image 2): it carries one slim horizontal hinge rail with three heavy strap hinges and, near its right end, a small latch with a worn steel pull handle lying flat along the rail. Nothing of the shutter, rail or handle hangs down over the opening.
+Geometry: the frame's outer edge runs about 24 px inside the canvas edges. The opening's edge runs about 88 px inside the left, right and bottom canvas edges and about 124 px below the top canvas edge, so the opening is about 1496 px wide and about 729 px tall (about 78 % of the canvas height); its corners are rounded with a radius of about 36 px. The inner lip of the opening shows a dark bevel, the depth of the thick steel.
+Inside the opening: alpha zero, fully transparent, nothing visible through it (no landscape, no sky, no glass, no colour, no bars, no crosshair). Outside the frame's outer edge: alpha zero too (no plate around the frame, no ground).
+Material: the same chipped field-grey green paint over steel as in images 1 and 2 (mean about RGB 78,80,68; the frame is grey-green like the plate, not brown), rust bleeding from the rivets and along the hinge rail, dark grime in the corners, scratches and dents. No lettering, no numbers. No halo, no glow, no cast shadow outside the frame, no checkerboard.
 
-Attachment: Image 1 is the chosen concept draft of the whole start screen. Take from it the same materials, wear and palette (its grey-green riveted armour plate, its cast brass nameplates, its enamel flag plaques, its stencil paint). Paint ONLY the one part described above, alone on its canvas, not the whole screen; copy none of its lettering, layout or scenery unless this prompt asks for it.
+Attachment: Image 1 is the chosen concept draft of the whole start screen. Take from it the same materials, wear and palette (its grey-green riveted armour plate). Image 2 is the present embrasure frame: keep its frame band, rivets, paint and wear, but make the opening as tall as described and replace the deep shutter band by the slim hinge rail. Paint ONLY the one part described above, alone on its canvas; copy no lettering or scenery.
 ```
 
 rivets:

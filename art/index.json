@@ -5272,7 +5272,7 @@
         },
         {
           "path": "art/screens/armour/embrasure.png",
-          "sha256": "999bb7b75f8ac2af2fc781b23c75aaba2a85a1ebb79a83c28ccdc38f3b9deb23",
+          "sha256": "29101558fa85be094eaf776571034bc34dcd8c9d2445c626d8ef7a887f9821b8",
           "width": 1672,
           "height": 941
         },
@@ -5295,7 +5295,7 @@
           "height": 1024
         }
       ],
-      "look": "The web edition's start screen and shell pages as the inside of a field-grey riveted steel gun shield\n(the \"armour plate\" concept draft chosen on 2026-11-12): thick chipped grey-green plate with rust\nbleeding from dome rivets, the title stencilled in worn bone-white paint, the menu entries on cast\nbrass nameplates fixed with slotted screws (dull when idle, rubbed bright when selected), two enamel\nflag plaques and a heavy embrasure frame with its shutter pushed open, through which the menu's\nlandscape painting shows. Worn out and sad rather than heroic. Every part is painted alone; all text\nbut the title is live.",
+      "look": "The web edition's start screen and shell pages as the inside of a field-grey riveted steel gun shield\n(the \"armour plate\" concept draft chosen on 2026-11-12): thick chipped grey-green plate with rust\nbleeding from dome rivets, the title stencilled in worn bone-white paint, the menu entries on cast\nbrass nameplates fixed with slotted screws (dull when idle, rubbed bright when selected), two enamel\nflag plaques and a heavy embrasure frame with its shutter swung up out of sight, through which the menu's\nlandscape painting shows. Worn out and sad rather than heroic. Every part is painted alone; all text\nbut the title is live.",
       "base_prompt": "Every part was generated with this style text, the part's text below, and the concept draft\n(`build/review/gen-2026-11-12/start/start-01.png`, not committed) attached as image 1.\n\n```text\nNewly authored interface art for the start screen of a turn-based World War I hex strategy game, 1914-1918.\nHand-painted digital illustration with believable, physical materials, not a photograph, not a glossy 3D render, not a cartoon, not pixel art, not flat vector UI. Look and feel: 1914-1918 military hardware. Heavy metal, army issue, worn by field use; serious and handsome, never cheap, never plastic, no modern sci-fi glow, no neon, no gradients that look like web buttons.\nMOOD: worn out, sad and exhausted. No heroism, no glory, no clean parade-ground metal. Everything has been used too long in rain and mud: dented, scratched and re-painted steel, rust bleeding from rivets, dull tarnished brass with only the touched spots still bright, chipped enamel, dried mud, soot. Desaturated cold palette of field-grey, wet earth, rust and bone white. Soft overcast light from the upper left; quiet and heavy rather than dramatic. Do not copy any existing game's graphics. No watermark, no logo, no small print.\n```\n\nThe attachment line of every part:\n\n```text\nAttachment: Image 1 is the chosen concept draft of the whole start screen. Take from it the same materials, wear and palette (its grey-green riveted armour plate, its cast brass nameplates, its enamel flag plaques, its stencil paint). Paint ONLY the one part described above, alone on its canvas, not the whole screen; copy none of its lettering, layout or scenery unless this prompt asks for it.\n```",
       "variants": [
         {
@@ -5321,7 +5321,7 @@
         {
           "variant": "embrasure",
           "runtime_ids": [],
-          "delta": "`start-parts-emb1` (exec-0453baab), 1672x941 RGBA, frame 1605x866, clear opening and margin, mean RGB 74,64,50."
+          "delta": "`start-parts-emb3` (exec-0087c3a6, 2026-11-12), 1672x941 RGBA, frame 1622x874, opening 89 % of its width and 74 % of its height; the present frame (`start-parts-emb1`, its opening 52 % of the height) attached as image 2."
         },
         {
           "variant": "rivets",

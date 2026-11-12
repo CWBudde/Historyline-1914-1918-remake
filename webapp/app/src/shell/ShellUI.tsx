@@ -150,9 +150,9 @@ function Art({
  */
 const enlarge = 1.2;
 /** The units of the embrasure's width in landscape; upright it spans the column. */
-const embrasureWidth = 460;
+const embrasureWidth = 470;
 /**
- * Embrasure is the heavy frame cut into the plate with its shutter pushed open, the page's painting seen through
+ * Embrasure is the heavy frame cut into the plate with its shutter swung up out of sight, the page's painting seen through
  * its opening. The painting is chosen for the opening's drawn width; it reaches under the frame's lip.
  */
 function Embrasure({ p, scene }: { p: ShellUIProps; scene: string }) {
@@ -178,7 +178,7 @@ function Embrasure({ p, scene }: { p: ShellUIProps; scene: string }) {
         p={p}
         id="armour/embrasure"
         className="shell-embrasure-frame"
-        scale={frame / 803 / enlarge}
+        scale={frame / 811 / enlarge}
         lite
       />
     </div>

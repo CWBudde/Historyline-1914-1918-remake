@@ -14,13 +14,13 @@ export const plateSize = { width: 836, height: 470 },
 
 /** The opening of armour/embrasure in fractions of the frame (its alpha, measured on the 2x art). */
 export const embrasureHole = {
-  left: 0.0697,
-  top: 0.3295,
-  right: 0.0716,
-  bottom: 0.1452,
+  left: 0.0543,
+  top: 0.1476,
+  right: 0.0543,
+  bottom: 0.1087,
 };
 /** The frame's width over its height. */
-export const embrasureAspect = 1606 / 868;
+export const embrasureAspect = 1622 / 874;
 
 /**
  * shellUnit is the CSS pixels of one unit of the shell's layout, as shell.css sets --u: the window holds a 16:9 stage of

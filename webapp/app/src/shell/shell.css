@@ -462,15 +462,15 @@
 /* The embrasure: the page's painting under the frame's opening, the frame over it. */
 .shell-embrasure {
   position: absolute;
-  left: calc(222 * var(--u));
-  top: calc(76 * var(--u));
-  width: calc(460 * var(--u));
-  aspect-ratio: 1606 / 868;
+  left: calc(218 * var(--u));
+  top: calc(74 * var(--u));
+  width: calc(470 * var(--u));
+  aspect-ratio: 1622 / 874;
 }
 .shell-embrasure-view {
   position: absolute;
   /* The opening (materials.ts embrasureHole), reaching a little under the frame's lip. */
-  inset: 31.9% 6.6% 13.5% 6.4%;
+  inset: 13.8% 4.9% 9.9% 4.9%;
   overflow: hidden;
   background: rgb(30 31 27);
 }
@@ -506,7 +506,7 @@
   height: var(--ph);
   position: absolute;
   left: calc(302 * var(--u));
-  top: calc(334 * var(--u));
+  top: calc(337 * var(--u));
   width: calc(300 * var(--u));
   flex-direction: column;
   gap: calc(1 * var(--u));

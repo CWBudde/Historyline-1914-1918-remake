@@ -95,8 +95,8 @@ test.describe("the menus on the armour plate", () => {
     const frame = await page.locator(".shell-embrasure").boundingBox(),
       view = await page.locator(".shell-embrasure-view").boundingBox(),
       help = await page.locator(".shell-help").boundingBox();
-    expect(frame?.width).toBeCloseTo(460 * u, 0);
-    expect(frame?.height).toBeCloseTo((460 * u * 868) / 1606, 0);
+    expect(frame?.width).toBeCloseTo(470 * u, 0);
+    expect(frame?.height).toBeCloseTo((470 * u * 874) / 1622, 0);
     expect(view?.width ?? 0).toBeGreaterThan(0.85 * (frame?.width ?? 0));
     expect(help?.y ?? 0).toBeGreaterThan(
       (frame?.y ?? 0) + (frame?.height ?? 0),
