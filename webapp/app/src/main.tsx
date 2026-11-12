@@ -1,11 +1,11 @@
 import { play } from "@historyline/engine";
 import { signal } from "@preact/signals";
-import { Application } from "pixi.js";
+import { Application, UPDATE_PRIORITY } from "pixi.js";
 import { render } from "preact";
 import { Computer } from "./computer.ts";
 import { AssetLoader, assetDensity } from "./assets.ts";
 import { battleLoadError, keepForOffline, offlineMissions } from "./offline.ts";
-import { parseImageCatalog } from "./assetManifest.ts";
+import { FrameMeter } from "./frameMeter.ts";
 import { UiAssets } from "./ui/assets.ts";
 import { SplitRuntime } from "./split/runtime.ts";
 import { SplitUI } from "./split/SplitUI.tsx";
@@ -67,9 +67,12 @@ let preferences = defaultSettings(
 let storageAttempt: Promise<void> | null = null,
   bootAbort = new AbortController(),
   lastEnd: ReturnType<typeof play.ended> = null,
-  offlineKeep: { timer: number; abort: AbortController } | null = null;
+  offlineKeep: { timer: number; abort: AbortController } | null = null,
+  battleStarting = false;
 
 const offlineDelay = 15_000;
+/** Full art is held for the first battle; a player who stays in the menus gets it after this. */
+const menuUpgradeDelay = 8_000;
 function stopOfflineKeep(): void {
   if (offlineKeep === null) return;
   clearTimeout(offlineKeep.timer);
@@ -346,6 +349,7 @@ async function beginBattle(
     activeLoader = loader,
     activeData = data;
   discardBattle();
+  battleStarting = true;
   const next = await SplitRuntime.create(
     app,
     activeLoader,
@@ -372,10 +376,14 @@ async function beginBattle(
     (fraction, text) => {
       current.loading(fraction, text);
     },
-  ).catch((error: unknown) => {
-    if (signal.aborted) throw error;
-    throw battleLoadError(error, navigator.onLine);
-  });
+  )
+    .catch((error: unknown) => {
+      if (signal.aborted) throw error;
+      throw battleLoadError(error, navigator.onLine);
+    })
+    .finally(() => {
+      battleStarting = false;
+    });
   if (signal.aborted || current !== shell || closed) {
     next.dispose();
     signal.throwIfAborted();
@@ -406,17 +414,11 @@ async function bootstrap(): Promise<void> {
   try {
     await initializeStorage();
     signal.throwIfAborted();
+    // Full art waits for the first playable battle frame: a phone starts from
+    // lite pixels at the lowest density, then upgrades.
     const nextLoader = await AssetLoader.open(
       new URL("./index.json", document.baseURI),
-    );
-    await Promise.all(
-      ["screens", "units", "terrain"].flatMap((name) => {
-        const pair = nextLoader.index.packs[name]?.["1"];
-        if (pair === undefined) throw Error(`Missing ${name} art catalog.`);
-        return [pair.lite, pair.full].map(async (ref) =>
-          parseImageCatalog(await nextLoader.store.json(ref), 1),
-        );
-      }),
+      { deferUpgrades: true },
     );
     signal.throwIfAborted();
     nextAssets = new UiAssets(nextLoader);
@@ -461,6 +463,10 @@ async function bootstrap(): Promise<void> {
     if (storageNote !== "") model.note = storageNote;
     else if (originalNote !== "") model.note = originalNote;
     changed();
+    window.setTimeout(() => {
+      if (runtime === null && !battleStarting && nextLoader.enableUpgrades())
+        changed();
+    }, menuUpgradeDelay);
   } catch (error) {
     nextAssets?.dispose();
     if (run === bootGeneration && !signal.aborted) {
@@ -519,11 +525,35 @@ async function start(): Promise<void> {
   appReady = true;
   app.stop();
   stage.appendChild(app.canvas);
+  const frames = new FrameMeter();
+  let firstPlayable = false;
+  app.ticker.add(
+    () => {
+      frames.begin();
+    },
+    undefined,
+    UPDATE_PRIORITY.INTERACTION + 1,
+  );
   app.ticker.add((ticker) => {
     resize();
     runtime?.tick(ticker.deltaMS);
     checkEnd();
   });
+  app.ticker.add(
+    () => {
+      frames.end();
+      // Pixi submits its frame at LOW. Release full art only after the first
+      // visible lite map has passed through that render.
+      if (runtime?.ready !== true) return;
+      if (!firstPlayable) {
+        firstPlayable = true;
+        performance.mark("historyline.first-playable");
+      }
+      if (loader?.enableUpgrades()) runtime.refreshImages();
+    },
+    undefined,
+    UPDATE_PRIORITY.LOW - 1,
+  );
   window.addEventListener("resize", () => {
     resize();
     revision.value++;

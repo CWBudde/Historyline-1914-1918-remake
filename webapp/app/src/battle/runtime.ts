@@ -2,6 +2,7 @@ import { hexgrid, level, play, phaseMovement } from "@historyline/engine";
 import { signal, type Signal } from "@preact/signals";
 import type { Application } from "pixi.js";
 import type { AssetLoader } from "../assets.ts";
+import type { Pyramid } from "../assetManifest.ts";
 import type { Computer } from "../computer.ts";
 import { MapBattle } from "../mapBattle.ts";
 import { MapRenderer } from "../mapRenderer.ts";
@@ -71,6 +72,7 @@ export class BattleRuntime {
     preferences: Settings,
     computer: Computer,
     baked: unknown,
+    backdrop: Pyramid | undefined,
     private readonly hooks: BattleHooks,
     private readonly options: BattleRuntimeOptions,
   ) {
@@ -107,7 +109,7 @@ export class BattleRuntime {
       baked === null ? null : parseBakedLayers(baked),
       this.battle,
       data.families,
-      loader.index.levels[backdropMonth(request.mission)]?.backdrop,
+      backdrop,
       (message) => {
         this.status(message);
       },
@@ -185,10 +187,15 @@ export class BattleRuntime {
     signal.throwIfAborted();
     progress(0.1, "Loading the battlefield…");
     // An imported original map has no baked layers: the renderer composes its tiles.
-    const baked =
+    const [baked, backdrop] = await Promise.all([
       request.mission.original === undefined
-        ? await loader.baked(request.mission.month, request.mission.mode)
-        : null;
+        ? loader.baked(request.mission.month, request.mission.mode)
+        : null,
+      // An original map without a painting of its own has no level in the index.
+      loader.index.levels[backdropMonth(request.mission)] === undefined
+        ? undefined
+        : loader.backdrop(backdropMonth(request.mission), signal),
+    ]);
     signal.throwIfAborted();
     progress(
       0.45,
@@ -202,6 +209,7 @@ export class BattleRuntime {
       preferences,
       computer,
       baked,
+      backdrop,
       hooks,
       options,
     );
@@ -210,13 +218,10 @@ export class BattleRuntime {
     };
     signal.addEventListener("abort", aborted, { once: true });
     try {
-      progress(0.65, "Preparing map and battle art…");
-      await Promise.all([
-        runtime.map.initialize(),
-        runtime.auxiliary.initialize(),
-      ]);
+      progress(0.65, "Preparing battle art…");
+      await runtime.auxiliary.initialize();
       signal.throwIfAborted();
-      progress(1, "Ready.");
+      progress(1, "Battle art ready.");
       return runtime;
     } catch (error) {
       runtime.dispose();
@@ -408,9 +413,9 @@ export class BattleRuntime {
   /** available are the designs this battle can draw: a painting where its month has one, imported original art. */
   available(): Available {
     return {
-      painted:
-        this.loader.index.levels[backdropMonth(this.request.mission)]
-          ?.backdrop !== undefined,
+      painted: hasBackdrop(
+        this.loader.index.levels[backdropMonth(this.request.mission)],
+      ),
       original: hasOriginalArt(),
       originalMap: this.request.mission.original !== undefined,
     };
@@ -536,4 +541,11 @@ export class BattleRuntime {
   private surface(): HTMLElement {
     return this.options.surface ?? this.app.canvas;
   }
+}
+
+/** A level's painting is inline in the index or in a file of its own. */
+function hasBackdrop(
+  level: { backdrop?: unknown; backdropFile?: unknown } | undefined,
+): boolean {
+  return level?.backdrop !== undefined || level?.backdropFile !== undefined;
 }

@@ -184,7 +184,7 @@ export class SplitRuntime {
           },
           signal,
           (n, text) => {
-            progress((side + n) / 2, text);
+            progress((side + n) / 3, text);
           },
           {
             battle: controllers[side],
@@ -213,7 +213,24 @@ export class SplitRuntime {
         hooks,
         surfaces,
       );
-      return host;
+      const ready = host;
+      const aborted = () => {
+        ready.dispose();
+      };
+      signal.addEventListener("abort", aborted, { once: true });
+      try {
+        signal.throwIfAborted();
+        progress(0.7, "Loading map art…");
+        // The split layout has now set each camera's real viewport and zoom;
+        // select catalogue densities once, without fetching the full canvas's
+        // unused tier before the panels are aligned.
+        await Promise.all([a.map.initialize(), b.map.initialize()]);
+        signal.throwIfAborted();
+        progress(1, "Ready.");
+        return ready;
+      } finally {
+        signal.removeEventListener("abort", aborted);
+      }
     } catch (error) {
       host?.dispose();
       for (const panel of made) panel.dispose();
@@ -242,6 +259,14 @@ export class SplitRuntime {
   }
   get map(): BattleRuntime["map"] {
     return this.panels[this.activeSide].map;
+  }
+  get ready(): boolean {
+    const visible = sides.filter((side) => this.visible(side));
+    return (
+      !this.stopped &&
+      visible.length > 0 &&
+      visible.every((side) => this.panels[side].map.ready)
+    );
   }
   saveSide(): 0 | 1 {
     return this.local?.saveSide() ?? this.request.side;
@@ -565,6 +590,9 @@ export class SplitRuntime {
       this.surfaces[side].hidden = !this.visible(side);
       this.panels[side].tick(ms, this.visible(side));
     }
+  }
+  refreshImages(): void {
+    for (const panel of this.panels) panel.map.dirty = true;
   }
   private installKeyboard(): SplitInput {
     return new SplitInput({

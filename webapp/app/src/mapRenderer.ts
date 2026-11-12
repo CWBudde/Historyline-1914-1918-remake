@@ -8,9 +8,10 @@ import {
 import { bind, hexgrid, level, play } from "@historyline/engine";
 import { Camera, type Point, type Rect } from "./camera.ts";
 import { assetDensity, type AssetLoader } from "./assets.ts";
-import { type Pyramid, record } from "./assetManifest.ts";
+import { type Pyramid, type Tile, record } from "./assetManifest.ts";
 import {
   backdropDraw,
+  backdropMips,
   chooseMip,
   intersects,
   visibleHexes,
@@ -95,6 +96,9 @@ export class MapRenderer {
   private glyphs: ReadonlyMap<string, MapImage> = new Map();
   backdrop = true;
   dirty = true;
+  get ready(): boolean {
+    return this.stats.hexes > 0 && this.images.cache.ready;
+  }
   stats: MapStats = {
     hexes: 0,
     terrain: 0,
@@ -486,32 +490,37 @@ export class MapRenderer {
     );
   }
   private paintBackdrop(p: Pyramid, rect: Rect): void {
-    const index = chooseMip(p, this.camera.world, this.camera.effective()),
-      mip = p.mips[index];
-    if (mip === undefined) return;
-    this.stats.mip = index;
-    for (const tile of mip.tiles) {
-      const draw = backdropDraw(p, mip, tile, this.camera.world);
-      if (!intersects(rect, draw.world)) continue;
-      this.sprite(
-        `backdrop/${index}/${tile.x}/${tile.y}`,
-        this.backdropLayer,
-        {
-          id: "backdrop",
-          width: tile.sourceWidth,
-          height: tile.sourceHeight,
-          density: 1,
-          logicalAnchor: [0, 0],
-          lite: tile.file,
-          full: tile.file,
-          frame: draw.frame,
-        },
-        { x: 0, y: 0 },
-        1,
-        0xffffff,
-        draw.world,
-      );
-      this.stats.backdropTiles++;
+    const effective = this.camera.effective();
+    const lite = chooseMip(p, this.camera.world, Math.min(1, effective));
+    const tiers = backdropMips(
+      p,
+      this.camera.world,
+      effective,
+      rect,
+      !this.loader.upgradesDeferred,
+      (mip, tile) => {
+        const draw = backdropDraw(p, mip, tile, this.camera.world);
+        return this.images.peek(backdropImage(tile, draw.frame)) !== null;
+      },
+    );
+    for (const index of tiers) {
+      const mip = p.mips[index];
+      if (mip === undefined) continue;
+      this.stats.mip = index;
+      for (const tile of mip.tiles) {
+        const draw = backdropDraw(p, mip, tile, this.camera.world);
+        if (!intersects(rect, draw.world)) continue;
+        this.sprite(
+          `backdrop/${index}/${tile.x}/${tile.y}`,
+          this.backdropLayer,
+          backdropImage(tile, draw.frame, index !== lite),
+          { x: 0, y: 0 },
+          1,
+          0xffffff,
+          draw.world,
+        );
+        this.stats.backdropTiles++;
+      }
     }
   }
   private mark(u: play.UnitView): void {
@@ -790,4 +799,18 @@ export class MapRenderer {
     this.sprites.clear();
     this.images.dispose();
   }
+}
+
+function backdropImage(tile: Tile, frame: Rect, optional = false): MapImage {
+  return {
+    id: "backdrop",
+    width: tile.sourceWidth,
+    height: tile.sourceHeight,
+    density: 1,
+    logicalAnchor: [0, 0],
+    lite: tile.file,
+    full: tile.file,
+    frame,
+    optional,
+  };
 }
