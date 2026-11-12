@@ -68,7 +68,9 @@ let storageAttempt: Promise<void> | null = null,
   bootAbort = new AbortController(),
   lastEnd: ReturnType<typeof play.ended> = null,
   offlineKeep: { timer: number; abort: AbortController } | null = null,
-  battleStarting = false;
+  battleStarting = false,
+  /** A battle drawing its first frame behind the loading page. */
+  preparing: SplitRuntime | null = null;
 
 const offlineDelay = 15_000;
 /** Full art is held for the first battle; a player who stays in the menus gets it after this. */
@@ -136,7 +138,7 @@ function resize(): void {
   if (app.renderer.resolution !== dpr) app.renderer.resolution = dpr;
   if (app.screen.width !== width || app.screen.height !== height)
     app.renderer.resize(width, height);
-  runtime?.resize(width, height, dpr);
+  (runtime ?? preparing)?.resize(width, height, dpr);
 }
 function applyPreferences(settings: Settings): void {
   preferences = { ...settings };
@@ -159,13 +161,15 @@ function checkEnd(): void {
 function changed(): void {
   const battlePage = shell?.page === "battle",
     paused = !battlePage;
+  // A battle being prepared takes its stage geometry under the loading page.
   document.documentElement.classList.toggle(
     "in-battle",
-    runtime !== null && (battlePage || shell?.page === "leave"),
+    preparing !== null ||
+      (runtime !== null && (battlePage || shell?.page === "leave")),
   );
   document.documentElement.classList.toggle(
     "original-layout",
-    runtime?.original ?? false,
+    (runtime ?? preparing)?.original ?? false,
   );
   runtime?.setPaused(paused);
   resize();
@@ -384,18 +388,61 @@ async function beginBattle(
     .finally(() => {
       battleStarting = false;
     });
-  if (signal.aborted || current !== shell || closed) {
+  const cancelled = () => signal.aborted || current !== shell || closed;
+  if (!cancelled()) {
+    next.applyPreferences(current.settings);
+    preparing = next;
+    try {
+      await prepareBattle(next, current, cancelled);
+    } finally {
+      preparing = null;
+    }
+  }
+  if (cancelled()) {
     next.dispose();
+    changed();
     signal.throwIfAborted();
     throw Error("Battle loading was cancelled.");
   }
-  next.applyPreferences(current.settings);
   runtime = next;
   lastEnd = null;
   publishDebug();
   // An imported original map is local already; the offline cache keeps the shipped months.
   if (request.mission.original === undefined)
     scheduleOfflineKeep(next, request.mission);
+}
+/** The longest the loading page waits for the first frame's art; a slow device then sees it arrive. */
+const prepareLimit = 30_000;
+function nextFrame(): Promise<void> {
+  return new Promise((resolve) => {
+    // A hidden tab gets no animation frames.
+    const timer = window.setTimeout(resolve, 100);
+    window.requestAnimationFrame(() => {
+      window.clearTimeout(timer);
+      resolve();
+    });
+  });
+}
+/**
+ * prepareBattle keeps the loading page until the battle's first frame has its art: the maps draw behind the page,
+ * their images decode and reach the GPU, and the battle never shows holes where art is still on its way.
+ */
+async function prepareBattle(
+  battle: SplitRuntime,
+  current: ShellController,
+  cancelled: () => boolean,
+): Promise<void> {
+  changed();
+  const start = performance.now();
+  for (;;) {
+    resize();
+    const share = battle.prepare();
+    if (appReady) app.render();
+    current.loading(0.8 + 0.2 * share, "Drawing the battlefield…");
+    if (share >= 1 || cancelled() || performance.now() - start > prepareLimit)
+      return;
+    await nextFrame();
+  }
 }
 async function bootstrap(): Promise<void> {
   const run = ++bootGeneration;

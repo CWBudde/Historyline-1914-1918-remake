@@ -350,3 +350,108 @@ it("does not schedule full image decodes offline and retains an already decoded 
     images.cache.dispose();
   }
 });
+
+it("decodes a background tile and its bleed copy from one fetch and one decode", async () => {
+  const f = await catalogFixture();
+  const get = vi.spyOn(f.loader.store, "get");
+  let closed = 0;
+  const decode = vi.fn(() =>
+    Promise.resolve({
+      width: 8,
+      height: 6,
+      close: () => {
+        closed++;
+      },
+    }),
+  );
+  const context = {
+    drawImage: () => {},
+    getImageData: (_x: number, _y: number, width: number, height: number) => ({
+      width,
+      height,
+      data: new Uint8ClampedArray(width * height * 4),
+    }),
+    createImageData: (width: number, height: number) => ({
+      width,
+      height,
+      data: new Uint8ClampedArray(width * height * 4),
+    }),
+    putImageData: () => {},
+  };
+  vi.stubGlobal("createImageBitmap", decode);
+  vi.stubGlobal("document", {
+    createElement: () => ({ width: 0, height: 0, getContext: () => context }),
+  });
+  const from = vi
+    .spyOn(Texture, "from")
+    .mockImplementation(() => new Texture());
+  const tile: MapImage = {
+    id: "tile/test",
+    width: 8,
+    height: 6,
+    density: 1,
+    logicalAnchor: [4, 3],
+    lite: f.liteImage,
+    full: f.liteImage,
+  };
+  try {
+    f.images.cache.begin();
+    f.images.get({ ...tile, bleed: true });
+    f.images.get(tile);
+    f.images.cache.end();
+    await vi.waitFor(() => {
+      expect(f.images.peek(tile)).not.toBeNull();
+      expect(f.images.peek({ ...tile, bleed: true })).not.toBeNull();
+    });
+    expect(decode).toHaveBeenCalledTimes(1);
+    expect(get.mock.calls.filter(([ref]) => ref === f.liteImage)).toHaveLength(
+      1,
+    );
+    // The bare tile's texture keeps the bitmap; the bleed copy leaves it open.
+    expect(closed).toBe(0);
+    expect(f.images.peek({ ...tile, bleed: true })?.anchor).toEqual([7, 6]);
+  } finally {
+    f.images.dispose();
+    from.mockRestore();
+    vi.unstubAllGlobals();
+  }
+  expect(closed).toBe(1);
+});
+
+it("holds an image decoded earlier as the stand-in of its successor", async () => {
+  const f = await catalogFixture();
+  vi.stubGlobal(
+    "createImageBitmap",
+    vi.fn(() => Promise.resolve({ width: 8, height: 6, close: () => {} })),
+  );
+  const from = vi
+    .spyOn(Texture, "from")
+    .mockImplementation(() => new Texture());
+  const image: MapImage = {
+    id: "tile/test",
+    width: 8,
+    height: 6,
+    density: 1,
+    logicalAnchor: [4, 3],
+    lite: f.liteImage,
+    full: f.liteImage,
+  };
+  try {
+    f.images.cache.begin();
+    f.images.get(image);
+    f.images.cache.end();
+    await vi.waitFor(() => {
+      expect(f.images.peek(image)).not.toBeNull();
+    });
+    const ready = f.images.peek(image);
+    if (ready === null) throw new Error("not decoded");
+    f.images.cache.begin();
+    expect(f.images.hold(ready)).toBe(true);
+    expect(f.images.hold({ ...ready })).toBe(false);
+    f.images.cache.end();
+  } finally {
+    f.images.dispose();
+    from.mockRestore();
+    vi.unstubAllGlobals();
+  }
+});

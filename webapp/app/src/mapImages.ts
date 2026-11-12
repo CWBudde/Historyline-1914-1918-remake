@@ -32,6 +32,21 @@ export interface ReadyImage {
   anchor: [number, number];
 }
 
+interface SharedBitmap {
+  promise: Promise<ImageBitmap>;
+  /** Draws that keep the bitmap as their texture source. */
+  owners: number;
+}
+/** Decodes run off the main thread; the unit dress and bleed copies on it. */
+const decodeConcurrency = Math.max(
+  4,
+  Math.min(
+    8,
+    (globalThis as { navigator?: { hardwareConcurrency?: number } }).navigator
+      ?.hardwareConcurrency ?? 4,
+  ),
+);
+
 /** Catalogs are parsed once per density, images only when a culled draw uses
  * them. Full images replace lite images without changing world geometry. */
 export class MapImages {
@@ -41,13 +56,20 @@ export class MapImages {
   >();
   private stopped = false;
   private readonly abort = new AbortController();
+  private readonly decoding = new Map<string, SharedBitmap>();
+  private readonly keys = new WeakMap<ReadyImage, string>();
   readonly cache: RenderCache<ReadyImage>;
   constructor(
     readonly loader: AssetLoader,
     private readonly changed: () => void,
     private readonly error: (e: Error) => void,
   ) {
-    this.cache = new RenderCache(192 * 1024 * 1024, 3, changed, error);
+    this.cache = new RenderCache(
+      192 * 1024 * 1024,
+      decodeConcurrency,
+      changed,
+      error,
+    );
   }
   catalog(
     name: string,
@@ -118,43 +140,87 @@ export class MapImages {
       this.cache.peek(this.key(image, image.lite))
     );
   }
+  /**
+   * hold keeps an image decoded earlier for the current frame, where it stands in for its successor (another
+   * density, lite before full) until that has decoded; false once it has been released.
+   */
+  hold(ready: ReadyImage): boolean {
+    const key = this.keys.get(ready);
+    return key !== undefined && this.cache.hold(key);
+  }
   get(image: MapImage): ReadyImage | null {
     const full = this.key(image, image.full),
       lite = this.key(image, image.lite);
     if (this.cache.peek(full) !== null)
-      return this.cache.get(full, () => this.decode(image, image.full));
+      return this.cache.get(full, () => this.decode(image, image.full, full));
     const report = (error: Error) => {
       if (!(error instanceof AssetNetworkError)) this.error(error);
     };
     const current = this.cache.get(
       lite,
-      () => this.decode(image, image.lite),
+      () => this.decode(image, image.lite, lite),
       image.optional === true ? report : undefined,
     );
     if (current !== null && lite !== full && this.loader.upgradesAllowed)
-      this.cache.get(full, () => this.decode(image, image.full), report);
+      this.cache.get(full, () => this.decode(image, image.full, full), report);
     return current;
+  }
+  /**
+   * bitmap fetches and decodes a file once for every draw that starts on it while it decodes: a background tile
+   * and its bleed copy are one decode. A draw that keeps the bitmap as its texture owns it; the others copy it.
+   */
+  private bitmap(
+    ref: FileRef,
+    owner: boolean,
+  ): Promise<{ bitmap: ImageBitmap; shared: SharedBitmap }> {
+    let shared = this.decoding.get(ref.sha256);
+    // Two textures never share one bitmap: each closes its own.
+    if (shared === undefined || (owner && shared.owners > 0)) {
+      const fresh: SharedBitmap = {
+        owners: 0,
+        promise: (async () => {
+          const bytes = await this.loader.store.get(ref, this.abort.signal);
+          return createImageBitmap(new Blob([bytes]));
+        })(),
+      };
+      if (shared === undefined) this.decoding.set(ref.sha256, fresh);
+      shared = fresh;
+      const settled = () => {
+        if (this.decoding.get(ref.sha256) === fresh)
+          this.decoding.delete(ref.sha256);
+      };
+      fresh.promise.then(settled, settled);
+    }
+    if (owner) shared.owners++;
+    const entry = shared;
+    return shared.promise.then((bitmap) => ({ bitmap, shared: entry }));
   }
   private async decode(
     image: MapImage,
     ref: FileRef,
+    key: string,
   ): Promise<RenderResource<ReadyImage>> {
-    const bytes = await this.loader.store.get(ref, this.abort.signal);
-    const bitmap = await createImageBitmap(new Blob([bytes]));
+    const copied = image.dressing !== undefined || image.bleed === true;
+    const { bitmap, shared } = await this.bitmap(ref, !copied);
+    // A copy closes the bitmap only when no texture keeps it.
+    const release = () => {
+      if (!copied || shared.owners === 0) bitmap.close();
+    };
     if (bitmap.width !== image.width || bitmap.height !== image.height) {
-      bitmap.close();
+      release();
       throw new Error(`image geometry differs: ${image.id}`);
     }
     let source: ImageBitmap | HTMLCanvasElement = bitmap;
     const anchor: [number, number] = [...image.logicalAnchor];
     try {
-      if (image.dressing !== undefined || image.bleed === true) {
+      if (copied) {
         const canvas = document.createElement("canvas");
         canvas.width = bitmap.width;
         canvas.height = bitmap.height;
         const context = canvas.getContext("2d", { willReadFrequently: true });
         if (context === null) throw new Error("missing sprite canvas context");
         context.drawImage(bitmap, 0, 0);
+        release();
         const raw = context.getImageData(0, 0, canvas.width, canvas.height);
         const dressed =
           image.dressing === undefined
@@ -176,7 +242,6 @@ export class MapImages {
           image.density;
         anchor[0] += margin;
         anchor[1] += margin;
-        bitmap.close();
       }
       const base = Texture.from(source, true);
       base.source.style.scaleMode =
@@ -193,23 +258,25 @@ export class MapImages {
                 image.frame.height,
               ),
             });
+      const value: ReadyImage = {
+        texture,
+        width: texture.width,
+        height: texture.height,
+        density: image.density,
+        anchor,
+      };
+      this.keys.set(value, key);
       return {
-        value: {
-          texture,
-          width: texture.width,
-          height: texture.height,
-          density: image.density,
-          anchor,
-        },
+        value,
         bytes: source.width * source.height * 4,
         dispose: () => {
           if (texture !== base) texture.destroy();
           base.destroy(true);
-          bitmap.close();
+          if (!copied) bitmap.close();
         },
       };
     } catch (error) {
-      bitmap.close();
+      if (!copied) bitmap.close();
       throw error;
     }
   }

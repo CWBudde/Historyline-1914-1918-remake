@@ -128,3 +128,47 @@ it("handles optional upgrade failures separately from required image failures", 
   });
   cache.dispose();
 });
+
+it("holds a decoded stand-in through eviction and counts failed loads as settled", async () => {
+  const disposed: string[] = [];
+  const cache = new RenderCache<string>(4, 2, () => {});
+  const load = (key: string) => () =>
+    Promise.resolve({
+      value: key,
+      bytes: 4,
+      dispose: () => {
+        disposed.push(key);
+      },
+    });
+  cache.begin();
+  cache.get("old", load("old"));
+  cache.end();
+  await vi.waitFor(() => {
+    expect(cache.peek("old")).toBe("old");
+  });
+  // The next frame wants a successor that has not decoded yet and keeps the old image meanwhile.
+  cache.begin();
+  cache.get("new", load("new"));
+  expect(cache.hold("old")).toBe(true);
+  expect(cache.hold("missing")).toBe(false);
+  cache.end();
+  await vi.waitFor(() => {
+    expect(cache.peek("new")).toBe("new");
+  });
+  expect(disposed).toEqual([]);
+  expect(cache.progress()).toEqual({ settled: 2, total: 2 });
+  // Once no frame holds it, the budget evicts it.
+  cache.begin();
+  cache.get("new", load("new"));
+  cache.end();
+  expect(disposed).toEqual(["old"]);
+  expect(cache.hold("old")).toBe(false);
+  cache.begin();
+  cache.get("bad", () => Promise.reject(new Error("decode failed")));
+  cache.end();
+  await vi.waitFor(() => {
+    expect(cache.ready).toBe(true);
+  });
+  expect(cache.progress()).toEqual({ settled: 1, total: 1 });
+  cache.dispose();
+});

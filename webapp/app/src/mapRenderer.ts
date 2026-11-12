@@ -19,7 +19,7 @@ import {
 import { terrainDraws, type BakedLayers, type MapScene } from "./mapScene.ts";
 import { composeScene, reworkScene } from "./dynamicScene.ts";
 import type { OriginalTextures } from "./original/textures.ts";
-import { MapImages, type MapImage } from "./mapImages.ts";
+import { MapImages, type MapImage, type ReadyImage } from "./mapImages.ts";
 import {
   unitFrames,
   spriteID,
@@ -88,6 +88,10 @@ export class MapRenderer {
   private readonly overlays = new Graphics();
   private readonly effects = new Container();
   private readonly sprites = new Map<string, Sprite>();
+  /** The decoded image each sprite shows, kept while its successor decodes. */
+  private readonly shown = new Map<string, ReadyImage>();
+  /** The backdrop mip levels the last frame drew. */
+  private backdropShown: number[] = [];
   private readonly used = new Set<string>();
   private readonly counts = new Map<Container, number>();
   private readonly catalogs = new Map<string, Catalog>();
@@ -371,6 +375,7 @@ export class MapRenderer {
       if (!this.used.has(key)) {
         sprite.destroy();
         this.sprites.delete(key);
+        this.shown.delete(key);
       }
     this.images.cache.end();
     this.stats.decodedBytes = this.images.cache.bytes;
@@ -447,9 +452,18 @@ export class MapRenderer {
     alpha = 1,
     tint = 0xffffff,
     size?: Rect,
+    decodedOnly = false,
   ): Sprite | null {
-    const ready = this.images.get(image);
-    if (ready === null) return null;
+    let ready = decodedOnly ? this.images.peek(image) : this.images.get(image);
+    if (decodedOnly && ready !== null && !this.images.hold(ready)) ready = null;
+    if (ready === null) {
+      // Until the new image has decoded, the sprite keeps the one it shows (another density, lite art): a frame
+      // never loses art it had.
+      const last = this.shown.get(key);
+      if (last === undefined || !this.images.hold(last)) return null;
+      ready = last;
+    }
+    this.shown.set(key, ready);
     this.used.add(key);
     let sprite = this.sprites.get(key);
     if (sprite === undefined) {
@@ -492,25 +506,48 @@ export class MapRenderer {
   private paintBackdrop(p: Pyramid, rect: Rect): void {
     const effective = this.camera.effective();
     const lite = chooseMip(p, this.camera.world, Math.min(1, effective));
+    const decoded = (index: number, tile: Tile) => {
+      const mip = p.mips[index];
+      if (mip === undefined) return false;
+      const draw = backdropDraw(p, mip, tile, this.camera.world);
+      return (
+        this.images.peek(backdropImage(tile, draw.frame, index !== lite)) !==
+        null
+      );
+    };
     const tiers = backdropMips(
       p,
       this.camera.world,
       effective,
       rect,
       !this.loader.upgradesDeferred,
-      (mip, tile) => {
-        const draw = backdropDraw(p, mip, tile, this.camera.world);
-        return this.images.peek(backdropImage(tile, draw.frame)) !== null;
-      },
+      (mip, tile) => decoded(p.mips.indexOf(mip), tile),
     );
-    for (const index of tiers) {
+    // A new base level (zoomed past a mip) decodes under the levels the last frame drew, so that no tile goes blank.
+    const base = tiers[0] ?? lite,
+      baseMip = p.mips[base],
+      complete =
+        baseMip === undefined ||
+        baseMip.tiles.every(
+          (tile) =>
+            !intersects(
+              rect,
+              backdropDraw(p, baseMip, tile, this.camera.world).world,
+            ) || decoded(base, tile),
+        );
+    const under = complete
+      ? []
+      : this.backdropShown.filter((index) => !tiers.includes(index));
+    this.backdropShown = [];
+    for (const index of [...under, ...tiers]) {
       const mip = p.mips[index];
       if (mip === undefined) continue;
-      this.stats.mip = index;
+      const decodedOnly = under.includes(index);
+      let drawn = false;
       for (const tile of mip.tiles) {
         const draw = backdropDraw(p, mip, tile, this.camera.world);
         if (!intersects(rect, draw.world)) continue;
-        this.sprite(
+        const sprite = this.sprite(
           `backdrop/${index}/${tile.x}/${tile.y}`,
           this.backdropLayer,
           backdropImage(tile, draw.frame, index !== lite),
@@ -518,9 +555,13 @@ export class MapRenderer {
           1,
           0xffffff,
           draw.world,
+          decodedOnly,
         );
-        this.stats.backdropTiles++;
+        if (!decodedOnly) this.stats.backdropTiles++;
+        if (sprite !== null) drawn = true;
       }
+      if (drawn) this.backdropShown.push(index);
+      if (!decodedOnly) this.stats.mip = index;
     }
   }
   private mark(u: play.UnitView): void {

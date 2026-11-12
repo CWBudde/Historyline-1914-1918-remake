@@ -20,15 +20,27 @@ export class RenderCache<T> {
   private serial = 0;
   private stopped = false;
   bytes = 0;
+  /** ready reports whether every resource of the current frame has settled: decoded, or failed for good. */
   get ready(): boolean {
     if (this.stopped) return false;
-    for (const key of this.needed)
-      if (this.entries.get(key)?.state !== "ready") return false;
+    for (const key of this.needed) {
+      const state = this.entries.get(key)?.state;
+      if (state !== "ready" && state !== "failed") return false;
+    }
     return true;
+  }
+  /** progress counts the current frame's settled resources. */
+  progress(): { settled: number; total: number } {
+    let settled = 0;
+    for (const key of this.needed) {
+      const state = this.entries.get(key)?.state;
+      if (state === "ready" || state === "failed") settled++;
+    }
+    return { settled, total: this.needed.size };
   }
   constructor(
     private readonly budget: number,
-    private readonly concurrency: number,
+    public concurrency: number,
     private readonly changed: () => void,
     private readonly error: (error: Error) => void = () => {},
   ) {}
@@ -58,6 +70,17 @@ export class RenderCache<T> {
     } else e.used = ++this.serial;
     this.pump();
     return e.resource?.value ?? null;
+  }
+  /**
+   * hold keeps a decoded resource for the current frame as a stand-in for one still decoding, so that it is neither
+   * evicted nor replaced by nothing; false once it is gone.
+   */
+  hold(key: string): boolean {
+    const e = this.entries.get(key);
+    if (this.stopped || e?.state !== "ready") return false;
+    this.needed.add(key);
+    e.used = ++this.serial;
+    return true;
   }
   end(): void {
     for (const [key, e] of this.entries)

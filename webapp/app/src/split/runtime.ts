@@ -226,7 +226,7 @@ export class SplitRuntime {
         // unused tier before the panels are aligned.
         await Promise.all([a.map.initialize(), b.map.initialize()]);
         signal.throwIfAborted();
-        progress(1, "Ready.");
+        progress(0.8, "Drawing the battlefield…");
         return ready;
       } finally {
         signal.removeEventListener("abort", aborted);
@@ -590,6 +590,28 @@ export class SplitRuntime {
       this.surfaces[side].hidden = !this.visible(side);
       this.panels[side].tick(ms, this.visible(side));
     }
+  }
+  /**
+   * prepare draws the visible maps behind the loading page without running the battle, so that their images decode
+   * before the battle shows; it reports the share of the first frame's images decoded, 1 once complete.
+   */
+  prepare(): number {
+    if (this.stopped) return 0;
+    if (this.original) this.alignViews();
+    let settled = 0,
+      total = 0;
+    for (const side of sides) {
+      const visible = this.visible(side);
+      this.wrappers[side].visible = visible;
+      this.surfaces[side].hidden = !visible;
+      if (!visible) continue;
+      const map = this.panels[side].map;
+      map.render();
+      const p = map.images.cache.progress();
+      settled += p.settled;
+      total += p.total;
+    }
+    return this.ready ? 1 : total === 0 ? 0 : Math.min(settled / total, 0.99);
   }
   refreshImages(): void {
     for (const panel of this.panels) panel.map.dirty = true;
