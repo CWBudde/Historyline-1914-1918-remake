@@ -1,5 +1,11 @@
-import { Container, Graphics, Sprite, type Application } from "pixi.js";
-import { hexgrid, level, play } from "@historyline/engine";
+import {
+  Container,
+  Graphics,
+  Sprite,
+  type Application,
+  type Texture,
+} from "pixi.js";
+import { bind, hexgrid, level, play } from "@historyline/engine";
 import { Camera, type Point, type Rect } from "./camera.ts";
 import { assetDensity, type AssetLoader } from "./assets.ts";
 import { type Pyramid, record } from "./assetManifest.ts";
@@ -10,7 +16,8 @@ import {
   visibleHexes,
 } from "./mapGeometry.ts";
 import { terrainDraws, type BakedLayers, type MapScene } from "./mapScene.ts";
-import { reworkScene } from "./dynamicScene.ts";
+import { composeScene, reworkScene } from "./dynamicScene.ts";
+import type { OriginalTextures } from "./original/textures.ts";
 import { MapImages, type MapImage } from "./mapImages.ts";
 import {
   unitFrames,
@@ -37,6 +44,12 @@ const tunnelDashes = 12,
   tunnelColour = 0x966432,
   tunnelLit = 230 / 255,
   tunnelDark = 90 / 255;
+// The original tile is a 24×24 box filled by a hex whose hexes repeat every 32 pixels along a line and every 12
+// pixels down; frames run clockwise from north.
+const originalHex = 24,
+  originalColPitch = 32,
+  originalLinePitch = 12,
+  originalFacings = ["n", "ne", "se", "s", "sw", "nw"];
 const ownerColor = (owner: number): number =>
   owner === 1 ? 0x55c3f3 : owner === 2 ? 0xe7d365 : 0xc4c4b8;
 interface Catalog {
@@ -97,19 +110,38 @@ export class MapRenderer {
   private scene: MapScene;
   private drawnLevel: level.Level;
   private changed = new Set<string>();
+  private baked: BakedLayers;
+  /** A level without a baked scene (an original map) composes it once the terrain catalog is known. */
+  private composing: boolean;
+  /** The original design's art (original/state.ts); null draws the remake's art. */
+  original: OriginalTextures | null = null;
+  private readonly originalLayer = new Container();
 
   constructor(
     readonly app: Application,
     readonly loader: AssetLoader,
-    readonly baked: BakedLayers,
+    baked: BakedLayers | null,
     readonly battle: MapBattle,
     readonly families: Readonly<Record<string, SpriteFamily>>,
     private readonly pyramid: Pyramid | undefined,
     private readonly report: (message: string) => void,
   ) {
-    this.scene = baked.scene;
+    this.composing = baked === null;
+    this.baked = baked ?? {
+      scene: composeScene(battle.session.level, () => false),
+      seasons: new Map(),
+      water: new Map(),
+      blend: new Map(),
+      backgrounds: new Map(),
+      seasonBakes: {
+        layers: new Map(),
+        ground: new Map(),
+        standing: new Map(),
+      },
+    };
+    this.scene = this.baked.scene;
     this.drawnLevel = battle.session.level;
-    const [width, height] = hexgrid.bounds(baked.scene.grid);
+    const [width, height] = hexgrid.bounds(this.scene.grid);
     this.camera = new Camera(
       { width, height },
       { width: app.screen.width, height: app.screen.height },
@@ -132,6 +164,7 @@ export class MapRenderer {
     this.root.addChild(
       this.backdropLayer,
       this.terrainLayer,
+      this.originalLayer,
       this.ownership,
       this.unitLayer,
       this.markers,
@@ -216,9 +249,12 @@ export class MapRenderer {
       density: d,
       decodedBytes: this.images.cache.bytes,
     };
-    const painted = this.backdrop && this.pyramid !== undefined;
-    if (painted) this.paintBackdrop(this.pyramid, rect);
-    if (!painted || this.changed.size > 0) {
+    const original = this.original;
+    const painted =
+      original === null && this.backdrop && this.pyramid !== undefined;
+    if (original !== null) this.paintOriginal(original, cells);
+    else if (painted) this.paintBackdrop(this.pyramid, rect);
+    if (original === null && (!painted || this.changed.size > 0)) {
       const catalog = this.catalogs.get("terrain");
       if (catalog !== undefined)
         for (const draw of terrainDraws(
@@ -261,12 +297,15 @@ export class MapRenderer {
         this.ownership.rect(x - 20, y - 34, 40, 6).fill(ownerColor(b.owner));
       }
     const moving = this.battle.playback.moving();
-    const frames = unitFrames(
-      view,
-      this.families,
-      this.battle.playback.directions,
-      moving === null ? new Set() : new Set([moving.unit.index]),
-    );
+    const frames =
+      original !== null
+        ? []
+        : unitFrames(
+            view,
+            this.families,
+            this.battle.playback.directions,
+            moving === null ? new Set() : new Set([moving.unit.index]),
+          );
     for (const frame of frames) {
       if (
         !visible.has(level.coordKey(frame.drawAt)) &&
@@ -278,7 +317,8 @@ export class MapRenderer {
       if (camera.effective() >= 0.35 && frame.unit.size > 0)
         this.mark(frame.unit);
     }
-    if (moving !== null) {
+    if (original !== null) this.originalUnits(original, view, visible, moving);
+    else if (moving !== null) {
       const meta = this.families[moving.unit.id];
       if (meta !== undefined) {
         const family =
@@ -625,7 +665,95 @@ export class MapRenderer {
     const images = await this.images.catalog(name, d);
     if (this.desired.get(name) === undefined || this.desired.get(name) === d)
       this.catalogs.set(name, { density: d, images });
+    if (name === "terrain" && this.composing) {
+      this.composing = false;
+      this.baked = {
+        ...this.baked,
+        scene: composeScene(this.battle.session.level, (id) => images.has(id)),
+      };
+      this.scene = this.baked.scene;
+      this.workKey = "";
+      this.terrainVersion = -1;
+    }
     this.dirty = true;
+  }
+  /**
+   * paintOriginal draws the original tile of every hex in view, scaled from the original's hex pitches (32 pixels
+   * along a line, 12 down) onto the remake's, so that the hexes interlock as in the original: the terrain record
+   * the board holds now, sappers' work included (side 0's map, as the desktop drew it).
+   */
+  private paintOriginal(
+    art: OriginalTextures,
+    cells: readonly hexgrid.Coord[],
+  ): void {
+    const s = this.battle.session,
+      tiles = art.tiles[s.board.winter ? 1 : 0],
+      map = s.game.maps[0];
+    for (const c of cells) {
+      const cell = bind.cell(s.board, c);
+      if (cell === null) continue;
+      const tile = tiles[map[2 * cell] ?? -1];
+      if (tile !== undefined)
+        this.originalSprite(`original/tile/${c.line},${c.col}`, tile, c);
+    }
+  }
+  private originalSprite(
+    key: string,
+    texture: Texture,
+    c: hexgrid.Coord | Point,
+    alpha = 1,
+  ): void {
+    const [x, y] = "line" in c ? hexgrid.center(c) : [c.x, c.y];
+    this.used.add(key);
+    let sprite = this.sprites.get(key);
+    if (sprite === undefined) {
+      sprite = new Sprite(texture);
+      this.sprites.set(key, sprite);
+    } else sprite.texture = texture;
+    const parent = this.originalLayer,
+      index = this.counts.get(parent) ?? 0;
+    if (sprite.parent !== parent) parent.addChild(sprite);
+    if (parent.getChildIndex(sprite) !== index)
+      parent.setChildIndex(sprite, index);
+    this.counts.set(parent, index + 1);
+    // One world pixel more each way, so that rounding leaves no seam.
+    const sx = (hexgrid.colPitch + 1) / originalColPitch,
+      sy = (hexgrid.linePitch + 1) / originalLinePitch;
+    sprite.width = texture.width * sx;
+    sprite.height = texture.height * sy;
+    sprite.position.set(x - (originalHex / 2) * sx, y - (originalHex / 2) * sy);
+    sprite.alpha = alpha;
+    sprite.tint = 0xffffff;
+  }
+  /** originalUnits draws the shown side's units with the original sprites, grey when moved. */
+  private originalUnits(
+    art: OriginalTextures,
+    view: play.View,
+    visible: ReadonlySet<string>,
+    moving: ReturnType<MapBattle["playback"]["moving"]>,
+  ): void {
+    const frame = (u: play.UnitView, facing: string, moved: boolean) => {
+      const k = 6 * u.type + Math.max(0, originalFacings.indexOf(facing));
+      return art.units[u.side]?.[moved ? 1 : 0]?.[k];
+    };
+    const units = [...view.units.values()].sort(
+      (a, b) => a.at.line - b.at.line || a.at.col - b.at.col,
+    );
+    for (const u of units) {
+      if (moving?.unit.index === u.index || !visible.has(level.coordKey(u.at)))
+        continue;
+      const facing = this.battle.playback.directions.get(u.index) ?? "n";
+      const t = frame(u, facing, u.moved && u.side === view.side);
+      if (t === undefined) continue;
+      this.originalSprite(`original/unit/${u.index}`, t, u.at);
+      this.stats.units++;
+      if (this.camera.effective() >= 0.35 && u.size > 0) this.mark(u);
+    }
+    if (moving !== null) {
+      const t = frame(moving.unit, moving.facing, false);
+      if (t !== undefined)
+        this.originalSprite("original/walking", t, moving.at);
+    }
   }
   private async loadGlyphs(): Promise<void> {
     const font = this.loader.index.pixelFonts["5"];

@@ -16,8 +16,19 @@ import type { Settings } from "../storage/store.ts";
 import { decodeEnvelope } from "../storage/store.ts";
 import type { BattleStart } from "../shell/controller.ts";
 import { BattleScenes } from "./scene.ts";
-import { newBattleSession, type BattleData } from "./session.ts";
+import {
+  design,
+  nextDesign,
+  type Available,
+  type Design,
+} from "../original/design.ts";
+import { hasOriginalArt, originalArt } from "../original/state.ts";
+import { missionSession, type BattleData } from "./session.ts";
 
+/** backdropMonth is the month whose painting a mission shows: an original map's month where one was made from it. */
+function backdropMonth(m: BattleStart["mission"]): string {
+  return m.original?.backdrop ?? m.month;
+}
 export interface BattleHooks {
   changed(): void;
   leave(): void;
@@ -42,6 +53,8 @@ export class BattleRuntime {
   readonly reduced: Signal<boolean>;
   readonly scenes: Signal<boolean>;
   readonly painted: Signal<boolean>;
+  /** The map design drawn now (original/design.ts). */
+  readonly design = signal<Design>("painted");
   readonly ring = signal<ReturnType<typeof layoutRing> | null>(null);
   private readonly auxiliary: BattleScenes;
   private readonly keys: BattleKeys;
@@ -52,7 +65,7 @@ export class BattleRuntime {
   private preferences: Settings;
   private constructor(
     private readonly app: Application,
-    loader: AssetLoader,
+    private readonly loader: AssetLoader,
     readonly request: BattleStart,
     private readonly data: BattleData,
     preferences: Settings,
@@ -70,9 +83,8 @@ export class BattleRuntime {
       throw Error("The panel controller belongs to another side.");
     const session =
       options.battle?.session ??
-      newBattleSession(
-        request.mission.file,
-        request.mission.mode,
+      missionSession(
+        request.mission,
         request.side,
         {
           limit: preferences.limit,
@@ -92,10 +104,10 @@ export class BattleRuntime {
     this.map = new MapRenderer(
       app,
       loader,
-      parseBakedLayers(baked),
+      baked === null ? null : parseBakedLayers(baked),
       this.battle,
       data.families,
-      loader.index.levels[request.mission.month]?.backdrop,
+      loader.index.levels[backdropMonth(request.mission)]?.backdrop,
       (message) => {
         this.status(message);
       },
@@ -172,10 +184,11 @@ export class BattleRuntime {
   ): Promise<BattleRuntime> {
     signal.throwIfAborted();
     progress(0.1, "Loading the battlefield…");
-    const baked = await loader.baked(
-      request.mission.month,
-      request.mission.mode,
-    );
+    // An imported original map has no baked layers: the renderer composes its tiles.
+    const baked =
+      request.mission.original === undefined
+        ? await loader.baked(request.mission.month, request.mission.mode)
+        : null;
     signal.throwIfAborted();
     progress(
       0.45,
@@ -220,7 +233,10 @@ export class BattleRuntime {
     this.painted.value = settings.painted;
     this.battle.playback.setReducedMotion(settings.reduced);
     this.battle.playback.setScenes(settings.scenes);
-    this.map.backdrop = settings.painted;
+    this.design.value = design(settings, this.available());
+    this.painted.value = this.design.value === "painted";
+    this.map.backdrop = this.design.value === "painted";
+    this.map.original = this.design.value === "original" ? originalArt() : null;
     this.map.dirty = true;
     this.closeRing();
     this.auxiliary.refresh();
@@ -261,7 +277,7 @@ export class BattleRuntime {
           this.cancel();
         },
         design: () => {
-          this.hooks.preference({ painted: !this.painted.value });
+          this.cycleDesign();
         },
         phase: () => {
           void this.battle.requestPhase();
@@ -342,6 +358,7 @@ export class BattleRuntime {
       reduced: this.reduced,
       scenes: this.scenes,
       painted: this.painted,
+      design: this.design,
       ring: this.ring,
       settingsBusy: settingsState.busy,
       settingsNote: settingsState.note,
@@ -355,7 +372,7 @@ export class BattleRuntime {
         this.hooks.preference({ scenes });
       },
       onDesign: () => {
-        this.hooks.preference({ painted: !this.painted.value });
+        this.cycleDesign();
       },
       onLeave: () => {
         this.hooks.leave();
@@ -387,6 +404,20 @@ export class BattleRuntime {
     this.battle.dispose();
     this.auxiliary.dispose();
     this.map.dispose();
+  }
+  /** available are the designs this battle can draw: a painting where its month has one, imported original art. */
+  available(): Available {
+    return {
+      painted:
+        this.loader.index.levels[backdropMonth(this.request.mission)]
+          ?.backdrop !== undefined,
+      original: hasOriginalArt(),
+      originalMap: this.request.mission.original !== undefined,
+    };
+  }
+  /** cycleDesign is F8: the next available map design. */
+  cycleDesign(): void {
+    this.hooks.preference(nextDesign(this.preferences, this.available()));
   }
   private fire(): void {
     if (this.ended()) this.hooks.continue();
@@ -470,7 +501,7 @@ export class BattleRuntime {
         this.battle.requestSurrender();
         break;
       case "f8":
-        this.hooks.preference({ painted: !this.painted.value });
+        this.cycleDesign();
         break;
       case "f9":
         this.hooks.preference({ scenes: !this.scenes.value });

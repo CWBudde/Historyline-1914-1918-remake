@@ -11,11 +11,29 @@ import { SplitRuntime } from "./split/runtime.ts";
 import { SplitUI } from "./split/SplitUI.tsx";
 import {
   loadBattleData,
-  newBattleSession,
+  missionSession,
   type BattleData,
 } from "./battle/session.ts";
-import { loadCampaign, type Campaign, type Mission } from "./shell/campaign.ts";
-import { ShellController, type BattleStart } from "./shell/controller.ts";
+import {
+  loadCampaign,
+  setOriginals,
+  type Campaign,
+  type Mission,
+} from "./shell/campaign.ts";
+import {
+  ShellController,
+  type BattleStart,
+  type OriginalHooks,
+} from "./shell/controller.ts";
+import { installViewport } from "./viewport.ts";
+import { OriginalStore } from "./storage/originals.ts";
+import { select, type Picked } from "./original/files.ts";
+import {
+  loadOriginalTables,
+  originalMissions,
+  type OriginalTables,
+} from "./original/catalog.ts";
+import { setOriginalArt } from "./original/state.ts";
 import { ShellUI } from "./shell/ShellUI.tsx";
 import {
   BrowserStore,
@@ -227,6 +245,64 @@ function Controls() {
     </>
   );
 }
+// The original game's files the player imported (original/): kept in their own IndexedDB database.
+let originalStore: OriginalStore | null = null,
+  originalTables: OriginalTables | null = null,
+  originalStatus = { maps: 0, art: false, skipped: [] as string[] };
+/** offerOriginals makes the imported files' maps playable and their art drawable; it throws on bad files. */
+async function offerOriginals(
+  files: ReadonlyMap<string, Uint8Array>,
+): Promise<void> {
+  if (loader === null || data === null || campaign === null)
+    throw Error("The game is not ready.");
+  if (files.size === 0) {
+    setOriginals(campaign, []);
+    setOriginalArt(null);
+    originalStatus = { maps: 0, art: false, skipped: [] };
+    return;
+  }
+  originalTables ??= await loadOriginalTables(loader);
+  const catalog = originalMissions(
+    files,
+    data,
+    originalTables,
+    [...campaign.byKey.values()].filter((m) => m.original === undefined),
+  );
+  const art = setOriginalArt(files);
+  setOriginals(campaign, catalog.missions);
+  originalStatus = {
+    maps: new Set(catalog.missions.map((m) => m.month)).size,
+    art,
+    skipped: catalog.skipped,
+  };
+}
+const originalHooks: OriginalHooks = {
+  status: () => originalStatus,
+  async import(picked: readonly Picked[]) {
+    const chosen = select(picked);
+    if (chosen.problem !== "") throw Error(chosen.problem);
+    // Check every map binds before anything is stored.
+    await offerOriginals(chosen.files);
+    originalStore ??= await OriginalStore.open();
+    await originalStore.replace(chosen.files);
+    return `${originalStatus.maps} original maps imported${originalStatus.art ? " with their tiles and units" : ""}.${originalStatus.skipped.length > 0 ? ` Left out: ${originalStatus.skipped.join("; ")}.` : ""}`;
+  },
+  async remove() {
+    originalStore ??= await OriginalStore.open();
+    await originalStore.clear();
+    await offerOriginals(new Map());
+  },
+};
+async function restoreOriginals(): Promise<string> {
+  try {
+    originalStore ??= await OriginalStore.open();
+    const files = await originalStore.files();
+    if (files.size > 0) await offerOriginals(files);
+    return "";
+  } catch (error) {
+    return `The imported original files could not be read: ${message(error)}`;
+  }
+}
 async function initializeStorage(): Promise<void> {
   if (storageAttempt !== null) return storageAttempt;
   storageAttempt = (async () => {
@@ -251,9 +327,8 @@ function savedMission(envelope: SaveEnvelope): Mission {
   if (mission === null)
     throw Error(`The saved map ${envelope.map} is not in the campaign.`);
   // Parse against that setup before replacing a slot or the active battle.
-  newBattleSession(
-    mission.file,
-    mission.mode,
+  missionSession(
+    mission,
     envelope.side,
     { limit: 0, computer: false },
     data,
@@ -310,7 +385,9 @@ async function beginBattle(
   runtime = next;
   lastEnd = null;
   publishDebug();
-  scheduleOfflineKeep(next, request.mission);
+  // An imported original map is local already; the offline cache keeps the shipped months.
+  if (request.mission.original === undefined)
+    scheduleOfflineKeep(next, request.mission);
 }
 async function bootstrap(): Promise<void> {
   const run = ++bootGeneration;
@@ -357,6 +434,7 @@ async function bootstrap(): Promise<void> {
     data = nextData;
     campaign = nextCampaign;
     assets = nextAssets;
+    const originalNote = await restoreOriginals();
     const model = new ShellController(nextCampaign, store, preferences, {
       start: beginBattle,
       pause: (paused) => runtime?.setPaused(paused),
@@ -375,11 +453,13 @@ async function bootstrap(): Promise<void> {
       canSave: () => runtime?.canSave() ?? false,
       validate: savedMission,
       settings: applyPreferences,
+      originals: originalHooks,
     });
     shell = model;
     model.onChange = changed;
     applyPreferences(model.settings);
     if (storageNote !== "") model.note = storageNote;
+    else if (originalNote !== "") model.note = originalNote;
     changed();
   } catch (error) {
     nextAssets?.dispose();
@@ -418,6 +498,7 @@ async function start(): Promise<void> {
       discardBattle();
       assets?.dispose();
       store?.close();
+      originalStore?.close();
       computer.dispose();
       if (appReady) app.destroy(true);
     },
@@ -444,6 +525,11 @@ async function start(): Promise<void> {
     checkEnd();
   });
   window.addEventListener("resize", () => {
+    resize();
+    revision.value++;
+  });
+  // Phones: the visual viewport shrinks under browser chrome and on-screen keyboards.
+  installViewport(document, window, () => {
     resize();
     revision.value++;
   });

@@ -1,3 +1,4 @@
+import { designNames } from "../original/design.ts";
 import { level, play, phaseMovement } from "@historyline/engine";
 import { useCallback, useEffect, useLayoutEffect, useRef } from "preact/hooks";
 import type { TargetedKeyboardEvent } from "preact";
@@ -734,7 +735,9 @@ function Settings({ p }: { p: Props }) {
             p.onDesign();
           }}
         >
-          {p.painted.value ? "Show terrain tiles" : "Show painting"} (F8)
+          {p.design === undefined
+            ? `${p.painted.value ? "Show terrain tiles" : "Show painting"} (F8)`
+            : `Map design: ${designNames[p.design.value]} (F8)`}
         </button>
         <button
           type="button"

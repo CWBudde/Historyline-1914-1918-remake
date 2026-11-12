@@ -40,6 +40,7 @@ The existing `just` shortcuts use `hl` too.
 | `preview effects` | Unit movement and effects preview (needs a display) | |
 | `webapp golden` | Write Go AI-vs-AI command/event/save traces for all shipped setups into `build/webapp/golden`; `-resolutions` caps each trace (default 300) | `webapp-golden` |
 | `webapp assets` | Export hash-pinned packs, scenarios, tiled backdrop mipmaps, baked map layers and fonts into `build/webapp/data` | `webapp-assets` |
+| `webapp original` | From the local original files, write every original map's finmap level, `dosbind.FromOriginal` board, `origview` view and AI-vs-AI trace into `build/webapp/original` for the TS tests; nothing without the files | `webapp-golden` |
 | `webapp size` | Report the built site's size per file type; fails above the limit (`-dir`, `-max-mb`) | `webapp-size` |
 | `artbook` | Render `build/artbook/Historyline_Art.pdf` (needs `typst`) | `artbook` |
 | `manual` | Build the reconstructed manual PDF (needs `typst`); `-images` extracts the original's pictures with `pdfimages`, `-watch` rebuilds on change | `manual`, `manual-images`, `manual-watch` |

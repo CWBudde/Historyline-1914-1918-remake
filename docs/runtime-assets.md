@@ -25,6 +25,18 @@ cache the lite units, interface and screens at the current density, and the back
 the next two of its chain; it is skipped under Save-Data. A month not kept reports that it is not available
 offline. Nothing evicts old blobs yet, so the browser's storage quota is the only limit.
 
+The original game's maps and art: under Extras → Original game the player picks the folder of their own copy
+(or its files, or drops it). `webapp/app/src/original/files.ts` keeps only `CODES.DAT`, `MAP/*.FIN|SHP|COM`,
+`00.PAL` and `LIB/PARTS|PARTW|UNIT.DAT|LIB` and stores them in their own IndexedDB database
+(`storage/originals.ts`); nothing is uploaded, the service worker never sees them, and the same page removes
+them. The engine reads the maps (`origmaps.ts`, `finmap.ts`, `tpwm.ts`) and binds each exactly (`original.ts`,
+dosbind's `FromOriginal`); `origview.ts` with `looks.json` (exported as a rule) gives the view the menus and the
+remake's tiles draw, composed in the browser (`composeScene`) as these maps have no baked layers. Every map is
+offered for either side against the computer, two-player maps also to two humans, as `original/NN` missions. The
+map designs F8 cycles are painted (where a month has a painting), tiles and, once the art is imported, original:
+the original tiles by the board's current terrain records and the original unit frames, scaled from the original
+hex pitches (32 × 12 pixels) onto the remake's. An original map shows the original design by default.
+
 `internal/assets` loads versioned image packs (PNG, JPEG or WebP); `hl assets` (`internal/hlasset`) builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
@@ -72,8 +84,7 @@ muted pale on forest and open water without infrastructure (`unitsprite.RimFor`)
 Under the original rules the battleship, the destroyer and the submarine are two-cell ships: a head and a
 rear on neighbouring hexes (`dosplay.UnitView.Rear`/`Head`). The map draws such a ship once, from its long
 family `<family>-long` (`unitsprite.Long`): the same 36 sprites on a 160×160 canvas, anchor (80,80) at the
-midpoint of the two hexes, facing from the rear to the head. Each half keeps its own markers. The remake
-rules keep a ship on one hex and draw its single-hex sprite.
+midpoint of the two hexes, facing from the rear to the head. Each half keeps its own markers.
 
 ## Terrain
 

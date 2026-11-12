@@ -1,6 +1,7 @@
 import { campaign, scenario } from "@historyline/engine";
 import type { AssetLoader } from "../assets.ts";
 import { record } from "../assetManifest.ts";
+import type { OriginalSource } from "../original/catalog.ts";
 
 export type Article = campaign.Article;
 export interface UnitCard {
@@ -29,6 +30,8 @@ export interface Mission {
   issue: number;
   newUnits: UnitCard[];
   file: scenario.File;
+  /** An original map from the player's imported files: the battle binds it exactly (original/catalog.ts). */
+  original?: OriginalSource;
 }
 export interface Campaign {
   missions: Mission[];
@@ -36,6 +39,15 @@ export interface Campaign {
   forSide(key: string, side: 0 | 1): Mission;
   findCode(code: string): Mission | null;
   first(side: 0 | 1): Mission;
+  /** The imported original maps' missions (setOriginals), in map order. */
+  originals?: Mission[];
+}
+
+/** setOriginals replaces the campaign's imported original maps. */
+export function setOriginals(c: Campaign, missions: readonly Mission[]): void {
+  for (const m of c.originals ?? []) c.byKey.delete(m.key);
+  c.originals = [...missions];
+  for (const m of missions) c.byKey.set(m.key, m);
 }
 
 function text(value: unknown): string {

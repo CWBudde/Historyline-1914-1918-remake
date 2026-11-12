@@ -10,6 +10,9 @@ import {
   type ShellPage,
 } from "./controller.ts";
 import "./shell.css";
+import { OriginalPage } from "./OriginalPage.tsx";
+import { design, designNames, nextDesign } from "../original/design.ts";
+import { hasOriginalArt } from "../original/state.ts";
 
 export interface ShellUIProps {
   shell: ShellController;
@@ -33,6 +36,7 @@ const titles: Record<ShellPage, string> = {
   outcome: "",
   scores: "SCORE LIST",
   saves: "SAVED GAMES",
+  original: "ORIGINAL GAME",
   closed: "HISTORYLINE 1914–1918",
 };
 const maxImportBytes = 4 * Math.ceil((8 * 1024 * 1024) / 3) + 2048;
@@ -50,6 +54,7 @@ function pageArt(s: ShellController): [string, string] {
     case "extras":
     case "scores":
     case "saves":
+    case "original":
       return ["screen/title", "scene/save"];
     case "country":
       return ["screen/side-selection", "scene/side-selection"];
@@ -296,7 +301,14 @@ export function ShellUI(p: ShellUIProps) {
 
   if (page === "battle") return null;
   const [frame, scene] = pageArt(s);
-  const wide = ["country", "news", "units", "saves", "leave"].includes(page);
+  const wide = [
+    "country",
+    "news",
+    "units",
+    "saves",
+    "leave",
+    "original",
+  ].includes(page);
   const title =
     page === "outcome"
       ? s.result?.draw
@@ -511,10 +523,18 @@ export function ShellUI(p: ShellUIProps) {
             {button(`Battle scenes · ${s.settings.scenes ? "On" : "Off"}`, () =>
               change({ scenes: !s.settings.scenes }),
             )}
-            {button(
-              `Map design · ${s.settings.painted ? "Painted" : "Tiles"}`,
-              () => change({ painted: !s.settings.painted }),
-            )}
+            {(() => {
+              // Painted where a month has a painting; Original once the original game's files are imported.
+              const a = {
+                painted: true,
+                original: hasOriginalArt(),
+                originalMap: false,
+              };
+              return button(
+                `Map design · ${designNames[design(s.settings, a)]}`,
+                () => change(nextDesign(s.settings, a)),
+              );
+            })()}
             <label class="shell-field">
               UI scale
               <select
@@ -548,6 +568,10 @@ export function ShellUI(p: ShellUIProps) {
           <nav class="shell-menu" aria-label="Extras">
             {button("Score list", () => s.openStorage("scores"))}
             {button("Load game", () => s.openStorage("saves"))}
+            {s.originals !== null &&
+              button("Original game", () => {
+                s.open("original");
+              })}
           </nav>
           <footer class="shell-actions">{back()}</footer>
         </>
@@ -819,6 +843,9 @@ export function ShellUI(p: ShellUIProps) {
           <footer class="shell-actions">{back()}</footer>
         </>
       );
+      break;
+    case "original":
+      content = <OriginalPage shell={s} busy={busy} button={button} />;
       break;
     case "closed":
       content = (

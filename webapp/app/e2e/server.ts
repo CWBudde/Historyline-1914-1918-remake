@@ -16,6 +16,7 @@ const types: Record<string, string> = {
   ".png": "image/png",
   ".txt": "text/plain",
   ".webp": "image/webp",
+  ".webmanifest": "application/manifest+json",
   ".woff2": "font/woff2",
 };
 const compressed = new Set([".css", ".html", ".js", ".json", ".txt"]);

@@ -274,3 +274,28 @@ export function reworkScene(
         changed.add(level.coordKey({ line, col }));
   return { scene, level: lv, changed };
 }
+
+/**
+ * composeScene composes every hex of a level without a baked scene (an imported original map): each hex its
+ * own background, overlays and standing art, as reworkScene composes the hexes the work changed.
+ */
+export function composeScene(
+  lv: level.Level,
+  has: (id: string) => boolean,
+): MapScene {
+  const fallback = mapSeason(lv);
+  return {
+    grid: level.grid(lv),
+    cells: lv.lines.map((line, l) =>
+      line.map((_, c) =>
+        composeCell(
+          lv,
+          { line: l, col: c },
+          has,
+          seasonAt(lv, { line: l, col: c }, fallback),
+        ),
+      ),
+    ),
+    clusters: [],
+  };
+}

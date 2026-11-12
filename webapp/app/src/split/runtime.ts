@@ -4,7 +4,7 @@ import type { Signal } from "@preact/signals";
 import type { AssetLoader } from "../assets.ts";
 import type { Computer } from "../computer.ts";
 import { BattleRuntime, type BattleHooks } from "../battle/runtime.ts";
-import { newBattleSession, type BattleData } from "../battle/session.ts";
+import { missionSession, type BattleData } from "../battle/session.ts";
 import { MapBattle } from "../mapBattle.ts";
 import { decodeEnvelope, type Settings } from "../storage/store.ts";
 import type { BattleStart } from "../shell/controller.ts";
@@ -116,9 +116,8 @@ export class SplitRuntime {
     progress: (fraction: number, text: string) => void,
   ): Promise<SplitRuntime> {
     signal.throwIfAborted();
-    const session = newBattleSession(
-      request.mission.file,
-      request.mission.mode,
+    const session = missionSession(
+      request.mission,
       request.side,
       {
         limit: settings.limit,
@@ -222,6 +221,10 @@ export class SplitRuntime {
       for (const surface of surfaces) surface.remove();
       throw error;
     }
+  }
+  /** paintedDesign reports whether the map shows its painting, which the split screen frames slim. */
+  private get paintedDesign(): boolean {
+    return this.panels[0].design.value === "painted";
   }
   get original(): boolean {
     return (
@@ -332,7 +335,8 @@ export class SplitRuntime {
     const geometry =
       this.settings.layout !== settings.layout ||
       this.settings.uiScale !== settings.uiScale ||
-      this.settings.painted !== settings.painted;
+      this.settings.painted !== settings.painted ||
+      this.settings.originalArt !== settings.originalArt;
     this.settings = { ...settings };
     for (const panel of this.panels) panel.applyPreferences(settings);
     if (geometry) {
@@ -382,7 +386,7 @@ export class SplitRuntime {
   }
   resize(width: number, height: number, dpr: number): void {
     if (this.stopped) return;
-    const key = `${width}/${height}/${dpr}/${this.original}/${this.settings.uiScale}/${this.settings.painted}`;
+    const key = `${width}/${height}/${dpr}/${this.original}/${this.settings.uiScale}/${this.paintedDesign}`;
     if (key === this.layoutKey) return;
     this.layoutKey = key;
     const changed =
@@ -415,7 +419,7 @@ export class SplitRuntime {
       const grid = bind.playable(this.battle.session.board),
         [ww, hh] = hexgrid.bounds(grid);
       this.zoom = base.clampZoom(this.zoom);
-      if (this.settings.painted)
+      if (this.paintedDesign)
         this.zoom = Math.max(this.zoom, base.fillZoom(ww, hh));
       this.screen = base.zoomed(this.zoom);
       this.zoomIntent = zooms[this.zoom] ?? 1;
@@ -436,7 +440,7 @@ export class SplitRuntime {
               b.cursor,
             );
           this.views[side] = this.screen.view(side, rest.pair, rest.row);
-          if (this.settings.painted)
+          if (this.paintedDesign)
             this.views[side] = this.screen.slimFit(this.views[side], side, {
               x: 0,
               y: 0,
@@ -500,7 +504,7 @@ export class SplitRuntime {
         this.settings.uiScale * this.dpr,
       );
       this.zoom = base.clampZoom(index);
-      if (this.settings.painted)
+      if (this.paintedDesign)
         this.zoom = Math.max(this.zoom, base.fillZoom(ww, hh));
       this.screen = base.zoomed(this.zoom);
       if (this.zoom !== index) this.zoomIntent = zooms[this.zoom] ?? 1;
@@ -513,7 +517,7 @@ export class SplitRuntime {
       if (intent !== null) camera.origin = { ...intent };
       const rest = cameraRest(camera, this.screen, side, grid);
       let view = this.screen.view(side, rest.pair, rest.row);
-      if (this.settings.painted)
+      if (this.paintedDesign)
         view = this.screen.slimFit(view, side, {
           x: 0,
           y: 0,
@@ -549,7 +553,7 @@ export class SplitRuntime {
       this.screen,
       this.views,
       grid,
-      this.settings.painted,
+      this.paintedDesign,
       this.dpr,
     );
   }
@@ -599,7 +603,7 @@ export class SplitRuntime {
       grid = bind.playable(this.battle.session.board),
       [coord, onMap] = hexgrid.pixelToHex(grid, w.x, w.y);
     if (!onMap) return false;
-    if (this.settings.painted) {
+    if (this.paintedDesign) {
       const o = this.screen.slimOpening(side),
         c = view.worldToScreen(...hexgrid.center(coord));
       return (

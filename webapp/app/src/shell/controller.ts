@@ -10,6 +10,16 @@ import {
   type Settings,
 } from "../storage/store.ts";
 import type { Campaign, Mission, UnitCard } from "./campaign.ts";
+import type { Picked } from "../original/files.ts";
+
+/** The host's handling of the original game's files (original/), which the menus import and remove. */
+export interface OriginalHooks {
+  /** status is what is imported now: the number of maps, whether the art is there, and maps left out. */
+  status(): { maps: number; art: boolean; skipped: string[] };
+  /** import validates and stores picked files, then offers their maps; it returns a note for the player. */
+  import(picked: readonly Picked[]): Promise<string>;
+  remove(): Promise<void>;
+}
 
 export type ShellPage =
   | "main"
@@ -26,6 +36,7 @@ export type ShellPage =
   | "outcome"
   | "scores"
   | "saves"
+  | "original"
   | "closed";
 export interface BattleStart {
   mission: Mission;
@@ -48,6 +59,7 @@ export interface ShellHooks {
   canSave(): boolean;
   validate(envelope: SaveEnvelope): Mission;
   settings(settings: Settings): void;
+  originals?: OriginalHooks;
 }
 export type ShellStore = Pick<
   BrowserStore,
@@ -253,6 +265,7 @@ export class ShellController {
         break;
       case "scores":
       case "saves":
+      case "original":
         this.show("extras");
         break;
       case "news":
@@ -276,6 +289,54 @@ export class ShellController {
       default:
         break;
     }
+  }
+  get originals(): OriginalHooks | null {
+    return this.hooks.originals ?? null;
+  }
+  /** selectOriginal makes an imported original map the map the main menu starts. */
+  selectOriginal(key: string): void {
+    if (this.busy || this.page !== "original") return;
+    const mission = this.campaign.byKey.get(key);
+    if (mission === undefined) return;
+    this.mission = mission;
+    this.side = mission.side;
+    this.pendingSave = undefined;
+    this.page = "main";
+    this.note = `Original map ${mission.month.slice(mission.month.indexOf("/") + 1)} (${mission.code}) selected.`;
+    this.changed();
+  }
+  private async originalWork(
+    work: (hooks: OriginalHooks) => Promise<string>,
+  ): Promise<void> {
+    const hooks = this.hooks.originals;
+    if (this.busy || hooks === undefined || this.activeMission !== null) return;
+    this.busy = true;
+    this.note = "";
+    this.changed();
+    try {
+      this.note = await work(hooks);
+    } catch (error) {
+      this.note = message(error);
+    } finally {
+      if (
+        this.mission.original !== undefined &&
+        !this.campaign.byKey.has(this.mission.key)
+      ) {
+        this.mission = this.campaign.first(0);
+        this.side = 0;
+      }
+      this.busy = false;
+      this.changed();
+    }
+  }
+  importOriginals(picked: readonly Picked[]): Promise<void> {
+    return this.originalWork((hooks) => hooks.import(picked));
+  }
+  removeOriginals(): Promise<void> {
+    return this.originalWork(async (hooks) => {
+      await hooks.remove();
+      return "The original game's files are removed from this browser.";
+    });
   }
   cancelLoading(): void {
     if (this.page !== "loading" || this.busy) return;

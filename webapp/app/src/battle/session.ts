@@ -1,5 +1,6 @@
 import {
   bind,
+  fromOriginal,
   mustTables,
   play,
   profilesOf,
@@ -8,6 +9,7 @@ import {
 import type { AssetLoader } from "../assets.ts";
 import { record } from "../assetManifest.ts";
 import type { SpriteFamily } from "../unitFrame.ts";
+import type { Mission } from "../shell/campaign.ts";
 
 export interface BattleData {
   binding: bind.BindingData;
@@ -66,6 +68,41 @@ export function newBattleSession(
     ...(data.profiles.extended === undefined
       ? {}
       : { extended: data.profiles.extended }),
+    limit: options.limit,
+    computer,
+  });
+}
+
+/**
+ * missionSession is a mission's battle: a shipped setup through newBattleSession, an imported original map bound
+ * exactly (fromOriginal) on its view, as the desktop's -level original/NN did.
+ */
+export function missionSession(
+  mission: Pick<Mission, "file" | "mode" | "original">,
+  side: number,
+  options: { limit: number; computer: boolean },
+  data: BattleData,
+  saved?: Uint8Array | string,
+): play.Session {
+  const o = mission.original;
+  if (o === undefined)
+    return newBattleSession(
+      mission.file,
+      mission.mode,
+      side,
+      options,
+      data,
+      saved,
+    );
+  if (side !== 0 && side !== 1) throw Error("Invalid battle side.");
+  const board = fromOriginal(o.map, data.binding, data.profiles.full),
+    view = structuredClone(o.view);
+  if (saved !== undefined)
+    return play.loadBoard(board, view, data.binding, saved, data.profiles);
+  const computer: [boolean, boolean] = [false, false];
+  computer[1 - side] = options.computer;
+  return play.newBoard(board, view, data.binding, {
+    profile: data.profiles.full,
     limit: options.limit,
     computer,
   });

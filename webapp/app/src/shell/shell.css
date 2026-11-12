@@ -462,3 +462,31 @@
     width: calc(100% - 24px);
   }
 }
+/* The original game's import: a drop zone around the two pickers, then its maps by campaign. */
+.shell-drop {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+  gap: 12px;
+  padding: 14px;
+  margin: 1em 0;
+  border: 1px dashed #9d8b67;
+  border-radius: 3px;
+}
+.shell-drop-over {
+  border-style: solid;
+  border-color: #f3d7a0;
+  background: #3c505755;
+}
+.shell-drop .shell-muted {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.shell-original-maps h2 {
+  font-size: 1em;
+  margin: 1em 0 0.5em;
+}
+.shell-original-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 8px;
+}

@@ -4,6 +4,8 @@ export interface Settings {
   reduced: boolean;
   scenes: boolean;
   painted: boolean;
+  /** The original game's tiles and units, where the player imported their files (original/design.ts). */
+  originalArt: boolean;
   scroll: "normal" | "fast" | "slow";
   opponent: "computer" | "passive";
   layout: "responsive" | "original";
@@ -57,6 +59,7 @@ export function defaultSettings(systemReduced = false): Settings {
     reduced: systemReduced,
     scenes: true,
     painted: true,
+    originalArt: false,
     scroll: "normal",
     opponent: "computer",
     layout: "responsive",
@@ -69,7 +72,7 @@ export function defaultSettings(systemReduced = false): Settings {
 export function validateSettings(value: unknown): Settings {
   if (!object(value)) throw new Error("Invalid settings");
   const result = defaultSettings();
-  for (const key of ["reduced", "scenes", "painted"] as const) {
+  for (const key of ["reduced", "scenes", "painted", "originalArt"] as const) {
     if (!Object.hasOwn(value, key)) continue;
     const field = value[key];
     if (typeof field !== "boolean") throw new Error(`Invalid settings ${key}`);

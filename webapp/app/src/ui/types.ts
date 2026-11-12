@@ -1,3 +1,4 @@
+import type { Design } from "../original/design.ts";
 import type { Signal } from "@preact/signals";
 import type { MapBattle } from "../mapBattle.ts";
 import type { SpriteFamily } from "../unitFrame.ts";
@@ -13,6 +14,8 @@ export interface BattleUIProps {
   reduced: Signal<boolean>;
   scenes: Signal<boolean>;
   painted: Signal<boolean>;
+  /** The map design drawn now; F8 and onDesign cycle it. */
+  design?: Signal<Design>;
   ring: Signal<RingLayout | null>;
   settingsBusy?: boolean;
   settingsNote?: string;
