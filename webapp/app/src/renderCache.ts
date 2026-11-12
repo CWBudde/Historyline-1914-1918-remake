@@ -16,6 +16,8 @@ interface Entry<T> {
 export class RenderCache<T> {
   private entries = new Map<string, Entry<T>>();
   private needed = new Set<string>();
+  /** Needed resources a frame can do without: upgrades of images it has. */
+  private optional = new Set<string>();
   private active = 0;
   private serial = 0;
   private stopped = false;
@@ -24,6 +26,7 @@ export class RenderCache<T> {
   get ready(): boolean {
     if (this.stopped) return false;
     for (const key of this.needed) {
+      if (this.optional.has(key)) continue;
       const state = this.entries.get(key)?.state;
       if (state !== "ready" && state !== "failed") return false;
     }
@@ -31,12 +34,15 @@ export class RenderCache<T> {
   }
   /** progress counts the current frame's settled resources. */
   progress(): { settled: number; total: number } {
-    let settled = 0;
+    let settled = 0,
+      total = 0;
     for (const key of this.needed) {
+      if (this.optional.has(key)) continue;
+      total++;
       const state = this.entries.get(key)?.state;
       if (state === "ready" || state === "failed") settled++;
     }
-    return { settled, total: this.needed.size };
+    return { settled, total };
   }
   constructor(
     private readonly budget: number,
@@ -46,16 +52,21 @@ export class RenderCache<T> {
   ) {}
   begin(): void {
     this.needed.clear();
+    this.optional.clear();
   }
   peek(key: string): T | null {
     return this.entries.get(key)?.resource?.value ?? null;
   }
+  /** get requests a resource for the current frame; an optional one (an upgrade) does not keep it from being complete. */
   get(
     key: string,
     load: () => Promise<RenderResource<T>>,
     error?: (error: Error) => void,
+    optional = false,
   ): T | null {
     if (this.stopped) return null;
+    if (optional && !this.needed.has(key)) this.optional.add(key);
+    else this.optional.delete(key);
     this.needed.add(key);
     let e = this.entries.get(key);
     if (e === undefined) {
@@ -95,15 +106,17 @@ export class RenderCache<T> {
     this.entries.clear();
     this.bytes = 0;
   }
+  /** pump starts queued loads, what the frame shows before upgrades and prefetches. */
   private pump(): void {
     if (this.stopped) return;
-    for (const [key, e] of this.entries) {
-      if (this.active >= this.concurrency) break;
-      if (e.state !== "queued") continue;
-      e.state = "loading";
-      this.active++;
-      void this.load(key, e);
-    }
+    for (const later of [false, true])
+      for (const [key, e] of this.entries) {
+        if (this.active >= this.concurrency) return;
+        if (e.state !== "queued" || this.optional.has(key) !== later) continue;
+        e.state = "loading";
+        this.active++;
+        void this.load(key, e);
+      }
   }
   private async load(key: string, e: Entry<T>): Promise<void> {
     try {

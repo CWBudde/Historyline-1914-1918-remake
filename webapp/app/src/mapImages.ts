@@ -148,6 +148,22 @@ export class MapImages {
     const key = this.keys.get(ready);
     return key !== undefined && this.cache.hold(key);
   }
+  /**
+   * prefetch decodes an image the next frames may show (near the view) after everything the current frame needs;
+   * it never keeps a frame from being complete.
+   */
+  prefetch(image: MapImage): void {
+    if (this.peek(image) !== null) return;
+    const lite = this.key(image, image.lite);
+    this.cache.get(
+      lite,
+      () => this.decode(image, image.lite, lite),
+      (error: Error) => {
+        if (!(error instanceof AssetNetworkError)) this.error(error);
+      },
+      true,
+    );
+  }
   get(image: MapImage): ReadyImage | null {
     const full = this.key(image, image.full),
       lite = this.key(image, image.lite);
@@ -161,8 +177,14 @@ export class MapImages {
       () => this.decode(image, image.lite, lite),
       image.optional === true ? report : undefined,
     );
+    // The full image replaces the lite one when it has decoded; a frame with the lite one is complete.
     if (current !== null && lite !== full && this.loader.upgradesAllowed)
-      this.cache.get(full, () => this.decode(image, image.full, full), report);
+      this.cache.get(
+        full,
+        () => this.decode(image, image.full, full),
+        report,
+        true,
+      );
     return current;
   }
   /**

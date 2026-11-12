@@ -172,3 +172,67 @@ it("holds a decoded stand-in through eviction and counts failed loads as settled
   expect(cache.progress()).toEqual({ settled: 1, total: 1 });
   cache.dispose();
 });
+
+it("calls a frame complete while only optional upgrades are still decoding", async () => {
+  const cache = new RenderCache<string>(64, 2, () => {});
+  let finish: () => void = () => {};
+  const slow = () =>
+    new Promise<{ value: string; bytes: number; dispose: () => void }>(
+      (resolve) => {
+        finish = () => {
+          resolve({ value: "full", bytes: 4, dispose: () => {} });
+        };
+      },
+    );
+  cache.begin();
+  cache.get("lite", () =>
+    Promise.resolve({ value: "lite", bytes: 4, dispose: () => {} }),
+  );
+  cache.get("full", slow, undefined, true);
+  cache.end();
+  await vi.waitFor(() => {
+    expect(cache.ready).toBe(true);
+  });
+  expect(cache.progress()).toEqual({ settled: 1, total: 1 });
+  // Asked for as required in the same frame, it counts.
+  cache.begin();
+  cache.get("full", slow, undefined, true);
+  cache.get("full", slow);
+  cache.end();
+  expect(cache.ready).toBe(false);
+  finish();
+  await vi.waitFor(() => {
+    expect(cache.ready).toBe(true);
+  });
+  cache.dispose();
+});
+
+it("starts what a frame shows before prefetches queued earlier", async () => {
+  const started: string[] = [];
+  const cache = new RenderCache<string>(64, 1, () => {});
+  let finish: () => void = () => {};
+  const load =
+    (key: string, blocked = false) =>
+    async () => {
+      started.push(key);
+      if (blocked)
+        await new Promise<void>((resolve) => {
+          finish = resolve;
+        });
+      return { value: key, bytes: 4, dispose: () => {} };
+    };
+  cache.begin();
+  cache.get("busy", load("busy", true));
+  cache.get("near", load("near"), undefined, true);
+  cache.end();
+  cache.begin();
+  cache.get("busy", load("busy", true));
+  cache.get("near", load("near"), undefined, true);
+  cache.get("shown", load("shown"));
+  cache.end();
+  finish();
+  await vi.waitFor(() => {
+    expect(started).toEqual(["busy", "shown", "near"]);
+  });
+  cache.dispose();
+});

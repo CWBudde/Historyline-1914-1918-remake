@@ -521,7 +521,13 @@ async function bootstrap(): Promise<void> {
     else if (originalNote !== "") model.note = originalNote;
     changed();
     window.setTimeout(() => {
-      if (runtime === null && !battleStarting && nextLoader.enableUpgrades())
+      // A battle being prepared draws its first frame in lite art, which full art would delay.
+      if (
+        runtime === null &&
+        preparing === null &&
+        !battleStarting &&
+        nextLoader.enableUpgrades()
+      )
         changed();
     }, menuUpgradeDelay);
   } catch (error) {

@@ -14,13 +14,17 @@ test("the first playable frame needs few megabytes, also at a phone's density", 
   );
   const cdp = await page.context().newCDPSession(page);
   await cdp.send("Network.enable");
-  let bytes = 0,
-    requests = 0,
-    counting = true;
+  // Transfers by their end in wall-clock milliseconds: CDP times are monotonic seconds, mapped by the wall time
+  // each request reports with its start. Full art follows the first playable frame at once, so only what ended
+  // before its mark counts, not what arrives while the test notices it.
+  const clock = { offset: Number.NaN };
+  const finished: [number, number][] = [];
+  cdp.on("Network.requestWillBeSent", (event) => {
+    if (Number.isNaN(clock.offset))
+      clock.offset = event.wallTime - event.timestamp;
+  });
   cdp.on("Network.loadingFinished", (event) => {
-    if (!counting) return;
-    bytes += event.encodedDataLength;
-    requests++;
+    finished.push([event.timestamp, event.encodedDataLength]);
   });
   await openMenu(page);
   await startFirstBattle(page);
@@ -30,7 +34,16 @@ test("the first playable frame needs few megabytes, also at a phone's density", 
     undefined,
     { timeout: 120_000 },
   );
-  counting = false;
+  const mark = await page.evaluate(
+    () =>
+      performance.timeOrigin +
+      (performance.getEntriesByName("historyline.first-playable")[0]
+        ?.startTime ?? 0),
+  );
+  expect(clock.offset).not.toBeNaN();
+  const before = finished.filter(([at]) => (at + clock.offset) * 1000 <= mark),
+    bytes = before.reduce((sum, [, size]) => sum + size, 0),
+    requests = before.length;
   console.log(
     `${info.project.name}: first playable ${(bytes / 1e6).toFixed(2)} MB in ${requests} requests`,
   );

@@ -262,42 +262,11 @@ export class MapRenderer {
       original === null && this.backdrop && this.pyramid !== undefined;
     if (original !== null) this.paintOriginal(original, cells);
     else if (painted) this.paintBackdrop(this.pyramid, rect);
-    if (original === null && (!painted || this.changed.size > 0)) {
-      const catalog = this.catalogs.get("terrain");
-      if (catalog !== undefined)
-        for (const draw of terrainDraws(
-          this.scene,
-          cells,
-          this.baked.seasonBakes,
-          this.changed,
-        )) {
-          if (
-            painted &&
-            (!this.changed.has(level.coordKey(draw.coord)) ||
-              !["bleed", "background", "infrastructure"].includes(draw.pass))
-          )
-            continue;
-          let image = catalog.images.get(draw.id);
-          const mixed = this.baked.seasonBakes.layers
-            .get(level.coordKey(draw.coord))
-            ?.get(draw.pass === "bleed" ? "background" : draw.pass)
-            ?.get(catalog.density);
-          if (mixed?.id === draw.id) image = mixed;
-          if (draw.pass === "background" || draw.pass === "bleed") {
-            const baked = this.baked.backgrounds
-              .get(level.coordKey(draw.coord))
-              ?.get(catalog.density);
-            if (baked?.id === draw.id && !(painted && baked.tileOnly))
-              image = baked;
-            if (image !== undefined && draw.pass === "bleed")
-              image = { ...image, bleed: true };
-          }
-          if (image !== undefined) {
-            this.sprite(draw.key, this.terrainLayer, image, draw.at);
-            this.stats.terrain++;
-          }
-        }
-    }
+    if (original === null && (!painted || this.changed.size > 0))
+      for (const { draw, image } of this.terrainImages(cells, painted)) {
+        this.sprite(draw.key, this.terrainLayer, image, draw.at);
+        this.stats.terrain++;
+      }
     const visible = new Set(cells.map(level.coordKey));
     for (const [key, b] of view.buildings)
       if (b.owner !== 0 && visible.has(key)) {
@@ -361,6 +330,7 @@ export class MapRenderer {
         );
       }
     }
+    if (original === null) this.prefetch(rect, visible, painted, frames);
     this.gasCells = cells;
     this.drawGas();
     this.drawTunnels();
@@ -379,6 +349,94 @@ export class MapRenderer {
       }
     this.images.cache.end();
     this.stats.decodedBytes = this.images.cache.bytes;
+  }
+  /** terrainImages are the terrain images of cells with their draws, as the frame shows them. */
+  private *terrainImages(
+    cells: readonly hexgrid.Coord[],
+    painted: boolean,
+  ): Generator<{
+    draw: ReturnType<typeof terrainDraws>[number];
+    image: MapImage;
+  }> {
+    const catalog = this.catalogs.get("terrain");
+    if (catalog === undefined) return;
+    for (const draw of terrainDraws(
+      this.scene,
+      cells,
+      this.baked.seasonBakes,
+      this.changed,
+    )) {
+      if (
+        painted &&
+        (!this.changed.has(level.coordKey(draw.coord)) ||
+          !["bleed", "background", "infrastructure"].includes(draw.pass))
+      )
+        continue;
+      let image = catalog.images.get(draw.id);
+      const mixed = this.baked.seasonBakes.layers
+        .get(level.coordKey(draw.coord))
+        ?.get(draw.pass === "bleed" ? "background" : draw.pass)
+        ?.get(catalog.density);
+      if (mixed?.id === draw.id) image = mixed;
+      if (draw.pass === "background" || draw.pass === "bleed") {
+        const baked = this.baked.backgrounds
+          .get(level.coordKey(draw.coord))
+          ?.get(catalog.density);
+        if (baked?.id === draw.id && !(painted && baked.tileOnly))
+          image = baked;
+        if (image !== undefined && draw.pass === "bleed")
+          image = { ...image, bleed: true };
+      }
+      if (image !== undefined) yield { draw, image };
+    }
+  }
+  /**
+   * prefetch decodes, after what the frame shows, the art of a ring around the view a third of its size wide, so
+   * that panning reveals drawn hexes, units and backdrop tiles instead of slate. It waits for full art to be
+   * allowed (the first playable frame stays small) and skips far zoom, where the view holds most of a map.
+   */
+  private prefetch(
+    rect: Rect,
+    visible: ReadonlySet<string>,
+    painted: boolean,
+    frames: readonly UnitFrame[],
+  ): void {
+    if (this.loader.upgradesDeferred || this.camera.effective() < 0.75) return;
+    const mx = rect.width / 3,
+      my = rect.height / 3,
+      wide = {
+        x: rect.x - mx,
+        y: rect.y - my,
+        width: rect.width + 2 * mx,
+        height: rect.height + 2 * my,
+      };
+    const ring = visibleHexes(this.scene.grid, wide, 0).filter(
+      (c) => !visible.has(level.coordKey(c)),
+    );
+    if (!painted || this.changed.size > 0)
+      for (const { image } of this.terrainImages(ring, painted))
+        this.images.prefetch(image);
+    if (painted && this.pyramid !== undefined) {
+      const p = this.pyramid,
+        index = chooseMip(
+          p,
+          this.camera.world,
+          Math.min(1, this.camera.effective()),
+        ),
+        mip = p.mips[index];
+      for (const tile of mip?.tiles ?? []) {
+        if (mip === undefined) break;
+        const draw = backdropDraw(p, mip, tile, this.camera.world);
+        if (intersects(wide, draw.world) && !intersects(rect, draw.world))
+          this.images.prefetch(backdropImage(tile, draw.frame));
+      }
+    }
+    const near = new Set(ring.map(level.coordKey));
+    for (const frame of frames)
+      if (near.has(level.coordKey(frame.unit.at))) {
+        const image = this.unitImage(frame);
+        if (image !== undefined) this.images.prefetch(image);
+      }
   }
   /**
    * drawTunnels marks the hexes the shown side's tunnellers mine with a dashed ring that closes as the tunnel nears
@@ -486,22 +544,22 @@ export class MapRenderer {
     sprite.tint = tint;
     return sprite;
   }
-  private unit(frame: UnitFrame, parent: Container): void {
+  /** unitImage is a unit frame's image, dressed for the ground it stands on. */
+  private unitImage(frame: UnitFrame): MapImage | undefined {
     const image = this.catalogs.get("units")?.images.get(frame.id);
-    if (image === undefined) return;
+    if (image === undefined) return undefined;
     const h = this.drawnLevel.lines[frame.drawAt.line]?.[frame.drawAt.col];
-    this.sprite(
-      frame.key,
-      parent,
-      {
-        ...image,
-        dressing: {
-          rim: rimFor(h?.terrain ?? "", (h?.infra.ids.length ?? 0) > 0),
-          flying: frame.unit.domain === play.Air,
-        },
+    return {
+      ...image,
+      dressing: {
+        rim: rimFor(h?.terrain ?? "", (h?.infra.ids.length ?? 0) > 0),
+        flying: frame.unit.domain === play.Air,
       },
-      frame.at,
-    );
+    };
+  }
+  private unit(frame: UnitFrame, parent: Container): void {
+    const image = this.unitImage(frame);
+    if (image !== undefined) this.sprite(frame.key, parent, image, frame.at);
   }
   private paintBackdrop(p: Pyramid, rect: Rect): void {
     const effective = this.camera.effective();
