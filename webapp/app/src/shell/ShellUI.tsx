@@ -159,7 +159,7 @@ function Embrasure({ p, scene }: { p: ShellUIProps; scene: string }) {
   const w = window.innerWidth,
     h = window.innerHeight,
     u = shellUnit(w, h, p.shell.settings.uiScale),
-    frame = w >= h ? embrasureWidth * u : w - 48 * u,
+    frame = w >= h ? embrasureWidth * u : 0.86 * (w - 48 * u),
     hole = frame * (1 - embrasureHole.left - embrasureHole.right);
   return (
     <div class="shell-embrasure" aria-hidden="true">
@@ -178,7 +178,7 @@ function Embrasure({ p, scene }: { p: ShellUIProps; scene: string }) {
         p={p}
         id="armour/embrasure"
         className="shell-embrasure-frame"
-        scale={frame / 811 / enlarge}
+        scale={frame / 747 / enlarge}
         lite
       />
     </div>

@@ -5272,9 +5272,9 @@
         },
         {
           "path": "art/screens/armour/embrasure.png",
-          "sha256": "29101558fa85be094eaf776571034bc34dcd8c9d2445c626d8ef7a887f9821b8",
-          "width": 1672,
-          "height": 941
+          "sha256": "0ff27b4b33f9bfaf6c1c977a2de075fbd7d6c9cb9e9bfe5e77b5daf33b1a3fd1",
+          "width": 1536,
+          "height": 1024
         },
         {
           "path": "art/screens/armour/rivets.png",
@@ -5321,7 +5321,7 @@
         {
           "variant": "embrasure",
           "runtime_ids": [],
-          "delta": "`start-parts-emb3` (exec-0087c3a6, 2026-11-12), 1672x941 RGBA, frame 1622x874, opening 89 % of its width and 74 % of its height; the present frame (`start-parts-emb1`, its opening 52 % of the height) attached as image 2."
+          "delta": "`start-parts-emb4` (exec-4aa50a4a, 2026-11-12), 1536x1024 RGBA, frame 1494x967, opening 89 % of its width and 75 % of its height; the wide frame before it (`start-parts-emb3`) attached as image 2."
         },
         {
           "variant": "rivets",

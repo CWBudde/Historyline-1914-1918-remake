@@ -91,16 +91,14 @@ test.describe("the menus on the armour plate", () => {
     expect(await face(page, "Start")).toBe(dull);
     await expect(page.locator(".shell-help")).toContainText("Type the code");
 
-    // The embrasure at the right shows the menu painting in its opening; the hint strip lies under it.
+    // The embrasure at the right shows the menu painting in its opening; the hint strip lies above it.
     const frame = await page.locator(".shell-embrasure").boundingBox(),
       view = await page.locator(".shell-embrasure-view").boundingBox(),
       help = await page.locator(".shell-help").boundingBox();
     expect(frame?.width).toBeCloseTo(470 * u, 0);
-    expect(frame?.height).toBeCloseTo((470 * u * 874) / 1622, 0);
+    expect(frame?.height).toBeCloseTo((470 * u * 967) / 1494, 0);
     expect(view?.width ?? 0).toBeGreaterThan(0.85 * (frame?.width ?? 0));
-    expect(help?.y ?? 0).toBeGreaterThan(
-      (frame?.y ?? 0) + (frame?.height ?? 0),
-    );
+    expect((help?.y ?? 0) + (help?.height ?? 0)).toBeLessThan(frame?.y ?? 0);
     await expect(
       page.locator(".shell-embrasure-view img.shell-scene"),
     ).toBeVisible();
@@ -206,7 +204,7 @@ test.describe("the menus on the armour plate", () => {
       expect(frame?.y ?? 0).toBeGreaterThan(
         (title?.y ?? 0) + (title?.height ?? 0),
       );
-      expect(frame?.width ?? 0).toBeGreaterThan(view.width * 0.85);
+      expect(frame?.width ?? 0).toBeGreaterThan(view.width * 0.7);
       expect(start?.y ?? 0).toBeGreaterThan(
         (frame?.y ?? 0) + (frame?.height ?? 0),
       );

@@ -374,7 +374,7 @@
 
 /*
  * A 712×400 stage in landscape, centred on the plate: the heading stencilled at the top left, the controls in a
- * column under it, the embrasure with the page's painting at the right and the help on a brass strip under it.
+ * column under it, the embrasure with the page's painting at the right and the help on a brass strip at the top.
  */
 .shell-columned {
   display: grid;
@@ -411,7 +411,7 @@
 }
 .shell-plaques {
   position: absolute;
-  left: calc(314 * var(--u));
+  left: calc(566 * var(--u));
   top: calc(17 * var(--u));
   display: flex;
   gap: calc(10 * var(--u));
@@ -463,14 +463,14 @@
 .shell-embrasure {
   position: absolute;
   left: calc(218 * var(--u));
-  top: calc(74 * var(--u));
+  top: calc(72 * var(--u));
   width: calc(470 * var(--u));
-  aspect-ratio: 1622 / 874;
+  aspect-ratio: 1494 / 967;
 }
 .shell-embrasure-view {
   position: absolute;
   /* The opening (materials.ts embrasureHole), reaching a little under the frame's lip. */
-  inset: 13.8% 4.9% 9.9% 4.9%;
+  inset: 13.8% 5.2% 9.1% 5.1%;
   overflow: hidden;
   background: rgb(30 31 27);
 }
@@ -499,15 +499,15 @@
     calc(1 * var(--u)) calc(2 * var(--u)) calc(2.5 * var(--u)) rgb(0 0 0 / 50%)
   );
 }
-/* The help of the selected control on a brass strip under the embrasure. */
+/* The help of the selected control on a brass strip at the top, between the heading and the plaques. */
 /* Its height is fixed at --ph, so the screwed ends keep their painted shape; the two lines may run into the rim. */
 .shell-ui .shell-help {
   --ph: calc(40 * var(--u));
   height: var(--ph);
   position: absolute;
-  left: calc(302 * var(--u));
-  top: calc(337 * var(--u));
-  width: calc(300 * var(--u));
+  left: calc(312 * var(--u));
+  top: calc(15 * var(--u));
+  width: calc(244 * var(--u));
   flex-direction: column;
   gap: calc(1 * var(--u));
   font:
@@ -623,7 +623,8 @@
     position: relative;
     left: auto;
     top: auto;
-    width: 100%;
+    width: 86%;
+    align-self: center;
   }
   .shell-columned .shell-column {
     order: 4;
