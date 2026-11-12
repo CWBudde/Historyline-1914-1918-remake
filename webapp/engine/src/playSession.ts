@@ -83,7 +83,12 @@ export function newBoard(
   }
   const g = binding.game(b, p);
   if (o.extended !== undefined && p === o.extended)
-    extend(g, d, l.extra?.month ?? "", o.extendedUnits === true);
+    extend(
+      g,
+      d,
+      l.extra?.month ?? "",
+      o.extendedUnits === true || usesExtension(b),
+    );
   g.limit = o.limit ?? 0;
   for (const k of [0, 1]) at(g.players, k).computer = o.computer?.[k] ?? false;
   return session(g, b, l, d);

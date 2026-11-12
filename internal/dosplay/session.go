@@ -38,7 +38,7 @@ import (
 // or dosrules.Extended for a level that places or builds an extension unit;
 // the board applies the level's season) and whether the extension units
 // join the game (docs/new-units.md): the extended rules, with every factory
-// building them too.
+// building the month's. A level that places one takes them in by itself.
 type Options struct {
 	Limit         int
 	Computer      [2]bool
@@ -100,7 +100,7 @@ func NewBoard(b *dosbind.Board, lvl *level.Level, set *data.Set, o Options) (*Se
 		if lvl != nil && lvl.Extra != nil {
 			month = lvl.Extra.Month
 		}
-		extend(g, set, month, o.ExtendedUnits)
+		extend(g, set, month, o.ExtendedUnits || usesExtension(b))
 	}
 	g.Limit = o.Limit
 	for k := range 2 {

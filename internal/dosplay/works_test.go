@@ -176,3 +176,38 @@ func TestExtensionBuildsByMonth(t *testing.T) {
 		}
 	}
 }
+
+// A level that places an extension unit takes the extension in by itself:
+// the extended rules and the month's extension types in every factory.
+func TestLevelTakesExtensionIn(t *testing.T) {
+	lv, err := scenario.ShippedLevel("1918-02", scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if s := session(t, lv, Options{}); s.Game.Profile.Tables.Build == dosrules.ExtendedTables.Build {
+		t.Fatal("a classic level plays the extension")
+	}
+	swapped := false
+	for l, line := range lv.Lines {
+		for c, h := range line {
+			if h.Unit == "CP_infantry" && !swapped {
+				lv.Lines[l][c].Unit, swapped = "CP_wiring", true
+			}
+		}
+	}
+	s := session(t, lv, Options{})
+	if s.Game.Profile.Tables.Build != dosrules.ExtendedTables.Build {
+		t.Fatal("the level placing a wiring party plays without the extension")
+	}
+	var builds []int
+	for i, bd := range s.Game.Buildings {
+		if dosrules.BuildingKind(i) == dosrules.KindFactory {
+			builds = append(builds, bd.Builds...)
+		}
+	}
+	for typ, want := range map[int]bool{51: true, 53: true, 56: false} {
+		if slices.Contains(builds, typ) != want {
+			t.Errorf("factories build type %d: %v, want %v", typ, !want, want)
+		}
+	}
+}

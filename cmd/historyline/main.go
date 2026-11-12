@@ -770,7 +770,6 @@ type matchConfig struct {
 	rules      string       // dos (default, original) or standard (the remake rules)
 	opponent   string       // ai or pass
 	limit      int          // dos: orders per phase, 0 for no limit
-	extended   bool         // dos: the extension units join the battle (-extended, docs/new-units.md)
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
@@ -797,7 +796,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 			gm = replayGame(c.replay, c.reveal)
 			break
 		}
-		o := dosplay.Options{Limit: c.limit, ExtendedUnits: c.extended}
+		o := dosplay.Options{Limit: c.limit}
 		var planner dosPlanner = passPlanner{}
 		if c.opponent == "ai" {
 			o.Computer[1-dosbind.Side(c.player)] = true
@@ -883,7 +882,6 @@ func main() {
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
-	extended := flag.Bool("extended", false, "dos: the extension units join the battle, every factory builds them (docs/new-units.md)")
 	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the unit catalog downloaded fast")
 	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the unit catalog downloaded fast")
 	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the unit catalog downloaded fast")
@@ -943,7 +941,7 @@ func main() {
 		log.Fatalf("unknown -rules %q (want dos or standard)", *rules)
 	}
 	c := matchConfig{
-		set: set, rules: *rules, opponent: *opponent, extended: *extended, reveal: *reveal, hexNumbers: *hexNumbers,
+		set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
 	}
 	// The web page shows how much of the art has arrived until the game starts.

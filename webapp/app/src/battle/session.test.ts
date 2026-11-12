@@ -3,7 +3,6 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { play, scenario } from "@historyline/engine";
 import {
-  extendedFromURL,
   loadBattleData,
   newBattleSession,
 } from "./session.ts";
@@ -98,13 +97,10 @@ it("restores exact Go-format state without applying new menu game values to it",
     newBattleSession(file, "ec", 1, { limit: 0, computer: false }, data, "{}"),
   ).toThrow();
 });
-it("takes the extension units in on ?extended", async () => {
-  expect(extendedFromURL("?extended")).toBe(true);
-  expect(extendedFromURL("?extended=1")).toBe(true);
-  expect(extendedFromURL("?extended=0")).toBe(false);
-  expect(extendedFromURL("")).toBe(false);
+it("takes the extension units in when the level places one", async () => {
   const data = await loadBattleData({ rule }),
     file = await shippedScenario("1918-02");
+  file.month = "1918-02";
   expect(data.profiles.extended?.tables?.build).toBe(
     `${data.profiles.full.tables?.build ?? ""}+units1`,
   );
@@ -116,17 +112,24 @@ it("takes the extension units in on ?extended", async () => {
     data,
   );
   expect(plain.game.profile).toBe(data.profiles.full);
+  const units = file.setups.get("cp")?.units ?? [];
+  const k = units.findIndex((u) => u.id === "CP_infantry");
+  expect(k).toBeGreaterThanOrEqual(0);
+  units[k] = { at: units[k]?.at ?? { line: 0, col: 0 }, id: "CP_wiring" };
   const s = newBattleSession(
     file,
     "cp",
     0,
     { limit: 0, computer: true },
-    { ...data, extendedUnits: true },
+    data,
   );
   expect(s.game.profile.tables).toBe(data.profiles.extended?.tables);
-  expect(
-    [...s.game.buildings.values()].some((b) => b.builds.includes(51)),
-  ).toBe(true);
+  const builds = [...s.game.buildings.values()].flatMap((b) => b.builds);
+  // Gas pioneers from April 1915 and stormtroopers from 1916; the Mark V
+  // only from June 1918.
+  expect(builds).toContain(51);
+  expect(builds).toContain(53);
+  expect(builds).not.toContain(56);
   const resumed = newBattleSession(
     file,
     "cp",
@@ -136,20 +139,4 @@ it("takes the extension units in on ?extended", async () => {
     play.save(s),
   );
   expect(resumed.game.profile.tables?.build).toBe(s.game.profile.tables?.build);
-});
-it("lets the factories build only the month's extension units", async () => {
-  const data = await loadBattleData({ rule }),
-    file = await shippedScenario("1915-05");
-  file.month = "1915-05";
-  const s = newBattleSession(
-    file,
-    "cp",
-    0,
-    { limit: 0, computer: true },
-    { ...data, extendedUnits: true },
-  );
-  const builds = [...s.game.buildings.values()].flatMap((b) => b.builds);
-  // Gas pioneers from April 1915; stormtroopers only from 1916.
-  expect(builds).toContain(51);
-  expect(builds).not.toContain(53);
 });

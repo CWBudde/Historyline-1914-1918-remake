@@ -10,7 +10,6 @@ import { UiAssets } from "./ui/assets.ts";
 import { SplitRuntime } from "./split/runtime.ts";
 import { SplitUI } from "./split/SplitUI.tsx";
 import {
-  extendedFromURL,
   loadBattleData,
   newBattleSession,
   type BattleData,
@@ -355,10 +354,7 @@ async function bootstrap(): Promise<void> {
       return;
     }
     loader = nextLoader;
-    data = {
-      ...nextData,
-      extendedUnits: extendedFromURL(globalThis.location.search),
-    };
+    data = nextData;
     campaign = nextCampaign;
     assets = nextAssets;
     const model = new ShellController(nextCampaign, store, preferences, {
