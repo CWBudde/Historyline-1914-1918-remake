@@ -41,11 +41,14 @@ export class SplitFrame {
   private readonly noise = material();
   private readonly gunmetal = material(gunmetalDark, gunmetalLight);
   private steel: HTMLCanvasElement | null = null;
+  private slimFrame: HTMLCanvasElement | null = null;
+  private slimKey = "";
   private version = 0;
   private generation = 0;
   private density = 0;
   private pending: Promise<void> = Promise.resolve();
   private stopped = false;
+  private readonly abort = new AbortController();
   private key = "";
 
   constructor(
@@ -111,6 +114,7 @@ export class SplitFrame {
           this.version++;
           this.changed();
         },
+        this.abort.signal,
       );
     } catch {
       // As in the native frame, absent art keeps the drawn material; a failed
@@ -138,7 +142,19 @@ export class SplitFrame {
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
     if (slim) {
-      this.slim(screen);
+      // Panning changes the world boundary, but not the frame material or its
+      // openings. Retain those exact pixels instead of filling the pattern again.
+      const slimKey = JSON.stringify([screen, dpr, this.version]);
+      if (this.slimFrame === null || this.slimKey !== slimKey) {
+        this.slimFrame = release(this.slimFrame);
+        this.slim(screen);
+        const cached = document.createElement("canvas");
+        cached.width = screen.width;
+        cached.height = screen.height;
+        context(cached).drawImage(c, 0, 0);
+        this.slimFrame = cached;
+        this.slimKey = slimKey;
+      } else ctx.drawImage(this.slimFrame, 0, 0);
       const [width, height] = hexgrid.bounds(grid);
       for (const side of [0, 1] as const)
         this.beyond(
@@ -481,10 +497,12 @@ export class SplitFrame {
 
   dispose(): void {
     this.stopped = true;
+    this.abort.abort();
     this.generation++;
     for (const painting of this.paintings.values()) painting.bitmap.close();
     this.paintings.clear();
     this.steel = release(this.steel);
+    this.slimFrame = release(this.slimFrame);
     release(this.noise);
     release(this.gunmetal);
     release(this.canvas);
