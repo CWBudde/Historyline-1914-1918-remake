@@ -136,16 +136,8 @@
   background: transparent;
   color: #bed392;
   pointer-events: auto;
-  padding: 0 8px;
+  padding: 0;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
-  font:
-    calc(12px * var(--ui-scale)) "HL Sans",
-    sans-serif;
-  text-transform: uppercase;
 }
 .split-panel .battle-ui[data-scene="true"] .battle-dock {
   inset: 0;
@@ -173,16 +165,20 @@
 .split-panel .battle-host-close {
   flex: none;
 }
-.split-well.side-1 {
-  color: #fbe3c7;
+/* The well's line is painted in the pixel font; its words stay for screen readers and tests. */
+.split-well-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
-.split-well span {
+.split-well-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.split-well small {
-  color: #d6a657;
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 .split-well:disabled {

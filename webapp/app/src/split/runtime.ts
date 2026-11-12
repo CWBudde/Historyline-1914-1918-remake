@@ -1,4 +1,4 @@
-import { bind, hexgrid, play } from "@historyline/engine";
+import { bind, hexgrid, level, play, phaseMovement } from "@historyline/engine";
 import { Container, Graphics, type Application } from "pixi.js";
 import type { Signal } from "@preact/signals";
 import type { AssetLoader } from "../assets.ts";
@@ -33,6 +33,8 @@ import {
   rowRange,
 } from "./camera.ts";
 import { SplitInput } from "./input.ts";
+import { loadPixelFonts, type PixelFonts } from "../pixfont.ts";
+import { messageMs, wellOf, type Well } from "./well.ts";
 
 const sides = [0, 1] as const;
 function position(element: HTMLElement, rect: Rect, dpr: number): void {
@@ -67,6 +69,13 @@ export class SplitRuntime {
   private readonly keyboard: SplitInput;
   private frameGeneration = 0;
   private layoutKey = "";
+  /** The pixel font of the wells and overlays. */
+  fonts: PixelFonts | null = null;
+  /** Each side's last message and when it came, so that it beats the unit line only while fresh. */
+  private readonly messages = [
+    { text: "", at: 0, fresh: false },
+    { text: "", at: 0, fresh: false },
+  ];
   private constructor(
     private readonly app: Application,
     loader: AssetLoader,
@@ -229,7 +238,12 @@ export class SplitRuntime {
         // The split layout has now set each camera's real viewport and zoom;
         // select catalogue densities once, without fetching the full canvas's
         // unused tier before the panels are aligned.
-        await Promise.all([a.map.initialize(), b.map.initialize()]);
+        const [, , fonts] = await Promise.all([
+          a.map.initialize(),
+          b.map.initialize(),
+          loadPixelFonts(loader),
+        ]);
+        ready.fonts = fonts;
         signal.throwIfAborted();
         progress(0.8, "Drawing the battlefield…");
         return ready;
@@ -595,6 +609,12 @@ export class SplitRuntime {
   }
   tick(ms: number): void {
     if (this.paused || this.stopped) return;
+    const now = performance.now();
+    for (const m of this.messages)
+      if (m.fresh && now - m.at >= messageMs) {
+        m.fresh = false;
+        this.hooks.changed();
+      }
     if (this.original) this.alignViews();
     for (const side of sides) {
       this.wrappers[side].visible = this.visible(side);
@@ -623,6 +643,77 @@ export class SplitRuntime {
       total += p.total;
     }
     return this.ready ? 1 : total === 0 ? 0 : Math.min(settled / total, 0.99);
+  }
+  /** human reports whether side is commanded by the player now (its well shows the unit line and messages). */
+  human(side: 0 | 1): boolean {
+    return this.local?.mode === "simultaneous" || side === this.activeSide;
+  }
+  /** well is side's status well now (cmd/historyline/well.go wellOf). */
+  well(side: 0 | 1): Well {
+    const b = this.panels[side].battle,
+      s = b.session,
+      human = this.human(side),
+      own = this.panels[this.request.side].battle,
+      end = play.ended(s),
+      m = this.messages[side];
+    if (m !== undefined && b.status !== m.text) {
+      m.text = b.status;
+      m.at = performance.now();
+      m.fresh = b.status !== "";
+    }
+    const prompter = [0, 1].find(
+        (i) =>
+          this.panels[i as 0 | 1].battle.phasePrompt ||
+          this.panels[i as 0 | 1].battle.surrenderPrompt,
+      ),
+      prompt =
+        prompter === undefined
+          ? null
+          : prompter === side
+            ? b.surrenderPrompt
+              ? "F2: GIVE UP THE BATTLE"
+              : this.local?.mode === "simultaneous" && side === 1
+                ? "CTRL+LEFT: END THE PHASE"
+                : "F1: END THE PHASE"
+            : this.human(side)
+              ? null
+              : "FIRE: BACK TO THE ORDERS";
+    let unit = null;
+    if (human) {
+      const at = b.hover ?? b.cursor;
+      let u = b.view().units.get(level.coordKey(at));
+      if (u?.head !== null && u?.head !== undefined)
+        u = b.view().units.get(level.coordKey(u.head));
+      if (u !== undefined && u.side === side && b.playback.moving() === null)
+        unit = { size: u.size, exp: u.exp, name: u.name, owner: u.owner };
+    }
+    const planning =
+      this.local === null &&
+      side !== this.request.side &&
+      own.planningOrders() &&
+      own.progress !== null
+        ? own.progress.total > 0
+          ? own.progress.done / own.progress.total
+          : 0
+        : null;
+    return wellOf({
+      stage: prompt,
+      ended: end === null || !end.over ? null : endText(end, side),
+      planning,
+      attack: play.phase(s, side) !== phaseMovement,
+      busy: b.playback.busy(),
+      // The desktop's computer plans as soon as a phase opens and then waits on the player; here it plans once the
+      // player confirms, so its well says from the start that it waits.
+      ready:
+        play.ready(s, side) ||
+        (this.local === null && side !== this.request.side),
+      enemyAttacks: play.phase(s, 1 - side) !== phaseMovement,
+      human,
+      message: m?.fresh === true ? b.status : "",
+      unit,
+      orders: play.stats(s).orders[side],
+      limit: s.game.limit,
+    });
   }
   refreshImages(): void {
     for (const panel of this.panels) panel.map.dirty = true;
@@ -680,4 +771,25 @@ export class SplitRuntime {
     }
     return view.shows(grid, coord);
   }
+}
+
+const sideName = (side: number) => (side === 0 ? "Central Powers" : "Entente");
+/** endText is the end of the battle in side's words (dos.go endText). */
+function endText(
+  e: { winner: number; won: [string, string]; score: number },
+  side: number,
+): string {
+  if (e.winner !== 0 && e.winner !== 1) return "THE BATTLE ENDS IN A DRAW";
+  const how =
+      e.won[e.winner] === "hq"
+        ? "hold the enemy HQ"
+        : e.won[e.winner] === "surrender"
+          ? "accepted the surrender"
+          : "destroyed every enemy unit",
+    reason = `${sideName(e.winner)} ${how}`;
+  return (
+    e.winner === side
+      ? `VICTORY - ${reason} (score ${e.score})`
+      : `DEFEAT - ${reason}`
+  ).toUpperCase();
 }

@@ -101,6 +101,44 @@ export class Screen {
     this.rows = cells.rows;
   }
 
+  /** wellText is the status line's area in side's well: inside the bevel with a small inset, above the bar. */
+  wellText(side: 0 | 1): Rect {
+    const inner = this.wellInner(side),
+      bar = this.wellBar(side),
+      dx = scaled(2, this.ui),
+      dy = scaled(1, this.ui);
+    return {
+      x: inner.x + dx,
+      y: inner.y + dy,
+      width: Math.max(inner.width - 2 * dx, 0),
+      height: Math.max(bar.y - inner.y - dy, 0),
+    };
+  }
+
+  /** wellBar is the track of the planning progress bar along the bottom of side's well. */
+  wellBar(side: 0 | 1): Rect {
+    const inner = this.wellInner(side),
+      dx = scaled(2, this.ui),
+      h = Math.min(scaled(2, this.ui), inner.height);
+    return {
+      x: inner.x + dx,
+      y: inner.y + inner.height - h,
+      width: Math.max(inner.width - 2 * dx, 0),
+      height: h,
+    };
+  }
+
+  private wellInner(side: 0 | 1): Rect {
+    const st = this.status[side],
+      bw = scaled(1, this.ui);
+    return {
+      x: st.x + bw,
+      y: st.y + bw,
+      width: Math.max(st.width - 2 * bw, 0),
+      height: Math.max(st.height - 2 * bw, 0),
+    };
+  }
+
   view(side: 0 | 1, pair: number, row: number): View {
     return new View(this.panels[side], this.cellScale, pair, row);
   }

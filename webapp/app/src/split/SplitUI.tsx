@@ -1,5 +1,5 @@
-import { level, play, phaseMovement } from "@historyline/engine";
-import { useCallback, useLayoutEffect, useRef } from "preact/hooks";
+import { play, phaseMovement } from "@historyline/engine";
+import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 import type { Signal } from "@preact/signals";
 import type { TargetedKeyboardEvent } from "preact";
 import { BattleUI } from "../ui/BattleUI.tsx";
@@ -7,6 +7,7 @@ import { makeInert } from "../ui/inert.ts";
 import type { UiAssets } from "../ui/assets.ts";
 import type { Rect } from "../camera.ts";
 import type { SplitRuntime } from "./runtime.ts";
+import { drawWell, type Well } from "./well.ts";
 import "./split.css";
 
 interface Props {
@@ -23,6 +24,86 @@ function place(rect: Rect, dpr: number) {
     width: `${rect.width / dpr}px`,
     height: `${rect.height / dpr}px`,
   };
+}
+const ranks = ["", "01", "02", "03", "04", "05", "10"];
+const badgeImages = new Map<string, HTMLImageElement>();
+/** wellLabel is a well's line in words, for screen readers and tests. */
+function wellLabel(w: Well): string {
+  return w.unit === null ? w.text : `${w.unit.size} ${w.unit.name}`;
+}
+/** WellCanvas paints one status well in the pixel font over the frame's recess (cmd/historyline/well.go). */
+function WellCanvas({
+  runtime,
+  assets,
+  side,
+  well,
+  visible,
+}: {
+  runtime: SplitRuntime;
+  assets: UiAssets;
+  side: 0 | 1;
+  well: Well;
+  visible: boolean;
+}) {
+  const canvas = useRef<HTMLCanvasElement>(null),
+    [, loaded] = useState(0),
+    screen = runtime.screen,
+    st = screen.status[side],
+    exp = well.unit?.exp ?? 0,
+    rank = exp > 0 ? ranks[Math.min(exp, ranks.length - 1)] : undefined,
+    url =
+      rank === undefined
+        ? null
+        : assets.image("screens", `rank/${rank}`, 2).value.url;
+  let badge: HTMLImageElement | null = null;
+  if (url !== null) {
+    badge = badgeImages.get(url) ?? null;
+    if (badge === null) {
+      badge = new Image();
+      badge.onload = () => {
+        loaded((n) => n + 1);
+      };
+      badge.src = url;
+      badgeImages.set(url, badge);
+    }
+  }
+  useLayoutEffect(() => {
+    const c = canvas.current,
+      fonts = runtime.fonts;
+    if (c === null) return;
+    if (c.width !== st.width || c.height !== st.height) {
+      c.width = st.width;
+      c.height = st.height;
+    }
+    const ctx = c.getContext("2d");
+    if (ctx === null) return;
+    ctx.clearRect(0, 0, c.width, c.height);
+    if (fonts === null || !visible) return;
+    const shift = (r: Rect) => ({ ...r, x: r.x - st.x, y: r.y - st.y });
+    drawWell(
+      ctx,
+      fonts.small,
+      side,
+      shift(screen.wellText(side)),
+      shift(screen.wellBar(side)),
+      screen.ui,
+      well,
+      (_, cx, cy, size) => {
+        if (badge === null || !badge.complete || badge.naturalWidth === 0)
+          return;
+        const k = size / Math.max(badge.naturalWidth, badge.naturalHeight);
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(
+          badge,
+          cx - (badge.naturalWidth * k) / 2,
+          cy - (badge.naturalHeight * k) / 2,
+          badge.naturalWidth * k,
+          badge.naturalHeight * k,
+        );
+      },
+    );
+  });
+  return <canvas ref={canvas} class="split-well-canvas" aria-hidden="true" />;
 }
 function Handover({ runtime, side }: { runtime: SplitRuntime; side: 0 | 1 }) {
   const take = useRef<HTMLButtonElement>(null),
@@ -110,16 +191,12 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
         const b = runtime.panels[side].battle,
           active = runtime.canInteract(side),
           visible = runtime.visible(side),
-          unit = b.view().units.get(level.coordKey(b.cursor)),
+          well = runtime.well(side),
           phase =
             play.phase(b.session, side) === phaseMovement
               ? "Movement"
               : "Attack",
-          status =
-            b.status ||
-            (unit?.side === side
-              ? `${unit.size} ${unit.name}`
-              : `${phase} phase · Turn ${play.turn(b.session)}`);
+          status = b.status || wellLabel(well);
         return (
           <div key={side}>
             <section
@@ -153,9 +230,18 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
                 void b.requestPhase();
               }}
             >
-              <span>{visible ? status : "Waiting for the other player"}</span>
+              <WellCanvas
+                runtime={runtime}
+                assets={assets}
+                side={side}
+                well={well}
+                visible={visible}
+              />
+              <span class="split-well-text">
+                {visible ? status : "Waiting for the other player"}
+              </span>
               {active && (
-                <small>
+                <small class="split-well-text">
                   {runtime.local?.mode === "simultaneous" && side === 1
                     ? "Ctrl + Left"
                     : "F1"}
