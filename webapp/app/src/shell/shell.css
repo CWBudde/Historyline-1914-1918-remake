@@ -1012,25 +1012,22 @@
   flex: 2;
 }
 /*
- * On the paper the controls are printed, not brass: a boxed notice in the paper's ink. Under the pointer or the
- * focus the box is a solid block with a hairline inside its rule; Continue has the focus on arrival.
+ * On the paper the controls are printed, not brass: a line of the headline's type in a fine double rule, like the
+ * rule under the edition line. Under the pointer or the focus the box takes a wash of ink and a full rule; Continue
+ * has the focus on arrival.
  */
 .shell-ui.shell-page-news .shell-news-picture .shell-button {
-  --box: transparent;
-  --type: var(--ink-news);
-  padding: calc(0.12 * var(--ph)) calc(0.3 * var(--ph));
-  border: calc(1.2 * var(--u)) solid var(--ink-news);
+  padding: calc(0.1 * var(--ph)) calc(0.3 * var(--ph));
+  border: calc(3 * var(--bw)) double var(--ink-news);
   border-image: none;
   border-radius: 0;
-  background: var(--box);
-  box-shadow:
-    inset 0 0 0 calc(1.2 * var(--u)) var(--box),
-    inset 0 0 0 calc(1.2 * var(--u) + var(--bw)) var(--type);
-  color: var(--type);
+  background: none;
+  color: var(--ink-news);
   font:
-    600 calc(0.4 * var(--ph)) / 1.05 "HL Sans",
-    sans-serif;
-  letter-spacing: 0.14em;
+    400 calc(0.5 * var(--ph)) / 1.05 "HL Display",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.08em;
   text-shadow: none;
   filter: none;
   outline: none;
@@ -1039,8 +1036,13 @@
   .shell-news-picture
   .shell-button:hover:not(:disabled),
 .shell-ui.shell-page-news .shell-news-picture .shell-button:focus {
-  --box: var(--ink-news);
-  --type: rgb(232 223 202);
+  border-style: solid;
+  background: rgb(38 32 26 / 13%);
+}
+.shell-ui.shell-page-news
+  .shell-news-picture
+  .shell-button:active:not(:disabled) {
+  background: rgb(38 32 26 / 24%);
 }
 .shell-ui.shell-page-news .shell-news-picture .shell-button:disabled {
   opacity: 0.45;
