@@ -8,13 +8,26 @@ function source(fail = false) {
     release = resolve;
   });
   const calls: unknown[][] = [];
-  const loader: Pick<AssetLoader, "progressive"> = {
-    progressive: async (catalog, ids, zoom, dpr, onImage, _signal, sharp) => {
-      calls.push(
-        sharp === true
-          ? [catalog, ids, zoom, dpr, sharp]
-          : [catalog, ids, zoom, dpr],
-      );
+  const loader: Pick<AssetLoader, "progressive" | "upgradesAllowed"> = {
+    upgradesAllowed: true,
+    progressive: async (
+      catalog,
+      ids,
+      zoom,
+      dpr,
+      onImage,
+      _signal,
+      sharp,
+      liteOnly,
+    ) => {
+      calls.push([
+        catalog,
+        ids,
+        zoom,
+        dpr,
+        ...(sharp === true ? [true] : []),
+        ...(liteOnly === true ? ["lite only"] : []),
+      ]);
       const image = (quality: "lite" | "full"): LoadedImage => ({
         quality,
         bytes: new TextEncoder().encode(quality).buffer,
@@ -28,6 +41,7 @@ function source(fail = false) {
         },
       });
       await onImage(image("lite"));
+      if (liteOnly === true) return new Map();
       await gate;
       if (fail) throw new Error("upgrade failed");
       const full = image("full");
@@ -108,6 +122,33 @@ it("chooses a window-covering painting's art for its drawn size", () => {
   expect(f.calls).toEqual([
     ["screens", ["scene/options"], 4, 1, true],
     ["screens", ["scene/options"], 4, 1],
+  ]);
+  assets.dispose();
+});
+
+it("brings a sharp painting's full art only when a page asks for it after full art is allowed", async () => {
+  const f = source(),
+    loader = f.loader as { upgradesAllowed: boolean },
+    assets = new UiAssets(f.loader, () => 1);
+  loader.upgradesAllowed = false;
+  const image = assets.image("screens", "scene/options", 3, true);
+  await vi.waitFor(() => {
+    expect(image.value.quality).toBe("lite");
+  });
+  expect(assets.image("screens", "scene/options", 3, true)).toBe(image);
+  expect(f.calls).toEqual([
+    ["screens", ["scene/options"], 4, 1, true, "lite only"],
+  ]);
+  loader.upgradesAllowed = true;
+  assets.image("screens", "scene/options", 3, true);
+  assets.image("screens", "scene/options", 3, true);
+  f.release();
+  await vi.waitFor(() => {
+    expect(image.value.quality).toBe("full");
+  });
+  expect(f.calls).toEqual([
+    ["screens", ["scene/options"], 4, 1, true, "lite only"],
+    ["screens", ["scene/options"], 4, 1, true],
   ]);
   assets.dispose();
 });

@@ -103,12 +103,23 @@ async function fetchAll(
   );
 }
 
-/** Stores the lite art of the given missions in the content cache, so they can be played offline. */
+/** paintingRefs are the menu paintings among the screens: they cover the window, at their own density. */
+export function paintingRefs(screens: ReadonlyMap<string, FileRef>): FileRef[] {
+  return [...screens]
+    .filter(([id]) => id.startsWith("scene/") || id.startsWith("backdrop/"))
+    .map(([, ref]) => ref);
+}
+
+/**
+ * Stores the lite art of the given missions in the content cache, so they can be played offline; the menu
+ * paintings also at paintingDensity, the density the menus draw them at.
+ */
 export async function keepForOffline(
   loader: AssetLoader,
   missions: readonly OfflineMission[],
   density: number,
   signal: AbortSignal,
+  paintingDensity = density,
 ): Promise<void> {
   const shared = await Promise.all(
     ["units", "interface", "screens"].map((name) =>
@@ -120,6 +131,12 @@ export async function keepForOffline(
     shared.flatMap((entries) => [...entries.values()]),
     signal,
   );
+  if (paintingDensity !== density)
+    await fetchAll(
+      loader,
+      paintingRefs(await catalog(loader, "screens", paintingDensity)),
+      signal,
+    );
   const terrain = await catalog(loader, "terrain", density);
   for (const mission of missions) {
     if (signal.aborted) return;

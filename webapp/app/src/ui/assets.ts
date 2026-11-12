@@ -26,15 +26,24 @@ export function paintingScale(
  * URLs stay valid through a UI repaint and are released with the battle. */
 export class UiAssets {
   private readonly images = new Map<string, Signal<UiImage>>();
+  /** Sharp paintings whose full art is on its way. */
+  private readonly upgrading = new Set<string>();
   private readonly urls = new Set<string>();
   private readonly faces = new Set<FontFace>();
   private stopped = false;
   private readonly abort = new AbortController();
   constructor(
-    private readonly loader: Pick<AssetLoader, "progressive">,
+    private readonly loader: Pick<
+      AssetLoader,
+      "progressive" | "upgradesAllowed"
+    >,
     private readonly dpr: () => number = () => window.devicePixelRatio,
   ) {}
-  /** sharp brings lite art at the drawn density too, for paintings that fill the window. */
+  /**
+   * sharp brings lite art at the drawn density too, for paintings that fill the window. Their full art (PNGs of
+   * up to 1.9 MB) comes only when a page asks for the painting once full art is allowed, not for every page
+   * passed on the way to the first battle.
+   */
   image(
     catalog: string,
     id: string,
@@ -44,11 +53,34 @@ export class UiAssets {
     const density = assetDensity(scale, this.dpr()),
       key = `${catalog}/${id}/${density}${sharp ? "/sharp" : ""}`;
     let state = this.images.get(key);
-    if (state !== undefined) return state;
+    if (state !== undefined) {
+      if (
+        sharp &&
+        !this.upgrading.has(key) &&
+        !this.stopped &&
+        this.loader.upgradesAllowed
+      ) {
+        this.upgrading.add(key);
+        this.load(catalog, id, density, state, true, false);
+      }
+      return state;
+    }
     state = signal<UiImage>(empty());
     if (this.stopped) return state;
     this.images.set(key, state);
-    const target = state;
+    const liteOnly = sharp && !this.loader.upgradesAllowed;
+    if (sharp && !liteOnly) this.upgrading.add(key);
+    this.load(catalog, id, density, state, sharp, liteOnly);
+    return state;
+  }
+  private load(
+    catalog: string,
+    id: string,
+    density: number,
+    target: Signal<UiImage>,
+    sharp: boolean,
+    liteOnly: boolean,
+  ): void {
     void this.loader
       .progressive(
         catalog,
@@ -56,13 +88,19 @@ export class UiAssets {
         density,
         1,
         (image) => {
-          if (this.stopped) return;
+          // An upgrade's repeated lite image would only swap the picture for the same one.
+          if (
+            this.stopped ||
+            (image.quality === "lite" && target.value.url !== null)
+          )
+            return;
           const url = URL.createObjectURL(new Blob([image.bytes]));
           this.urls.add(url);
           target.value = { url, quality: image.quality, error: null };
         },
         this.abort.signal,
         sharp,
+        liteOnly,
       )
       .catch((error: unknown) => {
         if (!this.stopped)
@@ -71,7 +109,6 @@ export class UiAssets {
             error: error instanceof Error ? error.message : String(error),
           };
       });
-    return state;
   }
   async fonts(loader: AssetLoader): Promise<void> {
     const names: Record<
@@ -109,5 +146,6 @@ export class UiAssets {
     this.urls.clear();
     this.faces.clear();
     this.images.clear();
+    this.upgrading.clear();
   }
 }

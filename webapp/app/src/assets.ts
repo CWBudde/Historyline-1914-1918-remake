@@ -131,7 +131,8 @@ export class AssetLoader {
   /** Only requested IDs are fetched. All lite images are delivered before any
    * full image; a failed upgrade leaves already-delivered lite images usable.
    * While full art is held, lite images come at the lowest density, unless
-   * sharp asks for the drawn density (a painting that fills the window). */
+   * sharp asks for the drawn density (a painting that fills the window);
+   * liteOnly stops after the lite image. */
   async progressive(
     catalog: string,
     ids: readonly string[],
@@ -140,6 +141,7 @@ export class AssetLoader {
     onImage: (image: LoadedImage) => void | Promise<void>,
     signal?: AbortSignal,
     sharp = false,
+    liteOnly = false,
   ): Promise<Map<string, LoadedImage>> {
     signal?.throwIfAborted();
     const packs = this.index.packs[catalog];
@@ -162,6 +164,7 @@ export class AssetLoader {
     let previous = new Map<string, ImageEntry>();
     for (const quality of ["lite", "full"] as const) {
       if (quality === "full") {
+        if (liteOnly) break;
         await this.waitForUpgrades(signal);
         if (!this.upgradesAllowed) break;
       }

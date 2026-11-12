@@ -5,6 +5,7 @@ import {
   bakedRefs,
   battleLoadError,
   offlineMissions,
+  paintingRefs,
 } from "./offline.ts";
 
 const ref = (n: string): FileRef => {
@@ -61,6 +62,18 @@ describe("backdropRefs", () => {
     } as unknown as Pyramid;
     expect(backdropRefs(painted)).toHaveLength(2);
     expect(backdropRefs(undefined)).toEqual([]);
+  });
+});
+
+describe("paintingRefs", () => {
+  it("picks the menu paintings among the screens", () => {
+    const screens = new Map([
+      ["backdrop/western-front", ref("w")],
+      ["scene/options", ref("o")],
+      ["portrait/infantry", ref("p")],
+      ["news/1914-08", ref("n")],
+    ]);
+    expect(paintingRefs(screens)).toEqual([ref("w"), ref("o")]);
   });
 });
 

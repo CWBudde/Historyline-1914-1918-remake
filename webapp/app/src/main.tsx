@@ -6,7 +6,7 @@ import { Computer } from "./computer.ts";
 import { AssetLoader, assetDensity } from "./assets.ts";
 import { battleLoadError, keepForOffline, offlineMissions } from "./offline.ts";
 import { FrameMeter } from "./frameMeter.ts";
-import { UiAssets } from "./ui/assets.ts";
+import { paintingScale, UiAssets } from "./ui/assets.ts";
 import { SplitRuntime } from "./split/runtime.ts";
 import { SplitUI } from "./split/SplitUI.tsx";
 import {
@@ -90,7 +90,11 @@ function scheduleOfflineKeep(battle: SplitRuntime, mission: Mission): void {
     .connection;
   if (active === null || missions === undefined || connection?.saveData) return;
   const abort = new AbortController();
-  const density = assetDensity(battle.map.camera.zoom, battle.map.camera.scale);
+  const density = assetDensity(battle.map.camera.zoom, battle.map.camera.scale),
+    paintings = assetDensity(
+      paintingScale(window.innerWidth, window.innerHeight, preferences.uiScale),
+      window.devicePixelRatio,
+    );
   offlineKeep = {
     abort,
     timer: window.setTimeout(() => {
@@ -99,6 +103,7 @@ function scheduleOfflineKeep(battle: SplitRuntime, mission: Mission): void {
         offlineMissions(mission, missions),
         density,
         abort.signal,
+        paintings,
       ).catch(() => {
         /* Best effort: playing online is unaffected. */
       });
