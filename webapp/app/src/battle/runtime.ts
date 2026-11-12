@@ -11,6 +11,14 @@ import { parseBakedLayers } from "../mapScene.ts";
 import type { Point } from "../camera.ts";
 import { BattleKeys } from "../input/keys.ts";
 import { layoutRing, placement, type Action } from "../ui/ring.ts";
+import {
+  cursorLook,
+  fitRing,
+  hitRing,
+  newRing,
+  type Ring,
+} from "../gesture.ts";
+import type { CursorDraw } from "../mapRenderer.ts";
 import type { BattleUIProps } from "../ui/types.ts";
 import type { UiAssets } from "../ui/assets.ts";
 import type { Settings } from "../storage/store.ts";
@@ -44,6 +52,8 @@ export interface BattleRuntimeOptions {
   keyboard?: boolean;
   pointer?: boolean;
   hitTest?: (point: Point) => boolean;
+  /** Whether this panel shows its side's cursor (the player's panels); default true. */
+  cursor?: boolean;
 }
 /** A battle owns its map/input/GPU resources. Document fonts, settings,
  * worker and catalog outlive it, including a paused leave confirmation. */
@@ -61,6 +71,13 @@ export class BattleRuntime {
   private readonly keys: BattleKeys;
   private input: MapInput | null = null;
   private ringAt: hexgrid.Coord | null = null;
+  /** The ring menu drawn on the map, in world pixels, and the item under the pointer. */
+  private ringWorld: Ring | null = null;
+  private ringHover: number | null = null;
+  private cursorMemo: { key: string; draw: CursorDraw } = {
+    key: "",
+    draw: null,
+  };
   private paused = true;
   private stopped = false;
   private preferences: Settings;
@@ -264,9 +281,21 @@ export class BattleRuntime {
           this.map.dirty = true;
         },
         hover: (p) => {
-          if (this.ring.value === null) this.battle.setCursor(this.at(p));
+          if (this.ringWorld !== null) {
+            const hit = this.hitRing(p);
+            this.ringHover = typeof hit === "number" ? hit : null;
+          } else if (this.ring.value === null)
+            this.battle.setCursor(this.at(p));
         },
         click: (p) => {
+          if (this.ringWorld !== null) {
+            const hit = this.hitRing(p),
+              action =
+                typeof hit === "number" ? this.ringWorld.actions[hit] : null;
+            if (action !== undefined && action !== null) this.runRing(action);
+            else this.closeRing();
+            return;
+          }
           if (this.ring.value !== null) {
             this.closeRing();
             return;
@@ -333,7 +362,72 @@ export class BattleRuntime {
           : 1,
     );
     this.battle.tick(ms);
-    if (draw) this.map.render();
+    if (draw) {
+      this.map.setCursor(this.cursorDraw());
+      this.map.render();
+    }
+  }
+  /** cursorDraw is what the side's cursor shows now (cmd/historyline/cursor.go drawCursor, cursorPlate). */
+  cursorDraw(): CursorDraw {
+    const b = this.battle,
+      key = `${b.version}/${this.keys.holding() ?? ""}/${JSON.stringify(this.ringWorld)}/${this.ringHover ?? ""}`;
+    if (key !== this.cursorMemo.key)
+      this.cursorMemo = { key, draw: this.lookOfCursor() };
+    return this.cursorMemo.draw;
+  }
+  private lookOfCursor(): CursorDraw {
+    const b = this.battle;
+    if (this.options.cursor === false || this.stopped) return null;
+    if (b.contents.box !== null || b.panel !== "orders") return null;
+    if (b.playback.scene() !== null) return null;
+    if (this.ringWorld !== null)
+      return { kind: "menu", ring: this.ringWorld, hover: this.ringHover };
+    const at = b.hover ?? b.cursor,
+      movement = play.phase(b.session, b.side) === phaseMovement,
+      reach = movement ? b.destinations() : b.targets(),
+      pick =
+        b.selected === null || reach.size === 0
+          ? "cancel"
+          : b.exiting !== null
+            ? "exit"
+            : movement
+              ? "move"
+              : "attack",
+      entrance = play.entrance(b.session, at),
+      onTarget =
+        reach.has(level.coordKey(at)) ||
+        (entrance !== null && reach.has(level.coordKey(entrance))),
+      held = this.keys.holding(),
+      raw = placement(
+        !movement,
+        play.contents(b.session, b.side, entrance ?? at) !== null ||
+          [...b.view().units.values()].some(
+            (u) =>
+              u.side === b.side &&
+              u.carrier &&
+              level.coordKey(u.at) === level.coordKey(at),
+          ),
+        false,
+      ),
+      picked = held === null ? "cancel" : raw[held],
+      allowed = picked === "cancel" || b.actions(at).includes(picked),
+      look = cursorLook(
+        pick,
+        onTarget,
+        held !== null,
+        held === "centre",
+        picked,
+        allowed,
+      );
+    return look === null
+      ? { kind: "ring", at }
+      : { kind: "plate", at, ...look };
+  }
+  /** hitRing is the ring menu's item under the panel point p, "cancel" on its centre, or null. */
+  private hitRing(p: Point): number | "cancel" | null {
+    if (this.ringWorld === null) return null;
+    const w = this.map.camera.screenToWorld(p.x, p.y);
+    return hitRing(this.ringWorld, w.x, w.y);
   }
   resize(width: number, height: number, dpr: number): void {
     if (
@@ -391,6 +485,13 @@ export class BattleRuntime {
       onCloseRing: () => {
         this.closeRing();
       },
+      onRingFocus: (action) => {
+        const i =
+          action === null
+            ? -1
+            : (this.ringWorld?.actions.indexOf(action) ?? -1);
+        this.ringHover = i < 0 ? null : i;
+      },
       onSceneHost: (host) => {
         this.auxiliary.attach("battle", host);
       },
@@ -436,6 +537,8 @@ export class BattleRuntime {
   private closeRing(): void {
     this.ring.value = null;
     this.ringAt = null;
+    this.ringWorld = null;
+    this.ringHover = null;
   }
   private cancel(): void {
     if (this.ring.value !== null) this.closeRing();
@@ -482,6 +585,11 @@ export class BattleRuntime {
     if (!actions.length) return;
     const r = this.surface().getBoundingClientRect();
     this.ringAt = at;
+    this.ringWorld = fitRing(
+      newRing(...hexgrid.center(at), actions),
+      this.map.camera.visible(),
+    );
+    this.ringHover = null;
     this.ring.value = layoutRing(
       actions,
       {

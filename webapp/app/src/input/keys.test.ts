@@ -293,3 +293,19 @@ it("resets fire state before callbacks so a new gesture may begin inside a run c
   keys.up(" ");
   expect(events).toEqual(["move", "click"]);
 });
+
+it("reports the held fire's direction for the cursor plate", () => {
+  const { keys } = fixture();
+  expect(keys.holding()).toBeNull();
+  keys.down(" ");
+  expect(keys.holding()).toBe("centre");
+  keys.down("ArrowDown");
+  expect(keys.holding()).toBe("down");
+  keys.down("ArrowUp");
+  expect(keys.holding()).toBe("centre");
+  keys.up(" ");
+  expect(keys.holding()).toBeNull();
+  keys.down(" ");
+  keys.cancel();
+  expect(keys.holding()).toBeNull();
+});

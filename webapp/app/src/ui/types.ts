@@ -34,6 +34,8 @@ export interface BattleUIProps {
   onFullscreen(): void;
   onRingAction(action: Action): void;
   onCloseRing(): void;
+  /** onRingFocus presses the drawn plate of the ring button that has the keyboard focus (null: none). */
+  onRingFocus?(action: Action | null): void;
   onSceneHost(element: HTMLDivElement | null): void;
   onStrategyHost(element: HTMLDivElement | null): void;
 }

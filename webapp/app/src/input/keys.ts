@@ -99,6 +99,11 @@ export class BattleKeys {
     return handled;
   }
 
+  /** holding is the direction fire is held towards ("centre" for none), or null while fire is up. */
+  holding(): Direction | null {
+    return this.fire ? this.direction : null;
+  }
+
   /** Drop a hold without running an action; use on blur/context changes. */
   cancel(): void {
     this.held.clear();

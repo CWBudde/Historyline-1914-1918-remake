@@ -30,6 +30,31 @@ import {
 } from "./unitFrame.ts";
 import { rimFor } from "./unitDress.ts";
 import type { MapBattle } from "./mapBattle.ts";
+import {
+  plateLayers,
+  ringLayers,
+  ringMenuLayers,
+  type Layer,
+  type PlateState,
+  type Ring,
+} from "./gesture.ts";
+import type { Action } from "./ui/ring.ts";
+
+/** What the cursor shows on the map (internal/gesture): the ring, an action plate, or the ring menu. */
+export type CursorDraw =
+  | { kind: "ring"; at: hexgrid.Coord }
+  | { kind: "plate"; at: hexgrid.Coord; action: Action; state: PlateState }
+  | { kind: "menu"; ring: Ring; hover: number | null }
+  | null;
+/** drawLayers fills gesture layers in order, each hole cut from the part drawn just before it. */
+export function drawLayers(g: Graphics, layers: readonly Layer[]): void {
+  for (const layer of layers)
+    for (const p of layer.polys) {
+      g.poly(p.pts.flat());
+      if (p.hole) g.cut();
+      else g.fill(layer.colour);
+    }
+}
 
 // The gas cloud (drawGas): puffs per hex, the turns left from which a cloud shows at full strength, a puff's peak
 // opacity and its chlorine yellow-green, as the desktop draws it.
@@ -87,6 +112,10 @@ export class MapRenderer {
   private readonly tunnelLayer = new Graphics();
   private readonly overlays = new Graphics();
   private readonly effects = new Container();
+  /** The cursor ring, plate or ring menu over everything on the map. */
+  private readonly cursorLayer = new Graphics();
+  private cursor: CursorDraw = null;
+  private cursorKey = "null";
   private readonly sprites = new Map<string, Sprite>();
   /** The decoded image each sprite shows, kept while its successor decodes. */
   private readonly shown = new Map<string, ReadyImage>();
@@ -181,6 +210,7 @@ export class MapRenderer {
       this.tunnelLayer,
       this.overlays,
       this.effects,
+      this.cursorLayer,
     );
     this.markers.addChild(this.plates);
     app.stage.addChild(this.root);
@@ -209,6 +239,31 @@ export class MapRenderer {
   design(): void {
     this.backdrop = !this.backdrop;
     this.dirty = true;
+  }
+  /** setCursor sets what the cursor shows; the next render draws it. */
+  setCursor(cursor: CursorDraw): void {
+    const key = JSON.stringify(cursor);
+    if (key === this.cursorKey) return;
+    this.cursorKey = key;
+    this.cursor = cursor;
+    this.dirty = true;
+  }
+  private drawCursor(): void {
+    const g = this.cursorLayer,
+      c = this.cursor;
+    g.clear();
+    if (c === null) return;
+    if (c.kind === "menu") {
+      drawLayers(g, ringMenuLayers(c.ring, c.hover));
+      return;
+    }
+    const [x, y] = hexgrid.center(c.at);
+    drawLayers(
+      g,
+      c.kind === "ring"
+        ? ringLayers(x, y, 1)
+        : plateLayers(x, y, 1, c.action, c.state),
+    );
   }
   render(): void {
     if (!this.dirty && this.lastVersion === this.battle.version) {
@@ -336,6 +391,7 @@ export class MapRenderer {
     this.drawGas();
     this.drawTunnels();
     this.drawOverlays(view);
+    this.drawCursor();
     const screens = this.catalogs.get("screens");
     for (const effect of this.battle.playback.effects()) {
       const image = screens?.images.get(effect.frame);
@@ -714,7 +770,6 @@ export class MapRenderer {
         else g.lineTo(x, y);
       }
       g.stroke({ color: 0xfff0c8, width: 3 / this.camera.zoom, alpha: 0.9 });
-      hex(this.battle.hover, 0xc4a773, false);
     }
     for (const order of this.battle.orders()) {
       const [x, y] = hexgrid.center(order.from),

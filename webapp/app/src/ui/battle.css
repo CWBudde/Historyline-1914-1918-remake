@@ -453,24 +453,18 @@
   z-index: 7;
   pointer-events: none;
 }
+/* The ring menu is drawn on the map as steel plates (gesture.ts); its buttons stay for keyboards and screen readers. */
 .battle-ui .battle-ring-action {
   position: absolute;
-  transform: translate(-50%, -50%);
+  width: 1px !important;
+  height: 1px !important;
   min-height: 0;
-  padding: 8px;
-  clip-path: polygon(0 50%, 25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%);
-  color: #ffe2a3;
-  font-weight: 600;
-  font-size: 0.9em;
-  background: linear-gradient(#59676b, #22343d);
-  pointer-events: auto;
-}
-.battle-ui .battle-ring-action:focus-visible {
-  outline-offset: -7px;
-}
-.battle-ui .battle-ring-cancel {
-  color: var(--battle-cream);
-  background: #25353c;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  pointer-events: none;
 }
 .battle-ui .battle-modal-shade {
   position: absolute;

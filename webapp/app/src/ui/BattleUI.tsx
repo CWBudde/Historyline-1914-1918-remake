@@ -1058,6 +1058,12 @@ export function BattleUI(p: BattleUIProps) {
               onClick={() => {
                 p.onRingAction(item.action);
               }}
+              onFocus={() => {
+                p.onRingFocus?.(item.action);
+              }}
+              onBlur={() => {
+                p.onRingFocus?.(null);
+              }}
             >
               {actionName[item.action]}
             </button>
