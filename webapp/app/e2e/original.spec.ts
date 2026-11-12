@@ -41,9 +41,11 @@ test("an imported original map plays through to its outcome page", async ({
   await page.getByRole("button", { name: /^Germany/ }).click();
   await expect(battleReady(page)).toBeVisible({ timeout: 120_000 });
   await expectMapDrawn(page);
-  await expect(
-    page.locator("button", { hasText: "Map design: Original" }),
-  ).toHaveCount(1);
+  // Map 01 starts in the painting of the month made from it; F8 reaches the original tiles and units.
+  const original = page.locator("button", { hasText: "Map design: Original" });
+  for (let i = 0; i < 3 && (await original.count()) === 0; i++)
+    await page.keyboard.press("F8");
+  await expect(original).toHaveCount(1);
 
   const ended = page.locator(".battle-ended button");
   const confirm = page.getByRole("button", { name: "Confirm (F1)" });
