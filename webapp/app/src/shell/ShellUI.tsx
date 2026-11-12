@@ -14,7 +14,8 @@ import "./shell.css";
 import { OriginalPage } from "./OriginalPage.tsx";
 import { design, designNames, nextDesign } from "../original/design.ts";
 import { hasOriginalArt } from "../original/state.ts";
-import { shellUnit, useShellMaterials } from "./materials.ts";
+import { embrasureHole, shellUnit, useArmour } from "./materials.ts";
+import "./fonts.css";
 
 export interface ShellUIProps {
   shell: ShellController;
@@ -66,27 +67,21 @@ const maxImportBytes = 4 * Math.ceil((8 * 1024 * 1024) / 3) + 2048;
 const controls =
   'button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), [tabindex="0"]';
 /**
- * pageScene is the painting behind a page. The screen/* mock-ups of the whole interface stay out: the desktop game
- * draws only the scene (cmd/historyline/app.go).
+ * pageScene is the painting seen through the embrasure of a columned page. The screen/* mock-ups of the whole
+ * interface stay out: the desktop game draws only the scene (cmd/historyline/app.go).
  */
 function pageScene(s: ShellController): string {
   switch (s.page) {
     case "main":
     case "code":
     case "closed":
-    case "news":
       return "backdrop/western-front";
     case "values":
     case "control":
       return "scene/options";
     case "extras":
     case "scores":
-    case "saves":
-    case "original":
-    case "offline":
       return "scene/save";
-    case "country":
-      return "scene/side-selection";
     case "loading":
       return "scene/mission-selection";
     case "outcome":
@@ -102,6 +97,8 @@ function Art({
   className = "",
   cover = false,
   drawn = false,
+  scale,
+  lite = false,
 }: {
   p: ShellUIProps;
   id: string;
@@ -109,19 +106,25 @@ function Art({
   className?: string;
   /** The painting covers the window: its art is chosen for the drawn size. */
   cover?: boolean;
-  /** The art is drawn at the steel's scale (shell.css --u) rather than its own size. */
+  /** The art is drawn at the layout's unit (shell.css --u) rather than its own size. */
   drawn?: boolean;
+  /** The drawn size over the logical size, where the page knows it. */
+  scale?: number;
+  /** Only the lite art: the armour's painted parts. */
+  lite?: boolean;
 }) {
   const ui = p.shell.settings.uiScale,
     image = p.assets.image(
       "screens",
       id,
-      cover
-        ? paintingScale(window.innerWidth, window.innerHeight, ui)
-        : drawn
-          ? shellUnit(window.innerWidth, window.innerHeight, ui)
-          : ui,
-      cover,
+      scale ??
+        (cover
+          ? paintingScale(window.innerWidth, window.innerHeight, ui)
+          : drawn
+            ? shellUnit(window.innerWidth, window.innerHeight, ui)
+            : ui),
+      cover || scale !== undefined,
+      lite,
     ).value;
   return image.url === null ? (
     <span
@@ -130,7 +133,7 @@ function Art({
       aria-label={
         alt ? `${alt}${image.error ? " (image unavailable)" : ""}` : undefined
       }
-      title={image.error ?? undefined}
+      title={alt ? (image.error ?? undefined) : undefined}
     />
   ) : (
     <img
@@ -141,6 +144,75 @@ function Art({
     />
   );
 }
+/**
+ * enlarge is how far the embrasure's art may be drawn above its size before the next density is fetched: on a small
+ * window the 1x art, a fifth enlarged, keeps the first playable frame within its transfer budget.
+ */
+const enlarge = 1.2;
+/** The units of the embrasure's width in landscape; upright it spans the column. */
+const embrasureWidth = 460;
+/**
+ * Embrasure is the heavy frame cut into the plate with its shutter pushed open, the page's painting seen through
+ * its opening. The painting is chosen for the opening's drawn width; it reaches under the frame's lip.
+ */
+function Embrasure({ p, scene }: { p: ShellUIProps; scene: string }) {
+  const w = window.innerWidth,
+    h = window.innerHeight,
+    u = shellUnit(w, h, p.shell.settings.uiScale),
+    frame = w >= h ? embrasureWidth * u : w - 48 * u,
+    hole = frame * (1 - embrasureHole.left - embrasureHole.right);
+  return (
+    <div class="shell-embrasure" aria-hidden="true">
+      <div class="shell-embrasure-view">
+        {scene && (
+          <Art
+            p={p}
+            id={scene}
+            className="shell-scene"
+            scale={hole / 640 / enlarge}
+            lite
+          />
+        )}
+      </div>
+      <Art
+        p={p}
+        id="armour/embrasure"
+        className="shell-embrasure-frame"
+        scale={frame / 803 / enlarge}
+        lite
+      />
+    </div>
+  );
+}
+/** The two enamel plaques of the sides. */
+function Plaques({ p }: { p: ShellUIProps }) {
+  const u = shellUnit(
+    window.innerWidth,
+    window.innerHeight,
+    p.shell.settings.uiScale,
+  );
+  return (
+    <div class="shell-plaques">
+      <Art
+        p={p}
+        id="armour/plaque-germany"
+        alt="Germany"
+        className="shell-plaque"
+        scale={(56 * u) / 169}
+        lite
+      />
+      <Art
+        p={p}
+        id="armour/plaque-france"
+        alt="France"
+        className="shell-plaque"
+        scale={(56 * u) / 164}
+        lite
+      />
+    </div>
+  );
+}
+
 function Unit({ p, card }: { p: ShellUIProps; card: UnitCard }) {
   return (
     <article class="shell-unit shell-well">
@@ -177,7 +249,7 @@ export function ShellUI(p: ShellUIProps) {
   const [reading, setReading] = useState(false);
   const [code, setCode] = useState("");
   const [help, setHelp] = useState<Help | null>(null);
-  const materials = useShellMaterials(p.assets, s.settings.uiScale);
+  const materials = useArmour(p.assets, s.settings.uiScale, page === "news");
   const busy = s.busy || reading;
   /** Focus and pointer show a control's help in the column. */
   const helpOf = (lines: Help | undefined) =>
@@ -371,6 +443,11 @@ export function ShellUI(p: ShellUIProps) {
   }, [page, s, reading, p.onFullscreen]);
 
   if (page === "battle") return null;
+  const u = shellUnit(
+    window.innerWidth,
+    window.innerHeight,
+    s.settings.uiScale,
+  );
   const scene = pageScene(s);
   const wide = !columnPages.includes(page);
   const title =
@@ -436,7 +513,7 @@ export function ShellUI(p: ShellUIProps) {
                 s.open("code");
               },
               busy,
-              ["Type the code of a map you have", "reached, then press Enter."],
+              ["Type the code of a map you have reached, then press Enter."],
             )}
             {button(
               "Game values",
@@ -444,7 +521,7 @@ export function ShellUI(p: ShellUIProps) {
                 s.open("values");
               },
               busy,
-              ["Battles, players and the move", "limit."],
+              ["Battles, players and the move limit."],
             )}
             {button(
               "Control",
@@ -452,7 +529,7 @@ export function ShellUI(p: ShellUIProps) {
                 s.open("control");
               },
               busy,
-              ["Layout, screen, scrolling and", "the map's design."],
+              ["Layout, screen, scrolling and the map's design."],
             )}
             {button(
               "Extras",
@@ -460,10 +537,8 @@ export function ShellUI(p: ShellUIProps) {
                 s.open("extras");
               },
               busy,
-              ["Score list, saved games and the", "original game's maps."],
+              ["Score list, saved games and the original game's maps."],
             )}
-          </nav>
-          <footer class="shell-actions">
             {button(
               "Exit",
               () => {
@@ -472,7 +547,7 @@ export function ShellUI(p: ShellUIProps) {
               busy,
               ["Leave Historyline 1914–1918."],
             )}
-          </footer>
+          </nav>
         </>
       );
       break;
@@ -497,8 +572,7 @@ export function ShellUI(p: ShellUIProps) {
                 autoCapitalize="characters"
                 spellcheck={false}
                 {...helpOf([
-                  "Type the code of a map you have",
-                  "reached, then press Enter.",
+                  "Type the code of a map you have reached, then press Enter.",
                 ])}
                 onInput={(event) => {
                   const value = event.currentTarget.value
@@ -542,8 +616,8 @@ export function ShellUI(p: ShellUIProps) {
             <label
               class="shell-field"
               {...fieldHelp([
-                "Two humans: the split screen, B on",
-                "D/C/X/V + Ctrl. Hot-seat takes turns.",
+                "Two humans: the split screen, B on D/C/X/V + Ctrl.",
+                "Hot-seat: the sides take turns.",
               ])}
             >
               <span>Play mode</span>
@@ -617,8 +691,7 @@ export function ShellUI(p: ShellUIProps) {
             <label
               class="shell-field"
               {...fieldHelp([
-                "The battle screen: the split screen",
-                "of the original or one map.",
+                "The battle screen: the split screen of the original or one map.",
               ])}
             >
               <span>Layout</span>
@@ -663,7 +736,7 @@ export function ShellUI(p: ShellUIProps) {
               `Battle scenes · ${s.settings.scenes ? "On" : "Off"}`,
               () => change({ scenes: !s.settings.scenes }),
               busy,
-              ["Show the battle scenes between", "units, or skip them."],
+              ["Show the battle scenes between units, or skip them."],
             )}
             {(() => {
               // Painted where a month has a painting; Original once the original game's files are imported.
@@ -677,8 +750,7 @@ export function ShellUI(p: ShellUIProps) {
                 () => change(nextDesign(s.settings, a)),
                 busy,
                 [
-                  "The painted map, its tiles, or the",
-                  "original game's art once imported.",
+                  "The painted map, its tiles, or the original game's art once imported.",
                 ],
               );
             })()}
@@ -727,7 +799,7 @@ export function ShellUI(p: ShellUIProps) {
                   s.open("original");
                 },
                 busy,
-                ["Play the original game's maps", "from your own copy."],
+                ["Play the original game's maps from your own copy."],
               )}
             {p.offlinePanel !== undefined &&
               button(
@@ -736,7 +808,7 @@ export function ShellUI(p: ShellUIProps) {
                   s.open("offline");
                 },
                 busy,
-                ["Keep maps on this device to play", "without a connection."],
+                ["Keep maps on this device to play without a connection."],
               )}
           </nav>
           <footer class="shell-actions">
@@ -753,7 +825,7 @@ export function ShellUI(p: ShellUIProps) {
               <button
                 key={side}
                 type="button"
-                class="shell-plate shell-country"
+                class="shell-well shell-country"
                 data-side={side}
                 disabled={busy}
                 onClick={() => {
@@ -762,11 +834,18 @@ export function ShellUI(p: ShellUIProps) {
               >
                 <Art
                   p={p}
-                  id={side === 0 ? "country/germany" : "country/france"}
+                  id={
+                    side === 0
+                      ? "armour/plaque-germany"
+                      : "armour/plaque-france"
+                  }
                   className="shell-country-flag"
-                  drawn
+                  scale={(200 * u) / 169}
+                  lite
                 />
-                <strong>{side === 0 ? "Germany" : "France"}</strong>
+                <strong class="shell-nameplate">
+                  {side === 0 ? "Germany" : "France"}
+                </strong>
                 <span>{side === 0 ? "The Central Powers" : "The Entente"}</span>
               </button>
             ))}
@@ -1040,6 +1119,21 @@ export function ShellUI(p: ShellUIProps) {
       );
       break;
   }
+  const notices = (
+    <>
+      {!s.storageAvailable() && ["saves", "scores", "leave"].includes(page) && (
+        <p class="shell-notice" role="status">
+          Browser storage is unavailable. Saved games and scores cannot be
+          stored.
+        </p>
+      )}
+      {(s.note || fileError || busy) && (
+        <p class="shell-notice" role="status" aria-live="polite">
+          {fileError || s.note || "Please wait…"}
+        </p>
+      )}
+    </>
+  );
   return (
     <div
       ref={root}
@@ -1056,52 +1150,45 @@ export function ShellUI(p: ShellUIProps) {
       aria-labelledby="shell-title"
       aria-busy={busy}
     >
-      <div
-        class={`shell-backdrop${scene || page === "leave" ? "" : " shell-hull"}`}
-        aria-hidden="true"
-      >
-        {scene && <Art p={p} id={scene} className="shell-scene" cover />}
-        {flagPages.includes(page) && (
-          <div class="shell-flags">
-            <Art p={p} id="country/germany" drawn />
-            <Art p={p} id="country/france" drawn />
-          </div>
-        )}
-      </div>
-      <main
-        class={`shell-sheet${!wide || boards.includes(page) ? " shell-plate shell-panel" : ""}`}
-      >
-        <header
-          class={`shell-heading${page === "country" ? " shell-plate shell-name-plate" : ""}`}
-        >
-          <h1 id="shell-title">{title}</h1>
-          {page === "main" && (
-            <>
-              <p class="shell-years">1 9 1 4 &nbsp; – &nbsp; 1 9 1 8</p>
-              <p class="shell-month">
-                {s.mission.news?.label ?? s.mission.month}
-              </p>
-            </>
+      <div class="shell-rivets" aria-hidden="true" />
+      <main class={`shell-sheet${boards.includes(page) ? " shell-panel" : ""}`}>
+        <header class="shell-heading">
+          {page === "main" ? (
+            <h1 id="shell-title" class="shell-title">
+              <Art
+                p={p}
+                id="armour/title"
+                alt="Historyline 1914–1918"
+                scale={(252 * u) / 712}
+                lite
+              />
+            </h1>
+          ) : (
+            <h1 id="shell-title">{title}</h1>
           )}
         </header>
-        {content}
-        {!wide && help !== null && (
-          <aside class="shell-help">
-            <p>{help[0]}</p>
-            {help[1] !== undefined && <p class="shell-muted">{help[1]}</p>}
-          </aside>
-        )}
-        {!s.storageAvailable() &&
-          ["saves", "scores", "leave"].includes(page) && (
-            <p class="shell-notice" role="status">
-              Browser storage is unavailable. Saved games and scores cannot be
-              stored.
-            </p>
-          )}
-        {(s.note || fileError || busy) && (
-          <p class="shell-notice" role="status" aria-live="polite">
-            {fileError || s.note || "Please wait…"}
-          </p>
+        {flagPages.includes(page) && <Plaques p={p} />}
+        {wide ? (
+          <>
+            {content}
+            {notices}
+          </>
+        ) : (
+          <>
+            <div class="shell-column">
+              {content}
+              {notices}
+            </div>
+            <Embrasure p={p} scene={scene} />
+            <aside class="shell-help">
+              {help !== null && (
+                <>
+                  <p>{help[0]}</p>
+                  {help[1] !== undefined && <p>{help[1]}</p>}
+                </>
+              )}
+            </aside>
+          </>
         )}
       </main>
     </div>

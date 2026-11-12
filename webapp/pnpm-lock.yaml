@@ -196,6 +196,12 @@ importers:
 
   app:
     dependencies:
+      '@fontsource/stardos-stencil':
+        specifier: 5.3.0
+        version: 5.3.0
+      '@fontsource/zilla-slab':
+        specifier: 5.3.0
+        version: 5.3.0
       '@historyline/engine':
         specifier: workspace:*
         version: link:../engine
@@ -257,6 +263,12 @@ packages:
   '@eslint/plugin-kit@0.7.3':
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@fontsource/stardos-stencil@5.3.0':
+    resolution: {integrity: sha512-A4r02iepIa6UJwdm4GgEZYEKovHqb64ZPhUudfs3h4rE2iS7HWOI1Gf7SsWiLjbct09B+RTpjM/d5X595odndQ==}
+
+  '@fontsource/zilla-slab@5.3.0':
+    resolution: {integrity: sha512-xbdDx5OESJDQqp3GIp4pjBgI+qpcg4AxnHLN15ekfJbG+ZYaOXg3uBjDpYlkuPQpey91afxHBNaqZgzluJ2FWA==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -1114,6 +1126,10 @@ snapshots:
     dependencies:
       '@eslint/core': 1.2.1
       levn: 0.4.1
+
+  '@fontsource/stardos-stencil@5.3.0': {}
+
+  '@fontsource/zilla-slab@5.3.0': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

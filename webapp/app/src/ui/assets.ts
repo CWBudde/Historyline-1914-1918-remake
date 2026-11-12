@@ -42,20 +42,23 @@ export class UiAssets {
   /**
    * sharp brings lite art at the drawn density too, for paintings that fill the window. Their full art (PNGs of
    * up to 1.9 MB) comes only when a page asks for the painting once full art is allowed, not for every page
-   * passed on the way to the first battle.
+   * passed on the way to the first battle. lite brings only the lite art, at the drawn density: the painted parts
+   * of the menus' armour, whose lossless art would cost megabytes for no visible gain.
    */
   image(
     catalog: string,
     id: string,
     scale = 1,
     sharp = false,
+    lite = false,
   ): Signal<UiImage> {
     const density = assetDensity(scale, this.dpr()),
-      key = `${catalog}/${id}/${density}${sharp ? "/sharp" : ""}`;
+      key = `${catalog}/${id}/${density}${lite ? "/lite" : sharp ? "/sharp" : ""}`;
     let state = this.images.get(key);
     if (state !== undefined) {
       if (
         sharp &&
+        !lite &&
         !this.upgrading.has(key) &&
         !this.stopped &&
         this.loader.upgradesAllowed
@@ -68,9 +71,9 @@ export class UiAssets {
     state = signal<UiImage>(empty());
     if (this.stopped) return state;
     this.images.set(key, state);
-    const liteOnly = sharp && !this.loader.upgradesAllowed;
+    const liteOnly = lite || (sharp && !this.loader.upgradesAllowed);
     if (sharp && !liteOnly) this.upgrading.add(key);
-    this.load(catalog, id, density, state, sharp, liteOnly);
+    this.load(catalog, id, density, state, sharp || lite, liteOnly);
     return state;
   }
   private load(

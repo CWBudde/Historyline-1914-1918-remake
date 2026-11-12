@@ -152,3 +152,21 @@ it("brings a sharp painting's full art only when a page asks for it after full a
   ]);
   assets.dispose();
 });
+
+it("brings only the lite art of the armour's parts, at the drawn density", async () => {
+  const f = source(),
+    assets = new UiAssets(f.loader, () => 2);
+  const image = assets.image("screens", "armour/plate", 1.5, false, true);
+  await vi.waitFor(() => {
+    expect(image.value.quality).toBe("lite");
+  });
+  // Asked again once full art is allowed, it stays lite.
+  expect(assets.image("screens", "armour/plate", 1.5, false, true)).toBe(image);
+  f.release();
+  await Promise.resolve();
+  expect(image.value.quality).toBe("lite");
+  expect(f.calls).toEqual([
+    ["screens", ["armour/plate"], 4, 1, true, "lite only"],
+  ]);
+  assets.dispose();
+});

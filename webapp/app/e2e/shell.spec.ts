@@ -1,7 +1,7 @@
 import { devices, expect, test, type Page } from "@playwright/test";
 import { openMenu } from "./battle.ts";
 
-/** The CSS pixels of one reference pixel of the desktop game's 640×400 menus, as shell.css sets --u. */
+/** The CSS pixels of one unit of the shell's layout, as shell.css sets --u. */
 async function unit(page: Page): Promise<number> {
   return page.evaluate(() => {
     const probe = document.createElement("div");
@@ -12,76 +12,112 @@ async function unit(page: Page): Promise<number> {
     return u;
   });
 }
-/** Waits until the steel tile and the rivet head made from the art are on the column. */
-async function steel(page: Page): Promise<string> {
-  const sheet = page.locator(".shell-sheet");
+/** Waits until the plate, the rivets and both nameplate states made from the armour's art are on the page. */
+async function armour(page: Page): Promise<void> {
   await expect
     .poll(
       () =>
-        sheet.evaluate((el) => {
-          const image = getComputedStyle(el).backgroundImage;
-          // Four rivet heads and the graded tile.
-          return (image.match(/url\("blob:/g) ?? []).length === 5 ? image : "";
-        }),
+        page
+          .locator(".shell-ui")
+          .evaluate((el) =>
+            ["--hl-plate", "--hl-nameplate", "--hl-nameplate-polished"].every(
+              (name) =>
+                el.style.getPropertyValue(name).startsWith('url("blob:'),
+            ),
+          ),
       { timeout: 30_000 },
     )
-    .not.toBe("");
-  return sheet.evaluate((el) => getComputedStyle(el).backgroundImage);
+    .toBe(true);
+}
+/** The painted face of a nameplate: its border image. */
+function face(page: Page, name: string | RegExp) {
+  return page
+    .getByRole("button", { name })
+    .evaluate((el) => getComputedStyle(el).borderImageSource);
 }
 
-test.describe("the menus in the desktop game's steel", () => {
-  test("a riveted steel column with steel buttons, focus and help", async ({
+test.describe("the menus on the armour plate", () => {
+  test("the start screen: stencilled title, brass nameplates, the embrasure and the hint strip", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await openMenu(page);
     const u = await unit(page);
     expect(u).toBeCloseTo(2.7, 1);
-    const images = await steel(page);
-    // Four rivet heads and the graded tile.
-    expect(images.match(/url\(/g)).toHaveLength(5);
-    const column = await page.locator(".shell-sheet").boundingBox();
-    expect(column?.x).toBe(0);
-    expect(column?.width).toBeCloseTo(304 * u, 0);
-    expect(column?.height).toBeCloseTo(1080, 0);
+    await armour(page);
+    await expect(
+      page.getByRole("img", { name: "Historyline 1914–1918" }),
+    ).toBeVisible();
+    await expect(page.getByRole("img", { name: "Germany" })).toBeVisible();
+    await expect(page.getByRole("img", { name: "France" })).toBeVisible();
 
+    // Six nameplates in a column at the left, Exit the last.
+    const names = [
+      "Start",
+      /^Code/,
+      "Game values",
+      "Control",
+      "Extras",
+      "Exit",
+    ] as const;
+    let last = 0;
+    for (const name of names) {
+      const box = await page.getByRole("button", { name }).boundingBox();
+      expect(box?.x).toBeCloseTo((1920 - 712 * u) / 2 + 40 * u, 0);
+      expect(box?.width).toBeCloseTo(158 * u, 0);
+      expect(box?.height).toBeCloseTo(28 * u, 0);
+      expect(box?.y ?? 0).toBeGreaterThan(last);
+      last = box?.y ?? 0;
+    }
+    // The selected plate is rubbed bright, the others dull; the lettering is engraved in dark ink.
     const start = page.getByRole("button", { name: "Start" }),
       code = page.getByRole("button", { name: /^Code/ });
     await expect(start).toBeFocused();
-    const box = await start.boundingBox();
-    expect(box?.width).toBeCloseTo(216 * u, 0);
-    expect(box?.height).toBeGreaterThanOrEqual(30 * u - 1);
-    // The focused button is amber in brass lines, the others cream.
-    const colour = (b: typeof start) =>
-      b.evaluate((el) => getComputedStyle(el).color);
-    expect(await colour(start)).toBe("rgb(240, 184, 88)");
-    expect(await colour(code)).toBe("rgb(251, 227, 199)");
+    const dull = await face(page, /^Code/),
+      bright = await face(page, "Start");
+    expect(dull).toMatch(/^url\("blob:/);
+    expect(bright).toMatch(/^url\("blob:/);
+    expect(bright).not.toBe(dull);
+    expect(await start.evaluate((el) => getComputedStyle(el).color)).toBe(
+      "rgb(27, 21, 11)",
+    );
     expect(
-      await start.evaluate((el) => getComputedStyle(el).textTransform),
-    ).toBe("uppercase");
+      await start.evaluate((el) => getComputedStyle(el).fontFamily),
+    ).toMatch(/^"Zilla Slab"/);
     await expect(page.locator(".shell-help")).toContainText("Begin the battle");
     await page.keyboard.press("ArrowDown");
     await expect(code).toBeFocused();
-    expect(await colour(code)).toBe("rgb(240, 184, 88)");
+    expect(await face(page, /^Code/)).toBe(bright);
+    expect(await face(page, "Start")).toBe(dull);
     await expect(page.locator(".shell-help")).toContainText("Type the code");
 
-    // Exit stands at the painting's foot, right.
-    const exit = await page.getByRole("button", { name: "Exit" }).boundingBox();
-    expect((exit?.x ?? 0) + (exit?.width ?? 0)).toBeCloseTo(1920 - 24 * u, 0);
-    expect((exit?.y ?? 0) + (exit?.height ?? 0)).toBeCloseTo(1080 - 24 * u, 0);
-
-    // The country choice: a name plate and two riveted plates.
-    await start.click();
-    await expect(page.locator(".shell-name-plate")).toContainText(
-      "SELECT COUNTRY",
+    // The embrasure at the right shows the menu painting in its opening; the hint strip lies under it.
+    const frame = await page.locator(".shell-embrasure").boundingBox(),
+      view = await page.locator(".shell-embrasure-view").boundingBox(),
+      help = await page.locator(".shell-help").boundingBox();
+    expect(frame?.width).toBeCloseTo(460 * u, 0);
+    expect(frame?.height).toBeCloseTo((460 * u * 868) / 1606, 0);
+    expect(view?.width ?? 0).toBeGreaterThan(0.85 * (frame?.width ?? 0));
+    expect(help?.y ?? 0).toBeGreaterThan(
+      (frame?.y ?? 0) + (frame?.height ?? 0),
     );
+    await expect(
+      page.locator(".shell-embrasure-view img.shell-scene"),
+    ).toBeVisible();
+
+    // The country choice: a stencilled heading and the two sides' plaques, named on brass plates.
+    await page.getByRole("button", { name: "Start" }).click();
+    await expect(
+      page.getByRole("heading", { name: "SELECT COUNTRY" }),
+    ).toBeVisible();
     const cards = page.locator(".shell-country");
     await expect(cards).toHaveCount(2);
+    await expect(cards.locator(".shell-nameplate")).toHaveCount(2);
     const card = await cards.first().boundingBox();
     expect(card?.height).toBeGreaterThanOrEqual(238 * u - 1);
   });
 
-  test("the front page on newsprint and the new units in wells on hull plating", async ({
+  test("the front page on newsprint and the new units in wells on the plate", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
@@ -123,7 +159,7 @@ test.describe("the menus in the desktop game's steel", () => {
 
     await go.click();
     await expect(page.getByRole("button", { name: "To battle" })).toBeVisible();
-    await expect(page.locator(".shell-backdrop.shell-hull")).toHaveCount(1);
+    await armour(page);
     const wells = page.locator(".shell-unit.shell-well");
     expect(await wells.count()).toBeGreaterThan(0);
     expect(await wells.count()).toBeLessThanOrEqual(4);
@@ -154,22 +190,26 @@ test.describe("the menus in the desktop game's steel", () => {
       hasTouch: pixel.hasTouch,
       userAgent: pixel.userAgent,
     });
-    test("the painting in a band above a full-width column, touch-sized buttons", async ({
+    test("the title at the top, an embrasure strip, a column of touch-sized nameplates", async ({
       page,
     }) => {
       await openMenu(page);
-      await steel(page);
+      await armour(page);
       const view = page.viewportSize();
       if (view === null) throw Error("no viewport");
-      const band = await page.locator(".shell-backdrop").boundingBox(),
-        column = await page.locator(".shell-sheet").boundingBox();
-      // The whole painting's width at its own aspect, at most two fifths of the height.
-      expect(band?.height).toBeCloseTo(
-        Math.min(view.width * 0.625, view.height * 0.4),
-        0,
+      const title = await page
+          .getByRole("img", { name: "Historyline 1914–1918" })
+          .boundingBox(),
+        frame = await page.locator(".shell-embrasure").boundingBox(),
+        start = await page.getByRole("button", { name: "Start" }).boundingBox();
+      expect(title?.y ?? 99).toBeLessThan(40);
+      expect(frame?.y ?? 0).toBeGreaterThan(
+        (title?.y ?? 0) + (title?.height ?? 0),
       );
-      expect(column?.width).toBeCloseTo(view.width, 0);
-      expect(column?.y).toBeCloseTo(band?.height ?? 0, 0);
+      expect(frame?.width ?? 0).toBeGreaterThan(view.width * 0.85);
+      expect(start?.y ?? 0).toBeGreaterThan(
+        (frame?.y ?? 0) + (frame?.height ?? 0),
+      );
       expect(
         await page.evaluate(
           () =>
@@ -185,7 +225,8 @@ test.describe("the menus in the desktop game's steel", () => {
         "Exit",
       ]) {
         const box = await page.getByRole("button", { name }).boundingBox();
-        expect(box?.height, name).toBeGreaterThanOrEqual(44);
+        expect(box?.height, name).toBeGreaterThanOrEqual(48);
+        expect(box?.x ?? 0, name).toBeGreaterThanOrEqual(0);
         expect((box?.x ?? 0) + (box?.width ?? 0), name).toBeLessThanOrEqual(
           view.width,
         );

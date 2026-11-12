@@ -1,0 +1,29 @@
+/*
+ * The shell's two bundled typefaces, both under the SIL Open Font License 1.1 (the @fontsource packages carry the
+ * licence): Zilla Slab (Mozilla) for the lettering engraved on the brass nameplates, Stardos Stencil for the
+ * headings stencilled on the plate. Only the Latin WOFF2 files, so nothing else is bundled or precached.
+ */
+@font-face {
+  font-family: "Zilla Slab";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../node_modules/@fontsource/zilla-slab/files/zilla-slab-latin-700-normal.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Zilla Slab";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../../node_modules/@fontsource/zilla-slab/files/zilla-slab-latin-600-italic.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Stardos Stencil";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../node_modules/@fontsource/stardos-stencil/files/stardos-stencil-latin-700-normal.woff2")
+    format("woff2");
+}

@@ -1,24 +1,31 @@
 /*
- * The menus in the desktop game's steel (cmd/historyline/app.go, internal/dospanel/menu.go). Lengths are reference
- * pixels of its 640×400 menu canvas: --u is the CSS pixels of one, the canvas fitted to the window in landscape and a
- * 340×560 column in portrait. Steel is a colour of the ramp under the graded steel tile (--hl-steel, overlay), see
- * steel.ts; the tile, the rivet heads and the seams arrive from materials.ts, the plain colours stand until then.
+ * The menus as the inside of a riveted armour plate (art/screens/armour, materials.ts): the plate covers the window,
+ * rivet strips run along its edges, headings are stencilled on it in worn paint, and every control is a cast brass
+ * nameplate with engraved lettering, dull at rest and rubbed bright when selected. The columned pages show their
+ * painting through a heavy embrasure. Lengths are units of the layout: --u is the CSS pixels of one, a 16:9 stage
+ * of 712×400 fitted to the window in landscape and a 340×560 column in portrait (materials.ts shellUnit). Until the
+ * art has arrived the plate shows its colour and the nameplates plain brass, in the same sizes.
  */
 .shell-ui {
   --u: calc(
-    max(1.1px, min(100vw / 640, var(--app-height, 100dvh) / 400)) *
+    max(1.1px, min(100vw / 712, var(--app-height, 100dvh) / 400)) *
       var(--shell-scale, 1)
   );
-  --bw: max(1px, var(--u));
-  --cream: #fbe3c7;
-  --amber: #f0b858;
-  --muted: rgb(124 124 114);
-  --brass: #a8803c;
-  --brass-l: #e0bc6c;
-  --brass-d: #58401c;
-  --steel-dark: #24241c;
-  --plate-edge: #1c140c;
-  --engrave: calc(0.5 * var(--u)) calc(0.5 * var(--u)) 0 var(--steel-dark);
+  --bw: max(1px, calc(0.4 * var(--u)));
+  --plate-c: rgb(77 74 59);
+  --bone: rgb(214 205 184);
+  --bone-dim: rgb(170 163 145);
+  --ink: rgb(27 21 11);
+  --rust: rgb(150 92 52);
+  --brass-l: rgb(224 188 108);
+  --brass-d: rgb(88 64 28);
+  /* Engraved lettering: a dark fill, its lower edge catching the light. */
+  --engrave:
+    0 max(1px, calc(0.35 * var(--u))) 0 rgb(255 230 172 / 42%),
+    0 calc(-0.25 * var(--u)) 0 rgb(0 0 0 / 28%);
+  /* Painted lettering on the plate: no relief, a faint dirt shadow so it reads over the rust. */
+  --paint: 0 calc(0.4 * var(--u)) calc(1.2 * var(--u)) rgb(0 0 0 / 55%);
+  --rs: calc(24 * var(--u));
   position: fixed;
   inset: 0;
   z-index: 20;
@@ -26,12 +33,19 @@
   overscroll-behavior: contain;
   pointer-events: auto;
   touch-action: pan-y;
-  color: var(--cream);
-  background: #000;
+  color: var(--bone);
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      transparent 55%,
+      rgb(14 14 10 / 38%) 100%
+    ),
+    var(--hl-plate, none) center / cover no-repeat,
+    var(--plate-c);
   font:
-    calc(12 * var(--u)) / 1.5 "HL Sans",
-    sans-serif;
-  scrollbar-color: var(--brass) var(--steel-dark);
+    calc(11 * var(--u)) / 1.45 "HL Serif",
+    serif;
+  scrollbar-color: var(--rust) rgb(40 40 32);
 }
 @media (orientation: portrait) {
   .shell-ui {
@@ -39,8 +53,6 @@
       max(1.1px, min(100vw / 340, var(--app-height, 100dvh) / 560)) *
         var(--shell-scale, 1)
     );
-    /* The painting's band above the column: the whole painting's width, at most two fifths of the height. */
-    --band: min(62.5vw, calc(var(--app-height, 100dvh) * 0.4));
   }
 }
 .shell-ui *,
@@ -55,348 +67,264 @@
   margin: 0 0 0.6em;
 }
 
-/* ---------------------------------------------------------------- materials */
+/* ---------------------------------------------------------------- the plate's rivets */
 
 /*
- * A steel plate: the face colour --c under the graded tile, a light falloff from the top left, a dark outer edge,
- * two bevel bands (--lit/--unlit, then --lit2/--unlit2) and brass rivets in the corners when --rv is the rivet.
+ * Rows along the top and bottom edge (::before), columns down the sides between them (::after). The strips hold a
+ * rivet every --rp; a mask keeps every second one, so they stand as far apart as on the draft's plate.
  */
-.shell-ui .shell-plate,
-.shell-ui .shell-button,
-.shell-ui .shell-field,
-.shell-ui .shell-fixed,
-.shell-ui .shell-import,
-.shell-ui .shell-well {
-  --c: rgb(101 101 91);
-  --edge: rgb(47 47 39);
-  --lit: rgb(144 144 133);
-  --unlit: rgb(59 59 50);
-  --lit2: transparent;
-  --unlit2: rgb(73 73 64);
-  --rv: var(--hl-rivet, none);
-  --tile: var(--hl-steel, none);
-  /* menuSteel's light: +0.055 tone at the top, −0.045 towards the bottom right corner. */
-  --falloff: linear-gradient(rgb(178 178 166 / 8%), transparent);
-  --falloff2: radial-gradient(
-    farthest-corner at 100% 100%,
-    rgb(36 36 28 / 14%),
-    transparent
-  );
-  /* A rivet head of radius 1.7 at 5 from each corner (steel.ts rivetImage: 40 px, radius 14 at 16). */
-  --rs: calc(4.857 * var(--u));
-  --ra: calc(3.057 * var(--u));
-  --rb: calc(2.086 * var(--u));
-  background-color: var(--c);
-  background-image:
-    var(--rv), var(--rv), var(--rv), var(--rv), var(--tile), var(--falloff),
-    var(--falloff2);
-  background-blend-mode:
-    normal, normal, normal, normal, overlay, normal, normal;
-  background-position:
-    left var(--ra) top var(--ra),
-    right var(--rb) top var(--ra),
-    left var(--ra) bottom var(--rb),
-    right var(--rb) bottom var(--rb),
-    0 0,
-    0 0,
-    0 0;
-  background-size:
-    var(--rs) var(--rs),
-    var(--rs) var(--rs),
-    var(--rs) var(--rs),
-    var(--rs) var(--rs),
-    calc(256 * var(--u)) calc(256 * var(--u)),
-    100% 100%,
-    100% 100%;
-  background-repeat:
-    no-repeat, no-repeat, no-repeat, no-repeat, repeat, no-repeat, no-repeat;
-  background-origin: border-box;
-  border: var(--bw) solid var(--edge);
-  border-radius: 0;
-  box-shadow:
-    inset var(--bw) var(--bw) 0 var(--lit),
-    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
-    inset calc(2 * var(--bw)) calc(2 * var(--bw)) 0 var(--lit2),
-    inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
-}
-/* The menus' column: a raised plate of tone 0.30. */
-.shell-ui .shell-panel {
-  --c: rgb(79 79 69);
-  --edge: var(--steel-dark);
-  --lit: rgb(121 121 111);
-  --unlit: var(--steel-dark);
-  --unlit2: rgb(50 50 42);
-}
-/* A recessed well (menuWell): dark steel, a sunk bevel and a shadow under its top lip. */
-.shell-ui .shell-well {
-  --c: rgb(56 56 47);
-  --edge: rgb(39 39 31);
-  --lit: rgb(47 47 39);
-  --unlit: rgb(133 133 122);
-  --lit2: transparent;
-  --unlit2: transparent;
-  --rv: none;
-  --falloff: linear-gradient(
-    to bottom,
-    transparent calc(2 * var(--u)),
-    rgb(36 36 28 / 35%) calc(2 * var(--u)),
-    rgb(36 36 28 / 35%) calc(5 * var(--u)),
-    transparent calc(5 * var(--u))
-  );
-  --falloff2: none;
-}
-/* The brown name plate with brass lines (menuNamePlate). */
-.shell-ui .shell-name-plate {
-  --c: rgb(64 50 37);
-  --edge: var(--plate-edge);
-  --lit: var(--brass-l);
-  --unlit: var(--brass-d);
-  --lit2: transparent;
-  --unlit2: transparent;
-  --tile: var(--hl-brown, none);
-  --falloff: linear-gradient(transparent, rgb(28 20 12 / 34%));
-  --falloff2: none;
-}
-/* The hull plating behind pages without a painting: darker steel, seams with rivets, dim corners. */
-.shell-hull {
-  background-color: rgb(76 76 67);
-  background-image:
-    var(--hl-seams, none), var(--hl-steel, none),
-    radial-gradient(
-      ellipse at center,
-      transparent 55%,
-      rgb(36 36 28 / 16%) 100%
-    );
-  background-blend-mode: normal, overlay, normal;
-  background-size:
-    calc(160 * var(--u)) calc(160 * var(--u)),
-    calc(256 * var(--u)) calc(256 * var(--u)),
-    100% 100%;
-  background-position:
-    calc(160 * var(--u)) calc(160 * var(--u)),
-    0 0,
-    0 0;
-}
-
-/* ---------------------------------------------------------------- the painting */
-
-.shell-backdrop {
+.shell-rivets {
+  --rp: calc(var(--rs) * 777 / 8 / 78);
   position: fixed;
   inset: 0;
-  overflow: hidden;
   pointer-events: none;
 }
+.shell-rivets::before,
+.shell-rivets::after {
+  content: "";
+  position: absolute;
+}
+.shell-rivets::before {
+  inset: 0;
+  background:
+    var(--hl-rivets-row, none) left calc(6 * var(--u)) top calc(3 * var(--u)) /
+      auto var(--rs) repeat-x,
+    var(--hl-rivets-row, none) left calc(6 * var(--u)) bottom
+      calc(-6 * var(--u)) / auto var(--rs) repeat-x;
+  mask: repeating-linear-gradient(
+      to right,
+      #000 0 var(--rp),
+      transparent var(--rp) calc(2 * var(--rp))
+    )
+    calc(6 * var(--u)) 0;
+}
+.shell-rivets::after {
+  --cp: calc(var(--rs) * 739 / 8 / 78);
+  inset: calc(44 * var(--u)) 0 calc(30 * var(--u));
+  background:
+    var(--hl-rivets-column, none) left calc(5 * var(--u)) top 0 /
+      calc(var(--rs) * 41 / 78) auto repeat-y,
+    var(--hl-rivets-column, none) right calc(5 * var(--u)) top 0 /
+      calc(var(--rs) * 41 / 78) auto repeat-y;
+  mask: repeating-linear-gradient(
+    to bottom,
+    #000 0 var(--cp),
+    transparent var(--cp) calc(2 * var(--cp))
+  );
+}
+.shell-page-leave .shell-rivets {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- art */
+
 .shell-art {
   display: block;
   max-width: 100%;
   object-fit: contain;
 }
 .shell-art-empty {
-  background: #53606244;
-}
-.shell-backdrop .shell-scene {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.shell-flags {
-  position: absolute;
-  top: calc(30 * var(--u));
-  right: calc(36 * var(--u));
-  display: flex;
-  gap: calc(8 * var(--u));
-}
-.shell-flags .shell-art {
-  width: calc(42 * var(--u));
-  height: calc(30 * var(--u));
-  object-fit: fill;
+  background: rgb(40 40 32 / 40%);
 }
 
-/* ---------------------------------------------------------------- text */
+/* ---------------------------------------------------------------- lettering */
 
+/* Headings are stencilled on the plate in worn bone-white paint. */
 .shell-ui h1,
 .shell-ui h2 {
-  font-family: "HL Display", "HL Serif", serif;
+  font-family: "Stardos Stencil", "HL Display", serif;
   font-weight: 700;
   line-height: 1.1;
-  color: var(--amber);
-  text-shadow: var(--engrave);
+  letter-spacing: 0.04em;
+  color: var(--bone);
+  text-shadow: var(--paint);
 }
 .shell-ui h1 {
-  font-size: calc(23 * var(--u));
+  font-size: calc(25 * var(--u));
 }
 .shell-ui h2 {
-  font-size: calc(16 * var(--u));
+  font-size: calc(15 * var(--u));
 }
 .shell-ui h3 {
-  font-size: calc(10 * var(--u));
+  font:
+    700 calc(10 * var(--u)) / 1.3 "Stardos Stencil",
+    serif;
+  letter-spacing: 0.06em;
+}
+.shell-sheet > p,
+.shell-column > p,
+.shell-ui .shell-well p {
+  text-shadow: var(--paint);
 }
 .shell-muted {
-  color: var(--muted);
+  color: var(--bone-dim);
 }
 .shell-notice {
-  color: var(--amber);
+  color: var(--brass-l);
   margin: calc(10 * var(--u)) 0 0 !important;
   border-top: var(--bw) solid var(--brass-d);
   padding-top: calc(6 * var(--u));
+  text-shadow: var(--paint);
 }
 
-/* ---------------------------------------------------------------- buttons and fields */
+/* ---------------------------------------------------------------- nameplates */
 
+/*
+ * Every control is a brass nameplate of height --ph: the painted plate as a 9-slice border (its screwed ends keep
+ * their shape, the face stretches), engraved lettering in the middle. armour/nameplate is 868×142 at 2x: an end of
+ * 10 % of its width is 0.61 of its height, the rim 26 % of it.
+ */
+.shell-ui .shell-button,
+.shell-ui .shell-field,
+.shell-ui .shell-fixed,
+.shell-ui .shell-import,
+.shell-ui .shell-nameplate,
+.shell-ui .shell-help {
+  --ph: calc(24 * var(--u));
+  --face: var(--hl-nameplate, none);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ph);
+  margin: 0;
+  padding: 0 calc(0.18 * var(--ph));
+  border: solid transparent;
+  border-width: calc(0.24 * var(--ph)) calc(0.6 * var(--ph));
+  border-image: var(--face) 26% 10% fill / 1 / 0 stretch;
+  border-radius: calc(0.12 * var(--ph));
+  background: var(--hl-brass, rgb(112 89 52));
+  color: var(--ink);
+  font:
+    700 calc(0.42 * var(--ph)) / 1.05 "Zilla Slab",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: var(--engrave);
+  overflow-wrap: anywhere;
+  transition:
+    filter 0.12s,
+    transform 0.08s;
+}
+.shell-ui .shell-button,
+.shell-ui .shell-import {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+/* Selected (focus) and under the pointer: the plate rubbed bright. */
+.shell-ui .shell-button:hover:not(:disabled),
+.shell-ui .shell-button:focus,
+.shell-ui .shell-field:focus-within,
+.shell-ui .shell-field:hover,
+.shell-ui .shell-import:hover:not(.shell-disabled),
+.shell-ui .shell-import:focus-within,
+.shell-ui .shell-country:hover:not(:disabled) .shell-nameplate,
+.shell-ui .shell-country:focus .shell-nameplate {
+  --face: var(--hl-nameplate-polished, none);
+  background-color: var(--hl-brass, rgb(166 128 68));
+  outline: none;
+}
+.shell-ui .shell-button:active:not(:disabled) {
+  filter: brightness(0.8);
+  transform: translateY(calc(0.6 * var(--u)));
+}
+.shell-ui .shell-button:disabled,
+.shell-ui .shell-disabled {
+  filter: grayscale(0.6) brightness(0.62);
+  cursor: default;
+}
+/* A fixed value: the plate stamped, not selectable. */
+.shell-ui .shell-fixed {
+  filter: grayscale(0.35) brightness(0.78);
+}
+.shell-ui :focus-visible {
+  outline: calc(1.2 * var(--u)) solid rgb(236 222 180 / 88%);
+  outline-offset: calc(1.4 * var(--u));
+}
+/* Keyboard focus: the bright plate lifted by a warm halo of lamplight, beside the polish itself. */
+.shell-ui .shell-button:focus-visible,
+.shell-ui .shell-field:focus-within:has(:focus-visible),
+.shell-ui .shell-import:focus-within:has(:focus-visible) {
+  outline: none;
+  filter: drop-shadow(0 0 calc(1.6 * var(--u)) rgb(255 222 150 / 75%))
+    drop-shadow(0 0 calc(0.4 * var(--u)) rgb(255 236 190 / 90%));
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell-ui .shell-button,
+  .shell-ui .shell-field,
+  .shell-ui .shell-import {
+    transition: none;
+  }
+  .shell-ui .shell-button:active:not(:disabled) {
+    transform: none;
+  }
+}
 .shell-ui button,
 .shell-ui input,
 .shell-ui select {
   font: inherit;
-  color: var(--cream);
+  color: inherit;
   max-width: 100%;
 }
-.shell-ui .shell-button,
-.shell-ui .shell-import {
-  /* menuButton, normal: a plate of tone 0.22 with a lit inner line. */
-  --c: rgb(67 67 58);
-  --edge: var(--steel-dark);
-  --lit: rgb(110 110 100);
-  --unlit: var(--steel-dark);
-  --lit2: rgb(84 84 75);
-  --unlit2: rgb(39 39 31);
-  min-height: calc(30 * var(--u));
-  padding: calc(4 * var(--u)) calc(12 * var(--u));
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  text-shadow: var(--engrave);
-  cursor: pointer;
-  touch-action: manipulation;
-  overflow-wrap: anywhere;
-}
-.shell-ui .shell-button:hover:not(:disabled),
-.shell-ui .shell-import:hover:not(.shell-disabled) {
-  --c: rgb(73 73 64);
-  --lit2: rgb(96 96 86);
-}
-/* Focus (menuButton, focus): tone 0.28 in brass lines, an amber label. */
-.shell-ui .shell-button:focus,
-.shell-ui .shell-field:focus-within,
-.shell-ui .shell-import:focus-within {
-  --c: rgb(76 76 67);
-  --lit: var(--brass-d);
-  --unlit: var(--brass-d);
-  --lit2: var(--brass-l);
-  --unlit2: var(--brass);
-  color: var(--amber);
-  outline: none;
-}
-.shell-ui .shell-button:active:not(:disabled) {
-  /* Pressed: sunk steel without rivets. */
-  --c: rgb(64 64 56);
-  --edge: rgb(43 43 35);
-  --lit: rgb(47 47 39);
-  --unlit: rgb(133 133 122);
-  --lit2: transparent;
-  --unlit2: transparent;
-  --rv: none;
-}
-.shell-ui .shell-button:disabled,
-.shell-ui .shell-fixed,
-.shell-ui .shell-disabled {
-  /* Disabled: flat steel of tone 0.16, a muted label. */
-  --c: rgb(59 59 50);
-  --edge: rgb(39 39 31);
-  --lit: rgb(81 81 72);
-  --unlit: rgb(56 56 47);
-  --lit2: transparent;
-  --unlit2: transparent;
-  --rv: none;
-  color: var(--muted);
-  cursor: default;
-}
-.shell-ui .shell-fixed {
-  display: flex;
-  align-items: center;
-  min-height: calc(30 * var(--u));
-  margin: 0;
-  padding: calc(4 * var(--u)) calc(12 * var(--u));
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: var(--engrave);
-}
-/* A select or text field in one steel row: its name, then the control. */
+/* A select or text field on one plate: its name, then the control. */
 .shell-ui .shell-field {
-  --c: rgb(67 67 58);
-  --edge: var(--steel-dark);
-  --lit: rgb(110 110 100);
-  --unlit: var(--steel-dark);
-  --lit2: rgb(84 84 75);
-  --unlit2: rgb(39 39 31);
-  display: flex;
-  align-items: center;
-  gap: calc(8 * var(--u));
-  min-height: calc(30 * var(--u));
-  padding: 0 calc(8 * var(--u)) 0 calc(12 * var(--u));
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: var(--engrave);
+  justify-content: space-between;
+  gap: calc(6 * var(--u));
+  font-size: calc(0.37 * var(--ph));
 }
 .shell-ui .shell-field > span {
   flex: none;
 }
 .shell-ui .shell-field select,
 .shell-ui .shell-field input {
-  flex: 1;
+  flex: 1 1 0;
+  width: 0;
   min-width: 0;
-  min-height: calc(22 * var(--u));
+  min-height: calc(0.5 * var(--ph));
   border: 0;
   background: transparent;
   color: inherit;
-  font-weight: 400;
   text-align: right;
   text-overflow: ellipsis;
-  text-transform: none;
+  text-shadow: inherit;
   outline: none;
   appearance: none;
   cursor: pointer;
 }
 .shell-ui .shell-field select {
-  padding-right: calc(12 * var(--u));
+  padding-right: calc(10 * var(--u));
   background:
     linear-gradient(45deg, transparent 50%, currentcolor 50%) right
-      calc(5 * var(--u)) center / calc(5 * var(--u)) calc(5 * var(--u))
+      calc(4 * var(--u)) center / calc(4 * var(--u)) calc(4 * var(--u))
       no-repeat,
     linear-gradient(135deg, currentcolor 50%, transparent 50%) right 0 center /
-      calc(5 * var(--u)) calc(5 * var(--u)) no-repeat;
+      calc(4 * var(--u)) calc(4 * var(--u)) no-repeat;
 }
 .shell-ui option {
-  color: var(--cream);
-  background: rgb(56 56 47);
+  color: var(--bone);
+  background: rgb(46 45 36);
+  text-transform: none;
 }
-/* The map code is typed into a well. */
+/* The map code is typed into a dark slot in the plate. */
 .shell-ui .shell-code input {
-  margin: calc(3 * var(--u)) 0;
-  padding: 0 calc(8 * var(--u));
-  min-height: calc(22 * var(--u));
-  color: var(--amber);
+  padding: 0 calc(6 * var(--u));
+  color: var(--bone);
   text-align: left;
-  letter-spacing: 0.12em;
-  background: rgb(43 43 35);
+  letter-spacing: 0.18em;
+  text-shadow: none;
+  background: rgb(22 18 10 / 82%);
+  border-radius: calc(1 * var(--u));
   box-shadow:
-    inset var(--bw) var(--bw) 0 var(--steel-dark),
-    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 rgb(110 110 100);
+    inset 0 calc(0.8 * var(--u)) calc(1.5 * var(--u)) rgb(0 0 0 / 70%),
+    0 max(1px, calc(0.35 * var(--u))) 0 rgb(255 230 172 / 30%);
   cursor: text;
-}
-.shell-ui :focus-visible {
-  outline: calc(2 * var(--bw)) solid var(--brass-l);
-  outline-offset: calc(2 * var(--bw));
 }
 .shell-menu {
   display: grid;
-  gap: calc(14 * var(--u));
-  margin: 0;
-}
-.shell-menu-tight {
+  grid-template-columns: minmax(0, 1fr);
   gap: calc(8 * var(--u));
+  margin: 0;
 }
 .shell-actions {
   display: flex;
@@ -405,219 +333,307 @@
   margin: calc(14 * var(--u)) 0 0;
 }
 .shell-actions .shell-button {
-  min-width: calc(108 * var(--u));
+  min-width: calc(110 * var(--u));
 }
 @media (pointer: coarse) {
   .shell-ui .shell-button,
   .shell-ui .shell-field,
   .shell-ui .shell-import {
-    min-height: max(44px, calc(30 * var(--u)));
+    min-height: max(44px, var(--ph));
   }
 }
 
-/* ---------------------------------------------------------------- the column */
+/* ---------------------------------------------------------------- recessed wells and boards */
 
+.shell-ui .shell-well,
+.shell-ui .shell-panel {
+  border-radius: calc(3 * var(--u));
+  background: rgb(18 18 13 / 42%);
+  box-shadow:
+    inset 0 calc(1.5 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 62%),
+    inset 0 calc(-0.5 * var(--u)) 0 rgb(214 205 184 / 14%),
+    0 max(1px, calc(0.4 * var(--u))) 0 rgb(214 205 184 / 10%);
+}
+
+/* ---------------------------------------------------------------- the columned pages */
+
+/*
+ * A 712×400 stage in landscape, centred on the plate: the heading stencilled at the top left, the controls in a
+ * column under it, the embrasure with the page's painting at the right and the help on a brass strip under it.
+ */
+.shell-columned {
+  display: grid;
+}
 .shell-columned .shell-sheet {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  width: calc(304 * var(--u));
-  max-width: 100%;
-  min-height: 100%;
-  padding: calc(18 * var(--u)) calc(24 * var(--u)) calc(16 * var(--u));
-  overflow-wrap: anywhere;
-}
-/* The column is a riveted plate (shell-panel) with a brass divider at its right. */
-.shell-ui.shell-columned .shell-sheet {
-  box-shadow:
-    calc(2 * var(--u)) 0 0 var(--brass-d),
-    inset var(--bw) var(--bw) 0 var(--lit),
-    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
-    inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
+  width: calc(712 * var(--u));
+  height: calc(400 * var(--u));
+  margin: auto;
 }
 .shell-columned .shell-heading {
-  margin: 0 0 calc(18 * var(--u));
-  padding-bottom: calc(6 * var(--u));
-  border-bottom: var(--bw) solid var(--brass);
+  position: absolute;
+  left: calc(38 * var(--u));
+  top: calc(20 * var(--u));
+  width: calc(268 * var(--u));
 }
 .shell-columned .shell-heading h1 {
-  margin: calc(10 * var(--u)) 0 0;
+  margin: 0;
 }
 .shell-page-main .shell-heading {
-  border: 0;
-  margin-bottom: calc(6 * var(--u));
-  padding: 0;
+  top: calc(16 * var(--u));
 }
-.shell-page-main .shell-heading h1 {
-  margin: calc(10 * var(--u)) calc(-12 * var(--u)) calc(5 * var(--u)) 0;
-  font-size: calc(36 * var(--u));
-  white-space: nowrap;
+.shell-title {
+  margin: 0;
 }
-.shell-years {
-  margin: 0 0 0 calc(2 * var(--u)) !important;
-  font-size: calc(11 * var(--u));
-  letter-spacing: 0.08em;
-  line-height: 1.3;
-  white-space: pre;
+.shell-title .shell-art {
+  width: calc(252 * var(--u));
+  height: auto;
+  aspect-ratio: 712 / 151;
 }
-/* The rule under the years with the month in its gap. */
-.shell-month {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: calc(8 * var(--u));
-  margin: 0 !important;
-  color: var(--muted);
-  font-size: calc(9 * var(--u));
-  line-height: 1.2;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
+.shell-title .shell-art-empty,
+.shell-embrasure .shell-art-empty {
+  background: none;
 }
-.shell-month::before,
-.shell-month::after {
+.shell-plaques {
+  position: absolute;
+  left: calc(314 * var(--u));
+  top: calc(17 * var(--u));
+  display: flex;
+  gap: calc(10 * var(--u));
+}
+.shell-plaque {
+  width: calc(56 * var(--u));
+  height: auto;
+  aspect-ratio: 169 / 108;
+  object-fit: fill;
+  filter: drop-shadow(
+    calc(0.6 * var(--u)) calc(1 * var(--u)) calc(1.2 * var(--u))
+      rgb(0 0 0 / 55%)
+  );
+}
+.shell-plaque.shell-art-empty {
+  border-radius: calc(2 * var(--u));
+}
+.shell-column {
+  position: absolute;
+  left: calc(38 * var(--u));
+  top: calc(64 * var(--u));
+  width: calc(170 * var(--u));
+  max-height: calc(330 * var(--u));
+  overflow: auto;
+  padding: calc(2 * var(--u));
+  overflow-wrap: anywhere;
+}
+.shell-column .shell-menu .shell-button,
+.shell-column .shell-menu .shell-field,
+.shell-column .shell-menu .shell-fixed,
+.shell-column .shell-actions .shell-button {
+  width: 100%;
+}
+.shell-column > p {
+  line-height: 1.45;
+}
+.shell-page-main .shell-column {
+  top: calc(90 * var(--u));
+  width: calc(162 * var(--u));
+}
+.shell-page-main .shell-menu {
+  gap: calc(11 * var(--u));
+}
+.shell-page-main .shell-menu .shell-button {
+  --ph: calc(28 * var(--u));
+}
+
+/* The embrasure: the page's painting under the frame's opening, the frame over it. */
+.shell-embrasure {
+  position: absolute;
+  left: calc(222 * var(--u));
+  top: calc(76 * var(--u));
+  width: calc(460 * var(--u));
+  aspect-ratio: 1606 / 868;
+}
+.shell-embrasure-view {
+  position: absolute;
+  /* The opening (materials.ts embrasureHole), reaching a little under the frame's lip. */
+  inset: 31.9% 6.6% 13.5% 6.4%;
+  overflow: hidden;
+  background: rgb(30 31 27);
+}
+.shell-embrasure-view .shell-scene {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 62%;
+  filter: saturate(0.88);
+}
+/* The plate's thickness shades the painting under the opening's upper lip. */
+.shell-embrasure-view::after {
   content: "";
-  border-top: var(--bw) solid var(--brass);
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 calc(5 * var(--u)) calc(9 * var(--u)) rgb(0 0 0 / 60%);
 }
-.shell-columned .shell-menu .shell-button,
-.shell-columned .shell-menu .shell-field,
-.shell-columned .shell-menu .shell-fixed {
-  width: calc(216 * var(--u));
-  max-width: 100%;
-  margin-left: calc(16 * var(--u));
-  text-align: left;
+.shell-embrasure-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  filter: drop-shadow(
+    calc(1 * var(--u)) calc(2 * var(--u)) calc(2.5 * var(--u)) rgb(0 0 0 / 50%)
+  );
 }
-.shell-columned .shell-menu .shell-button {
-  justify-self: start;
-}
-/* The help of the focused control at the column's foot. */
-.shell-help {
-  margin-top: auto;
-  padding-top: calc(12 * var(--u));
-  border-top: var(--bw) solid var(--brass-d);
-  line-height: 1.5;
+/* The help of the selected control on a brass strip under the embrasure. */
+.shell-ui .shell-help {
+  --ph: calc(34 * var(--u));
+  position: absolute;
+  left: calc(302 * var(--u));
+  top: calc(334 * var(--u));
+  width: calc(300 * var(--u));
+  flex-direction: column;
+  gap: calc(1 * var(--u));
+  font:
+    italic 600 calc(12 * var(--u)) / 1.15 "Zilla Slab",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  text-align: center;
 }
 .shell-help p {
   margin: 0;
 }
-.shell-columned .shell-sheet > :not(.shell-heading, .shell-help) {
-  flex: none;
+.shell-help p + p {
+  font-size: calc(9.5 * var(--u));
 }
-/* Exit, Back and Continue stand at the painting's foot, as in the desktop game. */
-.shell-columned .shell-sheet > .shell-actions {
-  position: fixed;
-  right: calc(24 * var(--u));
-  bottom: calc(24 * var(--u));
-  z-index: 1;
-  flex-direction: row-reverse;
-  margin: 0;
-}
-.shell-columned .shell-sheet > .shell-actions .shell-button {
-  width: calc(152 * var(--u));
-  text-align: center;
-}
-.shell-columned .shell-sheet > p {
-  line-height: 1.5;
-}
-/* Loading: the month in amber, the map's name in bold, as the desktop game's column. */
-.shell-page-loading .shell-sheet > .shell-muted:first-of-type {
-  color: var(--amber);
-  font-weight: 600;
-}
-.shell-page-loading .shell-sheet > h2 {
-  font:
-    600 calc(16 * var(--u)) / 1.3 "HL Sans",
-    sans-serif;
-  color: var(--cream);
+
+/* Loading: the month, the map's name stencilled, the briefing. */
+.shell-page-loading .shell-column > h2 {
+  font-size: calc(17 * var(--u));
 }
 .shell-progress {
   width: 100%;
-  height: calc(10 * var(--u));
+  height: calc(9 * var(--u));
   appearance: none;
-  border: var(--bw) solid var(--steel-dark);
-  background: rgb(43 43 35);
-  accent-color: var(--brass);
+  border: 0;
+  border-radius: calc(1 * var(--u));
+  background: rgb(22 18 10 / 80%);
+  box-shadow: inset 0 calc(0.8 * var(--u)) calc(1.5 * var(--u)) rgb(0 0 0 / 70%);
+  accent-color: var(--brass-l);
 }
 .shell-progress::-webkit-progress-bar {
-  background: rgb(43 43 35);
+  background: transparent;
 }
 .shell-progress::-webkit-progress-value {
-  background: linear-gradient(var(--brass-l), var(--brass));
+  background: linear-gradient(var(--brass-l), rgb(150 112 52));
 }
 .shell-progress::-moz-progress-bar {
-  background: linear-gradient(var(--brass-l), var(--brass));
+  background: linear-gradient(var(--brass-l), rgb(150 112 52));
 }
 .shell-scores {
   width: 100%;
   border-collapse: collapse;
-  font-size: calc(13 * var(--u));
+  font-size: calc(12 * var(--u));
+  text-shadow: var(--paint);
 }
 .shell-scores th,
 .shell-scores td {
   padding: calc(3 * var(--u)) 0;
   text-align: left;
   font-weight: 400;
-  border-bottom: var(--bw) solid var(--brass-d);
+  border-bottom: var(--bw) solid rgb(214 205 184 / 30%);
 }
 .shell-scores thead th {
-  color: var(--muted);
+  color: var(--bone-dim);
 }
 .shell-scores td,
 .shell-scores th:last-child {
   text-align: right;
 }
 
-@media (orientation: portrait) {
-  /* The painting in a band at the top, the column below it across the width. */
-  .shell-columned .shell-backdrop {
-    bottom: auto;
-    height: var(--band);
-  }
-  .shell-columned .shell-sheet {
-    width: 100%;
-    margin-top: var(--band);
-    min-height: calc(100% - var(--band));
-    box-shadow:
-      0 calc(-2 * var(--u)) 0 var(--brass-d),
-      inset var(--bw) var(--bw) 0 var(--lit),
-      inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
-      inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
-  }
-  .shell-columned .shell-menu .shell-button,
-  .shell-columned .shell-menu .shell-field,
-  .shell-columned .shell-menu .shell-fixed {
-    width: 100%;
-    margin-left: 0;
-  }
-  .shell-columned .shell-sheet > .shell-actions {
-    position: static;
-    justify-content: flex-start;
-    margin-top: calc(18 * var(--u));
-  }
-  .shell-columned .shell-help {
-    margin-top: calc(18 * var(--u));
-  }
-  .shell-flags {
-    top: calc(12 * var(--u));
-    right: calc(12 * var(--u));
-  }
-  .shell-flags .shell-art {
-    width: calc(34 * var(--u));
-    height: calc(24 * var(--u));
+/* A phone held sideways: the stage packs its column. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .shell-page-main .shell-menu {
+    gap: calc(7 * var(--u));
   }
 }
 
-/* A phone held sideways: the column scrolls, so it drops the help and packs its rows. */
-@media (orientation: landscape) and (max-height: 520px) {
-  .shell-columned .shell-help {
+/* ---------------------------------------------------------------- upright */
+
+/*
+ * Upright, the stage becomes one column: the heading (on the main menu the stencilled title) at the top, the
+ * plaques, a strip of the embrasure across the width, the nameplates as a column of touch-sized plates and the
+ * help at the foot.
+ */
+@media (orientation: portrait) {
+  .shell-columned .shell-sheet {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: calc(10 * var(--u));
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    padding: calc(28 * var(--u)) calc(24 * var(--u)) calc(30 * var(--u));
+  }
+  .shell-columned .shell-heading,
+  .shell-plaques,
+  .shell-column,
+  .shell-embrasure,
+  .shell-ui .shell-help {
+    position: static;
+    width: auto;
+  }
+  .shell-columned .shell-heading {
+    order: 1;
+  }
+  .shell-title .shell-art {
+    width: 100%;
+  }
+  .shell-plaques {
+    order: 2;
+    justify-content: center;
+  }
+  .shell-columned:not(.shell-page-main) .shell-plaques {
     display: none;
   }
-  .shell-columned .shell-menu {
-    gap: calc(6 * var(--u));
+  .shell-plaque {
+    width: calc(44 * var(--u));
   }
-  .shell-page-main .shell-heading h1 {
-    margin-top: 0;
-    font-size: calc(30 * var(--u));
+  .shell-embrasure {
+    order: 3;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+  .shell-columned .shell-column {
+    order: 4;
+    width: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
+  .shell-ui .shell-help {
+    order: 5;
+    --ph: max(46px, calc(40 * var(--u)));
+    margin-top: auto;
+    font-size: max(14px, calc(12 * var(--u)));
+  }
+  .shell-help p + p {
+    font-size: max(12px, calc(10 * var(--u)));
+  }
+  .shell-column .shell-button,
+  .shell-column .shell-field,
+  .shell-column .shell-fixed {
+    --ph: max(48px, calc(40 * var(--u)));
+  }
+  .shell-page-main .shell-menu .shell-button {
+    --ph: max(48px, calc(42 * var(--u)));
+  }
+  .shell-page-main .shell-menu {
+    gap: calc(8 * var(--u));
   }
 }
 
@@ -626,29 +642,29 @@
 .shell-wide .shell-sheet {
   position: relative;
   width: min(calc(616 * var(--u)), calc(100% - 24px));
-  margin: calc(12 * var(--u)) auto;
-  padding: calc(18 * var(--u)) calc(24 * var(--u));
+  margin: calc(14 * var(--u)) auto;
+  padding: calc(16 * var(--u)) calc(22 * var(--u));
 }
 .shell-wide .shell-heading {
-  margin-bottom: calc(14 * var(--u));
-  padding-bottom: calc(6 * var(--u));
-  border-bottom: var(--bw) solid var(--brass);
+  margin-bottom: calc(12 * var(--u));
 }
-/* Saved games, the original game's import and leaving: a riveted steel board over the painting. */
-.shell-ui.shell-wide .shell-panel {
-  box-shadow:
-    0 calc(4 * var(--u)) calc(16 * var(--u)) #000a,
-    inset var(--bw) var(--bw) 0 var(--lit),
-    inset calc(-1 * var(--bw)) calc(-1 * var(--bw)) 0 var(--unlit),
-    inset calc(-2 * var(--bw)) calc(-2 * var(--bw)) 0 var(--unlit2);
+.shell-wide .shell-heading h1 {
+  margin: 0;
 }
 .shell-page-leave {
   display: grid;
   align-items: center;
-  background: #000a;
+  background: rgb(0 0 0 / 62%);
 }
 .shell-page-leave .shell-sheet {
   width: min(calc(420 * var(--u)), calc(100% - 24px));
+  background:
+    var(--hl-plate, none) center / cover no-repeat,
+    var(--plate-c);
+  box-shadow:
+    0 calc(4 * var(--u)) calc(18 * var(--u)) rgb(0 0 0 / 70%),
+    inset 0 0 0 var(--bw) rgb(20 20 15 / 80%),
+    inset 0 calc(1.5 * var(--u)) 0 rgb(214 205 184 / 14%);
 }
 .shell-save-leave {
   display: grid;
@@ -676,7 +692,7 @@
 }
 .shell-ui .shell-import {
   display: grid;
-  gap: calc(4 * var(--u));
+  gap: calc(2 * var(--u));
   align-content: center;
   text-align: center;
 }
@@ -685,7 +701,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  font-size: calc(9 * var(--u));
+  font-size: calc(8 * var(--u));
   font-weight: 400;
   text-transform: none;
   text-shadow: none;
@@ -695,22 +711,10 @@
   display: none;
 }
 
-/* The country choice: a name plate and two riveted plates with the flags (app.go drawCountryPage). */
+/* The country choice: the two sides' enamel plaques in wells, each named on a brass plate. */
 .shell-page-country .shell-sheet {
-  width: min(calc(592 * var(--u)), calc(100% - 24px));
-  margin: calc(20 * var(--u)) auto;
-  padding: 0;
-}
-.shell-page-country .shell-heading {
-  display: flex;
-  align-items: center;
-  min-height: calc(50 * var(--u));
-  margin: 0 0 calc(18 * var(--u));
-  padding: calc(6 * var(--u)) calc(16 * var(--u));
-}
-.shell-page-country .shell-heading h1 {
-  margin: 0;
-  font-size: calc(26 * var(--u));
+  width: min(calc(600 * var(--u)), calc(100% - 24px));
+  margin: calc(24 * var(--u)) auto;
 }
 .shell-countries {
   display: grid;
@@ -718,88 +722,86 @@
   gap: calc(24 * var(--u));
 }
 .shell-ui .shell-country {
-  /* A raised plate of tone 0.46. */
-  --c: rgb(101 101 91);
-  --edge: rgb(47 47 39);
-  --lit: rgb(144 144 133);
-  --unlit: rgb(59 59 50);
-  --lit2: transparent;
-  --unlit2: rgb(73 73 64);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: calc(10 * var(--u));
   min-height: calc(238 * var(--u));
-  padding: calc(28 * var(--u)) calc(20 * var(--u)) calc(14 * var(--u));
-  text-transform: none;
-}
-.shell-ui .shell-country:hover:not(:disabled) {
-  --c: rgb(106 106 96);
-  --lit2: transparent;
-}
-.shell-ui .shell-country:focus-visible {
-  --c: rgb(101 101 91);
-  --lit: rgb(144 144 133);
-  --unlit: rgb(59 59 50);
-  --lit2: transparent;
-  --unlit2: rgb(73 73 64);
-  outline: var(--bw) solid var(--brass-l);
-  outline-offset: calc(2 * var(--u));
-  color: var(--cream);
+  padding: calc(18 * var(--u)) calc(20 * var(--u)) calc(14 * var(--u));
+  border: 0;
+  color: var(--bone);
+  cursor: pointer;
+  touch-action: manipulation;
 }
 .shell-country-flag {
-  width: 100%;
-  max-width: none;
-  height: calc(140 * var(--u));
+  width: calc(200 * var(--u));
+  height: auto;
+  aspect-ratio: 169 / 108;
   object-fit: fill;
+  filter: drop-shadow(
+      calc(0.8 * var(--u)) calc(1.4 * var(--u)) calc(1.6 * var(--u))
+        rgb(0 0 0 / 60%)
+    )
+    brightness(0.9);
+  transition: filter 0.12s;
 }
-.shell-country strong {
-  margin-top: calc(22 * var(--u));
-  font:
-    700 calc(20 * var(--u)) / 1.1 "HL Display",
-    serif;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--cream);
-  text-shadow: var(--engrave);
+.shell-country:hover:not(:disabled) .shell-country-flag,
+.shell-country:focus .shell-country-flag {
+  filter: drop-shadow(
+      calc(0.8 * var(--u)) calc(1.4 * var(--u)) calc(1.6 * var(--u))
+        rgb(0 0 0 / 60%)
+    )
+    brightness(1.05);
+}
+.shell-ui .shell-country .shell-nameplate {
+  --ph: calc(30 * var(--u));
+  width: calc(170 * var(--u));
 }
 .shell-country span:last-child {
-  margin-top: calc(4 * var(--u));
-  font-size: calc(13 * var(--u));
-  font-weight: 400;
-  color: var(--muted);
-  text-shadow: none;
+  font-size: calc(12 * var(--u));
+  color: var(--bone-dim);
+  text-shadow: var(--paint);
+}
+.shell-ui .shell-country:focus-visible {
+  outline: calc(1.2 * var(--u)) solid rgb(236 222 180 / 88%);
+  outline-offset: calc(1.4 * var(--u));
+}
+.shell-ui .shell-country:disabled {
+  filter: grayscale(0.6) brightness(0.62);
+  cursor: default;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell-country-flag {
+    transition: none;
+  }
 }
 .shell-page-country .shell-actions {
   justify-content: flex-end;
   margin-top: calc(20 * var(--u));
 }
 .shell-page-country .shell-actions .shell-button {
-  width: calc(152 * var(--u));
+  width: calc(150 * var(--u));
 }
 
 /* ---------------------------------------------------------------- the page of new units */
 
 /*
- * The new units on the hull plating, as cmd/historyline/news.go drawUnitsPage: the title with the buttons beside
- * it, a brass rule, the side and month, then a recessed well per unit: its portrait, its values and its note.
+ * The new units, as cmd/historyline/news.go drawUnitsPage: the title with the buttons beside it, the side and
+ * month, then a recessed well per unit: its portrait, its values and its note.
  */
 .shell-page-units .shell-sheet {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  width: min(calc(592 * var(--u)), calc(100% - 24px));
+  width: min(calc(600 * var(--u)), calc(100% - 24px));
   margin: 0 auto;
-  padding: calc(20 * var(--u)) 0 calc(16 * var(--u));
+  padding: calc(22 * var(--u)) 0 calc(16 * var(--u));
 }
 .shell-page-units .shell-sheet > * {
   grid-column: 1 / -1;
 }
 .shell-page-units .shell-heading {
   grid-row: 1;
-  margin: 0;
-  padding: 0 0 calc(6 * var(--u));
-}
-.shell-page-units .shell-heading h1 {
   margin: 0;
 }
 .shell-page-units .shell-sheet > .shell-actions {
@@ -809,18 +811,18 @@
   margin: 0;
 }
 .shell-page-units .shell-actions .shell-button {
-  min-width: calc(96 * var(--u));
-  min-height: calc(26 * var(--u));
-  padding-block: calc(2 * var(--u));
+  --ph: calc(24 * var(--u));
+  min-width: calc(100 * var(--u));
 }
 .shell-section-heading {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: calc(6 * var(--u));
-  margin: calc(4 * var(--u)) 0 calc(6 * var(--u));
-  color: var(--muted);
+  margin: calc(6 * var(--u)) 0 calc(8 * var(--u));
+  color: var(--bone-dim);
   font-size: calc(11 * var(--u));
+  text-shadow: var(--paint);
 }
 .shell-section-heading p {
   margin: 0;
@@ -835,7 +837,7 @@
   column-gap: calc(11 * var(--u));
   align-items: start;
   min-height: calc(70 * var(--u));
-  padding: calc(3 * var(--u));
+  padding: calc(4 * var(--u));
   font-size: calc(9.5 * var(--u));
   line-height: calc(12 * var(--u));
 }
@@ -844,14 +846,13 @@
   height: calc(62 * var(--u));
   max-width: none;
   object-fit: cover;
+  border-radius: calc(1.5 * var(--u));
 }
 .shell-ui .shell-unit h2 {
   margin: calc(2 * var(--u)) 0 0;
-  font:
-    600 calc(11 * var(--u)) / calc(13 * var(--u)) "HL Sans",
-    sans-serif;
-  color: var(--amber);
-  text-shadow: none;
+  font-size: calc(12 * var(--u));
+  line-height: calc(14 * var(--u));
+  color: var(--brass-l);
 }
 .shell-unit p {
   margin: 0;
@@ -865,34 +866,37 @@
 /* ---------------------------------------------------------------- the newspaper */
 
 /*
- * The month's front page on the newsprint surface (news.go layoutNews, drawNewsPage): the masthead between its
- * rules, the headline and deck, the picture with its caption and the orders under it, the article in two columns
- * with "In brief" at the foot of the last.
+ * The month's front page on newsprint (news.go layoutNews, drawNewsPage), lying on the plate: the masthead between
+ * its rules, the headline and deck, the picture with its caption and the orders under it, the article in two
+ * columns with "In brief" at the foot of the last.
  */
 .shell-page-news {
-  --ink: rgb(38 32 26);
+  --ink-news: rgb(38 32 26);
   --ink-faint: rgb(98 88 76);
 }
 .shell-page-news .shell-sheet {
   width: min(calc(616 * var(--u)), calc(100% - 16px));
-  margin: calc(6 * var(--u)) auto;
+  margin: calc(8 * var(--u)) auto;
   padding: calc(1 * var(--u)) calc(12 * var(--u)) calc(10 * var(--u));
-  color: var(--ink);
+  color: var(--ink-news);
   background: var(--hl-paper, none) 0 0 / calc(512 * var(--u)) repeat
     rgb(232 223 202);
-  box-shadow: calc(3 * var(--u)) calc(3 * var(--u)) 0 rgb(0 0 0 / 43%);
+  box-shadow: calc(2 * var(--u)) calc(3 * var(--u)) calc(6 * var(--u))
+    rgb(0 0 0 / 55%);
   font-family: "HL Serif", serif;
 }
 .shell-page-news .shell-heading {
   margin: 0;
   padding: 0 0 calc(3 * var(--u));
   text-align: center;
-  border-bottom: calc(2 * var(--u)) solid var(--ink);
+  border-bottom: calc(2 * var(--u)) solid var(--ink-news);
 }
 .shell-page-news h1,
 .shell-paper h2 {
   margin: 0;
-  color: var(--ink);
+  font-family: "HL Display", "HL Serif", serif;
+  letter-spacing: 0;
+  color: var(--ink-news);
   text-shadow: none;
 }
 .shell-page-news h1 {
@@ -902,7 +906,7 @@
 .shell-paper-header {
   margin-bottom: calc(6 * var(--u));
   padding-bottom: calc(3 * var(--u));
-  border-bottom: var(--bw) solid var(--ink);
+  border-bottom: var(--bw) solid var(--ink-news);
   text-align: center;
 }
 .shell-edition {
@@ -911,7 +915,7 @@
   gap: calc(8 * var(--u));
   margin-bottom: calc(5 * var(--u));
   padding: calc(2 * var(--u)) 0 calc(2 * var(--u));
-  border-bottom: calc(3 * var(--bw)) double var(--ink);
+  border-bottom: calc(3 * var(--bw)) double var(--ink-news);
   color: var(--ink-faint);
   font-size: calc(8.5 * var(--u));
   line-height: 1.2;
@@ -947,7 +951,7 @@
   max-width: none;
   object-fit: cover;
   background: rgb(205 196 176);
-  outline: var(--bw) solid var(--ink);
+  outline: var(--bw) solid var(--ink-news);
   outline-offset: calc(-1 * var(--bw));
 }
 .shell-news-picture figcaption {
@@ -960,7 +964,7 @@
 .shell-orders {
   margin-top: calc(8 * var(--u));
   padding-top: calc(2 * var(--u));
-  border-top: var(--bw) solid var(--ink);
+  border-top: var(--bw) solid var(--ink-news);
   font-size: calc(9 * var(--u));
   line-height: calc(11 * var(--u));
 }
@@ -970,6 +974,7 @@
   font:
     600 calc(8 * var(--u)) / 1.3 "HL Sans",
     sans-serif;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 .shell-orders p {
@@ -981,9 +986,9 @@
   padding-top: calc(10 * var(--u));
 }
 .shell-news-picture .shell-actions .shell-button {
+  --ph: calc(24 * var(--u));
   flex: 1;
   min-width: 0;
-  min-height: calc(26 * var(--u));
 }
 .shell-news-picture .shell-actions .shell-button:first-child {
   flex: 2;
@@ -1003,7 +1008,7 @@
 }
 .shell-briefs {
   margin-top: calc(10 * var(--u));
-  border-top: var(--bw) solid var(--ink);
+  border-top: var(--bw) solid var(--ink-news);
   break-inside: avoid;
   font-size: calc(8.5 * var(--u));
   line-height: calc(10.5 * var(--u));
@@ -1018,6 +1023,7 @@
 .shell-page-news .shell-notice {
   color: rgb(87 63 26);
   border-color: var(--ink-faint);
+  text-shadow: none;
 }
 
 /* ---------------------------------------------------------------- the original game's import */
@@ -1028,7 +1034,8 @@
   gap: calc(8 * var(--u));
   padding: calc(10 * var(--u));
   margin: calc(10 * var(--u)) 0;
-  border: var(--bw) dashed var(--brass);
+  border: var(--bw) dashed rgb(214 205 184 / 45%);
+  border-radius: calc(3 * var(--u));
 }
 .shell-drop-over {
   border-style: solid;
@@ -1055,22 +1062,24 @@
     margin: 8px auto;
     padding: calc(14 * var(--u));
   }
-  .shell-page-country .shell-sheet {
-    padding: 0;
-  }
   .shell-countries {
     grid-template-columns: 1fr;
     gap: calc(12 * var(--u));
   }
   .shell-ui .shell-country {
     min-height: 0;
-    padding: calc(16 * var(--u));
+    padding: calc(14 * var(--u));
   }
   .shell-country-flag {
-    height: calc(100 * var(--u));
+    width: min(100%, calc(200 * var(--u)));
   }
-  .shell-country strong {
-    margin-top: calc(10 * var(--u));
+  .shell-ui .shell-country .shell-nameplate {
+    --ph: max(44px, calc(34 * var(--u)));
+    width: min(100%, calc(220 * var(--u)));
+  }
+  .shell-ui.shell-wide .shell-button {
+    --ph: max(48px, calc(36 * var(--u)));
+    font-size: calc(0.32 * var(--ph));
   }
   .shell-save-slots {
     grid-template-columns: 1fr;

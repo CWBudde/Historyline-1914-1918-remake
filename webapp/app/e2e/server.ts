@@ -4,7 +4,12 @@ import { createServer } from "node:http";
 import { extname, join, normalize, resolve } from "node:path";
 import { createGzip } from "node:zlib";
 
-const root = resolve(import.meta.dirname, "../../../build/webapp/site");
+// E2E_SITE serves another build (relative to the repository), so parallel work need not replace build/webapp/site.
+const root = resolve(
+  import.meta.dirname,
+  "../../..",
+  process.env["E2E_SITE"] ?? "build/webapp/site",
+);
 const prefix = process.env["E2E_BASE_PATH"] ?? "/hl/";
 const port = Number(process.env["E2E_PORT"] ?? "4173");
 const types: Record<string, string> = {
