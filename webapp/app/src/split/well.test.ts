@@ -99,3 +99,12 @@ it("places the status line and bar inside the well's bevel, at twice the UI scal
     }
   }
 });
+
+it("grows the HUD with the window as the desktop does", async () => {
+  const { hudScale } = await import("./runtime.ts");
+  expect(hudScale(1920, 1080, 1)).toBe(1);
+  expect(hudScale(2560, 1440, 1)).toBe(2);
+  expect(hudScale(3840, 2160, 2)).toBe(3);
+  expect(hudScale(1280, 720, 1)).toBe(1);
+  expect(hudScale(1082, 2402, 2.625)).toBe(2.625);
+});

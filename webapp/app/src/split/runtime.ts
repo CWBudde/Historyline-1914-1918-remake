@@ -494,7 +494,7 @@ export class SplitRuntime {
       const base = layout(
         Math.round(width * dpr),
         Math.round(height * dpr),
-        this.settings.uiScale * dpr,
+        hudScale(width * dpr, height * dpr, dpr) * this.settings.uiScale,
       );
       const grid = bind.playable(this.battle.session.board),
         [ww, hh] = hexgrid.bounds(grid);
@@ -581,7 +581,8 @@ export class SplitRuntime {
       const base = layout(
         Math.round(this.width * this.dpr),
         Math.round(this.height * this.dpr),
-        this.settings.uiScale * this.dpr,
+        hudScale(this.width * this.dpr, this.height * this.dpr, this.dpr) *
+          this.settings.uiScale,
       );
       this.zoom = base.clampZoom(index);
       if (this.paintedDesign)
@@ -1147,6 +1148,18 @@ export class SplitRuntime {
   }
 }
 
+/**
+ * hudScale is the split screen's HUD scale before the player's UI scale, as the desktop picks it (cmd/historyline
+ * layout.go uiScale): the device pixel ratio, grown by whole steps with the window (one per 900 × 560 device
+ * pixels), so the wells and the frame keep their size against the map at 1440p and 4K.
+ */
+export function hudScale(physW: number, physH: number, dpr: number): number {
+  return Math.max(
+    dpr > 0 ? dpr : 1,
+    Math.floor(Math.min(physW / 900, physH / 560)),
+    1,
+  );
+}
 const sideName = (side: number) => (side === 0 ? "Central Powers" : "Entente");
 /** endText is the end of the battle in side's words (dos.go endText). */
 function endText(
