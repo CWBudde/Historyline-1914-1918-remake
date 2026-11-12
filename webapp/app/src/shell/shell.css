@@ -1155,3 +1155,9 @@
     margin: calc(6 * var(--u)) calc(2 * var(--u)) calc(2 * var(--u)) !important;
   }
 }
+
+/* A notice on the help strip: upright, where a control's help is italic. */
+.shell-help .shell-help-notice {
+  font-style: normal;
+  font-weight: 700;
+}

@@ -248,9 +248,34 @@ export function ShellUI(p: ShellUIProps) {
   const [fileError, setFileError] = useState("");
   const [reading, setReading] = useState(false);
   const [code, setCode] = useState("");
-  const [help, setHelp] = useState<Help | null>(null);
+  const [help, showHelp] = useState<Help | null>(null);
+  /** The notice the help strip no longer shows: the player moved on to another control. */
+  const [dismissed, setDismissed] = useState("");
+  const noticeSettled = useRef(false);
   const materials = useArmour(p.assets, s.settings.uiScale, page === "news");
   const busy = s.busy || reading;
+  const notice = fileError || s.note || (busy ? "Please wait…" : "");
+  /**
+   * A notice takes the help strip until the pointer or the focus goes to another control. The focus a page sets on
+   * arrival comes right after the notice and does not count.
+   */
+  const lastNotice = useRef(notice);
+  if (lastNotice.current !== notice) {
+    lastNotice.current = notice;
+    noticeSettled.current = false;
+  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      noticeSettled.current = true;
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [notice]);
+  const setHelp = (lines: Help | null) => {
+    showHelp(lines);
+    if (lines !== null && noticeSettled.current) setDismissed(notice);
+  };
   /** Focus and pointer show a control's help in the column. */
   const helpOf = (lines: Help | undefined) =>
     lines === undefined
@@ -1127,9 +1152,9 @@ export function ShellUI(p: ShellUIProps) {
           stored.
         </p>
       )}
-      {(s.note || fileError || busy) && (
+      {notice && wide && (
         <p class="shell-notice" role="status" aria-live="polite">
-          {fileError || s.note || "Please wait…"}
+          {notice}
         </p>
       )}
     </>
@@ -1181,11 +1206,17 @@ export function ShellUI(p: ShellUIProps) {
             </div>
             <Embrasure p={p} scene={scene} />
             <aside class="shell-help">
-              {help !== null && (
-                <>
-                  <p>{help[0]}</p>
-                  {help[1] !== undefined && <p>{help[1]}</p>}
-                </>
+              {notice && notice !== dismissed ? (
+                <p class="shell-help-notice" role="status" aria-live="polite">
+                  {notice}
+                </p>
+              ) : (
+                help !== null && (
+                  <>
+                    <p>{help[0]}</p>
+                    {help[1] !== undefined && <p>{help[1]}</p>}
+                  </>
+                )
               )}
             </aside>
           </>
