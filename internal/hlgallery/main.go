@@ -1,6 +1,5 @@
 // hlgallery builds the local art comparison desk, composer and PULSE study of the
-// current runtime art (assets/index.json) under build/review/gfx. Reference images
-// from legacy/ are shown beside the new art, so the output stays in ignored build/.
+// current runtime art (assets/index.json) under build/review/gfx.
 package hlgallery
 
 import (
@@ -45,17 +44,16 @@ type variant struct {
 	Images map[string]picture `json:"images"`
 }
 type item struct {
-	ID        string    `json:"id"`
-	Name      string    `json:"name"`
-	Category  string    `json:"category"`
-	Family    string    `json:"family"`
-	Season    string    `json:"season,omitempty"`
-	Bindings  []string  `json:"bindings,omitempty"`
-	Note      string    `json:"note"`
-	Reference *picture  `json:"reference,omitempty"`
-	Width     int       `json:"width"`
-	Height    int       `json:"height"`
-	Variants  []variant `json:"variants"`
+	ID       string    `json:"id"`
+	Name     string    `json:"name"`
+	Category string    `json:"category"`
+	Family   string    `json:"family"`
+	Season   string    `json:"season,omitempty"`
+	Bindings []string  `json:"bindings,omitempty"`
+	Note     string    `json:"note"`
+	Width    int       `json:"width"`
+	Height   int       `json:"height"`
+	Variants []variant `json:"variants"`
 }
 
 // indexEntry is one runtime file of assets/index.json; Path is relative to assets/.
@@ -133,14 +131,14 @@ func Run(args []string, stdout, stderr io.Writer) (err error) {
 		return err
 	}
 	// Marshal escapes HTML-sensitive characters, including any script end tags.
-	html := strings.Replace(page, "/*CATALOG*/null", string(data), 1)
+	html := strings.Replace(page, "/*CATALOG*/ null", string(data), 1)
 	if err := w.WriteFile("index.html", []byte(html), 0o644); err != nil {
 		return err
 	}
-	if err := w.WriteFile("compose.html", []byte(strings.Replace(composePage, "/*CATALOG*/null", string(data), 1)), 0o644); err != nil {
+	if err := w.WriteFile("compose.html", []byte(strings.Replace(composePage, "/*CATALOG*/ null", string(data), 1)), 0o644); err != nil {
 		return err
 	}
-	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0o644); err != nil {
+	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/ null", string(data), 1)), 0o644); err != nil {
 		return err
 	}
 	if err := c.pulse(*captures); err != nil {
@@ -155,9 +153,9 @@ func local(p string) bool {
 }
 
 func roadUnitComparisonTemplate() string {
-	html := strings.Replace(composePage, "scenes:[makeScene('hq-summer')]", "scenes:[makeScene('road-unit')]", 1)
+	html := strings.Replace(composePage, `scenes: [makeScene("hq-summer")]`, `scenes: [makeScene("road-unit")]`, 1)
 	html = strings.Replace(html, "historyline-gfx-collection-v1", "historyline-gfx-road-unit-collection-v1", 1)
-	return strings.Replace(html, "</script></body>", "$('view').value='side';$('grid').value='no';render();\n</script></body>", 1)
+	return strings.Replace(html, "    </script>\n  </body>", "$('view').value='current';$('grid').value='no';render();\n</script>\n  </body>", 1)
 }
 
 func (c *collector) read(p string) (_ []byte, err error) {
@@ -309,17 +307,6 @@ func (c *collector) snapshot(p, pin string, crop image.Rectangle, w, h int) (pic
 	return v, nil
 }
 
-func (c *collector) reference(p string, crop image.Rectangle) (*picture, error) {
-	if p == "" {
-		return nil, nil
-	}
-	v, err := c.snapshot(p, "", crop, 0, 0)
-	if err != nil {
-		return nil, err
-	}
-	return &v, nil
-}
-
 func (c *collector) images(paths map[string]string, pins map[string]string, w, h int) (map[string]picture, error) {
 	result := map[string]picture{}
 	for _, d := range []string{"1", "2", "4"} {
@@ -347,76 +334,7 @@ func (c *collector) images(paths map[string]string, pins map[string]string, w, h
 	return result, nil
 }
 
-// legacyTile is the reference image of a terrain or infrastructure tile in the
-// Python remake, which names some tiles differently.
-func legacyTile(kind, id string) string {
-	if kind == "infrastructure" {
-		// Neither the barbed wire, the quays, the airfield and harbour pieces
-		// nor the neighbour-derived trenches have a Python remake tile.
-		// Nor the winter, spring and autumn roads, streams and crossings, nor the rocks, skerries, shoals and surf.
-		if id == "barbedWire" || id == "waterRocks" || strings.HasPrefix(id, "shoal") || strings.HasPrefix(id, "skerry") || id == "surf" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
-			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasPrefix(id, "harbour") ||
-			strings.HasSuffix(id, "_w") || strings.HasSuffix(id, "_au") || strings.HasSuffix(id, "_sp") {
-			return ""
-		}
-		if rest, trench := strings.CutPrefix(id, "trench"); trench {
-			switch rest {
-			case "0", "1", "12", "124", "125", "14", "15", "24", "25", "4", "5", "5a":
-			default:
-				return ""
-			}
-		}
-		cross := map[string]string{"cross1": "crossRail36Path14", "cross2": "crossRail36Road14", "cross3": "crossRail36Road25", "cross4": "crossRail14Path36"}
-		name := id
-		if c := cross[id]; c != "" {
-			name = c
-		} else if rest, ok := strings.CutPrefix(id, "rBridge"); ok {
-			name = "roadBridge" + rest
-		}
-		return "legacy/python/gfx/infrastructure/" + name + ".png"
-	}
-	name := id
-	switch name {
-	case "factoryN", "factoryE", "factoryS", "factoryW":
-		return ""
-	}
-	// Nor do the destroyed depots and the construction sites.
-	if strings.HasPrefix(name, "ruin") || strings.HasPrefix(name, "site") {
-		return ""
-	}
-	// Nor autumn and spring tiles: the Python remake has summer and winter ones only.
-	if strings.HasSuffix(name, "_au") || strings.HasSuffix(name, "_sp") {
-		return ""
-	}
-	// Neighbour-derived shores have no tile of their own in the Python remake,
-	// nor the phases of the open sea.
-	if strings.HasPrefix(name, "shore-") || strings.HasPrefix(name, "sea-") {
-		return ""
-	}
-	// New outlet and winter variants share their base shoreline's legacy
-	// reference; the Python remake has no winter shores. Nor winter water: it
-	// is the summer water with the winter grade.
-	if strings.HasPrefix(name, "lakeside") {
-		name, _, _ = strings.Cut(strings.TrimSuffix(name, "_w"), "-outlet")
-	}
-	if name == "water_w" || name == "waterStones_w" {
-		name = strings.TrimSuffix(name, "_w")
-	}
-	if rest, ok := strings.CutPrefix(name, "cmp"); ok {
-		name = "camp" + rest
-	} else if rest, ok := strings.CutPrefix(name, "mount"); ok && !strings.HasPrefix(rest, "ain") {
-		name = "mountain" + rest
-	} else if rest, ok := strings.CutPrefix(name, "house"); ok {
-		// The farmstead variants (house2 … house6) share the one Python remake house.
-		name = "house" + strings.TrimLeft(rest, "0123456789")
-	}
-	if base, ok := strings.CutSuffix(name, "_w"); ok {
-		name = base + "_winter"
-	}
-	return "legacy/python/gfx/hexTypes/hex_" + name + ".png"
-}
-
-// camel turns a family slug into the Python remake's name (armored-car → armoredCar).
+// camel turns a family slug into the review's item name (armored-car → armoredCar).
 func camel(slug string) string {
 	parts := strings.Split(slug, "-")
 	for i := 1; i < len(parts); i++ {
@@ -451,24 +369,14 @@ func (c *collector) tiles() error {
 		case kind == "infrastructure", family == "water", family == "fog":
 			season = "shared"
 		}
-		ref, err := c.reference(legacyTile(kind, name), image.Rectangle{})
-		if err != nil {
-			return err
-		}
 		paths, sums := pins(es)
 		imgs, err := c.images(paths, sums, 96, 80)
 		if err != nil {
 			return err
 		}
 		note := "Current enabled " + kind + " binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open."
-		if ref == nil {
-			note += " No matching legacy reference is available for this authored tile."
-		}
-		if strings.HasPrefix(name, "lakeside") && strings.Contains(name, "-outlet") {
-			note += " The reference is the base shoreline; the new outlet has no separate legacy tile."
-		}
 		c.items = append(c.items, item{
-			ID: kind + "/" + name, Name: name, Category: "Terrain", Family: artFamily(e), Season: season, Reference: ref, Width: 96, Height: 80,
+			ID: kind + "/" + name, Name: name, Category: "Terrain", Family: artFamily(e), Season: season, Width: 96, Height: 80,
 			Note: note, Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}},
 		})
 	}
@@ -516,29 +424,16 @@ func (c *collector) units() error {
 			if err != nil {
 				return err
 			}
-			category, refpath, w, h := "Portraits", "legacy/python/gfx/units/pictures/"+name+".png", 210, 188
+			category, w, h := "Portraits", 210, 188
 			if kind == "sprite" {
-				category, refpath, w, h = "Sprites", "legacy/python/gfx/units/icons/"+name+".png", 48, 48
+				category, w, h = "Sprites", 48, 48
+			}
+			it := item{ID: kind + "/" + name, Name: name, Category: category, Family: name, Bindings: ids, Width: w, Height: h, Note: "Current family candidate. Visual approval and runtime acceptance pending."}
+			if kind == "sprite" {
+				it.Note = "Current authored sprites are reduced to 48×48 with Lanczos3 for the list; 2× zoom gives the 96×96 game footprint."
 			}
 			if len(ids) == 0 {
-				refpath = ""
-			} else if _, err := c.root.Stat(refpath); os.IsNotExist(err) {
-				refpath = ""
-			} else if err != nil {
-				return err
-			}
-			ref, err := c.reference(refpath, image.Rectangle{})
-			if err != nil {
-				return err
-			}
-			it := item{ID: kind + "/" + name, Name: name, Category: category, Family: name, Bindings: ids, Reference: ref, Width: w, Height: h, Note: "Current family candidate. Visual approval and runtime acceptance pending."}
-			if kind == "sprite" {
-				it.Note = "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented."
-			}
-			if len(ids) == 0 {
-				it.Note = "Selected catalogue artwork. No matching legacy reference is available; gameplay class binding remains open."
-			} else if ref == nil {
-				it.Note = "Selected catalogue artwork with gameplay class bindings. No matching legacy reference is available; final visual acceptance remains open."
+				it.Note = "Selected catalogue artwork. Gameplay class binding remains open."
 			}
 			keys := make([]string, 0, len(byID))
 			for id := range byID {
@@ -609,54 +504,10 @@ func (c *collector) interfaceArt() error {
 		if err != nil {
 			return err
 		}
-		refpath, crop, note := interfaceReference(id)
-		ref, err := c.reference(refpath, crop)
-		if err != nil {
-			return err
-		}
-		c.items = append(c.items, item{ID: "interface/" + id, Name: id, Category: "Interface", Family: artFamily(e), Width: e.Width, Height: e.Height, Reference: ref, Note: note, Variants: []variant{{ID: "current", Label: "Current export", Images: imgs}}})
+		note := "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending."
+		c.items = append(c.items, item{ID: "interface/" + id, Name: id, Category: "Interface", Family: artFamily(e), Width: e.Width, Height: e.Height, Note: note, Variants: []variant{{ID: "current", Label: "Current export", Images: imgs}}})
 	}
 	return nil
-}
-
-func interfaceReference(id string) (string, image.Rectangle, string) {
-	note := "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending."
-	direct := map[string]string{"ownership/depotOwnership": "hexTypes/depotOwnership.png", "map/selected": "cursor.png", "map/from": "cursor_from.png", "map/attack": "cursor_attacking.png", "panel/terrain": "steelTextureTerrain.png", "panel/weapon": "weaponSelectMenu.png", "panel/content": "content_frame.png", "panel/battle": "battleMenu.png"}
-	if p := direct[id]; p != "" {
-		return "legacy/python/gfx/" + p, image.Rectangle{}, note
-	}
-	weapons := map[string]string{"revolveur": "revolveurM1892", "lugerp08": "lugerP08", "maxim": "maximMachineGun", "wickers": "wickersMachineGun", "morser": "moerser16"}
-	if strings.HasPrefix(id, "weapon/") {
-		name := strings.TrimPrefix(id, "weapon/")
-		if alias := weapons[name]; alias != "" {
-			name = alias
-		}
-		return "legacy/python/gfx/weapons/" + name + ".png", image.Rectangle{}, note + " Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region."
-	}
-	for action, old := range map[string]string{"attack": "attack1", "move": "move1", "contain": "containing1", "exit": "exit1"} {
-		if strings.HasPrefix(id, "action/"+action+"-") {
-			return "legacy/python/gfx/menuIcons/" + old + ".png", image.Rectangle{}, note + " Reference is the original base action, unchanged for the new interaction states."
-		}
-	}
-	if strings.HasPrefix(id, "effect/explosion-") {
-		var n int
-		if _, err := fmt.Sscanf(id, "effect/explosion-%02d", &n); err == nil && n >= 0 && n < 9 {
-			return "legacy/python/gfx/explosion.png", image.Rect(n*96, 0, (n+1)*96, 96), note + " Exact reference atlas frame."
-		}
-	}
-	if strings.HasPrefix(id, "rank/") {
-		var n int
-		if _, err := fmt.Sscanf(id, "rank/%02d", &n); err == nil && n >= 0 && n <= 10 {
-			return "legacy/python/gfx/ranksBig.png", image.Rect(n*88, 0, (n+1)*88, 88), note + " Exact 88×88 reference rank cell; the candidate rank number is live text."
-		}
-	}
-	if id == "country/germany" {
-		return "legacy/python/gfx/flags.png", image.Rect(0, 0, 88, 88), note
-	}
-	if id == "country/france" {
-		return "legacy/python/gfx/flags.png", image.Rect(88, 0, 176, 88), note
-	}
-	return "", image.Rectangle{}, note + " No direct reference image is mapped for this component."
 }
 
 func (c *collector) screens() error {
@@ -678,10 +529,10 @@ func (c *collector) screens() error {
 			return err
 		}
 		if view, ok := strings.CutPrefix(id, "screen/"); ok {
-			c.items = append(c.items, item{ID: "screens/" + id, Name: view, Category: "Screens", Family: "screen", Width: w, Height: h, Note: "Current text-free screen frame. The game draws labels, values and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.", Variants: []variant{{ID: "frame", Label: "Screen frame", Images: imgs}}})
+			c.items = append(c.items, item{ID: "screens/" + id, Name: view, Category: "Screens", Family: "screen", Width: w, Height: h, Note: "Current text-free screen frame. The game draws labels, values and controls separately. Navigation and runtime integration remain open.", Variants: []variant{{ID: "frame", Label: "Screen frame", Images: imgs}}})
 			continue
 		}
-		c.items = append(c.items, item{ID: "screens/" + id, Name: id, Category: "Screen components", Family: artFamily(e), Width: w, Height: h, Note: "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.", Variants: []variant{{ID: "current", Label: "Current export", Images: imgs}}})
+		c.items = append(c.items, item{ID: "screens/" + id, Name: id, Category: "Screen components", Family: artFamily(e), Width: w, Height: h, Note: "Current screen component, shared across layouts. Painted backdrop has no authored 4× export.", Variants: []variant{{ID: "current", Label: "Current export", Images: imgs}}})
 	}
 	return nil
 }

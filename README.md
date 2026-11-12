@@ -15,7 +15,6 @@ newly painted art. The roadmap is [PLAN.md](PLAN.md).
 | `cmd/hl` | Unified developer CLI: art, assets, exports, reviews, levels, and LLM play |
 | `tools/` | Importable offline art tooling and the PULSE reference design |
 | `docs/` | [CLI](docs/cli.md), [screen layout](docs/dos-screen.md), [LLM play](docs/llmplay.md), [runtime asset packs](docs/runtime-assets.md), [painted backdrops](docs/painted-backdrops.md), art book, reconstructed manual |
-| `legacy/` | The upstream Python remake, kept as a test reference only |
 
 ## Running
 
@@ -74,8 +73,7 @@ and plays on from there: the save slot file, or an `hl llmplay` game's `save.jso
 
 ## Art
 
-All shipped art is newly authored; see the [art guide](art/README.md). The art in `legacy/python/gfx/`
-has unclear rights (two files are Battle Isle 3 screenshots) and is never redistributed.
+All shipped art is newly authored; see the [art guide](art/README.md).
 
 ```sh
 just art-index         # regenerate art/index.json from the prompts, masters and assets/index.json

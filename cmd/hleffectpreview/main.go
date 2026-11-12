@@ -1,5 +1,5 @@
 // Command hleffectpreview exercises disk-loaded graphics candidates without a
-// rules engine, an accepted runtime pack or access to the legacy reference art.
+// rules engine or an accepted runtime pack.
 package main
 
 import (

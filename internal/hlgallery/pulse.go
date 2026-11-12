@@ -111,7 +111,7 @@ func (c *collector) pulse(captures string) error {
 	if err = c.out.WriteFile("pulse.json", b, 0o644); err != nil {
 		return err
 	}
-	return c.out.WriteFile("pulse.html", []byte(strings.Replace(pulsePage, "/*STUDY*/null", string(b), 1)), 0o644)
+	return c.out.WriteFile("pulse.html", []byte(strings.Replace(pulsePage, "/*STUDY*/ null", string(b), 1)), 0o644)
 }
 
 func (c *collector) pulseDensity(images map[string]picture, im *image.NRGBA, density int, method string) error {

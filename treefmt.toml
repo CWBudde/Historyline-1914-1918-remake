@@ -2,10 +2,9 @@
 
 [global]
 excludes = [
-  # generated output, local originals, the Python reference
+  # generated output and local originals
   "build/**",
   "original/**",
-  "legacy/**",
   # the graphics track and the user's manual reconstruction
   "art/**",
   "assets/**",

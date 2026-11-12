@@ -18,41 +18,6 @@ import (
 	"time"
 )
 
-func TestLegacyTileShoreOutletReference(t *testing.T) {
-	for _, tt := range []struct{ id, want string }{
-		{"lakeside12-outlet1", "legacy/python/gfx/hexTypes/hex_lakeside12.png"},
-		{"lakeside16-outlet6", "legacy/python/gfx/hexTypes/hex_lakeside16.png"},
-		{"lakeside23-outlet4", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
-		{"lakeside3456-outlet6", "legacy/python/gfx/hexTypes/hex_lakeside3456.png"},
-		{"lakeside23", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
-		{"lakeside23_w", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
-		{"lakeside123-outlet1_w", "legacy/python/gfx/hexTypes/hex_lakeside123.png"},
-	} {
-		t.Run(tt.id, func(t *testing.T) {
-			if got := legacyTile("background", tt.id); got != tt.want {
-				t.Fatalf("legacy reference for %s = %s, want %s", tt.id, got, tt.want)
-			}
-		})
-	}
-}
-
-func TestNewTerrainHasNoInventedLegacyReference(t *testing.T) {
-	for _, tc := range []struct{ kind, id string }{
-		{"background", "factoryN"},
-		{"background", "factoryE"},
-		{"background", "factoryS"},
-		{"background", "factoryW"},
-		{"infrastructure", "barbedWire"},
-	} {
-		if got := legacyTile(tc.kind, tc.id); got != "" {
-			t.Errorf("%s has no matching legacy source, got %s", tc.id, got)
-		}
-	}
-	if got := legacyTile("background", "factoryN_w"); got != "legacy/python/gfx/hexTypes/hex_factoryN_winter.png" {
-		t.Errorf("existing winter reference changed: %s", got)
-	}
-}
-
 func TestCurrentGameSelection(t *testing.T) {
 	r, err := os.OpenRoot("../..")
 	if err != nil {
@@ -91,11 +56,6 @@ func TestCurrentGameSelection(t *testing.T) {
 		}
 		ids[it.ID] = true
 		counts[it.Category]++
-		if (it.Category == "Sprites" || it.Category == "Portraits") && len(it.Bindings) == 0 {
-			if it.Reference != nil || !strings.Contains(it.Note, "No matching legacy reference") {
-				t.Fatalf("unbound art must not invent a reference: %s", it.ID)
-			}
-		}
 		if it.Category == "Sprites" {
 			if len(it.Variants) != 36 {
 				t.Fatalf("missing variants: %s", it.ID)
@@ -108,9 +68,6 @@ func TestCurrentGameSelection(t *testing.T) {
 					t.Fatalf("wrong game-size sprite: %s/%s", it.ID, v.ID)
 				}
 			}
-		}
-		if it.Category == "Screens" && it.Reference != nil {
-			t.Fatalf("invented screen reference: %s", it.ID)
 		}
 		for _, v := range it.Variants {
 			if strings.Contains(v.ID, "planes") || strings.Contains(v.ID, "sheets") {
@@ -136,8 +93,8 @@ func TestCurrentGameSelection(t *testing.T) {
 		for _, it := range c.items {
 			if it.ID == id {
 				found = true
-				if len(it.Bindings) != 1 || it.Bindings[0] != "CP_a7v" || it.Reference != nil || !strings.Contains(it.Note, "No matching legacy reference") {
-					t.Fatalf("bound artwork without a legacy reference: %+v", it)
+				if len(it.Bindings) != 1 || it.Bindings[0] != "CP_a7v" {
+					t.Fatalf("bound artwork without its binding: %+v", it)
 				}
 			}
 		}
@@ -213,7 +170,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			t.Fatal(err)
 		}
 		for _, review := range []struct{ name, template, smoke string }{{"asset", page, browserSmoke}, {"composer", composePage, composerSmoke}, {"road-units", roadUnitComparisonTemplate(), roadUnitsSmoke}, {"pulse", string(pulseHTML), pulseSmoke}} {
-			html := strings.Replace(review.template, "/*CATALOG*/null", string(b), 1)
+			html := strings.Replace(review.template, "/*CATALOG*/ null", string(b), 1)
 			html = strings.Replace(html, "</body>", "<script>"+review.smoke+"</script></body>", 1)
 			name := review.name + "-smoke.html"
 			if err := w.WriteFile(name, []byte(html), 0o644); err != nil {
@@ -342,14 +299,7 @@ const browserSmoke = `
   document.querySelector('[data-id="sprite/infantry"]').click();
   assert(document.getElementById('variant').options.length===36,'sprite variants');
   change('variant','ec/se-spent');change('density','4');change('zoom','4');
-  assert(document.querySelector('#sources a').textContent.includes('units/icons/infantry'),'reference pin');
-  assert(document.querySelectorAll('#comparison img')[1].alt.includes('/ec/se-spent-4x.png'),'variant selection');
-  document.querySelector('[data-mode="wipe"]').click();change('slider','25');
-  assert(document.querySelector('.top').style.clipPath==='inset(0px 0px 0px 25%)','wipe slider');
-  document.querySelector('[data-mode="blend"]').click();
-  assert(document.querySelector('.top').style.opacity==='0.25','blend slider');
-  document.querySelector('[data-mode="difference"]').click();
-  assert(document.querySelector('.top').style.mixBlendMode==='difference','difference layer');
+  assert(document.querySelectorAll('#comparison img')[0].alt.includes('/ec/se-spent-4x.png'),'variant selection');
   change('search','');change('category','Terrain');change('season','winter');
   assert(document.querySelectorAll('.entry').length>0,'winter collection');
   assert(document.getElementById('meta').textContent.includes('winter'),'winter item');
