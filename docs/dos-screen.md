@@ -116,3 +116,40 @@ The package docs hold the details; this is the map of where each part lives.
   modes in grey, colour, then the computer's analysis.
 
 F9 turns battle and capture scenes off, reduced motion shows their end, and a key or click skips one.
+
+## Web order menu
+
+The web edition (`webapp/app/src/ui/orderMenu.ts`, `OrderMenu.tsx`) gives a unit's own orders as painted hex
+plates (`art/screens/plates`) on its neighbouring cells, in both layouts and on a phone; the Go game keeps its
+ring. Each order has one fixed slot; an order that does not apply leaves its cell free, one that applies but is
+not possible now stays as a stripped, rusty plate that names its reason on the caption. The unit stays visible
+under its cursor ring; the centre cancels.
+
+| Slot | Key | On the map | In a container's contents |
+| --- | --- | --- | --- |
+| up (N) | W, 8 | Move; Attack (red plate) in the attack mode | Move out |
+| up-left (NW) | Q, 7 | Contents of an own container | Produce |
+| down (S) | S, 2 | | Repair |
+| up-right, down-right, down-left | E, D, A (9, 3, 1) | free | free |
+| centre | Escape | Cancel | Cancel |
+
+Up, left and down keep the desktop gestures (up move, left open or produce, down repair). End phase, the
+strategic map and information are not plates: they are brass nameplates on the order strip with their keys,
+F1 END PHASE, O MAP and I INFO, in the single map's top bar (on a phone too, away from the thumb) and at the
+outer end of each human panel's status strip on the split screen, End phase set apart by a rivet. No flick can
+reach End phase; the keyboard gestures (hold Space or left Control and push a direction) still give the
+desktop's mode change, map and info.
+
+- **Opening:** right-click a cell with orders, click the selected unit again, tap an own unit (it is selected
+  and its plates appear), long-press, or Enter on the selected unit (the first plate takes the focus).
+- **Running:** click or tap a plate; or press on the unit and flick towards a slot (24 CSS px, the plates
+  appear only after 150 ms so a fast flick does not flash them); or the slot's key while the menu is open.
+  Hit areas are 60° wedges from half a neighbour's distance to 1.75 of it, not the plates; outside them a tap
+  closes the menu and, with a unit selected, acts on that cell (a tap on a destination moves there).
+- **Sizes:** plates are 0.7 of a cell with a mouse (72-160 CSS px wide), 0.92 on touch (at least 58 px wide,
+  48 px across); where they outgrow the cell the rosette grows past the neighbours. At a window edge the camera
+  pans first; what is left moves the whole rosette inwards, tied to the unit by a brass bracket, never
+  mirrored.
+- **States:** idle, lit (rim rubbed bright; the caption hangs from the plate's outer edge, on touch above the
+  rosette), pressed (sunk), not possible (stripped). The plates are `menuitem` buttons for the keyboard and
+  screen readers: arrows walk the focus, Enter runs, a chalk outline shows the focus.
