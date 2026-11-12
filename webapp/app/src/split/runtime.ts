@@ -35,6 +35,12 @@ import {
 import { SplitInput } from "./input.ts";
 import { loadPixelFonts, type PixelFonts } from "../pixfont.ts";
 import { messageMs, wellOf, type Well } from "./well.ts";
+import type { GameInfo, UnitInfo } from "./overlay.ts";
+
+/** PanelView is a view painted over a panel (overlay.ts). */
+export type PanelView =
+  | { kind: "game"; info: GameInfo }
+  | { kind: "unit"; info: UnitInfo; family: string | null; owner: number };
 
 const sides = [0, 1] as const;
 function position(element: HTMLElement, rect: Rect, dpr: number): void {
@@ -71,6 +77,8 @@ export class SplitRuntime {
   private layoutKey = "";
   /** The pixel font of the wells and overlays. */
   fonts: PixelFonts | null = null;
+  /** The level's best score, for the game info. */
+  best = 0;
   /** Each side's last message and when it came, so that it beats the unit line only while fresh. */
   private readonly messages = [
     { text: "", at: 0, fresh: false },
@@ -717,6 +725,70 @@ export class SplitRuntime {
       orders: play.stats(s).orders[side],
       limit: s.game.limit,
     });
+  }
+  /** overlay is the view painted over side's panel now, or null for the map. */
+  overlay(side: 0 | 1): PanelView | null {
+    const b = this.panels[side].battle;
+    if (!this.visible(side)) return null;
+    if (b.panel === "unit" && b.infoUnit?.side === side) {
+      const u = b.infoUnit,
+        t = play.typeInfo(b.session, side, u.type),
+        family = this.panels[side].families[u.id]?.family ?? null;
+      return {
+        kind: "unit",
+        family,
+        owner: u.owner,
+        info:
+          t === null
+            ? {
+                name: u.name,
+                air: { power: 0, range: 0 },
+                ground: { power: 0, range: 0 },
+                water: { power: 0, range: 0 },
+                armour: 0,
+                speed: 0,
+                weight: 0,
+                group: 0,
+              }
+            : {
+                name: t.name,
+                air: t.air,
+                ground: t.ground,
+                water: t.water,
+                armour: t.armour,
+                speed: t.speed,
+                weight: t.weight,
+                group: t.group,
+              },
+      };
+    }
+    if (b.panel === "game") {
+      const st = play.stats(b.session),
+        l = b.session.level;
+      return {
+        kind: "game",
+        info: {
+          round: st.round,
+          level:
+            l.mapName === ""
+              ? String(l.mapNo).padStart(2, "0")
+              : l.mapName.toUpperCase(),
+          mode:
+            play.phase(b.session, side) === phaseMovement
+              ? "MOVEMENT"
+              : "ATTACK",
+          best: this.best,
+          score: st.score,
+          sides: [st.sides[0], st.sides[1]],
+          map: st.map,
+          energy: st.energy,
+          income: st.income,
+          moves: st.orders[side],
+          limit: st.limit,
+        },
+      };
+    }
+    return null;
   }
   refreshImages(): void {
     for (const panel of this.panels) panel.map.dirty = true;

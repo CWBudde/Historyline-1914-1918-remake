@@ -67,6 +67,10 @@ export class BattleRuntime {
   /** The map design drawn now (original/design.ts). */
   readonly design = signal<Design>("painted");
   readonly ring = signal<ReturnType<typeof layoutRing> | null>(null);
+  /** The unit families by type id: the art each unit is drawn with. */
+  get families(): BattleData["families"] {
+    return this.data.families;
+  }
   private readonly auxiliary: BattleScenes;
   private readonly keys: BattleKeys;
   private input: MapInput | null = null;

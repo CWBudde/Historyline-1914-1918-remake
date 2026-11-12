@@ -8,6 +8,16 @@ import type { UiAssets } from "../ui/assets.ts";
 import type { Rect } from "../camera.ts";
 import type { SplitRuntime } from "./runtime.ts";
 import { drawWell, type Well } from "./well.ts";
+import {
+  drawGameInfo,
+  drawUnitInfo,
+  gameInfoScale,
+  panelScale,
+  plateRect,
+  unitInfoLayout,
+} from "./overlay.ts";
+import { RivetSheet, Tile, type Surfaces } from "./painter.ts";
+import { spriteID } from "../unitFrame.ts";
 import "./split.css";
 
 interface Props {
@@ -104,6 +114,134 @@ function WellCanvas({
     );
   });
   return <canvas ref={canvas} class="split-well-canvas" aria-hidden="true" />;
+}
+/**
+ * PanelOverlay paints the view open in side's panel as the desktop does (internal/dospanel) over the map; the
+ * battle UI's DOM view stays beneath it, visually hidden, for screen readers and tests.
+ */
+const pictures = new Map<string, HTMLImageElement>();
+/** picture is a decoded image of the screen or unit art at 2x, null until it has loaded. */
+function picture(
+  assets: UiAssets,
+  catalog: string,
+  id: string,
+  loaded: () => void,
+): HTMLImageElement | null {
+  const url = assets.image(catalog, id, 2).value.url;
+  if (url === null) return null;
+  let img = pictures.get(url);
+  if (img === undefined) {
+    img = new Image();
+    img.onload = loaded;
+    img.src = url;
+    pictures.set(url, img);
+  }
+  return img.complete && img.naturalWidth > 0 ? img : null;
+}
+const surfaceCache = new Map<HTMLImageElement, Tile | RivetSheet>();
+function pixels(img: HTMLImageElement): ImageData | null {
+  const c = document.createElement("canvas");
+  c.width = img.naturalWidth;
+  c.height = img.naturalHeight;
+  const ctx = c.getContext("2d", { willReadFrequently: true });
+  if (ctx === null) return null;
+  ctx.drawImage(img, 0, 0);
+  return ctx.getImageData(0, 0, c.width, c.height);
+}
+/** panelSurfaces are the painted steel and rivets the plates are modulated with (dospanel.SetSurfaces). */
+function panelSurfaces(assets: UiAssets, loaded: () => void): Surfaces {
+  const of = <T extends Tile | RivetSheet>(
+    id: string,
+    make: (p: ImageData) => T,
+  ): T | null => {
+    const img = picture(assets, "screens", id, loaded);
+    if (img === null) return null;
+    let s = surfaceCache.get(img);
+    if (s === undefined) {
+      const p = pixels(img);
+      if (p === null) return null;
+      s = make(p);
+      surfaceCache.set(img, s);
+    }
+    return s as T;
+  };
+  return {
+    steel: of("surface/steel", (p) => new Tile(p)),
+    rivets: of("surface/rivets", (p) => new RivetSheet(p)),
+  };
+}
+function PanelOverlay({
+  runtime,
+  assets,
+  side,
+}: {
+  runtime: SplitRuntime;
+  assets: UiAssets;
+  side: 0 | 1;
+  /** The UI revision: the signals integration skips a render whose props are unchanged. */
+  tick: number;
+}) {
+  const [, loaded] = useState(0),
+    redraw = () => {
+      loaded((n) => n + 1);
+    },
+    canvas = useRef<HTMLCanvasElement>(null),
+    view = runtime.overlay(side),
+    screen = runtime.screen,
+    panel = screen.panels[side],
+    surfaces = panelSurfaces(assets, redraw),
+    unit = view?.kind === "unit" ? view : null,
+    portrait =
+      unit?.family == null
+        ? null
+        : picture(assets, "screens", `portrait/${unit.family}`, redraw),
+    sprite =
+      unit?.family == null
+        ? null
+        : picture(
+            assets,
+            "units",
+            spriteID(unit.family, unit.owner, "n", false),
+            redraw,
+          );
+  useLayoutEffect(() => {
+    const c = canvas.current,
+      fonts = runtime.fonts;
+    if (c === null) return;
+    if (c.width !== panel.width || c.height !== panel.height) {
+      c.width = panel.width;
+      c.height = panel.height;
+    }
+    const ctx = c.getContext("2d");
+    if (ctx === null) return;
+    ctx.clearRect(0, 0, c.width, c.height);
+    if (fonts === null || view === null) return;
+    const local = { x: 0, y: 0, width: panel.width, height: panel.height },
+      room = plateRect(screen, side),
+      base = panelScale(screen);
+    if (view.kind === "game")
+      drawGameInfo(ctx, local, gameInfoScale(room, base), view.info, fonts);
+    else
+      drawUnitInfo(
+        ctx,
+        local,
+        unitInfoLayout(room, base).scale,
+        view.info,
+        fonts,
+        surfaces,
+        portrait,
+        sprite,
+      );
+  });
+  return (
+    <canvas
+      ref={canvas}
+      class="split-overlay"
+      hidden={view === null}
+      data-view={view?.kind ?? "map"}
+      aria-hidden="true"
+    />
+  );
 }
 function Handover({ runtime, side }: { runtime: SplitRuntime; side: 0 | 1 }) {
   const take = useRef<HTMLButtonElement>(null),
@@ -210,10 +348,18 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
               }
             >
               {visible ? (
-                <BattleUI
-                  {...runtime.panelProps(side, assets, revision, state)}
-                  embedded
-                />
+                <>
+                  <BattleUI
+                    {...runtime.panelProps(side, assets, revision, state)}
+                    embedded
+                  />
+                  <PanelOverlay
+                    runtime={runtime}
+                    assets={assets}
+                    side={side}
+                    tick={tick}
+                  />
+                </>
               ) : (
                 <p class="split-covered">Waiting for the other player</p>
               )}
