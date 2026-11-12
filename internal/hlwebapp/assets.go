@@ -53,6 +53,7 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	out := f.String("out", "build/webapp/data", "output directory")
 	sources := f.String("levels", "levels", "folder of the level months with the lossless backdrop sources (backdrop.png), tried before the embedded JPEGs")
 	packs := f.String("packs", "", "reuse an existing validated native pack catalog (default: update build/packs)")
+	screens := f.String("screens", "", "only replace the screens catalog of the index in -out with the screen packs in this directory (hl assets build-screens -out DIR); everything else stays")
 	if err := f.Parse(args); err != nil {
 		return err
 	}
@@ -61,6 +62,9 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	}
 	if err := ctx.Err(); err != nil {
 		return err
+	}
+	if *screens != "" {
+		return updateScreens(ctx, *out, *screens, stdout)
 	}
 	if *packs == "" {
 		*packs = "build/packs"
@@ -238,19 +242,29 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 	if index.FontLicense, err = b.put("txt", license); err != nil {
 		return err
 	}
-	raw, err := json.Marshal(index)
+	sum, err := writeIndex(b, *out, index)
 	if err != nil {
 		return err
+	}
+	_, err = fmt.Fprintf(stdout, "wrote %d levels to %s (index %s)\n", len(index.Levels), *out, sum)
+	return err
+}
+
+// writeIndex publishes index as out/index.json (and as a blob), renaming a
+// complete copy rather than exposing a partially written index. It returns
+// the index's SHA-256.
+func writeIndex(b blobWriter, out string, index AssetIndex) (_ string, err error) {
+	raw, err := json.Marshal(index)
+	if err != nil {
+		return "", err
 	}
 	ref, err := b.put("json", raw)
 	if err != nil {
-		return err
+		return "", err
 	}
-	// Rename a complete copy, rather than exposing a partially written index.
-	indexPath := filepath.Join(*out, "index.json")
-	next, err := os.CreateTemp(*out, ".index-")
+	next, err := os.CreateTemp(out, ".index-")
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer func() {
 		if e := os.Remove(next.Name()); e != nil && !errors.Is(e, fs.ErrNotExist) {
@@ -258,15 +272,37 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 		}
 	}()
 	if _, err = next.Write(raw); err != nil {
-		return errors.Join(err, next.Close())
+		return "", errors.Join(err, next.Close())
 	}
 	if err := next.Close(); err != nil {
+		return "", err
+	}
+	return ref.SHA256, os.Rename(next.Name(), filepath.Join(out, "index.json"))
+}
+
+// updateScreens replaces only the screens catalog of the index in out with the
+// screen packs in dir: a minute instead of a full export after a change to the
+// menus' or the order menu's painted parts.
+func updateScreens(ctx context.Context, out, dir string, stdout io.Writer) error {
+	raw, err := os.ReadFile(filepath.Join(out, "index.json"))
+	if err != nil {
+		return fmt.Errorf("hl webapp assets -screens needs an exported index: %w", err)
+	}
+	var index AssetIndex
+	if err := json.Unmarshal(raw, &index); err != nil {
 		return err
 	}
-	if err := os.Rename(next.Name(), indexPath); err != nil {
+	b := blobWriter{root: out}
+	catalog, ids, err := b.catalog(ctx, dir, "screens")
+	if err != nil {
+		return fmt.Errorf("screens: %w", err)
+	}
+	index.Packs["screens"] = catalog
+	sum, err := writeIndex(b, out, index)
+	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(stdout, "wrote %d levels to %s (index %s)\n", len(index.Levels), *out, ref.SHA256)
+	_, err = fmt.Fprintf(stdout, "replaced screens (%d IDs) in %s (index %s)\n", len(ids), out, sum)
 	return err
 }
 

@@ -39,7 +39,7 @@ The existing `just` shortcuts use `hl` too.
 | `llmplay replay` / `render` / `review` / `gif` | Verify state hashes; frames and the map video, or with `-view screen` the player's battle screen video; lessons; GIF | |
 | `preview effects` | Unit movement and effects preview (needs a display) | |
 | `webapp golden` | Write Go AI-vs-AI command/event/save traces for all shipped setups into `build/webapp/golden`; `-resolutions` caps each trace (default 300) | `webapp-golden` |
-| `webapp assets` | Export hash-pinned packs, scenarios, tiled backdrop mipmaps, baked map layers and fonts into `build/webapp/data` | `webapp-assets` |
+| `webapp assets` | Export hash-pinned packs, scenarios, tiled backdrop mipmaps, baked map layers and fonts into `build/webapp/data` (`-screens DIR`: replace only the screens catalog) | `webapp-assets` |
 | `webapp original` | From the local original files, write every original map's finmap level, `dosbind.FromOriginal` board, `origview` view and AI-vs-AI trace into `build/webapp/original` for the TS tests; nothing without the files | `webapp-golden` |
 | `webapp size` | Report the built site's size per file type; fails above the limit (`-dir`, `-max-mb`) | `webapp-size` |
 | `artbook` | Render `build/artbook/Historyline_Art.pdf` (needs `typst`) | `artbook` |

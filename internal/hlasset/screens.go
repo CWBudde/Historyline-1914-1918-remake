@@ -145,7 +145,11 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 	if err != nil {
 		return nil, err
 	}
-	return append(files, parts...), nil
+	plates, err := planPlates(artDir, d)
+	if err != nil {
+		return nil, err
+	}
+	return append(append(files, parts...), plates...), nil
 }
 
 // newsW, newsH are the logical size of a newspaper illustration (3:2).

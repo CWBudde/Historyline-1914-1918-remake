@@ -369,7 +369,12 @@ unpacked `screens/` files of the index (frames, buttons, country swatches, widge
 scaled to 640×400 logical pixels (never enlarged). The web edition's menus are built of the painted parts in
 `art/screens/armour` (family `armour`): each cleared of its alpha haze (16 and below) and trimmed, at half its master's
 size (smaller where `internal/hlasset/armour.go` scales it), the rivet sheet as a repeating row and column; the
-browser takes only their lite art at the drawn density. The game's menus (`-screens`) draw a painting, the frame
+browser takes only their lite art at the drawn density. The battle's order menu takes its plates from
+`art/screens/plates` (family `plates`, `internal/hlasset/plates.go`): every plate state trimmed and scaled to
+one 160×134 logical size so the states lie on each other, every stencil symbol cut from its sheet cell and
+centred in a 96×96 square; also lite art only. `hl webapp assets -screens DIR` replaces just the screens catalog
+of an exported index with the packs `build-screens -out DIR` wrote. The game's menus
+ (`-screens`) draw a painting, the frame
 over it, live text in the Go fonts and the button states; without the catalog they draw plain panels.
 
 ## Open
