@@ -223,7 +223,32 @@ function PanelOverlay({
       base = panelScale(screen);
     if (view.kind === "game")
       drawGameInfo(ctx, local, gameInfoScale(room, base), view.info, fonts);
-    else if (view.kind === "contents")
+    else if (view.kind === "map") {
+      const pic = document.createElement("canvas");
+      pic.width = view.picture.width;
+      pic.height = view.picture.height;
+      pic
+        .getContext("2d")
+        ?.putImageData(
+          new ImageData(
+            view.picture.data,
+            view.picture.width,
+            view.picture.height,
+          ),
+          0,
+          0,
+        );
+      ctx.fillStyle = "rgb(48,48,36)";
+      ctx.fillRect(0, 0, panel.width, panel.height);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(
+        pic,
+        view.rect.x - panel.x,
+        view.rect.y - panel.y,
+        pic.width * view.ui,
+        pic.height * view.ui,
+      );
+    } else if (view.kind === "contents")
       drawContents(
         ctx,
         local,

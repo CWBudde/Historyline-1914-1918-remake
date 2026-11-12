@@ -248,6 +248,7 @@
   pointer-events: none;
 }
 .split-panel .battle-ui[data-panel="game"] .battle-dock,
+.split-panel .battle-ui[data-panel="map"] .battle-dock,
 .split-panel .battle-ui[data-panel="unit"] .battle-dock {
   position: absolute;
   inset: auto;

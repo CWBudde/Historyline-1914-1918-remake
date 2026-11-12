@@ -35,6 +35,7 @@ import {
 import { SplitInput } from "./input.ts";
 import { loadPixelFonts, type PixelFonts } from "../pixfont.ts";
 import { messageMs, wellOf, type Well } from "./well.ts";
+import { Strategic, sideShade, spentShade, type Pixels } from "./strategic.ts";
 import {
   buildRows,
   contentsLayout,
@@ -52,6 +53,7 @@ import {
 export type PanelView =
   | { kind: "game"; info: GameInfo }
   | { kind: "contents"; contents: Contents }
+  | { kind: "map"; picture: Pixels; rect: Rect; ui: number }
   | { kind: "unit"; info: UnitInfo; family: string | null; owner: number };
 
 const sides = [0, 1] as const;
@@ -98,7 +100,7 @@ export class SplitRuntime {
   ];
   private constructor(
     private readonly app: Application,
-    loader: AssetLoader,
+    private readonly loader: AssetLoader,
     readonly request: BattleStart,
     readonly panels: [BattleRuntime, BattleRuntime],
     readonly local: LocalMatch | null,
@@ -782,6 +784,7 @@ export class SplitRuntime {
               },
       };
     }
+    if (b.panel === "map") return this.strategicView(side);
     if (b.panel === "game") {
       const st = play.stats(b.session),
         l = b.session.level;
@@ -809,6 +812,128 @@ export class SplitRuntime {
       };
     }
     return null;
+  }
+  /** The terrain's colour per terrain id: its tile's mean colour (hudmap.go tileColour). */
+  private readonly palette = new Map<string, [number, number, number]>();
+  private paletteRequested = false;
+  private strategicMemo: { key: string; view: PanelView } | null = null;
+  /** strategicLayout is side's strategic map laid out in its plate room at the HUD scale. */
+  private strategicLayout(side: 0 | 1): {
+    lay: Strategic;
+    rect: Rect;
+    ui: number;
+  } {
+    const rect = plateRect(this.screen, side),
+      ui = Math.max(1, Math.floor(this.screen.ui + 1e-9));
+    return {
+      lay: new Strategic(
+        bind.playable(this.battle.session.board),
+        Math.trunc(rect.width / ui),
+        Math.trunc(rect.height / ui),
+      ),
+      rect,
+      ui,
+    };
+  }
+  /** strategicView is side's strategic map picture (cursor.go drawStrategic, strategicScene). */
+  private strategicView(side: 0 | 1): PanelView {
+    const b = this.panels[side].battle,
+      { lay, rect, ui } = this.strategicLayout(side),
+      view = this.panels[side].map.camera.visible(),
+      key = JSON.stringify([
+        side,
+        b.version,
+        rect,
+        ui,
+        view,
+        this.palette.size,
+      ]);
+    if (this.strategicMemo?.key === key) return this.strategicMemo.view;
+    if (!this.paletteRequested) {
+      this.paletteRequested = true;
+      void this.loadPalette();
+    }
+    const v = b.view(),
+      reworked = play.reworked(b.session),
+      lines = b.session.level.lines,
+      picture = lay.render({
+        terrain: (c) => {
+          const h = reworked.get(level.coordKey(c)) ?? lines[c.line]?.[c.col];
+          if (h === undefined) return null;
+          return this.palette.get(h.terrain) ?? [96, 104, 72];
+        },
+        units: [...v.units.values()]
+          .filter((u) => u.head === null)
+          .map((u) => ({
+            at: u.at,
+            shade:
+              u.moved && u.side === side
+                ? spentShade(sideShade(u.owner))
+                : sideShade(u.owner),
+          })),
+        buildings: [...v.buildings].map(([k, bd]) => ({
+          at: play.coordFromKey(k),
+          kind: bd.hq ? "hq" : bd.kind === play.Depot ? "depot" : "factory",
+          shade: sideShade(bd.owner),
+        })),
+        view,
+      }),
+      out: PanelView = { kind: "map", picture, rect, ui };
+    this.strategicMemo = { key, view: out };
+    return out;
+  }
+  private async loadPalette(): Promise<void> {
+    try {
+      const catalog = await this.panels[0].map.images.catalog("terrain", 1),
+        terrains = new Set(
+          this.battle.session.level.lines.flatMap((row) =>
+            row.map((h) => h.terrain),
+          ),
+        );
+      for (const t of play.reworked(this.battle.session).values())
+        terrains.add(t.terrain);
+      await Promise.all(
+        [...terrains].map(async (terrain) => {
+          const image =
+            catalog.get(`tile/${terrain}`) ??
+            catalog.get(`tile/${terrain.replace(/_w$/u, "")}`);
+          if (image === undefined || this.stopped) return;
+          const bitmap = await createImageBitmap(
+            new Blob([await this.loader.store.get(image.full)]),
+          );
+          try {
+            const canvas = document.createElement("canvas");
+            canvas.width = canvas.height = 16;
+            const c = canvas.getContext("2d", { willReadFrequently: true });
+            if (c === null) return;
+            c.drawImage(bitmap, 0, 0, 16, 16);
+            const data = c.getImageData(0, 0, 16, 16).data;
+            let a = 0,
+              r = 0,
+              g = 0,
+              bl = 0;
+            for (let i = 0; i < data.length; i += 4) {
+              const alpha = data[i + 3] ?? 0;
+              a += alpha;
+              r += (data[i] ?? 0) * alpha;
+              g += (data[i + 1] ?? 0) * alpha;
+              bl += (data[i + 2] ?? 0) * alpha;
+            }
+            if (a > 0)
+              this.palette.set(terrain, [
+                Math.round(r / a),
+                Math.round(g / a),
+                Math.round(bl / a),
+              ]);
+          } finally {
+            bitmap.close();
+          }
+        }),
+      );
+    } catch {
+      // Without the tiles the map keeps its placeholder colour.
+    }
+    if (!this.stopped) this.hooks.changed();
   }
   /** contentsView is what side's open contents show (cmd/historyline/contents.go contentsView). */
   private contentsView(side: 0 | 1): Contents {
@@ -893,6 +1018,30 @@ export class SplitRuntime {
   ): boolean {
     const b = this.panels[side].battle,
       box = b.contents.box;
+    if (this.original && b.panel === "map" && box === null) {
+      // The strategic map: a click on the map looks there and puts the cursor there; any click closes it.
+      if (kind === "click") {
+        const { lay, rect, ui } = this.strategicLayout(side),
+          panel = this.screen.panels[side],
+          w = lay.toWorld(
+            (p.x + panel.x - rect.x) / ui,
+            (p.y + panel.y - rect.y) / ui,
+          );
+        b.cancel();
+        if (w !== null) {
+          const [c, on] = hexgrid.pixelToHex(
+            bind.playable(b.session.board),
+            w.x,
+            w.y,
+          );
+          if (on) {
+            this.panels[side].map.camera.centerOn(...hexgrid.center(c));
+            b.setCursor(c);
+          }
+        }
+      } else if (kind === "context") b.cancel();
+      return true;
+    }
     if (!this.original || box === null || b.playback.scene() !== null)
       return false;
     if (kind === "context") {
