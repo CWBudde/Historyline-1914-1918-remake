@@ -39,7 +39,7 @@
 		[15, 11, "EC_infantry"],
 		[16, 10, "EC_lArtillery"],
 		[17, 4, "CP_infantry"],
-		[17, 9, "EC_flamethrower"],
+		[17, 9, "EC_eliteInf"],
 		[17, 10, "EC_bunker"],
 		[18, 4, "CP_trenchMortar"],
 		[18, 8, "EC_tunnellers"],
