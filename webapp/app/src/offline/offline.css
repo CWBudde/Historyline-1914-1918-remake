@@ -1,0 +1,34 @@
+.offline-panel {
+  display: grid;
+  gap: calc(6 * var(--u));
+  min-width: 0;
+}
+.offline-box {
+  display: grid;
+  gap: calc(4 * var(--u));
+  padding: calc(6 * var(--u));
+}
+.offline-box p {
+  margin: 0;
+}
+.offline-row {
+  display: flex;
+  gap: calc(4 * var(--u));
+  flex-wrap: wrap;
+}
+.offline-list {
+  display: grid;
+  gap: calc(3 * var(--u));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.offline-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: calc(6 * var(--u));
+}
+.offline-panel .shell-progress {
+  width: 100%;
+}

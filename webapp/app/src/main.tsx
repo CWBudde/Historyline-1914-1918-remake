@@ -4,7 +4,15 @@ import { Application, UPDATE_PRIORITY } from "pixi.js";
 import { render } from "preact";
 import { Computer } from "./computer.ts";
 import { AssetLoader, assetDensity } from "./assets.ts";
-import { battleLoadError, keepForOffline, offlineMissions } from "./offline.ts";
+import {
+  battleLoadError,
+  keepForOffline,
+  offlineMissions,
+  saveDataRequested,
+} from "./offline.ts";
+import { OfflinePanel } from "./offline/OfflinePanel.tsx";
+import { OfflineController } from "./offline/controller.ts";
+import { browserRecords, browserServices } from "./offline/backend.ts";
 import { FrameMeter } from "./frameMeter.ts";
 import { paintingScale, UiAssets } from "./ui/assets.ts";
 import { SplitRuntime } from "./split/runtime.ts";
@@ -73,6 +81,25 @@ let storageAttempt: Promise<void> | null = null,
   preparing: SplitRuntime | null = null;
 
 const offlineDelay = 15_000;
+const offlineRecords = browserRecords();
+let offlineModel: OfflineController | null = null;
+/** The Offline maps page's model: the maps kept by the background keep and by the player's downloads. */
+function offlineController(): OfflineController {
+  offlineModel ??= new OfflineController(
+    browserServices(() => loader, offlineRecords, () => ({
+      map: assetDensity(1, window.devicePixelRatio),
+      paintings: assetDensity(
+        paintingScale(
+          window.innerWidth,
+          window.innerHeight,
+          preferences.uiScale,
+        ),
+        window.devicePixelRatio,
+      ),
+    })),
+  );
+  return offlineModel;
+}
 /** Full art is held for the first battle; a player who stays in the menus gets it after this. */
 const menuUpgradeDelay = 8_000;
 function stopOfflineKeep(): void {
@@ -86,9 +113,7 @@ function scheduleOfflineKeep(battle: SplitRuntime, mission: Mission): void {
   stopOfflineKeep();
   const active = loader,
     missions = campaign?.byKey;
-  const connection = (navigator as { connection?: { saveData?: boolean } })
-    .connection;
-  if (active === null || missions === undefined || connection?.saveData) return;
+  if (active === null || missions === undefined || saveDataRequested()) return;
   const abort = new AbortController();
   const density = assetDensity(battle.map.camera.zoom, battle.map.camera.scale),
     paintings = assetDensity(
@@ -104,6 +129,7 @@ function scheduleOfflineKeep(battle: SplitRuntime, mission: Mission): void {
         density,
         abort.signal,
         paintings,
+        offlineRecords,
       ).catch(() => {
         /* Best effort: playing online is unaffected. */
       });
@@ -237,6 +263,9 @@ function Controls() {
           void fullscreen();
         }}
         isFullscreen={document.fullscreenElement !== null}
+        offlinePanel={() => (
+          <OfflinePanel model={offlineController()} mission={current.mission} />
+        )}
       />
     );
   return (

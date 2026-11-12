@@ -150,3 +150,117 @@ test("played and upcoming months work offline, others say why not", async ({
     timeout: 60_000,
   });
 });
+
+/** startFirstBattle with a longer wait: without a GPU a cold start from the cache is slow. */
+async function startSlowBattle(page: Page): Promise<void> {
+  await page.getByRole("button", { name: "Start" }).click();
+  await page.getByRole("button", { name: /Germany/ }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
+  await page.getByRole("button", { name: "To battle" }).click();
+  await expect(battleReady(page)).toBeVisible({ timeout: 480_000 });
+}
+
+async function openOfflineMaps(page: Page): Promise<void> {
+  await page.getByRole("button", { name: "Extras" }).click();
+  await page.getByRole("button", { name: /^Offline maps/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Selected map" }),
+  ).toBeVisible();
+}
+const downloadButton = (page: Page) =>
+  page.getByRole("button", { name: /^Download map · / });
+async function offlineRecords(page: Page): Promise<number> {
+  return page.evaluate(async () => {
+    const cache = await caches.open("historyline-offline-v1");
+    return (await cache.keys()).length;
+  });
+}
+async function contentFiles(page: Page): Promise<number> {
+  return page.evaluate(async () => {
+    const cache = await caches.open("historyline-content-v1");
+    return (await cache.keys()).length;
+  });
+}
+
+test("a map is downloaded from Extras, played offline and removed", async ({
+  page,
+  context,
+}) => {
+  test.setTimeout(20 * 60_000);
+  await openMenu(page);
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready;
+  });
+  const month = "1914-08";
+  const tiles = await tileHashes(page, month);
+  expect(tiles.length).toBeGreaterThan(0);
+  expect(await missingTiles(page, tiles)).toBe(tiles.length);
+
+  await openOfflineMaps(page);
+  const offer = await downloadButton(page).innerText({ timeout: 120_000 });
+  const megabytes = Number(/([\d.]+) MB/.exec(offer)?.[1]);
+  expect(megabytes).toBeGreaterThan(0);
+  console.log(`offline month ${month}: ${megabytes} MB to download`);
+  await downloadButton(page).click();
+  await expect(page.locator("progress")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Cancel" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Downloaded" })).toBeVisible({
+    timeout: 15 * 60_000,
+  });
+  expect(await missingTiles(page, tiles)).toBe(0);
+  await expect(page.getByText(/Remove all/)).toBeVisible();
+  expect(await offlineRecords(page)).toBe(1);
+  console.log(
+    `offline storage: ${await page.getByText(/Browser storage|Storage use/).innerText()}`,
+  );
+
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Start" })).toBeVisible({
+    timeout: 60_000,
+  });
+  await startSlowBattle(page);
+  await expectMapDrawn(page);
+  await expect(page.locator("body")).not.toContainText(
+    /asset fetch|Failed to fetch/,
+  );
+
+  // Back in the menu, the month is still listed, and removing it deletes its files.
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Start" })).toBeVisible({
+    timeout: 60_000,
+  });
+  await openOfflineMaps(page);
+  await expect(page.getByRole("button", { name: "Downloaded" })).toBeVisible();
+  const before = await contentFiles(page);
+  await page.getByRole("button", { name: "Remove", exact: true }).click();
+  await expect(downloadButton(page)).toBeVisible();
+  expect(await missingTiles(page, tiles)).toBe(tiles.length);
+  expect(await offlineRecords(page)).toBe(0);
+  expect(await contentFiles(page)).toBeLessThan(before);
+  // The shared art went with the last kept month; what remains is art the pages loaded on their own.
+  console.log(
+    `content cache: ${before} files before the removal, ${await contentFiles(page)} after`,
+  );
+});
+
+test("cancelling a download keeps nothing", async ({ page }) => {
+  test.setTimeout(10 * 60_000);
+  await openMenu(page);
+  const tiles = await tileHashes(page, "1914-08");
+  await openOfflineMaps(page);
+  await downloadButton(page).click({ timeout: 120_000 });
+  // Cancel with files already stored.
+  await expect
+    .poll(async () => (await contentFiles(page)) > 3, { timeout: 60_000 })
+    .toBe(true);
+  await page.getByRole("button", { name: "Cancel" }).click();
+  await expect(downloadButton(page)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Downloaded" })).toHaveCount(0);
+  // The cleanup of the arrived files follows the cancel.
+  await expect
+    .poll(async () => await missingTiles(page, tiles), { timeout: 30_000 })
+    .toBe(tiles.length);
+  expect(await offlineRecords(page)).toBe(0);
+  await expect(page.getByText("No maps are kept")).toBeVisible();
+});

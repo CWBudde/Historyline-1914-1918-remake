@@ -172,6 +172,11 @@ export class AssetStore {
   async isPersistent(): Promise<boolean> {
     return (await this.cache)?.persistent === true;
   }
+  /** Deletes the files from the content cache; the offline page's Remove. */
+  async forget(hashes: readonly string[]): Promise<void> {
+    const cache = await this.cache;
+    for (const hash of hashes) await cache?.delete(hash);
+  }
   /** Checks verified local bytes without falling back to the network. */
   async has(ref: FileRef): Promise<boolean> {
     fileRef(ref);

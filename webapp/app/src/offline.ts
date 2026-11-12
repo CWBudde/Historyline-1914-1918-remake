@@ -5,11 +5,13 @@ import {
   type FileRef,
   type Pyramid,
 } from "./assetManifest.ts";
+import type { KeptRecord, KeptRecords } from "./offline/kept.ts";
 
 export interface OfflineMission {
   month: string;
   mode: string;
   next: string | null;
+  news?: { label: string } | null;
 }
 const keptMonths = 3;
 const concurrency = 2;
@@ -81,38 +83,134 @@ async function catalog(
   return new Map(parsed.entries.map((entry) => [entry.id, entry.file]));
 }
 
-/** Best effort: one failed file must not stop the rest, nor reach the player. */
-async function fetchAll(
+/**
+ * Fetches the files into the content cache, two at a time. A failed file counts as a failure; with strict set
+ * it stops the rest and throws, otherwise the others go on. Returns the number of failures.
+ */
+export async function fetchRefs(
   loader: AssetLoader,
   refs: readonly FileRef[],
   signal: AbortSignal,
-): Promise<void> {
-  let cursor = 0;
+  options: { strict?: boolean; onFile?: (ref: FileRef) => void } = {},
+): Promise<number> {
+  let cursor = 0,
+    failures = 0;
+  const stop: { error?: Error } = {};
   await Promise.all(
     Array.from({ length: concurrency }, async () => {
-      while (cursor < refs.length && !signal.aborted) {
+      while (
+        cursor < refs.length &&
+        !signal.aborted &&
+        stop.error === undefined
+      ) {
         const ref = refs[cursor++];
         if (ref === undefined) return;
         try {
           await loader.store.get(ref, signal);
-        } catch {
-          /* The player sees the missing file when they reach it. */
+          options.onFile?.(ref);
+        } catch (error: unknown) {
+          failures++;
+          if (options.strict === true)
+            stop.error = error instanceof Error ? error : Error(String(error));
         }
       }
     }),
   );
+  signal.throwIfAborted();
+  if (stop.error !== undefined) throw stop.error;
+  return failures;
 }
 
-/** paintingRefs are the menu paintings among the screens: they cover the window, at their own density. */
-export function paintingRefs(screens: ReadonlyMap<string, FileRef>): FileRef[] {
-  return [...screens]
-    .filter(([id]) => id.startsWith("scene/") || id.startsWith("backdrop/"))
-    .map(([, ref]) => ref);
+function unique(refs: readonly FileRef[]): FileRef[] {
+  return [...new Map(refs.map((r) => [r.sha256, r])).values()];
+}
+
+export interface OfflinePlan {
+  /** Units, interface and screens: the art every month draws. */
+  shared: FileRef[];
+  /** What each mission needs beyond the shared art. */
+  months: { mission: OfflineMission; refs: FileRef[] }[];
+}
+
+/** What playing the missions offline needs: the lite art at the density the map draws, the paintings at theirs. */
+export async function planOffline(
+  loader: AssetLoader,
+  missions: readonly OfflineMission[],
+  density: number,
+  signal: AbortSignal,
+  paintingDensity = density,
+): Promise<OfflinePlan> {
+  const shared = await Promise.all(
+    ["units", "interface", "screens"].map((name) =>
+      catalog(loader, name, name === "units" ? unitDensity(density) : density),
+    ),
+  );
+  const refs = shared.flatMap((entries) => [...entries.values()]);
+  // The first battle draws the lowest density until its full art may come.
+  for (const name of ["units", "interface", "screens"])
+    refs.push(...(await catalog(loader, name, 0)).values());
+  if (paintingDensity !== density)
+    refs.push(...(await catalog(loader, "screens", paintingDensity)).values());
+  // The menus draw their pages from the screens at their own density, and the split screen its pixel fonts.
+  for (const font of Object.values(loader.index.pixelFonts))
+    refs.push(font.image, font.metrics);
+  const terrain = await catalog(loader, "terrain", density);
+  for (const entry of (await catalog(loader, "terrain", 0)).values())
+    refs.push(entry);
+  const months: OfflinePlan["months"] = [];
+  for (const mission of missions) {
+    signal.throwIfAborted();
+    const baked = await loader.baked(mission.month, mission.mode);
+    months.push({
+      mission,
+      refs: unique([
+        ...backdropRefs(await loader.backdrop(mission.month, signal)),
+        ...bakedRefs(baked, terrain),
+      ]),
+    });
+  }
+  return { shared: unique(refs), months };
+}
+
+/** The record of a kept month: every file it needs, shared art included. */
+export function keptRecord(
+  mission: OfflineMission,
+  plan: OfflinePlan,
+  refs: readonly FileRef[],
+  now = Date.now(),
+): KeptRecord {
+  const files: Record<string, number> = {};
+  for (const ref of [...plan.shared, ...refs]) files[ref.sha256] = ref.bytes;
+  return {
+    key: `${mission.month}:${mission.mode}`,
+    month: mission.month,
+    mode: mission.mode,
+    label: missionLabel(mission),
+    keptAt: now,
+    files,
+  };
+}
+export function missionLabel(mission: OfflineMission): string {
+  return mission.news?.label ?? mission.month;
+}
+
+/** The Network Information API, which not every browser has and TypeScript's DOM types leave out. */
+interface ConnectionSource {
+  connection?: { saveData?: boolean };
+}
+/** Reports whether the browser asks to save data: the background keep then waits for the player's say. */
+export function saveDataRequested(
+  source: ConnectionSource | undefined = typeof navigator === "undefined"
+    ? undefined
+    : (navigator as ConnectionSource),
+): boolean {
+  return source?.connection?.saveData === true;
 }
 
 /**
- * Stores the lite art of the given missions in the content cache, so they can be played offline; the menu
- * paintings also at paintingDensity, the density the menus draw them at.
+ * Stores the lite art of the given missions in the content cache, so they can be played offline; the
+ * screens also at paintingDensity, the density the menus draw them at. Each month that arrived complete is
+ * recorded in kept, which is what the Offline maps page lists.
  */
 export async function keepForOffline(
   loader: AssetLoader,
@@ -120,35 +218,21 @@ export async function keepForOffline(
   density: number,
   signal: AbortSignal,
   paintingDensity = density,
+  kept?: KeptRecords,
 ): Promise<void> {
-  const shared = await Promise.all(
-    ["units", "interface", "screens"].map((name) =>
-      catalog(loader, name, name === "units" ? unitDensity(density) : density),
-    ),
-  );
-  await fetchAll(
+  const plan = await planOffline(
     loader,
-    shared.flatMap((entries) => [...entries.values()]),
+    missions,
+    density,
     signal,
+    paintingDensity,
   );
-  if (paintingDensity !== density)
-    await fetchAll(
-      loader,
-      paintingRefs(await catalog(loader, "screens", paintingDensity)),
-      signal,
-    );
-  const terrain = await catalog(loader, "terrain", density);
-  for (const mission of missions) {
+  const sharedFailures = await fetchRefs(loader, plan.shared, signal);
+  for (const { mission, refs } of plan.months) {
     if (signal.aborted) return;
-    const baked = await loader.baked(mission.month, mission.mode);
-    await fetchAll(
-      loader,
-      [
-        ...backdropRefs(await loader.backdrop(mission.month, signal)),
-        ...bakedRefs(baked, terrain),
-      ],
-      signal,
-    );
+    const failures = await fetchRefs(loader, refs, signal);
+    if (failures + sharedFailures === 0)
+      await kept?.put(keptRecord(mission, plan, refs));
   }
 }
 

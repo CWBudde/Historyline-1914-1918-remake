@@ -5,7 +5,7 @@ import {
   bakedRefs,
   battleLoadError,
   offlineMissions,
-  paintingRefs,
+  saveDataRequested,
 } from "./offline.ts";
 
 const ref = (n: string): FileRef => {
@@ -65,22 +65,20 @@ describe("backdropRefs", () => {
   });
 });
 
-describe("paintingRefs", () => {
-  it("picks the menu paintings among the screens", () => {
-    const screens = new Map([
-      ["backdrop/western-front", ref("w")],
-      ["scene/options", ref("o")],
-      ["portrait/infantry", ref("p")],
-      ["news/1914-08", ref("n")],
-    ]);
-    expect(paintingRefs(screens)).toEqual([ref("w"), ref("o")]);
-  });
-});
-
 describe("battleLoadError", () => {
   it("names offline play only when the browser is offline", () => {
     const original = Error("asset fetch 500");
     expect(battleLoadError(original, true)).toBe(original);
     expect(battleLoadError(original, false).message).toContain("offline");
+  });
+});
+
+describe("saveDataRequested", () => {
+  it("is true only when the browser asks to save data", () => {
+    expect(saveDataRequested({ connection: { saveData: true } })).toBe(true);
+    expect(saveDataRequested({ connection: { saveData: false } })).toBe(false);
+    expect(saveDataRequested({ connection: {} })).toBe(false);
+    expect(saveDataRequested({})).toBe(false);
+    expect(saveDataRequested(undefined)).toBe(false);
   });
 });
