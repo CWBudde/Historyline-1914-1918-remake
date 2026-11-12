@@ -47,6 +47,7 @@ export interface LevelAssets {
   files: Record<string, FileRef>;
   layers: Record<string, FileRef>;
   backdrop?: Pyramid;
+  backdropFile?: FileRef;
 }
 export interface AssetIndex {
   schema: 1;
@@ -92,7 +93,7 @@ function refs(v: unknown): Record<string, FileRef> {
     Object.entries(record(v)).map(([k, r]) => [k, fileRef(r)]),
   );
 }
-function pyramid(v: unknown): Pyramid {
+export function parsePyramid(v: unknown): Pyramid {
   const p = record(v);
   const width = positive(p.width),
     height = positive(p.height),
@@ -181,7 +182,11 @@ export function parseAssetIndex(v: unknown): AssetIndex {
         result.files["news.json"] === undefined
       )
         throw new Error("asset level: missing map/news");
-      if (l.backdrop !== undefined) result.backdrop = pyramid(l.backdrop);
+      if (l.backdrop !== undefined && l.backdropFile !== undefined)
+        throw new Error("asset level: ambiguous backdrop metadata");
+      if (l.backdrop !== undefined) result.backdrop = parsePyramid(l.backdrop);
+      if (l.backdropFile !== undefined)
+        result.backdropFile = fileRef(l.backdropFile);
       return [month, result];
     }),
   );

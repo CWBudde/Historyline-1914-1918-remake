@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { AssetIndex, FileRef } from "./assetManifest.ts";
+import type { FileRef, Pyramid } from "./assetManifest.ts";
 import {
   backdropRefs,
   bakedRefs,
@@ -56,18 +56,11 @@ describe("bakedRefs", () => {
 describe("backdropRefs", () => {
   it("lists every tile of every mip, and nothing for a month without a backdrop", () => {
     const tile = (f: FileRef) => ({ file: f });
-    const index = {
-      levels: {
-        painted: {
-          backdrop: {
-            mips: [{ tiles: [tile(ref("a"))] }, { tiles: [tile(ref("b"))] }],
-          },
-        },
-        plain: {},
-      },
-    } as unknown as AssetIndex;
-    expect(backdropRefs(index, "painted")).toHaveLength(2);
-    expect(backdropRefs(index, "plain")).toEqual([]);
+    const painted = {
+      mips: [{ tiles: [tile(ref("a"))] }, { tiles: [tile(ref("b"))] }],
+    } as unknown as Pyramid;
+    expect(backdropRefs(painted)).toHaveLength(2);
+    expect(backdropRefs(undefined)).toEqual([]);
   });
 });
 

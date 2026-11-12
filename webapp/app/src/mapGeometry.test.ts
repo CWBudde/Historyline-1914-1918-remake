@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import { hexgrid } from "@historyline/engine";
 import {
   chooseMip,
+  backdropMips,
   backdropDraw,
   visibleHexes,
   intersects,
@@ -53,6 +54,60 @@ it("selects the coarsest non-magnified backdrop mip at effective DPR scale", () 
     [4, 0],
   ])
     expect(chooseMip(p, { width: 2048, height: 1024 }, eff ?? 0)).toBe(index);
+});
+
+it("keeps the lite backdrop until every visible detail tile is decoded, then uses full DPR", () => {
+  const p: Pyramid = {
+    width: 512,
+    height: 256,
+    tileSize: 128,
+    mips: [1, 2, 4].map((scale) => {
+      const width = 512 / scale,
+        height = 256 / scale;
+      const tiles = [];
+      for (let y = 0; y < height; y += 128)
+        for (let x = 0; x < width; x += 128) {
+          const tw = Math.min(128, width - x),
+            th = Math.min(128, height - y);
+          const sourceX = Math.max(0, x - 2),
+            sourceY = Math.max(0, y - 2);
+          tiles.push({
+            x,
+            y,
+            width: tw,
+            height: th,
+            sourceX,
+            sourceY,
+            sourceWidth: Math.min(width, x + tw + 2) - sourceX,
+            sourceHeight: Math.min(height, y + th + 2) - sourceY,
+            file: { path: `${scale}/${x}/${y}`, sha256: "", bytes: 1 },
+          });
+        }
+      return { scale, width, height, tiles };
+    }),
+  };
+  const world = { width: 256, height: 128 },
+    rect = { x: 0, y: 0, width: 120, height: 120 };
+  expect(
+    backdropMips(p, world, 2, rect, false, () => {
+      throw new Error("detail queried before playable frame");
+    }),
+  ).toEqual([1]);
+  expect(backdropMips(p, world, 2, rect, true, () => false)).toEqual([1, 0]);
+  expect(
+    backdropMips(p, world, 2, rect, true, (_mip, tile) => tile.x < 256),
+  ).toEqual([0]);
+  expect(
+    backdropMips(
+      p,
+      world,
+      2,
+      { ...rect, x: 180, width: 60 },
+      true,
+      (_mip, tile) => tile.x < 256,
+    ),
+  ).toEqual([1, 0]);
+  expect(backdropMips(p, world, 1, rect, true, () => false)).toEqual([1]);
 });
 
 it("clips rounded mip edges while preserving gutter texture coordinates", () => {

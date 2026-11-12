@@ -53,6 +53,29 @@ export function chooseMip(p: Pyramid, world: Size, effective: number): number {
   return chosen;
 }
 
+/** Keep a complete lite image beneath missing detail tiles. Once the visible
+ * detail is decoded, omit the base layer so refinement adds no steady overdraw. */
+export function backdropMips(
+  p: Pyramid,
+  world: Size,
+  effective: number,
+  rect: Rect,
+  upgrades: boolean,
+  ready: (mip: Mip, tile: Tile) => boolean,
+): number[] {
+  const lite = chooseMip(p, world, Math.min(1, effective));
+  const full = upgrades ? chooseMip(p, world, effective) : lite;
+  const detail = p.mips[full];
+  if (lite === full || detail === undefined) return [lite];
+  return detail.tiles.some(
+    (tile) =>
+      intersects(rect, backdropDraw(p, detail, tile, world).world) &&
+      !ready(detail, tile),
+  )
+    ? [lite, full]
+    : [full];
+}
+
 export function backdropDraw(
   p: Pyramid,
   mip: Mip,

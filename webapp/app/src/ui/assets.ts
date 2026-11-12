@@ -15,6 +15,7 @@ export class UiAssets {
   private readonly urls = new Set<string>();
   private readonly faces = new Set<FontFace>();
   private stopped = false;
+  private readonly abort = new AbortController();
   constructor(
     private readonly loader: Pick<AssetLoader, "progressive">,
     private readonly dpr: () => number = () => window.devicePixelRatio,
@@ -29,12 +30,19 @@ export class UiAssets {
     this.images.set(key, state);
     const target = state;
     void this.loader
-      .progressive(catalog, [id], density, 1, (image) => {
-        if (this.stopped) return;
-        const url = URL.createObjectURL(new Blob([image.bytes]));
-        this.urls.add(url);
-        target.value = { url, quality: image.quality, error: null };
-      })
+      .progressive(
+        catalog,
+        [id],
+        density,
+        1,
+        (image) => {
+          if (this.stopped) return;
+          const url = URL.createObjectURL(new Blob([image.bytes]));
+          this.urls.add(url);
+          target.value = { url, quality: image.quality, error: null };
+        },
+        this.abort.signal,
+      )
       .catch((error: unknown) => {
         if (!this.stopped)
           target.value = {
@@ -73,6 +81,7 @@ export class UiAssets {
   }
   dispose(): void {
     this.stopped = true;
+    this.abort.abort();
     for (const url of this.urls) URL.revokeObjectURL(url);
     for (const face of this.faces) document.fonts.delete(face);
     for (const image of this.images.values()) image.value = empty();

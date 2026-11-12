@@ -2,8 +2,8 @@ import type { AssetLoader } from "./assets.ts";
 import {
   fileRef,
   parseImageCatalog,
-  type AssetIndex,
   type FileRef,
+  type Pyramid,
 } from "./assetManifest.ts";
 
 export interface OfflineMission {
@@ -57,8 +57,8 @@ export function bakedRefs(
   walk(baked);
   return [...refs.values()];
 }
-export function backdropRefs(index: AssetIndex, month: string): FileRef[] {
-  return (index.levels[month]?.backdrop?.mips ?? []).flatMap((mip) =>
+export function backdropRefs(backdrop: Pyramid | undefined): FileRef[] {
+  return (backdrop?.mips ?? []).flatMap((mip) =>
     mip.tiles.map((tile) => tile.file),
   );
 }
@@ -94,7 +94,7 @@ async function fetchAll(
         const ref = refs[cursor++];
         if (ref === undefined) return;
         try {
-          await loader.store.get(ref);
+          await loader.store.get(ref, signal);
         } catch {
           /* The player sees the missing file when they reach it. */
         }
@@ -127,7 +127,7 @@ export async function keepForOffline(
     await fetchAll(
       loader,
       [
-        ...backdropRefs(loader.index, mission.month),
+        ...backdropRefs(await loader.backdrop(mission.month, signal)),
         ...bakedRefs(baked, terrain),
       ],
       signal,

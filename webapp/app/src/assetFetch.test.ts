@@ -1,13 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 import { AssetStore, type ContentCache } from "./assetFetch.ts";
 
-async function reference(text: string) {
-  const bytes = new TextEncoder().encode(text);
+async function reference(body: string | Uint8Array<ArrayBuffer>, ext = "json") {
+  const bytes =
+    typeof body === "string" ? new TextEncoder().encode(body) : body;
   const sum = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
   const sha256 = Array.from(sum, (v) => v.toString(16).padStart(2, "0")).join(
     "",
   );
-  return { path: `blobs/${sha256}.json`, sha256, bytes: bytes.length };
+  return { path: `blobs/${sha256}.${ext}`, sha256, bytes: bytes.length };
 }
 
 class MemoryCache implements ContentCache {
@@ -26,6 +27,165 @@ class MemoryCache implements ContentCache {
 }
 
 describe("verified content storage", () => {
+  it("verifies JSON before decoding it and reuses it from cache", async () => {
+    const value = { name: "1914 — Österreich", values: [0, -12, 0.125] };
+    const bytes = new TextEncoder().encode(JSON.stringify(value));
+    const ref = await reference(bytes);
+    const cache = new MemoryCache();
+    const fetcher = vi.fn(() => Promise.resolve(new Response(bytes)));
+    const store = new AssetStore("https://example.test/", {
+      cache,
+      fetch: fetcher,
+    });
+    expect(await store.json(ref)).toEqual(value);
+    expect(await store.json(ref)).toEqual(value);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    const wrongHash = {
+      ...ref,
+      sha256: "0".repeat(64),
+      path: `blobs/${"0".repeat(64)}.json`,
+    };
+    await expect(store.json(wrongHash)).rejects.toThrow(/hash/);
+    // An integrity error is not a lost connection.
+    expect(store.networkAvailable).toBe(true);
+  });
+
+  it("learns network failures separately from integrity errors and resets on a successful fetch", async () => {
+    const a = await reference("a"),
+      b = await reference("b");
+    let online = false;
+    const store = new AssetStore("https://example.test/", {
+      cache: null,
+      fetch: () =>
+        online
+          ? Promise.resolve(new Response("b"))
+          : Promise.reject(new TypeError("offline")),
+    });
+    await expect(store.get(a)).rejects.toThrow("offline");
+    expect(store.networkAvailable).toBe(false);
+    online = true;
+    await store.get(b);
+    expect(store.networkAvailable).toBe(true);
+    await expect(store.get(a)).rejects.toThrow(/hash/);
+    expect(store.networkAvailable).toBe(true);
+  });
+  it("cancels one consumer without aborting another consumer's shared request", async () => {
+    const ref = await reference("shared");
+    let complete: (value: Response) => void = () => {};
+    let started: () => void = () => {};
+    const ready = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+    const response = new Promise<Response>((resolve) => {
+      complete = resolve;
+    });
+    let networkSignal: AbortSignal | undefined;
+    const store = new AssetStore("https://example.test/", {
+      cache: null,
+      fetch: (_input, options) => {
+        networkSignal = options?.signal ?? undefined;
+        started();
+        return response;
+      },
+    });
+    const a = new AbortController();
+    const cancelled = store.get(ref, a.signal);
+    const shared = store.get(ref);
+    await ready;
+    a.abort();
+    await expect(cancelled).rejects.toThrow();
+    expect(networkSignal?.aborted).toBe(false);
+    complete(new Response("shared"));
+    expect(new TextDecoder().decode(await shared)).toBe("shared");
+  });
+
+  it("releases cancelled active and queued requests so a retry can fetch", async () => {
+    const a = await reference("a"),
+      b = await reference("b"),
+      c = await reference("c");
+    const bodies = new Map([
+      [a.path, "a"],
+      [b.path, "b"],
+      [c.path, "c"],
+    ]);
+    const calls: string[] = [];
+    let started: () => void = () => {};
+    const ready = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+    let firstSignal: AbortSignal | undefined;
+    const store = new AssetStore("https://example.test/", {
+      cache: null,
+      concurrency: 1,
+      fetch: (input, options) => {
+        const path = new URL(
+          input instanceof Request ? input.url : String(input),
+        ).pathname.slice(1);
+        calls.push(path);
+        if (calls.length === 1) {
+          firstSignal = options?.signal ?? undefined;
+          started();
+          return new Promise<Response>(() => {});
+        }
+        return Promise.resolve(new Response(bodies.get(path) ?? "missing"));
+      },
+    });
+    const active = new AbortController(),
+      queued = new AbortController();
+    const first = store.get(a, active.signal);
+    await ready;
+    const second = store.get(b, queued.signal);
+    queued.abort();
+    await expect(second).rejects.toThrow();
+    active.abort();
+    await expect(first).rejects.toThrow();
+    expect(firstSignal?.aborted).toBe(true);
+    expect(new TextDecoder().decode(await store.get(c))).toBe("c");
+    expect(new TextDecoder().decode(await store.get(a))).toBe("a");
+    expect(calls).toEqual([a.path, c.path, a.path]);
+  });
+  it("reports durable cached content without fetching and rejects quota or corrupt copies", async () => {
+    const cache = Object.assign(new MemoryCache(), { persistent: true });
+    const ref = await reference("saved content");
+    let fetched = 0;
+    const store = new AssetStore("https://example.test/data/", {
+      cache,
+      fetch: () => {
+        fetched++;
+        return Promise.resolve(new Response("saved content"));
+      },
+    });
+    expect(await store.isPersistent()).toBe(true);
+    expect(await store.has(ref)).toBe(false);
+    expect(fetched).toBe(0);
+    await store.get(ref);
+    expect(await store.has(ref)).toBe(true);
+    cache.values.set(ref.sha256, new TextEncoder().encode("broken").buffer);
+    expect(await store.has(ref)).toBe(false);
+    expect(fetched).toBe(1);
+    expect(cache.values.has(ref.sha256)).toBe(false);
+    const quota = new AssetStore("https://example.test/data/", {
+      cache: {
+        persistent: true,
+        get: () => Promise.resolve(undefined),
+        put: () => Promise.reject(new Error("quota")),
+        delete: () => Promise.resolve(),
+      },
+      fetch: () => Promise.resolve(new Response("saved content")),
+    });
+    await quota.get(ref);
+    expect(await quota.has(ref)).toBe(false);
+    expect(
+      await new AssetStore("https://example.test/", {
+        cache: null,
+      }).isPersistent(),
+    ).toBe(false);
+    expect(
+      await new AssetStore("https://example.test/", {
+        cache: new MemoryCache(),
+      }).isPersistent(),
+    ).toBe(false);
+  });
   it("keeps the default browser fetch bound to its global receiver", async () => {
     const ref = await reference("browser");
     vi.stubGlobal("fetch", function (this: unknown) {

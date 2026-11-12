@@ -8,6 +8,7 @@ interface Entry<T> {
   resource: RenderResource<T> | null;
   state: "queued" | "loading" | "ready" | "failed";
   used: number;
+  error?: (error: Error) => void;
 }
 
 /** Network bytes have a separate disk cache. This bounds decoded CPU/GPU images
@@ -19,6 +20,12 @@ export class RenderCache<T> {
   private serial = 0;
   private stopped = false;
   bytes = 0;
+  get ready(): boolean {
+    if (this.stopped) return false;
+    for (const key of this.needed)
+      if (this.entries.get(key)?.state !== "ready") return false;
+    return true;
+  }
   constructor(
     private readonly budget: number,
     private readonly concurrency: number,
@@ -31,12 +38,22 @@ export class RenderCache<T> {
   peek(key: string): T | null {
     return this.entries.get(key)?.resource?.value ?? null;
   }
-  get(key: string, load: () => Promise<RenderResource<T>>): T | null {
+  get(
+    key: string,
+    load: () => Promise<RenderResource<T>>,
+    error?: (error: Error) => void,
+  ): T | null {
     if (this.stopped) return null;
     this.needed.add(key);
     let e = this.entries.get(key);
     if (e === undefined) {
-      e = { load, resource: null, state: "queued", used: ++this.serial };
+      e = {
+        load,
+        resource: null,
+        state: "queued",
+        used: ++this.serial,
+        ...(error === undefined ? {} : { error }),
+      };
       this.entries.set(key, e);
     } else e.used = ++this.serial;
     this.pump();
@@ -79,7 +96,9 @@ export class RenderCache<T> {
     } catch (error) {
       e.state = "failed";
       if (!this.stopped)
-        this.error(error instanceof Error ? error : new Error(String(error)));
+        (e.error ?? this.error)(
+          error instanceof Error ? error : new Error(String(error)),
+        );
     } finally {
       this.active--;
       this.pump();

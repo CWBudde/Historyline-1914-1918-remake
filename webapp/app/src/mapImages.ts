@@ -5,6 +5,7 @@ import {
   type FileRef,
 } from "./assetManifest.ts";
 import { AssetLoader } from "./assets.ts";
+import { AssetNetworkError } from "./assetFetch.ts";
 import { RenderCache, type RenderResource } from "./renderCache.ts";
 import { dress, dressMargin, padded, type Rim } from "./unitDress.ts";
 import type { Rect } from "./camera.ts";
@@ -21,6 +22,7 @@ export interface MapImage {
   dressing?: { rim: Rim; flying: boolean };
   bleed?: boolean;
   nearest?: boolean;
+  optional?: boolean;
 }
 export interface ReadyImage {
   texture: Texture;
@@ -37,11 +39,13 @@ export class MapImages {
     string,
     Promise<ReadonlyMap<string, MapImage>>
   >();
+  private stopped = false;
+  private readonly abort = new AbortController();
   readonly cache: RenderCache<ReadyImage>;
   constructor(
     readonly loader: AssetLoader,
-    changed: () => void,
-    error: (e: Error) => void,
+    private readonly changed: () => void,
+    private readonly error: (e: Error) => void,
   ) {
     this.cache = new RenderCache(192 * 1024 * 1024, 3, changed, error);
   }
@@ -64,40 +68,78 @@ export class MapImages {
     const pair = this.loader.index.packs[name]?.[String(density)];
     if (pair === undefined)
       throw new Error(`missing ${name} catalog at ${density}x`);
-    const [lite, full] = await Promise.all(
-      [pair.lite, pair.full].map(async (ref) =>
-        parseImageCatalog(await this.loader.store.json(ref), density),
-      ),
+    const lite = parseImageCatalog(
+      await this.loader.store.json(pair.lite, this.abort.signal),
+      density,
     );
-    if (lite === undefined || full === undefined)
-      throw new Error("missing image catalog");
-    const complete = new Map(full.entries.map((e) => [e.id, e]));
-    return new Map(
-      lite.entries.map((e) => {
+    const images = new Map(
+      lite.entries.map((e) => [e.id, { ...e, lite: e.file, full: e.file }]),
+    );
+    const upgrade = async () => {
+      await this.loader.waitForUpgrades(this.abort.signal);
+      if (this.isStopped()) return;
+      const full = parseImageCatalog(
+        await this.loader.store.json(pair.full, this.abort.signal),
+        density,
+      );
+      if (this.isStopped()) return;
+      const complete = new Map(full.entries.map((e) => [e.id, e]));
+      for (const e of lite.entries) {
         const next = complete.get(e.id);
         if (next === undefined || !sameGeometry(e, next))
           throw new Error(`asset upgrade geometry differs: ${e.id}`);
-        return [e.id, { ...e, lite: e.file, full: next.file }];
-      }),
+      }
+      for (const [id, image] of images) {
+        const next = complete.get(id);
+        if (next !== undefined) image.full = next.file;
+      }
+      this.changed();
+    };
+    if (this.loader.upgradesDeferred) {
+      void upgrade().catch((error: unknown) => {
+        if (!this.stopped && !(error instanceof AssetNetworkError))
+          this.error(error instanceof Error ? error : new Error(String(error)));
+      });
+    } else {
+      try {
+        await upgrade();
+      } catch (error) {
+        if (!(error instanceof AssetNetworkError)) throw error;
+      }
+    }
+    return images;
+  }
+  private key(image: MapImage, ref: FileRef): string {
+    return `${ref.sha256}/${JSON.stringify(image.frame ?? null)}/${JSON.stringify(image.dressing ?? null)}/${image.density}/${image.bleed === true}/${image.nearest === true}/${image.logicalAnchor.join(",")}`;
+  }
+  peek(image: MapImage): ReadyImage | null {
+    return (
+      this.cache.peek(this.key(image, image.full)) ??
+      this.cache.peek(this.key(image, image.lite))
     );
   }
   get(image: MapImage): ReadyImage | null {
-    const key = (ref: FileRef) =>
-      `${ref.sha256}/${JSON.stringify(image.frame ?? null)}/${JSON.stringify(image.dressing ?? null)}/${image.density}/${image.bleed === true}/${image.nearest === true}/${image.logicalAnchor.join(",")}`;
-    const full = key(image.full),
-      lite = key(image.lite);
+    const full = this.key(image, image.full),
+      lite = this.key(image, image.lite);
     if (this.cache.peek(full) !== null)
       return this.cache.get(full, () => this.decode(image, image.full));
-    const current = this.cache.get(lite, () => this.decode(image, image.lite));
-    if (current !== null && lite !== full)
-      this.cache.get(full, () => this.decode(image, image.full));
+    const report = (error: Error) => {
+      if (!(error instanceof AssetNetworkError)) this.error(error);
+    };
+    const current = this.cache.get(
+      lite,
+      () => this.decode(image, image.lite),
+      image.optional === true ? report : undefined,
+    );
+    if (current !== null && lite !== full && this.loader.upgradesAllowed)
+      this.cache.get(full, () => this.decode(image, image.full), report);
     return current;
   }
   private async decode(
     image: MapImage,
     ref: FileRef,
   ): Promise<RenderResource<ReadyImage>> {
-    const bytes = await this.loader.store.get(ref);
+    const bytes = await this.loader.store.get(ref, this.abort.signal);
     const bitmap = await createImageBitmap(new Blob([bytes]));
     if (bitmap.width !== image.width || bitmap.height !== image.height) {
       bitmap.close();
@@ -172,7 +214,12 @@ export class MapImages {
     }
   }
   dispose(): void {
+    this.stopped = true;
+    this.abort.abort();
     this.cache.dispose();
+  }
+  private isStopped(): boolean {
+    return this.stopped;
   }
 }
 function sameGeometry(a: ImageEntry, b: ImageEntry): boolean {

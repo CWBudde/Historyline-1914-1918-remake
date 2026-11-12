@@ -40,6 +40,25 @@ it("bounds concurrent decodes, drops stale queued work and retains visible image
   expect(disposed).toEqual(["a", "b"]);
 });
 
+it("reports a frame ready only after every requested image has decoded", async () => {
+  const cache = new RenderCache<string>(4, 1, () => {});
+  let finish: () => void = () => {};
+  cache.begin();
+  cache.get("visible", async () => {
+    await new Promise<void>((resolve) => {
+      finish = resolve;
+    });
+    return { value: "visible", bytes: 4, dispose: () => {} };
+  });
+  cache.end();
+  expect(cache.ready).toBe(false);
+  finish();
+  await vi.waitFor(() => {
+    expect(cache.ready).toBe(true);
+  });
+  cache.dispose();
+});
+
 it("disposes late results and reports failed loads once", async () => {
   const errors: string[] = [],
     disposed: string[] = [];
@@ -78,4 +97,34 @@ it("disposes late results and reports failed loads once", async () => {
   });
   expect(errors).toHaveLength(1);
   expect(cache.bytes).toBe(0);
+});
+
+it("handles optional upgrade failures separately from required image failures", async () => {
+  const errors: string[] = [],
+    optional: string[] = [];
+  const cache = new RenderCache<string>(
+    4,
+    1,
+    () => {},
+    (error) => {
+      errors.push(error.message);
+    },
+  );
+  cache.begin();
+  cache.get(
+    "full",
+    () => Promise.reject(new TypeError("offline")),
+    (error) => {
+      optional.push(error.message);
+    },
+  );
+  await vi.waitFor(() => {
+    expect(optional).toEqual(["offline"]);
+  });
+  expect(errors).toEqual([]);
+  cache.get("lite", () => Promise.reject(new Error("required image missing")));
+  await vi.waitFor(() => {
+    expect(errors).toEqual(["required image missing"]);
+  });
+  cache.dispose();
 });
