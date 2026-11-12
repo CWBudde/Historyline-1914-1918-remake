@@ -1011,6 +1011,40 @@
 .shell-news-picture .shell-actions .shell-button:first-child {
   flex: 2;
 }
+/*
+ * On the paper the controls are printed, not brass: a boxed notice in the paper's ink. Under the pointer or the
+ * focus the box is a solid block with a hairline inside its rule; Continue has the focus on arrival.
+ */
+.shell-ui.shell-page-news .shell-news-picture .shell-button {
+  --box: transparent;
+  --type: var(--ink-news);
+  padding: calc(0.12 * var(--ph)) calc(0.3 * var(--ph));
+  border: calc(1.2 * var(--u)) solid var(--ink-news);
+  border-image: none;
+  border-radius: 0;
+  background: var(--box);
+  box-shadow:
+    inset 0 0 0 calc(1.2 * var(--u)) var(--box),
+    inset 0 0 0 calc(1.2 * var(--u) + var(--bw)) var(--type);
+  color: var(--type);
+  font:
+    600 calc(0.4 * var(--ph)) / 1.05 "HL Sans",
+    sans-serif;
+  letter-spacing: 0.14em;
+  text-shadow: none;
+  filter: none;
+  outline: none;
+}
+.shell-ui.shell-page-news
+  .shell-news-picture
+  .shell-button:hover:not(:disabled),
+.shell-ui.shell-page-news .shell-news-picture .shell-button:focus {
+  --box: var(--ink-news);
+  --type: rgb(232 223 202);
+}
+.shell-ui.shell-page-news .shell-news-picture .shell-button:disabled {
+  opacity: 0.45;
+}
 .shell-news-copy {
   columns: 2;
   column-gap: calc(12 * var(--u));
