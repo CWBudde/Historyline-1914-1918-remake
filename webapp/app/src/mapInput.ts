@@ -97,15 +97,26 @@ export interface MapInputCallbacks {
   keyboard?: boolean;
   changed(): void;
   hover(point: Point): void;
-  click(point: Point): void;
+  /** A tap or click that did not pan; pointerType is the PointerEvent's ("mouse", "touch", "pen"). */
+  click(point: Point, pointerType: string): void;
   cancel(): void;
   design(): void;
   phase(): void;
   keyDown?(key: string, repeat: boolean): boolean;
   keyUp?(key: string): boolean;
   reset?(): void;
-  context?(point: Point): void;
+  context?(point: Point, pointerType: string): void;
   contextCancel?(): void;
+  /**
+   * A press the battle reads as a flick from a unit instead of a pan (start returns true): its moves, its release
+   * (held: a long press fired during it) and its cancellation. Points are device px like the others.
+   */
+  flick?: {
+    start(point: Point, pointerType: string): boolean;
+    move(point: Point): void;
+    end(point: Point, held: boolean): void;
+    cancel(): void;
+  };
 }
 
 /** DOM event lifetime belongs to a map view; closing it releases every handler. */
@@ -116,6 +127,9 @@ export class MapInput {
   private abort = new AbortController();
   private press: PressHold;
   private touchContext = false;
+  /** The pointer of a press read as a flick, which never pans. */
+  private flickId: number | null = null;
+  private pointerTypes = new Map<number, string>();
   private suppressTouchClick = false;
   private disposed = false;
   constructor(
@@ -132,7 +146,7 @@ export class MapInput {
       (_id, p) => {
         if (this.activeKeys.size > 0 || this.keys.size > 0)
           this.resetKeyboard();
-        callbacks.context?.(physical(p));
+        callbacks.context?.(physical(p), "touch");
       },
       () => callbacks.contextCancel?.(),
     );
@@ -194,6 +208,11 @@ export class MapInput {
       "pointermove",
       (e) => {
         const p = point(e);
+        if (e.pointerId === this.flickId) {
+          this.press.move(e.pointerId, p);
+          callbacks.flick?.move(physical(p));
+          return;
+        }
         if (this.press.move(e.pointerId, p)) return;
         this.cameraAction(() => this.gesture.move(e.pointerId, p.x, p.y));
         callbacks.hover(physical(p));
@@ -205,6 +224,19 @@ export class MapInput {
       (e) => {
         const known = this.press.positions().has(e.pointerId);
         const p = point(e);
+        const pointerType = this.pointerTypes.get(e.pointerId) ?? e.pointerType;
+        this.pointerTypes.delete(e.pointerId);
+        if (e.pointerId === this.flickId) {
+          this.press.move(e.pointerId, p);
+          const held = this.press.holding();
+          this.press.up(e.pointerId);
+          this.flickId = null;
+          if (e.pointerType === "touch") this.suppressTouchClick = true;
+          if (this.canvas.hasPointerCapture(e.pointerId))
+            this.canvas.releasePointerCapture(e.pointerId);
+          callbacks.flick?.end(physical(p), held);
+          return;
+        }
         const held = this.press.move(e.pointerId, p);
         const suppress = this.press.up(e.pointerId);
         let tap: Point | null;
@@ -217,7 +249,7 @@ export class MapInput {
           this.suppressTouchClick = true;
         if (canvas.hasPointerCapture(e.pointerId))
           canvas.releasePointerCapture(e.pointerId);
-        if (!suppress && tap !== null) callbacks.click(tap);
+        if (!suppress && tap !== null) callbacks.click(tap, pointerType);
       },
       options,
     );
@@ -241,7 +273,7 @@ export class MapInput {
           return;
         this.resetInput();
         if (callbacks.context !== undefined)
-          callbacks.context(physical(point(e)));
+          callbacks.context(physical(point(e)), "mouse");
         else callbacks.cancel();
       },
       options,
@@ -371,6 +403,29 @@ export class MapInput {
     const rect = this.canvas.getBoundingClientRect();
     const p = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     this.canvas.setPointerCapture(e.pointerId);
+    this.pointerTypes.set(e.pointerId, e.pointerType);
+    if (this.flickId !== null) {
+      // A second finger turns a flick into a pinch.
+      this.flickId = null;
+      this.callbacks.flick?.cancel();
+      this.press.down(e.pointerId, p, e.pointerType);
+      this.gesture.cancel();
+      for (const [id, at] of this.press.positions())
+        this.gesture.down(id, at.x, at.y);
+      return;
+    }
+    if (
+      this.press.positions().size === 0 &&
+      this.callbacks.flick?.start(this.physicalPoint(p), e.pointerType) === true
+    ) {
+      this.flickId = e.pointerId;
+      this.press.down(
+        e.pointerId,
+        p,
+        this.callbacks.context === undefined ? "mouse" : e.pointerType,
+      );
+      return;
+    }
     const held = this.press.holding();
     this.press.down(
       e.pointerId,
@@ -391,8 +446,18 @@ export class MapInput {
     this.activeKeys.clear();
     this.callbacks.reset?.();
   }
+  private physicalPoint(p: Point): Point {
+    const d = this.gesture.camera.scale > 0 ? this.gesture.camera.scale : 1;
+    return { x: p.x * d, y: p.y * d };
+  }
   private resetInput(): void {
     this.resetKeyboard();
+    if (this.flickId !== null) {
+      this.flickId = null;
+      this.callbacks.flick?.cancel();
+    }
+    this.pointerTypes.clear();
+
     const held = this.press.holding();
     for (const id of this.press.positions().keys()) {
       if (this.canvas.hasPointerCapture(id))

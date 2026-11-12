@@ -1,0 +1,317 @@
+/*
+ * The order menu (OrderMenu.tsx): worn steel hex plates with a brass rim and a bone-white stencil symbol, painted
+ * parts of the screens catalog's plates family laid on top of each other here. The plates take no pointer events:
+ * the battle hit-tests their wedges through the map. Never glossy, no glow: light is the painted rim rubbed bright.
+ */
+.order-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  --chalk: rgb(232 226 207);
+  --ink: rgb(27 21 11);
+  --engrave: 0 1px 0 rgb(255 230 172 / 42%), 0 -0.5px 0 rgb(0 0 0 / 28%);
+}
+.order-menu[data-visible="false"] {
+  opacity: 0;
+}
+.order-menu[data-visible="true"] {
+  animation: order-menu-in 0.09s ease-out;
+}
+@keyframes order-menu-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* A plate: the painted face, the stencil symbol on it, a short shadow on the map. */
+.battle-ui .order-plate,
+.order-menu .order-plate {
+  position: absolute;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  pointer-events: none;
+  filter: drop-shadow(1px 3px 2px rgb(0 0 0 / 55%));
+  transition:
+    transform 0.08s,
+    filter 0.08s;
+}
+.order-menu .order-plate::before,
+.order-menu .order-plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+/* Under the face, so a plate whose art has not arrived yet is still a dull steel hex. */
+.order-menu .order-plate::before {
+  inset: 5%;
+  clip-path: polygon(0 50%, 26% 0, 74% 0, 100% 50%, 74% 100%, 26% 100%);
+  background: rgb(70 72 62);
+}
+.order-menu .order-plate::after {
+  background:
+    var(--symbol) center / 56% auto no-repeat,
+    var(--face) center / 100% 100% no-repeat;
+}
+/* Lit (under the pointer, the thumb or the focus): the painted lit face, the plate lifted a little. */
+.order-menu .order-plate[data-lit="true"] {
+  transform: translateY(-2px);
+  filter: drop-shadow(2px 5px 3px rgb(0 0 0 / 60%));
+}
+/* Pressed: sunk, darker, no shadow. */
+.order-menu .order-plate:active {
+  transform: translateY(1px);
+  filter: brightness(0.82);
+}
+/* Not possible now: the stripped, rusty plate, its symbol only a scratched trace. */
+.order-menu .order-plate[aria-disabled="true"]::after {
+  background:
+    var(--symbol) center / 56% auto no-repeat,
+    var(--face) center / 100% 100% no-repeat;
+  background-blend-mode: soft-light, normal;
+  opacity: 0.92;
+}
+.order-menu .order-plate[aria-disabled="true"] {
+  filter: drop-shadow(1px 2px 1px rgb(0 0 0 / 50%)) saturate(0.85);
+}
+/* Keyboard focus: a chalk line round the plate's own outline. */
+.order-menu .order-plate:focus-visible {
+  outline: none;
+  filter: drop-shadow(1.5px 0 0 var(--chalk))
+    drop-shadow(-1.5px 0 0 var(--chalk)) drop-shadow(0 1.5px 0 var(--chalk))
+    drop-shadow(0 -1.5px 0 var(--chalk))
+    drop-shadow(2px 5px 3px rgb(0 0 0 / 60%));
+}
+
+/* The centre over the unit cancels; it shows nothing but a chalk line when it has the focus. */
+.battle-ui .order-centre,
+.order-menu .order-centre {
+  position: absolute;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  pointer-events: none;
+  clip-path: polygon(0 50%, 26% 0, 74% 0, 100% 50%, 74% 100%, 26% 100%);
+}
+.order-menu .order-centre:focus-visible {
+  outline: none;
+  background: rgb(232 226 207 / 22%);
+}
+
+/* At a window edge the rosette moves inwards, held to the unit by a brass bracket. */
+.order-menu .order-bracket {
+  position: absolute;
+  height: 5px;
+  margin-top: -2.5px;
+  transform-origin: 0 50%;
+  border-radius: 2px;
+  background: linear-gradient(
+    rgb(150 118 66),
+    rgb(96 74 40) 60%,
+    rgb(58 46 26)
+  );
+  box-shadow: 1px 2px 2px rgb(0 0 0 / 50%);
+}
+
+/* The caption: one brass nameplate with the lit order's name engraved, and why it is not possible now. */
+.order-menu .order-caption {
+  --ph: 34px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ph);
+  max-width: min(calc(9 * var(--ph)), calc(100vw - 16px));
+  padding: 0 calc(0.18 * var(--ph));
+  border: solid transparent;
+  border-width: calc(0.24 * var(--ph)) calc(0.6 * var(--ph));
+  border-image: var(--face) 26% 10% fill / 1 / 0 stretch;
+  background: rgb(166 128 68 / 0%);
+  color: var(--ink);
+  font:
+    700 calc(0.44 * var(--ph)) / 1.05 "Zilla Slab",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: var(--engrave);
+  white-space: nowrap;
+  filter: drop-shadow(1px 3px 2px rgb(0 0 0 / 55%));
+}
+.order-menu .order-caption[data-side="above"] {
+  transform: translate(-50%, -100%);
+}
+.order-menu .order-caption[data-side="below"] {
+  transform: translate(-50%, 0);
+}
+.order-menu .order-caption[data-side="right"] {
+  transform: translate(0, -50%);
+}
+.order-menu .order-caption[data-side="left"] {
+  transform: translate(-100%, -50%);
+}
+.order-menu .order-caption-name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45em;
+}
+.order-menu .order-caption kbd,
+.order-strip kbd {
+  font: inherit;
+  font-size: 0.72em;
+  letter-spacing: 0.04em;
+  opacity: 0.78;
+}
+.order-menu .order-caption-reason {
+  margin-top: 1px;
+  font:
+    italic 600 calc(0.34 * var(--ph)) / 1.1 "Zilla Slab",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  white-space: normal;
+  text-align: center;
+}
+
+/* The order strip: small brass nameplates for Info, Map and, past a rivet, End phase. */
+.order-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  --ink: rgb(27 21 11);
+  --engrave: 0 1px 0 rgb(255 230 172 / 42%), 0 -0.5px 0 rgb(0 0 0 / 28%);
+}
+.battle-ui .order-strip .order-nameplate,
+.order-strip .order-nameplate {
+  --ph: var(--strip-ph, 30px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: var(--ph);
+  height: var(--ph);
+  margin: 0;
+  padding: 0 calc(0.1 * var(--ph));
+  border: solid transparent;
+  border-width: calc(0.24 * var(--ph)) calc(0.6 * var(--ph));
+  border-image: var(--face) 26% 10% fill / 1 / 0 stretch;
+  border-radius: 3px;
+  background: rgb(112 89 52 / 0%);
+  color: var(--ink);
+  font:
+    700 calc(0.43 * var(--ph)) / 1 "Zilla Slab",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: var(--engrave);
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+  filter: drop-shadow(1px 2px 1.5px rgb(0 0 0 / 50%));
+  transition:
+    filter 0.12s,
+    transform 0.08s;
+}
+.battle-ui .order-strip .order-nameplate:hover:not(:disabled),
+.order-strip .order-nameplate:hover:not(:disabled),
+.order-strip .order-nameplate:focus-visible,
+.order-strip .order-nameplate[aria-pressed="true"] {
+  border-image-source: var(--face-lit);
+  background: rgb(112 89 52 / 0%);
+  outline: none;
+}
+.order-strip .order-nameplate:focus-visible {
+  filter: drop-shadow(1.5px 0 0 rgb(232 226 207))
+    drop-shadow(-1.5px 0 0 rgb(232 226 207))
+    drop-shadow(0 1.5px 0 rgb(232 226 207))
+    drop-shadow(0 -1.5px 0 rgb(232 226 207));
+}
+.battle-ui .order-strip .order-nameplate:active:not(:disabled),
+.order-strip .order-nameplate:active:not(:disabled) {
+  background: rgb(112 89 52 / 0%);
+  transform: translateY(1px);
+  filter: brightness(0.82);
+}
+.battle-ui .order-strip .order-nameplate:disabled,
+.order-strip .order-nameplate:disabled {
+  opacity: 1;
+  filter: grayscale(0.6) brightness(0.62);
+  cursor: default;
+}
+/* A dome rivet between the views and End phase, so the two never read as one row of the same kind. */
+.order-strip .order-strip-rivet {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin: 0 4px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgb(118 116 100),
+    rgb(64 62 52) 60%,
+    rgb(34 32 26)
+  );
+  box-shadow: 0 2px 1px rgb(110 62 30 / 70%);
+}
+
+@media (pointer: coarse) {
+  .battle-ui .order-strip .order-nameplate,
+  .order-strip .order-nameplate {
+    --ph: 44px;
+    font-size: 15px;
+  }
+  .order-strip kbd {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .order-menu[data-visible="true"] {
+    animation: none;
+  }
+  .order-menu .order-plate,
+  .order-strip .order-nameplate {
+    transition: none;
+  }
+}
+
+/* On the split screen the strip lies on the panel's status strip, over the frame. */
+.split-strip {
+  z-index: 4;
+}
+
+/* In the single map's top bar the plates take most of its height. */
+.battle-top .battle-strip {
+  --strip-ph: 36px;
+  margin-left: auto;
+}
+
+/* A narrow window gives the strip a row of its own under the title: three touch-sized plates across the top,
+   End phase at the far end, out of the thumb's resting place at the bottom. */
+@media (max-width: 600px) {
+  html:root {
+    --top-height: calc(
+      108px * var(--ui-scale, 1) + env(safe-area-inset-top, 0px)
+    );
+  }
+  .battle-ui .battle-top {
+    flex-wrap: wrap;
+    align-content: center;
+    row-gap: 6px;
+  }
+  .battle-top .battle-strip {
+    --strip-ph: 42px;
+    order: 3;
+    flex-basis: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+}

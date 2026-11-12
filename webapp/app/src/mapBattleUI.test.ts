@@ -135,3 +135,45 @@ it("routes keyboard cursor and fire to open contents instead of the map", () => 
   expect(b.contents.box).toBeNull();
   expect(b.exiting?.slot).toBe(1);
 });
+
+it("gives each unit its own orders on fixed slots: absent where they do not apply, a reason where not possible", () => {
+  const b = new MapBattle(start(), 0),
+    units = [...b.view().units.values()],
+    enemy = units.find((u) => u.side === 1),
+    bunker = units.find(
+      (u) => u.side === 0 && play.typeInfo(b.session, 0, u.type)?.speed === 0,
+    ),
+    mover = units.find(
+      (u) =>
+        u.side === 0 &&
+        !u.carrier &&
+        (play.typeInfo(b.session, 0, u.type)?.speed ?? 0) > 0 &&
+        play.destinations(b.session, 0, u.index).size > 0,
+    );
+  if (!enemy || !mover) throw Error("missing units");
+  // An enemy's cell and a never-moving unit's cell (in the movement mode) have no menu.
+  expect(b.menu(enemy.at)).toEqual([]);
+  if (bunker !== undefined && play.contents(b.session, 0, bunker.at) === null)
+    expect(b.menu(bunker.at)).toEqual([]);
+  // A unit that can move: Move up, ready; the strip's orders are never on the menu.
+  const items = b.menu(mover.at);
+  expect(items[0]).toEqual({ slot: "n", action: "move", reason: null });
+  expect(items.map((i) => i.action)).not.toContain("mode");
+  expect(items.map((i) => i.action)).not.toContain("map");
+  expect(items.map((i) => i.action)).not.toContain("info");
+  // Once it has moved, Move stays on its slot with the reason it is not possible.
+  const to = [...play.destinations(b.session, 0, mover.index)][0];
+  if (to === undefined) throw Error("no destination");
+  const [line = 0, col = 0] = to.split(",").map(Number);
+  play.move(b.session, 0, mover.index, { line, col });
+  const moved = [...b.view().units.values()].find(
+    (u) => u.index === mover.index,
+  );
+  if (moved === undefined) throw Error("lost the unit");
+  const after = b.menu(moved.at).find((i) => i.slot === "n");
+  expect(after?.action).toBe("move");
+  expect(after?.reason).not.toBeNull();
+  // A prompt hides the menu.
+  b.phasePrompt = true;
+  expect(b.menu(moved.at)).toEqual([]);
+});

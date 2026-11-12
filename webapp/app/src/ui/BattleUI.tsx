@@ -4,8 +4,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from "preact/hooks";
 import type { TargetedKeyboardEvent } from "preact";
 import { spriteID } from "../unitFrame.ts";
 import type { BattleUIProps } from "./types.ts";
-import type { Action } from "./ring.ts";
 import { LayoutOptions, layoutValue } from "./layout.tsx";
+import { OrderMenu, OrderStrip } from "./OrderMenu.tsx";
 import "./battle.css";
 
 type Props = BattleUIProps;
@@ -20,18 +20,6 @@ const groundName = (id: string): string =>
     .replace(/([a-z])([0-9])/giu, "$1 $2")
     .replace(/_/gu, " ")
     .replace(/^./u, (letter) => letter.toUpperCase());
-const actionName: Record<Action, string> = {
-  cancel: "Cancel",
-  move: "Move",
-  attack: "Attack",
-  mode: "End phase",
-  open: "Contents",
-  map: "Map",
-  info: "Info",
-  exit: "Move out",
-  produce: "Produce",
-  repair: "Repair",
-};
 
 function Flag({ owner }: { owner: number }) {
   return (
@@ -777,17 +765,21 @@ function Help() {
     <details class="battle-help">
       <summary>Keys and touch</summary>
       <p>
-        Tap to select, move or attack. Drag to pan; wheel or pinch to zoom.
-        Right-click or hold a touch for actions.
+        Tap your unit for its orders: plates on the cells round it. Tap a plate,
+        or flick from the unit towards it. Click or right-click a unit with a
+        mouse. Drag elsewhere to pan; wheel or pinch to zoom.
       </p>
       <p>
-        WASD pans. Arrows move the cursor; Space/Enter selects. Hold Space and
-        choose a direction for an action. Home/End and Page Up/Down look at the
+        With the orders open, Q W E / A S D (or the keypad's 7 8 9 / 1 2 3) run
+        the plate up-left, up, up-right, down-left, down, down-right. WASD pans
+        otherwise. Arrows move the cursor; Space/Enter selects, Enter on the
+        selected unit opens its orders. Home/End and Page Up/Down look at the
         map ends.
       </p>
       <p>
-        F1 ends the phase, F2 surrenders, Escape goes back. M: reduced motion;
-        F8: map design; F9: battle scenes; F11: fullscreen.
+        F1 ends the phase, I shows information, O the map, F2 surrenders, Escape
+        goes back. M: reduced motion; F8: map design; F9: battle scenes; F11:
+        fullscreen.
       </p>
     </details>
   );
@@ -884,14 +876,12 @@ export function BattleUI(p: BattleUIProps) {
     ready = play.ready(s, b.side),
     end = play.ended(s),
     scene = p.showScene === false ? null : b.playback.scene(),
-    ring = p.ring.value,
     progress =
       b.progress === null
         ? null
         : b.progress.total > 0
           ? Math.min(1, Math.max(0, b.progress.done / b.progress.total))
-          : 0,
-    blocked = b.playback.busy() || end !== null;
+          : 0;
   const skipScene = () => {
     if (!b.playback.skipScene()) return;
     b.version++;
@@ -935,17 +925,7 @@ export function BattleUI(p: BattleUIProps) {
             {phaseName(phase)} · {play.energy(s, b.side)} energy
           </span>
         </div>
-        <button
-          type="button"
-          class="battle-ready"
-          disabled={blocked}
-          aria-pressed={ready}
-          onClick={() => {
-            void b.requestPhase();
-          }}
-        >
-          {ready ? "Reopen orders" : "Ready"} <kbd>F1</kbd>
-        </button>
+        {p.embedded !== true && <OrderStrip p={p} className="battle-strip" />}
         <Settings p={p} />
         {progress !== null && (
           <progress
@@ -992,24 +972,6 @@ export function BattleUI(p: BattleUIProps) {
               Back
             </button>
           )}
-          <button
-            type="button"
-            disabled={b.busy() || b.phasePrompt || b.surrenderPrompt}
-            onClick={() => {
-              b.showInfo();
-            }}
-          >
-            Info
-          </button>
-          <button
-            type="button"
-            disabled={b.busy() || b.phasePrompt || b.surrenderPrompt}
-            onClick={() => {
-              b.run("map");
-            }}
-          >
-            Map
-          </button>
         </nav>
         {scene !== null ? (
           <section class="battle-scene-panel" aria-label="Battle scene">
@@ -1049,49 +1011,8 @@ export function BattleUI(p: BattleUIProps) {
         {p.embedded !== true && <Help />}
       </aside>
 
-      {ring !== null && (
-        <div class="battle-ring" role="group" aria-label="Actions">
-          {ring.items.map((item) => (
-            <button
-              type="button"
-              key={item.action}
-              class="battle-ring-action"
-              style={{
-                left: `${item.x}px`,
-                top: `${item.y}px`,
-                width: `${96 * ring.scale}px`,
-                height: `${80 * ring.scale}px`,
-              }}
-              onClick={() => {
-                p.onRingAction(item.action);
-              }}
-              onFocus={() => {
-                p.onRingFocus?.(item.action);
-              }}
-              onBlur={() => {
-                p.onRingFocus?.(null);
-              }}
-            >
-              {actionName[item.action]}
-            </button>
-          ))}
-          <button
-            type="button"
-            class="battle-ring-action battle-ring-cancel"
-            style={{
-              left: `${ring.x}px`,
-              top: `${ring.y}px`,
-              width: `${96 * ring.scale}px`,
-              height: `${80 * ring.scale}px`,
-            }}
-            onClick={() => {
-              p.onCloseRing();
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
+      {p.readOnly !== true && <OrderMenu p={p} />}
+
       {(b.phasePrompt || b.surrenderPrompt) && <Confirm p={p} />}
     </div>
   );

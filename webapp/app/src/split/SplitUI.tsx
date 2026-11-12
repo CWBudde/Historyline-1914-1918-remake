@@ -3,6 +3,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 import type { Signal } from "@preact/signals";
 import type { TargetedKeyboardEvent } from "preact";
 import { BattleUI } from "../ui/BattleUI.tsx";
+import { OrderStrip } from "../ui/OrderMenu.tsx";
 import { makeInert } from "../ui/inert.ts";
 import type { UiAssets } from "../ui/assets.ts";
 import type { Rect } from "../camera.ts";
@@ -37,7 +38,22 @@ function place(rect: Rect, dpr: number) {
     height: `${rect.height / dpr}px`,
   };
 }
+/**
+ * stripPlace puts the order strip at the outer end of a panel's status strip, clear of the well's flag: nameplates at least
+ * 26 px tall, centred on the strip, so they overhang its bevel where the strip is thinner than that.
+ */
+function stripPlace(rect: Rect, dpr: number): Record<string, string> {
+  const h = rect.height / dpr,
+    ph = Math.max(26, Math.min(64, h * 1.1));
+  return {
+    position: "absolute",
+    right: `${window.innerWidth - (rect.x + rect.width) / dpr + 8 + h * 1.1}px`,
+    top: `${rect.y / dpr + h / 2 - ph / 2}px`,
+    "--strip-ph": `${ph}px`,
+  };
+}
 const ranks = ["", "01", "02", "03", "04", "05", "10"];
+
 const badgeImages = new Map<string, HTMLImageElement>();
 /** wellLabel is a well's line in words, for screen readers and tests. */
 function wellLabel(w: Well): string {
@@ -411,17 +427,12 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
                 <p class="split-covered">Waiting for the other player</p>
               )}
             </section>
-            <button
+            <div
               class={`split-well side-${side}`}
               data-side={side}
+              role="status"
               style={place(runtime.screen.status[side], dpr)}
-              disabled={
-                !active || b.playback.busy() || play.ended(b.session) !== null
-              }
-              aria-label={`${name(side)} · ${phase} · ${play.ready(b.session, side) ? "Reopen orders" : "Ready"}`}
-              onClick={() => {
-                void b.requestPhase();
-              }}
+              aria-label={`${name(side)} · ${phase} · ${play.ready(b.session, side) ? "Orders confirmed" : "Giving orders"}`}
             >
               <WellCanvas
                 runtime={runtime}
@@ -433,14 +444,19 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
               <span class="split-well-text">
                 {visible ? status : "Waiting for the other player"}
               </span>
-              {active && (
-                <small class="split-well-text">
-                  {runtime.local?.mode === "simultaneous" && side === 1
-                    ? "Ctrl + Left"
-                    : "F1"}
-                </small>
-              )}
-            </button>
+            </div>
+            {active && visible && (
+              <OrderStrip
+                p={runtime.panelProps(side, assets, revision, state)}
+                className="split-strip"
+                keys={
+                  runtime.local?.mode === "simultaneous" && side === 1
+                    ? { phase: "Ctrl ←" }
+                    : { info: "I", map: "O", phase: "F1" }
+                }
+                style={stripPlace(runtime.screen.status[side], dpr)}
+              />
+            )}
           </div>
         );
       })}

@@ -147,9 +147,8 @@
   border: none;
   background: transparent;
   color: #bed392;
-  pointer-events: auto;
+  pointer-events: none;
   padding: 0;
-  cursor: pointer;
 }
 .split-panel .battle-ui[data-scene="true"] .battle-dock {
   inset: 0;
@@ -193,13 +192,7 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
-.split-well:disabled {
-  cursor: default;
-}
-.split-well:focus-visible {
-  outline: 2px solid #c2a466;
-  outline-offset: -2px;
-}
+
 .hotseat-handover {
   position: fixed;
   inset: 0;

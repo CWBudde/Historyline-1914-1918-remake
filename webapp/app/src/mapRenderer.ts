@@ -34,18 +34,18 @@ import { aimReach, darkKeep } from "./aim.ts";
 import {
   plateLayers,
   ringLayers,
-  ringMenuLayers,
   type Layer,
   type PlateState,
-  type Ring,
 } from "./gesture.ts";
 import type { Action } from "./ui/ring.ts";
 
-/** What the cursor shows on the map (internal/gesture): the ring, an action plate, or the ring menu. */
+/**
+ * What the cursor shows on the map (internal/gesture): the ring, or the plate of a held keyboard gesture. The order
+ * menu's plates are BattleUI's.
+ */
 export type CursorDraw =
   | { kind: "ring"; at: hexgrid.Coord }
   | { kind: "plate"; at: hexgrid.Coord; action: Action; state: PlateState }
-  | { kind: "menu"; ring: Ring; hover: number | null }
   | null;
 /** drawLayers fills gesture layers in order, each hole cut from the part drawn just before it. */
 export function drawLayers(g: Graphics, layers: readonly Layer[]): void {
@@ -254,10 +254,6 @@ export class MapRenderer {
       c = this.cursor;
     g.clear();
     if (c === null) return;
-    if (c.kind === "menu") {
-      drawLayers(g, ringMenuLayers(c.ring, c.hover));
-      return;
-    }
     const [x, y] = hexgrid.center(c.at);
     drawLayers(
       g,

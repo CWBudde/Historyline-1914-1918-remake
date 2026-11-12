@@ -1,8 +1,8 @@
 /**
  * The cursor of the desktop game (internal/gesture draw.go, layers.go, glyph.go, ring.go): a steel hex ring round
- * the cell, the solid action plate with an embossed glyph while fire is held or an order is aimed, and the ring
- * menu of plates. Pure geometry: each look is a list of layers, polygons filled in one colour in order, with holes
- * cut from the part that holds them.
+ * the cell and the solid action plate with an embossed glyph while fire is held or an order is aimed (the order
+ * menu round a unit is ui/orderMenu.ts, drawn by BattleUI). Pure geometry: each look is a list of layers, polygons
+ * filled in one colour in order, with holes cut from the part that holds them.
  */
 import { hexgrid } from "@historyline/engine";
 import type { Action } from "./ui/ring.ts";
@@ -188,79 +188,6 @@ export function plateLayers(
     { colour: shadow, polys: g(u, u) },
     { colour: face, polys: g(0, 0) },
   ];
-}
-
-/** Ring is the ring menu in world px: a plate per action round the cancel plate at (x, y), clockwise from the top. */
-export interface Ring {
-  x: number;
-  y: number;
-  radius: number;
-  actions: Action[];
-}
-/** The clearance between ring plates in world px. */
-const ringGap = 8;
-/** newRing places actions round (x, y) as near as they fit without plates meeting. */
-export function newRing(x: number, y: number, actions: Action[]): Ring {
-  const d = hexgrid.hexWidth + ringGap,
-    n = actions.length;
-  return {
-    x,
-    y,
-    radius: n > 2 ? Math.max(d, d / 2 / Math.sin(Math.PI / n)) : d,
-    actions,
-  };
-}
-/** ringPos is the centre of the ring's item i. */
-export function ringPos(r: Ring, i: number): Pt {
-  const a = (2 * Math.PI * i) / r.actions.length;
-  return [r.x + r.radius * Math.sin(a), r.y - r.radius * Math.cos(a)];
-}
-/** hitRing is the item whose plate holds (x, y), "cancel" on the centre plate, or null. */
-export function hitRing(
-  r: Ring,
-  x: number,
-  y: number,
-): number | "cancel" | null {
-  for (let i = 0; i < r.actions.length; i++) {
-    const [px, py] = ringPos(r, i);
-    if (inPlate(x, y, px, py, 1)) return i;
-  }
-  return inPlate(x, y, r.x, r.y, 1) ? "cancel" : null;
-}
-/** fitRing moves r as little as it takes to keep all its plates inside the box, where they fit. */
-export function fitRing(
-  r: Ring,
-  box: { x: number; y: number; width: number; height: number },
-): Ring {
-  const hw = hexgrid.hexWidth / 2,
-    hh = hexgrid.hexHeight / 2;
-  let x0 = r.x - hw,
-    y0 = r.y - hh,
-    x1 = r.x + hw,
-    y1 = r.y + hh;
-  for (let i = 0; i < r.actions.length; i++) {
-    const [x, y] = ringPos(r, i);
-    x0 = Math.min(x0, x - hw);
-    y0 = Math.min(y0, y - hh);
-    x1 = Math.max(x1, x + hw);
-    y1 = Math.max(y1, y + hh);
-  }
-  const into = (lo: number, hi: number, a: number, b: number) =>
-    lo < a ? a - lo : hi > b ? Math.max(b - hi, a - lo) : 0;
-  return {
-    ...r,
-    x: r.x + into(x0, x1, box.x, box.x + box.width),
-    y: r.y + into(y0, y1, box.y, box.y + box.height),
-  };
-}
-/** ringMenuLayers are the ring's plates: cancel on the cursor, every action, the hovered one pressed. */
-export function ringMenuLayers(r: Ring, hover: number | null): Layer[] {
-  const out = plateLayers(r.x, r.y, 1, "cancel", "normal");
-  for (const [i, a] of r.actions.entries()) {
-    const [x, y] = ringPos(r, i);
-    out.push(...plateLayers(x, y, 1, a, i === hover ? "pressed" : "normal"));
-  }
-  return out;
 }
 
 /** cursorLook is what the cursor shows (cursorPlate): a plate of an action in a state, or the plain ring (null). */

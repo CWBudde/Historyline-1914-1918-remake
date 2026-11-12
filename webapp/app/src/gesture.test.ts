@@ -1,17 +1,12 @@
 import { expect, it } from "vitest";
 import {
   cursorLook,
-  fitRing,
   glyph,
-  hitRing,
   inPlate,
   inset,
-  newRing,
   plateCorners,
   plateLayers,
   ringLayers,
-  ringMenuLayers,
-  ringPos,
   type Pt,
 } from "./gesture.ts";
 import type { Action } from "./ui/ring.ts";
@@ -85,42 +80,6 @@ it("draws the ring open inside and the plate solid, every glyph hole inside the 
     for (const s of ["normal", "pressed", "disabled"] as const)
       expect(plateLayers(0, 0, 1, a, s).length).toBeGreaterThan(3);
   }
-});
-
-it("places the ring's plates apart round the cursor and hits them", () => {
-  const two = newRing(0, 0, ["move", "info"]);
-  expect(two.radius).toBe(104);
-  const four = newRing(500, 400, ["move", "map", "info", "mode"]);
-  // Four plates on a 104 px circle stay apart (their circumcircles keep the gap).
-  expect(four.radius).toBe(104);
-  const [ux, uy] = ringPos(four, 0),
-    [rx, ry] = ringPos(four, 1);
-  expect(ux).toBeCloseTo(500, 9);
-  expect(uy).toBeLessThan(400);
-  expect(rx).toBeGreaterThan(500);
-  expect(ry).toBeCloseTo(400, 9);
-  expect(hitRing(four, ux, uy)).toBe(0);
-  expect(hitRing(four, rx, ry)).toBe(1);
-  expect(hitRing(four, 500, 400)).toBe("cancel");
-  expect(hitRing(four, 500 + 300, 400 + 300)).toBeNull();
-  expect(ringMenuLayers(four, 1).length).toBe(
-    4 * plateLayers(0, 0, 1, "move", "normal").length +
-      plateLayers(0, 0, 1, "move", "pressed").length,
-  );
-});
-
-it("keeps the ring inside the panel, moving it as little as it takes", () => {
-  const r = newRing(20, 20, ["move", "map", "info", "mode"]),
-    box = { x: 0, y: 0, width: 1000, height: 800 },
-    fitted = fitRing(r, box);
-  for (let i = 0; i < 4; i++) {
-    const [x, y] = ringPos(fitted, i);
-    expect(x - 48).toBeGreaterThanOrEqual(-1e-9);
-    expect(y - 40).toBeGreaterThanOrEqual(-1e-9);
-  }
-  expect(fitRing(newRing(500, 400, ["move"]), box)).toEqual(
-    newRing(500, 400, ["move"]),
-  );
 });
 
 it("turns the ring into the plate of the held or aimed action as the desktop does", () => {

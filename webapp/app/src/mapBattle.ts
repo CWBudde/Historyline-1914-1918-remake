@@ -17,6 +17,7 @@ import {
   type Action,
   type Direction,
 } from "./ui/ring.ts";
+import { menuItems, slotTable, type MenuItem } from "./ui/orderMenu.ts";
 
 export interface MapComputer {
   commands(
@@ -356,6 +357,92 @@ export class MapBattle {
         this.contents.box !== null,
       ),
       (a) => this.allowed(a, at),
+    );
+  }
+  /** unitCell is the cell of the unit on at (its head where at is a two-cell unit's rear), else at. */
+  unitCell(at: hexgrid.Coord): hexgrid.Coord {
+    return this.unitAt(at)?.at ?? at;
+  }
+  /** holdsSelected reports
+ whether at holds the selected unit (either cell of a unit with a rear). */
+  holdsSelected(at: hexgrid.Coord): boolean {
+    return (
+      this.selected !== null &&
+      this.exiting === null &&
+      this.unitAt(at)?.index === this.selected
+    );
+  }
+  /**
+   * menu is the order menu of the cell at
+ (ui/orderMenu.ts): the unit's own orders on their slots, each with why it
+   * is not possible now; empty where the cell has no order of the side's (no own unit or container) or while a
+   * prompt, a production list or a battle scene is open. End phase, map and info are the order strip's.
+   */
+  menu(at: hexgrid.Coord = this.cursor): MenuItem[] {
+    const box = this.contents.box;
+    if (
+      this.phasePrompt ||
+      this.surrenderPrompt ||
+      box?.producing === true ||
+      this.playback.scene() !== null ||
+      play.ended(this.session) !== null
+    )
+      return [];
+    const unit = this.unitAt(at),
+      own = unit?.side === this.side ? unit : undefined,
+      container =
+        box === null
+          ? play.contents(this.session, this.side, this.containerAt(at))
+          : null,
+      moving = this.movement(),
+      held = (): string | null =>
+        this.busy()
+          ? "The orders are being carried out."
+          : play.ready(this.session, this.side)
+            ? "Orders confirmed: F1 opens them again."
+            : null;
+    return menuItems(
+      slotTable(box !== null, !moving),
+      (a) =>
+        a === "move"
+          ? own !== undefined &&
+            // A unit that never moves (a bunker) has no Move at all.
+            (play.typeInfo(this.session, this.side, own.type)?.speed ?? 1) > 0
+          : a === "attack"
+            ? own !== undefined
+            : a === "open"
+              ? container !== null
+              : a === "produce"
+                ? this.contents.options().length > 0
+                : a === "exit" || a === "repair",
+      (a) => {
+        const c = this.contents.actions();
+        if (a === "exit") return c.leave;
+        if (a === "repair") return c.repair;
+        if (a === "produce") return c.produce;
+        const busy = held();
+        if (busy !== null) return busy;
+        if (a === "open")
+          return container !== null &&
+            (container.slots.length > 0 ||
+              play.buildable(this.session, this.side, container.hold).length >
+                0)
+            ? null
+            : "Nothing inside.";
+        if (own === undefined) return "No unit of yours here.";
+        try {
+          play.canOrder(this.session, this.side, own.index);
+          if (a === "attack")
+            return actionTargets(this.session, this.side, own.index).size > 0
+              ? null
+              : "No target in range.";
+          return play.destinations(this.session, this.side, own.index).size > 0
+            ? null
+            : "No cell in reach.";
+        } catch (e) {
+          return e instanceof Error ? e.message : String(e);
+        }
+      },
     );
   }
   run(action: Action, at: hexgrid.Coord = this.cursor): void {

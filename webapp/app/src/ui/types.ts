@@ -3,7 +3,8 @@ import type { Signal } from "@preact/signals";
 import type { MapBattle } from "../mapBattle.ts";
 import type { SpriteFamily } from "../unitFrame.ts";
 import type { UiAssets } from "./assets.ts";
-import type { RingLayout, Action } from "./ring.ts";
+import type { Hit } from "./orderMenu.ts";
+import type { MenuView } from "../battle/runtime.ts";
 import type { Layout } from "../storage/store.ts";
 
 export interface BattleUIProps {
@@ -17,7 +18,8 @@ export interface BattleUIProps {
   painted: Signal<boolean>;
   /** The map design drawn now; F8 and onDesign cycle it. */
   design?: Signal<Design>;
-  ring: Signal<RingLayout | null>;
+  /** The order menu round a unit (ui/orderMenu.ts), null while closed. */
+  menu: Signal<MenuView | null>;
   settingsBusy?: boolean;
   settingsNote?: string;
   embedded?: boolean;
@@ -32,10 +34,15 @@ export interface BattleUIProps {
   onDesign(): void;
   onLeave(): void;
   onFullscreen(): void;
-  onRingAction(action: Action): void;
-  onCloseRing(): void;
-  /** onRingFocus presses the drawn plate of the ring button that has the keyboard focus (null: none). */
-  onRingFocus?(action: Action | null): void;
+  /** onMenu runs a menu slot (a plate or the centre's cancel). */
+  onMenu(hit: Hit): void;
+  /** onMenuFocus lights the plate that has the keyboard focus (null: none). */
+  onMenuFocus(hit: Hit): void;
+  /** The order strip's global orders: end phase (F1), the strategic map (O), information (I). */
+  onPhase(): void;
+  onMap(): void;
+  onInfo(): void;
+
   onSceneHost(element: HTMLDivElement | null): void;
   onStrategyHost(element: HTMLDivElement | null): void;
 }

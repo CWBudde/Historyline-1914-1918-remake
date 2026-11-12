@@ -15,22 +15,22 @@ export async function startFirstBattle(page: Page): Promise<void> {
   await expect(battleReady(page)).toBeVisible({ timeout: 120_000 });
 }
 /**
- * battleReady is the player's end-of-phase control in either layout: the single map's Ready button or, on the
- * split screen (the default on wide windows), the status well of the player's panel (the Central Powers').
+ * battleReady is the player's end-of-phase control in either layout: the End phase nameplate of the order strip,
+ * in the single map's top bar or, on the split screen (the default on wide windows), on the status strip of the
+ * player's panel (the Central Powers', the first).
  */
 export function battleReady(page: Page) {
-  return page
-    .locator('.battle-ready:visible, .split-well[data-side="0"]:visible')
-    .first();
+  return page.locator(".order-strip .battle-ready:visible").first();
 }
-/** canEndPhase reports whether the player's end-of-phase control offers Ready now. */
+/** canEndPhase reports whether the player's end-of-phase control offers to end the phase now. */
 export async function canEndPhase(page: Page): Promise<boolean> {
   const ready = battleReady(page);
   if (!(await ready.isVisible()) || !(await ready.isEnabled())) return false;
   const label =
     (await ready.getAttribute("aria-label")) ?? (await ready.innerText());
-  return /^Ready|· Ready$/.test(label.trim());
+  return /^End phase$/.test(label.trim());
 }
+
 /** A blank or single-colour canvas compresses to far less than a drawn map. */
 export async function expectMapDrawn(page: Page): Promise<void> {
   await expect
