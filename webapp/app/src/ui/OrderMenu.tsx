@@ -292,9 +292,9 @@ const strip = [
 ] as const;
 
 /**
- * OrderStrip is the row of small brass nameplates for the orders that are not about a unit: Info, Map and, after a
- * rivet, End phase, each with its key. It sits in the single map's top bar (and on a phone there, out of the
- * thumb's way) and on the split screen's status strip. End phase is never next to a unit, so no flick reaches it.
+ * OrderStrip is the row of brass nameplates (armour.css) for the orders that are not about a unit: Info, Map and End
+ * phase, each with its key. It lies on the steel strip under the map (upright: along the plate's bottom edge) and on
+ * the split screen's status strips. End phase is never next to a unit, so no flick reaches it.
  */
 export function OrderStrip({
   p,
@@ -310,34 +310,22 @@ export function OrderStrip({
 }) {
   const b = p.battle,
     ready = play.ready(b.session, b.side),
-    blocked = b.playback.busy() || play.ended(b.session) !== null,
-    height = 30,
-    dull = artUrl(p, "armour/nameplate", height / nameplateLogical),
-    bright = artUrl(p, "armour/nameplate-polished", height / nameplateLogical);
+    blocked = b.playback.busy() || play.ended(b.session) !== null;
   return (
     <nav
       class={`order-strip ${className}`}
       aria-label="Global orders"
-      style={{ ...style, "--face": dull, "--face-lit": bright }}
+      style={style}
     >
-      {strip.flatMap((s) => {
+      {strip.map((s) => {
         const phase = s.id === "phase",
           label = phase ? (ready ? "Reopen orders" : "End phase") : s.name,
           key = keys[s.id];
-        return [
-          ...(phase
-            ? [
-                <span
-                  key="rivet"
-                  class="order-strip-rivet"
-                  aria-hidden="true"
-                />,
-              ]
-            : []),
+        return (
           <button
             type="button"
             key={s.id}
-            class={`order-nameplate${phase ? " battle-ready" : ""}`}
+            class={`hl-nameplate order-nameplate${phase ? " battle-ready" : ""}`}
             data-order={s.id}
             aria-pressed={phase ? ready : undefined}
             aria-keyshortcuts={
@@ -355,8 +343,8 @@ export function OrderStrip({
           >
             {key !== undefined && <kbd>{key}</kbd>}
             <span>{label}</span>
-          </button>,
-        ];
+          </button>
+        );
       })}
     </nav>
   );

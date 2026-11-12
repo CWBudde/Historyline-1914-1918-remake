@@ -109,6 +109,8 @@ export class BattleRuntime {
   readonly design = signal<Design>("painted");
   /** The order menu round a unit, null while closed. */
   readonly menu = signal<MenuView | null>(null);
+  /** Whether the menu board is open (BattleUI MenuBoard). */
+  readonly menuOpen = signal(false);
   /** The unit families by type id: the art each unit is drawn with. */
   get families(): BattleData["families"] {
     return this.data.families;
@@ -510,6 +512,7 @@ export class BattleRuntime {
       painted: this.painted,
       design: this.design,
       menu: this.menu,
+      menuOpen: this.menuOpen,
       settingsBusy: settingsState.busy,
       settingsNote: settingsState.note,
       onScale: (uiScale) => {
@@ -831,7 +834,10 @@ export class BattleRuntime {
   private cancel(): void {
     const b = this.battle;
     if (this.menu.value !== null) this.closeMenu();
-    else if (
+    else if (this.menuOpen.value) {
+      this.menuOpen.value = false;
+      this.hooks.changed();
+    } else if (
       this.options.escapeMenu === true &&
       b.selected === null &&
       b.contents.box === null &&

@@ -1,4 +1,4 @@
-/* The split screen fills the whole window: none of the single map's top bar or dock insets. */
+/* The split screen fills the whole window: none of the single map's plate insets. */
 .original-layout.in-battle #stage {
   inset: 0;
   top: var(--app-top);
@@ -33,102 +33,8 @@
   position: absolute;
   inset: 0;
 }
-.split-panel .battle-ui .battle-top {
-  z-index: 4;
-  background: transparent;
-  height: auto;
-  min-height: 0;
-  padding: 6px;
-  justify-content: flex-end;
-  pointer-events: none;
-  border: 0;
-  box-shadow: none;
-}
-.split-panel .battle-title,
-.split-panel .battle-ready {
-  display: none;
-}
-.split-panel .battle-settings {
-  pointer-events: auto;
-}
-/* The settings and the help are reached through the game information (info on a cell without a unit, or Escape),
-   as the desktop keeps them off the battle screen. */
-.split-panel .battle-ui:not([data-panel="game"]) .battle-settings {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-}
-.split-panel .battle-settings-sheet .battle-help {
-  display: block;
-}
-.split-panel .battle-ui .battle-settings-sheet {
-  right: 4px;
-  top: calc(100% + 2px);
-  width: min(340px, calc(100% - 8px));
-  max-height: calc(100dvh - 128px * var(--ui-scale, 1));
-  padding: 8px;
-}
-.split-panel .battle-settings-sheet label {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  justify-content: stretch;
-  gap: 4px;
-}
-.split-panel .battle-settings-sheet label:has(input) {
-  display: flex;
-}
-.split-panel .battle-ui .battle-settings-sheet select {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-.split-panel .battle-ui[data-readonly="true"] .battle-top {
-  display: none;
-}
-.split-panel .battle-ui .battle-dock {
-  z-index: 1;
-  position: absolute;
-  inset: 44px 8px 8px;
-  width: auto;
-  height: auto;
-  max-height: none;
-  border: 1px solid #8c7448;
-  background: #181d1ff5;
-  overflow: auto;
-  padding: 12px;
-}
-.split-panel
-  .battle-ui[data-panel="orders"]
-  .battle-dock:not(:has(.battle-contents, .battle-scene-panel)) {
-  display: none;
-}
-.split-panel .battle-opponent-status,
-.split-panel .battle-phase-row,
-.split-panel .battle-help {
-  display: none;
-}
-.split-panel .battle-unit-heading {
-  grid-template-columns: minmax(80px, 40%) 1fr;
-}
-.split-panel .battle-photo {
-  max-height: 150px;
-}
-.split-panel .battle-ui .battle-modal-shade {
-  position: absolute;
-  inset: 0;
-}
 .split-panel .battle-ui .battle-confirm {
   max-width: calc(100% - 16px);
-}
-.split-panel .battle-ui .battle-ring {
-  position: fixed;
-}
-.split-panel .battle-scene-host,
-.split-panel .battle-strategy-host {
-  min-height: 180px;
 }
 .split-hidden {
   background: #131417;
@@ -138,8 +44,112 @@
   place-content: center;
   height: 100%;
   margin: 0;
-  color: #a4afb0;
+  color: rgb(170 163 145);
+  font:
+    700 18px "Stardos Stencil",
+    serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
+
+/* ---------------------------------------------------------------- the steel housing (painted and tile designs) */
+
+.split-housing {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.split-plate {
+  position: absolute;
+  inset: 0;
+}
+/* An opening's edge: a dark lip, a worn bevel round it, the plate's thickness shading the map under its rim. */
+.split-window {
+  position: absolute;
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 2px rgb(20 19 14),
+    0 0 0 4px rgb(120 114 92 / 55%),
+    0 2px 0 5px rgb(0 0 0 / 35%),
+    inset 0 3px 12px rgb(0 0 0 / 75%),
+    inset 0 0 0 1px rgb(0 0 0 / 60%);
+}
+/* The bar between the openings, bolted down its length. */
+.split-bar-rivets {
+  position: absolute;
+  background: var(--hl-rivets-column, none) 50% 0 / 100% auto repeat-y;
+  opacity: 0.95;
+}
+/* A panel's strip: lamp, plaque, the status stencilled, the brass plates at the outer end. */
+.split-steel-strip {
+  --h: var(--strip-h, 56px);
+  --strip-base: max(26px, min(64px, calc(0.68 * var(--h))));
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: calc(0.24 * var(--h));
+  padding: 0 calc(0.18 * var(--h));
+  color: var(--hl-bone);
+  font:
+    700 calc(0.34 * var(--h)) / 1.08 "Stardos Stencil",
+    "HL Display",
+    serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: var(--hl-paint);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.split-steel-strip .battle-plaque,
+.split-steel-strip .battle-flag {
+  flex: none;
+  height: calc(0.54 * var(--h));
+  width: auto;
+  aspect-ratio: 169 / 108;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 80%));
+}
+.split-steel-strip .battle-flag.owner-1 {
+  background: linear-gradient(
+    #101010 0 33.333%,
+    #eeeee6 33.333% 66.666%,
+    #c82020 66.666%
+  );
+}
+.split-steel-strip .battle-flag.owner-2 {
+  background: linear-gradient(
+    90deg,
+    #2038a0 0 33.333%,
+    #eeeee6 33.333% 66.666%,
+    #c82020 66.666%
+  );
+}
+.split-steel-strip .split-well {
+  position: static;
+  margin: 0;
+  color: inherit;
+}
+.split-steel-strip[data-human="false"] .split-well {
+  color: var(--hl-bone-dim);
+}
+.split-spring {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.split-planning {
+  position: absolute;
+  left: calc(0.18 * var(--h));
+  right: calc(0.18 * var(--h));
+  bottom: 2px;
+  width: auto;
+  height: 3px;
+  border: 0;
+  accent-color: var(--hl-amber);
+}
+
+/* ---------------------------------------------------------------- the original frame (original design) */
+
 .split-well {
   z-index: 3;
   position: absolute;
@@ -149,32 +159,6 @@
   color: #bed392;
   pointer-events: none;
   padding: 0;
-}
-.split-panel .battle-ui[data-scene="true"] .battle-dock {
-  inset: 0;
-  padding: 8px;
-  overflow: hidden;
-}
-.split-panel .battle-ui[data-scene="true"] .battle-status,
-.split-panel .battle-ui[data-scene="true"] .battle-panel-nav {
-  display: none;
-}
-.split-panel .battle-scene-panel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-.split-panel .battle-scene-panel h2 {
-  display: none;
-}
-.split-panel .battle-scene-host {
-  flex: 1;
-  min-height: 0;
-  aspect-ratio: auto;
-}
-.split-panel .battle-host-close {
-  flex: none;
 }
 /* The well's line is painted in the pixel font; its words stay for screen readers and tests. */
 .split-well-canvas {
@@ -192,46 +176,15 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
-
-.hotseat-handover {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  background: #131719;
-  display: grid;
-  place-items: center;
-  pointer-events: auto;
-  color: #eee5d2;
-  font:
-    calc(16px * var(--ui-scale)) "HL Sans",
-    sans-serif;
+/* The order strip and the menu plate at the outer end of the status strip, over the frame. */
+.split-pixel-strip {
+  --h: var(--strip-ph, 30px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.hotseat-handover section {
-  box-sizing: border-box;
-  width: min(520px, 100%);
-  max-height: 100%;
-  overflow: auto;
-  padding: 24px;
-}
-.hotseat-handover h1 {
-  font-family: "HL Display", serif;
-  color: #c4a773;
-}
-.hotseat-handover button {
-  min-height: 44px;
-  padding: 8px 14px;
-  margin: 6px 8px 6px 0;
-  border: 1px solid #9d8b67;
-  color: inherit;
-  background: #263942;
-  font: inherit;
-  cursor: pointer;
-}
-.hotseat-handover button:focus-visible {
-  outline: 3px solid #f4d698;
-  outline-offset: 3px;
-}
-/* A view painted over the panel (overlay.ts); its DOM form stays for screen readers and tests. */
+/* A view painted over the panel (overlay.ts); its board stays in the document for screen readers and tests. */
 .split-overlay {
   position: absolute;
   inset: 0;
@@ -240,25 +193,64 @@
   z-index: 1;
   pointer-events: none;
 }
-.split-panel .battle-ui[data-panel="game"] .battle-dock,
-.split-panel .battle-ui[data-panel="map"] .battle-dock,
-.split-panel .battle-ui[data-panel="unit"] .battle-dock {
+.split-screen[data-hud="pixel"] .battle-board-game,
+.split-screen[data-hud="pixel"] .battle-board-map,
+.split-screen[data-hud="pixel"] .battle-board-unit,
+.split-screen[data-hud="pixel"] .battle-board-contents {
   position: absolute;
   inset: auto;
   width: 1px;
   height: 1px;
   padding: 0;
-  border: 0;
   overflow: hidden;
   clip-path: inset(50%);
 }
-.split-panel .battle-ui .battle-dock:has(.battle-contents) {
-  position: absolute;
-  inset: auto;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
+/* The battle scene takes the whole panel, as on the desktop. */
+.split-screen[data-hud="pixel"] .battle-ui .battle-board-scene {
+  inset: 0;
+  transform: none;
+  width: auto;
+  max-height: none;
+  border-radius: 0;
+  --board-max-h: var(--panel-h, 600px);
+}
+
+/* ---------------------------------------------------------------- hot-seat handover */
+
+.hotseat-handover {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  pointer-events: auto;
+  color: var(--hl-bone);
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(14 14 10 / 45%)),
+    var(--hl-plate, none) center / cover,
+    var(--hl-plate-c);
+  font:
+    400 calc(16px * var(--ui-scale)) / 1.45 "HL Serif",
+    serif;
+}
+.hotseat-handover section {
+  box-sizing: border-box;
+  width: min(calc(520px * var(--ui-scale)), 100%);
+  max-height: 100%;
+  overflow: auto;
+}
+.hotseat-handover h1 {
+  margin: 0.2em 0 0.5em;
+  font:
+    700 calc(26px * var(--ui-scale)) / 1.1 "Stardos Stencil",
+    serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: var(--hl-paint);
+}
+.hotseat-handover .hl-nameplate {
+  --ph: max(44px, calc(40px * var(--ui-scale)));
+  display: inline-flex;
+  margin: 6px 8px 6px 0;
 }

@@ -5,7 +5,8 @@
  * wide and the single map elsewhere; single and original keep one of them.
  */
 export type Layout = "auto" | "single" | "original";
-export const splitMinWidth = 1000;
+// Below it each half would be too narrow for its strip's plates (ui/battle.css, split/split.css).
+export const splitMinWidth = 1200;
 /** splitByDefault reports whether the auto layout is the split screen on a window of CSS pixels. */
 export function splitByDefault(width: number, height: number): boolean {
   return width >= splitMinWidth && width > height;

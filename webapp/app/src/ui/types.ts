@@ -20,6 +20,10 @@ export interface BattleUIProps {
   design?: Signal<Design>;
   /** The order menu round a unit (ui/orderMenu.ts), null while closed. */
   menu: Signal<MenuView | null>;
+  /** Whether the battle's menu board (settings, surrender, leave) is open. */
+  menuOpen: Signal<boolean>;
+  /** The level's best score, for the situation, where it is known. */
+  best?: number;
   settingsBusy?: boolean;
   settingsNote?: string;
   embedded?: boolean;

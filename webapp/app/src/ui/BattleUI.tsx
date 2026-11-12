@@ -1,15 +1,32 @@
 import { designNames } from "../original/design.ts";
 import { level, play, phaseMovement } from "@historyline/engine";
-import { useCallback, useEffect, useLayoutEffect, useRef } from "preact/hooks";
-import type { TargetedKeyboardEvent } from "preact";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "preact/hooks";
+import type { ComponentChildren, TargetedKeyboardEvent } from "preact";
 import { spriteID } from "../unitFrame.ts";
+import { shellUnit } from "../shell/materials.ts";
 import type { BattleUIProps } from "./types.ts";
-import { LayoutOptions, layoutValue } from "./layout.tsx";
+import { layoutNames } from "./layout.tsx";
 import { OrderMenu, OrderStrip } from "./OrderMenu.tsx";
+import "../shell/fonts.css";
+import "./armour.css";
 import "./battle.css";
 
+/*
+ * The battle screen in the worn army metal of the menus (armour.css): the map seen through an opening in a riveted
+ * plate, a steel strip with a signal lamp, the side's plaque, the phase stencilled and the brass plates of the global
+ * orders; what opens (the situation, the small map, a unit's type, a building's contents, the menu) is a steel board
+ * bolted over the map, its values stencilled in dark wells. Upright, the strip runs along the top and the lower part
+ * of the window is the plate with the unit, the ground and the orders' plates along its bottom edge.
+ */
+
 type Props = BattleUIProps;
-const ownerName = (owner: number): string =>
+export const ownerName = (owner: number): string =>
   owner === 1 ? "Central Powers" : owner === 2 ? "Entente" : "Neutral";
 const phaseName = (phase: number): string =>
   phase === phaseMovement ? "Movement" : "Attack";
@@ -20,14 +37,95 @@ const groundName = (id: string): string =>
     .replace(/([a-z])([0-9])/giu, "$1 $2")
     .replace(/_/gu, " ")
     .replace(/^./u, (letter) => letter.toUpperCase());
+const scales = [0.75, 1, 1.25, 1.5, 2] as const;
+const layoutShort: Record<string, string> = {
+  auto: "Automatic",
+  single: "Single map",
+  original: "Split screen",
+};
 
-function Flag({ owner }: { owner: number }) {
-  return (
+/** usePortrait follows whether the window stands upright: the strip at the top, the plate below the map. */
+export function usePortrait(): boolean {
+  const query = "(orientation: portrait)",
+    [portrait, setPortrait] = useState(
+      () => typeof window !== "undefined" && window.matchMedia(query).matches,
+    );
+  useEffect(() => {
+    const m = window.matchMedia(query),
+      update = () => {
+        setPortrait(m.matches);
+      };
+    update();
+    m.addEventListener("change", update);
+    return () => {
+      m.removeEventListener("change", update);
+    };
+  }, []);
+  return portrait;
+}
+
+/** Plaque is the enamel plaque of a side (art/screens/armour), a painted flag until the art has arrived. */
+export function Plaque({
+  assets,
+  owner,
+  uiScale,
+  className = "",
+}: {
+  assets: Props["assets"];
+  owner: number;
+  uiScale: number;
+  className?: string;
+}) {
+  if (owner !== 1 && owner !== 2)
+    return (
+      <span
+        class={`battle-flag owner-${owner} ${className}`}
+        role="img"
+        aria-label={ownerName(owner)}
+      />
+    );
+  // The menus' plaques at the menus' size, so the battle takes the art they already fetched.
+  const id = owner === 1 ? "armour/plaque-germany" : "armour/plaque-france",
+    scale =
+      (56 * shellUnit(window.innerWidth, window.innerHeight, uiScale)) /
+      (owner === 1 ? 169 : 164),
+    image = assets.image("screens", id, scale, false, true).value;
+  return image.url === null ? (
     <span
-      class={`battle-flag owner-${owner}`}
+      class={`battle-flag owner-${owner} ${className}`}
       role="img"
       aria-label={ownerName(owner)}
     />
+  ) : (
+    <img
+      class={`battle-plaque ${className}`}
+      src={image.url}
+      alt={ownerName(owner)}
+      draggable={false}
+    />
+  );
+}
+
+/** Lamp is the strip's signal lamp: lit while its side may give orders. */
+export function Lamp({ lit }: { lit: boolean }) {
+  return <span class="hl-lamp" data-lit={lit} aria-hidden="true" />;
+}
+
+/** MenuPlate opens and closes the battle's menu board. */
+export function MenuPlate({ p }: { p: Props }) {
+  const open = p.menuOpen.value;
+  return (
+    <button
+      type="button"
+      class="hl-nameplate battle-menu-plate"
+      aria-expanded={open}
+      aria-controls={`battle-menu-${p.battle.side}`}
+      onClick={() => {
+        p.menuOpen.value = !open;
+      }}
+    >
+      Menu
+    </button>
   );
 }
 
@@ -87,6 +185,26 @@ function UnitArt({
   );
 }
 
+/** Values is a list of names and values stencilled in a well, the values in amber. */
+function Values({
+  rows,
+  className = "",
+}: {
+  rows: readonly (readonly [string, ComponentChildren])[];
+  className?: string;
+}) {
+  return (
+    <dl class={`battle-values hl-well ${className}`}>
+      {rows.map(([name, value]) => (
+        <div key={name}>
+          <dt>{name}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 function UnitCard({
   p,
   unit,
@@ -106,86 +224,87 @@ function UnitCard({
   return (
     <section class="battle-unit-card" aria-label={`${unit.name} information`}>
       <div class="battle-unit-heading">
-        <UnitArt p={p} unit={unit} portrait />
-        <div>
+        <div class="battle-photo-well hl-well">
+          <UnitArt p={p} unit={unit} portrait />
+        </div>
+        <div class="battle-unit-name">
           <h3>{unit.name}</h3>
-          <Flag owner={unit.owner} />
+          <span class="battle-owner">
+            <Plaque
+              assets={p.assets}
+              owner={unit.owner}
+              uiScale={p.scale.value}
+            />
+            {ownerName(unit.owner)}
+          </span>
           <UnitArt p={p} unit={unit} />
         </div>
       </div>
-      <dl class="battle-values">
-        <div>
-          <dt>Group</dt>
-          <dd>
-            {unit.size} / {unit.full}
-          </dd>
-        </div>
-        <div>
-          <dt>Experience</dt>
-          <dd>
-            {unit.exp}
-            {rank && (
-              <Art
-                p={p}
-                catalog="screens"
-                id={`rank/${rank}`}
-                alt=""
-                className="battle-rank"
-              />
-            )}
-          </dd>
-        </div>
-        <div>
-          <dt>Budget</dt>
-          <dd>{unit.budget}</dd>
-        </div>
-        <div>
-          <dt>Order</dt>
-          <dd>
-            {unit.target !== null
+      <Values
+        rows={[
+          [
+            "Group",
+            <>
+              {unit.size} / {unit.full}
+            </>,
+          ],
+          [
+            "Experience",
+            <>
+              {unit.exp}
+              {rank && (
+                <Art
+                  p={p}
+                  catalog="screens"
+                  id={`rank/${rank}`}
+                  alt=""
+                  className="battle-rank"
+                />
+              )}
+            </>,
+          ],
+          ["Budget", unit.budget],
+          [
+            "Order",
+            unit.target !== null
               ? `Target ${unit.target.line}, ${unit.target.col}`
               : unit.moved
                 ? "Given"
-                : "Available"}
-          </dd>
-        </div>
-      </dl>
+                : "Available",
+          ],
+        ]}
+      />
       {info !== null && (
         <>
           <h4>
             Weapons <small>power / range</small>
           </h4>
-          <dl class="battle-values battle-weapons">
-            {(
+          <Values
+            className="battle-weapons"
+            rows={(
               [
                 ["Air", info.air],
                 ["Ground", info.ground],
                 ["Water", info.water],
               ] as const
-            ).map(([name, weapon]) => (
-              <div key={name}>
-                <dt>{name}</dt>
-                <dd>
-                  {weapon.power} / {weapon.range}
-                </dd>
-              </div>
-            ))}
-          </dl>
-          <dl class="battle-values">
-            {(
-              [
-                ["Armour", info.armour],
-                ["Speed", info.speed],
-                ["Weight", info.weight],
-                ["Maximum group", info.group],
-              ] as const
-            ).map(([name, value]) => (
-              <div key={name}>
-                <dt>{name}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))}
-          </dl>
+            ).map(
+              ([name, weapon]) =>
+                [
+                  name,
+                  <>
+                    {weapon.power} / {weapon.range}
+                  </>,
+                ] as const,
+            )}
+          />
+          <Values
+            rows={[
+              ["Armour", info.armour],
+              ["Speed", info.speed],
+              ["Weight", info.weight],
+              ["Maximum group", info.group],
+            ]}
+          />
         </>
       )}
     </section>
@@ -218,35 +337,39 @@ function Terrain({ p }: { p: Props }) {
           {at.line}, {at.col}
         </small>
       </h3>
-      <dl class="battle-values">
-        <div>
-          <dt>Ground</dt>
-          <dd>{groundName(h.terrain)}</dd>
-        </div>
-        <div>
-          <dt>Features</dt>
-          <dd>
-            {h.infra.ids.length === 0
+      <Values
+        rows={[
+          ["Ground", groundName(h.terrain)],
+          [
+            "Features",
+            h.infra.ids.length === 0
               ? "None"
-              : h.infra.ids.map(groundName).join(", ")}
-          </dd>
-        </div>
-        {building !== undefined && (
-          <div>
-            <dt>Owner</dt>
-            <dd>
-              <Flag owner={building.owner} /> {ownerName(building.owner)}
-            </dd>
-          </div>
-        )}
-      </dl>
+              : h.infra.ids.map(groundName).join(", "),
+          ],
+          ...(building === undefined
+            ? []
+            : [
+                [
+                  "Owner",
+                  <>
+                    <Plaque
+                      assets={p.assets}
+                      owner={building.owner}
+                      uiScale={p.scale.value}
+                    />{" "}
+                    {ownerName(building.owner)}
+                  </>,
+                ] as const,
+              ]),
+        ]}
+      />
       {b.selected === null ? (
         <p class="battle-muted">
           Select your unit to see legal moves or targets.
         </p>
       ) : (
         <>
-          <p>
+          <p class="battle-notice">
             {allowed
               ? moving
                 ? "Legal movement destination"
@@ -257,6 +380,7 @@ function Terrain({ p }: { p: Props }) {
           </p>
           <button
             type="button"
+            class="hl-nameplate"
             disabled={!allowed}
             onClick={() => {
               b.click(at);
@@ -293,8 +417,13 @@ function Orders({ p }: { p: Props }) {
     orders = b.orders();
   return (
     <>
-      <section aria-labelledby={`battle-orders-title-${p.battle.side}`}>
-        <h2 id={`battle-orders-title-${p.battle.side}`}>Orders</h2>
+      <section
+        class="battle-orders"
+        aria-labelledby={`battle-orders-title-${p.battle.side}`}
+      >
+        <h2 id={`battle-orders-title-${p.battle.side}`} class="battle-hidden">
+          Orders
+        </h2>
         {own === null ? (
           <p class="battle-muted">
             Tap your unit, then its destination or target.
@@ -305,6 +434,7 @@ function Orders({ p }: { p: Props }) {
             <div class="battle-button-row">
               <button
                 type="button"
+                class="hl-nameplate"
                 disabled={blocked || play.ready(b.session, b.side)}
                 onClick={() => {
                   b.click(own.at);
@@ -314,6 +444,7 @@ function Orders({ p }: { p: Props }) {
               </button>
               <button
                 type="button"
+                class="hl-nameplate"
                 disabled={blocked}
                 onClick={() => {
                   b.showInfo(own.at);
@@ -324,6 +455,7 @@ function Orders({ p }: { p: Props }) {
               {own.carrier && (
                 <button
                   type="button"
+                  class="hl-nameplate"
                   disabled={blocked}
                   onClick={() => {
                     b.openContents(own.at);
@@ -343,6 +475,7 @@ function Orders({ p }: { p: Props }) {
         {b.selected !== null && (
           <button
             type="button"
+            class="hl-nameplate battle-wide-plate"
             onClick={() => {
               b.cancel();
             }}
@@ -352,19 +485,21 @@ function Orders({ p }: { p: Props }) {
         )}
       </section>
       <Terrain p={p} />
-      <section aria-label="Your queued attack orders">
+      <section class="battle-queue" aria-label="Your queued attack orders">
         <h3>
           Queued attacks <small>{orders.length}</small>
         </h3>
         {orders.length === 0 ? (
           <p class="battle-muted">No attacks queued.</p>
         ) : (
-          <ol class="battle-order-list">
+          <ol class="battle-order-list hl-well">
             {orders.map((order, index) => (
               <li key={index}>
                 {[...view.units.values()].find((u) => u.index === order.unit)
                   ?.name ?? "Unit"}{" "}
-                → {order.to.line}, {order.to.col}
+                <span class="hl-amber">
+                  → {order.to.line}, {order.to.col}
+                </span>
               </li>
             ))}
           </ol>
@@ -406,6 +541,7 @@ function Contents({ p }: { p: Props }) {
         </h2>
         <button
           type="button"
+          class="hl-nameplate"
           onClick={() => {
             b.cancel();
           }}
@@ -413,16 +549,12 @@ function Contents({ p }: { p: Props }) {
           {box.producing ? "Back to slots" : "Close"}
         </button>
       </div>
-      <dl class="battle-values">
-        <div>
-          <dt>Resources</dt>
-          <dd>{resources.stored}</dd>
-        </div>
-        <div>
-          <dt>Total energy</dt>
-          <dd>{resources.total}</dd>
-        </div>
-      </dl>
+      <Values
+        rows={[
+          ["Resources", resources.stored],
+          ["Total energy", resources.total],
+        ]}
+      />
       <div class="battle-slots" role="group" aria-label="Seven container slots">
         {Array.from({ length: play.Slots }, (_, slot) => {
           const u = slots[slot]?.unit;
@@ -430,7 +562,7 @@ function Contents({ p }: { p: Props }) {
             <button
               type="button"
               key={slot}
-              class={`battle-slot${box.slot === slot ? " selected" : ""}`}
+              class={`battle-slot hl-well${box.slot === slot ? " selected" : ""}`}
               aria-pressed={box.slot === slot}
               aria-label={`Slot ${slot + 1}: ${u?.name ?? "empty"}${u === null || u === undefined ? "" : `, group ${u.size} of ${u.full}`}`}
               onClick={() => {
@@ -462,11 +594,12 @@ function Contents({ p }: { p: Props }) {
         <>
           <h3>Production</h3>
           <p class="battle-muted">Builds use the side's energy account.</p>
-          <ol class="battle-production-list" ref={list}>
+          <ol class="battle-production-list hl-well" ref={list}>
             {options.map((option, index) => (
               <li key={`${option.type}/${index}`}>
                 <button
                   type="button"
+                  class="hl-nameplate"
                   aria-current={box.pick === index ? "true" : undefined}
                   disabled={option.reason !== null}
                   onFocus={() => {
@@ -492,6 +625,7 @@ function Contents({ p }: { p: Props }) {
           <div>
             <button
               type="button"
+              class="hl-nameplate"
               disabled={actions.leave !== null}
               onClick={() => {
                 b.run("exit");
@@ -506,6 +640,7 @@ function Contents({ p }: { p: Props }) {
           <div>
             <button
               type="button"
+              class="hl-nameplate"
               disabled={actions.repair !== null}
               onClick={() => {
                 b.run("repair");
@@ -521,6 +656,7 @@ function Contents({ p }: { p: Props }) {
             <div>
               <button
                 type="button"
+                class="hl-nameplate"
                 disabled={actions.produce !== null}
                 onClick={() => {
                   b.run("produce");
@@ -539,87 +675,144 @@ function Contents({ p }: { p: Props }) {
   );
 }
 
+/** GameInfo is the situation: the battle's state, then the two sides' holdings side by side. */
 function GameInfo({ p }: { p: Props }) {
   const b = p.battle,
-    s = play.stats(b.session);
+    s = play.stats(b.session),
+    plaque = (owner: number) => (
+      <Plaque assets={p.assets} owner={owner} uiScale={p.scale.value} />
+    ),
+    holdings = [s.sides[0], s.sides[1], s.map] as const;
   return (
-    <section aria-labelledby={`battle-game-title-${p.battle.side}`}>
-      <h2 id={`battle-game-title-${p.battle.side}`}>Battle information</h2>
-      <dl class="battle-values">
-        <div>
-          <dt>Turn</dt>
-          <dd>{s.round}</dd>
-        </div>
-        <div>
-          <dt>Level</dt>
-          <dd>{s.level || String(s.levelNo).padStart(2, "0")}</dd>
-        </div>
-        <div>
-          <dt>Phase</dt>
-          <dd>{phaseName(s.mode[b.side] ?? phaseMovement)}</dd>
-        </div>
-        <div>
-          <dt>Score</dt>
-          <dd>{s.score}</dd>
-        </div>
-        <div>
-          <dt>Orders</dt>
-          <dd>{s.orders[b.side]}</dd>
-        </div>
-        <div>
-          <dt>Limit</dt>
-          <dd>{s.limit === 0 ? "No limit" : s.limit}</dd>
-        </div>
-      </dl>
-      <div class="battle-holdings">
-        {[0, 1, 2].map((side) => {
-          const h = side === 2 ? s.map : s.sides[side];
-          if (h === undefined) return null;
-          return (
-            <section key={side}>
-              <h3>
-                {side === 2 ? "Whole map" : ownerName(play.faction(side))}
-              </h3>
-              <dl class="battle-values">
-                <div>
-                  <dt>Units</dt>
-                  <dd>{h.units}</dd>
-                </div>
-                <div>
-                  <dt>Depots</dt>
-                  <dd>{h.depots}</dd>
-                </div>
-                <div>
-                  <dt>Factories</dt>
-                  <dd>{h.factories}</dd>
-                </div>
-                {side < 2 && (
-                  <>
-                    <div>
-                      <dt>Energy</dt>
-                      <dd>{s.energy[side]}</dd>
-                    </div>
-                    <div>
-                      <dt>Income</dt>
-                      <dd>{s.income[side]}</dd>
-                    </div>
-                  </>
-                )}
-              </dl>
-            </section>
-          );
-        })}
+    <section
+      class="battle-game"
+      aria-labelledby={`battle-game-title-${p.battle.side}`}
+    >
+      <h2 id={`battle-game-title-${p.battle.side}`}>Situation</h2>
+      <Values
+        className="battle-situation"
+        rows={[
+          ["Turn", s.round],
+          ["Level", s.level || String(s.levelNo).padStart(2, "0")],
+          ["Phase", phaseName(s.mode[b.side] ?? phaseMovement)],
+          ["Orders", s.orders[b.side]],
+          ...(p.best === undefined ? [] : [["Best score", p.best] as const]),
+          ["Score", s.score],
+          ["Limit", s.limit === 0 ? "No limit" : s.limit],
+        ]}
+      />
+      <div class="battle-holdings hl-well">
+        <table>
+          <thead>
+            <tr>
+              <td />
+              <th scope="col">{plaque(play.faction(0))}</th>
+              <th scope="col">{plaque(play.faction(1))}</th>
+              <th scope="col">Whole map</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(
+              [
+                ["Units", (h: (typeof holdings)[number]) => h.units],
+                ["Depots", (h: (typeof holdings)[number]) => h.depots],
+                ["Factories", (h: (typeof holdings)[number]) => h.factories],
+              ] as const
+            ).map(([name, value]) => (
+              <tr key={name}>
+                <th scope="row">{name}</th>
+                {holdings.map((h, i) => (
+                  <td key={i}>{value(h)}</td>
+                ))}
+              </tr>
+            ))}
+            <tr class="battle-gap">
+              <th scope="row">Energy</th>
+              <td>{s.energy[0]}</td>
+              <td>{s.energy[1]}</td>
+              <td />
+            </tr>
+            <tr>
+              <th scope="row">Income</th>
+              <td>{s.income[0]}</td>
+              <td>{s.income[1]}</td>
+              <td />
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   );
 }
 
-function Settings({ p }: { p: Props }) {
-  const details = useRef<HTMLDetailsElement>(null),
-    summary = useRef<HTMLElement>(null),
+/** A choice on the menu: a plate that steps through its values, its key beside the name. */
+function MenuChoice({
+  label,
+  keys,
+  onClick,
+  disabled,
+  pressed,
+  expanded,
+  controls,
+}: {
+  label: string;
+  keys?: string;
+  onClick: () => void;
+  disabled?: boolean;
+  pressed?: boolean;
+  expanded?: boolean;
+  controls?: string;
+}) {
+  return (
+    <button
+      type="button"
+      class="hl-nameplate battle-wide-plate"
+      aria-label={label}
+      aria-keyshortcuts={keys}
+      aria-pressed={pressed}
+      aria-expanded={expanded}
+      aria-controls={controls}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {keys !== undefined && <kbd>{keys}</kbd>}
+      <span>{label}</span>
+    </button>
+  );
+}
+
+/**
+ * MenuBoard is the battle's menu: the settings as plates that step through their values, the keys and touch, then
+ * surrender and leaving. It stays in the document while closed (hidden) so its settings keep their state.
+ */
+function MenuBoard({ p }: { p: Props }) {
+  const open = p.menuOpen.value,
+    board = useRef<HTMLElement>(null),
     sheet = useRef<HTMLFieldSetElement>(null),
     lastFocus = useRef<HTMLElement | null>(null),
-    heldFocus = useRef(false);
+    opener = useRef<Element | null>(null),
+    heldFocus = useRef(false),
+    [help, setHelp] = useState(false),
+    side = p.battle.side;
+  // Opened: the first plate takes the focus; closed: it goes back to what had it.
+  useLayoutEffect(() => {
+    if (open) {
+      opener.current = document.activeElement;
+      sheet.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    } else {
+      setHelp(false);
+      const back = opener.current;
+      opener.current = null;
+      if (
+        back instanceof HTMLElement &&
+        back.isConnected &&
+        (board.current?.contains(document.activeElement) === true ||
+          document.activeElement === document.body)
+      )
+        back.focus();
+    }
+  }, [open]);
+  // Saving a setting disables the plates briefly; the focus waits on the board and comes back.
   useLayoutEffect(() => {
     const last = lastFocus.current;
     if (p.settingsBusy) {
@@ -629,13 +822,13 @@ function Settings({ p }: { p: Props }) {
         (document.activeElement === last ||
           document.activeElement === document.body)
       ) {
-        summary.current?.focus();
+        board.current?.focus();
         heldFocus.current = true;
       }
     } else if (heldFocus.current) {
       if (
-        details.current?.open &&
-        document.activeElement === summary.current &&
+        open &&
+        document.activeElement === board.current &&
         last?.isConnected &&
         !last.matches(":disabled")
       )
@@ -643,18 +836,24 @@ function Settings({ p }: { p: Props }) {
       heldFocus.current = false;
     }
   }, [p.settingsBusy]);
+  const scale = p.scale.value,
+    layout = p.layout ?? "auto";
   return (
-    <details
-      ref={details}
-      class="battle-settings"
+    <section
+      ref={board}
+      id={`battle-menu-${side}`}
+      class="battle-settings battle-menu hl-board"
+      aria-labelledby={`battle-menu-title-${side}`}
+      hidden={!open}
+      tabIndex={-1}
       onKeyDown={(event) => {
-        if (event.key === "Escape" && event.currentTarget.open) {
-          event.currentTarget.open = false;
+        if (event.key === "Escape" && open) {
+          p.menuOpen.value = false;
           event.stopPropagation();
         }
       }}
     >
-      <summary ref={summary}>Settings</summary>
+      <h2 id={`battle-menu-title-${side}`}>Menu</h2>
       <fieldset
         class="battle-settings-sheet"
         ref={sheet}
@@ -665,105 +864,95 @@ function Settings({ p }: { p: Props }) {
             lastFocus.current = event.target;
         }}
       >
-        <label>
-          UI scale
-          <select
-            value={p.scale.value}
-            onChange={(event) => {
-              p.onScale(Number(event.currentTarget.value));
-            }}
-          >
-            {[0.75, 1, 1.25, 1.5, 2].map((value) => (
-              <option key={value} value={value}>
-                {value * 100}%
-              </option>
-            ))}
-          </select>
-        </label>
+        <MenuChoice
+          label={`UI scale: ${scale * 100}%`}
+          onClick={() => {
+            const at = scales.indexOf(scale as (typeof scales)[number]);
+            p.onScale(scales[(at + 1) % scales.length] ?? 1);
+          }}
+        />
         {p.onLayout !== undefined && (
-          <label>
-            Layout
-            <select
-              value={p.layout ?? "auto"}
-              onChange={(event) => {
-                const value = layoutValue(event.currentTarget.value);
-                if (value !== null) p.onLayout?.(value);
-              }}
-            >
-              <LayoutOptions />
-            </select>
-          </label>
+          <MenuChoice
+            label={`Layout: ${layoutShort[layout] ?? layout}`}
+            onClick={() => {
+              const at = layoutNames.findIndex(([value]) => value === layout),
+                next = layoutNames[(at + 1) % layoutNames.length]?.[0];
+              if (next !== undefined) p.onLayout?.(next);
+            }}
+          />
         )}
-        <label>
-          <input
-            type="checkbox"
-            checked={p.reduced.value}
-            onChange={(event) => {
-              p.onReduced(event.currentTarget.checked);
-            }}
-          />
-          Reduced motion (M)
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={p.scenes.value}
-            onChange={(event) => {
-              p.onScenes(event.currentTarget.checked);
-            }}
-          />
-          Battle scenes (F9)
-        </label>
-        <button
-          type="button"
+        <MenuChoice
+          label={`Motion: ${p.reduced.value ? "Reduced" : "Full"}`}
+          keys="M"
+          onClick={() => {
+            p.onReduced(!p.reduced.value);
+          }}
+        />
+        <MenuChoice
+          label={`Battle scenes: ${p.scenes.value ? "On" : "Off"}`}
+          keys="F9"
+          onClick={() => {
+            p.onScenes(!p.scenes.value);
+          }}
+        />
+        <MenuChoice
+          label={
+            p.design === undefined
+              ? `Map design: ${p.painted.value ? "Painted" : "Tiles"}`
+              : `Map design: ${designNames[p.design.value]}`
+          }
+          keys="F8"
           onClick={() => {
             p.onDesign();
           }}
-        >
-          {p.design === undefined
-            ? `${p.painted.value ? "Show terrain tiles" : "Show painting"} (F8)`
-            : `Map design: ${designNames[p.design.value]} (F8)`}
-        </button>
-        <button
-          type="button"
+        />
+        <MenuChoice
+          label="Fullscreen"
+          keys="F11"
           onClick={() => {
             p.onFullscreen();
           }}
-        >
-          Fullscreen (F11)
-        </button>
-        <button
-          type="button"
+        />
+        <MenuChoice
+          label="Keys and touch"
+          expanded={help}
+          controls={`battle-help-${side}`}
           onClick={() => {
-            p.battle.requestSurrender();
+            setHelp(!help);
           }}
-          disabled={p.battle.busy() || play.ended(p.battle.session) !== null}
-        >
-          Surrender (F2)
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            p.onLeave();
-          }}
-        >
-          Leave battle
-        </button>
-        {p.embedded === true && <Help />}
+        />
+        {help && <Help id={`battle-help-${side}`} />}
+        <div class="battle-menu-end">
+          <MenuChoice
+            label="Surrender"
+            keys="F2"
+            onClick={() => {
+              p.menuOpen.value = false;
+              p.battle.requestSurrender();
+            }}
+            disabled={p.battle.busy() || play.ended(p.battle.session) !== null}
+          />
+          <MenuChoice
+            label="Leave battle"
+            onClick={() => {
+              p.menuOpen.value = false;
+              p.onLeave();
+            }}
+          />
+        </div>
         {(p.settingsNote || p.settingsBusy) && (
           <p class="battle-reason" role="status">
             {p.settingsNote || "Saving settings…"}
           </p>
         )}
       </fieldset>
-    </details>
+    </section>
   );
 }
 
-function Help() {
+function Help({ id }: { id: string }) {
   return (
-    <details class="battle-help">
-      <summary>Keys and touch</summary>
+    <div id={id} class="battle-help hl-well">
       <p>
         Tap your unit for its orders: plates on the cells round it. Tap a plate,
         or flick from the unit towards it. Click or right-click a unit with a
@@ -781,7 +970,7 @@ function Help() {
         goes back. M: reduced motion; F8: map design; F9: battle scenes; F11:
         fullscreen.
       </p>
-    </details>
+    </div>
   );
 }
 
@@ -818,7 +1007,7 @@ function Confirm({ p }: { p: Props }) {
   return (
     <div class="battle-modal-shade">
       <section
-        class="battle-confirm"
+        class="battle-confirm hl-board"
         role="alertdialog"
         aria-modal={p.embedded ? undefined : "true"}
         aria-labelledby={`battle-confirm-title-${p.battle.side}`}
@@ -836,6 +1025,7 @@ function Confirm({ p }: { p: Props }) {
         <div class="battle-button-row">
           <button
             type="button"
+            class="hl-nameplate"
             ref={confirm}
             onClick={() => {
               if (b.surrenderPrompt) b.requestSurrender();
@@ -846,6 +1036,7 @@ function Confirm({ p }: { p: Props }) {
           </button>
           <button
             type="button"
+            class="hl-nameplate"
             onClick={() => {
               b.cancel();
             }}
@@ -855,6 +1046,19 @@ function Confirm({ p }: { p: Props }) {
         </div>
       </section>
     </div>
+  );
+}
+
+/** Board is what opens over the map: a steel board with its heading and a plate that closes it. */
+function Board({
+  kind,
+  children,
+}: {
+  kind: string;
+  children: ComponentChildren;
+}) {
+  return (
+    <div class={`battle-board hl-board battle-board-${kind}`}>{children}</div>
   );
 }
 
@@ -869,6 +1073,8 @@ export function BattleUI(p: BattleUIProps) {
   const onStrategyHost = useCallback((element: HTMLDivElement | null) => {
     props.current.onStrategyHost(element);
   }, []);
+  const portrait = usePortrait(),
+    embedded = p.embedded === true;
   const revision = p.revision.value,
     b = p.battle,
     s = b.session,
@@ -881,7 +1087,9 @@ export function BattleUI(p: BattleUIProps) {
         ? null
         : b.progress.total > 0
           ? Math.min(1, Math.max(0, b.progress.done / b.progress.total))
-          : 0;
+          : 0,
+    orders = play.stats(s).orders[b.side] ?? 0,
+    menuOpen = p.menuOpen.value;
   const skipScene = () => {
     if (!b.playback.skipScene()) return;
     b.version++;
@@ -907,6 +1115,100 @@ export function BattleUI(p: BattleUIProps) {
     )
       event.stopPropagation();
   };
+  const status =
+    b.status ||
+    (end !== null
+      ? "The battle is over."
+      : ready
+        ? "Waiting for the opponent."
+        : `${phaseName(phase)} phase`);
+  const ordersText = `${orders}${s.game.limit > 0 ? ` / ${s.game.limit}` : ""} ${orders === 1 && s.game.limit === 0 ? "order" : "orders"}`;
+  // What opens over the map; a building's contents stay in the side board or the plate below the map.
+  const contents = b.contents.box !== null,
+    centre =
+      scene !== null
+        ? "scene"
+        : contents
+          ? embedded
+            ? "contents"
+            : null
+          : b.panel === "unit" && b.infoUnit?.side === b.side
+            ? "unit"
+            : b.panel === "game"
+              ? "game"
+              : b.panel === "map"
+                ? "map"
+                : null;
+  const close = (label: string) => (
+    <div class="battle-board-foot">
+      <button
+        type="button"
+        class={`hl-nameplate ${centre === "scene" || centre === "map" ? "battle-host-close" : "battle-board-close"}`}
+        onClick={() => {
+          if (centre === "scene") skipScene();
+          else b.cancel();
+        }}
+      >
+        {label}
+      </button>
+    </div>
+  );
+  const board =
+    centre === "scene" && scene !== null ? (
+      <Board kind="scene">
+        <section class="battle-scene-panel" aria-label="Battle scene">
+          <h2>Battle</h2>
+          <div class="battle-scene-host hl-well" ref={onSceneHost} />
+          {close("Skip battle scene")}
+        </section>
+      </Board>
+    ) : centre === "contents" ? (
+      <Board kind="contents">
+        <Contents p={p} />
+      </Board>
+    ) : centre === "unit" && b.infoUnit !== null ? (
+      <Board kind="unit">
+        <h2>Unit information</h2>
+        <UnitCard p={p} unit={b.infoUnit} full />
+        {close("Close")}
+      </Board>
+    ) : centre === "game" ? (
+      <Board kind="game">
+        <GameInfo p={p} />
+        {close("Close")}
+      </Board>
+    ) : centre === "map" ? (
+      <Board kind="map">
+        <section class="battle-strategy-panel" aria-label="Strategic map">
+          <h2>Strategic map</h2>
+          <p class="battle-muted">
+            Tap the map to look there. Press Escape to return.
+          </p>
+          <div class="battle-strategy-host hl-well" ref={onStrategyHost} />
+          {close("Close map")}
+        </section>
+      </Board>
+    ) : null;
+  const planning = progress !== null && (
+    <progress
+      class="battle-planning"
+      aria-label="Computer planning"
+      max={1}
+      value={progress}
+    />
+  );
+  const statusLine = (
+    <p
+      class="battle-status"
+      role={embedded ? undefined : "status"}
+      aria-live={embedded ? undefined : "polite"}
+    >
+      {status}
+    </p>
+  );
+  const strip = !embedded && p.readOnly !== true && (
+    <OrderStrip p={p} className="battle-order-strip" />
+  );
   return (
     <div
       class="battle-ui"
@@ -914,102 +1216,81 @@ export function BattleUI(p: BattleUIProps) {
       data-panel={b.panel}
       data-scene={scene !== null}
       data-readonly={p.readOnly ?? false}
+      data-layout={embedded ? "panel" : portrait ? "upright" : "wide"}
+      data-board={centre ?? (menuOpen ? "menu" : "none")}
       style={{ "--ui-scale": p.scale.value }}
       onKeyDown={controlKeys}
     >
-      <header class="battle-top" inert={p.readOnly ?? false}>
-        <div class="battle-title">
-          <h1>{s.level.mapName || "Historyline 1914–1918"}</h1>
-          <span>
-            <Flag owner={play.faction(b.side)} /> Turn {play.turn(s)} ·{" "}
-            {phaseName(phase)} · {play.energy(s, b.side)} energy
-          </span>
-        </div>
-        {p.embedded !== true && <OrderStrip p={p} className="battle-strip" />}
-        <Settings p={p} />
-        {progress !== null && (
-          <progress
-            class="battle-planning"
-            aria-label="Computer planning"
-            max={1}
-            value={progress}
+      {!embedded && (
+        <>
+          <div class="battle-housing hl-plate" aria-hidden="true" />
+          <div class="battle-window" aria-hidden="true" />
+        </>
+      )}
+      {!embedded && (
+        <header
+          class="battle-top battle-bar hud-strip"
+          inert={p.readOnly ?? false}
+          aria-label="Battle status"
+        >
+          <Lamp lit={!ready && end === null && !b.busy()} />
+          <Plaque
+            assets={p.assets}
+            owner={play.faction(b.side)}
+            uiScale={p.scale.value}
           />
-        )}
-      </header>
+          {portrait ? (
+            <>
+              <h1 class="battle-title">
+                {s.level.mapName || "Historyline 1914–1918"}
+              </h1>
+              <span class="battle-turn">
+                Turn {play.turn(s)}
+                <span class="battle-energy">
+                  {" "}
+                  · {play.energy(s, b.side)} energy
+                </span>
+              </span>
+            </>
+          ) : (
+            <>
+              <h1 class="battle-hidden">
+                {s.level.mapName || "Historyline 1914–1918"}
+              </h1>
+              <div class="battle-bar-status hud-status">
+                {statusLine}
+                <span class="battle-order-count hl-amber">{ordersText}</span>
+              </div>
+            </>
+          )}
+          <span class="battle-spring" />
+          {!portrait && strip}
+          <MenuPlate p={p} />
+          {planning}
+        </header>
+      )}
 
-      <aside class="battle-dock" aria-label="Battle controls">
-        <p class="battle-status" role="status" aria-live="polite">
-          {b.status ||
-            (end !== null
-              ? "The battle is over."
-              : ready
-                ? "Waiting for the opponent."
-                : `${phaseName(phase)} phase`)}
-        </p>
-        <div class="battle-phase-row">
-          <span>
-            Your orders: {play.stats(s).orders[b.side]}
-            {s.game.limit > 0 ? ` / ${s.game.limit}` : ""}
-          </span>
-          <span>{ready ? "Confirmed" : "Open"}</span>
-        </div>
-        <div class="battle-opponent-status">
+      <aside class="battle-dock hl-board" aria-label="Battle controls">
+        {(embedded || portrait) && (
+          <div class="battle-phase-row">
+            {statusLine}
+            <span class="battle-order-count hl-amber">{ordersText}</span>
+          </div>
+        )}
+        <div class="battle-opponent-status battle-muted">
           Opponent: {phaseName(play.phase(s, 1 - b.side))} ·{" "}
           {play.ready(s, 1 - b.side) ? "Ready" : "Giving orders"}
+          {ready ? " · Your orders confirmed" : ""}
         </div>
-        <nav
-          class="battle-panel-nav"
-          aria-label="Battle views"
-          inert={p.readOnly ?? false}
-        >
-          {(b.panel !== "orders" || b.contents.box !== null) && (
-            <button
-              type="button"
-              onClick={() => {
-                b.cancel();
-              }}
-            >
-              Back
-            </button>
-          )}
-        </nav>
-        {scene !== null ? (
-          <section class="battle-scene-panel" aria-label="Battle scene">
-            <h2>Battle</h2>
-            <div class="battle-scene-host" ref={onSceneHost} />
-            <button type="button" class="battle-host-close" onClick={skipScene}>
-              Skip battle scene
-            </button>
-          </section>
-        ) : b.contents.box !== null ? (
-          <Contents p={p} />
-        ) : b.panel === "unit" && b.infoUnit?.side === b.side ? (
-          <>
-            <h2>Unit information</h2>
-            <UnitCard p={p} unit={b.infoUnit} full />
-          </>
-        ) : b.panel === "game" ? (
-          <GameInfo p={p} />
-        ) : b.panel === "map" ? (
-          <section class="battle-strategy-panel" aria-label="Strategic map">
-            <h2>Strategic map</h2>
-            <p>Tap the map to look there. Press Escape to return.</p>
-            <div class="battle-strategy-host" ref={onStrategyHost} />
-            <button
-              type="button"
-              class="battle-host-close"
-              onClick={() => {
-                b.cancel();
-              }}
-            >
-              Close map
-            </button>
-          </section>
-        ) : (
-          <Orders p={p} />
-        )}
-        {p.embedded !== true && <Help />}
+        <div class="battle-dock-body">
+          {contents && !embedded ? <Contents p={p} /> : <Orders p={p} />}
+        </div>
+        {portrait && strip}
       </aside>
+
+      {board}
+
+      <MenuBoard p={p} />
 
       {p.readOnly !== true && <OrderMenu p={p} />}
 

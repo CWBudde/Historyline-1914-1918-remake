@@ -177,11 +177,12 @@ describe("persistent settings", () => {
     expect(validateSettings({ layout: "auto" }).layout).toBe("auto");
   });
 
-  it("splits landscape windows at least 1000 CSS pixels wide by default", () => {
+  it("splits landscape windows at least 1200 CSS pixels wide by default", () => {
     expect(splitByDefault(1920, 1080)).toBe(true);
     expect(splitByDefault(1280, 720)).toBe(true);
-    expect(splitByDefault(1000, 700)).toBe(true);
-    expect(splitByDefault(999, 600)).toBe(false);
+    expect(splitByDefault(1200, 700)).toBe(true);
+    expect(splitByDefault(1199, 700)).toBe(false);
+    expect(splitByDefault(1000, 800)).toBe(false);
     // A phone held either way and a tall window keep the single map.
     expect(splitByDefault(412, 915)).toBe(false);
     expect(splitByDefault(915, 412)).toBe(false);

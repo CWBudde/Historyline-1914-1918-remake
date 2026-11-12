@@ -288,9 +288,12 @@ export class SplitRuntime {
       throw error;
     }
   }
-  /** paintedDesign reports whether the map shows its painting, which the split screen frames slim. */
-  private get paintedDesign(): boolean {
-    return this.panels[0].design.value === "painted";
+  /**
+   * steel reports whether the split screen is the steel housing of the painted and tile designs (layout steel): two
+   * rectangular openings, DOM strips and boards. The original design keeps the original frame and its pixel font.
+   */
+  get steel(): boolean {
+    return this.panels[0].design.value !== "original";
   }
   /** original reports whether the battle shows the original split screen (the auto layout on a wide window). */
   get original(): boolean {
@@ -454,6 +457,7 @@ export class SplitRuntime {
   private withLayout(props: BattleUIProps): BattleUIProps {
     return {
       ...props,
+      best: this.best,
       layout: this.settings.layout,
       ...(this.local?.mode === "simultaneous"
         ? {}
@@ -466,7 +470,7 @@ export class SplitRuntime {
   }
   resize(width: number, height: number, dpr: number): void {
     if (this.stopped) return;
-    const key = `${width}/${height}/${dpr}/${this.original}/${this.settings.uiScale}/${this.paintedDesign}`;
+    const key = `${width}/${height}/${dpr}/${this.original}/${this.settings.uiScale}/${this.steel}`;
     if (key === this.layoutKey) return;
     this.layoutKey = key;
     const changed =
@@ -490,17 +494,17 @@ export class SplitRuntime {
         );
       }
     } else {
-      this.frame.canvas.hidden = false;
+      this.frame.canvas.hidden = this.steel;
       const base = layout(
         Math.round(width * dpr),
         Math.round(height * dpr),
         hudScale(width * dpr, height * dpr, dpr) * this.settings.uiScale,
+        this.steel,
       );
       const grid = bind.playable(this.battle.session.board),
         [ww, hh] = hexgrid.bounds(grid);
       this.zoom = base.clampZoom(this.zoom);
-      if (this.paintedDesign)
-        this.zoom = Math.max(this.zoom, base.fillZoom(ww, hh));
+      if (this.steel) this.zoom = Math.max(this.zoom, base.fillZoom(ww, hh));
       this.screen = base.zoomed(this.zoom);
       this.zoomIntent = zooms[this.zoom] ?? 1;
       for (const side of sides) {
@@ -520,7 +524,7 @@ export class SplitRuntime {
               b.cursor,
             );
           this.views[side] = this.screen.view(side, rest.pair, rest.row);
-          if (this.paintedDesign)
+          if (this.steel)
             this.views[side] = this.screen.slimFit(this.views[side], side, {
               x: 0,
               y: 0,
@@ -534,15 +538,17 @@ export class SplitRuntime {
         }
       }
       const run = ++this.frameGeneration;
-      void this.frame
-        .initialize(this.settings.uiScale, dpr)
-        .catch((error: unknown) => {
-          if (!this.stopped && run === this.frameGeneration) {
-            this.battle.status =
-              error instanceof Error ? error.message : String(error);
-            this.hooks.changed();
-          }
-        });
+      // The steel housing is drawn by the DOM (SplitUI); only the original frame needs its painted steel.
+      if (!this.steel)
+        void this.frame
+          .initialize(this.settings.uiScale, dpr)
+          .catch((error: unknown) => {
+            if (!this.stopped && run === this.frameGeneration) {
+              this.battle.status =
+                error instanceof Error ? error.message : String(error);
+              this.hooks.changed();
+            }
+          });
       this.alignViews();
     }
     for (const side of sides) {
@@ -583,10 +589,10 @@ export class SplitRuntime {
         Math.round(this.height * this.dpr),
         hudScale(this.width * this.dpr, this.height * this.dpr, this.dpr) *
           this.settings.uiScale,
+        this.steel,
       );
       this.zoom = base.clampZoom(index);
-      if (this.paintedDesign)
-        this.zoom = Math.max(this.zoom, base.fillZoom(ww, hh));
+      if (this.steel) this.zoom = Math.max(this.zoom, base.fillZoom(ww, hh));
       this.screen = base.zoomed(this.zoom);
       if (this.zoom !== index) this.zoomIntent = zooms[this.zoom] ?? 1;
     }
@@ -598,7 +604,7 @@ export class SplitRuntime {
       if (intent !== null) camera.origin = { ...intent };
       const rest = cameraRest(camera, this.screen, side, grid);
       let view = this.screen.view(side, rest.pair, rest.row);
-      if (this.paintedDesign)
+      if (this.steel)
         view = this.screen.slimFit(view, side, {
           x: 0,
           y: 0,
@@ -630,13 +636,8 @@ export class SplitRuntime {
       )
         this.panels[side].map.dirty = true;
     }
-    this.frame.paint(
-      this.screen,
-      this.views,
-      grid,
-      this.paintedDesign,
-      this.dpr,
-    );
+    if (!this.steel)
+      this.frame.paint(this.screen, this.views, grid, false, this.dpr);
   }
   tick(ms: number): void {
     if (this.paused || this.stopped) return;
@@ -1019,7 +1020,7 @@ export class SplitRuntime {
   ): boolean {
     const b = this.panels[side].battle,
       box = b.contents.box;
-    if (this.original && b.panel === "map" && box === null) {
+    if (this.original && !this.steel && b.panel === "map" && box === null) {
       // The strategic map: a click on the map looks there and puts the cursor there; any click closes it.
       if (kind === "click") {
         const { lay, rect, ui } = this.strategicLayout(side),
@@ -1043,7 +1044,12 @@ export class SplitRuntime {
       } else if (kind === "context") b.cancel();
       return true;
     }
-    if (!this.original || box === null || b.playback.scene() !== null)
+    if (
+      !this.original ||
+      this.steel ||
+      box === null ||
+      b.playback.scene() !== null
+    )
       return false;
     if (kind === "context") {
       b.cancel();
@@ -1130,7 +1136,7 @@ export class SplitRuntime {
       grid = bind.playable(this.battle.session.board),
       [coord, onMap] = hexgrid.pixelToHex(grid, w.x, w.y);
     if (!onMap) return false;
-    if (this.paintedDesign) {
+    if (this.steel) {
       const o = this.screen.slimOpening(side),
         c = view.worldToScreen(...hexgrid.center(coord));
       return (

@@ -43,6 +43,7 @@ import {
 } from "./original/catalog.ts";
 import { setOriginalArt } from "./original/state.ts";
 import { ShellUI } from "./shell/ShellUI.tsx";
+import { useArmour } from "./shell/materials.ts";
 import {
   BrowserStore,
   defaultSettings,
@@ -86,17 +87,21 @@ let offlineModel: OfflineController | null = null;
 /** The Offline maps page's model: the maps kept by the background keep and by the player's downloads. */
 function offlineController(): OfflineController {
   offlineModel ??= new OfflineController(
-    browserServices(() => loader, offlineRecords, () => ({
-      map: assetDensity(1, window.devicePixelRatio),
-      paintings: assetDensity(
-        paintingScale(
-          window.innerWidth,
-          window.innerHeight,
-          preferences.uiScale,
+    browserServices(
+      () => loader,
+      offlineRecords,
+      () => ({
+        map: assetDensity(1, window.devicePixelRatio),
+        paintings: assetDensity(
+          paintingScale(
+            window.innerWidth,
+            window.innerHeight,
+            preferences.uiScale,
+          ),
+          window.devicePixelRatio,
         ),
-        window.devicePixelRatio,
-      ),
-    })),
+      }),
+    ),
   );
   return offlineModel;
 }
@@ -269,7 +274,10 @@ function Controls() {
       />
     );
   return (
-    <>
+    <div
+      class="battle-page"
+      style={useArmour(images, current.settings.uiScale, false)}
+    >
       <SplitUI
         runtime={battle}
         assets={images}
@@ -280,11 +288,13 @@ function Controls() {
         }}
       />
       {battle.ended() && current.result !== null && (
-        <div class="battle-ended">
+        <div class="battle-ended hl-board">
           <p role="status">
             {current.result.text} · Score {current.result.score}
           </p>
           <button
+            type="button"
+            class="hl-nameplate"
             onClick={() => {
               current.showOutcome();
             }}
@@ -293,7 +303,7 @@ function Controls() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 // The original game's files the player imported (original/): kept in their own IndexedDB database.

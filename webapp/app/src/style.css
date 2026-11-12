@@ -4,13 +4,43 @@
   --muted: #6e8088;
   --slate: #162630;
   --ui-scale: 1;
-  --top-height: calc(64px * var(--ui-scale) + env(safe-area-inset-top, 0px));
-  --dock-width: min(calc(320px * var(--ui-scale)), 45vw);
-  --dock-height: min(44dvh, calc(400px * var(--ui-scale)));
+  /*
+   * The single map's opening in the battle screen's plate (ui/battle.css): a margin of plate round it and the steel
+   * strip under it; upright, the strip runs along the top and the plate with the unit and the orders fills the
+   * window below the map.
+   */
+  --hud-gap: calc(12px * var(--ui-scale));
+  --strip-height: calc(56px * var(--ui-scale));
+  --strip-foot: max(
+    calc(8px * var(--ui-scale)),
+    env(safe-area-inset-bottom, 0px)
+  );
+  --stage-top: max(var(--hud-gap), env(safe-area-inset-top, 0px));
+  --stage-left: max(var(--hud-gap), env(safe-area-inset-left, 0px));
+  --stage-right: max(var(--hud-gap), env(safe-area-inset-right, 0px));
+  --stage-bottom: calc(
+    var(--strip-height) + var(--strip-foot) + 8px * var(--ui-scale)
+  );
   /* Set by viewport.ts from the visual viewport (on-screen keyboard, browser bars). */
   --app-top: 0px;
   --app-height: 100dvh;
   color-scheme: dark;
+}
+@media (pointer: coarse) {
+  :root {
+    --strip-height: max(60px, calc(56px * var(--ui-scale)));
+  }
+}
+@media (orientation: portrait) {
+  :root {
+    --stage-top: calc(50px * var(--ui-scale) + env(safe-area-inset-top, 0px));
+    --stage-left: calc(6px * var(--ui-scale));
+    --stage-right: calc(6px * var(--ui-scale));
+    --stage-bottom: min(
+      42dvh,
+      calc(318px * var(--ui-scale) + env(safe-area-inset-bottom, 0px))
+    );
+  }
 }
 
 html,
@@ -38,27 +68,17 @@ body {
   pointer-events: none;
 }
 
+/* The single map: the opening in the battle screen's plate. */
 .in-battle #stage {
-  top: calc(var(--app-top) + var(--top-height));
-  height: calc(var(--app-height) - var(--top-height));
-  right: var(--dock-width);
-}
-
-/* The top bar's own padding makes room for the notch. */
-.in-battle .battle-ui .battle-top {
-  padding-top: calc(5px + env(safe-area-inset-top, 0px));
+  top: calc(var(--app-top) + var(--stage-top));
+  left: var(--stage-left);
+  right: var(--stage-right);
+  height: calc(var(--app-height) - var(--stage-top) - var(--stage-bottom));
 }
 
 #stage canvas {
   display: block;
   touch-action: none;
-}
-
-@media (max-width: 900px), (orientation: portrait) {
-  .in-battle #stage {
-    right: 0;
-    height: calc(var(--app-height) - var(--top-height) - var(--dock-height));
-  }
 }
 
 .leave-shade {
@@ -76,31 +96,38 @@ body {
   margin: 16px;
 }
 
-.battle-ended {
-  position: fixed;
-  top: calc(var(--top-height) + 16px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(420px, calc(100vw - 32px));
-  box-sizing: border-box;
-  padding: 16px;
-  background: #172830ee;
-  border: 2px solid var(--brass);
-  color: var(--cream);
-  font:
-    calc(14px * var(--ui-scale)) "HL Sans",
-    sans-serif;
-  pointer-events: auto;
+/* The armour's custom properties (shell/materials.ts useArmour) reach the whole battle page. */
+.battle-page {
+  display: contents;
 }
 
-.battle-ended button {
-  min-height: 44px;
-  padding: 8px 16px;
-  color: var(--cream);
-  background: var(--slate);
-  border: 1px solid var(--brass);
-  font: inherit;
-  cursor: pointer;
+/* The battle's end: a steel board over the map with its line stencilled and a brass plate on to the outcome. */
+.battle-page .battle-ended {
+  position: fixed;
+  top: calc(var(--app-top) + var(--stage-top) + 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  width: min(calc(460px * var(--ui-scale)), calc(100vw - 32px));
+  box-sizing: border-box;
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+  font:
+    700 calc(16px * var(--ui-scale)) / 1.3 "Stardos Stencil",
+    serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: var(--hl-paint);
+  pointer-events: auto;
+}
+.battle-ended p {
+  justify-self: stretch;
+  margin: 0;
+}
+.battle-ended .hl-nameplate {
+  --ph: calc(40px * var(--ui-scale));
+  min-width: calc(140px * var(--ui-scale));
 }
 
 .banner {

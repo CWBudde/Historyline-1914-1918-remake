@@ -181,93 +181,39 @@
   text-align: center;
 }
 
-/* The order strip: small brass nameplates for Info, Map and, past a rivet, End phase. */
+/* The order strip: Info, Map and End phase as brass nameplates (armour.css), each with its key. */
 .order-strip {
+  --ph: var(--strip-ph, 36px);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: calc(0.22 * var(--ph));
   pointer-events: auto;
-  --ink: rgb(27 21 11);
-  --engrave: 0 1px 0 rgb(255 230 172 / 42%), 0 -0.5px 0 rgb(0 0 0 / 28%);
 }
-.battle-ui .order-strip .order-nameplate,
 .order-strip .order-nameplate {
-  --ph: var(--strip-ph, 30px);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  min-height: var(--ph);
-  height: var(--ph);
-  margin: 0;
-  padding: 0 calc(0.1 * var(--ph));
-  border: solid transparent;
-  border-width: calc(0.24 * var(--ph)) calc(0.6 * var(--ph));
-  border-image: var(--face) 26% 10% fill / 1 / 0 stretch;
-  border-radius: 3px;
-  background: rgb(112 89 52 / 0%);
-  color: var(--ink);
-  font:
-    700 calc(0.43 * var(--ph)) / 1 "Zilla Slab",
-    "HL Serif",
-    serif;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-shadow: var(--engrave);
-  white-space: nowrap;
-  cursor: pointer;
-  touch-action: manipulation;
-  filter: drop-shadow(1px 2px 1.5px rgb(0 0 0 / 50%));
-  transition:
-    filter 0.12s,
-    transform 0.08s;
-}
-.battle-ui .order-strip .order-nameplate:hover:not(:disabled),
-.order-strip .order-nameplate:hover:not(:disabled),
-.order-strip .order-nameplate:focus-visible,
-.order-strip .order-nameplate[aria-pressed="true"] {
-  border-image-source: var(--face-lit);
-  background: rgb(112 89 52 / 0%);
-  outline: none;
-}
-.order-strip .order-nameplate:focus-visible {
-  filter: drop-shadow(1.5px 0 0 rgb(232 226 207))
-    drop-shadow(-1.5px 0 0 rgb(232 226 207))
-    drop-shadow(0 1.5px 0 rgb(232 226 207))
-    drop-shadow(0 -1.5px 0 rgb(232 226 207));
-}
-.battle-ui .order-strip .order-nameplate:active:not(:disabled),
-.order-strip .order-nameplate:active:not(:disabled) {
-  background: rgb(112 89 52 / 0%);
-  transform: translateY(1px);
-  filter: brightness(0.82);
-}
-.battle-ui .order-strip .order-nameplate:disabled,
-.order-strip .order-nameplate:disabled {
-  opacity: 1;
-  filter: grayscale(0.6) brightness(0.62);
-  cursor: default;
-}
-/* A dome rivet between the views and End phase, so the two never read as one row of the same kind. */
-.order-strip .order-strip-rivet {
+  --ph: inherit;
   flex: none;
-  width: 9px;
-  height: 9px;
-  margin: 0 4px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 35%,
-    rgb(118 116 100),
-    rgb(64 62 52) 60%,
-    rgb(34 32 26)
-  );
-  box-shadow: 0 2px 1px rgb(110 62 30 / 70%);
+  gap: 0.4em;
+  min-width: calc(2.6 * var(--ph));
+  height: var(--ph);
+  padding: 0 calc(0.1 * var(--ph));
+  font-size: calc(0.43 * var(--ph));
+  line-height: 1;
+  white-space: nowrap;
+  filter: drop-shadow(1px 2px 1.5px rgb(0 0 0 / 50%));
 }
-
+/* End phase stands a little apart, so the views and the phase never read as one row of the same kind. */
+.order-strip .battle-ready {
+  margin-left: calc(0.25 * var(--ph));
+}
+.order-strip .order-nameplate:disabled {
+  filter: grayscale(0.6) brightness(0.62);
+}
 @media (pointer: coarse) {
-  .battle-ui .order-strip .order-nameplate,
+  .order-strip {
+    --ph: max(44px, var(--strip-ph, 44px));
+  }
   .order-strip .order-nameplate {
-    --ph: 44px;
-    font-size: 15px;
+    height: auto;
   }
   .order-strip kbd {
     display: none;
@@ -277,8 +223,7 @@
   .order-menu[data-visible="true"] {
     animation: none;
   }
-  .order-menu .order-plate,
-  .order-strip .order-nameplate {
+  .order-menu .order-plate {
     transition: none;
   }
 }
@@ -286,32 +231,4 @@
 /* On the split screen the strip lies on the panel's status strip, over the frame. */
 .split-strip {
   z-index: 4;
-}
-
-/* In the single map's top bar the plates take most of its height. */
-.battle-top .battle-strip {
-  --strip-ph: 36px;
-  margin-left: auto;
-}
-
-/* A narrow window gives the strip a row of its own under the title: three touch-sized plates across the top,
-   End phase at the far end, out of the thumb's resting place at the bottom. */
-@media (max-width: 600px) {
-  html:root {
-    --top-height: calc(
-      108px * var(--ui-scale, 1) + env(safe-area-inset-top, 0px)
-    );
-  }
-  .battle-ui .battle-top {
-    flex-wrap: wrap;
-    align-content: center;
-    row-gap: 6px;
-  }
-  .battle-top .battle-strip {
-    --strip-ph: 42px;
-    order: 3;
-    flex-basis: 100%;
-    justify-content: space-between;
-    margin-left: 0;
-  }
 }

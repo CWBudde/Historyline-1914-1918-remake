@@ -42,8 +42,18 @@ export function fit(
   return { cols: Math.max(cols, 1), rows: Math.max(rows, 1) };
 }
 
-export function layout(width: number, height: number, ui = 1): Screen {
-  return new Screen(width, height, ui);
+/**
+ * layout is the split screen in physical pixels. The original frame (steel false) follows internal/dosscreen: the
+ * panels fill the window, a thin strip under each. The steel housing of the painted and tile designs (ui/armour.css)
+ * leaves a margin of plate round two rectangular openings, a riveted bar between them and a taller strip under each.
+ */
+export function layout(
+  width: number,
+  height: number,
+  ui = 1,
+  steel = false,
+): Screen {
+  return new Screen(width, height, ui, steel);
 }
 
 export class Screen {
@@ -59,38 +69,71 @@ export class Screen {
   rows: number;
   zoom = defaultZoom;
   fitScale: number;
+  /** The steel housing: rectangular openings in a plate (layout). */
+  steel: boolean;
 
-  constructor(width: number, height: number, ui = 1) {
+  constructor(width: number, height: number, ui = 1, steel = false) {
     this.width = width = Math.max(Math.trunc(width), 1);
     this.height = height = Math.max(Math.trunc(height), 1);
     this.ui = ui = ui <= 0 ? 1 : ui;
-    const gap = scaled(4, ui),
-      status = scaled(14, ui),
-      foot = scaled(2, ui);
-    const pw = Math.max(Math.trunc((width - scaled(8, ui)) / 2), 1),
-      ph = Math.max(height - gap - status - foot, 1);
-    this.panels = [
-      { x: 0, y: 0, width: pw, height: ph },
-      { x: width - pw, y: 0, width: pw, height: ph },
-    ];
-    this.divider = {
-      x: pw,
-      y: 0,
-      width: Math.max(width - 2 * pw, 0),
-      height: ph + gap,
-    };
-    const sy = ph + gap;
-    this.status = [
-      { x: 0, y: sy, width: pw, height: status },
-      { x: width - pw, y: sy, width: pw, height: status },
-    ];
-    const bolt = Math.min(scaled(8, ui), this.divider.width, status);
-    this.bolt = {
-      x: pw + Math.trunc((this.divider.width - bolt) / 2),
-      y: sy + Math.trunc((status - bolt) / 2),
-      width: bolt,
-      height: bolt,
-    };
+    this.steel = steel;
+    if (steel) {
+      // A margin of plate, the riveted bar between the openings, the strip under each and its foot.
+      const margin = scaled(7, ui),
+        bar = scaled(16, ui),
+        gap = scaled(5, ui),
+        status = scaled(28, ui),
+        foot = scaled(4, ui),
+        pw = Math.max(Math.trunc((width - 2 * margin - bar) / 2), 1),
+        ph = Math.max(height - margin - gap - status - foot, 1),
+        right = width - margin - pw,
+        sy = margin + ph + gap;
+      this.panels = [
+        { x: margin, y: margin, width: pw, height: ph },
+        { x: right, y: margin, width: pw, height: ph },
+      ];
+      this.divider = {
+        x: margin + pw,
+        y: margin,
+        width: Math.max(right - margin - pw, 0),
+        height: ph,
+      };
+      this.status = [
+        { x: margin, y: sy, width: pw, height: status },
+        { x: right, y: sy, width: pw, height: status },
+      ];
+      this.bolt = { x: this.divider.x, y: sy, width: 0, height: 0 };
+    } else {
+      const gap = scaled(4, ui),
+        status = scaled(14, ui),
+        foot = scaled(2, ui);
+      const pw = Math.max(Math.trunc((width - scaled(8, ui)) / 2), 1),
+        ph = Math.max(height - gap - status - foot, 1);
+      this.panels = [
+        { x: 0, y: 0, width: pw, height: ph },
+        { x: width - pw, y: 0, width: pw, height: ph },
+      ];
+      this.divider = {
+        x: pw,
+        y: 0,
+        width: Math.max(width - 2 * pw, 0),
+        height: ph + gap,
+      };
+      const sy = ph + gap;
+      this.status = [
+        { x: 0, y: sy, width: pw, height: status },
+        { x: width - pw, y: sy, width: pw, height: status },
+      ];
+      const bolt = Math.min(scaled(8, ui), this.divider.width, status);
+      this.bolt = {
+        x: pw + Math.trunc((this.divider.width - bolt) / 2),
+        y: sy + Math.trunc((status - bolt) / 2),
+        width: bolt,
+        height: bolt,
+      };
+    }
+    const ph = this.panels[0].height,
+      pw = this.panels[0].width;
     const block = blockSize(minCols, targetRows);
     this.fitScale = this.cellScale = Math.max(
       Math.min(ph / block.height, pw / block.width),
@@ -144,7 +187,7 @@ export class Screen {
   }
 
   zoomed(index: number): Screen {
-    const s = new Screen(this.width, this.height, this.ui);
+    const s = new Screen(this.width, this.height, this.ui, this.steel);
     Object.assign(s, this);
     s.panels = [{ ...this.panels[0] }, { ...this.panels[1] }];
     s.status = [{ ...this.status[0] }, { ...this.status[1] }];
@@ -169,8 +212,10 @@ export class Screen {
   }
 
   slimOpening(side: number): Rect {
-    const p = this.panels[(side & 1) as 0 | 1],
-      rim = scaled(3, this.ui),
+    const p = this.panels[(side & 1) as 0 | 1];
+    // The steel housing's openings are the panels themselves.
+    if (this.steel) return { ...p };
+    const rim = scaled(3, this.ui),
       left = (side & 1) === 0 ? rim : 0;
     return {
       x: p.x + left,

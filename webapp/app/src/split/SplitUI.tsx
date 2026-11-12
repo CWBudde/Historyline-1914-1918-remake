@@ -2,11 +2,12 @@ import { play, phaseMovement } from "@historyline/engine";
 import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 import type { Signal } from "@preact/signals";
 import type { TargetedKeyboardEvent } from "preact";
-import { BattleUI } from "../ui/BattleUI.tsx";
+import { BattleUI, Lamp, MenuPlate, Plaque } from "../ui/BattleUI.tsx";
 import { OrderStrip } from "../ui/OrderMenu.tsx";
 import { makeInert } from "../ui/inert.ts";
 import type { UiAssets } from "../ui/assets.ts";
 import type { Rect } from "../camera.ts";
+import type { Screen } from "./geometry.ts";
 import type { SplitRuntime } from "./runtime.ts";
 import { drawWell, type Well } from "./well.ts";
 import {
@@ -337,6 +338,7 @@ function Handover({ runtime, side }: { runtime: SplitRuntime; side: 0 | 1 }) {
   return (
     <div class="hotseat-handover">
       <section
+        class="hl-board"
         role="dialog"
         aria-modal="true"
         aria-labelledby="handover-title"
@@ -349,6 +351,8 @@ function Handover({ runtime, side }: { runtime: SplitRuntime; side: 0 | 1 }) {
           covered until they take control.
         </p>
         <button
+          type="button"
+          class="hl-nameplate"
           ref={take}
           onClick={() => {
             runtime.takeOver();
@@ -357,6 +361,8 @@ function Handover({ runtime, side }: { runtime: SplitRuntime; side: 0 | 1 }) {
           Take control
         </button>
         <button
+          type="button"
+          class="hl-nameplate"
           onClick={() => {
             runtime.requestLeave();
           }}
@@ -364,6 +370,134 @@ function Handover({ runtime, side }: { runtime: SplitRuntime; side: 0 | 1 }) {
           Save or leave
         </button>
       </section>
+    </div>
+  );
+}
+
+/**
+ * Housing is the steel plate of the split screen's painted and tile designs: it covers the window but for the two
+ * map openings, each with a dark lip and a worn bevel, a riveted bar between them (ui/armour.css).
+ */
+function Housing({ screen, dpr }: { screen: Screen; dpr: number }) {
+  const hole = (r: Rect) => {
+      const x0 = r.x / dpr,
+        y0 = r.y / dpr,
+        x1 = (r.x + r.width) / dpr,
+        y1 = (r.y + r.height) / dpr;
+      return `${x0}px ${y0}px, ${x1}px ${y0}px, ${x1}px ${y1}px, ${x0}px ${y1}px, ${x0}px ${y0}px`;
+    },
+    [a, b] = screen.panels,
+    bar = screen.divider,
+    rivets = Math.min(bar.width / dpr, 16);
+  return (
+    <div class="split-housing" aria-hidden="true">
+      <div
+        class="split-plate hl-plate"
+        style={{
+          clipPath: `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${hole(a)}, 0 0, ${hole(b)}, 0 0)`,
+        }}
+      />
+      <div class="split-window" style={place(a, dpr)} />
+      <div class="split-window" style={place(b, dpr)} />
+      <div
+        class="split-bar-rivets"
+        style={{
+          left: `${(bar.x + bar.width / 2) / dpr - rivets / 2}px`,
+          top: `${bar.y / dpr + 6}px`,
+          width: `${rivets}px`,
+          height: `${Math.max(bar.height / dpr - 12, 0)}px`,
+        }}
+      />
+    </div>
+  );
+}
+
+/**
+ * SteelStrip is a panel's strip in the steel housing: the lamp (lit while the side may give orders), its plaque, the
+ * status stencilled, and for the side the player commands now the global orders' brass plates and the menu.
+ */
+function SteelStrip({
+  runtime,
+  assets,
+  revision,
+  state,
+  side,
+}: Props & { side: 0 | 1 }) {
+  const b = runtime.panels[side].battle,
+    active = runtime.canInteract(side),
+    visible = runtime.visible(side),
+    well = runtime.well(side),
+    ready = play.ready(b.session, side),
+    rect = runtime.screen.status[side],
+    dpr = window.devicePixelRatio,
+    p = runtime.panelProps(side, assets, revision, state),
+    phase =
+      play.phase(b.session, side) === phaseMovement ? "Movement" : "Attack",
+    human = runtime.human(side),
+    [main = "", extra = ""] =
+      well.unit === null ? well.text.split("  ") : [well.unit.name, ""],
+    lit =
+      active && human && !ready && play.ended(b.session) === null && !b.busy();
+  return (
+    <div
+      class="split-steel-strip hud-strip"
+      data-side={side}
+      data-human={human}
+      style={{
+        ...place(rect, dpr),
+        "--strip-h": `${rect.height / dpr}px`,
+      }}
+    >
+      <Lamp lit={lit} />
+      <Plaque
+        assets={assets}
+        owner={play.faction(side)}
+        uiScale={p.scale.value}
+      />
+      <div class="split-status hud-status">
+        <p
+          class={`split-well side-${side}`}
+          data-side={side}
+          role="status"
+          aria-label={`${name(side)} · ${phase} · ${ready ? "Orders confirmed" : "Giving orders"}`}
+        >
+          {!visible ? (
+            "Waiting for the other player"
+          ) : well.unit !== null ? (
+            <>
+              <span class="hl-amber">{well.unit.size}</span> {main}
+            </>
+          ) : (
+            main
+          )}
+        </p>
+        {visible && extra !== "" && (
+          <span class="split-well-extra hl-amber">{extra}</span>
+        )}
+      </div>
+      <span class="split-spring" />
+      {active && visible && (
+        <>
+          <OrderStrip
+            p={p}
+            className="split-strip"
+            keys={
+              runtime.local?.mode === "simultaneous" && side === 1
+                ? { phase: "Ctrl ←" }
+                : { info: "I", map: "O", phase: "F1" }
+            }
+          />
+          <MenuPlate p={p} />
+        </>
+      )}
+      {well.progress >= 0 && (
+        <progress
+          class="split-planning"
+          aria-label="Computer planning"
+          max={1}
+          value={Math.min(1, Math.max(0, well.progress))}
+        />
+      )}
     </div>
   );
 }
@@ -381,13 +515,16 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
     return <Handover key={handover} runtime={runtime} side={handover} />;
   if (!runtime.original)
     return <BattleUI {...runtime.props(assets, revision, state)} />;
-  const dpr = window.devicePixelRatio;
+  const dpr = window.devicePixelRatio,
+    steel = runtime.steel;
   return (
     <div
       class="split-screen"
       data-revision={tick}
       data-mode={runtime.local?.mode ?? "single"}
+      data-hud={steel ? "steel" : "pixel"}
     >
+      {steel && <Housing screen={runtime.screen} dpr={dpr} />}
       {([0, 1] as const).map((side) => {
         const b = runtime.panels[side].battle,
           active = runtime.canInteract(side),
@@ -397,14 +534,19 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
             play.phase(b.session, side) === phaseMovement
               ? "Movement"
               : "Attack",
-          status = b.status || wellLabel(well);
+          status = b.status || wellLabel(well),
+          panel = runtime.screen.panels[side],
+          props = runtime.panelProps(side, assets, revision, state);
         return (
           <div key={side}>
             <section
               class={`split-panel ${visible ? "" : "split-hidden"}`}
               data-side={side}
               aria-label={`${name(side)} panel`}
-              style={place(runtime.screen.panels[side], dpr)}
+              style={{
+                ...place(panel, dpr),
+                "--panel-h": `${panel.height / dpr}px`,
+              }}
               inert={
                 !active &&
                 !(runtime.local === null && b.playback.scene() !== null)
@@ -412,50 +554,66 @@ export function SplitUI({ runtime, assets, revision, state }: Props) {
             >
               {visible ? (
                 <>
-                  <BattleUI
-                    {...runtime.panelProps(side, assets, revision, state)}
-                    embedded
-                  />
-                  <PanelOverlay
-                    runtime={runtime}
-                    assets={assets}
-                    side={side}
-                    tick={tick}
-                  />
+                  <BattleUI {...props} embedded />
+                  {!steel && (
+                    <PanelOverlay
+                      runtime={runtime}
+                      assets={assets}
+                      side={side}
+                      tick={tick}
+                    />
+                  )}
                 </>
               ) : (
                 <p class="split-covered">Waiting for the other player</p>
               )}
             </section>
-            <div
-              class={`split-well side-${side}`}
-              data-side={side}
-              role="status"
-              style={place(runtime.screen.status[side], dpr)}
-              aria-label={`${name(side)} · ${phase} · ${play.ready(b.session, side) ? "Orders confirmed" : "Giving orders"}`}
-            >
-              <WellCanvas
+            {steel ? (
+              <SteelStrip
                 runtime={runtime}
                 assets={assets}
+                revision={revision}
+                state={state}
                 side={side}
-                well={well}
-                visible={visible}
               />
-              <span class="split-well-text">
-                {visible ? status : "Waiting for the other player"}
-              </span>
-            </div>
-            {active && visible && (
-              <OrderStrip
-                p={runtime.panelProps(side, assets, revision, state)}
-                className="split-strip"
-                keys={
-                  runtime.local?.mode === "simultaneous" && side === 1
-                    ? { phase: "Ctrl ←" }
-                    : { info: "I", map: "O", phase: "F1" }
-                }
-                style={stripPlace(runtime.screen.status[side], dpr)}
-              />
+            ) : (
+              <>
+                <div
+                  class={`split-well side-${side}`}
+                  data-side={side}
+                  role="status"
+                  style={place(runtime.screen.status[side], dpr)}
+                  aria-label={`${name(side)} · ${phase} · ${play.ready(b.session, side) ? "Orders confirmed" : "Giving orders"}`}
+                >
+                  <WellCanvas
+                    runtime={runtime}
+                    assets={assets}
+                    side={side}
+                    well={well}
+                    visible={visible}
+                  />
+                  <span class="split-well-text">
+                    {visible ? status : "Waiting for the other player"}
+                  </span>
+                </div>
+                {active && visible && (
+                  <div
+                    class="split-pixel-strip"
+                    style={stripPlace(runtime.screen.status[side], dpr)}
+                  >
+                    <OrderStrip
+                      p={props}
+                      className="split-strip"
+                      keys={
+                        runtime.local?.mode === "simultaneous" && side === 1
+                          ? { phase: "Ctrl ←" }
+                          : { info: "I", map: "O", phase: "F1" }
+                      }
+                    />
+                    <MenuPlate p={props} />
+                  </div>
+                )}
+              </>
             )}
           </div>
         );
