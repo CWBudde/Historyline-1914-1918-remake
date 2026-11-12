@@ -20,7 +20,8 @@ async function steel(page: Page): Promise<string> {
       () =>
         sheet.evaluate((el) => {
           const image = getComputedStyle(el).backgroundImage;
-          return /url\("blob:.*url\("blob:/.test(image) ? image : "";
+          // Four rivet heads and the graded tile.
+          return (image.match(/url\("blob:/g) ?? []).length === 5 ? image : "";
         }),
       { timeout: 30_000 },
     )
