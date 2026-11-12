@@ -53,7 +53,7 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
   return (
     <section class="offline-panel" aria-label="Offline maps">
       <h2>Selected map</h2>
-      <div class="shell-well offline-box">
+      <div class="shell-well offline-box hl-well">
         <p>{label}</p>
         <p role="status" class="shell-muted">
           {status}
@@ -70,7 +70,7 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
           {state.phase === "downloading" ? (
             <button
               type="button"
-              class="shell-button"
+              class="shell-button hl-nameplate"
               onClick={() => {
                 model.cancel();
               }}
@@ -78,13 +78,13 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
               Cancel
             </button>
           ) : state.phase === "ready" ? (
-            <button type="button" class="shell-button" disabled>
+            <button type="button" class="shell-button hl-nameplate" disabled>
               Downloaded
             </button>
           ) : (
             <button
               type="button"
-              class="shell-button"
+              class="shell-button hl-nameplate"
               disabled={state.phase !== "available" && state.phase !== "error"}
               onClick={() => {
                 if (state.phase === "error") void model.select(mission);
@@ -101,7 +101,7 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
         </div>
       </div>
       <h2>On this device</h2>
-      <div class="shell-well offline-box">
+      <div class="shell-well offline-box hl-well">
         {kept.length === 0 ? (
           <p class="shell-muted">No maps are kept for offline play.</p>
         ) : (
@@ -114,7 +114,7 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
                 <span class="shell-muted">{megabytes(entry.bytes)}</span>
                 <button
                   type="button"
-                  class="shell-button"
+                  class="shell-button hl-nameplate"
                   disabled={state.phase === "downloading"}
                   onClick={() => {
                     void model.remove(entry.key);
@@ -130,7 +130,7 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
           <div class="offline-row">
             <button
               type="button"
-              class="shell-button"
+              class="shell-button hl-nameplate"
               disabled={state.phase === "downloading"}
               onClick={() => {
                 void model.removeAll();

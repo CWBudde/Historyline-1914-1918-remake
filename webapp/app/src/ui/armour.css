@@ -1,0 +1,191 @@
+/*
+ * The worn army metal shared by the menus and the battle screen (art/screens/armour, shell/materials.ts useArmour):
+ * steel plate is the housing, brass nameplates are what is pressed, stencil paint is what is read and dark recessed
+ * wells hold pictures and value lists. The art reaches the CSS as the --hl-* custom properties; until it has arrived
+ * the parts show the plate's colour and plain brass, in the same sizes. Lengths follow --u where a page sets it (the
+ * menus' layout unit) and fall back to a fixed size elsewhere.
+ */
+:root {
+  --hl-bone: rgb(214 205 184);
+  --hl-bone-dim: rgb(170 163 145);
+  --hl-amber: rgb(226 178 92);
+  --hl-ink: rgb(27 21 11);
+  --hl-plate-c: rgb(77 74 59);
+  /* Paint on the plate: no relief, a faint dirt shadow so it reads over the rust. */
+  --hl-paint: 0 1px 3px rgb(0 0 0 / 60%);
+}
+
+/* ---------------------------------------------------------------- nameplates */
+
+/*
+ * Every control is a brass nameplate of height --ph: the painted plate as a 9-slice border (its screwed ends keep
+ * their shape, the face stretches), engraved lettering in the middle. armour/nameplate is 868×142 at 2x: an end of
+ * 10 % of its width is 0.61 of its height, the rim 26 % of it.
+ */
+.hl-nameplate {
+  --ph: 40px;
+  --face: var(--hl-nameplate, none);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ph);
+  margin: 0;
+  padding: 0 calc(0.18 * var(--ph));
+  border: solid transparent;
+  border-width: calc(0.24 * var(--ph)) calc(0.6 * var(--ph));
+  border-image: var(--face) 26% 10% fill / 1 / 0 stretch;
+  border-radius: calc(0.12 * var(--ph));
+  background: var(--hl-brass, rgb(112 89 52));
+  color: var(--hl-ink);
+  font:
+    700 calc(0.42 * var(--ph)) / 1.05 "Zilla Slab",
+    "HL Serif",
+    serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* Engraved: a dark fill, its lower edge catching the light. */
+  text-shadow:
+    0 max(1px, calc(0.35 * var(--u, 1.4px))) 0 rgb(255 230 172 / 42%),
+    0 calc(-0.25 * var(--u, 1.4px)) 0 rgb(0 0 0 / 28%);
+  overflow-wrap: anywhere;
+  transition:
+    filter 0.12s,
+    transform 0.08s;
+}
+button.hl-nameplate {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+/* Selected (focus) and under the pointer: the plate rubbed bright. A pressed toggle stays bright. */
+.hl-nameplate:is(button, [role="button"]):hover:not(:disabled),
+.hl-nameplate:is(button, [role="button"]):focus,
+.hl-nameplate[aria-pressed="true"],
+.hl-nameplate[aria-expanded="true"] {
+  --face: var(--hl-nameplate-polished, none);
+  background-color: var(--hl-brass, rgb(166 128 68));
+  outline: none;
+}
+.hl-nameplate:is(button, [role="button"]):active:not(:disabled) {
+  filter: brightness(0.8);
+  transform: translateY(calc(0.6 * var(--u, 1.4px)));
+}
+.hl-nameplate:disabled,
+.hl-nameplate.hl-disabled {
+  filter: grayscale(0.6) brightness(0.62);
+  cursor: default;
+}
+/* Keyboard focus: the bright plate lifted by a warm halo of lamplight, beside the polish itself. */
+.hl-nameplate:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 calc(1.6 * var(--u, 1.4px)) rgb(255 222 150 / 75%))
+    drop-shadow(0 0 calc(0.4 * var(--u, 1.4px)) rgb(255 236 190 / 90%));
+}
+/* A key on the plate, smaller and fainter than its name. */
+.hl-nameplate kbd {
+  font: inherit;
+  font-size: 0.72em;
+  letter-spacing: 0.04em;
+  opacity: 0.72;
+}
+@media (pointer: coarse) {
+  button.hl-nameplate {
+    min-height: max(44px, var(--ph));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hl-nameplate {
+    transition: none;
+  }
+  .hl-nameplate:is(button, [role="button"]):active:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------- wells */
+
+/* A dark recess pressed into the plate: pictures, value lists and tables sit in it. */
+.hl-well {
+  border-radius: calc(3 * var(--u, 1.4px));
+  background: rgb(18 18 13 / 42%);
+  box-shadow:
+    inset 0 calc(1.5 * var(--u, 1.4px)) calc(4 * var(--u, 1.4px))
+      rgb(0 0 0 / 62%),
+    inset 0 calc(-0.5 * var(--u, 1.4px)) 0 rgb(214 205 184 / 14%),
+    0 max(1px, calc(0.4 * var(--u, 1.4px))) 0 rgb(214 205 184 / 10%);
+}
+
+/* ---------------------------------------------------------------- plate and boards */
+
+/* The steel plate itself: the housing round the map windows and every strip. */
+.hl-plate {
+  background:
+    var(--hl-plate, none) center / 836px 470px,
+    var(--hl-plate-c);
+}
+/* A board bolted over a window: a piece of plate, its edge shaded, a row of rivets along the top and the bottom. */
+.hl-board {
+  --rivet: 18px;
+  position: relative;
+  padding: calc(var(--rivet) + 4px) 20px calc(var(--rivet) + 2px);
+  color: var(--hl-bone);
+  background:
+    var(--hl-plate, none) center / 836px 470px,
+    var(--hl-plate-c);
+  border-radius: 5px;
+  box-shadow:
+    0 0 0 2px rgb(20 19 14),
+    0 10px 28px rgb(0 0 0 / 70%),
+    inset 0 1px 0 rgb(214 205 184 / 22%),
+    inset 0 -2px 0 rgb(0 0 0 / 40%);
+}
+.hl-board::before,
+.hl-board::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  height: var(--rivet);
+  pointer-events: none;
+  background: var(--hl-rivets-row, none) 0 0 / auto var(--rivet) repeat-x;
+}
+.hl-board::before {
+  top: 3px;
+}
+.hl-board::after {
+  bottom: 1px;
+}
+
+/* ---------------------------------------------------------------- stencil paint */
+
+/* Headings, phases, orders and tables: stencilled on the steel in worn bone-white paint, figures in amber. */
+.hl-stencil {
+  font-family: "Stardos Stencil", "HL Display", serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hl-bone);
+  text-shadow: var(--hl-paint);
+}
+.hl-amber {
+  color: var(--hl-amber);
+}
+.hl-dim {
+  color: var(--hl-bone-dim);
+}
+
+/* A signal lamp: lit amber while its side may act, a dead glass otherwise. */
+.hl-lamp {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #77705c, #2a281e 70%);
+  box-shadow: 0 0 0 2px rgb(20 19 14);
+}
+.hl-lamp[data-lit="true"] {
+  background: radial-gradient(circle at 35% 30%, #ffd98a, #b06a1c 60%, #3a2208);
+  box-shadow:
+    0 0 8px rgb(255 190 90 / 70%),
+    0 0 0 2px rgb(20 19 14);
+}

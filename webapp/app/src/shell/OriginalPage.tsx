@@ -67,7 +67,9 @@ export function OriginalPage({
             take(fromDrop(event.dataTransfer));
         }}
       >
-        <label class={`shell-import${busy ? " shell-disabled" : ""}`}>
+        <label
+          class={`shell-import hl-nameplate${busy ? " shell-disabled" : ""}`}
+        >
           <span>Choose game folder</span>
           <input
             type="file"
@@ -86,7 +88,9 @@ export function OriginalPage({
             }}
           />
         </label>
-        <label class={`shell-import${busy ? " shell-disabled" : ""}`}>
+        <label
+          class={`shell-import hl-nameplate${busy ? " shell-disabled" : ""}`}
+        >
           <span>Choose files</span>
           <input
             type="file"

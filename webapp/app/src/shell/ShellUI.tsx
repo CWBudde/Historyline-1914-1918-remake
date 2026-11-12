@@ -10,6 +10,7 @@ import {
   type ShellController,
   type ShellPage,
 } from "./controller.ts";
+import "../ui/armour.css";
 import "./shell.css";
 import { OriginalPage } from "./OriginalPage.tsx";
 import { design, designNames, nextDesign } from "../original/design.ts";
@@ -215,7 +216,7 @@ function Plaques({ p }: { p: ShellUIProps }) {
 
 function Unit({ p, card }: { p: ShellUIProps; card: UnitCard }) {
   return (
-    <article class="shell-unit shell-well">
+    <article class="shell-unit shell-well hl-well">
       <Art
         p={p}
         id={`portrait/${card.family}`}
@@ -317,7 +318,7 @@ export function ShellUI(p: ShellUIProps) {
   ) => (
     <button
       type="button"
-      class="shell-button"
+      class="shell-button hl-nameplate"
       disabled={disabled}
       onClick={() => {
         run(action);
@@ -588,7 +589,7 @@ export function ShellUI(p: ShellUIProps) {
               });
             }}
           >
-            <label class="shell-field shell-code">
+            <label class="shell-field shell-code hl-nameplate">
               <span>Map code</span>
               <input
                 value={code}
@@ -611,7 +612,7 @@ export function ShellUI(p: ShellUIProps) {
             </label>
             <button
               type="submit"
-              class="shell-button"
+              class="shell-button hl-nameplate"
               disabled={busy || !code}
               {...helpOf(["Open the map of this code."])}
             >
@@ -628,7 +629,7 @@ export function ShellUI(p: ShellUIProps) {
       content = (
         <>
           <div class="shell-menu shell-menu-tight">
-            <p class="shell-fixed">Rules · Original (DOS)</p>
+            <p class="shell-fixed hl-nameplate">Rules · Original (DOS)</p>
             {button(
               `Battles · ${s.settings.reduced ? "Short" : "Full"}`,
               () => change({ reduced: !s.settings.reduced }),
@@ -639,7 +640,7 @@ export function ShellUI(p: ShellUIProps) {
               ],
             )}
             <label
-              class="shell-field"
+              class="shell-field hl-nameplate"
               {...fieldHelp([
                 "Two humans: the split screen, B on D/C/X/V + Ctrl.",
                 "Hot-seat: the sides take turns.",
@@ -664,7 +665,7 @@ export function ShellUI(p: ShellUIProps) {
                 <option value="hotseat">Hot-seat</option>
               </select>
             </label>
-            <p class="shell-fixed">Player A · Human</p>
+            <p class="shell-fixed hl-nameplate">Player A · Human</p>
             {s.settings.playMode === "single" ? (
               button(
                 `Player B · ${s.settings.opponent === "computer" ? "Computer" : "Passive"}`,
@@ -682,9 +683,9 @@ export function ShellUI(p: ShellUIProps) {
                 ],
               )
             ) : (
-              <p class="shell-fixed">Player B · Human</p>
+              <p class="shell-fixed hl-nameplate">Player B · Human</p>
             )}
-            <p class="shell-fixed">Depots · Own only</p>
+            <p class="shell-fixed hl-nameplate">Depots · Own only</p>
             {button(
               `Moves · ${s.settings.limit === 0 ? "No limit" : `${s.settings.limit} a phase`}`,
               () => {
@@ -714,7 +715,7 @@ export function ShellUI(p: ShellUIProps) {
         <>
           <div class="shell-menu shell-menu-tight">
             <label
-              class="shell-field"
+              class="shell-field hl-nameplate"
               {...fieldHelp([
                 "The battle screen: the split screen of the original or one map.",
               ])}
@@ -780,7 +781,7 @@ export function ShellUI(p: ShellUIProps) {
               );
             })()}
             <label
-              class="shell-field"
+              class="shell-field hl-nameplate"
               {...fieldHelp(["The size of the menus and panels."])}
             >
               <span>UI scale</span>
@@ -850,7 +851,7 @@ export function ShellUI(p: ShellUIProps) {
               <button
                 key={side}
                 type="button"
-                class="shell-well shell-country"
+                class="shell-well shell-country hl-well"
                 data-side={side}
                 disabled={busy}
                 onClick={() => {
@@ -868,7 +869,7 @@ export function ShellUI(p: ShellUIProps) {
                   scale={(200 * u) / 169}
                   lite
                 />
-                <strong class="shell-nameplate">
+                <strong class="shell-nameplate hl-nameplate">
                   {side === 0 ? "Germany" : "France"}
                 </strong>
                 <span>{side === 0 ? "The Central Powers" : "The Entente"}</span>
@@ -1073,7 +1074,7 @@ export function ShellUI(p: ShellUIProps) {
               return (
                 <section
                   key={slot}
-                  class="shell-save-slot shell-well"
+                  class="shell-save-slot shell-well hl-well"
                   aria-labelledby={`shell-slot-${slot}`}
                 >
                   <h2 id={`shell-slot-${slot}`}>Slot {slot}</h2>
@@ -1098,7 +1099,7 @@ export function ShellUI(p: ShellUIProps) {
                     )}
                   </div>
                   <label
-                    class={`shell-import ${busy || !s.storageAvailable() ? "shell-disabled" : ""}`}
+                    class={`shell-import hl-nameplate ${busy || !s.storageAvailable() ? "shell-disabled" : ""}`}
                   >
                     <span>{saved ? "Import / replace" : "Import"}</span>
                     <input
@@ -1176,7 +1177,9 @@ export function ShellUI(p: ShellUIProps) {
       aria-busy={busy}
     >
       <div class="shell-rivets" aria-hidden="true" />
-      <main class={`shell-sheet${boards.includes(page) ? " shell-panel" : ""}`}>
+      <main
+        class={`shell-sheet${boards.includes(page) ? " shell-panel hl-well" : ""}`}
+      >
         <header class="shell-heading">
           {page === "main" ? (
             <h1 id="shell-title" class="shell-title">
@@ -1205,7 +1208,7 @@ export function ShellUI(p: ShellUIProps) {
               {notices}
             </div>
             <Embrasure p={p} scene={scene} />
-            <aside class="shell-help">
+            <aside class="shell-help hl-nameplate">
               {notice && notice !== dismissed ? (
                 <p class="shell-help-notice" role="status" aria-live="polite">
                   {notice}

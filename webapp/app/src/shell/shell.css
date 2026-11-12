@@ -185,9 +185,8 @@
 /* ---------------------------------------------------------------- nameplates */
 
 /*
- * Every control is a brass nameplate of height --ph: the painted plate as a 9-slice border (its screwed ends keep
- * their shape, the face stretches), engraved lettering in the middle. armour/nameplate is 868×142 at 2x: an end of
- * 10 % of its width is 0.61 of its height, the rim 26 % of it.
+ * Every control is a brass nameplate (ui/armour.css .hl-nameplate) of height --ph in units of the layout; the menus
+ * add their fields, the import plates and the country names to it.
  */
 .shell-ui .shell-button,
 .shell-ui .shell-field,
@@ -196,40 +195,13 @@
 .shell-ui .shell-nameplate,
 .shell-ui .shell-help {
   --ph: calc(24 * var(--u));
-  --face: var(--hl-nameplate, none);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--ph);
   margin: 0;
-  padding: 0 calc(0.18 * var(--ph));
-  border: solid transparent;
-  border-width: calc(0.24 * var(--ph)) calc(0.6 * var(--ph));
-  border-image: var(--face) 26% 10% fill / 1 / 0 stretch;
-  border-radius: calc(0.12 * var(--ph));
-  background: var(--hl-brass, rgb(112 89 52));
-  color: var(--ink);
-  font:
-    700 calc(0.42 * var(--ph)) / 1.05 "Zilla Slab",
-    "HL Serif",
-    serif;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-shadow: var(--engrave);
-  overflow-wrap: anywhere;
-  transition:
-    filter 0.12s,
-    transform 0.08s;
 }
-.shell-ui .shell-button,
 .shell-ui .shell-import {
   cursor: pointer;
   touch-action: manipulation;
 }
 /* Selected (focus) and under the pointer: the plate rubbed bright. */
-.shell-ui .shell-button:hover:not(:disabled),
-.shell-ui .shell-button:focus,
 .shell-ui .shell-field:focus-within,
 .shell-ui .shell-field:hover,
 .shell-ui .shell-import:hover:not(.shell-disabled),
@@ -240,11 +212,6 @@
   background-color: var(--hl-brass, rgb(166 128 68));
   outline: none;
 }
-.shell-ui .shell-button:active:not(:disabled) {
-  filter: brightness(0.8);
-  transform: translateY(calc(0.6 * var(--u)));
-}
-.shell-ui .shell-button:disabled,
 .shell-ui .shell-disabled {
   filter: grayscale(0.6) brightness(0.62);
   cursor: default;
@@ -265,19 +232,7 @@
   filter: drop-shadow(0 0 calc(1.6 * var(--u)) rgb(255 222 150 / 75%))
     drop-shadow(0 0 calc(0.4 * var(--u)) rgb(255 236 190 / 90%));
 }
-@media (prefers-reduced-motion: reduce) {
-  .shell-ui .shell-button,
-  .shell-ui .shell-field,
-  .shell-ui .shell-import {
-    transition: none;
-  }
-  .shell-ui .shell-button:active:not(:disabled) {
-    transform: none;
-  }
-}
-.shell-ui button,
-.shell-ui input,
-.shell-ui select {
+:where(.shell-ui) :is(button, input, select) {
   font: inherit;
   color: inherit;
   max-width: 100%;
@@ -351,7 +306,6 @@
   min-width: calc(110 * var(--u));
 }
 @media (pointer: coarse) {
-  .shell-ui .shell-button,
   .shell-ui .shell-field,
   .shell-ui .shell-import {
     min-height: max(44px, var(--ph));
@@ -360,15 +314,7 @@
 
 /* ---------------------------------------------------------------- recessed wells and boards */
 
-.shell-ui .shell-well,
-.shell-ui .shell-panel {
-  border-radius: calc(3 * var(--u));
-  background: rgb(18 18 13 / 42%);
-  box-shadow:
-    inset 0 calc(1.5 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 62%),
-    inset 0 calc(-0.5 * var(--u)) 0 rgb(214 205 184 / 14%),
-    0 max(1px, calc(0.4 * var(--u))) 0 rgb(214 205 184 / 10%);
-}
+/* The wells and the wide pages' board are ui/armour.css .hl-well, drawn at the layout's unit. */
 
 /* ---------------------------------------------------------------- the columned pages */
 
