@@ -80,6 +80,69 @@ test.describe("the menus in the desktop game's steel", () => {
     expect(card?.height).toBeGreaterThanOrEqual(238 * u - 1);
   });
 
+  test("the front page on newsprint and the new units in wells on hull plating", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await openMenu(page);
+    const u = await unit(page);
+    await page.getByRole("button", { name: "Start" }).click();
+    await page.getByRole("button", { name: /^Germany/ }).click();
+
+    const sheet = page.locator(".shell-page-news .shell-sheet");
+    await expect
+      .poll(
+        () => sheet.evaluate((el) => getComputedStyle(el).backgroundImage),
+        { timeout: 30_000 },
+      )
+      .toMatch(/^url\("blob:/);
+    const paper = await sheet.boundingBox();
+    expect(paper?.width).toBeCloseTo(616 * u, -0.5);
+    // Within a pixel and a half: --u is a fraction of a pixel. The picture is 240 by 160; Continue stands under the orders in its column.
+    const photo = await page.locator(".shell-news-photo").boundingBox();
+    expect(photo?.width).toBeCloseTo(240 * u, -0.5);
+    expect(photo?.height).toBeCloseTo(160 * u, -0.5);
+    const go = page.getByRole("button", { name: "Continue" });
+    await expect(
+      page.locator(".shell-news-picture").getByRole("button", {
+        name: "Continue",
+      }),
+    ).toBeVisible();
+    const orders = await page.locator(".shell-orders").boundingBox(),
+      button = await go.boundingBox();
+    expect(button?.y ?? 0).toBeGreaterThan((orders?.y ?? 0) + 1);
+    expect((button?.y ?? 0) + (button?.height ?? 0)).toBeLessThanOrEqual(
+      (paper?.y ?? 0) + (paper?.height ?? 0),
+    );
+    expect(
+      await page
+        .locator(".shell-news-copy")
+        .evaluate((el) => getComputedStyle(el).columnCount),
+    ).toBe("2");
+
+    await go.click();
+    await expect(page.getByRole("button", { name: "To battle" })).toBeVisible();
+    await expect(page.locator(".shell-backdrop.shell-hull")).toHaveCount(1);
+    const wells = page.locator(".shell-unit.shell-well");
+    expect(await wells.count()).toBeGreaterThan(0);
+    expect(await wells.count()).toBeLessThanOrEqual(4);
+    const portrait = await page
+      .locator(".shell-portrait")
+      .first()
+      .boundingBox();
+    expect(portrait?.width).toBeCloseTo(69 * u, -0.5);
+    expect(portrait?.height).toBeCloseTo(62 * u, -0.5);
+    // The buttons beside the title, as in the desktop game.
+    const title = await page
+        .getByRole("heading", { name: "NEW AT THE FRONT" })
+        .boundingBox(),
+      battle = await page
+        .getByRole("button", { name: "To battle" })
+        .boundingBox();
+    expect(battle?.y ?? 0).toBeLessThan((title?.y ?? 0) + (title?.height ?? 0));
+    expect(battle?.x ?? 0).toBeGreaterThan(960);
+  });
+
   test.describe("on a phone held upright", () => {
     const pixel = devices["Pixel 7"];
     // The device's browser type would force a worker of its own inside a describe group.

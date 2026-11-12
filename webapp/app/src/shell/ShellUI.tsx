@@ -149,6 +149,7 @@ function Unit({ p, card }: { p: ShellUIProps; card: UnitCard }) {
         id={`portrait/${card.family}`}
         alt={`${card.name} portrait`}
         className="shell-portrait"
+        drawn
       />
       <div class="shell-unit-values">
         <h2>{card.name}</h2>
@@ -798,6 +799,7 @@ export function ShellUI(p: ShellUIProps) {
                     id={`news/${s.mission.month}`}
                     alt={article.caption}
                     className="shell-news-photo"
+                    drawn
                   />
                   <figcaption>{article.caption}</figcaption>
                 </figure>
@@ -805,6 +807,12 @@ export function ShellUI(p: ShellUIProps) {
                   <h3>Orders of the day</h3>
                   <p>{s.mission.briefing}</p>
                 </section>
+                <footer class="shell-actions">
+                  {button("Continue", () => s.continueNews(), busy, [
+                    "On to the battle.",
+                  ])}
+                  {back()}
+                </footer>
               </div>
               <div class="shell-news-copy">
                 {article.body.map((paragraph, i) => (
@@ -820,10 +828,6 @@ export function ShellUI(p: ShellUIProps) {
                 </section>
               </div>
             </div>
-            <footer class="shell-actions">
-              {button("Continue", () => s.continueNews())}
-              {back()}
-            </footer>
           </div>
         );
       break;
@@ -836,10 +840,12 @@ export function ShellUI(p: ShellUIProps) {
               {s.side === 0 ? "The Central Powers" : "The Entente"} ·{" "}
               {s.mission.news?.label ?? s.mission.month}
             </p>
-            <p>
-              Page {s.unitPage + 1} of{" "}
-              {Math.max(1, Math.ceil(s.mission.newUnits.length / 4))}
-            </p>
+            {s.mission.newUnits.length > 4 && (
+              <p>
+                Page {s.unitPage + 1} of{" "}
+                {Math.ceil(s.mission.newUnits.length / 4)}
+              </p>
+            )}
           </div>
           <div class="shell-units">
             {s.cards.map((card) => (

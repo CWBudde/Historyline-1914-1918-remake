@@ -764,130 +764,245 @@
 
 /* ---------------------------------------------------------------- the page of new units */
 
+/*
+ * The new units on the hull plating, as cmd/historyline/news.go drawUnitsPage: the title with the buttons beside
+ * it, a brass rule, the side and month, then a recessed well per unit: its portrait, its values and its note.
+ */
+.shell-page-units .shell-sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  width: min(calc(592 * var(--u)), calc(100% - 24px));
+  margin: 0 auto;
+  padding: calc(20 * var(--u)) 0 calc(16 * var(--u));
+}
+.shell-page-units .shell-sheet > * {
+  grid-column: 1 / -1;
+}
+.shell-page-units .shell-heading {
+  grid-row: 1;
+  margin: 0;
+  padding: 0 0 calc(6 * var(--u));
+}
+.shell-page-units .shell-heading h1 {
+  margin: 0;
+}
+.shell-page-units .shell-sheet > .shell-actions {
+  grid-row: 1;
+  grid-column: 2;
+  align-self: start;
+  margin: 0;
+}
+.shell-page-units .shell-actions .shell-button {
+  min-width: calc(96 * var(--u));
+  min-height: calc(26 * var(--u));
+  padding-block: calc(2 * var(--u));
+}
 .shell-section-heading {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: calc(6 * var(--u));
+  margin: calc(4 * var(--u)) 0 calc(6 * var(--u));
   color: var(--muted);
   font-size: calc(11 * var(--u));
+}
+.shell-section-heading p {
+  margin: 0;
 }
 .shell-units {
   display: grid;
   gap: calc(6 * var(--u));
 }
-.shell-unit {
+.shell-ui .shell-unit {
   display: grid;
-  grid-template-columns: calc(69 * var(--u)) calc(144 * var(--u)) minmax(0, 1fr);
-  gap: calc(12 * var(--u));
+  grid-template-columns: calc(69 * var(--u)) calc(145 * var(--u)) minmax(0, 1fr);
+  column-gap: calc(11 * var(--u));
+  align-items: start;
+  min-height: calc(70 * var(--u));
   padding: calc(3 * var(--u));
+  font-size: calc(9.5 * var(--u));
+  line-height: calc(12 * var(--u));
 }
 .shell-portrait {
   width: calc(69 * var(--u));
   height: calc(62 * var(--u));
+  max-width: none;
   object-fit: cover;
 }
-.shell-unit h2 {
-  font-size: calc(11 * var(--u));
+.shell-ui .shell-unit h2 {
+  margin: calc(2 * var(--u)) 0 0;
+  font:
+    600 calc(11 * var(--u)) / calc(13 * var(--u)) "HL Sans",
+    sans-serif;
+  color: var(--amber);
+  text-shadow: none;
 }
 .shell-unit p {
-  margin-bottom: 0;
+  margin: 0;
 }
 .shell-unit-note {
-  align-self: center;
+  margin-top: calc(4 * var(--u)) !important;
+  font-size: calc(10 * var(--u));
+  line-height: calc(13 * var(--u));
 }
 
 /* ---------------------------------------------------------------- the newspaper */
 
+/*
+ * The month's front page on the newsprint surface (news.go layoutNews, drawNewsPage): the masthead between its
+ * rules, the headline and deck, the picture with its caption and the orders under it, the article in two columns
+ * with "In brief" at the foot of the last.
+ */
+.shell-page-news {
+  --ink: rgb(38 32 26);
+  --ink-faint: rgb(98 88 76);
+}
 .shell-page-news .shell-sheet {
-  background: #e9dfc8;
-  color: #302c23;
-  padding: 24px;
-  border: 2px solid #887f69;
-}
-.shell-page-news .shell-heading {
-  text-align: center;
-  border-bottom: 3px double #514b3c;
-  margin-bottom: 0.4em;
-}
-.shell-page-news h1 {
-  color: #302c23;
-  text-shadow: none;
-}
-.shell-paper {
+  width: min(calc(616 * var(--u)), calc(100% - 16px));
+  margin: calc(6 * var(--u)) auto;
+  padding: calc(1 * var(--u)) calc(12 * var(--u)) calc(10 * var(--u));
+  color: var(--ink);
+  background: var(--hl-paper, none) 0 0 / calc(512 * var(--u)) repeat
+    rgb(232 223 202);
+  box-shadow: calc(3 * var(--u)) calc(3 * var(--u)) 0 rgb(0 0 0 / 43%);
   font-family: "HL Serif", serif;
 }
+.shell-page-news .shell-heading {
+  margin: 0;
+  padding: 0 0 calc(3 * var(--u));
+  text-align: center;
+  border-bottom: calc(2 * var(--u)) solid var(--ink);
+}
+.shell-page-news h1,
+.shell-paper h2 {
+  margin: 0;
+  color: var(--ink);
+  text-shadow: none;
+}
+.shell-page-news h1 {
+  font-size: calc(27 * var(--u));
+  line-height: calc(34 * var(--u));
+}
 .shell-paper-header {
-  border-bottom: 2px solid #514b3c;
-  margin-bottom: 1em;
+  margin-bottom: calc(6 * var(--u));
+  padding-bottom: calc(3 * var(--u));
+  border-bottom: var(--bw) solid var(--ink);
   text-align: center;
 }
 .shell-edition {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  font-size: 0.8em;
+  gap: calc(8 * var(--u));
+  margin-bottom: calc(5 * var(--u));
+  padding: calc(2 * var(--u)) 0 calc(2 * var(--u));
+  border-bottom: calc(3 * var(--bw)) double var(--ink);
+  color: var(--ink-faint);
+  font-size: calc(8.5 * var(--u));
+  line-height: 1.2;
   text-transform: uppercase;
-  border-bottom: 1px solid #514b3c;
-  padding-bottom: 0.5em;
-  margin-bottom: 0.7em;
 }
 .shell-paper h2 {
-  color: #302c23;
-  text-shadow: none;
+  font-size: calc(21 * var(--u));
+  line-height: calc(24 * var(--u));
 }
 .shell-deck {
+  margin: 0 !important;
+  font-size: calc(11 * var(--u));
   font-style: italic;
+  line-height: 1.3;
 }
 .shell-news-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
-  gap: 24px;
+  grid-template-columns: calc(246 * var(--u) + var(--bw)) minmax(0, 1fr);
+  column-gap: calc(6 * var(--u));
+}
+.shell-news-picture {
+  display: flex;
+  flex-direction: column;
+  padding-right: calc(6 * var(--u));
+  border-right: var(--bw) solid var(--ink-faint);
 }
 .shell-news-picture figure {
-  margin: 0 0 1.2em;
+  margin: 0;
 }
 .shell-news-photo {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  height: calc(160 * var(--u));
+  max-width: none;
   object-fit: cover;
-  background: #cdc4b0;
-  border: 1px solid #514b3c;
+  background: rgb(205 196 176);
+  outline: var(--bw) solid var(--ink);
+  outline-offset: calc(-1 * var(--bw));
 }
 .shell-news-picture figcaption {
-  font-size: 0.8em;
+  margin-top: calc(2 * var(--u));
+  color: var(--ink-faint);
+  font-size: calc(8.5 * var(--u));
   font-style: italic;
-  margin-top: 0.5em;
+  line-height: calc(10.5 * var(--u));
 }
 .shell-orders {
-  border-top: 1px solid #514b3c;
-  padding-top: 0.6em;
-  font-size: 0.85em;
+  margin-top: calc(8 * var(--u));
+  padding-top: calc(2 * var(--u));
+  border-top: var(--bw) solid var(--ink);
+  font-size: calc(9 * var(--u));
+  line-height: calc(11 * var(--u));
 }
 .shell-orders h3,
 .shell-briefs h3 {
+  margin: calc(3 * var(--u)) 0 calc(2 * var(--u));
+  font:
+    600 calc(8 * var(--u)) / 1.3 "HL Sans",
+    sans-serif;
   text-transform: uppercase;
 }
-.shell-news-copy {
-  columns: 2 14em;
-  column-gap: 24px;
-  column-rule: 1px solid #514b3c66;
-  font-size: 0.95em;
-}
-.shell-news-copy > p {
-  text-indent: 1em;
-}
-.shell-briefs {
-  border-top: 1px solid #514b3c;
-  padding-top: 0.65em;
-  break-inside: avoid;
-}
-.shell-briefs ul {
-  padding-left: 1.1em;
+.shell-orders p {
   margin: 0;
 }
+.shell-news-picture .shell-actions {
+  flex-wrap: nowrap;
+  margin-top: auto;
+  padding-top: calc(10 * var(--u));
+}
+.shell-news-picture .shell-actions .shell-button {
+  flex: 1;
+  min-width: 0;
+  min-height: calc(26 * var(--u));
+}
+.shell-news-picture .shell-actions .shell-button:first-child {
+  flex: 2;
+}
+.shell-news-copy {
+  columns: 2;
+  column-gap: calc(12 * var(--u));
+  column-rule: var(--bw) solid var(--ink-faint);
+  font-size: calc(10 * var(--u));
+  line-height: calc(12.5 * var(--u));
+}
+.shell-news-copy > p {
+  margin: 0;
+}
+.shell-news-copy > p + p {
+  text-indent: calc(9 * var(--u));
+}
+.shell-briefs {
+  margin-top: calc(10 * var(--u));
+  border-top: var(--bw) solid var(--ink);
+  break-inside: avoid;
+  font-size: calc(8.5 * var(--u));
+  line-height: calc(10.5 * var(--u));
+}
+.shell-briefs ul {
+  margin: 0;
+  padding-left: calc(8 * var(--u));
+}
+.shell-briefs li {
+  margin-bottom: calc(3 * var(--u));
+}
 .shell-page-news .shell-notice {
-  color: #573f1a;
+  color: rgb(87 63 26);
+  border-color: var(--ink-faint);
 }
 
 /* ---------------------------------------------------------------- the original game's import */
@@ -945,16 +1060,57 @@
   .shell-save-slots {
     grid-template-columns: 1fr;
   }
+  .shell-page-news .shell-sheet {
+    padding: calc(8 * var(--u)) calc(12 * var(--u));
+  }
   .shell-news-layout {
     grid-template-columns: 1fr;
   }
-  .shell-news-copy {
-    columns: auto;
+  /* Upright: the picture and its caption, the orders, the article, then the buttons. */
+  .shell-news-picture {
+    display: contents;
   }
-  .shell-unit {
+  .shell-news-photo {
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .shell-news-copy {
+    order: 3;
+    columns: auto;
+    margin-top: calc(10 * var(--u));
+    font-size: calc(11 * var(--u));
+    line-height: calc(14 * var(--u));
+  }
+  .shell-news-picture .shell-actions {
+    order: 4;
+  }
+  .shell-news-picture figcaption,
+  .shell-briefs {
+    font-size: calc(9.5 * var(--u));
+    line-height: calc(12 * var(--u));
+  }
+  .shell-orders {
+    font-size: calc(10 * var(--u));
+    line-height: calc(13 * var(--u));
+  }
+  .shell-page-units .shell-actions .shell-button {
+    flex: 1;
+  }
+  .shell-page-units .shell-sheet {
+    width: calc(100% - 16px);
+    padding-top: calc(14 * var(--u));
+  }
+  .shell-page-units .shell-sheet > .shell-actions {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    order: 9;
+    margin-top: calc(12 * var(--u));
+  }
+  .shell-ui .shell-unit {
     grid-template-columns: calc(69 * var(--u)) minmax(0, 1fr);
   }
   .shell-unit-note {
     grid-column: 1 / -1;
+    margin: calc(6 * var(--u)) calc(2 * var(--u)) calc(2 * var(--u)) !important;
   }
 }
