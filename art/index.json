@@ -5237,6 +5237,124 @@
       }
     },
     {
+      "id": "screens/armour",
+      "title": "Start screen armour plate",
+      "kind": "screen",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/screens/armour",
+      "assets_dir": "assets/screens/armour",
+      "prompt": "art/screens/armour/prompt.md",
+      "masters": [
+        {
+          "path": "art/screens/armour/plate.png",
+          "sha256": "624ca189782248b93cf319d483b801672f7335bd0622a04133c67d9f016f11b1",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "art/screens/armour/title.png",
+          "sha256": "6ae690da7f67012aaa0ba6a8c9c9dea22e22ad0285efc21fdc6e8b58ff5354c5",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/armour/nameplate.png",
+          "sha256": "86866499eca786f8def162bfc33f2a6c0ea26cdf439292b04453685ddf2a3afa",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/armour/nameplate-polished.png",
+          "sha256": "2c78f72dca6cb4508c44a3fb89b987b9602d00d67d0cb085c45e9aa7c1c3c40c",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/armour/embrasure.png",
+          "sha256": "999bb7b75f8ac2af2fc781b23c75aaba2a85a1ebb79a83c28ccdc38f3b9deb23",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "art/screens/armour/rivets.png",
+          "sha256": "2eff8be873668f19937399714efd702bd0eaba55f417904a16ffe169c5908506",
+          "width": 1774,
+          "height": 887
+        },
+        {
+          "path": "art/screens/armour/plaque-germany.png",
+          "sha256": "e12acfc03304e752014f07bb8e28b762cbae702be6f3c6ce53f4547a57d01f53",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/screens/armour/plaque-france.png",
+          "sha256": "469bd1d01c6fb7ad7bac5c71ab8ce172a89a107e131c82aebd600cba66ffed0c",
+          "width": 1536,
+          "height": 1024
+        }
+      ],
+      "look": "The web edition's start screen and shell pages as the inside of a field-grey riveted steel gun shield\n(the \"armour plate\" concept draft chosen on 2026-11-12): thick chipped grey-green plate with rust\nbleeding from dome rivets, the title stencilled in worn bone-white paint, the menu entries on cast\nbrass nameplates fixed with slotted screws (dull when idle, rubbed bright when selected), two enamel\nflag plaques and a heavy embrasure frame with its shutter pushed open, through which the menu's\nlandscape painting shows. Worn out and sad rather than heroic. Every part is painted alone; all text\nbut the title is live.",
+      "base_prompt": "Every part was generated with this style text, the part's text below, and the concept draft\n(`build/review/gen-2026-11-12/start/start-01.png`, not committed) attached as image 1.\n\n```text\nNewly authored interface art for the start screen of a turn-based World War I hex strategy game, 1914-1918.\nHand-painted digital illustration with believable, physical materials, not a photograph, not a glossy 3D render, not a cartoon, not pixel art, not flat vector UI. Look and feel: 1914-1918 military hardware. Heavy metal, army issue, worn by field use; serious and handsome, never cheap, never plastic, no modern sci-fi glow, no neon, no gradients that look like web buttons.\nMOOD: worn out, sad and exhausted. No heroism, no glory, no clean parade-ground metal. Everything has been used too long in rain and mud: dented, scratched and re-painted steel, rust bleeding from rivets, dull tarnished brass with only the touched spots still bright, chipped enamel, dried mud, soot. Desaturated cold palette of field-grey, wet earth, rust and bone white. Soft overcast light from the upper left; quiet and heavy rather than dramatic. Do not copy any existing game's graphics. No watermark, no logo, no small print.\n```\n\nThe attachment line of every part:\n\n```text\nAttachment: Image 1 is the chosen concept draft of the whole start screen. Take from it the same materials, wear and palette (its grey-green riveted armour plate, its cast brass nameplates, its enamel flag plaques, its stencil paint). Paint ONLY the one part described above, alone on its canvas, not the whole screen; copy none of its lettering, layout or scenery unless this prompt asks for it.\n```",
+      "variants": [
+        {
+          "variant": "plate",
+          "runtime_ids": [],
+          "delta": "`start-parts-plate1` (exec-cc64153b, 2026-11-12), 1672x941 opaque, mean RGB 77,74,59, sdL\\* 5.0, even over a 4x2 grid (L\\* 30.9-31.7): the bare plate, no rivets or seams, so any crop works."
+        },
+        {
+          "variant": "title",
+          "runtime_ids": [],
+          "delta": "`start-parts-title1` (exec-c06072a0), 1536x1024 RGBA, lettering 1420x303, spelled HISTORYLINE / 1914 - 1918: worn stencil paint."
+        },
+        {
+          "variant": "nameplate",
+          "runtime_ids": [],
+          "delta": "`start-parts-name1` (exec-40015ca6), 1536x1024 RGBA, plate 1446x236, mean RGB 102,79,50: the blank dull brass plate."
+        },
+        {
+          "variant": "nameplate-polished",
+          "runtime_ids": [],
+          "delta": "`start-parts-name2` (exec-3aa4a066), 1536x1024 RGBA, plate 1446x233, mean RGB 158,117,65: the same plate rubbed bright; `nameplate.png` attached as image 2."
+        },
+        {
+          "variant": "embrasure",
+          "runtime_ids": [],
+          "delta": "`start-parts-emb1` (exec-0453baab), 1672x941 RGBA, frame 1605x866, clear opening and margin, mean RGB 74,64,50."
+        },
+        {
+          "variant": "rivets",
+          "runtime_ids": [],
+          "delta": "`start-parts-rivet1` (exec-108bc84a), 1774x887 RGBA, 4x2 heads of about 183 px with rust runs of 220-268 px."
+        },
+        {
+          "variant": "plaque-germany",
+          "runtime_ids": [],
+          "delta": "`start-parts-de1` (exec-613f42e4), 1536x1024 RGBA, plaque 1410x898: black-white-red enamel."
+        },
+        {
+          "variant": "plaque-france",
+          "runtime_ids": [],
+          "delta": "`start-parts-fr1` (exec-73de1a56), 1536x1024 RGBA, plaque 1367x874: blue-white-red enamel."
+        }
+      ],
+      "edges": "",
+      "post": "Masters are used unchanged. `hl assets build-screens` puts them in the screen catalog's `armour`\nfamily (`internal/hlasset/armour.go`): each part loses its alpha haze (alpha 16 and below), is trimmed\nto what is left and to an even size, and is offered at a logical size of half the trimmed master\n(2x is the master itself), smaller for the parts drawn small (nameplates 0.3, plaques 0.12, rivets 0.22\nof the master). The rivet sheet becomes two strips that repeat: `armour/rivets-row` (the eight rivets\nside by side at the sheet's cell pitch) and `armour/rivets-column` (stacked at their tallest rust run).\nThe web shell (`webapp/app/src/shell`) covers the window with `armour/plate`, lays the rivet strips along\nits edges, draws the nameplates as 9-slice borders under live engraved text and shows\n`backdrop/western-front` through the embrasure's opening.",
+      "avoid": [
+        "rivets, seams, plate edges, windows or lettering in the plate",
+        "lettering, engraving or marks on the nameplates",
+        "landscape, glass or colour in the embrasure's opening; a plate around its frame",
+        "crests, eagles or lettering on the plaques",
+        "any word but HISTORYLINE and 1914 - 1918 in the title"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "screens/backdrop",
       "title": "Menu backdrop",
       "kind": "screen",
