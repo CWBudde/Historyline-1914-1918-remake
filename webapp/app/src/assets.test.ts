@@ -312,6 +312,36 @@ it("starts held high-DPR UI images with 1x lite pixels and preserves their logic
   }
 });
 
+it("brings a held sharp painting's lite pixels at the drawn density", async () => {
+  const f = await fixture();
+  const loader = new AssetLoader(f.index, "https://example.test/next/data/", {
+    fetch: f.fetcher,
+    cache: null,
+    deferUpgrades: true,
+  });
+  const stages: { quality: string; density: number }[] = [];
+  const work = loader.progressive(
+    "units",
+    ["unit/example"],
+    1.2,
+    2,
+    ({ quality, entry }) => {
+      stages.push({ quality, density: entry.density });
+    },
+    undefined,
+    true,
+  );
+  try {
+    await vi.waitFor(() => {
+      expect(stages).toHaveLength(1);
+    });
+    expect(stages).toEqual([{ quality: "lite", density: 4 }]);
+  } finally {
+    loader.enableUpgrades();
+    await work;
+  }
+});
+
 it("rejects a cross-density upgrade that changes logical size before fetching full pixels", async () => {
   const f = await fixture();
   const pair = f.index.packs.units?.["4"];

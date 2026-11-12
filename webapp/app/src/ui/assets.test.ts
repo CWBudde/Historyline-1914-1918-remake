@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { UiAssets } from "./assets.ts";
+import { paintingScale, UiAssets } from "./assets.ts";
 import { assetDensity, type AssetLoader, type LoadedImage } from "../assets.ts";
 
 function source(fail = false) {
@@ -9,8 +9,12 @@ function source(fail = false) {
   });
   const calls: unknown[][] = [];
   const loader: Pick<AssetLoader, "progressive"> = {
-    progressive: async (catalog, ids, zoom, dpr, onImage) => {
-      calls.push([catalog, ids, zoom, dpr]);
+    progressive: async (catalog, ids, zoom, dpr, onImage, _signal, sharp) => {
+      calls.push(
+        sharp === true
+          ? [catalog, ids, zoom, dpr, sharp]
+          : [catalog, ids, zoom, dpr],
+      );
       const image = (quality: "lite" | "full"): LoadedImage => ({
         quality,
         bytes: new TextEncoder().encode(quality).buffer,
@@ -90,4 +94,20 @@ it("retains lite art after failed upgrades and ignores late disposed results", a
   await Promise.resolve();
   expect(late.value.url).toBeNull();
   expect(disposed.image("screens", "portrait/infantry").value.url).toBeNull();
+});
+
+it("chooses a window-covering painting's art for its drawn size", () => {
+  // 640×400 logical pixels: cover-scaled 3× at 1080p, 2.29× on a portrait phone, never below the UI scale.
+  expect(paintingScale(1920, 1080, 1)).toBe(3);
+  expect(paintingScale(412, 915, 1)).toBeCloseTo(2.2875);
+  expect(paintingScale(320, 200, 1.5)).toBe(1.5);
+  const f = source(),
+    assets = new UiAssets(f.loader, () => 1);
+  const sharp = assets.image("screens", "scene/options", 3, true);
+  expect(assets.image("screens", "scene/options", 3)).not.toBe(sharp);
+  expect(f.calls).toEqual([
+    ["screens", ["scene/options"], 4, 1, true],
+    ["screens", ["scene/options"], 4, 1],
+  ]);
+  assets.dispose();
 });

@@ -129,7 +129,9 @@ export class AssetLoader {
   }
 
   /** Only requested IDs are fetched. All lite images are delivered before any
-   * full image; a failed upgrade leaves already-delivered lite images usable. */
+   * full image; a failed upgrade leaves already-delivered lite images usable.
+   * While full art is held, lite images come at the lowest density, unless
+   * sharp asks for the drawn density (a painting that fills the window). */
   async progressive(
     catalog: string,
     ids: readonly string[],
@@ -137,6 +139,7 @@ export class AssetLoader {
     dpr: number,
     onImage: (image: LoadedImage) => void | Promise<void>,
     signal?: AbortSignal,
+    sharp = false,
   ): Promise<Map<string, LoadedImage>> {
     signal?.throwIfAborted();
     const packs = this.index.packs[catalog];
@@ -149,7 +152,8 @@ export class AssetLoader {
     const pair = density === undefined ? undefined : packs[String(density)];
     if (pair === undefined || density === undefined)
       throw new Error(`missing catalog density ${catalog}`);
-    const liteDensity = this.held ? (densities[0] ?? density) : density;
+    const liteDensity =
+      this.held && !sharp ? (densities[0] ?? density) : density;
     const litePair = packs[String(liteDensity)];
     if (litePair === undefined)
       throw new Error(`missing lite catalog density ${catalog}`);

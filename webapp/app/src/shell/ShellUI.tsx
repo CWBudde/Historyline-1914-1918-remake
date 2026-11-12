@@ -1,7 +1,7 @@
 import type { Signal } from "@preact/signals";
 import type { ComponentChildren } from "preact";
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
-import type { UiAssets } from "../ui/assets.ts";
+import { paintingScale, type UiAssets } from "../ui/assets.ts";
 import { makeInert } from "../ui/inert.ts";
 import type { UnitCard } from "./campaign.ts";
 import {
@@ -42,34 +42,33 @@ const titles: Record<ShellPage, string> = {
 const maxImportBytes = 4 * Math.ceil((8 * 1024 * 1024) / 3) + 2048;
 const controls =
   'button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), [tabindex="0"]';
-function pageArt(s: ShellController): [string, string] {
+/**
+ * pageScene is the painting behind a page. The screen/* mock-ups of the whole interface stay out: the desktop game
+ * draws only the scene (cmd/historyline/app.go).
+ */
+function pageScene(s: ShellController): string {
   switch (s.page) {
     case "main":
     case "code":
     case "closed":
-      return ["screen/title", "backdrop/western-front"];
+    case "news":
+      return "backdrop/western-front";
     case "values":
     case "control":
-      return ["screen/title", "scene/options"];
+      return "scene/options";
     case "extras":
     case "scores":
     case "saves":
     case "original":
-      return ["screen/title", "scene/save"];
+      return "scene/save";
     case "country":
-      return ["screen/side-selection", "scene/side-selection"];
+      return "scene/side-selection";
     case "loading":
-      return ["screen/loading-000", "scene/mission-selection"];
+      return "scene/mission-selection";
     case "outcome":
-      return s.result?.won
-        ? ["screen/victory", "scene/victory"]
-        : ["screen/defeat", "scene/defeat"];
-    case "leave":
-      return ["screen/confirm-exit", ""];
-    case "news":
-      return ["", "backdrop/western-front"];
+      return s.result?.won ? "scene/victory" : "scene/defeat";
     default:
-      return ["", ""];
+      return "";
   }
 }
 function Art({
@@ -77,13 +76,22 @@ function Art({
   id,
   alt = "",
   className = "",
+  cover = false,
 }: {
   p: ShellUIProps;
   id: string;
   alt?: string;
   className?: string;
+  /** The painting covers the window: its art is chosen for the drawn size. */
+  cover?: boolean;
 }) {
-  const image = p.assets.image("screens", id, p.shell.settings.uiScale).value;
+  const ui = p.shell.settings.uiScale,
+    image = p.assets.image(
+      "screens",
+      id,
+      cover ? paintingScale(window.innerWidth, window.innerHeight, ui) : ui,
+      cover,
+    ).value;
   return image.url === null ? (
     <span
       class={`shell-art shell-art-empty ${className}`}
@@ -300,7 +308,7 @@ export function ShellUI(p: ShellUIProps) {
   }, [page, s, reading, p.onFullscreen]);
 
   if (page === "battle") return null;
-  const [frame, scene] = pageArt(s);
+  const scene = pageScene(s);
   const wide = [
     "country",
     "news",
@@ -875,8 +883,7 @@ export function ShellUI(p: ShellUIProps) {
       aria-busy={busy}
     >
       <div class="shell-backdrop" aria-hidden="true">
-        {scene && <Art p={p} id={scene} className="shell-scene" />}
-        {frame && <Art p={p} id={frame} className="shell-frame" />}
+        {scene && <Art p={p} id={scene} className="shell-scene" cover />}
       </div>
       <main class="shell-sheet">
         <header class="shell-heading">

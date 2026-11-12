@@ -8,6 +8,20 @@ export interface UiImage {
 }
 const empty = (): UiImage => ({ url: null, quality: null, error: null });
 
+/** The 640×400 logical size of a menu painting. */
+const painting = { width: 640, height: 400 };
+/**
+ * paintingScale is the scale a menu painting is drawn at when it covers a window of CSS pixels: its art is chosen
+ * for that size, as the desktop game draws its pages at density 2 once they are enlarged.
+ */
+export function paintingScale(
+  width: number,
+  height: number,
+  uiScale: number,
+): number {
+  return Math.max(uiScale, width / painting.width, height / painting.height);
+}
+
 /** DOM images use the same verified progressive catalogs as the map. Object
  * URLs stay valid through a UI repaint and are released with the battle. */
 export class UiAssets {
@@ -20,9 +34,15 @@ export class UiAssets {
     private readonly loader: Pick<AssetLoader, "progressive">,
     private readonly dpr: () => number = () => window.devicePixelRatio,
   ) {}
-  image(catalog: string, id: string, scale = 1): Signal<UiImage> {
+  /** sharp brings lite art at the drawn density too, for paintings that fill the window. */
+  image(
+    catalog: string,
+    id: string,
+    scale = 1,
+    sharp = false,
+  ): Signal<UiImage> {
     const density = assetDensity(scale, this.dpr()),
-      key = `${catalog}/${id}/${density}`;
+      key = `${catalog}/${id}/${density}${sharp ? "/sharp" : ""}`;
     let state = this.images.get(key);
     if (state !== undefined) return state;
     state = signal<UiImage>(empty());
@@ -42,6 +62,7 @@ export class UiAssets {
           target.value = { url, quality: image.quality, error: null };
         },
         this.abort.signal,
+        sharp,
       )
       .catch((error: unknown) => {
         if (!this.stopped)
