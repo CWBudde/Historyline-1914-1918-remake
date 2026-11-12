@@ -278,7 +278,7 @@
   --lit2: rgb(96 96 86);
 }
 /* Focus (menuButton, focus): tone 0.28 in brass lines, an amber label. */
-.shell-ui .shell-button:focus-visible,
+.shell-ui .shell-button:focus,
 .shell-ui .shell-field:focus-within,
 .shell-ui .shell-import:focus-within {
   --c: rgb(76 76 67);
