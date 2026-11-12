@@ -30,6 +30,7 @@ import {
 } from "./unitFrame.ts";
 import { rimFor } from "./unitDress.ts";
 import type { MapBattle } from "./mapBattle.ts";
+import { aimReach, darkKeep } from "./aim.ts";
 import {
   plateLayers,
   ringLayers,
@@ -747,29 +748,24 @@ export class MapRenderer {
   private drawOverlays(view: play.View): void {
     const g = this.overlays,
       width = 2 / this.camera.zoom;
-    const hex = (at: hexgrid.Coord, color: number, fill: boolean) => {
-      g.poly(hexgrid.corners(at).flat());
-      if (fill) g.fill({ color, alpha: 0.17 });
-      g.stroke({ color, width, alpha: 0.85 });
-    };
-    for (const key of this.battle.destinations())
-      hex(play.coordFromKey(key), 0x55c3f3, true);
-    for (const key of this.battle.targets())
-      hex(play.coordFromKey(key), 0xff5a28, true);
-    const selected = [...view.units.values()].find(
-      (u) => u.index === this.battle.selected,
-    );
-    if (selected !== undefined) hex(selected.at, 0xfff0c8, false);
-    if (this.battle.hover !== null) {
-      const path = this.battle.route(this.battle.hover);
-      for (let i = 0; i < path.length; i++) {
-        const at = path[i];
-        if (at === undefined) continue;
-        const [x, y] = hexgrid.center(at);
-        if (i === 0) g.moveTo(x, y);
-        else g.lineTo(x, y);
-      }
-      g.stroke({ color: 0xfff0c8, width: 3 / this.camera.zoom, alpha: 0.9 });
+    // While an order is aimed, everything out of its reach is darkened in one pass (cursor.go darken): every hex
+    // of the view but those in reach, the ground beyond the playable map included, so shared edges dim once.
+    const reach = aimReach(this.battle, view);
+    if (reach !== null) {
+      const r = this.camera.visible();
+      for (
+        let line = Math.floor(r.y / hexgrid.linePitch) - 2;
+        line <= Math.ceil((r.y + r.height) / hexgrid.linePitch) + 1;
+        line++
+      )
+        for (
+          let col = Math.floor(r.x / hexgrid.colPitch) - 2;
+          col <= Math.ceil((r.x + r.width) / hexgrid.colPitch) + 1;
+          col++
+        )
+          if (!reach.has(level.coordKey({ line, col })))
+            g.poly(hexgrid.corners({ line, col }).flat());
+      g.fill({ color: 0x000000, alpha: 1 - darkKeep });
     }
     for (const order of this.battle.orders()) {
       const [x, y] = hexgrid.center(order.from),

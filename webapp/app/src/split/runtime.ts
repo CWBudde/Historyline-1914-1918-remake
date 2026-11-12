@@ -661,7 +661,8 @@ export class SplitRuntime {
     if (m !== undefined && b.status !== m.text) {
       m.text = b.status;
       m.at = performance.now();
-      m.fresh = b.status !== "";
+      // The prompt of an aimed order stays in words only; the desktop keeps the unit line while aiming.
+      m.fresh = b.status !== "" && b.selected === null;
     }
     const prompter = [0, 1].find(
         (i) =>
