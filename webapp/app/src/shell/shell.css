@@ -1012,7 +1012,7 @@
   flex: 2;
 }
 /*
- * On the paper the controls are printed, not brass: a line of the headline's type in a fine double rule, like the
+ * On the paper the controls are printed, not brass: a line of the paper's serif in a fine double rule, like the
  * rule under the edition line. Under the pointer or the focus the box takes a wash of ink and a full rule; Continue
  * has the focus on arrival.
  */
@@ -1024,8 +1024,7 @@
   background: none;
   color: var(--ink-news);
   font:
-    400 calc(0.5 * var(--ph)) / 1.05 "HL Display",
-    "HL Serif",
+    700 calc(0.46 * var(--ph)) / 1.05 "HL Serif",
     serif;
   letter-spacing: 0.08em;
   text-shadow: none;
