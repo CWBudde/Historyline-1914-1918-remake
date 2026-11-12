@@ -12,6 +12,7 @@ import type { Point } from "../camera.ts";
 import { BattleKeys } from "../input/keys.ts";
 import { placement } from "../ui/ring.ts";
 import {
+  fitShift,
   flickSlot,
   hitMenu,
   itemAt,
@@ -648,8 +649,18 @@ export class BattleRuntime {
         return { x: r.left + s.x / dpr, y: r.top + s.y / dpr };
       };
     let m = layoutMenu(items, unitAt(), cell, touch, bounds);
-    const dx = m.centre.x - m.unit.x,
-      dy = m.centre.y - m.unit.y;
+    // The pan keeps the unit itself in view too, not only its plates.
+    const pan = fitShift(
+        [m.unit, ...items.map((i) => itemAt(m, i.slot) ?? m.unit)].map((p) => ({
+          x: p.x - m.centre.x + m.unit.x,
+          y: p.y - m.centre.y + m.unit.y,
+        })),
+        m.plate.width,
+        m.plate.height,
+        bounds,
+      ),
+      dx = pan.x,
+      dy = pan.y;
     if (dx !== 0 || dy !== 0) {
       // Pan first, as far as the map goes; whatever is left moves the rosette.
       camera.scroll(-dx * dpr, -dy * dpr);
