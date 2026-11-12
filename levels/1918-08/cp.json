@@ -3,12 +3,12 @@
 	"units": [
 		[2, 4, "CP_staticAA"],
 		[3, 4, "CP_armCar"],
-		[3, 5, "CP_cavalry"],
+		[3, 5, "CP_stormtroopers"],
 		[6, 3, "CP_bunker"],
 		[19, 5, "EC_bunker"],
 		[22, 4, "EC_staticAA"],
 		[23, 4, "EC_cavalry"],
-		[23, 5, "EC_charron"]
+		[23, 5, "EC_whippet"]
 	],
 	"buildings": [
 		{"at": [4, 4], "owner": "cp", "credits": 12},

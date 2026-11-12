@@ -10,7 +10,7 @@
 		[7, 10, "CP_infantry"],
 		[7, 12, "CP_infantry"],
 		[8, 8, "CP_infantry"],
-		[8, 12, "CP_supplyCar"],
+		[8, 12, "CP_ambulance"],
 		[9, 9, "CP_lArtillery"],
 		[10, 4, "CP_cavalry"],
 		[10, 6, "CP_cavalry"],
@@ -35,7 +35,7 @@
 		[19, 3, "EC_eliteInf"],
 		[19, 5, "EC_cavalry"],
 		[20, 4, "EC_infantry"],
-		[22, 4, "EC_supplyCar"]
+		[22, 4, "EC_ambulance"]
 	],
 	"buildings": [
 		{"at": [6, 13], "owner": "cp", "units": ["CP_cavalry"]},

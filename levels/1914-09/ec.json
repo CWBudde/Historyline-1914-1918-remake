@@ -8,7 +8,7 @@
 		[7, 5, "CP_infantry"],
 		[7, 7, "CP_eliteInf"],
 		[7, 12, "CP_infantry"],
-		[8, 12, "CP_supplyCar"],
+		[8, 12, "CP_ambulance"],
 		[9, 12, "CP_bunker"],
 		[10, 4, "CP_cavalry"],
 		[10, 9, "CP_cavalry"],
@@ -28,7 +28,7 @@
 		[19, 3, "EC_eliteInf"],
 		[19, 5, "EC_cavalry"],
 		[21, 9, "EC_infantry"],
-		[22, 4, "EC_supplyCar"]
+		[22, 4, "EC_ambulance"]
 	],
 	"buildings": [
 		{"at": [6, 13], "owner": "cp"},
