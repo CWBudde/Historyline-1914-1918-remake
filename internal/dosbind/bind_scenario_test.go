@@ -41,7 +41,15 @@ func TestBindScenarios(t *testing.T) {
 				t.Errorf("%s %s: %v", filepath.Base(path), m, err)
 				continue
 			}
-			if _, err := b.Game(dosrules.Full); err != nil {
+			// A setup that places an extension unit plays on the extended
+			// tables (dosplay.NewBoard).
+			p := dosrules.Full
+			for _, u := range b.Units {
+				if u.Type >= data.OriginalTypes {
+					p = dosrules.Extended
+				}
+			}
+			if _, err := b.Game(p); err != nil {
 				t.Errorf("%s %s: game: %v", filepath.Base(path), m, err)
 			}
 		}

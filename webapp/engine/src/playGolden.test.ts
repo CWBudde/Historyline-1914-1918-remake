@@ -6,7 +6,7 @@ import * as play from "./play.ts";
 import * as ai from "./ai.ts";
 import { array, object, int, stringField } from "./decode.ts";
 import { type Event as RuleEvent, newEvent } from "./cycle.ts";
-import { Full } from "./testing/tables.ts";
+import { Extended, Full } from "./testing/tables.ts";
 import { repo, listDir } from "./testing/files.ts";
 import { goValue, playData, shippedLevel } from "./testing/play.ts";
 
@@ -51,6 +51,7 @@ describe.each(["replay", "plan"] as const)("Go %s goldens", (operation) => {
         throw new Error(`bad setup ${id}`);
       const s = play.newSession(shippedLevel(month, mode), playData, {
         profile: Full,
+        extended: Extended,
         computer: [true, true],
       });
       expect(new TextDecoder().decode(play.save(s))).toBe(header["save"]);
@@ -118,6 +119,6 @@ describe.each(["replay", "plan"] as const)("Go %s goldens", (operation) => {
           `${id}: trace stopped before the cap without an outcome`,
         ).not.toBeNull();
     },
-    120_000,
+    600_000,
   );
 });

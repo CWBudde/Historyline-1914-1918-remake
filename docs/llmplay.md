@@ -77,8 +77,9 @@ strength, captures, revealed moves, income), and the legal orders of the phase:
 - action: every target with its **exact** `Profile.Engage` prediction and gain
   score, repair options, buildable types with costs.
 
-A level ref ending in `+units` (`-level 1915-04:cp+units`) takes the extension
-units in ([new-units.md](new-units.md)); the ref stays in the header, so replays
+The newer levels place extension units and play with them anyway; on a campaign level a
+level ref ending in `+units` (`-level 1915-04:cp+units`) takes the extension units in
+([new-units.md](new-units.md)); the ref stays in the header, so replays
 and reviews start the same game. The prompt then lists the gas cloud (`GAS`,
 turns left per hex), a gas pioneer's charges and units standing in gas
 (`IN-GAS`), and a pioneer's options as `release gas over` the cloud's hexes

@@ -1,11 +1,13 @@
 # New units (extension)
 
-These units go beyond the original's 51 unit types. They live in an **opt-in extension**: the original
-tables (`internal/dosrules/full.json`), their fixtures, the shipped levels and the winning-replay corpus stay
-unchanged. A game uses the extension when its session asks for it (`dosplay.Options.ExtendedUnits`: the
-desktop's `-extended`, the web edition's `?extended`, a `hl llmplay` level ref ending in `+units` such as
-`1915-04:cp+units`) or when its level places or builds an extension unit. Asked for, every factory also
-builds the extension units.
+These units go beyond the original's 51 unit types. They live in an **extension** on top of the original
+tables (`internal/dosrules/full.json`), which stay unchanged with their fixtures. The newer levels use it by
+default: the newly authored months and those from the original two-player maps place extension units in
+their setups (see [Levels](#levels)), and a level that places or builds one plays on the extended rules,
+with every factory building the month's extension units too. The original campaign levels (1914-08 and
+every second month to 1918-06) place none and play exactly as the original. Tools and tests can still ask
+for the extension on any level: `dosplay.Options.ExtendedUnits`, or a `hl llmplay` level ref ending in
+`+units` such as `1914-10:cp+units`.
 
 The original already has tanks (A7V, FT-17, Mark I, Mark IV, Saint-Chamond), fighters, bombers, the
 observation balloon, ships and trains. The candidates below fill what it lacks.
@@ -68,6 +70,62 @@ A reconnaissance aircraft is left out: the game has no line of sight, so it woul
   60 (1915), Lochnagar at La Boisselle (1 July 1916), and the nineteen mines of Messines (7 June 1917).
 - **Field ambulance.** The German Sanitätskompanien and the British RAMC field ambulances treated the wounded
   just behind the line.
+
+## Levels
+
+The newly authored months (1914-09, 1914-11, 1915-01, 1918-10) and the months from the original
+two-player maps (every second month from 1915-03 to 1918-07, and 1918-08, 1918-09, 1918-11) place
+extension units in their setups; the campaign months place none. Each one stands where a unit of a
+similar role and terrain mask stood: infantry became gas pioneers, flamethrowers, stormtroopers, wiring
+parties or tunnellers, light guns trench mortars, supply cars ambulances, heavy tanks Schneiders or
+Mark Vs, FT-17s and Charrons Whippets, a bomber or a fighter the Zeppelin. In 1918-09 they wait in the
+neutral buildings. The types come in by date and in growing numbers, few in 1914–15, the most in 1918:
+
+| Unit | First month | Placed in |
+|---|---|---|
+| Field ambulance | 1914-09 | 18 months |
+| Wiring party | 1914-11 | 23 months |
+| Trench mortar | 1915-01 | 25 months |
+| Zeppelin | 1915-03 | 6 months, last 1917-11 |
+| Flamethrower | 1915-03 (EC 1916-05) | 20 months |
+| Tunnellers | 1915-03 | 12 months, to 1917-09 |
+| Gas pioneers | 1915-05 (EC 1915-09) | 17 months |
+| Stormtroopers | 1916-01 | 19 months |
+| Schneider CA1 | 1917-05 | 10 months |
+| Whippet | 1918-03 | 7 months |
+| Mark V | 1918-07 | 3 months |
+| Paris Gun | none | no level of 1918-03 to 1918-08 has a railway on the CP side |
+
+| Month | CP | EC |
+|---|---|---|
+| 1914-09 | ambulance | ambulance |
+| 1914-11 | wiring party, ambulance | wiring party, ambulance |
+| 1915-01 | mortar, wiring party | mortar, wiring party |
+| 1915-03 | Zeppelin, flamethrower, tunnellers | mortar, wiring party, tunnellers |
+| 1915-05 | gas pioneers, flamethrower, ambulance | mortar, wiring party, tunnellers |
+| 1915-07 | gas pioneers, flamethrower ×2 | mortar, wiring party, tunnellers |
+| 1915-09 | gas pioneers, mortar, flamethrower, wiring party | gas pioneers ×2, mortar, ambulance |
+| 1915-11 | wiring party | mortar |
+| 1916-01 | mortar, stormtroopers, flamethrower, ambulance | mortar, wiring party, tunnellers, ambulance |
+| 1916-03 | gas pioneers, mortar, stormtroopers, wiring party, ambulance | gas pioneers, mortar, wiring party, tunnellers, ambulance |
+| 1916-05 | mortar ×2, stormtroopers, flamethrower, ambulance | mortar, flamethrower, wiring party, tunnellers, ambulance |
+| 1916-07 | mortar, flamethrower, wiring party | mortar, tunnellers, ambulance |
+| 1916-09 | gas pioneers, mortar, stormtroopers, flamethrower, wiring party | gas pioneers, mortar ×2, tunnellers |
+| 1916-11 | mortar, stormtroopers, wiring party | mortar, flamethrower |
+| 1917-01 | mortar, stormtroopers, Zeppelin | mortar, flamethrower, wiring party |
+| 1917-03 | mortar, stormtroopers, Zeppelin, wiring party, tunnellers | gas pioneers, mortar, flamethrower, tunnellers, ambulance |
+| 1917-05 | mortar, stormtroopers, Zeppelin, flamethrower, wiring party | gas pioneers, mortar, Schneider, tunnellers, ambulance |
+| 1917-07 | gas pioneers ×2, mortar, stormtroopers, Zeppelin, flamethrower, ambulance | gas pioneers, mortar, Schneider ×2, flamethrower, tunnellers, ambulance |
+| 1917-09 | gas pioneers, mortar, stormtroopers ×2, flamethrower, tunnellers | gas pioneers, mortar, Schneider ×2, flamethrower, wiring party |
+| 1917-11 | gas pioneers, mortar, stormtroopers ×2, Zeppelin, flamethrower, ambulance | gas pioneers, mortar, Schneider ×2, flamethrower, wiring party, ambulance |
+| 1918-01 | gas pioneers, mortar, stormtroopers ×3, flamethrower, ambulance | gas pioneers, mortar, Schneider ×2, flamethrower, wiring party, ambulance |
+| 1918-03 | gas pioneers, mortar, stormtroopers ×2, flamethrower | mortar, Whippet, Schneider ×2, wiring party |
+| 1918-05 | gas pioneers ×2, mortar, stormtroopers ×3, flamethrower, ambulance | gas pioneers, mortar, Whippet ×2, Schneider ×2, wiring party, ambulance |
+| 1918-07 | gas pioneers, mortar, stormtroopers ×3, flamethrower, wiring party, ambulance | gas pioneers, mortar, Whippet ×2, Mark V ×2, Schneider, flamethrower, ambulance |
+| 1918-08 | stormtroopers | Whippet |
+| 1918-09 | gas pioneers, mortar, stormtroopers ×2 | Whippet, ambulance |
+| 1918-10 | gas pioneers ×2, mortar ×2, stormtroopers ×3, flamethrower, wiring party, ambulance | gas pioneers, mortar ×2, Whippet ×2, Mark V ×2, Schneider, flamethrower, ambulance |
+| 1918-11 | gas pioneers, mortar, stormtroopers ×2, ambulance | mortar, Whippet, Mark V, Schneider, ambulance |
 
 ## Gas pioneers
 

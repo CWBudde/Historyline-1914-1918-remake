@@ -132,7 +132,7 @@ describe("TestGasPlayOut", () => {
     expect(released).toBeGreaterThan(0);
     expect(enemy).toBeGreaterThan(0);
     expect(own).toBeLessThanOrEqual(enemy / 2);
-    // The Go twin logs 4 releases, 7 enemy and 0 own losses.
-    expect([released, enemy, own]).toStrictEqual([4, 7, 0]);
+    // The Go twin logs 4 releases, 5 enemy and 0 own losses.
+    expect([released, enemy, own]).toStrictEqual([4, 5, 0]);
   });
 });

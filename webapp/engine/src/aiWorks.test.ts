@@ -131,7 +131,7 @@ describe("TestWorksPlayOut", () => {
       play.Mined,
       play.Healed,
     ].map((k) => count.get(k) ?? 0);
-    // The Go twin logs wired 5, tunnels 3 (lost 2), mines 1 hitting 1 units, healed 5.
-    expect(got).toStrictEqual([5, 3, 2, 1, 1, 5]);
+    // The Go twin logs wired 4, tunnels 4 (lost 1), mines 3 hitting 1 units, healed 5.
+    expect(got).toStrictEqual([4, 4, 1, 3, 1, 5]);
   }, 60_000);
 });

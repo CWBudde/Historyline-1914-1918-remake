@@ -38,6 +38,7 @@ it("exports all 156 setups as sessions identical to Go's initial saves", async (
   const profiles = profilesOf(
     mustTables(await loader.rule("full.json")),
     mustTables(await loader.rule("demo.json")),
+    await loader.rule("extension.json"),
   );
   const data = bind.bindingData(
     await loader.rule("units.json"),
@@ -57,10 +58,14 @@ it("exports all 156 setups as sessions identical to Go's initial saves", async (
       ),
       terrain,
     );
+    file.month = month; // as the campaign loads it: the extension follows the month
     for (const mode of ["cp", "ec", "2p"] as const) {
       const lv = scenario.level(file, mode);
       const session = play.newSession(lv, data, {
         profile: profiles.full,
+        ...(profiles.extended === undefined
+          ? {}
+          : { extended: profiles.extended }),
         computer: [true, true],
       });
       const golden = gunzipSync(

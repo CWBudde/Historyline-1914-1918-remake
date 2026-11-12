@@ -406,7 +406,8 @@ it("loads all 104 shipped missions with both 52-month chains, codes, issues and 
           .sort(),
       );
     }
-    expect(seen.size).toBe(side === 0 ? 36 : 39);
+    // Original types and the extension units the newer months place.
+    expect(seen.size).toBe(side === 0 ? 44 : 48);
   }
   expect(campaign.first(0).newUnits.map((c) => c.id)).toEqual([
     "CP_armCar",

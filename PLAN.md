@@ -630,11 +630,11 @@ build embeds every backdrop). Decided (defaults, open to override):
 - [ ] Dedicated ammo and fuel supply units.
 - [ ] Engineer units that build infrastructure.
 
-New units, as an opt-in extension of the original tables ([docs/new-units.md](docs/new-units.md)):
+New units, as an extension of the original tables ([docs/new-units.md](docs/new-units.md)):
 
 - [x] Gas pioneers: a lasting gas cloud on the trench's three cells, with friendly fire; masks and mustard
       gas set by the level's month. Go and the web edition; the computer side releases gas in played-out
-      battles (`TestGasPlayOut`: 4 releases, 7 enemy and 0 own losses on 1915-05, the same in TS).
+      battles (`TestGasPlayOut`: 4 releases, 5 enemy and 0 own losses on 1915-05, the same in TS).
 - [x] Trench mortar, stormtroopers, Zeppelin, Whippet, Mark V, Schneider CA1, Paris Gun: type records,
       units dated by month (factories build only the level's), Go and the web edition.
 - [x] Flamethrower: ignores the defender's terrain defence term (`TestFlameIgnoresTerrain`, TS twin).
@@ -642,10 +642,12 @@ New units, as an opt-in extension of the original tables ([docs/new-units.md](do
       cavalry and wheels do not; sappers clear it).
 - [x] Mine tunnel: tunnellers dig under an adjacent hex for two turns, then it blows and leaves a crater.
 - [x] Field ambulance: restores adjacent foot units once per game turn. The computer side wires, mines and
-      heals in played-out battles (`TestWorksPlayOut` on 1915-05: 5 wired, 3 tunnels, 1 mine, 5 healed, the
+      heals in played-out battles (`TestWorksPlayOut` on 1915-05: 4 wired, 4 tunnels, 3 mines, 5 healed, the
       same in TS).
 - [x] Real art for each extension family: twelve sprite families and portraits, bound in `unitsprite` (no
       placeholders left); the airship flies (rim and shadow of aircraft).
+- [x] The newer levels (newly authored and two-player-map months) place the new units by date, few in
+      1914–15 and the most in 1918, and play the extension by default; the campaign months stay original.
 
 ## Open questions
 

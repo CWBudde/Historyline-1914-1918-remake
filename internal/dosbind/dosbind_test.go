@@ -129,7 +129,13 @@ func TestBindShippedLevels(t *testing.T) {
 			t.Errorf("%s: a hex below the level has a cell", lv.MapName)
 		}
 
-		gm, err := b.Game(dosrules.Full)
+		p := dosrules.Full
+		for _, u := range b.Units {
+			if u.Type >= data.OriginalTypes {
+				p = dosrules.Extended // the level places an extension unit
+			}
+		}
+		gm, err := b.Game(p)
 		if err != nil {
 			t.Fatalf("%s: NewGame: %v", lv.MapName, err)
 		}

@@ -68,7 +68,8 @@ func TestNewUnitsFollowTheChain(t *testing.T) {
 	if got := ids("1917-10:ec"); !slices.Equal(got, []string{"EC_camel"}) {
 		t.Errorf("1917-10 ec new units %v", got)
 	}
-	if got := ids("1914-09:cp"); len(got) != 0 {
+	// 1914-09 brings the first new unit, the field ambulance.
+	if got := ids("1914-09:cp"); !slices.Equal(got, []string{"CP_ambulance"}) {
 		t.Errorf("1914-09 cp new units %v", got)
 	}
 	if n := len(ids("1914-08:cp")); n < 10 {

@@ -3,7 +3,8 @@ import { bind, bindingData, cell, coord, game, key, playable } from "./bind.ts";
 import { parse } from "./level.ts";
 import { decode, level, modes } from "./scenario.ts";
 import { object } from "./decode.ts";
-import { Full } from "./testing/tables.ts";
+import { usesExtension } from "./playGas.ts";
+import { Extended, Full } from "./testing/tables.ts";
 import { listDir, readBytes, readJSON } from "./testing/files.ts";
 
 const data = bindingData(
@@ -139,9 +140,13 @@ describe("binding", () => {
       const f = decode(files, terrains);
       for (const mode of modes) {
         const l = level(f, mode);
-        const b = bind(l, data, Full);
+        // Types are looked up in the extended tables, a superset (Go's dosbind); a
+        // setup that places an extension unit plays on them.
+        const b = bind(l, data, Extended);
         expect(b.winter).toBe(f.season === "winter");
-        expect(game(b, Full).units.size).toBe(b.units.size);
+        expect(game(b, usesExtension(b) ? Extended : Full).units.size).toBe(
+          b.units.size,
+        );
         for (const [i, u] of b.units) {
           if (b.ids.has(i)) continue;
           expect(b.units.get(i - 1)?.type, `${month}:${mode} rear ${i}`).toBe(
