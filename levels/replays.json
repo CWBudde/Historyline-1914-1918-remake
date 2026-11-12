@@ -22,15 +22,15 @@
       "side": 0,
       "driver": "coach",
       "resolutions": 9,
-      "score": 682
+      "score": 689
     },
     {
       "level": "1914-09:ec",
       "code": "MARNE",
       "side": 1,
       "driver": "coach",
-      "resolutions": 22,
-      "score": 380
+      "resolutions": 24,
+      "score": 210
     },
     {
       "level": "1914-10:cp",
@@ -54,15 +54,15 @@
       "side": 0,
       "driver": "coach",
       "resolutions": 19,
-      "score": 356
+      "score": 296
     },
     {
       "level": "1914-11:ec",
       "code": "NONNE",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 26,
-      "score": 307
+      "resolutions": 24,
+      "score": 310
     },
     {
       "level": "1914-12:ec",
@@ -78,15 +78,15 @@
       "side": 0,
       "driver": "fallback",
       "resolutions": 17,
-      "score": 712
+      "score": 735
     },
     {
       "level": "1915-01:ec",
       "code": "AISNE",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 12,
-      "score": 719
+      "resolutions": 18,
+      "score": 575
     },
     {
       "level": "1915-02:cp",
@@ -109,16 +109,16 @@
       "code": "HUSAR",
       "side": 0,
       "driver": "lookahead-wide",
-      "resolutions": 61,
-      "score": 634
+      "resolutions": 31,
+      "score": 710
     },
     {
       "level": "1915-03:ec",
       "code": "SABRE",
       "side": 1,
-      "driver": "lookahead",
-      "resolutions": 24,
-      "score": 664
+      "driver": "plan",
+      "resolutions": 22,
+      "score": 906
     },
     {
       "level": "1915-04:cp",
@@ -141,16 +141,16 @@
       "code": "TRACK",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 15,
-      "score": 568
+      "resolutions": 17,
+      "score": 538
     },
     {
       "level": "1915-05:ec",
       "code": "TOMMY",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 32,
-      "score": 281
+      "resolutions": 26,
+      "score": 323
     },
     {
       "level": "1915-06:cp",
@@ -173,16 +173,16 @@
       "code": "LIGHT",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 35,
-      "score": 890
+      "resolutions": 49,
+      "score": 851
     },
     {
       "level": "1915-07:ec",
       "code": "FLARE",
       "side": 1,
       "driver": "coach",
-      "resolutions": 24,
-      "score": 922
+      "resolutions": 32,
+      "score": 515
     },
     {
       "level": "1915-08:cp",
@@ -205,8 +205,8 @@
       "code": "SCROL",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 45,
-      "score": 932
+      "resolutions": 37,
+      "score": 911
     },
     {
       "level": "1915-09:ec",
@@ -214,7 +214,7 @@
       "side": 1,
       "driver": "fallback",
       "resolutions": 38,
-      "score": 749
+      "score": 822
     },
     {
       "level": "1915-10:cp",
@@ -236,9 +236,9 @@
       "level": "1915-11:cp",
       "code": "BEAST",
       "side": 0,
-      "driver": "llm",
-      "resolutions": 113,
-      "score": 2833
+      "driver": "plan",
+      "resolutions": 93,
+      "score": 2587
     },
     {
       "level": "1915-11:ec",
@@ -246,7 +246,8 @@
       "side": 1,
       "driver": "llm",
       "resolutions": 40,
-      "score": 1620
+      "score": 1620,
+      "stale": "resolution 16: dosplay: replay of command 0 (move): The unit does not move from the map now."
     },
     {
       "level": "1915-12:cp",
@@ -261,16 +262,16 @@
       "code": "BISON",
       "side": 0,
       "driver": "coach",
-      "resolutions": 38,
-      "score": 1057
+      "resolutions": 52,
+      "score": 785
     },
     {
       "level": "1916-01:ec",
       "code": "FROST",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 85,
-      "score": 590
+      "resolutions": 50,
+      "score": 355
     },
     {
       "level": "1916-02:ec",
@@ -285,64 +286,64 @@
       "code": "DRUCK",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 89,
-      "score": 1117
+      "resolutions": 43,
+      "score": 1679
     },
     {
       "level": "1916-03:ec",
       "code": "MEUSE",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 42,
-      "score": 1149
+      "resolutions": 100,
+      "score": 763
     },
     {
       "level": "1916-05:cp",
       "code": "VIRUS",
       "side": 0,
       "driver": "coach",
-      "resolutions": 21,
-      "score": 1317
+      "resolutions": 17,
+      "score": 1547
     },
     {
       "level": "1916-05:ec",
       "code": "ALPIN",
       "side": 1,
       "driver": "coach",
-      "resolutions": 10,
-      "score": 2207
+      "resolutions": 14,
+      "score": 2002
     },
     {
       "level": "1916-07:cp",
       "code": "PLATE",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 19,
-      "score": 490
+      "resolutions": 15,
+      "score": 590
     },
     {
       "level": "1916-07:ec",
       "code": "SOMME",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 24,
-      "score": 315
+      "resolutions": 16,
+      "score": 415
     },
     {
       "level": "1916-09:cp",
       "code": "DROID",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 91,
-      "score": 1388
+      "resolutions": 27,
+      "score": 1389
     },
     {
       "level": "1916-09:ec",
       "code": "TANKS",
       "side": 1,
       "driver": "lookahead-deep",
-      "resolutions": 118,
-      "score": 1121
+      "resolutions": 38,
+      "score": 1261
     },
     {
       "level": "1916-10:cp",
@@ -357,24 +358,24 @@
       "code": "ROYAL",
       "side": 0,
       "driver": "coach",
-      "resolutions": 23,
-      "score": 705
+      "resolutions": 69,
+      "score": 585
     },
     {
       "level": "1916-11:ec",
       "code": "CROWN",
       "side": 1,
-      "driver": "lookahead",
-      "resolutions": 36,
-      "score": 780
+      "driver": "plan",
+      "resolutions": 42,
+      "score": 695
     },
     {
       "level": "1917-01:cp",
       "code": "UBOOT",
       "side": 0,
       "driver": "fallback",
-      "resolutions": 40,
-      "score": 1612
+      "resolutions": 32,
+      "score": 1558
     },
     {
       "level": "1917-02:cp",
@@ -396,33 +397,33 @@
       "level": "1917-03:cp",
       "code": "SKILL",
       "side": 0,
-      "driver": "coach",
-      "resolutions": 33,
-      "score": 2369
+      "driver": "lookahead-wide",
+      "resolutions": 37,
+      "score": 2278
     },
     {
       "level": "1917-03:ec",
       "code": "CABLE",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 24,
-      "score": 2412
+      "resolutions": 134,
+      "score": 812
     },
     {
       "level": "1917-05:cp",
       "code": "SKULL",
       "side": 0,
-      "driver": "coach",
-      "resolutions": 43,
-      "score": 665
+      "driver": "plan",
+      "resolutions": 13,
+      "score": 1423
     },
     {
       "level": "1917-05:ec",
       "code": "ANZAC",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 30,
-      "score": 940
+      "resolutions": 29,
+      "score": 1129
     },
     {
       "level": "1917-06:ec",
@@ -437,16 +438,16 @@
       "code": "AUDIO",
       "side": 0,
       "driver": "coach",
-      "resolutions": 57,
-      "score": 737
+      "resolutions": 43,
+      "score": 1049
     },
     {
       "level": "1917-07:ec",
       "code": "MASKS",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 38,
-      "score": 807
+      "resolutions": 54,
+      "score": 920
     },
     {
       "level": "1917-08:ec",
@@ -461,16 +462,16 @@
       "code": "SPELL",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 27,
-      "score": 706
+      "resolutions": 37,
+      "score": 579
     },
     {
       "level": "1917-09:ec",
       "code": "BEAMS",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 24,
-      "score": 756
+      "resolutions": 14,
+      "score": 1151
     },
     {
       "level": "1917-10:cp",
@@ -485,32 +486,32 @@
       "code": "CAMEL",
       "side": 0,
       "driver": "lookahead-wide",
-      "resolutions": 77,
-      "score": 2581
+      "resolutions": 45,
+      "score": 2155
     },
     {
       "level": "1917-11:ec",
       "code": "BELLS",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 34,
-      "score": 2243
+      "resolutions": 32,
+      "score": 1993
     },
     {
       "level": "1918-01:cp",
       "code": "FLAGS",
       "side": 0,
       "driver": "coach",
-      "resolutions": 54,
-      "score": 772
+      "resolutions": 17,
+      "score": 1389
     },
     {
       "level": "1918-01:ec",
       "code": "POINT",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 39,
-      "score": 912
+      "resolutions": 83,
+      "score": 637
     },
     {
       "level": "1918-02:cp",
@@ -532,17 +533,17 @@
       "level": "1918-03:cp",
       "code": "STORY",
       "side": 0,
-      "driver": "coach",
-      "resolutions": 49,
-      "score": 1741
+      "driver": "plan",
+      "resolutions": 31,
+      "score": 1736
     },
     {
       "level": "1918-03:ec",
       "code": "ARRAS",
       "side": 1,
       "driver": "lookahead",
-      "resolutions": 84,
-      "score": 1411
+      "resolutions": 50,
+      "score": 1344
     },
     {
       "level": "1918-04:cp",
@@ -557,17 +558,17 @@
       "level": "1918-05:cp",
       "code": "SCOUT",
       "side": 0,
-      "driver": "lookahead",
-      "resolutions": 25,
-      "score": 724
+      "driver": "plan",
+      "resolutions": 13,
+      "score": 1434
     },
     {
       "level": "1918-05:ec",
       "code": "DAMES",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 31,
-      "score": 1009
+      "resolutions": 45,
+      "score": 838
     },
     {
       "level": "1918-06:cp",
@@ -590,64 +591,64 @@
       "code": "GREEN",
       "side": 0,
       "driver": "fallback",
-      "resolutions": 115,
-      "score": 2749
+      "resolutions": 185,
+      "score": 2122
     },
     {
       "level": "1918-07:ec",
       "code": "HAMEL",
       "side": 1,
-      "driver": "lookahead-deep",
-      "resolutions": 124,
-      "score": 2471
+      "driver": "plan",
+      "resolutions": 48,
+      "score": 3401
     },
     {
       "level": "1918-08:cp",
       "code": "TROLL",
       "side": 0,
       "driver": "lookahead",
-      "resolutions": 27,
-      "score": 545
+      "resolutions": 15,
+      "score": 653
     },
     {
       "level": "1918-08:ec",
       "code": "BLACK",
       "side": 1,
-      "driver": "coach",
-      "resolutions": 24,
-      "score": 632
+      "driver": "lookahead",
+      "resolutions": 16,
+      "score": 583
     },
     {
       "level": "1918-09:cp",
       "code": "GRAND",
       "side": 0,
       "driver": "fallback",
-      "resolutions": 91,
-      "score": 1741
+      "resolutions": 81,
+      "score": 1914
     },
     {
       "level": "1918-10:cp",
       "code": "COAST",
       "side": 0,
       "driver": "fallback",
-      "resolutions": 145,
-      "score": 2422
+      "resolutions": 214,
+      "score": 2784
     },
     {
       "level": "1918-10:ec",
       "code": "LIBRE",
       "side": 1,
       "driver": "lookahead",
-      "resolutions": 110,
-      "score": 2799
+      "resolutions": 88,
+      "score": 3762
     },
     {
       "level": "1918-11:ec",
       "code": "TRUCE",
       "side": 1,
       "driver": "fallback",
-      "resolutions": 43,
-      "score": 2192
+      "resolutions": 41,
+      "score": 1743
     }
   ]
 }
