@@ -14,6 +14,7 @@ import {
   toneBlank,
   toneHex,
   tonePlate,
+  toneWell,
   type Surfaces,
 } from "./painter.ts";
 
@@ -352,4 +353,196 @@ export function drawUnitInfo(
     w.left(label, g.x(8), y, cream);
     w.right(String(v), g.x(104), y, amber);
   }
+}
+
+/** ContentSlot is one of a container's seven slots as the contents show it. */
+export interface ContentSlot {
+  name: string;
+  size: number;
+  family: string | null;
+  owner: number;
+}
+/** Contents is what the contents show (dospanel.Contents): the container, its slots and the details plate. */
+export interface Contents {
+  name: string;
+  stored: number;
+  total: number;
+  slots: (ContentSlot | null)[];
+  selected: number;
+  details: string[];
+  /** The production list's picked row among the details (1 the first type), or -1 outside the list. */
+  pickRow: number;
+}
+// The contents in reference pixels: a 134×154 block, two rows of hex slots at the bottom.
+const contentsW = 134,
+  contentsH = 154,
+  slotX0 = 19,
+  slotPitch = 16,
+  slotLowY = 140,
+  slotHighY = 128,
+  slotHalf = 12;
+export const slotCount = 7;
+/** contentsLayout lays out the contents in panel at scale (ContentsLayout). */
+export function contentsLayout(panel: Rect, scale: number) {
+  const g = fit(panel, scale, contentsW, contentsH);
+  return {
+    scale: g.k,
+    plate: g.rect(0, 0, contentsW, contentsH),
+    photoWell: g.rect(2, 2, 58, 50),
+    photo: g.rect(5, 5, 55, 47),
+    info: g.rect(61, 4, 132, 40),
+    name: g.rect(2, 52, 132, 63),
+    details: g.rect(2, 65, 132, 113),
+    slots: Array.from({ length: slotCount }, (_, i) => {
+      const x = slotX0 + slotPitch * i,
+        y = i % 2 === 1 ? slotHighY : slotLowY;
+      return g.rect(x - slotHalf, y - slotHalf, x + slotHalf, y + slotHalf);
+    }),
+  };
+}
+/** hexNorm is how far (dx, dy) lies towards the edge of a flat-topped hex of half size a × b: at most 1 inside. */
+function hexNorm(dx: number, dy: number, a: number, b: number): number {
+  const ax = Math.abs(dx),
+    ay = Math.abs(dy);
+  return Math.max(ay / b, (ax + ((2 * a) / 3) * (ay / b)) / a);
+}
+/** slotAt is the slot whose hex holds (x, y), the nearest centre first, or -1. */
+export function slotAt(
+  l: ReturnType<typeof contentsLayout>,
+  x: number,
+  y: number,
+): number {
+  let best = -1,
+    bestN = Infinity;
+  for (const [i, r] of l.slots.entries()) {
+    const [cx, cy, a, b] = hexOf(r),
+      n = hexNorm(x + 0.5 - cx, y + 0.5 - cy, a, b);
+    if (n <= 1 && n < bestN) {
+      best = i;
+      bestN = n;
+    }
+  }
+  return best;
+}
+/** detailRow is the rectangle of line i of the details plate. */
+export function detailRow(
+  l: ReturnType<typeof contentsLayout>,
+  i: number,
+): Rect {
+  const k = l.scale,
+    cy = l.details.y + (6 + 7 * i) * k,
+    x = l.details.x + Math.trunc(2 * k),
+    y = Math.trunc(cy - 3.5 * k);
+  return {
+    x,
+    y,
+    width: l.details.x + l.details.width - Math.trunc(2 * k) - x,
+    height: Math.trunc(cy + 3.5 * k) - y,
+  };
+}
+/** The production list shows this many types. */
+export const buildRows = 5;
+
+/** drawContents draws the contents over panel at scale, the selected slot ringed, its unit's photo and name shown. */
+export function drawContents(
+  ctx: CanvasRenderingContext2D,
+  panel: Rect,
+  scale: number,
+  c: Contents,
+  fonts: PixelFonts,
+  surfaces: Surfaces,
+  picture: (s: ContentSlot, portrait: boolean) => Picture | null,
+): void {
+  const l = contentsLayout(panel, scale);
+  ctx.putImageData(
+    cachedPlate(
+      "contents",
+      panel.width,
+      panel.height,
+      (p) => {
+        const local = contentsLayout(
+          { x: 0, y: 0, width: panel.width, height: panel.height },
+          scale,
+        );
+        p.steel({ x: 0, y: 0, width: p.w, height: p.h }, toneBack);
+        p.plate(local.plate, tonePlate);
+        p.well(local.photoWell);
+        p.plate(local.photo, toneBlank);
+        p.namePlate(local.info);
+        p.namePlate(local.name);
+        p.namePlate(local.details);
+        for (const r of local.slots) {
+          const [cx, cy, a, b] = hexOf(r);
+          p.hex(cx, cy, a, b, toneWell + 0.12, false);
+        }
+      },
+      surfaces,
+      scale,
+    ),
+    panel.x,
+    panel.y,
+  );
+  for (const [i, s] of c.slots.entries()) {
+    const r = l.slots[i],
+      img = s === null ? null : picture(s, false);
+    if (r !== undefined && img !== null) drawSprite(ctx, r, img, 0.8);
+  }
+  const g = fit(panel, scale, contentsW, contentsH),
+    k = textScale(scale),
+    w = new Writer(ctx, fonts.small, k);
+  w.left(c.name.toUpperCase(), g.x(67), g.y(11), cream);
+  w.left("RESOURCES", g.x(67), g.y(25), cream);
+  w.right(String(c.stored), g.x(127), g.y(25), amber);
+  w.left("TOTAL", g.x(67), g.y(31), cream);
+  w.right(String(c.total), g.x(127), g.y(31), amber);
+  const room = l.details.width - Math.trunc(12 * scale);
+  for (const [i, s] of c.details.entries()) {
+    const y = 71 + 7 * i;
+    if (y > 108) break;
+    w.left(fonts.small.fit(s.toUpperCase(), k, room), g.x(8), g.y(y), cream);
+  }
+  if (c.pickRow >= 0) {
+    const row = detailRow(l, c.pickRow),
+      lw = Math.max(scale / 2, 1);
+    ctx.strokeStyle = "#e7d365";
+    ctx.lineWidth = lw;
+    ctx.strokeRect(
+      row.x + lw / 2,
+      row.y + lw / 2,
+      row.width - lw,
+      row.height - lw,
+    );
+  }
+  const sel = l.slots[c.selected];
+  if (sel === undefined) return;
+  drawSlotRing(ctx, sel, l.scale);
+  const s = c.slots[c.selected];
+  if (s === null || s === undefined) return;
+  const photo = picture(s, true);
+  if (photo !== null) drawPhoto(ctx, l.photo, photo);
+  if (s.size > 0) w.left(String(s.size), g.x(8), g.y(57.5), amber);
+  w.centre(s.name.toUpperCase(), g.x(67), g.y(57.5), cream);
+}
+/** drawSlotRing is the contents cursor: a light hex outline over a dark one round the slot. */
+function drawSlotRing(ctx: CanvasRenderingContext2D, r: Rect, k: number): void {
+  const [cx, cy, a0, b0] = hexOf(r),
+    a = a0 - 0.5 * k,
+    b = b0 - 0.5 * k;
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(cx - a, cy);
+  ctx.lineTo(cx - a / 3, cy - b);
+  ctx.lineTo(cx + a / 3, cy - b);
+  ctx.lineTo(cx + a, cy);
+  ctx.lineTo(cx + a / 3, cy + b);
+  ctx.lineTo(cx - a / 3, cy + b);
+  ctx.closePath();
+  ctx.lineJoin = "miter";
+  ctx.lineWidth = 3 * k;
+  ctx.strokeStyle = "#1c140c";
+  ctx.stroke();
+  ctx.lineWidth = 1.6 * k;
+  ctx.strokeStyle = "#d8d8c8";
+  ctx.stroke();
+  ctx.restore();
 }

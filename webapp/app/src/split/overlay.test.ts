@@ -1,6 +1,9 @@
 import { expect, it } from "vitest";
 import { layout } from "./geometry.ts";
 import {
+  contentsLayout,
+  detailRow,
+  slotAt,
   fit,
   gameInfoScale,
   panelScale,
@@ -85,4 +88,24 @@ it("models a texture as its deviation and paints steel, bevels and hexes inside 
   // The centre lies nearer the slanted edges than the top: 13·12 / hypot(12, 26/3).
   expect(hexEdge(0, 0, 13, 12)[0]).toBeCloseTo(156 / Math.hypot(12, 26 / 3), 9);
   expect(hexEdge(20, 0, 13, 12)[0]).toBeLessThan(0);
+});
+
+it("lays out the contents' slots in two rows and finds the slot under a point", () => {
+  const panel = { x: 0, y: 0, width: 952, height: 1040 },
+    l = contentsLayout(panel, 3);
+  expect(l.scale).toBe(3);
+  expect(l.slots).toHaveLength(7);
+  for (const [i, r] of l.slots.entries()) {
+    expect(inside(l.plate, r)).toBe(true);
+    const cx = r.x + r.width / 2,
+      cy = r.y + r.height / 2;
+    expect(slotAt(l, Math.round(cx), Math.round(cy))).toBe(i);
+  }
+  // Odd slots sit in the upper row.
+  expect(l.slots[1]?.y ?? 0).toBeLessThan(l.slots[0]?.y ?? 0);
+  expect(slotAt(l, l.plate.x + 2, l.plate.y + 2)).toBe(-1);
+  const first = detailRow(l, 1),
+    second = detailRow(l, 2);
+  expect(inside(l.details, first)).toBe(true);
+  expect(second.y).toBeGreaterThan(first.y);
 });

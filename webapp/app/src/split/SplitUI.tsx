@@ -9,6 +9,8 @@ import type { Rect } from "../camera.ts";
 import type { SplitRuntime } from "./runtime.ts";
 import { drawWell, type Well } from "./well.ts";
 import {
+  contentsLayout,
+  drawContents,
   drawGameInfo,
   drawUnitInfo,
   gameInfoScale,
@@ -221,6 +223,26 @@ function PanelOverlay({
       base = panelScale(screen);
     if (view.kind === "game")
       drawGameInfo(ctx, local, gameInfoScale(room, base), view.info, fonts);
+    else if (view.kind === "contents")
+      drawContents(
+        ctx,
+        local,
+        contentsLayout(room, base).scale,
+        view.contents,
+        fonts,
+        surfaces,
+        (slot, photo) =>
+          slot.family === null
+            ? null
+            : photo
+              ? picture(assets, "screens", `portrait/${slot.family}`, redraw)
+              : picture(
+                  assets,
+                  "units",
+                  spriteID(slot.family, slot.owner, "n", false),
+                  redraw,
+                ),
+      );
     else
       drawUnitInfo(
         ctx,

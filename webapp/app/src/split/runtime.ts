@@ -35,11 +35,23 @@ import {
 import { SplitInput } from "./input.ts";
 import { loadPixelFonts, type PixelFonts } from "../pixfont.ts";
 import { messageMs, wellOf, type Well } from "./well.ts";
-import type { GameInfo, UnitInfo } from "./overlay.ts";
+import {
+  buildRows,
+  contentsLayout,
+  detailRow,
+  panelScale,
+  plateRect,
+  slotAt,
+  slotCount,
+  type Contents,
+  type GameInfo,
+  type UnitInfo,
+} from "./overlay.ts";
 
 /** PanelView is a view painted over a panel (overlay.ts). */
 export type PanelView =
   | { kind: "game"; info: GameInfo }
+  | { kind: "contents"; contents: Contents }
   | { kind: "unit"; info: UnitInfo; family: string | null; owner: number };
 
 const sides = [0, 1] as const;
@@ -219,6 +231,11 @@ export class SplitRuntime {
             // The computer's panel shows no cursor, as on the desktop.
             cursor: local !== null || side === request.side,
             hitTest: (point) => host?.hitTest(side, point) ?? true,
+            panel: {
+              hover: (p) => host?.contentsInput(side, p, "hover") ?? false,
+              click: (p) => host?.contentsInput(side, p, "click") ?? false,
+              context: (p) => host?.contentsInput(side, p, "context") ?? false,
+            },
           },
         );
         made.push(panel);
@@ -730,6 +747,8 @@ export class SplitRuntime {
   overlay(side: 0 | 1): PanelView | null {
     const b = this.panels[side].battle;
     if (!this.visible(side)) return null;
+    if (b.contents.box !== null && b.playback.scene() === null)
+      return { kind: "contents", contents: this.contentsView(side) };
     if (b.panel === "unit" && b.infoUnit?.side === side) {
       const u = b.infoUnit,
         t = play.typeInfo(b.session, side, u.type),
@@ -789,6 +808,136 @@ export class SplitRuntime {
       };
     }
     return null;
+  }
+  /** contentsView is what side's open contents show (cmd/historyline/contents.go contentsView). */
+  private contentsView(side: 0 | 1): Contents {
+    const b = this.panels[side].battle,
+      c = b.contents,
+      box = c.box,
+      s = b.session,
+      slots = c.slots(),
+      unit = c.unit(),
+      res = c.resources(),
+      options = c.options(),
+      acts = c.actions(),
+      families = this.panels[side].families,
+      details: string[] = [];
+    let pickRow = -1;
+    if (box?.producing === true) {
+      const top = this.buildTop(side);
+      details.push(`produce - energy ${play.energy(s, side)}`);
+      for (const o of options.slice(top, top + buildRows))
+        details.push(`${o.name}  ${o.cost}`);
+      pickRow = box.pick - top + 1;
+    } else {
+      if (unit !== null) {
+        details.push(`size ${unit.size}/${unit.full}`);
+        details.push(
+          acts.leave === null ? "move out" : `move out: ${acts.leave}`,
+        );
+        if (slots.length === play.Slots) {
+          const p = s.game.profile,
+            cost = p.builders.includes(unit.type) ? p.builderRepair : p.repair;
+          details.push(
+            acts.repair === null
+              ? `repair: ${cost} energy`
+              : `repair ${cost}: ${acts.repair}`,
+          );
+        }
+      } else details.push("empty slot");
+      if (options.length > 0)
+        details.push(
+          acts.produce === null
+            ? `produce: ${options.length === 1 ? "1 type" : `${options.length} types`}`
+            : `produce: ${acts.produce}`,
+        );
+    }
+    return {
+      name: c.name(),
+      stored: res.stored,
+      total: res.total,
+      slots: Array.from({ length: slotCount }, (_, i) => {
+        const u = slots[i]?.unit;
+        return u === null || u === undefined
+          ? null
+          : {
+              name: u.name,
+              size: u.size,
+              family: families[u.id]?.family ?? null,
+              owner: u.owner,
+            };
+      }),
+      selected: box?.slot ?? -1,
+      details,
+      pickRow,
+    };
+  }
+  private buildTop(side: 0 | 1): number {
+    const c = this.panels[side].battle.contents,
+      pick = c.box?.pick ?? 0,
+      n = c.options().length;
+    return Math.min(
+      Math.max(pick - buildRows + 1, 0),
+      Math.max(n - buildRows, 0),
+    );
+  }
+  /**
+   * contentsInput is the pointer on side's open contents (contentsGesture): over a slot or a production row it
+   * moves the cursor there, a click there runs fire, a click off the plate or a right click goes back.
+   */
+  contentsInput(
+    side: 0 | 1,
+    p: Point,
+    kind: "hover" | "click" | "context",
+  ): boolean {
+    const b = this.panels[side].battle,
+      box = b.contents.box;
+    if (!this.original || box === null || b.playback.scene() !== null)
+      return false;
+    if (kind === "context") {
+      b.cancel();
+      return true;
+    }
+    const panel = this.screen.panels[side],
+      l = contentsLayout(
+        { x: 0, y: 0, width: panel.width, height: panel.height },
+        contentsLayout(plateRect(this.screen, side), panelScale(this.screen))
+          .scale,
+      );
+    let hit = -1;
+    if (box.producing) {
+      const top = this.buildTop(side),
+        n = b.contents.options().length;
+      for (let i = 0; i < Math.min(buildRows, n - top); i++) {
+        const r = detailRow(l, i + 1);
+        if (
+          p.x >= r.x &&
+          p.y >= r.y &&
+          p.x < r.x + r.width &&
+          p.y < r.y + r.height
+        )
+          hit = top + i;
+      }
+      if (hit >= 0) {
+        b.contents.selectBuild(hit);
+        b.refresh();
+      }
+    } else {
+      hit = slotAt(l, p.x, p.y);
+      if (hit >= 0 && hit !== box.slot) b.selectSlot(hit);
+    }
+    if (kind === "click") {
+      const plate = l.plate;
+      if (hit >= 0) b.fire();
+      else if (
+        p.x < plate.x ||
+        p.y < plate.y ||
+        p.x >= plate.x + plate.width ||
+        p.y >= plate.y + plate.height
+      )
+        b.cancel();
+    }
+    return true;
   }
   refreshImages(): void {
     for (const panel of this.panels) panel.map.dirty = true;

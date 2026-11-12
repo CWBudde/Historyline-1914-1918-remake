@@ -52,6 +52,12 @@ export interface BattleRuntimeOptions {
   keyboard?: boolean;
   pointer?: boolean;
   hitTest?: (point: Point) => boolean;
+  /** A view painted over the panel takes the pointer first (the split screen's contents); true when it took it. */
+  panel?: {
+    hover(point: Point): boolean;
+    click(point: Point): boolean;
+    context(point: Point): boolean;
+  };
   /** Whether this panel shows its side's cursor (the player's panels); default true. */
   cursor?: boolean;
 }
@@ -285,6 +291,7 @@ export class BattleRuntime {
           this.map.dirty = true;
         },
         hover: (p) => {
+          if (this.options.panel?.hover(p) === true) return;
           if (this.ringWorld !== null) {
             const hit = this.hitRing(p);
             this.ringHover = typeof hit === "number" ? hit : null;
@@ -292,6 +299,7 @@ export class BattleRuntime {
             this.battle.setCursor(this.at(p));
         },
         click: (p) => {
+          if (this.options.panel?.click(p) === true) return;
           if (this.ringWorld !== null) {
             const hit = this.hitRing(p),
               action =
@@ -321,6 +329,7 @@ export class BattleRuntime {
           void this.battle.requestPhase();
         },
         context: (p) => {
+          if (this.options.panel?.context(p) === true) return;
           this.context(p);
         },
         contextCancel: () => {
