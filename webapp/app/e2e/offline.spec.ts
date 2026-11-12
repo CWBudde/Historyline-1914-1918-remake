@@ -55,32 +55,41 @@ async function waitForKeep(page: Page): Promise<void> {
   }
 }
 
-/** Backdrop tiles of a month missing from the content cache, read through the offline app's own index. */
-async function missingTiles(
-  page: Page,
-  month: string,
-): Promise<[number, number]> {
+/** A month's backdrop tile hashes, read online through the app's index and the month's pyramid file. */
+async function tileHashes(page: Page, month: string): Promise<string[]> {
   return page.evaluate(async (wanted) => {
+    interface Pyramid {
+      mips: { tiles: { file: { sha256: string } }[] }[];
+    }
     const index = (await (await fetch("index.json")).json()) as {
       levels: Record<
         string,
-        { backdrop?: { mips: { tiles: { file: { sha256: string } }[] }[] } }
+        { backdrop?: Pyramid; backdropFile?: { path: string } }
       >;
     };
-    const cache = await caches.open("historyline-content-v1");
-    const tiles = (index.levels[wanted]?.backdrop?.mips ?? []).flatMap(
-      (mip) => mip.tiles,
+    const level = index.levels[wanted];
+    const pyramid =
+      level?.backdropFile === undefined
+        ? level?.backdrop
+        : ((await (await fetch(level.backdropFile.path)).json()) as Pyramid);
+    return (pyramid?.mips ?? []).flatMap((mip) =>
+      mip.tiles.map((tile) => tile.file.sha256),
     );
+  }, month);
+}
+
+/** How many of the given backdrop tiles are missing from the content cache. */
+async function missingTiles(page: Page, hashes: string[]): Promise<number> {
+  return page.evaluate(async (wanted) => {
+    const cache = await caches.open("historyline-content-v1");
     let missing = 0;
-    for (const tile of tiles) {
-      const key = new URL(
-        `/__historyline_content__/${tile.file.sha256}`,
-        location.origin,
-      ).href;
+    for (const hash of wanted) {
+      const key = new URL(`/__historyline_content__/${hash}`, location.origin)
+        .href;
       if ((await cache.match(key)) === undefined) missing++;
     }
-    return [missing, tiles.length] as [number, number];
-  }, month);
+    return missing;
+  }, hashes);
 }
 
 test("played and upcoming months work offline, others say why not", async ({
@@ -92,6 +101,9 @@ test("played and upcoming months work offline, others say why not", async ({
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
   });
+  const tiles = new Map<string, string[]>();
+  for (const month of ["1914-08", "1914-09", "1914-10", "1918-11"])
+    tiles.set(month, await tileHashes(page, month));
   await startFirstBattle(page);
   await waitForKeep(page);
 
@@ -102,13 +114,13 @@ test("played and upcoming months work offline, others say why not", async ({
   });
 
   for (const month of ["1914-08", "1914-09", "1914-10"]) {
-    const [missing, tiles] = await missingTiles(page, month);
-    expect(tiles, month).toBeGreaterThan(0);
-    expect(missing, month).toBe(0);
+    const hashes = tiles.get(month) ?? [];
+    expect(hashes.length, month).toBeGreaterThan(0);
+    expect(await missingTiles(page, hashes), month).toBe(0);
   }
-  const [, lastMonthTiles] = await missingTiles(page, "1918-11");
-  expect(lastMonthTiles).toBeGreaterThan(0);
-  expect((await missingTiles(page, "1918-11"))[0]).toBe(lastMonthTiles);
+  const lastMonth = tiles.get("1918-11") ?? [];
+  expect(lastMonth.length).toBeGreaterThan(0);
+  expect(await missingTiles(page, lastMonth)).toBe(lastMonth.length);
 
   // The played month, without any report of missing full-quality art.
   await startFirstBattle(page);

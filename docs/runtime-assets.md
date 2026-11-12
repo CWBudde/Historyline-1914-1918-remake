@@ -3,9 +3,9 @@
 The TypeScript edition uses `hl webapp assets` (`just webapp-assets`). It updates the native packs and
 writes `build/webapp/data/index.json` plus SHA-256-named blobs. The index lists lite/full catalogs,
 scenario and rule JSON, per-setup `mapcompose` scenes, water and seasonal weight rasters, tiled JPEG
-backdrop mip pyramids, pixel-font atlases and Noto WOFF2 fonts with their licence. Units derive a 1×
-catalog from 2×; screens keep their native maximum of 2×. Backdrop tiles include two neighbouring pixels
-for filtering. Raster PNGs store unsigned 16-bit samples in R (low byte) and G (high byte), with opaque
+backdrops (each month's mip pyramid a file of its own, `backdropFile`, fetched for its battle only),
+pixel-font atlases and Noto WOFF2 fonts with their licence. Units derive a 1× catalog from 2×; screens
+keep their native maximum of 2×. Backdrop tiles include two neighbouring pixels for filtering. Raster PNGs store unsigned 16-bit samples in R (low byte) and G (high byte), with opaque
 alpha; divide by the raster's `divisor`. Season rasters follow `seasonblend.Seasons` order.
 The optional `backgrounds` contain the native depth, sea and surf result at each density; use them only
 for their matching background ID. `seasonBakes` contains the native mixed background, infrastructure
@@ -14,9 +14,11 @@ An empty mixed pass suppresses that pass; stamps and shadows keep the main scene
 
 Vite serves this directory at its base path and copies it into the site build. The browser's
 `AssetLoader` requests only the selected IDs, delivers lite before full, and chooses density from
-zoom × DPR. Its `AssetStore` verifies byte counts and hashes, limits concurrent requests and uses
-CacheStorage by content hash (bounded memory when unavailable). Lite encodes are cached under the
-system user cache directory.
+zoom × DPR. Full images wait for the first battle frame (lite at the lowest density until then, or eight
+seconds in the menus); offline, or after a failed transfer, it keeps the lite art without an error. A
+disposed map or panel cancels its transfers. Its `AssetStore` verifies byte counts and hashes, limits
+concurrent requests and uses CacheStorage by content hash (bounded memory when unavailable). Lite
+encodes are cached under the system user cache directory.
 Regenerate assets before starting Vite; restart it after another export so it discovers the new blobs.
 
 Offline play: the production build's service worker (`webapp/app/src/sw.ts`) precaches the app and `index.json`

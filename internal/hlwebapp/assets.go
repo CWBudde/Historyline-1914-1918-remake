@@ -32,9 +32,11 @@ type AssetIndex struct {
 	FontLicense FileRef                        `json:"fontLicense"`
 }
 type LevelAssets struct {
-	Files    map[string]FileRef        `json:"files"`
-	Layers   map[scenario.Mode]FileRef `json:"layers"`
-	Backdrop *Pyramid                  `json:"backdrop,omitempty"`
+	Files  map[string]FileRef        `json:"files"`
+	Layers map[scenario.Mode]FileRef `json:"layers"`
+	// BackdropFile is the painting's tile pyramid as a file of its own: inline,
+	// every month's pyramid made up nearly all of index.json.
+	BackdropFile *FileRef `json:"backdropFile,omitempty"`
 }
 type PixelFont struct {
 	Image   FileRef `json:"image"`
@@ -192,11 +194,11 @@ func Assets(ctx context.Context, args []string, stdout, stderr io.Writer) (err e
 			if err != nil {
 				return err
 			}
-			pyramid, err := b.pyramid(ctx, im)
+			ref, err := b.backdrop(ctx, im)
 			if err != nil {
 				return err
 			}
-			entry.Backdrop = &pyramid
+			entry.BackdropFile = &ref
 		} else if !errors.Is(err, fs.ErrNotExist) {
 			return err
 		}

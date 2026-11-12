@@ -106,6 +106,15 @@ type Tile struct {
 	File         FileRef `json:"file"`
 }
 
+// backdrop writes a painting's tiles and their pyramid, which the browser fetches only for its battle's month.
+func (b blobWriter) backdrop(ctx context.Context, im image.Image) (FileRef, error) {
+	p, err := b.pyramid(ctx, im)
+	if err != nil {
+		return FileRef{}, err
+	}
+	return b.json(p)
+}
+
 func (b blobWriter) pyramid(ctx context.Context, im image.Image) (Pyramid, error) {
 	p := Pyramid{Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), TileSize: 512}
 	for scale := 1; ; scale *= 2 {
