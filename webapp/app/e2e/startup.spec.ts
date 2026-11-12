@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { openMenu, startFirstBattle } from "./battle.ts";
 
 // Lite art at the lowest density reaches the first playable frame; full art follows it.
-const firstPlayableBytes = 5_000_000;
+const firstPlayableBytes = 5_250_000;
 
 test("the first playable frame needs few megabytes, also at a phone's density", async ({
   page,

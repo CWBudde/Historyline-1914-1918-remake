@@ -12,8 +12,8 @@ import (
 )
 
 // DefaultSiteLimitMB guards the published site against unnoticed growth: 10 % above its measured size
-// (2,782 MB on 2026-11-06). All art is kept on purpose; raise this when art is added deliberately.
-const DefaultSiteLimitMB = 3060
+// (2,491.5 MB on 2026-11-12, full art as lossless WebP). All art is kept on purpose; raise this when art is added deliberately.
+const DefaultSiteLimitMB = 2741
 
 // Size reports a built site's size per file type and fails above the limit.
 func Size(ctx context.Context, args []string, stdout, stderr io.Writer) error {
