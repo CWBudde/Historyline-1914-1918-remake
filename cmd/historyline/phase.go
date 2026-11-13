@@ -326,6 +326,16 @@ func (d *dosControl) panelLooks() [2]panelLook {
 		return out
 	case stageNone, stageFinale, stageSurrender:
 	}
+	if d.local != localNone {
+		// Each human's prompt greys only its own panel: the other one goes on.
+		var out [2]panelLook
+		for _, side := range d.humans() {
+			if st := d.seatOf(side); st.prompt || st.giveUp {
+				out[side] = lookGrey
+			}
+		}
+		return out
+	}
 	if d.prompt || d.giveUp {
 		return [2]panelLook{lookGrey, lookGrey}
 	}
@@ -344,13 +354,17 @@ func (d *dosControl) sceneTick() int {
 func (g *game) stageWell(side int) (w well, ok bool) {
 	d := g.dos
 	w.progress = -1
+	own := d.local == localNone || side == d.side // a hot-seat's covered well tells no prompt
 	switch {
-	case d.prompt:
+	case d.prompt && own:
 		w.text = "FIRE: BACK TO THE ORDERS"
 		if side == d.side {
 			w.text = "F1: END THE PHASE"
+			if d.local == localSimultaneous && side == 1 {
+				w.text = "CTRL+X: END THE PHASE" // key set B: fire and left
+			}
 		}
-	case d.giveUp:
+	case d.giveUp && own:
 		w.text = "FIRE: BACK TO THE ORDERS"
 		if side == d.side {
 			w.text = "F2: GIVE UP THE BATTLE"
@@ -510,14 +524,19 @@ func flagImage(owner faction.Player) *ebiten.Image {
 // its view), where the view shows them.
 func (g *game) cursorPlates(dst *ebiten.Image) {
 	for side := range 2 {
-		c, ok := g.plateCell(side)
-		if !ok {
-			continue
-		}
-		cam := g.splitCamera(side)
-		x, y := cam.WorldToScreen(hexgrid.Center(c))
-		gesture.DrawPlate(dst, x, y, cam.Effective(), gesture.ModeChange, gesture.Normal)
+		g.cursorPlate(dst, side)
 	}
+}
+
+// cursorPlate draws side's plate of the phase change where its view shows it.
+func (g *game) cursorPlate(dst *ebiten.Image, side int) {
+	c, ok := g.plateCell(side)
+	if !ok {
+		return
+	}
+	cam := g.splitCamera(side)
+	x, y := cam.WorldToScreen(hexgrid.Center(c))
+	gesture.DrawPlate(dst, x, y, cam.Effective(), gesture.ModeChange, gesture.Normal)
 }
 
 // plateCell is where side's plate of the phase change sits.

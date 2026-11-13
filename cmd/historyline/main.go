@@ -22,6 +22,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/llmplay"
@@ -93,6 +94,9 @@ type game struct {
 	drawSide int
 	tileTint map[string]color.RGBA // average colour of a terrain tile, by asset ID
 	orig     *origArt              // the original tiles and units (F8, origtiles.go); nil until first asked for
+
+	curtainArmed bool          // a key or click went down behind the hot-seat curtain (local.go)
+	curtainImg   *ebiten.Image // the curtain's plate at the menu canvas density
 }
 
 // newMapGame is the map view of lvl without a rules engine.
@@ -227,6 +231,9 @@ func (g *game) Update() error {
 		}
 		return nil
 	}
+	if g.behindCurtain() {
+		return g.updateCurtain()
+	}
 	pressed := inpututil.IsKeyJustPressed
 	if g.split != nil {
 		// Space is the fire key of the cursor (key set A).
@@ -244,6 +251,7 @@ func (g *game) Update() error {
 		mx, my := ebiten.CursorPosition()
 		g.wheelSplit(wheel, mx, my)
 		g.updateCursor()
+		g.feedSecond(gesture.KeySetB.Read(ebiten.IsKeyPressed)) // the right panel's human, simultaneous only
 		return nil
 	}
 	showPointer(true)
@@ -297,6 +305,10 @@ func (g *game) scrollKeys() {
 
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(mapGround)
+	if g.behindCurtain() {
+		g.drawCurtain(screen) // neither map nor well shows
+		return
+	}
 	vx, vy, vw, vh := g.cam.Visible()
 	if g.split != nil {
 		g.drawSplit(screen)
@@ -319,7 +331,13 @@ func (g *game) Draw(screen *ebiten.Image) {
 	case g.hexNumbers && g.cam.Zoom >= minNumberZoom:
 		g.drawHexNumbers(hud, vx, vy, vw, vh)
 	}
-	g.drawOrderNumbers(hud)
+	if g.split != nil && g.dos != nil {
+		for _, side := range g.dos.shown() {
+			g.asHuman(side, func() { g.drawOrderNumbers(hud) }) // each human's own orders
+		}
+	} else {
+		g.drawOrderNumbers(hud)
+	}
 	if g.split == nil {
 		g.drawMinimap(hud)
 	}
@@ -527,6 +545,7 @@ type matchConfig struct {
 	set        *data.Set
 	player     faction.Player // the human side, whose view is shown
 	opponent   string         // ai or pass
+	local      localMode      // two humans on one screen (local.go): the opponent plays no side, player's human starts
 	limit      int            // dos: orders per phase, 0 for no limit
 	reveal     bool
 	hexNumbers bool
@@ -582,7 +601,7 @@ func newDosMatch(c matchConfig) (*game, error) {
 	}
 	o := dosplay.Options{Limit: c.limit}
 	var planner dosPlanner = passPlanner{}
-	if c.opponent == "ai" {
+	if c.opponent == "ai" && c.local == localNone {
 		o.Computer[1-dosbind.Side(c.player)] = true
 		planner = computerPlanner()
 	}
@@ -601,7 +620,7 @@ func newDosMatch(c matchConfig) (*game, error) {
 	if err != nil {
 		return nil, err
 	}
-	if c.saved != nil {
+	if c.saved != nil && c.local == localNone {
 		// The save carries Computer flags and the limit; the planner
 		// follows the other side's flag.
 		planner = passPlanner{}
@@ -609,7 +628,9 @@ func newDosMatch(c matchConfig) (*game, error) {
 			planner = computerPlanner()
 		}
 	}
-	return newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal), nil
+	g := newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
+	g.setLocal(c.local) // two humans give their own orders: no planner plays
+	return g, nil
 }
 
 func main() {
@@ -622,6 +643,7 @@ func main() {
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hl assets build-terrain (default: build/packs/terrain when present, else coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hl assets build-screens (default: build/packs/screens when present, else plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
+	play := flag.String("play", "", "two humans on one screen, for a 2p setup such as -level 1918-11:2p: simultaneous (the left panel takes the mouse and the arrows + Space, the right panel D/C/X/V + left Ctrl) or hotseat (one side at a time on the mouse and the arrows, a curtain between them); default: one human against -opponent")
 	capture := flag.String("capture", "", "dev: render review frames of the battle screen to a directory under build/ and exit (requires the terrain pack)")
 	captureMap := flag.Bool("capture-map", false, "with -capture: render the nine 720p/1080p/4K whole-map frames of the PULSE study (hl review gallery -captures) instead")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render whole-map revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
@@ -645,8 +667,8 @@ func main() {
 	given := map[string]bool{}
 	flag.Visit(func(f *flag.Flag) {
 		given[f.Name] = true
-		direct = direct || f.Name == "level" || f.Name == "player"
-		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent") {
+		direct = direct || f.Name == "level" || f.Name == "player" || f.Name == "play"
+		if *replayDir != "" && (f.Name == "level" || f.Name == "player" || f.Name == "opponent" || f.Name == "play") {
 			log.Fatalf("-replay takes the level and the sides from the transcript: drop -%s", f.Name)
 		}
 	})
@@ -675,8 +697,12 @@ func main() {
 	if *opponent != "ai" && *opponent != "pass" {
 		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
 	}
+	local, err := parseLocalMode(*play)
+	if err != nil {
+		log.Fatalf("-play: %v", err)
+	}
 	c := matchConfig{
-		set: set, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
+		set: set, opponent: *opponent, local: local, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
 	}
 	// The unit art is always there: a battle draws no unit without it.
@@ -756,6 +782,9 @@ func main() {
 		c.saved = snap.data
 		if snap.side >= 0 && *side == "" {
 			c.player = dosbind.Factions[snap.side]
+		}
+		if !given["play"] {
+			c.local = snap.local // a two-human save resumes as it was played
 		}
 	}
 	gm, err := newMatch(c)

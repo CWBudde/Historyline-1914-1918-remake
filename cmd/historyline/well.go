@@ -118,7 +118,7 @@ func (g *game) orderCount(side int) string {
 	return count(n, "ORDER")
 }
 
-// tickWells ages the human side's message (updateSplit).
+// tickWells ages the served human's message (updateSplit).
 func (g *game) tickWells() {
 	s := g.split
 	if m := g.dos.Message; m != s.lastMsg {
@@ -136,11 +136,14 @@ func wellScale(sc dosscreen.Screen, side int) int {
 	return max(1, min(int(math.Floor(2*sc.UI+1e-9)), r.H/h))
 }
 
-// drawWells draws both status wells on the screen, in device pixels.
+// drawWells draws both status wells on the screen, in device pixels; with two
+// humans each well is its human's.
 func (g *game) drawWells(dst *ebiten.Image) {
 	sc := g.split.screen
 	for side := range 2 {
-		drawWell(dst, sc, side, g.wellOf(side), g.drawBadge)
+		var w well
+		g.asHuman(side, func() { w = g.wellOf(side) })
+		drawWell(dst, sc, side, w, g.drawBadge)
 	}
 }
 
