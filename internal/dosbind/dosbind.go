@@ -470,9 +470,10 @@ func (b *Board) placeUnits(lv *level.Level, set *data.Set) error {
 }
 
 // addRear places a two-cell ship's rear (type+1, the record after its
-// head) on the first neighbouring water hex without a unit. A level
-// names only the head; the original map's rear direction is not in it,
-// so any free water neighbour serves.
+// head) on the first neighbouring water hex without a unit: neither one
+// of the level's nor one placed before, such as another ship's rear. A
+// level names only the head; the original map's rear direction is not in
+// it, so any free water neighbour serves.
 func (b *Board) addRear(lv *level.Level, p hexgrid.Coord, typ, side int) error {
 	for _, n := range lv.Grid().Neighbors(p) {
 		h := lv.Lines[n.Line][n.Col]
@@ -480,13 +481,23 @@ func (b *Board) addRear(lv *level.Level, p hexgrid.Coord, typ, side int) error {
 			continue
 		}
 		cell, _ := b.Cell(n)
-		if b.Edge(cell) {
+		if b.Edge(cell) || b.placed(cell) {
 			continue
 		}
 		_, err := b.add("", dosrules.Placement{Type: typ + 1, Owner: side, Cell: cell})
 		return err
 	}
 	return fmt.Errorf("two-cell ship at %v has no free water neighbour for its rear", p)
+}
+
+// placed reports whether a unit placed so far stands on cell.
+func (b *Board) placed(cell int) bool {
+	for _, u := range b.Units {
+		if u.Cell == cell {
+			return true
+		}
+	}
+	return false
 }
 
 // bindBuildings gives every building entrance its container record, depots

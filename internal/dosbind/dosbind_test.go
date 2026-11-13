@@ -156,12 +156,6 @@ func TestBindShippedLevels(t *testing.T) {
 	}
 }
 
-// knownStacked are the cells where Bind places two units: addRear puts the
-// rears of two destroyers (PARTS' ec and 2p setups, lines 39 and 42) on the
-// one free water hex both touch, as it skips the level's units but not the
-// rears it placed before.
-var knownStacked = map[string][]int{"1916-02:ec": {670}, "1916-02:2p": {670}}
-
 // checkHolds checks the container records: a building's first cell is its
 // entrance, a transporter's its unit, every unit is in at most one record,
 // and the buildings are numbered as the game numbers them.
@@ -247,7 +241,7 @@ func checkHolds(t *testing.T, name string, b *Board) {
 	cells := map[int]int{}
 	for i, u := range b.Units {
 		if in[i] == 0 {
-			if j, dup := cells[u.Cell]; dup && !slices.Contains(knownStacked[name], u.Cell) {
+			if j, dup := cells[u.Cell]; dup {
 				t.Errorf("%s: units %d and %d on cell %d", name, i, j, u.Cell)
 			}
 			cells[u.Cell] = i
@@ -293,6 +287,33 @@ func TestBindErrorsNameTheHex(t *testing.T) {
 			t.Errorf("Bind: %v, want %q", err, c.want)
 		}
 	}
+}
+
+// TestShipRearsTakeFreeWater binds two destroyers on open water whose first
+// water neighbour is the same hex, line2[0] (NE of the second, SE of the
+// first): the first ship's rear takes it, the second's the next free one in
+// neighbour order, line4[0].
+func TestShipRearsTakeFreeWater(t *testing.T) {
+	lv, err := level.Parse([]byte(`{"mapName":"rears","mapNo":0,"player":"p","tiles":{
+		"line1":[["water","","CP_destroyer"],["water","",""],["water","",""]],
+		"line2":[["water","",""],["water","",""]],
+		"line3":[["water","","EC_destroyer"],["water","",""],["water","",""]],
+		"line4":[["water","",""],["water","",""]],
+		"line5":[["water","",""],["water","",""],["water","",""]]}}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	b := bind(t, lv)
+	var got []hexgrid.Coord
+	for i := range len(b.Units) {
+		c, _ := b.Coord(b.Units[i].Cell)
+		got = append(got, c)
+	}
+	want := []hexgrid.Coord{{Line: 0, Col: 0}, {Line: 1, Col: 0}, {Line: 2, Col: 0}, {Line: 3, Col: 0}}
+	if !slices.Equal(got, want) {
+		t.Errorf("units on %v, want heads and rears on %v", got, want)
+	}
+	checkHolds(t, lv.MapName, b)
 }
 
 // everySetup are the Python remake's PULSE and every setup of the shipped

@@ -283,12 +283,16 @@ export function bind(lv: Level, data: BindingData, p: Profile): Board {
       return fail("unit on a building entrance");
     add(h.unit, { type: u.type, owner: u.owner, cell: c });
     if (u.ship) {
+      // The first water neighbour without a unit: neither one of the
+      // level's nor one placed before, such as another ship's rear.
       const rear = neighbors(g, pos).find((n) => {
         const h = at(at(lv.lines, n.line), n.col);
+        const nc = toCell(n);
         return (
           h.unit === "" &&
           h.terrain.replace(/_w$/, "").startsWith("water") &&
-          !edge(b, toCell(n))
+          !edge(b, nc) &&
+          ![...b.units.values()].some((p) => p.cell === nc)
         );
       });
       if (rear === undefined)
