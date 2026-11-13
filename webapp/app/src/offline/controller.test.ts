@@ -25,6 +25,8 @@ interface Fake extends OfflineServices {
   persisted: number;
   gate: { release: () => void } | null;
   failOn: string | null;
+  fullOn: string | null;
+  kept: KeptRecords;
 }
 function fake(): Fake {
   const stored = new Map<string, string>();
@@ -45,6 +47,8 @@ function fake(): Fake {
     persisted: 0,
     gate: null,
     failOn: null,
+    fullOn: null,
+    kept: records,
     records: () => records.list(),
     plan(m) {
       const own = ref(`map-${m.month}`, 1000);
@@ -68,6 +72,11 @@ function fake(): Fake {
           signal.throwIfAborted();
         }
         if (file.sha256 === f.failOn) throw new Error("asset fetch 500");
+        if (file.sha256 === f.fullOn)
+          throw new DOMException(
+            "The quota was exceeded",
+            "QuotaExceededError",
+          );
         f.cache.add(file.sha256);
         onFile(file);
       }
@@ -200,5 +209,58 @@ describe("OfflineController", () => {
     const second = c.select(mission("b"));
     await Promise.all([first, second]);
     expect(c.state.value.key).toBe("b:cp");
+  });
+});
+
+describe("OfflineController and the background keep", () => {
+  const background = (month: string): KeptRecord => ({
+    key: `${month}:cp`,
+    month,
+    mode: "cp",
+    label: month,
+    keptAt: 1,
+    files: { shared: 100, [`map-${month}`]: 1000 },
+  });
+
+  it("pins what the player downloads", async () => {
+    const f = fake(),
+      c = new OfflineController(f);
+    await c.select(mission("a"));
+    await c.download();
+    expect((await f.records())[0]?.pinned).toBe(true);
+    expect(c.kept.value[0]?.pinned).toBe(true);
+  });
+
+  it("offers to keep a month the background keep stored, and pins it without a download", async () => {
+    const f = fake(),
+      c = new OfflineController(f);
+    await f.kept.put(background("a"));
+    await c.select(mission("a"));
+    expect(c.state.value.phase).toBe("kept");
+    expect(c.kept.value[0]?.pinned).toBe(false);
+    await c.pin();
+    expect(c.state.value.phase).toBe("ready");
+    expect(f.persisted).toBe(1);
+    expect(f.cache.size).toBe(0);
+    expect((await f.records())[0]).toMatchObject({
+      key: "a:cp",
+      pinned: true,
+    });
+  });
+
+  it("says the storage is full instead of failing, records nothing and cleans up", async () => {
+    const f = fake(),
+      c = new OfflineController(f);
+    await c.select(mission("a"));
+    f.fullOn = "map-a";
+    await c.download();
+    expect(c.state.value.phase).toBe("full");
+    expect(c.state.value.note).toBe("");
+    expect(f.cache.size).toBe(0);
+    expect(await f.records()).toEqual([]);
+    f.fullOn = null;
+    await c.select(mission("a"));
+    await c.download();
+    expect(c.state.value.phase).toBe("ready");
   });
 });
