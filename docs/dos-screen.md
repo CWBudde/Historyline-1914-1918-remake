@@ -100,6 +100,16 @@ The package docs hold the details; this is the map of where each part lives.
   click selects and confirms, a drag of one cell pitch picks a gesture, right-click opens a ring of every
   available action) and key set A (arrows + space). Every cell of a building stands for its entrance: a click
   on any of them opens its contents or moves the aimed unit in.
+- **Two humans** (`cmd/historyline/local.go`): the game values' PLAY row (or `-play` with a `2p` setup such
+  as `-level 1918-11:2p`) starts the month's two-player setup with no computer side; the phase changes once
+  both humans have confirmed, and neither confirm gives the other's orders. TWO HUMANS plays both panels at
+  once: the left (Central Powers) takes the mouse, key set A and the global keys (F1, Esc, F2), the right
+  (Entente) key set B, D/C/X/V as arrows and the left Ctrl as fire, and confirms with the mode change twice
+  (Ctrl and X). Each human keeps its own cursor, selection, prompt, open view and message. HOT-SEAT plays one
+  side at a time on the mouse and key set A with the other panel black; after each confirm a curtain covers
+  both maps until a key or click takes over, the resolution plays for the human who takes over, and the
+  other one sees it behind its own curtain on its next turn. A save made behind the curtain resumes there
+  (`saves.Envelope.Mode`).
 - **Status wells** (`cmd/historyline/well.go`, font `internal/pixfont`): the unit line (group size,
   experience badge, name, flag) or the side's state message in the panel's colour; the computer plans on a
   `Session.Clone` off the frame (`plan.go`) and its progress bar runs in its well; then its orders are
