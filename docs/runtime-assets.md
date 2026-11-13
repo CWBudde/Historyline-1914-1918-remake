@@ -29,7 +29,9 @@ Offline play: the production build's service worker (`webapp/app/src/sw.ts`) pre
 and never touches `blobs/`. Fifteen seconds after a battle starts, `keepForOffline` fetches into the same content
 cache the lite units, interface and screens at the current density, and the backdrop and terrain of that month and
 the next two of its chain; it is skipped under Save-Data. A month not kept reports that it is not available
-offline. Nothing evicts old blobs yet, so the browser's storage quota is the only limit.
+offline. After a keep, every month it stored earlier that left this window is evicted with the files no remaining
+kept month needs; months the player downloaded on the Offline maps page stay until removed there. A full storage
+quota stops a keep quietly (only complete months are recorded) and a download with a short note on that page.
 
 The original game's maps and art: under Extras → Original game the player picks the folder of their own copy
 (or its files, or drops it). `webapp/app/src/original/files.ts` keeps only `CODES.DAT`, `MAP/*.FIN|SHP|COM`,
