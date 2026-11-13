@@ -84,14 +84,16 @@ func (a *app) saveCurrentBattle() error {
 	if a.base.saves == nil {
 		return errors.New("no place to keep the saved battle")
 	}
-	data, err := a.battle.dos.s.Save()
+	d := a.battle.dos
+	data, err := d.s.Save()
 	if err != nil {
 		return err
 	}
 	return a.base.saves.Put(saves.Envelope{
-		Map:  a.shell.maps[a.shell.code].name,
-		Side: a.battle.dos.side,
+		Map:  a.shell.current().name,
+		Side: d.saveSide(), // behind the hot-seat curtain the human who plays next
 		Data: data,
+		Mode: d.local.String(),
 	})
 }
 
@@ -170,16 +172,16 @@ func (a *app) checkEnd() {
 	if o.draw {
 		o.text = "Neither side has won."
 	}
-	o.won = !o.draw && e.Winner == d.side
+	o.won = !o.draw && (e.Winner == d.side || d.local != localNone) // two humans: a side won
 	a.shell.finish(o)
 }
 
 // recordScore keeps the score of a won original-rules battle as its level's
-// best; a failed write is shown in the well.
+// best (none for two humans' battle); a failed write is shown in the well.
 func (a *app) recordScore() {
 	g := a.battle
 	e := g.dos.s.Ended()
-	if e == nil || e.Winner != g.dos.side {
+	if e == nil || e.Winner != g.dos.side || g.dos.local != localNone {
 		return
 	}
 	if _, err := a.base.scores.Record(levelKey(g.lvl), e.Score); err != nil {
@@ -397,7 +399,7 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 			drawText(dst, d, fmt.Sprintf("%s  %d", e.Level, e.Score), false, 13, 24, float64(144+i*18), cream, false)
 		}
 	case pageLoading:
-		m := s.maps[s.code]
+		m := s.current()
 		if p, ok := m.news(); ok {
 			drawText(dst, d, p.Label, true, 12, 24, 118, amber, false)
 		}

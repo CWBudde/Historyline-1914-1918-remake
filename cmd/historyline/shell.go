@@ -99,7 +99,7 @@ func briefingLine(code string, players int, humanSides []int, side faction.Playe
 		season = ", " + season
 	}
 	if players == 2 {
-		return "Map " + code + season + " — two-player map; in v1 play one side vs computer or passive."
+		return "Map " + code + season + " — two humans; capture the enemy HQ."
 	}
 	who := factionName(side)
 	if len(humanSides) == 1 {
@@ -173,6 +173,53 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 	return maps, nil
 }
 
+// loadLocals loads every campaign month's two-player setup (2p.json) by
+// its level folder: the battles of two humans on one screen, outside the
+// campaign chains.
+func loadLocals(dir string, set *data.Set) (map[string]mapLevel, error) {
+	fsys := levelsFS(dir)
+	months, err := scenario.Months(fsys)
+	if err != nil {
+		return nil, err
+	}
+	pages, issues, err := frontPages(fsys, months)
+	if err != nil {
+		return nil, err
+	}
+	out := map[string]mapLevel{}
+	for _, file := range months {
+		f, err := scenario.Read(fsys, file)
+		if err != nil {
+			return nil, err
+		}
+		s := f.Setup(scenario.TwoPlayer)
+		if s == nil {
+			continue
+		}
+		lvl, err := scenarioLevel(f, file, scenario.TwoPlayer)
+		if err != nil {
+			return nil, err
+		}
+		m := mapLevel{
+			name: file + ":" + string(scenario.TwoPlayer), file: file, mode: scenario.TwoPlayer, lvl: lvl, next: -1,
+			password: s.Code, players: 2, humanSides: []int{0, 1}, winter: f.Winter(), season: f.Season, month: f.Month,
+			article: pages[f.Month], issue: issues[f.Month],
+		}
+		m.briefing = briefingLine(m.code(), m.players, m.humanSides, faction.CentralPowers, m.season)
+		out[file] = m
+	}
+	return out, nil
+}
+
+// current is the map the menus prepare: the selected month's two-player
+// setup for a battle of two humans, else the selected map.
+func (s *shell) current() mapLevel {
+	if m, ok := s.locals[s.maps[s.code].file]; ok && s.localOn {
+		return m
+	}
+	return s.maps[s.code]
+}
+
 // forSide is the menu map of the selected map's month for side: its setup
 // for that side where the month has one, else the selected map.
 func (s *shell) forSide(side faction.Player) int {
@@ -239,10 +286,11 @@ type shell struct {
 	note   [2]string
 	side   faction.Player // country chosen, or focused on the country page
 
-	fights   bool // full walks and effects; off is reduced motion
-	computer bool // player B is the computer; off passes every phase
-	limit    int  // index into moveLimits
-	scroll   int  // index into scrollSpeeds
+	fights   bool      // full walks and effects; off is reduced motion
+	computer bool      // player B is the computer; off passes every phase
+	play     localMode // two humans on one screen (local.go), localNone for one
+	limit    int       // index into moveLimits
+	scroll   int       // index into scrollSpeeds
 
 	setFullscreen func(bool)  // nil in tests
 	isFullscreen  func() bool // nil in tests
@@ -257,6 +305,9 @@ type shell struct {
 	pendingSide int
 	unitPage    int          // the page of new units shown
 	saveBattle  func() error // set by the app; nil in tests
+
+	locals  map[string]mapLevel // each month's two-player setup by level folder (loadLocals)
+	localOn bool                // the battle prepared is the selected month's two-player setup, for two humans
 }
 
 func newShell(maps []mapLevel, c matchConfig) *shell {
@@ -267,11 +318,15 @@ func newShell(maps []mapLevel, c matchConfig) *shell {
 // and game values.
 func (s *shell) config(base matchConfig) matchConfig {
 	c := base
-	c.lvl, c.board = s.maps[s.code].lvl, nil
+	c.lvl, c.board = s.current().lvl, nil
 	c.player = s.side
 	c.opponent = "ai"
 	if !s.computer {
 		c.opponent = "pass"
+	}
+	c.local = localNone
+	if s.localOn {
+		c.player, c.local = faction.CentralPowers, s.play // the left panel's human begins
 	}
 	c.limit = moveLimits[s.limit]
 	c.reduced = !s.fights
@@ -316,7 +371,7 @@ func (s *shell) buttons() []button {
 		return []button{
 			{
 				r: row(0), label: "START", left: true, help: [2]string{"Begin the battle for the map", "whose code is shown below."},
-				do: func(s *shell) { s.side = s.levelSide(); s.open(pageCountry) },
+				do: func(s *shell) { s.start() },
 			},
 			{
 				r: row(1), label: code, left: true, help: [2]string{"Type the code of a map you have", "reached, then press Enter."},
@@ -347,6 +402,10 @@ func (s *shell) buttons() []button {
 		if !s.computer {
 			b = "PLAYER B  PASSIVE"
 		}
+		if s.play != localNone {
+			b = "PLAYER B  HUMAN"
+		}
+		mode := map[localMode]string{localNone: "PLAY  ONE HUMAN", localSimultaneous: "PLAY  TWO HUMANS", localHotseat: "PLAY  HOT-SEAT"}[s.play]
 		limit := "MOVES  NO LIMIT"
 		if n := moveLimits[s.limit]; n > 0 {
 			limit = fmt.Sprintf("MOVES  %d A PHASE", n)
@@ -356,15 +415,19 @@ func (s *shell) buttons() []button {
 				r: valueRow(0), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
 				do: func(s *shell) { s.fights = !s.fights },
 			},
-			{r: valueRow(1), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose.", "Two human players are not in v1."}},
+			{r: valueRow(1), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose;", "with two humans, the left panel."}},
 			{
-				r: valueRow(2), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders. (1-player v1)"},
+				r: valueRow(2), label: b, left: true, off: s.play != localNone, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders."},
 				do: func(s *shell) { s.computer = !s.computer },
 			},
 			{r: valueRow(3), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
 			{
 				r: valueRow(4), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
 				do: func(s *shell) { s.limit = (s.limit + 1) % len(moveLimits) },
+			},
+			{
+				r: valueRow(5), label: mode, left: true, help: [2]string{"Two humans: the right panel on D/C/X/V", "and left Ctrl. Hot-seat: they take turns."},
+				do: func(s *shell) { s.play = (s.play + 1) % 3 },
 			},
 			back(pageMain),
 		}
@@ -470,9 +533,29 @@ func (s *shell) loadSaved() {
 	for i, m := range s.maps {
 		if m.name == strings.TrimPrefix(env.Map, "") { // saved before the level folders
 			s.code, s.pendingSave, s.pendingSide = i, env.Data, env.Side
-			s.side = dosbind.Factions[env.Side]
+			s.side, s.localOn = dosbind.Factions[env.Side], false
 			s.open(pageLoading)
 			return
+		}
+	}
+	// A battle of two humans resumes in its mode with the human who plays
+	// next (behind the hot-seat curtain).
+	for _, m := range s.locals {
+		if m.name != env.Map {
+			continue
+		}
+		for i, c := range s.maps {
+			if c.file == m.file {
+				s.code, s.pendingSave, s.pendingSide = i, env.Data, env.Side
+				s.side, s.localOn = dosbind.Factions[env.Side], true
+				mode, err := parseLocalMode(env.Mode)
+				if err != nil || mode == localNone {
+					mode = localSimultaneous // a two-player map is two humans' battle
+				}
+				s.play = mode
+				s.open(pageLoading)
+				return
+			}
 		}
 	}
 	s.note = [2]string{"The saved map " + env.Map + " is not in the menu."}
@@ -555,6 +638,10 @@ func (s *shell) key(k shellKey) {
 		case pageLeave:
 			s.open(pageBattle)
 		case pageNews:
+			if s.localOn {
+				s.open(pageMain) // two humans pick no country
+				break
+			}
 			s.open(pageCountry)
 		case pageUnits:
 			switch _, news := s.maps[s.code].news(); {
@@ -590,10 +677,33 @@ func (s *shell) enterCode() {
 	s.note = [2]string{"Unknown code " + s.typed + ".", "The map stays " + s.maps[s.code].lvl.MapName + "."}
 }
 
+// start begins a battle on the selected map (START): one human picks a
+// country, two humans go to the month's two-player setup, through its front
+// page where there is one.
+func (s *shell) start() {
+	s.localOn = false
+	if s.play == localNone {
+		s.side = s.levelSide()
+		s.open(pageCountry)
+		return
+	}
+	m, ok := s.locals[s.maps[s.code].file]
+	if !ok {
+		s.note = [2]string{"This month has no two-player map."}
+		return
+	}
+	s.localOn, s.side = true, faction.CentralPowers
+	if _, news := m.news(); news {
+		s.open(pageNews)
+		return
+	}
+	s.open(pageLoading)
+}
+
 // afterNews opens the page of new units where the map has any, else the
-// loading page.
+// loading page; two humans go straight to the battle.
 func (s *shell) afterNews() {
-	if len(s.maps[s.code].newUnits) == 0 {
+	if s.localOn || len(s.maps[s.code].newUnits) == 0 {
 		s.open(pageLoading)
 		return
 	}
@@ -622,9 +732,10 @@ func (s *shell) hit(x, y int) int {
 	return -1
 }
 
-// finish shows the outcome of a battle; a victory selects the next map.
+// finish shows the outcome of a battle; a victory selects the next map of
+// the campaign (none after two humans' battle).
 func (s *shell) finish(o outcome) {
-	if next := s.maps[s.code].next; o.won && next >= 0 {
+	if next := s.maps[s.code].next; o.won && next >= 0 && !s.localOn {
 		s.code = next
 		o.next = s.maps[s.code].code()
 	}

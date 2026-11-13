@@ -734,7 +734,12 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		locals, err := loadLocals(*dir, set)
+		if err != nil {
+			log.Fatal(err)
+		}
 		a := newApp(c, campaign, c.screens)
+		a.shell.locals = locals
 		if err := ebiten.RunGame(a); err != nil {
 			log.Fatal(err)
 		}
