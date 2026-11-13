@@ -8,6 +8,11 @@ export interface KeptRecord {
   keptAt: number;
   /** Every file the month needs, shared art included: SHA-256 to bytes. */
   files: Record<string, number>;
+  /**
+   * The player downloaded the month on the Offline maps page, and only a Remove there deletes it. Absent (records from
+   * before the flag) or false: the background keep stored it, and it leaves with the campaign's window.
+   */
+  pinned?: boolean;
 }
 
 /** Where the records live: a small text store, the Cache API in the browser. */
@@ -51,7 +56,8 @@ function isRecord(value: unknown): value is KeptRecord {
     typeof r["label"] === "string" &&
     typeof r["keptAt"] === "number" &&
     typeof r["files"] === "object" &&
-    r["files"] !== null
+    r["files"] !== null &&
+    (r["pinned"] === undefined || typeof r["pinned"] === "boolean")
   );
 }
 
@@ -86,19 +92,28 @@ export class KeptRecords {
     if (this.storage === null) return [];
     const result: KeptRecord[] = [];
     for (const key of await this.storage.keys()) {
-      try {
-        const text = await this.storage.get(key);
-        const value: unknown =
-          text === undefined ? undefined : JSON.parse(text);
-        if (isRecord(value)) result.push(value);
-      } catch {
-        /* A damaged record is no kept month. */
-      }
+      const record = await this.get(key);
+      if (record !== undefined) result.push(record);
     }
     return result.sort((a, b) => a.key.localeCompare(b.key));
   }
+  private async get(key: string): Promise<KeptRecord | undefined> {
+    try {
+      const text = await this.storage?.get(key);
+      const value: unknown = text === undefined ? undefined : JSON.parse(text);
+      return isRecord(value) ? value : undefined;
+    } catch {
+      /* A damaged record is no kept month. */
+      return undefined;
+    }
+  }
   async put(record: KeptRecord): Promise<void> {
     await this.storage?.put(record.key, JSON.stringify(record));
+  }
+  /** Records a month the background keep stored; a month the player pinned stays pinned. */
+  async putBackground(record: KeptRecord): Promise<void> {
+    const pinned = (await this.get(record.key))?.pinned === true;
+    await this.put({ ...record, pinned });
   }
   /**
    * Forgets the month and deletes, through forget, exactly the files no other kept month needs. The record
@@ -113,5 +128,20 @@ export class KeptRecords {
     await this.storage?.delete(key);
     await forget(hashes);
     return bytes;
+  }
+  /**
+   * Removes every month the player did not pin that is not within the campaign's window, one after the other,
+   * so a file goes with the last of them that needed it and stays while a remaining month does. Returns their
+   * keys.
+   */
+  async evict(
+    within: ReadonlySet<string>,
+    forget: (hashes: readonly string[]) => Promise<void>,
+  ): Promise<string[]> {
+    const leaving = (await this.list())
+      .filter((r) => r.pinned !== true && !within.has(r.key))
+      .map((r) => r.key);
+    for (const key of leaving) await this.remove(key, forget);
+    return leaving;
   }
 }
