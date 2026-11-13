@@ -84,3 +84,59 @@ describe("KeptRecords", () => {
     expect(await kept.list()).toEqual([]);
   });
 });
+
+describe("eviction", () => {
+  const forgetInto =
+    (forgotten: string[]) =>
+    (hashes: readonly string[]): Promise<void> => {
+      forgotten.push(...hashes);
+      return Promise.resolve();
+    };
+  it("removes unpinned months outside the window and keeps what a remaining month needs", async () => {
+    const kept = new KeptRecords(memory());
+    await kept.put(record("a:cp", { shared: 5, onlyA: 1, ab: 2 }));
+    await kept.put(record("b:cp", { shared: 5, onlyB: 1, ab: 2, bc: 3 }));
+    await kept.put(record("c:cp", { shared: 5, onlyC: 1, bc: 3 }));
+    await kept.put(record("d:cp", { shared: 5, onlyD: 1 }));
+    const forgotten: string[] = [];
+    const evicted = await kept.evict(
+      new Set(["c:cp", "d:cp"]),
+      forgetInto(forgotten),
+    );
+    expect(evicted).toEqual(["a:cp", "b:cp"]);
+    // ab goes with the last month that needed it; bc and the shared art stay for c.
+    expect(forgotten.sort()).toEqual(["ab", "onlyA", "onlyB"]);
+    expect((await kept.list()).map((r) => r.key)).toEqual(["c:cp", "d:cp"]);
+  });
+  it("never evicts a month the player pinned", async () => {
+    const kept = new KeptRecords(memory());
+    await kept.put({
+      ...record("a:cp", { shared: 5, onlyA: 1 }),
+      pinned: true,
+    });
+    await kept.put(record("b:cp", { shared: 5, onlyB: 1 }));
+    const forgotten: string[] = [];
+    expect(await kept.evict(new Set(), forgetInto(forgotten))).toEqual([
+      "b:cp",
+    ]);
+    expect(forgotten).toEqual(["onlyB"]);
+    expect((await kept.list()).map((r) => r.key)).toEqual(["a:cp"]);
+  });
+  it("counts a record from before the flag as a background keep", async () => {
+    const storage = memory();
+    const kept = new KeptRecords(storage);
+    const legacy = record("a:cp", { onlyA: 1 });
+    storage.map.set(legacy.key, JSON.stringify(legacy));
+    expect((await kept.list())[0]?.pinned).toBeUndefined();
+    expect(await kept.evict(new Set(), forgetInto([]))).toEqual(["a:cp"]);
+  });
+  it("leaves a pinned month pinned when the background keep stores it again", async () => {
+    const kept = new KeptRecords(memory());
+    await kept.put({ ...record("a:cp", { x: 1 }), pinned: true });
+    await kept.putBackground({ ...record("a:cp", { x: 1, y: 2 }), keptAt: 9 });
+    await kept.putBackground(record("b:cp", { x: 1 }));
+    const [a, b] = await kept.list();
+    expect(a).toMatchObject({ pinned: true, keptAt: 9, files: { x: 1, y: 2 } });
+    expect(b?.pinned).toBe(false);
+  });
+});
