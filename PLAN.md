@@ -38,10 +38,6 @@ history.
       remembered (not re-checked). Deploys succeed today, and GitHub could enforce it. Re-check the limit, then
       decide: serve the content blobs from another host (the loader is manifest-driven and hash-addressed, so
       `blobs/` can live elsewhere) or trim the full art tier.
-- [ ] 1.3 Offline storage: nothing evicts old blobs, so the browser's storage quota is the only limit
-      ([docs/runtime-assets.md](docs/runtime-assets.md)). Evict months that left the campaign's window (the last
-      battle's month and the next two of its chain stay), handle a full quota without an error, and keep what the
-      player downloaded on the Offline maps page.
 - [ ] 1.4 Hand acceptance of the browser game, the counterpart of the desktop's 2.5:
       - PULSE (`1914-08`), CIVIL (`1914-10`), MOUSE (`1914-12`) and the monthly campaign from both sides:
         move, attack, enter/leave a container, repair and production in the contents view, capture, end turn,
@@ -51,8 +47,8 @@ history.
       - the extension units in the newer months: gas release and the cloud, wire laid and cleared, a mine dug
         and blown, the ambulance healing, the Zeppelin flying; the new units' page before a month that brings
         them.
-- [ ] 1.5 Extension gaps in the app: the camera does not jump to a blown mine. The wiring party's N view sits
-      low and narrow (an art fix, the graphics track's).
+- [ ] 1.5 Extension gap in the app: the wiring party's N view sits low and narrow (an art fix, the graphics
+      track's).
 
 ### 2. Desktop game: parity and release
 
