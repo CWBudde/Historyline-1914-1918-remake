@@ -95,6 +95,22 @@ describe("binding", () => {
     );
     expect(bind(l, d, Full).units.get(0)?.owner).toBe(1);
   });
+  it("puts a second ship's rear on the next free water neighbour", () => {
+    // Both destroyers' first water neighbour is line2[0]: the first ship's
+    // rear takes it, the second's the next free one, line4[0] (Go's
+    // TestShipRearsTakeFreeWater).
+    const w = '["water","",""]';
+    const l = parse(
+      `{"mapName":"rears","mapNo":0,"player":"p","tiles":{"line1":[["water","","CP_destroyer"],${w},${w}],"line2":[${w},${w}],"line3":[["water","","EC_destroyer"],${w},${w}],"line4":[${w},${w}],"line5":[${w},${w},${w}]}}`,
+    );
+    const b = bind(l, data, Full);
+    expect([...b.units.values()].map((u) => coord(b, u.cell))).toEqual([
+      { line: 0, col: 0 },
+      { line: 1, col: 0 },
+      { line: 2, col: 0 },
+      { line: 3, col: 0 },
+    ]);
+  });
   it("binds the legacy PULSE fixture to original cells and containers", () => {
     const b = bind(
       parse(readBytes("internal/level/testdata/pulse.json")),
