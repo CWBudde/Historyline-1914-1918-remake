@@ -318,3 +318,66 @@ it("allows native cancel to skip the map battle wait when scene panels are off",
   expect(p.busy()).toBe(false);
   expect(p.shown(after)).toBe(after);
 });
+
+it("asks the views to look at a blown mine or a gas release once, when playback reaches it", () => {
+  const { before, after, a, d } = views(),
+    p = new MapPlayback(0),
+    mine = { line: 5, col: 7 },
+    gas = { line: 9, col: 3 };
+  const fighter = (u: play.UnitView, n: number): play.Fighter => ({
+    unit: u,
+    before: 6,
+    after: n,
+    expBefore: 0,
+    expAfter: 0,
+    altBefore: 0,
+    altAfter: 0,
+    destroyed: false,
+  });
+  p.resolution(before, after, [
+    play.newEvent({
+      kind: play.Battle,
+      from: a.at,
+      to: d.at,
+      battle: {
+        attacker: fighter(a, 6),
+        defender: fighter(d, 4),
+        returnFire: false,
+        pincer: 0,
+        blocking: 0,
+      },
+    }),
+    play.newEvent({ kind: play.Blown, to: mine }),
+    play.newEvent({
+      kind: play.Battle,
+      from: a.at,
+      to: d.at,
+      battle: {
+        attacker: fighter(a, 6),
+        defender: fighter(d, 4),
+        returnFire: false,
+        pincer: 0,
+        blocking: 0,
+      },
+    }),
+    play.newEvent({ kind: play.Released, side: 1, to: gas }),
+    play.newEvent({ kind: play.Wired, side: 1, to: { line: 1, col: 1 } }),
+  ]);
+  // The rules resolved the mine already; the views look only once the battle before it has played.
+  expect(p.takeLook()).toBeNull();
+  p.advance(399);
+  expect(p.takeLook()).toBeNull();
+  p.advance(1);
+  expect(p.takeLook()).toEqual(mine);
+  expect(p.takeLook()).toBeNull();
+  p.advance(400);
+  expect(p.takeLook()).toEqual(gas);
+  expect(p.busy()).toBe(false);
+  expect(p.takeLook()).toBeNull();
+  p.resolution(before, after, [
+    play.newEvent({ kind: play.Wired, side: 0, to: { line: 2, col: 2 } }),
+    play.newEvent({ kind: play.Captured, to: { line: 3, col: 3 } }),
+  ]);
+  p.advance(1000);
+  expect(p.takeLook()).toBeNull();
+});

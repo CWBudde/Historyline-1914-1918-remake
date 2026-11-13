@@ -63,6 +63,7 @@ export class MapPlayback {
   private marks: Mark[] = [];
   private showScenes = false;
   private fight: Fight | null = null;
+  private look: hexgrid.Coord | null = null;
   constructor(
     readonly side: number,
     private reduced = false,
@@ -70,6 +71,15 @@ export class MapPlayback {
   /** reducedMotion reports whether effects play short and still. */
   get reducedMotion(): boolean {
     return this.reduced;
+  }
+  /**
+   * takeLook hands over, once, the hex the views should look at now: a blown mine's or a gas release's, as the
+   * desktop's lookAt for both sides (dos.go), once playback has reached its event; null without one.
+   */
+  takeLook(): hexgrid.Coord | null {
+    const at = this.look;
+    this.look = null;
+    return at;
   }
 
   move(event: play.Event, unit: play.UnitView): void {
@@ -177,6 +187,7 @@ export class MapPlayback {
     this.wait = 0;
     this.marks = [];
     this.fight = null;
+    this.look = null;
     this.normalize();
   }
   advance(ms: number): void {
@@ -274,6 +285,10 @@ export class MapPlayback {
       }
       if (e.kind === play.Revealed) {
         this.face(e);
+        continue;
+      }
+      if (e.kind === play.Blown || e.kind === play.Released) {
+        this.look = { ...e.to };
         continue;
       }
       if (
