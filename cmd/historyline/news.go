@@ -153,7 +153,7 @@ func layoutNews(a campaign.Article, n int, orders string) newsPage {
 // drawNewsPage draws the month's front page and its button.
 func (a *app) drawNewsPage(dst *ebiten.Image, d int) {
 	s := a.shell
-	m := s.maps[s.code]
+	m := s.current()
 	art, ok := m.news()
 	if !ok {
 		return
