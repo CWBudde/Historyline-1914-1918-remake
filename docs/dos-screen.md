@@ -82,10 +82,15 @@ The package docs hold the details; this is the map of where each part lives.
   the playable area stay steel, so the frame closes in at its end. The playable area is the map without its
   border row and column (`dosbind.Board.Playable`): cameras, cursor, frame, map drawing and the strategic
   map never show the border. This plate frame belongs to the tiles, the remake's and the original's; the
-  painted backdrop uses the slim frame instead (`Frame.Slim`, `slim.go`), as does the web edition: plain rectangular openings edge to edge, a thin gunmetal border with a brass
-  hairline facing the map, gunmetal status strips, a brass knob at the divider's foot; every playable hex
-  whose centre lies in the opening takes the cursor and the pointer. The opening always ends on the map;
-  only a map smaller than the opening shows gunmetal past its ends (`Frame.DrawBeyond`).
+  painted backdrop uses the slim frame instead (`Frame.Slim`, `slim.go`): plain rectangular openings edge to
+  edge, a thin gunmetal border with a brass hairline facing the map, gunmetal status strips, a brass knob at the
+  divider's foot; every playable hex whose centre lies in the opening takes the cursor and the pointer. The
+  opening always ends on the map; only a map smaller than the opening shows gunmetal past its ends
+  (`Frame.DrawBeyond`). The web edition keeps this plate frame, its pixel-font wells and overlays for the
+  original design only; its painted and tile designs sit in the menus' riveted plate (`ui/armour.css`,
+  `split/SplitUI.tsx`): two rectangular openings in a margin of plate, a riveted bar between them, under each
+  a steel strip with a signal lamp, the side's plaque, the status stencilled and brass plates, and what opens
+  (situation, small map, unit, contents, menu) as a steel board over its window.
 - **Cameras** (`cmd/historyline/split.go`): one per panel, snapping to whole column pairs so the teeth keep
   their phase; each follows its side's cursor and that side's revealed moves. The pointer on the human
   panel's outer half cells steps the camera (edge scroll, `cursor.go`). In the slim frame a camera at a
@@ -135,9 +140,9 @@ under its cursor ring; the centre cancels.
 
 Up, left and down keep the desktop gestures (up move, left open or produce, down repair). End phase, the
 strategic map and information are not plates: they are brass nameplates on the order strip with their keys,
-F1 END PHASE, O MAP and I INFO, in the single map's top bar (on a phone too, away from the thumb) and at the
-outer end of each human panel's status strip on the split screen, End phase set apart by a rivet. No flick can
-reach End phase; the keyboard gestures (hold Space or left Control and push a direction) still give the
+F1 END PHASE, O MAP and I INFO, on the steel strip under the single map (upright: along the bottom edge of
+the plate under the map) and at the outer end of each human panel's strip on the split screen, End phase set a
+little apart and a Menu plate beside them for the settings, surrender and leaving. No flick can reach End phase; the keyboard gestures (hold Space or left Control and push a direction) still give the
 desktop's mode change, map and info.
 
 - **Opening:** right-click a cell with orders, click the selected unit again, tap an own unit (it is selected

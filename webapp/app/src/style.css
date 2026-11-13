@@ -100,6 +100,11 @@ body {
 .battle-page {
   display: contents;
 }
+.battle-page *,
+.battle-page *::before,
+.battle-page *::after {
+  box-sizing: border-box;
+}
 
 /* The battle's end: a steel board over the map with its line stencilled and a brass plate on to the outcome. */
 .battle-page .battle-ended {

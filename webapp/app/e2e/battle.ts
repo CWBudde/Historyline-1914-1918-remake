@@ -41,3 +41,18 @@ export async function expectMapDrawn(page: Page): Promise<void> {
     )
     .toBeGreaterThan(100_000);
 }
+
+/** seed is an init script that stores settings before the app opens its database, in the upgrade that makes its stores. */
+export function seed(settings: Record<string, unknown>): string {
+  return `(() => {
+    const request = indexedDB.open("historyline", 1);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      db.createObjectStore("saves", { keyPath: "slot" });
+      db.createObjectStore("prefs", { keyPath: "key" });
+      db.createObjectStore("scores", { keyPath: "level" });
+      request.transaction.objectStore("prefs").put({ key: "settings", value: ${JSON.stringify(settings)} });
+    };
+    request.onsuccess = () => request.result.close();
+  })();`;
+}

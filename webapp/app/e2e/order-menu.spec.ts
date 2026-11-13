@@ -1,32 +1,18 @@
 import { expect, test, type Page } from "@playwright/test";
-import { battleReady, openMenu, startFirstBattle } from "./battle.ts";
+import { battleReady, openMenu, seed, startFirstBattle } from "./battle.ts";
 
 // The order menu round a unit and the order strip, in the real UI of the production bundle.
-
-/** Settings go in before the app opens its database, in the same upgrade that makes its stores. */
-function seed(settings: Record<string, unknown>): string {
-  return `(() => {
-    const request = indexedDB.open("historyline", 1);
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      db.createObjectStore("saves", { keyPath: "slot" });
-      db.createObjectStore("prefs", { keyPath: "key" });
-      db.createObjectStore("scores", { keyPath: "level" });
-      request.transaction.objectStore("prefs").put({ key: "settings", value: ${JSON.stringify(settings)} });
-    };
-    request.onsuccess = () => request.result.close();
-  })();`;
-}
 
 /** ownUnit hovers over the map until the hovered cell holds an own unit (its card shows) and returns that point. */
 async function ownUnit(
   page: Page,
   surface: string,
   card: string,
+  from = 30,
 ): Promise<{ x: number; y: number }> {
   const box = await page.locator(surface).first().boundingBox();
   if (box === null) throw Error("no map");
-  for (let y = box.y + 30; y < box.y + box.height; y += 36)
+  for (let y = box.y + from; y < box.y + box.height; y += 36)
     for (let x = box.x + 30; x < box.x + box.width; x += 48) {
       await page.mouse.move(x, y);
       if ((await page.locator(card).count()) > 0) return { x, y };
@@ -65,6 +51,9 @@ test.describe("the order menu", () => {
       page,
       "#stage canvas",
       ".battle-dock .battle-unit-card",
+      // A unit clear of the opening's upper edge: its rosette stays centred on it and a click beyond its Move
+      // plate still lands on the map.
+      230,
     );
     // Right-click opens the menu: a Move plate straight above the unit, absent orders leave their cells free.
     await page.mouse.click(unit.x, unit.y, { button: "right" });
@@ -236,16 +225,21 @@ test.describe("the order menu on a phone", () => {
     ({ browserName }) => browserName !== "chromium",
     "Touch input is emulated in Chromium.",
   );
-  test("a tap on an own unit opens touch-sized plates; the strip stays at the top", async ({
+  test("a tap on an own unit opens touch-sized plates; the strip lies along the bottom edge", async ({
     page,
   }) => {
     test.setTimeout(5 * 60_000);
     await page.addInitScript(seed({ scenes: false }));
     await openMenu(page);
     await startFirstBattle(page);
-    const strip = page.locator(".battle-top .order-strip");
-    const top = await strip.boundingBox();
-    expect(top?.y ?? 999).toBeLessThan(80);
+    // Upright, the global orders are touch-sized plates along the plate's bottom edge, under the thumb.
+    const strip = page.locator(".battle-dock .order-strip");
+    const bottom = await strip.boundingBox();
+    expect((bottom?.y ?? 0) + (bottom?.height ?? 0)).toBeGreaterThan(915 - 80);
+    for (const plate of await strip.locator(".order-nameplate").all())
+      expect((await plate.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(
+        44,
+      );
     const box = await page.locator("#stage canvas").first().boundingBox();
     if (box === null) throw Error("no map");
     for (let y = box.y + 30; y < box.y + box.height; y += 28)

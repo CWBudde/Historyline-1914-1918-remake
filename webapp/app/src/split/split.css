@@ -84,6 +84,7 @@
 /* A panel's strip: lamp, plaque, the status stencilled, the brass plates at the outer end. */
 .split-steel-strip {
   --h: var(--strip-h, 56px);
+  box-sizing: border-box;
   --strip-base: max(26px, min(64px, calc(0.68 * var(--h))));
   position: absolute;
   z-index: 3;
