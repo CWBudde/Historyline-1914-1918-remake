@@ -13,7 +13,10 @@ const steelDark: RGB = [0x24, 0x24, 0x1c],
   plateEdge: RGB = [0x1c, 0x14, 0x0c],
   brassLight: RGB = [0xe0, 0xbc, 0x6c],
   brass: RGB = [0xa8, 0x80, 0x3c],
-  brassDark: RGB = [0x58, 0x40, 0x1c];
+  brassDark: RGB = [0x58, 0x40, 0x1c],
+  /** The battle hex's dark sepia ground, from shadow to its lit centre (battle_draw.go). */
+  fieldDark: RGB = [0x14, 0x0e, 0x08],
+  fieldLight: RGB = [0x7a, 0x5e, 0x3c];
 /** Steel tones on the dark-to-light ramp. */
 export const toneBack = 0.38,
   tonePlate = 0.46,
@@ -23,7 +26,9 @@ export const toneBack = 0.38,
   bevelTone = 0.3;
 /** How many device pixels one steel tile spans per reference pixel, and how strongly it modulates. */
 const steelSpan = 256,
-  steelGain = 0.6;
+  steelGain = 0.6,
+  groundSpan = 96,
+  groundGain = 0.8;
 
 export function lerp(a: RGB, b: RGB, t: number): RGB {
   t = Math.max(0, Math.min(1, t));
@@ -82,12 +87,9 @@ export class Tile {
   }
   /** at is the deviation at device pixel (x, y) when one tile spans span device pixels, wrapping, bilinear. */
   at(x: number, y: number, span: number): RGB {
-    let m = this.mips[0];
+    const m = this.level(span);
     if (m === undefined) return [0, 0, 0];
-    for (const next of this.mips.slice(1)) {
-      if (m.w / span <= 1.5) break;
-      m = next;
-    }
+    // Bilinear between the four texels round the pixel's centre, wrapping; written out, as it runs per pixel.
     const f = m.w / span,
       u = (x + 0.5) * f - 0.5,
       v = (y + 0.5) * f - 0.5,
@@ -95,19 +97,48 @@ export class Tile {
       y0 = Math.floor(v),
       fx = u - x0,
       fy = v - y0,
-      wrap = (i: number, n: number) => ((i % n) + n) % n,
-      out: RGB = [0, 0, 0];
-    for (const [dx, dy, w] of [
-      [0, 0, (1 - fx) * (1 - fy)],
-      [1, 0, fx * (1 - fy)],
-      [0, 1, (1 - fx) * fy],
-      [1, 1, fx * fy],
-    ] as const) {
-      const i = 3 * (wrap(y0 + dy, m.h) * m.w + wrap(x0 + dx, m.w));
-      for (let ch = 0; ch < 3; ch++)
-        out[ch] = (out[ch] ?? 0) + w * (m.d[i + ch] ?? 0);
+      xa = ((x0 % m.w) + m.w) % m.w,
+      ya = ((y0 % m.h) + m.h) % m.h,
+      xb = xa + 1 === m.w ? 0 : xa + 1,
+      yb = ya + 1 === m.h ? 0 : ya + 1,
+      i00 = 3 * (ya * m.w + xa),
+      i10 = 3 * (ya * m.w + xb),
+      i01 = 3 * (yb * m.w + xa),
+      i11 = 3 * (yb * m.w + xb),
+      w00 = (1 - fx) * (1 - fy),
+      w10 = fx * (1 - fy),
+      w01 = (1 - fx) * fy,
+      w11 = fx * fy,
+      d = m.d;
+    return [
+      w00 * (d[i00] ?? 0) +
+        w10 * (d[i10] ?? 0) +
+        w01 * (d[i01] ?? 0) +
+        w11 * (d[i11] ?? 0),
+      w00 * (d[i00 + 1] ?? 0) +
+        w10 * (d[i10 + 1] ?? 0) +
+        w01 * (d[i01 + 1] ?? 0) +
+        w11 * (d[i11 + 1] ?? 0),
+      w00 * (d[i00 + 2] ?? 0) +
+        w10 * (d[i10 + 2] ?? 0) +
+        w01 * (d[i01 + 2] ?? 0) +
+        w11 * (d[i11 + 2] ?? 0),
+    ];
+  }
+  private span = NaN;
+  private mip: { w: number; h: number; d: Float32Array } | undefined;
+  /** level is the first level at most 1.5 texels per pixel when a tile spans span pixels (internal/texture). */
+  private level(span: number) {
+    if (span !== this.span) {
+      let m = this.mips[0];
+      for (let i = 1; m !== undefined && i < this.mips.length; i++) {
+        if (m.w / span <= 1.5) break;
+        m = this.mips[i];
+      }
+      this.span = span;
+      this.mip = m;
     }
-    return out;
+    return this.mip;
   }
 }
 /** modulate scales each channel of c by one plus gain times its deviation. */
@@ -221,6 +252,8 @@ export class RivetSheet {
 export interface Surfaces {
   steel: Tile | null;
   rivets: RivetSheet | null;
+  /** The battle hexes' ground (surface/ground); only the battle scene paints it. */
+  ground?: Tile | null;
 }
 
 /** Painter paints placeholder steel and brass into an RGBA buffer of w × h device pixels at scale k. */
@@ -266,11 +299,46 @@ export class Painter {
     const q = Math.max(1, Math.round(this.k));
     return ramp(t + 0.06 * grain(Math.trunc(x / q), Math.trunc(y / q)));
   }
+  /** groundColour is the battle hex's ground of tone t at device pixel (x, y). */
+  groundColour(x: number, y: number, t: number): RGB {
+    const s = this.surfaces.ground ?? null;
+    if (s !== null)
+      return modulate(
+        lerp(fieldDark, fieldLight, t),
+        groundGain,
+        s.at(x, y, this.k * groundSpan),
+      );
+    const q = Math.max(1, Math.round(this.k));
+    return lerp(
+      fieldDark,
+      fieldLight,
+      t +
+        0.05 * grain(Math.trunc(x / q), Math.trunc(y / q)) +
+        0.03 * grain(Math.trunc(x / (4 * q)), Math.trunc(y / (3 * q))),
+    );
+  }
   /** steel fills r with steel of tone t. */
   steel(r: Rect, t: number): void {
-    const [x0, y0, x1, y1] = this.clip(r);
+    const [x0, y0, x1, y1] = this.clip(r),
+      s = this.surfaces.steel;
+    if (s === null) {
+      for (let y = y0; y < y1; y++)
+        for (let x = x0; x < x1; x++) this.set(x, y, this.steelColour(x, y, t));
+      return;
+    }
+    // steelColour written out for one tone: it runs for every pixel of a plate.
+    const [br, bg, bb] = ramp(t),
+      span = this.k * steelSpan,
+      px = this.px;
     for (let y = y0; y < y1; y++)
-      for (let x = x0; x < x1; x++) this.set(x, y, this.steelColour(x, y, t));
+      for (let x = x0; x < x1; x++) {
+        const [dr, dg, db] = s.at(x, y, span),
+          i = 4 * (y * this.w + x);
+        px[i] = Math.round(br * (1 + steelGain * dr));
+        px[i + 1] = Math.round(bg * (1 + steelGain * dg));
+        px[i + 2] = Math.round(bb * (1 + steelGain * db));
+        px[i + 3] = 255;
+      }
   }
   /** edges calls fn for the pixels within w of r's border: lit on the top and left sides. */
   private edges(
@@ -411,6 +479,33 @@ export class Painter {
         );
       }
   }
+  /** field is the battle's hex of half size a × b round (cx, cy): a recessed steel rim round dark ground, lit in the middle. */
+  field(cx: number, cy: number, a: number, b: number): void {
+    const rim = 2 * this.bw();
+    for (let y = Math.trunc(cy - b - 1); y <= Math.trunc(cy + b + 1); y++)
+      for (let x = Math.trunc(cx - a - 1); x <= Math.trunc(cx + a + 1); x++) {
+        const dx = x + 0.5 - cx,
+          dy = y + 0.5 - cy,
+          [d, light] = hexEdge(dx, dy, a, b),
+          cov = Math.min(1, d + 0.5);
+        if (cov <= 0 || x < 0 || y < 0 || x >= this.w || y >= this.h) continue;
+        const n = Math.min(1, hexNorm(dx, dy, a, b)),
+          g = Math.max(0, Math.min(1, d - rim + 0.5));
+        const ground =
+            g > 0
+              ? this.groundColour(x, y, 0.12 + 0.5 * (1 - n) * (1 - n))
+              : null,
+          c =
+            ground !== null && g >= 1
+              ? ground
+              : lerp(
+                  this.steelColour(x, y, toneBack - bevelTone * light),
+                  ground ?? [0, 0, 0],
+                  g,
+                );
+        this.blend(x, y, c, cov);
+      }
+  }
   /** hex fills the hex of half size a × b round (cx, cy) with steel of tone t, its edge lit when raised. */
   hex(
     cx: number,
@@ -438,6 +533,12 @@ export class Painter {
   }
 }
 
+/** hexNorm is how far (dx, dy) lies towards the edge of the flat-topped hex: at most 1 inside. */
+export function hexNorm(dx: number, dy: number, a: number, b: number): number {
+  const ax = Math.abs(dx),
+    ay = Math.abs(dy);
+  return Math.max(ay / b, (ax + ((2 * a) / 3) * (ay / b)) / a);
+}
 /** hexEdge is the distance of (dx, dy) from the edge of a flat-topped hex (negative outside) and its light. */
 export function hexEdge(
   dx: number,

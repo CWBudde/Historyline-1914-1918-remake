@@ -347,8 +347,16 @@ button.hl-nameplate.battle-menu-plate {
 .battle-ui .battle-board-unit {
   --board-w: calc(400px * var(--s));
 }
+/*
+ * The battle scene's well is as tall as the board allows and exactly as wide as the scene's 152 × 180 block, so the
+ * scene fills it; the board hugs the well.
+ */
 .battle-ui .battle-board-scene {
-  --board-w: calc(460px * var(--s));
+  --scene-h: max(
+    calc(160px * var(--s)),
+    min(var(--board-max-h, 60vh) - 150px * var(--s), calc(900px * var(--s)))
+  );
+  --board-w: calc(var(--scene-h) * 152 / 180 + 40px * var(--s));
 }
 .battle-ui .battle-board-contents {
   --board-w: calc(560px * var(--s));
@@ -738,15 +746,16 @@ button.hl-nameplate.battle-menu-plate {
 /* The battle scene and the small map, each in a well of the board. */
 .battle-ui .battle-scene-host {
   position: relative;
-  height: max(
-    calc(160px * var(--s)),
-    min(var(--board-max-h, 60vh) - 150px * var(--s), calc(560px * var(--s)))
-  );
+  width: min(100%, calc(var(--scene-h, 400px) * 152 / 180));
   aspect-ratio: 152 / 180;
-  width: auto;
-  max-width: 100%;
+  min-height: 0;
   margin: 0 auto;
   overflow: hidden;
+}
+.battle-ui .battle-scene-host canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .battle-ui .battle-strategy-host {
   position: relative;
@@ -883,6 +892,10 @@ button.hl-nameplate.battle-menu-plate {
   --board-max-h: calc(
     var(--app-height) - var(--stage-top) - var(--stage-bottom) - 16px
   );
+}
+/* Upright, the scene's board keeps narrow margins: the scene is as wide as the window allows. */
+.battle-ui[data-layout="upright"] .battle-board-scene {
+  padding-inline: calc(10px * var(--s));
 }
 /* The orders board rises from the row of plates, at most 62 % of the window, and scrolls inside. */
 .battle-ui[data-layout="upright"] .battle-board-orders {

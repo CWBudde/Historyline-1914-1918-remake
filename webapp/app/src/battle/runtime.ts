@@ -195,6 +195,7 @@ export class BattleRuntime {
       (e) => {
         if (navigator.onLine) this.status(e.message);
       },
+      () => this.design.value,
     );
     this.keys = new BattleKeys({
       step: (direction) => {
