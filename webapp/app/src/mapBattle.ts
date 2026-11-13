@@ -359,6 +359,27 @@ export class MapBattle {
       (a) => this.allowed(a, at),
     );
   }
+  /**
+   * opensOnly reports whether at holds an own unit that cannot be selected (it has its order) but still has
+   * contents to open: a carrier that moved lets its load out.
+   */
+  opensOnly(at: hexgrid.Coord): boolean {
+    const unit = this.unitAt(at);
+    if (
+      this.selected !== null ||
+      this.contents.box !== null ||
+      !this.canAct() ||
+      unit?.side !== this.side ||
+      !this.allowed("open", at)
+    )
+      return false;
+    try {
+      play.canOrder(this.session, this.side, unit.index);
+      return false;
+    } catch {
+      return true;
+    }
+  }
   /** unitCell is the cell of the unit on at (its head where at is a two-cell unit's rear), else at. */
   unitCell(at: hexgrid.Coord): hexgrid.Coord {
     return this.unitAt(at)?.at ?? at;

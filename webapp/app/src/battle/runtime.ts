@@ -722,7 +722,8 @@ export class BattleRuntime {
   /**
    * tap is a click or tap on the map. With the menu open it runs the wedge's order, cancels on the centre, and
    * outside the menu closes it and goes on as a plain click where a unit is selected (a tap on a destination
-   * moves there). A click on the selected unit opens its menu; a tap on an own unit selects it and opens it.
+   * moves there). A click on the selected unit opens its menu; a tap on an own unit selects it and opens it, and
+   * so does a click on a loaded carrier that has its order, for its contents.
    */
   private tap(p: Point, pointerType: string): void {
     this.sheetOpen.value = false;
@@ -749,7 +750,8 @@ export class BattleRuntime {
       return;
     }
     this.battle.click(at);
-    if (touch && this.onSelected(at)) this.openMenu(at, { touch });
+    if ((touch && this.onSelected(at)) || this.battle.opensOnly(at))
+      this.openMenu(at, { touch });
   }
   private flickStart(p: Point, pointerType: string): boolean {
     const b = this.battle;

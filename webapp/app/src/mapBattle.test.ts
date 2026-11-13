@@ -271,6 +271,44 @@ it("prompts the wiring party, the tunnellers and the field ambulance", () => {
   expect(actionTargets(s, 0, tun.index).size).toBe(0);
 });
 
+it("offers the contents of a carrier that has moved, and lets its load out", () => {
+  const s = play.newSession(shippedLevel("1914-08"), playData, {
+      profile: Full,
+    }),
+    own = [...play.view(s, 0).units.values()].filter((u) => u.side === 0),
+    car = own.find((u) => u.name === "Supply Car");
+  if (car === undefined) throw new Error("fixture has no supply car");
+  const load = own.find((u) => {
+    try {
+      return (
+        u.index !== car.index &&
+        play.destinations(s, 0, u.index).has(level.coordKey(car.at))
+      );
+    } catch {
+      return false;
+    }
+  });
+  if (load === undefined) throw new Error("no unit reaches the supply car");
+  play.move(s, 0, load.index, car.at);
+  // On to the next movement phase: the load sits in the car with its order free again.
+  for (let i = 0; i < 2; i++) {
+    play.confirm(s, 0);
+    play.confirm(s, 1);
+    play.resolve(s);
+  }
+  const battle = new MapBattle(s, 0),
+    to = play.coords(play.destinations(s, 0, car.index))[0];
+  if (to === undefined) throw new Error("the supply car cannot move");
+  expect(battle.opensOnly(car.at)).toBe(false);
+  play.move(s, 0, car.index, to);
+  battle.click(to);
+  expect(battle.selected).toBeNull();
+  expect(battle.opensOnly(to)).toBe(true);
+  expect(battle.menu(to).find((m) => m.action === "open")?.reason).toBeNull();
+  battle.run("open", to);
+  expect(battle.contents.actions().leave).toBeNull();
+});
+
 it("starts each side's cursor on its own HQ, as the desktop does", () => {
   const session = start();
   for (const side of [0, 1]) {
