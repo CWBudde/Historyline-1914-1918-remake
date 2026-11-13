@@ -21,8 +21,8 @@ import "./battle.css";
  * The battle screen in the worn army metal of the menus (armour.css): the map seen through an opening in a riveted
  * plate, a steel strip with a signal lamp, the side's plaque, the phase stencilled and the brass plates of the global
  * orders; what opens (the situation, the small map, a unit's type, a building's contents, the menu) is a steel board
- * bolted over the map, its values stencilled in dark wells. Upright, the strip runs along the top and the lower part
- * of the window is the plate with the unit, the ground and the orders' plates along its bottom edge.
+ * bolted over the map, its values stencilled in dark wells. Upright, the map runs from edge to edge between the strip
+ * along the top and a row of the orders' plates; the unit, the ground and the queued attacks open on Info as a board.
  */
 
 type Props = BattleUIProps;
@@ -44,7 +44,7 @@ const layoutShort: Record<string, string> = {
   original: "Split screen",
 };
 
-/** usePortrait follows whether the window stands upright: the strip at the top, the plate below the map. */
+/** usePortrait follows whether the window stands upright: the strip at the top, the plates below the map. */
 export function usePortrait(): boolean {
   const query = "(orientation: portrait)",
     [portrait, setPortrait] = useState(
@@ -394,21 +394,39 @@ function Terrain({ p }: { p: Props }) {
   );
 }
 
-function Orders({ p }: { p: Props }) {
-  const b = p.battle,
-    view = b.view(),
+/** ownUnit is the side's unit the orders are about: the selected one, else the one under the cursor. */
+function ownUnit(b: Props["battle"]): play.UnitView | null {
+  const view = b.view(),
     selected =
       b.exiting?.unit ??
       [...view.units.values()].find((u) => u.index === b.selected);
   let cursorUnit = view.units.get(level.coordKey(b.hover ?? b.cursor));
   if (cursorUnit?.head !== null && cursorUnit?.head !== undefined)
     cursorUnit = view.units.get(level.coordKey(cursorUnit.head));
-  const own =
-      selected?.side === b.side
-        ? selected
-        : cursorUnit?.side === b.side
-          ? cursorUnit
-          : null,
+  return selected?.side === b.side
+    ? selected
+    : cursorUnit?.side === b.side
+      ? cursorUnit
+      : null;
+}
+
+/** selection is the upright strip's second line: the own unit and its group, else the ground, else the turn. */
+function selection(b: Props["battle"]): string {
+  const own = ownUnit(b);
+  if (own !== null) return `${own.name} · ${own.size}/${own.full}`;
+  const at = b.hover ?? b.cursor,
+    h =
+      play.reworked(b.session).get(level.coordKey(at)) ??
+      b.session.level.lines[at.line]?.[at.col];
+  return h === undefined
+    ? `Turn ${play.turn(b.session)}`
+    : groundName(h.terrain);
+}
+
+function Orders({ p }: { p: Props }) {
+  const b = p.battle,
+    view = b.view(),
+    own = ownUnit(b),
     blocked =
       b.busy() ||
       b.phasePrompt ||
@@ -1122,14 +1140,20 @@ export function BattleUI(p: BattleUIProps) {
       : ready
         ? "Waiting for the opponent."
         : `${phaseName(phase)} phase`);
-  const ordersText = `${orders}${s.game.limit > 0 ? ` / ${s.game.limit}` : ""} ${orders === 1 && s.game.limit === 0 ? "order" : "orders"}`;
-  // What opens over the map; a building's contents stay in the side board or the plate below the map.
+  const orderFigure = `${orders}${s.game.limit > 0 ? `/${s.game.limit}` : ""}`,
+    orderWord = orders === 1 && s.game.limit === 0 ? "order" : "orders",
+    ordersText = (
+      <>
+        <span>{orderFigure}</span> <span>{orderWord}</span>
+      </>
+    );
+  // What opens over the map; in a wide window a building's contents stay in the side board.
   const contents = b.contents.box !== null,
     centre =
       scene !== null
         ? "scene"
         : contents
-          ? embedded
+          ? embedded || portrait
             ? "contents"
             : null
           : b.panel === "unit" && b.infoUnit?.side === b.side
@@ -1206,8 +1230,35 @@ export function BattleUI(p: BattleUIProps) {
       {status}
     </p>
   );
+  const opponent = (
+    <div class="battle-opponent-status battle-muted">
+      Opponent: {phaseName(play.phase(s, 1 - b.side))} ·{" "}
+      {play.ready(s, 1 - b.side) ? "Ready" : "Giving orders"}
+      {ready ? " · Your orders confirmed" : ""}
+    </div>
+  );
+  // Upright, Info opens and closes the orders board; what Info shows in a wide window is its Situation plate.
+  const sheet = portrait && !embedded && p.sheetOpen.value && centre === null;
+  // What opens over the map, or the menu, takes the orders board's place for good.
+  useEffect(() => {
+    if ((centre !== null || menuOpen) && p.sheetOpen.value)
+      p.sheetOpen.value = false;
+  }, [centre, menuOpen]);
   const strip = !embedded && p.readOnly !== true && (
-    <OrderStrip p={p} className="battle-order-strip" />
+    <OrderStrip
+      p={
+        portrait
+          ? {
+              ...p,
+              onInfo: () => {
+                p.sheetOpen.value = !p.sheetOpen.value;
+              },
+            }
+          : p
+      }
+      className="battle-order-strip"
+      sheet={portrait ? p.sheetOpen.value : undefined}
+    />
   );
   return (
     <div
@@ -1217,7 +1268,7 @@ export function BattleUI(p: BattleUIProps) {
       data-scene={scene !== null}
       data-readonly={p.readOnly ?? false}
       data-layout={embedded ? "panel" : portrait ? "upright" : "wide"}
-      data-board={centre ?? (menuOpen ? "menu" : "none")}
+      data-board={centre ?? (menuOpen ? "menu" : sheet ? "orders" : "none")}
       style={{ "--ui-scale": p.scale.value }}
       onKeyDown={controlKeys}
     >
@@ -1241,16 +1292,14 @@ export function BattleUI(p: BattleUIProps) {
           />
           {portrait ? (
             <>
-              <h1 class="battle-title">
+              <h1 class="battle-hidden">
                 {s.level.mapName || "Historyline 1914–1918"}
               </h1>
-              <span class="battle-turn">
-                Turn {play.turn(s)}
-                <span class="battle-energy">
-                  {" "}
-                  · {play.energy(s, b.side)} energy
-                </span>
-              </span>
+              <div class="battle-bar-lines">
+                {statusLine}
+                <p class="battle-summary">{selection(b)}</p>
+              </div>
+              <span class="battle-order-count hl-amber">{ordersText}</span>
             </>
           ) : (
             <>
@@ -1270,23 +1319,53 @@ export function BattleUI(p: BattleUIProps) {
         </header>
       )}
 
-      <aside class="battle-dock hl-board" aria-label="Battle controls">
-        {(embedded || portrait) && (
-          <div class="battle-phase-row">
-            {statusLine}
-            <span class="battle-order-count hl-amber">{ordersText}</span>
+      {portrait && !embedded ? (
+        // Upright, the plate below the map is only the row of the global orders' plates.
+        <aside class="battle-dock" aria-label="Battle controls">
+          {strip}
+        </aside>
+      ) : (
+        <aside class="battle-dock hl-board" aria-label="Battle controls">
+          {embedded && (
+            <div class="battle-phase-row">
+              {statusLine}
+              <span class="battle-order-count hl-amber">{ordersText}</span>
+            </div>
+          )}
+          {opponent}
+          <div class="battle-dock-body">
+            {contents && !embedded ? <Contents p={p} /> : <Orders p={p} />}
           </div>
-        )}
-        <div class="battle-opponent-status battle-muted">
-          Opponent: {phaseName(play.phase(s, 1 - b.side))} ·{" "}
-          {play.ready(s, 1 - b.side) ? "Ready" : "Giving orders"}
-          {ready ? " · Your orders confirmed" : ""}
-        </div>
-        <div class="battle-dock-body">
-          {contents && !embedded ? <Contents p={p} /> : <Orders p={p} />}
-        </div>
-        {portrait && strip}
-      </aside>
+        </aside>
+      )}
+
+      {sheet && (
+        <Board kind="orders">
+          {opponent}
+          <Orders p={p} />
+          <div class="battle-board-foot">
+            <button
+              type="button"
+              class="hl-nameplate"
+              onClick={() => {
+                p.sheetOpen.value = false;
+                b.showGame();
+              }}
+            >
+              Situation
+            </button>
+            <button
+              type="button"
+              class="hl-nameplate battle-board-close"
+              onClick={() => {
+                p.sheetOpen.value = false;
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </Board>
+      )}
 
       {board}
 

@@ -85,16 +85,16 @@
 .split-steel-strip {
   --h: var(--strip-h, 56px);
   box-sizing: border-box;
-  --strip-base: max(26px, min(64px, calc(0.68 * var(--h))));
+  --strip-base: max(26px, min(64px, calc(0.64 * var(--h))));
   position: absolute;
   z-index: 3;
   display: flex;
   align-items: center;
-  gap: calc(0.24 * var(--h));
+  gap: calc(0.18 * var(--h));
   padding: 0 calc(0.18 * var(--h));
   color: var(--hl-bone);
   font:
-    700 calc(0.34 * var(--h)) / 1.08 "Stardos Stencil",
+    700 calc(0.32 * var(--h)) / 1.08 "Stardos Stencil",
     "HL Display",
     serif;
   letter-spacing: 0.05em;

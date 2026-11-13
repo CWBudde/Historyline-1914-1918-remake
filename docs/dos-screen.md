@@ -140,10 +140,15 @@ under its cursor ring; the centre cancels.
 
 Up, left and down keep the desktop gestures (up move, left open or produce, down repair). End phase, the
 strategic map and information are not plates: they are brass nameplates on the order strip with their keys,
-F1 END PHASE, O MAP and I INFO, on the steel strip under the single map (upright: along the bottom edge of
-the plate under the map) and at the outer end of each human panel's strip on the split screen, End phase set a
-little apart and a Menu plate beside them for the settings, surrender and leaving. No flick can reach End phase; the keyboard gestures (hold Space or left Control and push a direction) still give the
-desktop's mode change, map and info.
+F1 END PHASE, O MAP and I INFO, on the steel strip under the single map and at the outer end of each human
+panel's strip on the split screen, End phase set a little apart and a Menu plate beside them for the settings,
+surrender and leaving. No flick can reach End phase; the keyboard gestures (hold Space or left Control and push a
+direction) still give the desktop's mode change, map and info.
+
+Upright, the map runs from edge to edge: a 48 px strip on top (lamp, plaque, the status over the selected or
+hovered unit or ground, the order count, Menu) and under the map only the row of the three plates. Info there
+opens and closes a board rising from that row with the unit, its orders, the ground and the queued attacks, and a
+Situation plate; a building's contents open as a board over the map.
 
 - **Opening:** right-click a cell with orders, click the selected unit again, tap an own unit (it is selected
   and its plates appear), long-press, or Enter on the selected unit (the first plate takes the focus).

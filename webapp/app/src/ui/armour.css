@@ -123,13 +123,19 @@ button.hl-nameplate {
     var(--hl-plate, none) center / 836px 470px,
     var(--hl-plate-c);
 }
-/* A board bolted over a window: a piece of plate, its edge shaded, a row of rivets along the top and the bottom. */
+/*
+ * A board bolted over a window: a piece of plate, its edge shaded, a row of rivets along the top and the bottom. The
+ * rivets are layers of its own background, so a board that scrolls keeps them at its edges instead of drawing them
+ * over its content.
+ */
 .hl-board {
   --rivet: 18px;
   position: relative;
   padding: calc(var(--rivet) + 4px) 20px calc(var(--rivet) + 2px);
   color: var(--hl-bone);
   background:
+    var(--hl-rivets-row, none) left 8px top 3px / auto var(--rivet) repeat-x,
+    var(--hl-rivets-row, none) left 8px bottom 1px / auto var(--rivet) repeat-x,
     var(--hl-plate, none) center / 836px 470px,
     var(--hl-plate-c);
   border-radius: 5px;
@@ -138,22 +144,6 @@ button.hl-nameplate {
     0 10px 28px rgb(0 0 0 / 70%),
     inset 0 1px 0 rgb(214 205 184 / 22%),
     inset 0 -2px 0 rgb(0 0 0 / 40%);
-}
-.hl-board::before,
-.hl-board::after {
-  content: "";
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  height: var(--rivet);
-  pointer-events: none;
-  background: var(--hl-rivets-row, none) 0 0 / auto var(--rivet) repeat-x;
-}
-.hl-board::before {
-  top: 3px;
-}
-.hl-board::after {
-  bottom: 1px;
 }
 
 /* ---------------------------------------------------------------- stencil paint */

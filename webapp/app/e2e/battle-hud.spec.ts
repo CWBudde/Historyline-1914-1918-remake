@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { openMenu, seed, startFirstBattle } from "./battle.ts";
+import { battleReady, openMenu, seed, startFirstBattle } from "./battle.ts";
 
 // The battle screen in the menus' worn army metal: steel housing, brass plates, stencilled status, no pixel font
 // with the painted design. The production bundle, the first battle.
@@ -166,37 +166,116 @@ test.describe("the battle screen's armour", () => {
   });
 });
 
+/** upright checks the upright layout at a phone's size: the map from edge to edge between the strip and the plates. */
+async function upright(page: Page, width: number, height: number) {
+  const top = await page.locator(".battle-bar").boundingBox(),
+    map = await page.locator("#stage canvas").first().boundingBox(),
+    row = await page.locator(".battle-dock .order-strip").boundingBox();
+  if (top === null || map === null || row === null) throw Error("no layout");
+  // The map takes the window's full width and at least four fifths of its height.
+  expect(map.x).toBeLessThanOrEqual(0.5);
+  expect(map.width).toBeGreaterThanOrEqual(width - 1);
+  expect(map.height / height).toBeGreaterThanOrEqual(0.8);
+  expect(top.y).toBeLessThan(4);
+  expect(map.y).toBeGreaterThanOrEqual(top.y + top.height - 1);
+  expect(row.y).toBeGreaterThanOrEqual(map.y + map.height - 1);
+  expect(row.y + row.height).toBeLessThanOrEqual(height + 1);
+  for (const plate of await page.locator(".battle-dock .order-nameplate").all())
+    expect((await plate.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(48);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  expect(await blueElements(page)).toEqual([]);
+}
+
 test.describe("the battle screen upright", () => {
-  test.use({
-    hasTouch: true,
-    isMobile: true,
-    viewport: { width: 390, height: 844 },
-  });
+  test.use({ hasTouch: true, isMobile: true });
   test.skip(
     ({ browserName }) => browserName !== "chromium",
     "Touch input is emulated in Chromium.",
   );
-  test("the strip at the top, the plate below the map with touch-sized plates", async ({
+
+  test("390 × 844: the map from edge to edge; Info opens the orders board, the menu its board", async ({
     page,
   }) => {
     test.setTimeout(5 * 60_000);
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.addInitScript(seed({ scenes: false }));
     await openMenu(page);
     await startFirstBattle(page);
-    const top = await page.locator(".battle-bar").boundingBox(),
-      map = await page.locator("#stage canvas").first().boundingBox(),
-      dock = await page.locator(".battle-dock").boundingBox();
-    if (top === null || map === null || dock === null) throw Error("no layout");
-    expect(top.y).toBeLessThan(4);
-    expect(map.y).toBeGreaterThanOrEqual(top.y + top.height - 1);
-    expect(dock.y).toBeGreaterThanOrEqual(map.y + map.height - 1);
-    expect(dock.y + dock.height).toBeLessThanOrEqual(844 + 1);
+    await upright(page, 390, 844);
     const menu = page.locator(".battle-bar").getByRole("button", {
       name: "Menu",
     });
     expect((await menu.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(44);
+
+    // The cursor starts on the HQ; three steps right and one down is the supply car.
+    for (const key of ["ArrowRight", "ArrowRight", "ArrowRight", "ArrowDown"])
+      await page.keyboard.press(key);
+    await expect(page.locator(".battle-summary")).toContainText(
+      /^Supply car · /i,
+    );
+    const info = page.locator('.battle-dock [data-order="info"]'),
+      sheet = page.locator(".battle-board-orders");
+    await info.tap();
+    await expect(sheet).toBeVisible();
+    await expect(info).toHaveAttribute("aria-expanded", "true");
+    await expect(sheet.locator(".battle-unit-card")).toBeVisible();
+    // The board rises from the row of plates and leaves it free.
+    const board = await sheet.boundingBox(),
+      row = await page.locator(".battle-dock .order-strip").boundingBox();
+    if (board === null || row === null) throw Error("no board");
+    expect(board.y + board.height).toBeLessThanOrEqual(row.y);
+    expect(board.height).toBeLessThanOrEqual(0.62 * 844 + 1);
+    await info.tap();
+    await expect(sheet).toHaveCount(0);
+
+    // Its Situation plate opens the situation.
+    await info.tap();
+    await sheet.getByRole("button", { name: "Situation" }).tap();
+    await expect(page.locator(".battle-board-game")).toBeVisible();
+    await expect(sheet).toHaveCount(0);
+    await page.keyboard.press("Escape");
+
     await menu.tap();
     await expect(page.locator("#battle-menu-0")).toBeVisible();
-    expect(await blueElements(page)).toEqual([]);
+  });
+
+  test("360 × 640: the map from edge to edge; a building's contents open over the map", async ({
+    page,
+  }) => {
+    test.setTimeout(5 * 60_000);
+    await page.setViewportSize({ width: 360, height: 640 });
+    await page.addInitScript(seed({ scenes: false, reduced: true }));
+    await openMenu(page);
+    await startFirstBattle(page);
+    await upright(page, 360, 640);
+    // The gun north of the HQ moves into it; once the phase is over the HQ holds it.
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press(" ");
+    await expect(page.locator(".battle-status").first()).toContainText(
+      "pick where to move",
+    );
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press(" ");
+    await page.keyboard.press("F1");
+    await page.getByRole("button", { name: "Confirm (F1)" }).tap();
+    await expect(battleReady(page)).toHaveAttribute("aria-label", "End phase", {
+      timeout: 120_000,
+    });
+    await expect(battleReady(page)).toBeEnabled({ timeout: 60_000 });
+    await page.keyboard.press(" ");
+    const contents = page.locator(".battle-board-contents");
+    await expect(contents).toBeVisible();
+    const box = await contents.boundingBox(),
+      map = await page.locator("#stage canvas").first().boundingBox();
+    if (box === null || map === null) throw Error("no contents");
+    expect(box.y).toBeGreaterThanOrEqual(map.y);
+    expect(box.y + box.height).toBeLessThanOrEqual(map.y + map.height);
+    await expect(
+      contents.getByRole("group", { name: "Seven container slots" }),
+    ).toBeVisible();
   });
 });

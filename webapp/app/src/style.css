@@ -6,8 +6,7 @@
   --ui-scale: 1;
   /*
    * The single map's opening in the battle screen's plate (ui/battle.css): a margin of plate round it and the steel
-   * strip under it; upright, the strip runs along the top and the plate with the unit and the orders fills the
-   * window below the map.
+   * strip under it; upright, the map runs from edge to edge between the strip along the top and a row of plates.
    */
   --hud-gap: calc(12px * var(--ui-scale));
   --strip-height: calc(56px * var(--ui-scale));
@@ -33,12 +32,12 @@
 }
 @media (orientation: portrait) {
   :root {
-    --stage-top: calc(50px * var(--ui-scale) + env(safe-area-inset-top, 0px));
-    --stage-left: calc(6px * var(--ui-scale));
-    --stage-right: calc(6px * var(--ui-scale));
-    --stage-bottom: min(
-      42dvh,
-      calc(318px * var(--ui-scale) + env(safe-area-inset-bottom, 0px))
+    /* Upright the map runs from edge to edge between a 48 px strip and a row of 48 px plates. */
+    --stage-top: calc(48px * var(--ui-scale) + env(safe-area-inset-top, 0px));
+    --stage-left: env(safe-area-inset-left, 0px);
+    --stage-right: env(safe-area-inset-right, 0px);
+    --stage-bottom: calc(
+      54px * var(--ui-scale) + env(safe-area-inset-bottom, 0px)
     );
   }
 }

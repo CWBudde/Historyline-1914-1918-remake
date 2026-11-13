@@ -301,12 +301,15 @@ export function OrderStrip({
   className = "",
   keys = { info: "I", map: "O", phase: "F1" },
   style,
+  sheet,
 }: {
   p: BattleUIProps;
   className?: string;
   /** The key shown on each nameplate (a second simultaneous player has only its End phase gesture). */
   keys?: Partial<Record<"info" | "map" | "phase", string>>;
   style?: Record<string, string>;
+  /** Upright, Info opens a board of the orders: whether it is open (aria-expanded). */
+  sheet?: boolean | undefined;
 }) {
   const b = p.battle,
     ready = play.ready(b.session, b.side),
@@ -328,6 +331,7 @@ export function OrderStrip({
             class={`hl-nameplate order-nameplate${phase ? " battle-ready" : ""}`}
             data-order={s.id}
             aria-pressed={phase ? ready : undefined}
+            aria-expanded={s.id === "info" ? sheet : undefined}
             aria-keyshortcuts={
               key === "F1" || key?.length === 1 ? key : undefined
             }

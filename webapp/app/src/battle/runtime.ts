@@ -111,6 +111,8 @@ export class BattleRuntime {
   readonly menu = signal<MenuView | null>(null);
   /** Whether the menu board is open (BattleUI MenuBoard). */
   readonly menuOpen = signal(false);
+  /** Whether the orders board of the upright layout is open (BattleUI): Info opens it, a tap on the map closes it. */
+  readonly sheetOpen = signal(false);
   /** The unit families by type id: the art each unit is drawn with. */
   get families(): BattleData["families"] {
     return this.data.families;
@@ -513,6 +515,7 @@ export class BattleRuntime {
       design: this.design,
       menu: this.menu,
       menuOpen: this.menuOpen,
+      sheetOpen: this.sheetOpen,
       settingsBusy: settingsState.busy,
       settingsNote: settingsState.note,
       onScale: (uiScale) => {
@@ -721,6 +724,7 @@ export class BattleRuntime {
    * moves there). A click on the selected unit opens its menu; a tap on an own unit selects it and opens it.
    */
   private tap(p: Point, pointerType: string): void {
+    this.sheetOpen.value = false;
     if (this.options.panel?.click(p) === true) return;
     const m = this.menu.value;
     if (m !== null) {
@@ -836,6 +840,9 @@ export class BattleRuntime {
     if (this.menu.value !== null) this.closeMenu();
     else if (this.menuOpen.value) {
       this.menuOpen.value = false;
+      this.hooks.changed();
+    } else if (this.sheetOpen.value) {
+      this.sheetOpen.value = false;
       this.hooks.changed();
     } else if (
       this.options.escapeMenu === true &&

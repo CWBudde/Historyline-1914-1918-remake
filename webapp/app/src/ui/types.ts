@@ -22,6 +22,8 @@ export interface BattleUIProps {
   menu: Signal<MenuView | null>;
   /** Whether the battle's menu board (settings, surrender, leave) is open. */
   menuOpen: Signal<boolean>;
+  /** Whether the upright layout's orders board (the unit, the ground, the queued attacks) is open. */
+  sheetOpen: Signal<boolean>;
   /** The level's best score, for the situation, where it is known. */
   best?: number;
   settingsBusy?: boolean;

@@ -1,8 +1,8 @@
 /*
  * The battle screen (BattleUI.tsx) in the worn army metal of armour.css. The map is drawn on the stage under this
  * layer; its opening is the stage's rectangle (style.css --stage-*), cut out of a plate that covers the window. The
- * strip under the map (upright: along the top) carries the lamp, the plaque, the phase and the global orders' brass
- * plates; boards bolted over the map hold the side's unit and ground, the situation, the small map, a unit's type,
+ * strip under the map (upright: along the top, the global orders in a row under the map) carries the lamp, the
+ * plaque, the phase and the brass plates; boards bolted over the map hold the side's unit and ground, the situation, the small map, a unit's type,
  * a building's contents and the menu. Lengths grow with the UI scale (--s).
  */
 .battle-ui {
@@ -286,26 +286,6 @@ button.hl-nameplate.battle-menu-plate {
     #c82020 66.666%
   );
 }
-.battle-ui .battle-title {
-  flex: 0 1 auto;
-  min-width: 3em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: calc(16px * var(--s));
-}
-.battle-ui .battle-turn {
-  flex: 0 10 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--hl-bone-dim);
-  font-size: calc(12px * var(--s));
-}
-@container hud-strip (max-width: 420px) {
-  .battle-energy {
-    display: none;
-  }
-}
 
 /* ---------------------------------------------------------------- boards */
 
@@ -405,43 +385,111 @@ button.hl-nameplate.battle-menu-plate {
   display: none;
 }
 
-/* Upright: the strip along the top, the plate below the map with the unit, the ground and the orders' plates. */
+/*
+ * Upright, the map runs from edge to edge: a 48 px strip on top (lamp, plaque, the status over what is selected or
+ * under the cursor, the order count, Menu) and under the map only the row of the global orders' plates. What the
+ * wide window's side board shows opens on Info as a board over the map from that row.
+ */
 .battle-ui[data-layout="upright"] .battle-bar {
+  --strip-base: calc(36px * var(--s));
   top: 0;
   left: 0;
   right: 0;
   bottom: auto;
   height: var(--stage-top);
-  gap: calc(8px * var(--s));
+  gap: calc(6px * var(--s));
   padding: env(safe-area-inset-top, 0px)
-    max(calc(10px * var(--s)), env(safe-area-inset-right, 0px)) 0
+    max(calc(8px * var(--s)), env(safe-area-inset-right, 0px)) 0
     max(calc(10px * var(--s)), env(safe-area-inset-left, 0px));
-  font-size: calc(15px * var(--s));
+  font-size: calc(14px * var(--s));
 }
 .battle-ui[data-layout="upright"] .battle-bar .battle-plaque,
 .battle-ui[data-layout="upright"] .battle-bar .battle-flag {
-  height: calc(24px * var(--s));
+  height: calc(22px * var(--s));
 }
+.battle-ui .battle-bar-lines {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  gap: calc(2px * var(--s));
+  line-height: 1.1;
+  font-size: calc(13px * var(--s));
+  letter-spacing: 0.02em;
+}
+.battle-ui .battle-bar-lines > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.battle-ui .battle-summary {
+  color: var(--hl-bone-dim);
+  font-size: calc(12px * var(--s));
+}
+/* The count upright: its figure over the word, so the status keeps the width. */
+.battle-ui[data-layout="upright"] .battle-bar .battle-order-count {
+  display: grid;
+  justify-items: center;
+  line-height: 1;
+  font-size: calc(15px * var(--s));
+}
+.battle-ui[data-layout="upright"]
+  .battle-bar
+  .battle-order-count
+  > :last-child {
+  font-size: calc(10px * var(--s));
+}
+.battle-ui[data-layout="upright"] .battle-menu-plate {
+  min-width: calc(2.3 * var(--ph));
+  padding: 0;
+  border-inline-width: calc(0.55 * var(--ph));
+  font-size: calc(0.36 * var(--ph));
+}
+.battle-ui[data-layout="upright"] .battle-bar .battle-spring {
+  display: none;
+}
+/* The opening keeps its lip and bevel at the top and the bottom only: at the sides the map meets the glass. */
+.battle-ui[data-layout="upright"] .battle-window {
+  border-radius: 0;
+  box-shadow:
+    0 -2px 0 0 rgb(20 19 14),
+    0 2px 0 0 rgb(20 19 14),
+    0 -4px 0 0 rgb(120 114 92 / 55%),
+    0 4px 0 0 rgb(120 114 92 / 55%),
+    inset 0 3px 10px rgb(0 0 0 / 70%),
+    inset 0 -3px 10px rgb(0 0 0 / 55%);
+}
+/* Under the map: one row of touch-sized plates above the safe area. */
 .battle-ui[data-layout="upright"] .battle-dock {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   height: var(--stage-bottom);
-  display: flex;
-  flex-direction: column;
-  gap: calc(8px * var(--s));
+  padding: calc(6px * var(--s))
+    max(calc(8px * var(--s)), env(safe-area-inset-right, 0px))
+    env(safe-area-inset-bottom, 0px)
+    max(calc(8px * var(--s)), env(safe-area-inset-left, 0px));
   overflow: hidden;
-  padding: calc(10px * var(--s))
-    max(calc(10px * var(--s)), env(safe-area-inset-right, 0px))
-    max(calc(12px * var(--s)), env(safe-area-inset-bottom, 0px))
-    max(calc(10px * var(--s)), env(safe-area-inset-left, 0px));
-  border-radius: 0;
-  box-shadow: none;
-  background: none;
 }
-.battle-ui[data-layout="upright"] .battle-dock::before,
-.battle-ui[data-layout="upright"] .battle-dock::after {
+.battle-ui[data-layout="upright"] .battle-dock .order-strip {
+  --strip-ph: calc(48px * var(--s));
+  gap: calc(6px * var(--s));
+}
+/* Three touch-sized plates, their screwed ends a little narrower to leave the name room. */
+.battle-ui[data-layout="upright"] .battle-dock .order-nameplate {
+  flex: 1 1 0;
+  min-width: 0;
+  height: var(--ph);
+  padding: 0;
+  border-inline-width: calc(0.5 * var(--ph));
+  font-size: max(13px, calc(0.3 * var(--ph)));
+  letter-spacing: 0.03em;
+}
+.battle-ui[data-layout="upright"] .battle-dock .battle-ready {
+  flex-grow: 1.5;
+  margin-left: 0;
+}
+.battle-ui[data-layout="upright"] .battle-dock .order-nameplate kbd {
   display: none;
 }
 .battle-ui .battle-phase-row {
@@ -457,47 +505,6 @@ button.hl-nameplate.battle-menu-plate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.battle-ui[data-layout="upright"] .battle-opponent-status {
-  display: none;
-}
-.battle-ui[data-layout="upright"] .battle-dock-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
-  padding-bottom: calc(14px * var(--s));
-  /* The plate scrolls: its lower edge fades, so a list reads as going on. */
-  mask-image: linear-gradient(
-    to bottom,
-    #000 calc(100% - 16px * var(--s)),
-    transparent
-  );
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-}
-.battle-ui[data-layout="upright"] .battle-dock .order-strip {
-  --strip-ph: calc(48px * var(--s));
-  flex: none;
-  gap: calc(6px * var(--s));
-}
-/* Along the plate's bottom edge: three touch-sized plates, their screwed ends a little narrower to leave the name room. */
-.battle-ui[data-layout="upright"] .battle-dock .order-nameplate {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: 0;
-  border-inline-width: calc(0.5 * var(--ph));
-  font-size: max(13px, calc(0.3 * var(--ph)));
-  letter-spacing: 0.03em;
-}
-.battle-ui[data-layout="upright"] .battle-dock .battle-ready {
-  flex-grow: 1.5;
-  margin-left: 0;
-}
-.battle-ui[data-layout="upright"] .battle-dock .order-nameplate kbd {
-  display: none;
-}
-.battle-ui[data-layout="upright"] .battle-bar {
-  --strip-base: calc(36px * var(--s));
 }
 
 /* ---------------------------------------------------------------- wells and values */
@@ -781,7 +788,7 @@ button.hl-nameplate.battle-menu-plate {
   right: max(8px, env(safe-area-inset-right, 0px));
   top: calc(var(--stage-top) + 8px);
   width: auto;
-  max-height: calc(100% - var(--stage-top) - 16px);
+  max-height: calc(100% - var(--stage-top) - var(--stage-bottom) - 16px);
 }
 .battle-ui[data-layout="panel"] .battle-menu {
   right: calc(12px * var(--s));
@@ -865,17 +872,46 @@ button.hl-nameplate.battle-menu-plate {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-/* Upright, what opens covers the map and the plate below it, as the menu does. */
+/* Upright, what opens covers the map between the strip and the row of plates, as the menu does. */
 .battle-ui[data-layout="upright"] .battle-board {
   left: max(8px, env(safe-area-inset-left, 0px));
   right: max(8px, env(safe-area-inset-right, 0px));
   top: calc(var(--stage-top) + 8px);
   transform: none;
   width: auto;
-  max-height: calc(100% - var(--stage-top) - 16px);
-  --board-max-h: calc(var(--app-height) - var(--stage-top) - 16px);
+  max-height: calc(100% - var(--stage-top) - var(--stage-bottom) - 16px);
+  --board-max-h: calc(
+    var(--app-height) - var(--stage-top) - var(--stage-bottom) - 16px
+  );
+}
+/* The orders board rises from the row of plates, at most 62 % of the window, and scrolls inside. */
+.battle-ui[data-layout="upright"] .battle-board-orders {
+  top: auto;
+  bottom: calc(var(--stage-bottom) + 6px);
+  max-height: min(
+    62%,
+    calc(100% - var(--stage-top) - var(--stage-bottom) - 16px)
+  );
+  --rivet: calc(16px * var(--s));
+  padding-inline: calc(14px * var(--s));
+}
+.battle-ui .battle-board-orders .battle-board-foot {
+  gap: calc(8px * var(--s));
 }
 .battle-ui .battle-slot .battle-unit-sprite {
   width: calc(64px * var(--s));
   height: calc(46px * var(--s));
+}
+/* Its foot stays in sight while the board scrolls: Situation and Close are always one tap away. */
+.battle-ui .battle-board-orders .battle-board-foot {
+  position: sticky;
+  bottom: calc(-1 * (var(--rivet) + 2px));
+  margin: calc(10px * var(--s)) calc(-14px * var(--s))
+    calc(-1 * (var(--rivet) + 2px));
+  padding: calc(8px * var(--s)) calc(14px * var(--s)) calc(var(--rivet) + 2px);
+  background:
+    var(--hl-rivets-row, none) left 8px bottom 1px / auto var(--rivet) repeat-x,
+    var(--hl-plate, none) center / 836px 470px,
+    var(--hl-plate-c);
+  box-shadow: 0 -6px 10px rgb(0 0 0 / 35%);
 }
