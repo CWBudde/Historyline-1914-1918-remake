@@ -1,8 +1,11 @@
 # PLAN — Historyline 1914-1918 remake
 
-The game is playable: the original rules profile is the default, all shipped levels run to their end against
-the computer side, and the monthly campaign is in place. This file lists **open refinements only**; finished
-work is in git. What exists is described in [AGENTS.md](AGENTS.md).
+The game is playable in two editions: the desktop game (Go/Ebitengine) and the web edition (TypeScript,
+`webapp/`), the site GitHub Pages serves. Both play the original rules profile (`internal/dosrules`), the
+extension's twelve new units in the newer months ([docs/new-units.md](docs/new-units.md)) and the monthly
+campaign, and all shipped levels run to their end against the computer side. This file lists **open work
+only**; finished work is in git. What exists is described in [AGENTS.md](AGENTS.md) and
+[docs/webapp.md](docs/webapp.md).
 
 **Art direction:** continuous painted illustration (see [art/README.md](art/README.md)). Keep the
 original's gameplay IDs, map placement, connection topology and information layouts; never ship original art
@@ -10,10 +13,6 @@ or close reconstructions. Unit sprites and portraits follow their reference clos
 original size, in the painted style.
 Terrain must remain reusable in different compatible tile arrangements. Match the reference's materials,
 scale and lighting; do not achieve PULSE resemblance by substituting a painting of its exact lake outline.
-
-**Rule sets:** the original profile in `internal/dosrules`, which is the game's default (`-rules dos`),
-and the remake rules in `internal/game`, selectable with `-rules standard`. Keep the two engines separate;
-never mix their mechanics.
 
 Reference: the split battle screen in [docs/dos-screen.md](docs/dos-screen.md), packs, grade, light, unit
 dressing and stamps in [docs/runtime-assets.md](docs/runtime-assets.md), painted backdrops in
@@ -23,22 +22,57 @@ history.
 
 ## Open work
 
-### 1. Play and UI
+### 1. Web edition: release and acceptance
 
-- [ ] 1.1 Ownership strips on units and buildings in the desktop game (the web edition draws them; both
+- [ ] 1.1 Real browsers and devices. The Playwright suite runs on Chromium, Firefox and WebKit engines and in
+      Android and iPhone emulation only; check by hand on macOS Safari, iOS Safari and Android Chrome:
+      - install as an app from the manifest, start offline from the home screen;
+      - touch: tap to select, move and attack, the long press for the order menu, pinch zoom and pan, the
+        orders board in the upright layout;
+      - the split screen on a wide window and the single map on a phone, the UI scale setting;
+      - saves in IndexedDB, export and import of a save file, best scores;
+      - the offline months after a battle and the Offline maps page (download, list, remove);
+      - Extras → Original game: picking the folder of an own copy, playing an `original/NN` map with its art.
+- [ ] 1.2 Site size against GitHub Pages: the site is about 2.49 GB (`just webapp-size`, guard
+      `DefaultSiteLimitMB` 2741 in `internal/hlwebapp/size.go`), above the published-site limit of 1 GB as
+      remembered (not re-checked). Deploys succeed today, and GitHub could enforce it. Re-check the limit, then
+      decide: serve the content blobs from another host (the loader is manifest-driven and hash-addressed, so
+      `blobs/` can live elsewhere) or trim the full art tier.
+- [ ] 1.3 Offline storage: nothing evicts old blobs, so the browser's storage quota is the only limit
+      ([docs/runtime-assets.md](docs/runtime-assets.md)). Evict months that left the campaign's window (the last
+      battle's month and the next two of its chain stay), handle a full quota without an error, and keep what the
+      player downloaded on the Offline maps page.
+- [ ] 1.4 Hand acceptance of the browser game, the counterpart of the desktop's 2.5:
+      - PULSE (`1914-08`), CIVIL (`1914-10`), MOUSE (`1914-12`) and the monthly campaign from both sides:
+        move, attack, enter/leave a container, repair and production in the contents view, capture, end turn,
+        victory and defeat, the next month;
+      - the split screen and the single map (side panel, upright orders board), two humans on one screen and
+        hot-seat on a `2p` setup;
+      - the extension units in the newer months: gas release and the cloud, wire laid and cleared, a mine dug
+        and blown, the ambulance healing, the Zeppelin flying; the new units' page before a month that brings
+        them.
+- [ ] 1.5 Extension gaps in the app: the camera does not jump to a blown mine. The wiring party's N view sits
+      low and narrow (an art fix, the graphics track's).
+
+### 2. Desktop game: parity and release
+
+- [ ] 2.1 Ownership strips on units and buildings in the desktop game (the web edition draws them; both
       editions must match); check the composed map by hand in the window, including fractional zoom and 4K/HiDPI.
-- [x] 1.2 Contexts for summer and winter materials mixed inside one map.
-      (2026-11-06) — `internal/seasonblend` blends per-hex seasons in the game, `maprender` and the web bake;
-      `go test ./internal/seasonblend` and the season tests of `internal/mapcompose` pass. No shipped map
-      uses per-hex `seasons` yet.
-- [ ] 1.3 Decide the open art ambiguity: the four inferred lakeside corners (`lakeside123`/`126`; look at them
-      on a map). Decided: the HQ entrance cell is N (Look 5). Struck: `trench5a`, on no shipped map.
-- [ ] 1.4 Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
+- [ ] 2.2 Two humans on one screen and hot-seat in the desktop game (done in the web edition; both editions must
+      match; `gesture.KeySetB` is defined but unused): the left panel takes the mouse and key set A, a second human
+      plays the right panel with key set B (D/C/X/V + Ctrl), both at the same time. This is the original's
+      two-player mode; each side acts in its own mode, and the phase changes once both confirm. Keep the panel
+      state (wells, stages, overlays) per side where cheap. A hot-seat entry in the desktop menu wires up the `2p`
+      setups (every month has one).
+- [ ] 2.3 Screens still missing in the desktop game: handover, credits/help (built: main menu, country
+      selection, news, new units, loading, victory/defeat, leave-battle, save/load, score list);
+      hover/focus/pressed/disabled states and keyboard navigation throughout.
+- [ ] 2.4 Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
       approved exports through `assets/assets.go`. The screen paintings still need native 4× masters and
-      runtime bindings. Interface packs build, but the game does not use them yet.
-- [ ] 1.5 Split screen art (`-rules dos`, [docs/dos-screen.md](docs/dos-screen.md)) promoted into `assets/`
-      and bound, newly painted in the remake's style with 2×/4× exports (decided: steel look; the menus
-      already paint it via `internal/dospanel` tokens `SteelBackground`/`SteelPlate`/`SteelButton`):
+      runtime bindings. Interface packs build, but the game does not use them yet. Split screen art
+      ([docs/dos-screen.md](docs/dos-screen.md)) promoted into `assets/` and bound, newly painted in the remake's
+      style with 2×/4× exports (decided: steel look; the menus already paint it via `internal/dospanel` tokens
+      `SteelBackground`/`SteelPlate`/`SteelButton`):
       - `interface/frame`: tileable steel plate, rivet, bolt, divider post, status-bar well; light from the
         top left;
       - `interface/gesture`: hex steel action plates (cancel, move, attack, mode change, open, map, info,
@@ -47,64 +81,103 @@ history.
       - a capitals pixel font in two sizes (status bar, overlays), replacing `internal/pixfont`;
       - a single-man figure per unit type for the battle scene's ring (the map sprites hold several men);
       - name plates keep their brass rivets, which the original's plates have too.
-- [ ] 1.6 Two humans on one screen in the desktop game (done in the web edition, W8; both editions must match;
-      `gesture.KeySetB` is defined but unused): the left panel takes the mouse and key set A, a second human plays the
-      right panel with key set B (D/C/X/V + Ctrl), both at the same time. This is the original's two-player
-      mode; each side acts in its own mode, and the phase changes once both confirm. Keep the panel state
-      (wells, stages, overlays) per side where cheap. Wires up the `2p` setups (5.4).
-- [ ] 1.7 Acceptance of the playable game, desktop and WASM:
+- [ ] 2.5 Acceptance of the playable desktop game:
       - hand-test PULSE (`1914-08`), CIVIL (`1914-10`), MOUSE (`1914-12`) and the monthly campaign from both
-        sides under the default
-        `-rules dos` (`just play`, `just run`, the web build), including repair and production in the
-        contents view; move, attack, enter/leave container, capture, end turn;
+        sides (`just play`, `just run`), including repair and production in the contents view; move, attack,
+        enter/leave container, capture, end turn;
       - `-capture` frames of those three months, both sides, next to the reference frames in `hl review gallery`
         (local only, the references stay ignored); 720p–4K, UI scales; summer and winter; check attack
         targets and which panel shows the battle against further battle frames;
       - hand test in a window that the OS pointer hides over the human side's map.
-- [ ] 1.8 Front end of the remake rules (`-rules standard`), lower priority: terrain panel (movement/battle/sight
-      bars, selected tile and infrastructure, blank/hidden/impassable states, using the panel art); unit
-      panel (portrait, skills, four weapon rows with empty/unlimited/zero distinct, hidden data suppressed
-      before binding; all units, long labels, every UI scale; portrait-panel acceptance of all 48 portrait
-      families); battle panel with real bars and sprites, explosion sprites, capture/round banners from the
-      interface art; hot-seat with handover screen and vision isolation. Milestone: those three months play
-      end to end under the remake rules, both sides, summer/winter.
+- [ ] 2.6 Sound and music, in both editions (`ebiten/audio` on the desktop).
+- [ ] 2.7 Release binaries via GoReleaser.
 
-### 2. Art completion and acceptance
+### 3. Content and levels
+
+- [ ] 3.1 Authored briefing texts per map (the shipped briefings are one-line derivations).
+- [ ] 3.2 The level format lacks transporter cargo, ship rears and terrain records that share a look (the
+      original rules keep the exact binding through `dosbind.FromOriginal`); scenario setups carry credits
+      and builds. CIVIL's mountains, for one, bind the default mountain record, not the original's 71-77.
+- [ ] 3.3 `addRear` places the rears of two EC destroyers of PARTS' `ec` and `2p` setups (1916-02, [39,16] and
+      [42,15]) on one cell (670); it skips the level's units but not rears already placed. Then drop
+      `knownStacked` in `internal/dosbind/dosbind_test.go`.
+- [ ] 3.4 Monthly campaign: remaining work.
+      - a balance pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`;
+      - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);
+      - the two-player maps against the computer (their setups are symmetric, GRAND starts with one unit a
+        side).
+- [ ] 3.5 Painted backdrops: PULSE (`1914-08`) differs from the month's map in 31 hexes (stone, mountains,
+      trenches) until repainted; CIVIL (`1914-10`) follows the old map in trenches of 9 hexes and one rough
+      hex. F8 switches between painting and tiles.
+- [ ] 3.6 Terrain art for the original maps: `hl assets terrain-gaps` over every shipped map finds every
+      context; 319 crater clusters have no stamp (118 of them single hexes) and draw the shell-hole field
+      (`mapcompose.FieldMaterial`) on purpose. Optional: a summer `crater/1` stamp.
+- [ ] 3.7 Unit roster: weapon slots use stand-ins from the existing catalogue.
+- [ ] 3.8 Decode the rest of the computer player's parameters from the original map files: `dosai` uses their
+      permission bit (`computerBuilds` in the setups, a default per side where a month has none); the other bytes,
+      the goal values and the carrier order stay out.
+- [ ] 3.9 Extension units in the levels: the Paris Gun is placed in no level, because no map from 1918-03 to
+      1918-08 has a railway on the Central Powers' side; give one month a CP railhead or leave it to factories.
+- [ ] 3.10 Stale winning recordings in the corpus (`levels/replays.json`, `TestShippedReplays` skips them):
+      `1915-11:ec` (an llm game whose orders no longer fit the setup with extension units: "resolution 16: ...
+      The unit does not move from the map now") and `1918-04:cp` (no win on the current rules). Win them again
+      and record (`just llmplay`, `hl llmplay corpus`).
+
+### 4. Rules and computer opponent
+
+- [ ] 4.1 Data: terrain record names. Alternate strength is covered by the recorded casualty cases
+      (`TestAlternateStrengthEvidence`); none of the 51 shipped types enables it. The local full-game
+      unit table also has zero alternate group strength throughout (`TestStrengthDataMatchesOriginal`).
+- [ ] 4.2 Order cycle: movement/action phases, both players' confirmations, cancellation, eligibility, move
+      limits, conflicting destinations and swaps, targets destroyed before their order executes. What is
+      known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
+      attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
+      within the weapon's range for that class.
+      Engine integration tests cover conflicting destinations, refused swaps and moves into vacated
+      cells, on both sides and profiles (`cycle_conflicts_test.go`); refusals leave the state and order
+      count unchanged. These tests do not establish the original's assumed attack eligibility.
+- [ ] 4.3 Difficulty setting (optionally allowed to cheat); artillery stand-off; skip the rest of the AI turn.
+- [ ] 4.4 Original-profile AI on the order-cycle API: legal orders per cycle, evaluated with the resolver
+      (return fire, support, hidden opposing orders), plus capture value, HQ distance, terrain defence.
+- [ ] 4.5 Strategic roles (attack, defend HQ/depots, capture, escort) and an energy budget.
+- [ ] 4.6 Headless AI-vs-AI runner recording rules/data versions and orders for replay.
+
+### 5. Art completion and acceptance
 
 **Tile map:** painted backdrops are the default look on all 52 months; the tile map stays the standardised
 design F8 switches to (`-backdrop off` at startup), so the Look track below continues for it. The current art is
 the baseline: 178 of 182 indexed families carry `prompt.md` status `approved` (`just art-index`; `just art-check`
 passes). This records acceptance of the current masters, not passage of the Look targets below. The four unbound
-screen families `capture`,
-`intermission`, `production-repair` and `surface` stay `candidate`: they have no `runtime_ids`, so approving
-them would fail `just art-check`; they follow 2.4 once their features and bindings exist. Runtime packs
-carry no status; the game loads them without a flag or mark. A future Look replacement sets
+screen families `capture`, `intermission`, `production-repair` and `surface` stay `candidate`: they have no
+`runtime_ids`, so approving them would fail `just art-check`; they follow 5.4 once their features and bindings
+exist. Runtime packs carry no status; the game loads them without a flag or mark. A future Look replacement sets
 the replaced family back to `candidate`/`revised` on new-master install.
 
-- [ ] 2.1 Bring the terrain to the target look in the order of "Terrain look: order of work" below.
+- [ ] 5.1 Bring the terrain to the target look in the order of "Terrain look: order of work" below.
       Direction, targets and prompts: [art/direction.md](art/direction.md).
-- [ ] 2.2 Approve terrain: grass and context transitions, full-map repetition, seasons, seams at three-tile
+- [ ] 5.2 Approve terrain: grass and context transitions, full-map repetition, seasons, seams at three-tile
       vertices.
-- [ ] 2.3 Approve units: silhouettes and colour separation at the original size, mechanical/camera
+- [ ] 5.3 Approve units: silhouettes and colour separation at the original size, mechanical/camera
       consistency, physical contact, all owners and states.
-- [ ] 2.4 Campaign, intermission, production/repair and editor illustrations once those features exist.
+- [ ] 5.4 Campaign, intermission, production/repair and editor illustrations once those features exist.
       Candidate paintings are in their `art/screens/<family>/` folders; native 4× masters, feature bindings
       and user acceptance remain open, as do visual acceptance and runtime exports of the 108 screen
       frame/control variants.
-- [ ] 2.5 Interface candidates: cleanup and runtime exports of the 14 interface families.
-- [ ] 2.6 In-engine art preview (`hl preview`): seven-hex patches, random fixtures, shipped maps; switch
+- [ ] 5.5 Interface candidates: cleanup and runtime exports of the 14 interface families.
+- [ ] 5.6 Decide the open art ambiguity: the four inferred lakeside corners (`lakeside123`/`126`; look at them
+      on a map). Decided: the HQ entrance cell is N (Look 5). Struck: `trench5a`, on no shipped map.
+- [ ] 5.7 In-engine art preview (`hl preview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
-- [ ] 2.7 Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).
-- [x] 2.8 `just art-build` / `art-preview`.
-      (2026-11-06) — dropped: the recipes never existed; `hl art`, `hl export` and `hl assets` cover the work.
-- [ ] 2.9 Windows: make the exporter tests pass (path/identity handling, directory rollback).
-- [ ] 2.10 Visual acceptance on all shipped maps at 720p/1080p/1440p/4K, display scales 100–200 %, UI scales
+- [ ] 5.8 Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).
+- [ ] 5.9 Windows: make the exporter tests pass (path/identity handling, directory rollback).
+- [ ] 5.10 Visual acceptance on all shipped maps at 720p/1080p/1440p/4K, display scales 100–200 %, UI scales
       100–150 %, zoom 0.75–2; check halos, bleed, repetition, cracks, picking, text.
-- [ ] 2.11 Performance: name baseline hardware; 60 FPS (p95 ≤ 16.7 ms) on the stress map; startup time,
+- [ ] 5.11 Performance: name baseline hardware; 60 FPS (p95 ≤ 16.7 ms) on the stress map; startup time,
       download size and texture memory. Ship 4× only if it passes the same review.
-- [ ] 2.12 Autumn, then spring: season per map, seasonal IDs with summer fallback and the autumn families are in
+- [ ] 5.12 Autumn, then spring: season per map, seasonal IDs with summer fallback and the autumn families are in
       ([art/tileset.md](art/tileset.md)). Open: spring road, path and cross surfaces (the road strips no longer
-      carry paint, L4.3); acceptance on a map in the game.
+      carry paint, L4.3); acceptance on a map in the game. Per-hex `seasons` blend in the game, `maprender` and
+      the web bake (`internal/seasonblend`), but no shipped map uses them yet.
 
 #### Terrain look: order of work
 
@@ -123,9 +196,7 @@ Most of the flatness comes from the pack build, not from the paintings, so code 
 
 Stop adding enumerated baked contexts. Each one fixes the old sampling in place, and Look 1 replaces them.
 
-**Order now:** the gate (Look 0), the material and mask foundations (Look 1), water, and the rest in order. The
-defects that needed no new image are done (L8.2a, the road strips of L4.3, `stoney_w`, the winter `rBridge` audit gap).
-Status audited 2026-11-06.
+**Order now:** the gate (Look 0), the material and mask foundations (Look 1), water, and the rest in order.
 
 **Where the earlier candidates live:**
 - The other machine's Codex image outputs: 617 PNGs, of which 372 are installed masters.
@@ -154,9 +225,8 @@ Status audited 2026-11-06.
       - global painted light and the families other than PULSE crowns;
       - the unresolved periods, estimators and populations the report leaves incomplete.
 - [ ] L0.2 Review views at the real size: 1× and an effective zoom of 1.6 (the split screen), plus in-game
-      captures at 1080p and 4K. `-rules standard -capture-look -capture DIR` writes twelve real-Draw frames
-      (0.5×/1×/1.6× at 1080p/4K, revealed and fogged); under the default rules the flag writes no look frames
-      and says nothing, so fix or reject that. Acceptance of the other families and views remains.
+      captures at 1080p and 4K. `-capture-look -capture DIR` writes twelve real-Draw frames (0.5×/1×/1.6× at
+      1080p/4K, revealed and fogged). Acceptance of the other families and views remains.
 
 ##### Look 1: Sampling, grade and legibility (mostly code)
 
@@ -170,7 +240,8 @@ together before promoting the period exports.
       This applies to `tools/art-review` `grass_sampling.go`, `authored_bank.go`, `connected_render.go`,
       `hills_render.go` and `ground_render.go`.
       Meadow and hills get a 568×400 world period, selected as phases like `mapcompose.Phase`; water
-      gets 284×160.
+      gets 284×160. The crater field materials (`mapcompose.FieldMaterial`) are still cut from the old tiles and
+      get native crater materials here.
       Done when the installed meadow and scrub masters reach grass σL\* ≥ 10 at 1× and the lattice
       autocorrelation is < 0.15.
 - [ ] L1.2 No baked meadow in other families. Hills, mud, stone, forest floor, shores and compounds export
@@ -183,9 +254,6 @@ together before promoting the period exports.
         have standing art but no shadow; their cast shadows join the shadow layer drawn before all standing
         items, so they fall on neighbouring hexes;
       - write the model in `art/style.md`.
-- [x] L1.4 Units: props kept 0.3 hex away from a unit's foot point.
-      (2026-11-06) — struck: units draw above every terrain pass, so no prop hides one, and a hole of that radius
-      would clear 46 % of each hex into a visible lattice. The unit edge metric stays in L0.1.
 
 **Compositor (code).** Art is authored once per family instead of once per neighbour combination, and the
 painting can cross hex borders; picking, fog and rules stay per hex.
@@ -195,8 +263,7 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       canvas that may overhang up to half a hex on every side. The code is ready: a terrain or
       infrastructure ID gets a standing item as soon as `assets/index.json` lists `standing/<id>` in the
       packs `terrain-standing-2x`/`-4x`. Forest contexts, scatter, knolls, bridges, the hangar and the harbour
-      use it; houses, compounds, mountains and
-      boulders still need the split.
+      use it; houses, compounds, mountains and boulders still need the split.
 - [ ] L1.7 Mask-based transitions:
       - each blending family is authored as a **tileable material** (large period, like the hills phase
         568×320) plus one **edge mask set** (six edge masks and the vertex blends, soft and irregular);
@@ -319,24 +386,24 @@ stones.
       18–22. Candidates, unpromoted, with prompts and measured faults in each family's prompt.md:
       R1 road and R2 path (summer and winter), R3 rail (summer and winter; the sleeper gap across the wrap is
       74 px instead of 48), R4 trench (summer and winter; the entry's bay numbers do not fill 1536 px, so 6
-      bays of 256 px). Barbed wire is struck: the original has none (3.3). R5 waits for the stroke renderer.
+      bays of 256 px). Barbed wire needs no strip: the original has none, and the extension's wire record draws
+      as grass with barbed wire ([docs/new-units.md](docs/new-units.md)). R5 waits for the stroke renderer.
 - [ ] L4.3 Road: water-bound macadam with two worn wheel tracks, sandy verges and a ditch, no paint (period
       fit overrules the reference's lane markings); curves and junctions as in the features "Northern road
       junction" and "Western road junction". Exemplars `r7c3`, `r3c2`, `r36c4`, `r15c6`, `r9c3`, `r31c2`.
       Roads end at gates (HQ north gate, depot barrier) and into paths; the `road346` junction at `r17c6`
-      must hand over to the path from `r18c5` instead of ending in a stub.
-      (2026-11-07) — partial: road and cross strips, and the road in ground contexts, carry no paint
-      (`connected-terrain-v3`, `TestInstalledRoadsCarryNoPaint`). Open: the gate roads of the HQ, depot, factory, site and
-      ruin masters (their manifests pin `connected-terrain-v2` as `entry_road`), the three dashes on the summer and
-      autumn `standing/rBridge*` decks (both need image work), verges, junctions, handovers.
+      must hand over to the path from `r18c5` instead of ending in a stub. Road and cross strips, and the road
+      in ground contexts, carry no paint (`connected-terrain-v3`, `TestInstalledRoadsCarryNoPaint`). Open: the
+      gate roads of the HQ, depot, factory, site and ruin masters (their manifests pin `connected-terrain-v2` as
+      `entry_road`), the three dashes on the summer and autumn `standing/rBridge*` decks (both need image work),
+      verges, junctions, handovers.
 - [ ] L4.4 Path: earth track with two ruts, grass in the middle, frayed edges. Exemplars `r19c5`, `r20c4`,
       `r22c3`, `r24c3`, `r28c2`.
 - [ ] L4.5 Rail (`rail*`), level crossings (`cross1`–`cross4`) and trenches (`trench*`) in the same style; no
       PULSE reference, so match the summer materials' light and grade.
       Trench lines already join across hexes (`mapcompose.TrenchShape`); the round position `trench0` runs
       toward a hex without a trench end in a blind spur. Rail and crossing tiles exist in every season but do
-      not meet the row: `rail36` shows mirror symmetry and `cross1`
-      a broken plank patch.
+      not meet the row: `rail36` shows mirror symmetry and `cross1` a broken plank patch.
 - [ ] L4.6 Done when no carriageway pixel is paint-white, every road–path meeting has a mouth
       (`r17c6`/`r18c5`), and rail, crossings and trenches meet their rows in the table.
 
@@ -346,14 +413,14 @@ stones.
       code-made cast shadow, and a ground part derived from the painting over the real meadow.
 - [ ] L5.2 Each ownable building keeps a flat marker zone for the ownership strip: HQ in C, depot in S,
       factory in E. The HQ entrance cell is N.
-- [ ] L5.3 Generate, each with its winter, autumn and spring edits:
+- [ ] L5.3 Generate, each with its winter, autumn and spring edits (the winter buildings `hq*_w`, `cmp*_w`,
+      `factory*_w` and `house_w` exist for the current masters; new masters need new edits):
       - H1, the HQ as a bastioned fort that keeps the moat, as [art/direction.md](art/direction.md) H1 (decided: no
         round towers); the road enters over the stream bridge. Features "Northern headquarters" and "Southern
-        headquarters" (`r6c1`–`r10c1`,
-        `r42c6`–`r46c6`);
+        headquarters" (`r6c1`–`r10c1`, `r42c6`–`r46c6`);
       - H2, the depot as a supply dump as direction H2 (decided: no helipad, no saturated red): fence, barrier gate on
-        the road, sheds, tents and stacks. Features "Central depot"
-        (`r19c6`–`r21c6`) and "Southwestern depot" (`r34c1`–`r36c1`);
+        the road, sheds, tents and stacks. Features "Central depot" (`r19c6`–`r21c6`) and "Southwestern depot"
+        (`r34c1`–`r36c1`);
       - H3, the factory as a brick works;
       - H4–H6, house variants chosen by seed: detached hut with a brown roof, a small shed and a trodden
         yard, overhanging into the meadow. Exemplars `r2c6`, `r22c5`, `r39c2`; feature "Northern huts".
@@ -388,20 +455,15 @@ Mostly a material swap of the matching summer family plus the winter grade.
 
 - [ ] L7.1 Winter materials and edits: G1, G4, G6, G7, G8 and G9 (`grass_w`, `rough_w`, `shelled_w` crater
       stamps in snow, `stoney_w`, `mountain_w`, `mountN_w`/`mountS_w`/`mountE_w`/`mountW_w`). Open: `grass_w`,
-      `mountain_w` and `mount*_w` with G1, G8 and G9. (2026-11-07) — the `stoney_w` tile keeps its painted contrast
-      (`TestStoneyWinterKeepsPaintedContrast`); all 271 `stoney_w` hexes on the maps draw a `boulders_w` stamp, so what
-      shows there is unchanged.
+      `mountain_w` and `mount*_w` with G1, G8 and G9. The `stoney_w` tile keeps its painted contrast
+      (`TestStoneyWinterKeepsPaintedContrast`); all 271 `stoney_w` hexes on the maps draw a `boulders_w` stamp.
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Open water in
       winter is graded to a slate teal. Open: the I1 shore ice, laid by coast distance like the surf, and
       `shoal_w`, still the summer pixels.
 - [ ] L7.4 Winter strips and kits (R1–R5) and the I3 edits of rocks and bridges. Winter roads, paths, rails,
       crossings, streams, trenches, bridge decks, quays, lake rocks and skerries are installed. Open: the R5
       kit decals (wait for the stroke renderer), and the I3 edits of the W3/W4 kits, which nothing places
-      yet. (2026-11-07) — `tile/rBridge*` was only an audit gap: the tile is fully transparent, no pixel differs.
-- [x] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
-      installed), `house_w`.
-      (2026-11-06) — all 21 IDs are in `assets/index.json`, none with its summer form's pixels;
-      `TestWinterMapsDrawNoSummerInfrastructure` passes. New Look 5 masters will need new edits.
+      yet.
 
 ##### Look 8: Campaign subjects
 
@@ -412,15 +474,11 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] L8.1 Sea and open water distinct from ponds (records 25, 34, 47, 48): the sea material, surf, shoals and
       skerries are drawn. Open: the depth exporter (L3.1); pond (34) still draws as the shallows; winter
       surf and sea are the summer pixels under the winter grade.
-- [x] L8.2a Crater fields: the hollows repeat once per hex (one lattice period, contrast halved by the
-      two-coset average; L1.1; 2,886 hexes), and a winter crater stamp beside `rough_w` leaves a white hex-shaped
-      notch (`1914-10`, line 14, column 11).
-      (2026-11-07) — `mapcompose.FieldMaterial` lays world-placed crater patches in the game, `maprender` and the web
-      bake (lite only), `StampFringe` closes the notch (`TestCraterFieldsDoNotRepeatPerHex`,
-      `TestWinterCraterStampLeavesNoNotch`). The materials are still cut from the old tiles: native crater materials
-      belong to L1.1. Autumn and spring fields have not been looked at.
-- [ ] L8.2b The same notch beside `rough_w` under `boulders_w` stamps (206 side-hex pairs; `registerFringes`), and the hard
-      hex outline of an isolated `shelled_w` or `rough_w` hex in winter.
+- [ ] L8.2 Crater fields in other seasons: the world-placed patches (`mapcompose.FieldMaterial`) and
+      `StampFringe` cover summer and winter; autumn and spring fields have not been looked at.
+- [ ] L8.2b A white hex-shaped notch beside `rough_w` under `boulders_w` stamps (206 side-hex pairs;
+      `registerFringes`), as `StampFringe` closed for crater stamps, and the hard hex outline of an isolated
+      `shelled_w` or `rough_w` hex in winter.
 - [ ] L8.3 Harbour buildings and their yard (C4), quays and piers (C5) and town streets (C6) are drawn except:
       record 120, a quay piece on land, still shows a short road; the harbour setts are about 6×4 world px,
       coarser than the quay's, and the yard stops at the meadow before the bank. Town streets (C6) are struck: no
@@ -439,222 +497,19 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] L9.3 The game window (`just play`) at zoom 0.75, 1 and 2, at 1080p and 4K and HiDPI, on `1914-08`, `1914-10`,
       `1914-12` and four other months, including a summer and a winter map from both campaigns.
 
-### 3. Original rules profile
+### 6. Beyond the original and later
 
-- [ ] 3.1 Data: terrain record names. Alternate strength is covered by the recorded casualty cases
-      (`TestAlternateStrengthEvidence`); none of the 51 shipped types enables it. The local full-game
-      unit table also has zero alternate group strength throughout (`TestStrengthDataMatchesOriginal`).
-- [ ] 3.2 Order cycle: movement/action phases, both players' confirmations, cancellation, eligibility, move
-      limits, conflicting destinations and swaps, targets destroyed before their order executes. What is
-      known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
-      attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
-      within the weapon's range for that class.
-      Engine integration tests cover conflicting destinations, refused swaps and moves into vacated
-      cells, on both sides and profiles (`cycle_conflicts_test.go`); refusals leave the state and order
-      count unchanged. These tests do not establish the original's assumed attack eligibility.
-- [x] 3.3 Buildings: depot construction. Sapper trenches work under `-rules dos`.
-      (2026-11-01) — `dosai` digs with sappers near an enemy or an own HQ and never fills
-      (`internal/dosai/dig.go`). Construction units build depots as the original does
-      (`internal/dosrules/builder.go`): ten sites around the unit, half a depot (records 21–24) per charge,
-      checked against the other side's map, and the completion by either side makes a depot record that
-      credits nothing, at most ten depots. `dosplay` offers the sites, draws the depot and reports
-      `Constructed`; the front end and `llmplay` take the order. Barbed wire is struck: the original has none
-      (no terrain record of the 175 is wire, trench class 6 holds only the trench records and the map edge,
-      and sappers only dig and fill).
-
-### 4. Computer opponent
-
-- [ ] 4.1 Difficulty setting (optionally allowed to cheat); artillery stand-off; skip the rest of the AI turn.
-- [ ] 4.2 Original-profile AI on the order-cycle API: legal orders per cycle, evaluated with the resolver
-      (return fire, support, hidden opposing orders), plus capture value, HQ distance, terrain defence.
-- [ ] 4.3 Strategic roles (attack, defend HQ/depots, capture, escort) and an energy budget.
-- [ ] 4.4 Headless AI-vs-AI runner recording rules/data versions and orders for replay.
-
-### 5. Content
-
-- [ ] 5.1 Authored briefing texts per map (the shipped briefings are one-line derivations).
-- [ ] 5.2 The level format lacks transporter cargo, ship rears and terrain records that share a look (the
-      original rules keep the exact binding through `dosbind.FromOriginal`); scenario setups carry credits
-      and builds. CIVIL's mountains, for one, bind the default mountain record, not the original's 71-77.
-- [x] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
-      in cell order (MOUSE's factories swap), and takes adjacent buildings of one family for one: PARTS'
-      two touching camps bind as one, the second camp's six units are dropped (`TestDroppedContent`).
-      (2026-11-01) — Bind stamps each building from its N piece (`level.Compounds`) and numbers depots and
-      factories by entrance cell; PARTS' camps bind apart, and Bind matches `FromOriginal` on every shipped
-      original map (MOUSE, PLANE, INFRA, GREEN no longer swap).
-- [ ] 5.3a `addRear` places the rears of two EC destroyers of PARTS' `ec` and `2p` setups (1916-02, [39,16] and
-      [42,15]) on one cell (670); it skips the level's units but not rears already placed. Then drop
-      `knownStacked` in `internal/dosbind/dosbind_test.go`.
-- [ ] 5.4 Monthly campaign: remaining work.
-      - a balance pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`;
-      - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);
-      - the two-player maps against the computer (their setups are symmetric, GRAND
-        starts with one unit a side);
-      - a hot-seat mode in the desktop menu for the `2p` setups (every month exists; done in the web edition, W8); the
-        front end is 1.6.
-- [ ] 5.5 Painted backdrops: PULSE (`1914-08`) differs from the month's map in 31 hexes (stone, mountains,
-      trenches) until repainted; CIVIL (`1914-10`) follows the old map in trenches of 9 hexes and one rough
-      hex. Three months still hold a placeholder ([backpaint-plan.md](backpaint-plan.md)): `1917-11`, `1918-01`,
-      `1918-05`. F8 switches between painting and tiles.
-- [ ] 5.6 Terrain art for the original maps: `hl assets terrain-gaps` over every shipped map finds every
-      context; 319 crater clusters have no stamp (118 of them single hexes) and draw the shell-hole field on
-      purpose (L8.2a). Optional: a summer `crater/1` stamp.
-- [ ] 5.7 Unit roster: weapon slots use stand-ins from the existing catalogue; the remake's own rules still
-      play deep and shallow water as one (the levels and the original rules keep them apart).
-- [ ] 5.8 Decode the rest of the computer player's parameters from the original map files: `dosai` uses their
-      permission bit (`computerBuilds` in the setups, a default per side where a month has none); the other bytes,
-      the goal values and the carrier order stay out.
-
-### 6. Polish and distribution
-
-- [ ] 6.1 Screens still missing in the desktop game: handover, credits/help (built: main menu, country
-      selection, news, new units, loading, victory/defeat, leave-battle, save/load, score list);
-      hover/focus/pressed/disabled
-      states and keyboard navigation throughout.
-- [ ] 6.2 Sound and music (`ebiten/audio`).
-- [ ] 6.3 Map editor (`-edit` or an `hl` command) with tile/infra/unit/container palettes and a new-map wizard.
-- [ ] 6.4 Release binaries via GoReleaser. Pages serves the web edition (W9); `just web` still builds the WASM
-      version locally.
-- [ ] 6.5 Remove `legacy/` once nothing depends on it.
-
-### 7. Web edition (TypeScript, `webapp/`)
-
-A web-native edition beside the Go game: any resolution and device, touch, fast first load (the Go WASM
-build embeds every backdrop). Decided (defaults, open to override):
-
-- TypeScript (strict), Vite, pnpm; a workspace of `webapp/engine` (pure: no DOM or Pixi imports, enforced by
-  ESLint; runs in Node, browser and worker) and `webapp/app`.
-- PixiJS v8 draws the map and battle scenes; menus, panels and HUD are DOM/CSS in Preact with signals, which
-  never drive the frame loop. The computer side runs in a Web Worker. Vitest for the engine, Playwright for
-  smoke tests.
-- The engine is a full TS port of the original rules profile (`dosrules`, `dosbind`, `dosplay`, `dosai`),
-  held in lockstep with Go by the `dosrules` fixtures and Go-generated golden playthroughs; the remake rules
-  (`internal/game`) are not ported. Saves share the Go JSON format.
-- Exports and goldens are `hl webapp` commands in Go; TS is only the browser runtime. The CPU-heavy map work
-  (`mapcompose`, `waterdepth`, `seasonblend`) is baked at build time.
-- Responsive layout first (map fills the viewport; side panel on wide screens, bottom sheet on portrait
-  phones); the original split screen is a selectable layout later.
-
-- [x] W0 Scaffold: the `webapp/` workspace, strict tsconfig, ESLint, Vitest, Vite; `just webapp`,
-      `just webapp-test`, `just webapp-check` in `just ci`; treefmt formats `*.ts`/`*.tsx`; Vite `cacheDir`
-      and the pnpm store off the project drive; Pages deploys the TS build under `/next/` beside the WASM
-      build.
-      (2026-11-04) — pnpm workspace `webapp/engine` + `webapp/app` (TypeScript 6.0, the newest that
-      typescript-eslint supports; Vite 8, Vitest 5, PixiJS 8, Preact 11); the engine's first test checks
-      the header of every record in the 14 fixture files in place; the app draws a DPR-aware hex canvas
-      under a Preact banner. `just webapp-check` and the `test-webapp` CI job pass; Pages serves `/next/`.
-      `node_modules` links into pnpm's global virtual store (the store dir is a user setting, AGENTS.md).
-- [x] W1 Rules core: `hexgrid`, the profile tables, `dosrules` (movement, visibility, engagements and
-      casualties in exact int32 arithmetic, containers, orders and the command cycle, capture, trenches,
-      depot construction, energy, repair, production, victory and score, save/load). Done when every record
-      of the 14 fixture files under `internal/dosrules/testdata/` passes and a Go save loads in TS and
-      re-saves byte-identical.
-      (2026-11-05) — verified the fixture runners for all 14 files and six byte-identical Go save
-      round trips. `pnpm --dir webapp run check` and `go test ./internal/dosrules ./internal/hexgrid`
-      pass.
-- [x] W2 Binding and session: `level`, `scenario`, `campaign`, `dosbind` (`Bind`) and `dosplay` (views,
-      destinations, routes, targets, commands, events, replay). `hl webapp golden` plays `dosai` against
-      `dosai` on every shipped setup and writes commands, events and the save after each resolution to
-      `build/webapp/golden/`; TS replays the commands and must match both. `just webapp-test` regenerates
-      the goldens first, so a Go rule change without its TS twin fails CI.
-      (2026-11-05) — all 156 shipped setups replay Go AI traces (up to 300 resolutions each), matching
-      every session event and byte-identical save. The port includes light bridges, ship routes,
-      construction, views and contents, stats, cloning and partial replay errors. `just webapp-test`
-      regenerates the corpus first and passes (739 tests, one optional original-data check skipped);
-      `just webapp-check` and the final typecheck, lint and production build pass. CI installs Go for
-      the golden exporter.
-- [x] W3 Computer side: `dosai` (`Planner`, digging, `PlayOut`) in a Web Worker; the golden playouts match
-      when TS plans both sides.
-      (2026-11-06) — all 156 TS-planned traces match Go commands, events and exact saves across 9,817
-      resolutions. Planning and `PlayOut` run on worker snapshots and return replayable commands;
-      progress, disposal and concurrent human orders are checked on real worker threads. Chromium
-      checks both phases. `just webapp-check` passes (907 tests, one optional original-data skip),
-      including regenerated goldens and the production worker bundle.
-- [x] W4 Asset export and loading: `hl webapp assets` writes `build/webapp/data/` (level and rule JSON;
-      the packs, lite and full, 1×/2×/4×; backdrops as tiled mip pyramids; per-level baked layers: the
-      `mapcompose` draw lists, water-depth and season-blend rasters; the pixel font as an atlas; the Noto
-      fonts as WOFF2). The TS loader is manifest-driven and progressive (lite first), picks the density from
-      zoom × devicePixelRatio like `assetDensity`, and caches by content hash.
-      (2026-11-06) — all 52 months and 156 setups exported; their loaded sessions match Go's initial
-      saves. Lite/full catalogs, mip tiles, native draw lists and fields, pixel atlases and WOFF2 fonts
-      are hash-verified. The web checks pass 917 tests (one optional skip) and the production build;
-      Go helper/race, native pack and WASM checks pass. Chromium checks all densities, fonts, tiles,
-      packed water and cache reuse. The full data is about 1.6 GB; deployment sizing remains W9.
-- [x] W5 Map renderer: camera (wheel, drag, pinch, keys), resize and DPR, backdrop tiles with culling and
-      mip choice, tile mode from the draw lists, units with ownership strips, per-side fog, selection,
-      destination, route and target overlays, move and battle animations from `dosplay` events, reduced
-      motion.
-      (2026-11-06) — Pixi draws culled terrain passes and backdrop mips, fair DOS unit views, native
-      sprite dressing, ownership and strength marks, map orders and event playback. Go bakes water,
-      surf and mixed seasonal layers. The full web suite passes 1,003 tests (one optional skip);
-      all 156 exported setups and referenced hashes pass, as do Go helper/race and lint checks.
-      Chromium verifies desktop controls, phone touch/pinch at 2× DPR, mip and asset-density changes,
-      reduced effects, terrain restoration and native water at all three densities. The production
-      build passes with the verified index; full-bundle deployment sizing remains W9.
-- [x] W6 Battle UI: unit and terrain panels, contents view (enter/leave, repair, production), phase, turn and
-      ready bar, battle scene, refusals; the Go game's keys, right-click action ring as long-press on touch,
-      tap to select/move/attack; layouts for desktop, tablet and portrait phone; a UI scale setting.
-      (2026-11-06) — Fair unit/terrain panels, seven-slot contents, native production/repair/exit actions,
-      confirmations, keyboard gestures and battle timing. The web suite passes 1,091 tests (one optional
-      skip); the final app suite passes 217, with types, lint, formatting and production builds clean.
-      Chromium checks desktop/tablet movement, attacks and resolved battles, production costs, modal
-      cancellation, phone holds/pinch/scrolling and UI scale. The production bundle passes its browser
-      smoke test; release size and browser coverage remain W9.
-- [x] W7 Shell and campaign: the menu pages of `shell.go` (main, map code, values, control, extras,
-      country, news, new units, loading, leave, outcome, scores), the campaign chain per side, saves in
-      IndexedDB (slots, export/import as file), settings.
-      (2026-11-06) — All menu pages, 104 missions in two side campaigns, three IndexedDB slots, native
-      save files, settings and best scores. The web suite passes 1,203 tests (one optional skip), with
-      types, lint, formatting and the production build passing. Chromium checks menus on desktop and
-      phones, exact save/file round trips, storage failures, cancellation, wins, losses and the final
-      month; the production bundle passes computer-phase and save/resume checks.
-- [x] W8 Original split screen: the two-panel `dosscreen` layout with the steel frame as a selectable layout;
-      two humans on one screen and hot-seat for the `2p` setups (with 1.6 and 5.4).
-      (2026-11-06) — Native steel geometry, independent side cameras and panels, simultaneous key sets,
-      and protected hot-seat handovers for all 52 local setups. The web suite passes 1,300 tests (one
-      optional skip); the final app suite passes 398, with types, lint, formatting and production builds
-      passing. Chromium checks both humans' orders and battles, exact native saves, recipient restoration,
-      live layout changes and phone touch at 2× DPR and 200% scale; production save/resume checks pass.
-- [ ] W9 Release: offline play (service worker), size and frame budgets (first playable from lite data in a
-      few MB), a Playwright test that plays a level to its end, Chrome/Firefox/Safari and iOS/Android; then
-      the TS build becomes the Pages root and the WASM build moves to `/classic/` or is retired.
-      (2026-11-07) — partial: the service worker, the offline months, the budgets, the Playwright playthrough and
-      the Pages root are in, and the WASM build is retired from Pages. The suite runs on Playwright's Chromium,
-      Firefox and WebKit and phone emulation. Open: real Safari, iOS and Android. Risk: the site is about 2.9 GB,
-      above the 1 GB Pages limit as remembered (not re-checked); deploys succeed today, and GitHub could enforce it.
-- Later: `mapcompose` in TS for an in-browser map editor (6.3); sound (6.2).
-
-### Beyond the original
-
-- [ ] Artillery can destroy infrastructure.
-- [ ] Dedicated ammo and fuel supply units.
-- [ ] Engineer units that build infrastructure.
-
-New units, as an extension of the original tables ([docs/new-units.md](docs/new-units.md)):
-
-- [x] Gas pioneers: a lasting gas cloud on the trench's three cells, with friendly fire; masks and mustard
-      gas set by the level's month. Go and the web edition; the computer side releases gas in played-out
-      battles (`TestGasPlayOut`: 4 releases, 5 enemy and 0 own losses on 1915-05, the same in TS).
-- [x] Trench mortar, stormtroopers, Zeppelin, Whippet, Mark V, Schneider CA1, Paris Gun: type records,
-      units dated by month (factories build only the level's), Go and the web edition.
-- [x] Flamethrower: ignores the defender's terrain defence term (`TestFlameIgnoresTerrain`, TS twin).
-- [x] Barbed wire laid by a wiring party (record 0xAF: foot units, heavy tanks and light guns cross it,
-      cavalry and wheels do not; sappers clear it).
-- [x] Mine tunnel: tunnellers dig under an adjacent hex for two turns, then it blows and leaves a crater.
-- [x] Field ambulance: restores adjacent foot units once per game turn. The computer side wires, mines and
-      heals in played-out battles (`TestWorksPlayOut` on 1915-05: 4 wired, 4 tunnels, 3 mines, 5 healed, the
-      same in TS).
-- [x] Real art for each extension family: twelve sprite families and portraits, bound in `unitsprite` (no
-      placeholders left); the airship flies (rim and shadow of aircraft).
-- [x] The newer levels (newly authored and two-player-map months) place the new units by date, few in
-      1914–15 and the most in 1918, and play the extension by default; the campaign months stay original.
+- [ ] 6.1 Map editor (`-edit` or an `hl` command) with tile/infra/unit/container palettes and a new-map wizard;
+      for the web edition, `mapcompose` in TS so the browser can compose an edited map.
+- [ ] 6.2 Artillery can destroy infrastructure.
+- [ ] 6.3 Dedicated ammo and fuel supply units.
+- [ ] 6.4 Engineer units that build infrastructure.
 
 ## Open questions
 
-1. Which original quirks should `Standard` change, and which stay in the original profile?
-2. Level format successor: exact schema (rules profile, briefing, side, season, energy, availability,
+1. Level format successor: exact schema (rules profile, briefing, side, season, energy, availability,
    move limits); keep mission round deadlines separate from per-cycle move limits. The imported schema
    (`internal/finmap/level.go`) covers sides, season, energy and availability; move limits are a game
    option and briefings are not in the map files.
-3. Is a complete 4× pack worth it after profiling? The minimum is complete 2× art.
-4. May a setting close the computer's panel under `-rules dos` (a shutter over the frame)?
+2. Is a complete 4× pack worth it after profiling? The minimum is complete 2× art.
+3. May a setting close the computer's panel under the original rules (a shutter over the frame)?

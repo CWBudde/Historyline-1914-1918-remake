@@ -1,8 +1,7 @@
-// Command historyline is the Go port of the Historyline 1914-1918 remake.
-//
-// For now it shows a shipped level as flat-colour placeholder hexes with scrolling,
-// zoom and hex picking (PLAN.md 2.4). Real graphics follow with the runtime asset
-// packs (2.3).
+// Command historyline is the desktop game of the Historyline 1914-1918 remake: the
+// menus, the monthly campaign and the original's split battle screen on the
+// original rules profile, drawn with the runtime art packs or a level's painted
+// backdrop.
 package main
 
 import (

@@ -10,7 +10,7 @@ source of truth for what is done (tick boxes only with evidence you ran).
 ## Language policy
 
 Write code and tooling in **Go**; do not add Python. TypeScript only
-in `webapp/`, the web edition's browser runtime (PLAN.md §7); its exports and goldens are `hl` commands in Go.
+in `webapp/`, the web edition's browser runtime ([docs/webapp.md](docs/webapp.md)); its exports and goldens are `hl` commands in Go.
 
 ## Commands
 
@@ -110,7 +110,7 @@ just webapp-e2e    # Playwright against the production build, in real browser en
   (`water`, `waterDeep`, `waterSea`) as one smooth field, blends in the open sea's material and lays surf
   along sea coasts, in the game and in `maprender`. `internal/seasonblend` blends the borders between hexes
   drawn in different seasons by a noisy weight field, in the game and in `maprender`.
-- `webapp/` (PLAN.md §7): the web edition in TypeScript, a pnpm workspace. `webapp/engine` is the
+- `webapp/` ([docs/webapp.md](docs/webapp.md)): the web edition in TypeScript, a pnpm workspace. `webapp/engine` is the
   rules port, pure (ESLint forbids rendering, DOM and Node imports outside tests) and checked against the Go
   fixtures in `internal/dosrules/testdata`; `webapp/app` is the browser front end (Vite, PixiJS for the map,
   Preact for the DOM UI), `webapp/app/e2e` its Playwright tests. It is the site GitHub Pages serves; a service worker

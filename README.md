@@ -1,7 +1,7 @@
 # Historyline 1914-1918 REMAKE
 
 A remake of the classic Amiga strategy game, written in Go with [Ebitengine](https://ebitengine.org) and
-newly painted art. The roadmap is [PLAN.md](PLAN.md).
+newly painted art. The roadmap is [PLAN.md](PLAN.md); the web edition is described in [docs/webapp.md](docs/webapp.md).
 
 ## Repository layout
 

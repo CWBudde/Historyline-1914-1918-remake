@@ -3,7 +3,7 @@
 The target look, the scale and value rules, and the prompts for the next generation round of terrain.
 `art/style.md` is the shared preamble; each family's `prompt.md` records the prompt that produced its
 installed master. Prompts here are for images that do not exist yet. When one of them is selected, its text
-moves into that family's `prompt.md`. The order of work is in `PLAN.md` §2, "Terrain look: order of work".
+moves into that family's `prompt.md`. The order of work is in `PLAN.md` §5, "Terrain look: order of work".
 
 Measurements were taken at 1× on the PULSE render, RefDesign2 (the reference design) and the original game's
 screenshots. The evidence is local in `build/review/look-audit/`.
@@ -564,7 +564,7 @@ Same geometry; thin snow on the roof planes with tiles showing at the ridge and 
 
 ### Campaign subjects
 
-These are for the original maps (`PLAN.md` §2 Look 8).
+These are for the original maps (`PLAN.md` §5 Look 8).
 
 **C1 Sea material.** 1536×864 opaque; 1536 px is 284 world px. Open sea is separate from ponds.
 Attach: the selected W1; the unused wind-wave swatch `exec-242738de`, for wave character only.
