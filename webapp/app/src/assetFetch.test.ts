@@ -1,5 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
-import { AssetStore, type ContentCache } from "./assetFetch.ts";
+import {
+  AssetStorageFullError,
+  AssetStore,
+  isStorageFull,
+  type ContentCache,
+} from "./assetFetch.ts";
 
 async function reference(body: string | Uint8Array<ArrayBuffer>, ext = "json") {
   const bytes =
@@ -185,6 +190,48 @@ describe("verified content storage", () => {
         cache: new MemoryCache(),
       }).isPersistent(),
     ).toBe(false);
+  });
+  it("keeps a file for offline play, and names a cache that refuses it as full", async () => {
+    const ref = await reference("kept content");
+    const cache = new MemoryCache();
+    let refuse = true,
+      fetched = 0;
+    const store = new AssetStore("https://example.test/data/", {
+      cache: {
+        get: (hash) => cache.get(hash),
+        put: (hash, bytes) =>
+          refuse
+            ? Promise.reject(
+                new DOMException(
+                  "The quota was exceeded",
+                  "QuotaExceededError",
+                ),
+              )
+            : cache.put(hash, bytes),
+        delete: (hash) => cache.delete(hash),
+      },
+      fetch: () => {
+        fetched++;
+        return Promise.resolve(new Response("kept content"));
+      },
+    });
+    // The game itself goes on with bytes the cache refused.
+    expect(new TextDecoder().decode(await store.get(ref))).toBe("kept content");
+    const full = await store.keep(ref).catch((error: unknown) => error);
+    expect(full).toBeInstanceOf(AssetStorageFullError);
+    expect(isStorageFull(full)).toBe(true);
+    refuse = false;
+    await store.keep(ref);
+    expect(cache.values.has(ref.sha256)).toBe(true);
+    await store.keep(ref);
+    expect(fetched).toBe(3);
+  });
+  it("tells a full storage from other failures", () => {
+    expect(isStorageFull(new DOMException("full", "QuotaExceededError"))).toBe(
+      true,
+    );
+    expect(isStorageFull(new Error("asset fetch 500"))).toBe(false);
+    expect(isStorageFull(undefined)).toBe(false);
   });
   it("keeps the default browser fetch bound to its global receiver", async () => {
     const ref = await reference("browser");

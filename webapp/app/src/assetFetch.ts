@@ -19,6 +19,23 @@ export class AssetNetworkError extends Error {
   }
 }
 
+/** The content cache refused a file the offline keep needs: the browser's storage quota is full. */
+export class AssetStorageFullError extends Error {
+  constructor(path: string, cause?: unknown) {
+    super(`no storage space for ${path}`, { cause });
+    this.name = "AssetStorageFullError";
+  }
+}
+/** A full quota, as the store or the Cache API reports it. */
+export function isStorageFull(error: unknown): boolean {
+  return (
+    error instanceof AssetStorageFullError ||
+    (typeof error === "object" &&
+      error !== null &&
+      (error as { name?: unknown }).name === "QuotaExceededError")
+  );
+}
+
 interface PendingAsset {
   promise: Promise<ArrayBuffer>;
   controller: AbortController;
@@ -118,6 +135,8 @@ export class AssetStore {
   private online = true;
   private waiters: (() => void)[] = [];
   private inflight = new Map<string, PendingAsset>();
+  /** Files the content cache refused when they last arrived, with its error. */
+  private refused = new Map<string, unknown>();
 
   constructor(baseURL: string | URL, options: StoreOptions = {}) {
     this.baseURL = new URL(baseURL);
@@ -171,6 +190,15 @@ export class AssetStore {
   }
   async isPersistent(): Promise<boolean> {
     return (await this.cache)?.persistent === true;
+  }
+  /**
+   * Makes sure the file is in the content cache for offline play. Where get goes on with bytes the cache
+   * refused, this throws an AssetStorageFullError.
+   */
+  async keep(ref: FileRef, signal?: AbortSignal): Promise<void> {
+    await this.get(ref, signal);
+    if (this.refused.has(ref.sha256))
+      throw new AssetStorageFullError(ref.path, this.refused.get(ref.sha256));
   }
   /** Deletes the files from the content cache; the offline page's Remove. */
   async forget(hashes: readonly string[]): Promise<void> {
@@ -249,6 +277,7 @@ export class AssetStore {
           : await cancellable(cache.get(ref.sha256), signal);
       if (bytes !== undefined) {
         await this.verified(ref, bytes);
+        this.refused.delete(ref.sha256);
         return bytes;
       }
     } catch {
@@ -280,8 +309,10 @@ export class AssetStore {
     signal.throwIfAborted();
     try {
       await cache?.put(ref.sha256, bytes);
-    } catch {
-      /* Quota failures leave the verified response usable. */
+      this.refused.delete(ref.sha256);
+    } catch (error) {
+      // Quota failures leave the verified response usable; keep reports them.
+      this.refused.set(ref.sha256, error);
     }
     return bytes;
   }
