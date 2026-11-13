@@ -1,6 +1,7 @@
 package saves
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -32,5 +33,24 @@ func TestPutGetRoundTrip(t *testing.T) {
 	}
 	if err := nilStore.Put(want); err == nil {
 		t.Error("nil store Put succeeded")
+	}
+}
+
+// TestModeRoundTrip: a two-human save keeps its mode; a save without one
+// (one human, or written before modes) reads as "".
+func TestModeRoundTrip(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "save.json")
+	s := OpenFile(path)
+	if err := s.Put(Envelope{Map: "1914-08:2p", Side: 1, Data: []byte{7}, Mode: "hotseat"}); err != nil {
+		t.Fatal(err)
+	}
+	if got, ok := s.Get(); !ok || got.Mode != "hotseat" || got.Side != 1 {
+		t.Fatalf("got %+v ok %v", got, ok)
+	}
+	if err := os.WriteFile(path, []byte(`{"map":"1914-08:cp","side":0,"data":"AQ=="}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if got, ok := s.Get(); !ok || got.Mode != "" {
+		t.Fatalf("an old save: %+v ok %v", got, ok)
 	}
 }

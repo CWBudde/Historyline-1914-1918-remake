@@ -12,11 +12,14 @@ import (
 )
 
 // Envelope is one saved battle: the menu map name, the human side (dos side
-// 0 or 1) and the dosrules save bytes (base64 in JSON).
+// 0 or 1), the dosrules save bytes (base64 in JSON) and, for two humans on
+// one screen, their mode ("simultaneous" or "hotseat"; Side is then the human
+// who plays next).
 type Envelope struct {
 	Map  string `json:"map"`
 	Side int    `json:"side"`
 	Data []byte `json:"data"`
+	Mode string `json:"mode,omitempty"`
 }
 
 // Store is the single saved battle.
