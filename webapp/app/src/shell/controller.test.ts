@@ -396,9 +396,6 @@ it("follows native code, country, news, card pagination and Escape transitions",
     model.back();
     expect(model.page).toBe("extras");
   }
-  model.open("closed");
-  model.back();
-  expect(model.page).toBe("main");
   expect(updates).toBeGreaterThan(0);
 });
 

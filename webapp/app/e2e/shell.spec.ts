@@ -51,15 +51,15 @@ test.describe("the menus on the armour plate", () => {
     await expect(page.getByRole("img", { name: "Germany" })).toBeVisible();
     await expect(page.getByRole("img", { name: "France" })).toBeVisible();
 
-    // Six nameplates in a column at the left, Exit the last.
+    // Five nameplates in a column at the left; a browser page has no Exit.
     const names = [
       "Start",
       /^Code/,
       "Game values",
       "Control",
       "Extras",
-      "Exit",
     ] as const;
+    await expect(page.getByRole("button", { name: "Exit" })).toHaveCount(0);
     let last = 0;
     for (const name of names) {
       const box = await page.getByRole("button", { name }).boundingBox();
@@ -215,13 +215,7 @@ test.describe("the menus on the armour plate", () => {
             document.querySelector(".shell-ui")?.clientWidth,
         ),
       ).toBe(true);
-      for (const name of [
-        "Start",
-        "Game values",
-        "Control",
-        "Extras",
-        "Exit",
-      ]) {
+      for (const name of ["Start", "Game values", "Control", "Extras"]) {
         const box = await page.getByRole("button", { name }).boundingBox();
         expect(box?.height, name).toBeGreaterThanOrEqual(48);
         expect(box?.x ?? 0, name).toBeGreaterThanOrEqual(0);

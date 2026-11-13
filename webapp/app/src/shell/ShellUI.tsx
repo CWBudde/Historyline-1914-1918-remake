@@ -26,6 +26,11 @@ export interface ShellUIProps {
   isFullscreen: boolean;
   /** The offline maps page's content: download, progress and what is kept (src/offline). */
   offlinePanel?: () => ComponentChildren;
+  /**
+   * Leaves the program: the main menu shows Exit only with it. A browser page has nothing to leave; a packaged
+   * build passes its window's close.
+   */
+  onExit?: () => void;
 }
 const titles: Record<ShellPage, string> = {
   main: "HISTORYLINE",
@@ -44,7 +49,6 @@ const titles: Record<ShellPage, string> = {
   saves: "SAVED GAMES",
   original: "ORIGINAL GAME",
   offline: "OFFLINE MAPS",
-  closed: "HISTORYLINE 1914–1918",
 };
 /** Help is the two lines the column shows for the focused control, as the desktop game's menus do. */
 type Help = readonly [string, string?];
@@ -58,7 +62,6 @@ const columnPages: readonly ShellPage[] = [
   "scores",
   "loading",
   "outcome",
-  "closed",
 ];
 /** The wide pages on a riveted steel board. */
 const boards: readonly ShellPage[] = ["saves", "original", "offline", "leave"];
@@ -75,7 +78,6 @@ function pageScene(s: ShellController): string {
   switch (s.page) {
     case "main":
     case "code":
-    case "closed":
       return "backdrop/western-front";
     case "values":
     case "control":
@@ -565,14 +567,8 @@ export function ShellUI(p: ShellUIProps) {
               busy,
               ["Score list, saved games and the original game's maps."],
             )}
-            {button(
-              "Exit",
-              () => {
-                s.open("closed");
-              },
-              busy,
-              ["Leave Historyline 1914–1918."],
-            )}
+            {p.onExit !== undefined &&
+              button("Exit", p.onExit, busy, ["Leave Historyline 1914–1918."])}
           </nav>
         </>
       );
@@ -1131,16 +1127,6 @@ export function ShellUI(p: ShellUIProps) {
         <>
           {p.offlinePanel?.()}
           <footer class="shell-actions">{back(["Back to extras."])}</footer>
-        </>
-      );
-      break;
-    case "closed":
-      content = (
-        <>
-          <p>You have left Historyline.</p>
-          {button("Return to the main menu", () => {
-            s.back();
-          })}
         </>
       );
       break;

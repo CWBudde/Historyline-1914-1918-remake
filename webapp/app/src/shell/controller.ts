@@ -37,8 +37,7 @@ export type ShellPage =
   | "scores"
   | "saves"
   | "original"
-  | "offline"
-  | "closed";
+  | "offline";
 export interface BattleStart {
   mission: Mission;
   side: 0 | 1;
@@ -285,7 +284,6 @@ export class ShellController {
       case "extras":
       case "country":
       case "outcome":
-      case "closed":
         this.show("main");
         break;
       default:
