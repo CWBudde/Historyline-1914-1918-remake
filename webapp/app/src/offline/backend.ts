@@ -45,7 +45,7 @@ export function browserServices(
       };
     },
     async fetch(files, signal, onFile) {
-      await fetchRefs(active(), files, signal, { strict: true, onFile });
+      await fetchRefs(active().store, files, signal, { strict: true, onFile });
     },
     commit: (record) => records.put(record),
     async remove(key) {

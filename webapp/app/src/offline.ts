@@ -1,3 +1,8 @@
+import {
+  AssetStorageFullError,
+  isStorageFull,
+  type AssetStore,
+} from "./assetFetch.ts";
 import { unitDensity, type AssetLoader } from "./assets.ts";
 import {
   fileRef,
@@ -83,12 +88,16 @@ async function catalog(
   return new Map(parsed.entries.map((entry) => [entry.id, entry.file]));
 }
 
+/** The content cache as the offline keep uses it. */
+export type OfflineStore = Pick<AssetStore, "keep" | "forget">;
+
 /**
  * Fetches the files into the content cache, two at a time. A failed file counts as a failure; with strict set
- * it stops the rest and throws, otherwise the others go on. Returns the number of failures.
+ * it stops the rest and throws, otherwise the others go on. A full storage always stops the rest and throws
+ * (isStorageFull). Returns the number of failures.
  */
 export async function fetchRefs(
-  loader: AssetLoader,
+  store: Pick<AssetStore, "keep">,
   refs: readonly FileRef[],
   signal: AbortSignal,
   options: { strict?: boolean; onFile?: (ref: FileRef) => void } = {},
@@ -106,11 +115,16 @@ export async function fetchRefs(
         const ref = refs[cursor++];
         if (ref === undefined) return;
         try {
-          await loader.store.get(ref, signal);
+          await store.keep(ref, signal);
           options.onFile?.(ref);
         } catch (error: unknown) {
           failures++;
-          if (options.strict === true)
+          if (isStorageFull(error))
+            stop.error =
+              error instanceof AssetStorageFullError
+                ? error
+                : new AssetStorageFullError(ref.path, error);
+          else if (options.strict === true)
             stop.error = error instanceof Error ? error : Error(String(error));
         }
       }
@@ -207,10 +221,16 @@ export function saveDataRequested(
   return source?.connection?.saveData === true;
 }
 
+/** What a background keep did: the months it recorded and evicted, and whether the storage ran full. */
+export interface KeepResult {
+  kept: string[];
+  evicted: string[];
+  full: boolean;
+}
+
 /**
  * Stores the lite art of the given missions in the content cache, so they can be played offline; the
- * screens also at paintingDensity, the density the menus draw them at. Each month that arrived complete is
- * recorded in kept, which is what the Offline maps page lists.
+ * screens also at paintingDensity, the density the menus draw them at. See keepPlanned.
  */
 export async function keepForOffline(
   loader: AssetLoader,
@@ -219,7 +239,7 @@ export async function keepForOffline(
   signal: AbortSignal,
   paintingDensity = density,
   kept?: KeptRecords,
-): Promise<void> {
+): Promise<KeepResult> {
   const plan = await planOffline(
     loader,
     missions,
@@ -227,13 +247,43 @@ export async function keepForOffline(
     signal,
     paintingDensity,
   );
-  const sharedFailures = await fetchRefs(loader, plan.shared, signal);
-  for (const { mission, refs } of plan.months) {
-    if (signal.aborted) return;
-    const failures = await fetchRefs(loader, refs, signal);
-    if (failures + sharedFailures === 0)
-      await kept?.put(keptRecord(mission, plan, refs));
+  return keepPlanned(loader.store, plan, signal, kept);
+}
+
+/**
+ * Fetches the plan's files and records in kept each month that arrived complete, which is what the Offline maps
+ * page lists; a month the player pinned there stays pinned. A full storage stops the keep quietly. Then every
+ * month the player did not pin that left the window, the plan's months, is evicted with the files no
+ * remaining month needs. A keep cancelled with its battle evicts nothing.
+ */
+export async function keepPlanned(
+  store: OfflineStore,
+  plan: OfflinePlan,
+  signal: AbortSignal,
+  kept?: KeptRecords,
+): Promise<KeepResult> {
+  const result: KeepResult = { kept: [], evicted: [], full: false };
+  try {
+    const sharedFailures = await fetchRefs(store, plan.shared, signal);
+    for (const { mission, refs } of plan.months) {
+      if (signal.aborted) return result;
+      const failures = await fetchRefs(store, refs, signal);
+      if (failures + sharedFailures === 0 && kept !== undefined) {
+        const record = keptRecord(mission, plan, refs);
+        await kept.putBackground(record);
+        result.kept.push(record.key);
+      }
+    }
+  } catch (error) {
+    if (!isStorageFull(error)) throw error;
+    result.full = true;
   }
+  if (kept === undefined || signal.aborted) return result;
+  const within = new Set(
+    plan.months.map(({ mission }) => `${mission.month}:${mission.mode}`),
+  );
+  result.evicted = await kept.evict(within, (hashes) => store.forget(hashes));
+  return result;
 }
 
 /** The shell's words for a battle that could not load. */
