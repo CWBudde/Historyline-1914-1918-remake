@@ -11,6 +11,17 @@ const midpoint = (a: Point, b: Point): Point => ({
   y: (a.y + b.y) / 2,
 });
 const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
+/**
+ * release gives up the canvas's capture of a pointer. A pointer that ended without its pointerup reaching the canvas
+ * (the map was hidden under a menu meanwhile) is no longer known to the browser, which then throws.
+ */
+function release(canvas: Element, id: number): void {
+  try {
+    if (canvas.hasPointerCapture(id)) canvas.releasePointerCapture(id);
+  } catch {
+    // The pointer is gone, and its capture with it.
+  }
+}
 
 /** Stateful pointer arbitration; it changes only the camera, never game rules. */
 export class MapGesture {
@@ -232,8 +243,7 @@ export class MapInput {
           this.press.up(e.pointerId);
           this.flickId = null;
           if (e.pointerType === "touch") this.suppressTouchClick = true;
-          if (this.canvas.hasPointerCapture(e.pointerId))
-            this.canvas.releasePointerCapture(e.pointerId);
+          release(this.canvas, e.pointerId);
           callbacks.flick?.end(physical(p), held);
           return;
         }
@@ -247,8 +257,7 @@ export class MapInput {
           tap = this.cameraAction(() => this.gesture.up(e.pointerId, p.x, p.y));
         if (known && e.pointerType === "touch" && (suppress || tap === null))
           this.suppressTouchClick = true;
-        if (canvas.hasPointerCapture(e.pointerId))
-          canvas.releasePointerCapture(e.pointerId);
+        release(canvas, e.pointerId);
         if (!suppress && tap !== null) callbacks.click(tap, pointerType);
       },
       options,
@@ -459,10 +468,7 @@ export class MapInput {
     this.pointerTypes.clear();
 
     const held = this.press.holding();
-    for (const id of this.press.positions().keys()) {
-      if (this.canvas.hasPointerCapture(id))
-        this.canvas.releasePointerCapture(id);
-    }
+    for (const id of this.press.positions().keys()) release(this.canvas, id);
     this.gesture.cancel();
     this.press.cancel();
     if (!held) this.callbacks.contextCancel?.();

@@ -414,6 +414,17 @@ it.each(["blur", "pointercancel", "dispose"])(
     expect(s.contexts).toHaveLength(1);
   },
 );
+it("resets a pointer the browser no longer knows without throwing", () => {
+  const s = setup();
+  s.pointer("pointerdown", 1, 20, 30);
+  s.canvas.releasePointerCapture = () => {
+    throw new DOMException("Invalid pointer id", "NotFoundError");
+  };
+  expect(() => {
+    s.input.dispose();
+  }).not.toThrow();
+  expect(s.calls.reset).toBe(1);
+});
 it("disposal removes native event listeners and pending hold timers", () => {
   const s = setup();
   s.pointer("pointerdown", 1, 20, 30);
