@@ -10,9 +10,10 @@ import (
 
 // snapshot is a saved dos battle to start in (-snapshot).
 type snapshot struct {
-	data  []byte // dosrules save bytes
-	level string // the level the save names; "" when the file does not say (-level decides)
-	side  int    // the human side the save names; -1 when the file does not say
+	data  []byte    // dosrules save bytes
+	level string    // the level the save names; "" when the file does not say (-level decides)
+	side  int       // the human side the save names; -1 when the file does not say
+	local localMode // the two humans' mode the save names; localNone for one human
 }
 
 // startSnapshot reads -snapshot for a direct start: a -level given beside a
@@ -29,8 +30,8 @@ func startSnapshot(path string, levelGiven bool, level string) (snapshot, error)
 }
 
 // readSnapshot reads a saved battle: either the game's save slot file
-// (saves.Envelope: map, side and data) or a bare dosrules save such as an
-// llmplay game's per-resolution save.json.
+// (saves.Envelope: map, side, data and the two humans' mode) or a bare
+// dosrules save such as an llmplay game's per-resolution save.json.
 func readSnapshot(path string) (snapshot, error) {
 	raw, err := os.ReadFile(path)
 	if err != nil {
@@ -41,7 +42,11 @@ func readSnapshot(path string) (snapshot, error) {
 		if env.Side < 0 || env.Side > 1 {
 			return snapshot{}, fmt.Errorf("%s: side %d is not 0 or 1", path, env.Side)
 		}
-		return snapshot{data: env.Data, level: env.Map, side: env.Side}, nil
+		local, err := parseLocalMode(env.Mode)
+		if err != nil {
+			return snapshot{}, fmt.Errorf("%s: %w", path, err)
+		}
+		return snapshot{data: env.Data, level: env.Map, side: env.Side, local: local}, nil
 	}
 	if !json.Valid(raw) {
 		return snapshot{}, fmt.Errorf("%s: neither a saved battle nor a dos save", path)

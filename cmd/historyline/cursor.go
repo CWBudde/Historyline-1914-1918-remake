@@ -17,17 +17,17 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-// The cursor: the human side's cursor cell (g.hover), moved by
-// the mouse and by the arrows of key set A, and the gestures of
-// internal/gesture on it. Holding fire (left button, Space) shows the cancel
-// plate; a drag of a cell or an arrow picks the action placed there and
-// releasing runs it; a plain click selects or confirms as before; right-click
-// opens the ring of every possible action. While a move or an attack is aimed,
-// every cell out of reach is darkened and the plate with the order follows
-// the cursor over the cells in reach. The map gesture opens the strategic map
-// in the side's panel, the info gesture the unit or game info (overlay.go)
-// and the open gesture the contents (contents.go). The OS pointer is hidden
-// over the map cells: the ring is the pointer there.
+// The cursor: the human side's cursor cell (g.hover), moved by the mouse and
+// by the arrows of key set A (a second human's by key set B, local.go), and
+// the gestures of internal/gesture on it. Holding fire (left button, Space)
+// shows the cancel plate; a drag of a cell or an arrow picks the action placed
+// there and releasing runs it; a plain click selects or confirms as before;
+// right-click opens the ring of every possible action. While a move or an
+// attack is aimed, every cell out of reach is darkened and the plate with the
+// order follows the cursor over the cells in reach. The map gesture opens the
+// strategic map in the side's panel, the info gesture the unit or game info
+// (overlay.go) and the open gesture the contents (contents.go). The OS pointer
+// is hidden over the map cells: the ring is the pointer there.
 
 // Cursor tuning: the arrow repeat (as the view keys had) and the share of
 // brightness an out-of-reach cell keeps.
@@ -171,13 +171,14 @@ type placeKey struct {
 	version           int
 	pick              gesture.Action
 	ready, busy, over bool
+	prompt            bool
 }
 
 // cursorPlacement is the placement on the cursor cell, computed again only
 // when the cell or the session changed.
 func (g *game) cursorPlacement() gesture.Placement {
 	s, d := g.split, g.dos
-	k := placeKey{at: g.hover, from: d.from, version: d.s.Version(), pick: d.picking(), ready: d.s.Ready(d.side), busy: d.busy(), over: d.over}
+	k := placeKey{at: g.hover, from: d.from, version: d.s.Version(), pick: d.picking(), ready: d.s.Ready(d.side), busy: d.busy(), over: d.over, prompt: d.prompt}
 	if !s.placed || s.placeKey != k {
 		s.placement, s.placeKey, s.placed = d.placement(g.hover), k, true
 	}
@@ -187,8 +188,12 @@ func (g *game) cursorPlacement() gesture.Placement {
 // placement is the gesture placement on c: the map's (attack above in the
 // action phase, open on an own container) restricted to what is possible.
 // While an order is aimed every direction cancels: a click runs it, a drag
-// drops it.
+// drops it. With two humans the mode change stays on the left in the
+// prompt, where running it again confirms (lockedGesture).
 func (d *dosControl) placement(c hexgrid.Coord) gesture.Placement {
+	if d.local != localNone && d.prompt {
+		return gesture.Place(gesture.Cancel, gesture.Cancel, gesture.ModeChange, gesture.Cancel, gesture.Cancel)
+	}
 	if d.picking() != gesture.Cancel {
 		return gesture.Placement{}
 	}
@@ -396,11 +401,15 @@ func (g *game) onGesture(ev gesture.Event) {
 
 // lockedGesture handles the human side's input in the prompt and while the
 // phase change plays: fire (a click or a run) goes back from the prompt; the
-// cursor stays and no ring opens. A press skips a battle in Update.
+// cursor stays and no ring opens. A press skips a battle in Update. With two
+// humans the mode change run in the prompt confirms, as F1 does for the
+// left panel alone.
 func (g *game) lockedGesture(ev gesture.Event) {
 	switch ev.Kind {
 	case gesture.Click, gesture.Run:
-		if g.dos.prompt {
+		if g.dos.prompt && g.dos.local != localNone && ev.Kind == gesture.Run && ev.Action == gesture.ModeChange {
+			g.dos.EndTurn()
+		} else if g.dos.prompt {
 			g.dos.closePrompt()
 		}
 	case gesture.RingOpen:

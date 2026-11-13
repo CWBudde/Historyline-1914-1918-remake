@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"math"
+	"slices"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -18,7 +19,8 @@ import (
 // The split battle screen: one map panel per side (left side 0,
 // right side 1), each with its own camera that rests on whole column pairs and
 // rows, inside the steel frame of internal/dosscreen, with a status well under
-// each panel. Only the human side's panel takes the mouse.
+// each panel. Only the human side's panel takes the mouse (with two humans the
+// left one; the right one plays on key set B, local.go).
 
 // slideFrames is how long a panel camera slides to a new resting place.
 const slideFrames = 8
@@ -164,6 +166,8 @@ type split struct {
 	wheel    float64 // wheel turns not yet stepped (touchpads turn in fractions)
 	lastMsg  string  // the human side.s message, aged by tickWells
 	msgAge   int
+
+	seats [2]panelSeat // with two humans: the human not served now (local.go)
 }
 
 // playGrid is the part of the level the original rules play on: the bound
@@ -190,7 +194,7 @@ func (g *game) layoutSplit() {
 	s.frame.Slim = g.backdrop != nil // the tiles, the remake's and the original's, keep the plate frame
 	base := dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
 	s.screen = base.Zoomed(max(s.zoom, g.zoomFloor(base)))
-	s.track.Threshold = gestureThreshold(s.screen.CellScale)
+	s.setThreshold(gestureThreshold(s.screen.CellScale))
 	for side := range 2 {
 		c := &s.cams[side]
 		c.fit = func(pair, row int) (float64, float64) { return g.slimShift(side, pair, row) }
@@ -303,17 +307,25 @@ func (g *game) stepView(side, dp, dr int) {
 
 // updateSplit runs one frame of the cameras: each panel looks where the
 // session asks (the computer's moves and battles), each panel follows its
-// side's walker and the human side's panel a new selection when they are
-// out of view (and its cursor, see showCursor), and the slides advance.
+// side's walker and each human's panel a new selection when they are out of
+// view (and its cursor, see showCursor), and the slides advance.
 func (g *game) updateSplit() {
 	s := g.split
-	if g.dos.locked() {
-		s.mode = [2]panelMode{} // the phase change closes the strategic maps and plates
-		g.dos.box = nil
-	}
-	g.syncContents()
+	g.eachSeat(func() {
+		d := g.dos
+		if d.locked() {
+			// The prompt and the phase change close the strategic maps and plates.
+			if d.local == localNone {
+				s.mode = [2]panelMode{}
+			} else {
+				s.mode[d.side] = panelMap
+			}
+			d.box = nil
+		}
+		g.syncContents()
+	})
 	g.followSplit()
-	g.tickWells()
+	g.eachSeat(g.tickWells)
 	for side := range 2 {
 		n := 1
 		if a := g.dos.act; a != nil && a.side == side {
@@ -326,8 +338,8 @@ func (g *game) updateSplit() {
 	g.syncSplitCam()
 }
 
-// followSplit applies the session's look requests and the human side's
-// follow rules, and keeps the computer's walker in its panel's view.
+// followSplit applies the session's look requests and each human's follow
+// rules, and keeps the computer's walker in its panel's view.
 func (g *game) followSplit() {
 	d, s := g.dos, g.split
 	for side := range 2 {
@@ -335,15 +347,17 @@ func (g *game) followSplit() {
 			g.lookAt(side, c)
 		}
 	}
-	if w := d.walkOf(d.side); !w.Done() {
-		if at := w.Hex(); !g.panelShows(d.side, at) {
-			g.lookAt(d.side, at)
+	g.eachSeat(func() {
+		if w := d.walkOf(d.side); !w.Done() {
+			if at := w.Hex(); !g.panelShows(d.side, at) {
+				g.lookAt(d.side, at)
+			}
+		} else if d.selected && (!s.selOn || s.sel != d.from) && !g.panelShows(d.side, d.from) {
+			g.lookAt(d.side, d.from)
 		}
-	} else if d.selected && (!s.selOn || s.sel != d.from) && !g.panelShows(d.side, d.from) {
-		g.lookAt(d.side, d.from)
-	}
-	s.sel, s.selOn = d.from, d.selected
-	if opp := 1 - d.side; !d.walkOf(opp).Done() {
+		s.sel, s.selOn = d.from, d.selected
+	})
+	if opp := 1 - d.side; d.local == localNone && !d.walkOf(opp).Done() {
 		if at := d.walkOf(opp).Hex(); !g.panelShows(opp, at) {
 			g.lookAt(opp, at)
 		}
@@ -389,33 +403,72 @@ func (g *game) pickSplit(mx, my int) (hexgrid.Coord, bool) {
 // drawSplit draws both panels' maps (or strategic maps), each through its own
 // camera into its panel and in the look the phase change asks for (phase.go),
 // the steel frame over them (resting on the map's first cells where a plate or
-// the battle scene covers the map) and the human side's cursor.
+// the battle scene covers the map) and each shown human's cursor. With two
+// humans each panel is drawn with its human served (useSeat).
 func (g *game) drawSplit(screen *ebiten.Image) {
-	s := g.split
+	s, d := g.split, g.dos
 	human := *g.cam
 	defer func() { *g.cam, g.drawing = human, false }()
 	var views [2]dosscreen.View
-	looks := g.dos.panelLooks()
+	looks := g.splitLooks()
 	for side := range 2 {
 		views[side] = g.splitView(side)
-		g.drawPanelLook(screen, side, looks[side], func(dst *ebiten.Image, dx, dy float64) {
-			g.drawPanel(dst, side, views[side].Panel, dx, dy)
+		g.asHuman(side, func() {
+			g.drawPanelLook(screen, side, looks[side], func(dst *ebiten.Image, dx, dy float64) {
+				g.drawPanel(dst, side, views[side].Panel, dx, dy)
+			})
 		})
 	}
 	*g.cam, g.drawing = human, false
 	for side := range 2 {
-		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo || looks[side] == lookBattle || looks[side] == lookCaptured {
+		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo || looks[side] == lookBattle || looks[side] == lookCaptured || d.covered(side) {
 			views[side] = g.plateView(side)
 		}
 	}
 	s.frame.Draw(screen, s.screen, views, g.playGrid())
-	if g.dos.prompt || g.dos.stage == stageBlack {
-		g.cursorPlates(screen)
+	if d.local == localNone {
+		if d.prompt || d.stage == stageBlack {
+			g.cursorPlates(screen)
+			return
+		}
+		if !d.sequence() || d.stage == stageNewMode {
+			g.drawCursor(screen)
+		}
 		return
 	}
-	if !g.dos.sequence() || g.dos.stage == stageNewMode {
-		g.drawCursor(screen)
+	for _, side := range d.shown() {
+		g.withSeat(side, func() {
+			switch {
+			case d.prompt || d.stage == stageBlack:
+				g.cursorPlate(screen, side)
+			case !d.sequence() || d.stage == stageNewMode:
+				g.drawCursor(screen)
+			}
+		})
 	}
+}
+
+// asHuman runs fn for side's panel: with side's human served where two
+// humans play and that human sees the panel (shown).
+func (g *game) asHuman(side int, fn func()) {
+	if g.dos.local == localNone || !slices.Contains(g.dos.shown(), side) {
+		fn()
+		return
+	}
+	g.withSeat(side, fn)
+}
+
+// splitLooks is how each panel is drawn now: the look of the phase change
+// (panelLooks), and black for a hot-seat panel the human at the controls may
+// not see, but for the battle and capture scenes it shows.
+func (g *game) splitLooks() [2]panelLook {
+	looks := g.dos.panelLooks()
+	for side := range 2 {
+		if g.dos.covered(side) && looks[side] != lookBattle && looks[side] != lookCaptured {
+			looks[side] = lookBlack
+		}
+	}
+	return looks
 }
 
 // plateView is the view whose frame side's panel has while a plate covers
@@ -530,7 +583,7 @@ func splitMinWindow(dpi float64) (w, h int) {
 }
 
 // zoomSplit steps both panels' zoom level by step (the mouse wheel), keeping
-// the human side's cursor cell, or else the middle of each view, in the
+// each human's cursor cell, or else the middle of each view, in the
 // middle; the levels end where the window has no more (dosscreen.ZoomLevels).
 func (g *game) zoomSplit(step int) {
 	s := g.split
@@ -547,9 +600,12 @@ func (g *game) zoomSplit(step int) {
 	if g.hoverOnMap {
 		keep[g.dos.side] = g.hover
 	}
+	if o := 1 - g.dos.side; g.dos.local != localNone && s.seats[o].hoverOnMap {
+		keep[o] = s.seats[o].hover // the other human's cursor
+	}
 	s.zoom = z
 	s.screen = base.Zoomed(z)
-	s.track.Threshold = gestureThreshold(s.screen.CellScale)
+	s.setThreshold(gestureThreshold(s.screen.CellScale))
 	for side := range 2 {
 		pair, row := centreView(g.playGrid(), s.screen.Cols, s.screen.Rows, keep[side])
 		s.cams[side].moveTo(pair, row, true)

@@ -86,13 +86,16 @@ func (d *dosControl) actSpeed() int {
 
 // walkOf is the walk on side's panel: the move being carried out of the
 // side acting (the computer, or either side in a replay), else the human
-// side's own move.
+// side's own move, with two humans each one's own.
 func (d *dosControl) walkOf(side int) *walk {
 	if d.act != nil && d.act.side == side {
 		return d.act.walk
 	}
 	if side == d.side {
 		return d.walk
+	}
+	if d.local != localNone && (side == 0 || side == 1) {
+		return d.seats[side].walk // the other human's own move
 	}
 	return nil
 }

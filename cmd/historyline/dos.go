@@ -76,6 +76,11 @@ type dosControl struct {
 
 	replay *transcriptPlanner // the recorded game played on both sides (replay.go), nil otherwise
 
+	local      localMode   // two humans on one screen (local.go); localNone plays one human against planner
+	seats      [2]dosSeat  // with two humans: the seat of the human not served now (useSide)
+	curtainFor int         // hot-seat: the side the curtain waits for, -1 none
+	pending    [2]*pending // hot-seat: a resolution each side has not seen yet
+
 	ownFacing [2]map[int]unitsprite.Facing // facings only that side's map shows: its moves and orders until the phase change reveals them
 
 	views  [2]sideCache      // each side's map, by side
@@ -102,7 +107,7 @@ func newDosControl(s *dosplay.Session, side int, planner dosPlanner, reveal bool
 	if planner == nil {
 		planner = passPlanner{}
 	}
-	d := &dosControl{s: s, side: side, planner: planner, reveal: reveal}
+	d := &dosControl{s: s, side: side, planner: planner, reveal: reveal, curtainFor: -1}
 	d.clear()
 	return d
 }
@@ -502,6 +507,9 @@ func (d *dosControl) EndTurn() {
 		d.prompt = false
 		d.s.Confirm(d.side)
 		d.Message = "orders confirmed - waiting for the opponent"
+		if d.local == localHotseat {
+			d.raiseCurtain(1 - d.side)
+		}
 	default:
 		d.s.Unconfirm(d.side)
 		d.Message = "orders open again"
@@ -512,9 +520,15 @@ func (d *dosControl) EndTurn() {
 // soon as its phase begins; once both sides have confirmed the orders are
 // resolved and the events played back, one per step. With a planner of its
 // own (a replay) the human side gives its orders first, then the other
-// side; a stopped replay gives none.
+// side; a stopped replay gives none. Two humans give their own orders, and
+// behind the hot-seat curtain the resolution waits for the next human.
 func (d *dosControl) Tick() {
 	d.tick()
+	if d.local != localNone {
+		if w := d.seats[1-d.side].walk; w != nil {
+			w.Tick() // the other human's move walks on its panel
+		}
+	}
 	switch {
 	case d.over:
 	case d.busy():
@@ -528,10 +542,10 @@ func (d *dosControl) Tick() {
 		if d.self != nil && !d.s.Ready(d.side) {
 			d.planStep(d.side)
 		}
-		if opp := 1 - d.side; !d.s.Ready(opp) && (d.self == nil || d.s.Ready(d.side)) {
+		if opp := 1 - d.side; d.local == localNone && !d.s.Ready(opp) && (d.self == nil || d.s.Ready(d.side)) {
 			d.planStep(opp)
 		}
-		if d.s.Ready(0) && d.s.Ready(1) {
+		if _, hidden := d.curtain(); d.s.Ready(0) && d.s.Ready(1) && !hidden {
 			d.resolve()
 		}
 	}
@@ -565,13 +579,24 @@ func (d *dosControl) plan(side int) {
 }
 
 // resolve freezes both sides' views and resolves the orders; the events wait
-// in the queue behind the black stage.
+// in the queue behind the black stage. In hot-seat the other side keeps them
+// for its turn (keepFor).
 func (d *dosControl) resolve() {
 	d.clear()
 	d.prompt = false
-	v, o := d.s.View(d.side), d.s.View(1-d.side)
-	if d.reveal {
-		v, o = d.s.TrueView(), d.s.TrueView()
+	if d.local != localNone {
+		d.clearSeats()
+	}
+	view := func(side int) dosplay.View {
+		if d.reveal {
+			return d.s.TrueView()
+		}
+		return d.s.View(side)
+	}
+	v, o := view(d.side), view(1-d.side)
+	var later dosplay.View // the other side's own copy, played on its turn
+	if d.local == localHotseat {
+		later = view(1 - d.side)
 	}
 	evs, err := d.s.Resolve()
 	if err != nil {
@@ -579,6 +604,7 @@ func (d *dosControl) resolve() {
 	}
 	d.checkReplay()
 	d.frozen, d.otherFrozen, d.queue = &v, &o, evs
+	d.keepFor(1-d.side, later, evs)
 	d.startStage(stageBlack, d.frames(blackFrames, blackFramesReduced))
 }
 
@@ -754,7 +780,8 @@ func (d *dosControl) strength(unit, size, exp int) {
 	}
 }
 
-// endText says how the battle ended, from the human side's view.
+// endText says how the battle ended, from the human side's view (with two
+// humans the winner's).
 func (d *dosControl) endText() string {
 	e := d.s.Ended()
 	if e == nil {
@@ -765,6 +792,8 @@ func (d *dosControl) endText() string {
 		return "The battle ends in a draw"
 	case e.Winner == d.side:
 		return fmt.Sprintf("VICTORY - %s (score %d)", d.endReason(), e.Score)
+	case d.local != localNone:
+		return "VICTORY - " + d.endReason() // two humans: the reason names the winner
 	}
 	return "DEFEAT - " + d.endReason()
 }
