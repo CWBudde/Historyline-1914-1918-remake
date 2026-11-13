@@ -418,6 +418,13 @@ export class BattleRuntime {
           : 1,
     );
     this.battle.tick(ms);
+    // A blown mine or a gas release turns the view to it once, when its event plays (dos.go lookAt); in the split
+    // layout each side's panel does so on its own playback.
+    const look = this.battle.playback.takeLook();
+    if (look !== null) {
+      this.map.camera.centerOn(...hexgrid.center(look));
+      this.map.dirty = true;
+    }
     if (draw) {
       this.map.setCursor(this.cursorDraw());
       this.map.render();
