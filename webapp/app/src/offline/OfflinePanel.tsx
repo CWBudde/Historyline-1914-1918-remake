@@ -41,8 +41,15 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
     case "downloading":
       status = `Downloading ${megabytes(state.done)} of ${megabytes(state.bytes)}…`;
       break;
+    case "kept":
+      status = `${label} is on this device while the campaign is near it.`;
+      break;
     case "ready":
       status = `${label} is downloaded.`;
+      break;
+    case "full":
+      status =
+        "There is not enough storage space for this map. Remove kept maps to make room.";
       break;
     case "error":
       status = state.note;
@@ -81,19 +88,33 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
             <button type="button" class="shell-button hl-nameplate" disabled>
               Downloaded
             </button>
+          ) : state.phase === "kept" ? (
+            <button
+              type="button"
+              class="shell-button hl-nameplate"
+              onClick={() => {
+                void model.pin();
+              }}
+            >
+              Keep on this device
+            </button>
           ) : (
             <button
               type="button"
               class="shell-button hl-nameplate"
-              disabled={state.phase !== "available" && state.phase !== "error"}
+              disabled={
+                state.phase !== "available" &&
+                state.phase !== "error" &&
+                state.phase !== "full"
+              }
               onClick={() => {
-                if (state.phase === "error") void model.select(mission);
-                else void model.download();
+                if (state.phase === "available") void model.download();
+                else void model.select(mission);
               }}
             >
               {state.phase === "available"
                 ? `Download map · ${megabytes(state.bytes)}`
-                : state.phase === "error"
+                : state.phase === "error" || state.phase === "full"
                   ? "Try again"
                   : "Download map"}
             </button>
@@ -110,6 +131,15 @@ export function OfflinePanel({ model, mission }: OfflinePanelProps) {
               <li key={entry.key}>
                 <span>
                   {entry.label} · {modes[entry.mode] ?? entry.mode}
+                  {!entry.pinned && (
+                    <span
+                      class="shell-muted"
+                      title="Kept automatically; it leaves when the campaign moves on."
+                    >
+                      {" "}
+                      · for now
+                    </span>
+                  )}
                 </span>
                 <span class="shell-muted">{megabytes(entry.bytes)}</span>
                 <button

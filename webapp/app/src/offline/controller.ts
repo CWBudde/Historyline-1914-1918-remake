@@ -1,4 +1,5 @@
 import { signal } from "@preact/signals";
+import { isStorageFull } from "../assetFetch.ts";
 import type { FileRef } from "../assetManifest.ts";
 import type { OfflineMission } from "../offline.ts";
 import { exclusiveFiles, keptBytes, type KeptRecord } from "./kept.ts";
@@ -32,7 +33,16 @@ export interface OfflineServices {
   persist(): Promise<void>;
 }
 export interface OfflineState {
-  phase: "idle" | "checking" | "available" | "downloading" | "ready" | "error";
+  /** kept: the background keep stored the month, and it may leave; ready: the player pinned it; full: no space. */
+  phase:
+    | "idle"
+    | "checking"
+    | "available"
+    | "downloading"
+    | "kept"
+    | "ready"
+    | "full"
+    | "error";
   key: string;
   /** Bytes still to fetch for the month. */
   bytes: number;
@@ -46,6 +56,8 @@ export interface KeptView {
   mode: string;
   /** What removing the month frees: its files no other kept month needs. */
   bytes: number;
+  /** Downloaded by the player; otherwise kept in the background while the campaign is near it. */
+  pinned: boolean;
 }
 
 const idle: OfflineState = {
@@ -111,6 +123,7 @@ export class OfflineController {
       label: r.label,
       mode: r.mode,
       bytes: exclusiveFiles(records, r.key).bytes,
+      pinned: r.pinned === true,
     }));
     this.keptTotal.value = keptBytes(records);
     this.storage.value = storage;
@@ -130,8 +143,9 @@ export class OfflineController {
     try {
       await this.refresh();
       if (!this.current(run)) return;
-      if (this.records.some((r) => r.key === key)) {
-        this.set({ phase: "ready" });
+      const record = this.records.find((r) => r.key === key);
+      if (record !== undefined) {
+        this.set({ phase: record.pinned === true ? "ready" : "kept" });
         return;
       }
       const plan = await this.services.plan(mission, signal);
@@ -170,7 +184,7 @@ export class OfflineController {
         if (this.current(run)) this.set({ done });
       });
       signal.throwIfAborted();
-      await this.services.commit(plan.record);
+      await this.services.commit({ ...plan.record, pinned: true });
       await persisting;
       if (!this.current(run)) return;
       await this.refresh();
@@ -181,8 +195,39 @@ export class OfflineController {
         .discard(files.map((f) => f.sha256))
         .catch(() => undefined);
       if (this.current(run)) {
-        this.fail(error);
+        if (isStorageFull(error)) this.set({ phase: "full", note: "" });
+        else this.fail(error);
       }
+    }
+  }
+
+  /**
+   * Pins the selected month the background keep stored, without fetching anything: it then stays until the
+   * player removes it. A month the keep evicted meanwhile is offered for download again.
+   */
+  async pin(): Promise<void> {
+    const mission = this.mission;
+    if (mission === null || this.state.value.phase !== "kept") return;
+    const run = ++this.generation;
+    // The prompt can only be answered inside the player's gesture.
+    const persisting = this.services.persist().catch(() => undefined);
+    try {
+      const record = (await this.services.records()).find(
+        (r) => r.key === keyOf(mission),
+      );
+      if (record === undefined) {
+        if (this.current(run)) await this.select(mission);
+        return;
+      }
+      await this.services.commit({ ...record, pinned: true });
+      await persisting;
+      if (!this.current(run)) return;
+      await this.refresh();
+      this.set({ phase: "ready" });
+    } catch (error) {
+      if (!this.current(run)) return;
+      if (isStorageFull(error)) this.set({ phase: "full", note: "" });
+      else this.fail(error);
     }
   }
 
