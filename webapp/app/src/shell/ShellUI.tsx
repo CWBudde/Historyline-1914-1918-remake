@@ -581,7 +581,7 @@ export function ShellUI(p: ShellUIProps) {
             onSubmit={(event) => {
               event.preventDefault();
               run(() => {
-                s.submitCode(code);
+                void s.submitCode(code);
               });
             }}
           >

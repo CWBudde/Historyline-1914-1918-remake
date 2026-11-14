@@ -249,7 +249,7 @@ it.each(["simultaneous", "hotseat"] as const)(
   "starts the selected month's local setup directly through news for %s humans",
   async (playMode) => {
     const f = fixture();
-    f.model.submitCode("HISTORY");
+    await f.model.submitCode("HISTORY");
     f.model.unitPage = 3;
     await f.model.updateSettings({ playMode, layout: "original" });
     expect(f.persisted[0]).toMatchObject({ playMode, layout: "original" });
@@ -344,11 +344,11 @@ it("follows native code, country, news, card pagination and Escape transitions",
   };
   model.open("code");
   model.typed = "b-a t!le";
-  model.submitCode();
+  await model.submitCode();
   expect(model.mission.code).toBe("BATLE");
   expect(model.page).toBe("main");
   const selected = model.mission;
-  model.submitCode("unknown");
+  await model.submitCode("unknown");
   expect(model.mission).toBe(selected);
   expect(model.note).toContain("Unknown code");
   model.start();
@@ -432,7 +432,7 @@ it("snapshots loading requests, cancels stale starts and refuses duplicate start
   f.model.back();
   expect(f.starts[0]?.signal.aborted).toBe(true);
   expect(f.model.page).toBe("main");
-  f.model.submitCode("BATLE");
+  await f.model.submitCode("BATLE");
   f.state.startGate = null;
   await f.model.toBattle();
   expect(f.model.activeMission?.code).toBe("BATLE");
@@ -701,7 +701,7 @@ it.each([
 );
 it("handles final-month victory and score failure without losing the outcome", async () => {
   const f = fixture();
-  f.model.submitCode("WATER");
+  await f.model.submitCode("WATER");
   await battle(f);
   f.state.fail = "score not kept";
   await f.model.endBattle({ ...won, won: ["surrender", ""] });
@@ -762,7 +762,8 @@ it("does not overwrite a later loading error with a previous battle's delayed sc
   expect(f.model.note).toBe("new map unavailable");
 });
 
-it("advances representative points in the shipped 52-month chains, including the final missions", async () => {
+// shippedCampaign is the campaign of the built web data (build/webapp/data).
+async function shippedCampaign(): Promise<Campaign> {
   const root = join(repo, "build/webapp/data");
   const fetcher: typeof fetch = async (url) => {
     const pathname = new URL(
@@ -770,12 +771,16 @@ it("advances representative points in the shipped 52-month chains, including the
     ).pathname.replace("/data/", "");
     return new Response(await readFile(join(root, pathname)));
   };
-  const campaign = await loadCampaign(
+  return loadCampaign(
     await AssetLoader.open("https://example.test/data/index.json", {
       fetch: fetcher,
       cache: null,
     }),
   );
+}
+
+it("advances representative points in the shipped 52-month chains, including the final missions", async () => {
+  const campaign = await shippedCampaign();
   for (const [key, next, code] of [
     ["1914-08:cp", "1914-09:cp", "KLUCK"],
     ["1914-08:ec", "1914-09:ec", "MARNE"],
@@ -826,3 +831,38 @@ it("publishes the target page before a pause hook notifies the host", async () =
     [false, "battle"],
   ]);
 });
+
+it.each([
+  ["TRACK", "single", "single", "1915-05:cp"],
+  ["TRACK", "simultaneous", "simultaneous", "1915-05:2p"],
+  ["TRACK", "hotseat", "hotseat", "1915-05:2p"],
+  ["WYTSC", "single", "simultaneous", "1914-11:2p"],
+  ["WYTSC", "simultaneous", "simultaneous", "1914-11:2p"],
+  ["WYTSC", "hotseat", "hotseat", "1914-11:2p"],
+] as const)(
+  "lets the code %s pick the month and PLAY (%s) the setup",
+  async (code, playMode, want, key) => {
+    const campaign = await shippedCampaign(),
+      base = fixture(),
+      model = new ShellController(
+        campaign,
+        base.store,
+        { ...defaultSettings(), playMode },
+        { ...base.hooks, validate: () => campaign.first(0) },
+      );
+    await model.submitCode(code);
+    expect(model.mission.month).toBe(key.slice(0, 7));
+    expect(model.settings.playMode).toBe(want);
+    // A code only a two-player setup has switches one human to two, and that is kept.
+    expect(base.persisted.map((s) => s.playMode)).toEqual(
+      want === playMode ? [] : [want],
+    );
+    model.start();
+    expect(model.mission.key).toBe(key);
+    if (want === "single") expect(model.page).toBe("country");
+    else {
+      expect(["news", "loading", "battle"]).toContain(model.page);
+      expect(model.side).toBe(0);
+    }
+  },
+);

@@ -174,7 +174,11 @@ export class ShellController {
     this.side = this.mission.side;
     this.show("country");
   }
-  submitCode(input = this.typed): void {
+  /**
+   * submitCode selects the month of a typed code; PLAY picks the setup start begins. A code only a two-player
+   * setup has switches one human to two (simultaneous) and keeps that setting.
+   */
+  async submitCode(input = this.typed): Promise<void> {
     if (this.busy || this.loadPending || this.activeMission !== null) return;
     this.typed = input
       .replace(/[^a-z0-9]/gi, "")
@@ -189,6 +193,12 @@ export class ShellController {
         ? `Unknown code ${this.typed}. The map stays ${this.mission.code}.`
         : `Map ${mission.code} selected.`;
     this.changed();
+    if (mission?.mode === "2p" && this.settings.playMode === "single") {
+      await this.updateSettings({ playMode: "simultaneous" });
+      if (this.note === "")
+        this.note = `Map ${mission.code} selected for two humans.`;
+      this.changed();
+    }
   }
   async chooseSide(side: 0 | 1): Promise<void> {
     if (this.busy || this.page !== "country") return;
