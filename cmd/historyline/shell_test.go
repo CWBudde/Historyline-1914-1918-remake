@@ -677,4 +677,16 @@ func TestSettingsKept(t *testing.T) {
 	if got := store.Load(); got.Reduced != true || got.Opponent != "passive" {
 		t.Errorf("after the menu change: kept %+v", got)
 	}
+
+	// A code only a two-player setup has switches PLAY, and that is kept.
+	s = newShell(maps, matchConfig{opponent: "ai", settings: store})
+	s.open(pageValues)
+	s.activate(5) // ONE HUMAN
+	s.locals = localShell(t).locals
+	s.open(pageMain)
+	s.typing, s.typed = true, "WYTSC"
+	s.enterCode()
+	if got := store.Load(); s.play != localSimultaneous || got.PlayMode != "simultaneous" {
+		t.Errorf("after WYTSC: play %v, kept %q", s.play, got.PlayMode)
+	}
 }

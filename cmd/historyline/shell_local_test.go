@@ -135,3 +135,47 @@ func TestHotseatSaveResume(t *testing.T) {
 		t.Errorf("after the takeover: covered %v %v", r.covered(0), r.covered(1))
 	}
 }
+
+// TestCodeWordPlay: a code word selects its month and PLAY picks the mode:
+// one human starts the month's map of the code's side, two humans its
+// two-player setup in their mode. A code only a two-player setup has
+// switches one human to TWO HUMANS and starts that setup.
+func TestCodeWordPlay(t *testing.T) {
+	enter := func(s *shell, code string) {
+		s.open(pageMain)
+		s.typing, s.typed = true, code
+		s.enterCode()
+	}
+	for _, tc := range []struct {
+		code       string
+		play, want localMode
+		month      string
+	}{
+		{"TRACK", localNone, localNone, "1915-05"},
+		{"TRACK", localSimultaneous, localSimultaneous, "1915-05"},
+		{"TRACK", localHotseat, localHotseat, "1915-05"},
+		{"WYTSC", localNone, localSimultaneous, "1914-11"},
+		{"WYTSC", localSimultaneous, localSimultaneous, "1914-11"},
+		{"WYTSC", localHotseat, localHotseat, "1914-11"},
+	} {
+		s := localShell(t)
+		s.play = tc.play
+		enter(s, tc.code)
+		if m := s.maps[s.code]; m.file != tc.month || s.play != tc.want {
+			t.Errorf("%s with %v: month %s, play %v; want %s, %v (%q)", tc.code, tc.play, m.file, s.play, tc.month, tc.want, s.note)
+			continue
+		}
+		s.activate(0) // START
+		c := s.config(matchConfig{set: testSet(t), opponent: "ai"})
+		switch tc.want {
+		case localNone:
+			if s.page != pageCountry || s.localOn || c.local != localNone || c.lvl != s.maps[s.code].lvl || s.maps[s.code].code() != tc.code {
+				t.Errorf("%s with one human: page %d, local %v, map %s", tc.code, s.page, s.localOn, s.maps[s.code].name)
+			}
+		default:
+			if !s.localOn || c.local != tc.want || c.lvl != s.locals[tc.month].lvl {
+				t.Errorf("%s with %v: local %v, mode %v, level %s", tc.code, tc.want, s.localOn, c.local, c.lvl.MapName)
+			}
+		}
+	}
+}

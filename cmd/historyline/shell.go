@@ -686,7 +686,9 @@ func (s *shell) typeRune(r rune) {
 	}
 }
 
-// enterCode selects the map whose code was typed.
+// enterCode selects the map whose code was typed: the code picks the month,
+// PLAY the setup START begins. A code only a month's two-player setup has
+// selects that month and two humans (TWO HUMANS unless PLAY is HOT-SEAT).
 func (s *shell) enterCode() {
 	s.typing = false
 	for i, m := range s.maps {
@@ -696,7 +698,38 @@ func (s *shell) enterCode() {
 			return
 		}
 	}
+	for _, l := range s.locals {
+		if l.code() != s.typed {
+			continue
+		}
+		if i, ok := s.monthMap(l.file); ok {
+			s.code = i
+			if s.play == localNone {
+				s.setPlay(localSimultaneous)
+			}
+			s.note = [2]string{"Map " + l.lvl.MapName + " selected", "for two humans."}
+			return
+		}
+	}
 	s.note = [2]string{"Unknown code " + s.typed + ".", "The map stays " + s.maps[s.code].lvl.MapName + "."}
+}
+
+// monthMap is the menu map of the month in level folder file: the selected
+// side's where the month has one.
+func (s *shell) monthMap(file string) (int, bool) {
+	found, ok := 0, false
+	for i, m := range s.maps {
+		if m.file != file {
+			continue
+		}
+		if m.mode == s.maps[s.code].mode {
+			return i, true
+		}
+		if !ok {
+			found, ok = i, true
+		}
+	}
+	return found, ok
 }
 
 // start begins a battle on the selected map (START): one human picks a
