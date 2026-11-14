@@ -202,8 +202,9 @@ test.describe("the battle scene with reduced motion", () => {
           path: join(shots, `${prefix}390x844-reduced-scene.png`),
         });
     }
-    await page.clock.resume();
+    // Skip while the page's clock still stands: a reduced scene ends by itself a fraction of a second after it runs.
     await page.locator(".battle-host-close:visible").first().click();
+    await page.clock.resume();
     await expect(page.locator(".battle-scene-host")).toHaveCount(0);
   });
 });
