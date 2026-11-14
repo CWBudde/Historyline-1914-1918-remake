@@ -89,11 +89,16 @@ func (a *app) saveCurrentBattle() error {
 	if err != nil {
 		return err
 	}
+	pending, err := d.savedPending() // a hot-seat resolution one human has not seen yet
+	if err != nil {
+		return err
+	}
 	return a.base.saves.Put(saves.Envelope{
-		Map:  a.shell.current().name,
-		Side: d.saveSide(), // behind the hot-seat curtain the human who plays next
-		Data: data,
-		Mode: d.local.String(),
+		Map:     a.shell.current().name,
+		Side:    d.saveSide(), // behind the hot-seat curtain the human who plays next
+		Data:    data,
+		Mode:    d.local.String(),
+		Pending: pending,
 	})
 }
 

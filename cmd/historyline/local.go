@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"image"
 	"slices"
@@ -10,6 +11,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
@@ -81,10 +83,12 @@ type dosSeat struct {
 func freshSeat() dosSeat { return dosSeat{unit: -1, hold: -1, slot: -1} }
 
 // pending is a resolution its side has not seen yet (hot-seat): its view
-// from before and the events, played behind its curtain when it takes over.
+// from before and the events, played behind its curtain when it takes over,
+// and the game's save from before, which a saved battle keeps.
 type pending struct {
 	before dosplay.View
 	events []dosplay.Event
+	saved  []byte
 }
 
 // takeSeat is the served human's state, taken out of d.
@@ -196,10 +200,80 @@ func (d *dosControl) takeOver() {
 }
 
 // keepFor keeps the resolution evs for the hot-seat side that does not see
-// it now, with its view before.
-func (d *dosControl) keepFor(side int, before dosplay.View, evs []dosplay.Event) {
+// it now, with its view and the game's save from before.
+func (d *dosControl) keepFor(side int, before dosplay.View, saved []byte, evs []dosplay.Event) {
 	if d.local == localHotseat {
-		d.pending[side] = &pending{before: before, events: slices.Clone(evs)}
+		d.pending[side] = &pending{before: before, events: slices.Clone(evs), saved: saved}
+	}
+}
+
+// savedPending is the resolution a hot-seat side has not seen yet as a save
+// keeps it, nil for none: the events in their JSON, the one the web edition
+// writes and reads too.
+func (d *dosControl) savedPending() (*saves.Pending, error) {
+	for side, p := range d.pending {
+		if p == nil || p.saved == nil {
+			continue
+		}
+		evs, err := json.Marshal(p.events)
+		if err != nil {
+			return nil, err
+		}
+		return &saves.Pending{Side: side, Before: p.saved, Events: evs}, nil
+	}
+	return nil, nil
+}
+
+// restorePending keeps a saved battle's pending resolution for its hot-seat
+// side again: its view from before comes from the save of the game before
+// it. One that does not load is dropped; the battle goes on without its
+// playback.
+func (d *dosControl) restorePending(c matchConfig) {
+	p := c.pending
+	if p == nil || d.local != localHotseat || p.Side < 0 || p.Side > 1 {
+		return
+	}
+	var evs []dosplay.Event
+	if err := json.Unmarshal(p.Events, &evs); err != nil {
+		return
+	}
+	for i := range evs {
+		nilEmpty(&evs[i])
+	}
+	var s *dosplay.Session
+	var err error
+	if c.board != nil {
+		s, err = dosplay.LoadBoard(c.board, c.lvl, c.set, p.Before)
+	} else {
+		s, err = dosplay.Load(c.lvl, c.set, p.Before)
+	}
+	if err != nil {
+		return
+	}
+	before := s.View(p.Side)
+	if d.reveal {
+		before = s.TrueView()
+	}
+	d.pending[p.Side] = &pending{before: before, events: evs, saved: p.Before}
+}
+
+// nilEmpty makes ev's empty lists nil: the web edition writes [] where Go
+// writes null, and the event reads as the one the session gave.
+func nilEmpty(ev *dosplay.Event) {
+	nilIfEmpty(&ev.Path)
+	nilIfEmpty(&ev.Rear)
+	nilIfEmpty(&ev.Hexes)
+	nilIfEmpty(&ev.Raw.Route)
+	nilIfEmpty(&ev.Raw.Messages)
+	nilIfEmpty(&ev.Raw.Cells)
+	if o := ev.Raw.Outcome; o != nil {
+		nilIfEmpty(&o.Destroyed)
+	}
+}
+
+func nilIfEmpty[T any](s *[]T) {
+	if len(*s) == 0 {
+		*s = nil
 	}
 }
 

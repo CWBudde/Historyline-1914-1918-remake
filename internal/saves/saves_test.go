@@ -1,6 +1,8 @@
 package saves
 
 import (
+	"bytes"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"testing"
@@ -52,5 +54,47 @@ func TestModeRoundTrip(t *testing.T) {
 	}
 	if got, ok := s.Get(); !ok || got.Mode != "" {
 		t.Fatalf("an old save: %+v ok %v", got, ok)
+	}
+}
+
+// TestPendingRoundTrip: a hot-seat save keeps the playback one human has not
+// seen; a save without one writes no field, an old save reads without one,
+// and a malformed one is dropped while the battle still loads.
+func TestPendingRoundTrip(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "save.json")
+	s := OpenFile(path)
+	want := &Pending{Side: 1, Before: []byte{4, 5, 6}, Events: json.RawMessage(`[{"Kind":5,"Side":0}]`)}
+	if err := s.Put(Envelope{Map: "1914-08:2p", Side: 0, Data: []byte{7}, Mode: "hotseat", Pending: want}); err != nil {
+		t.Fatal(err)
+	}
+	got, ok := s.Get()
+	if !ok || got.Pending == nil || got.Pending.Side != 1 || !bytes.Equal(got.Pending.Before, want.Before) {
+		t.Fatalf("got %+v ok %v", got, ok)
+	}
+	var evs []map[string]int
+	if err := json.Unmarshal(got.Pending.Events, &evs); err != nil || len(evs) != 1 || evs[0]["Kind"] != 5 {
+		t.Fatalf("events %s: %v", got.Pending.Events, err)
+	}
+	if err := s.Put(Envelope{Map: "1914-08:2p", Side: 0, Data: []byte{7}, Mode: "hotseat"}); err != nil {
+		t.Fatal(err)
+	}
+	if b, err := os.ReadFile(path); err != nil || bytes.Contains(b, []byte("pending")) {
+		t.Errorf("a save without a pending playback writes the field:\n%s", b)
+	}
+	for _, body := range []string{
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat"}`,
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat","pending":null}`,
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat","pending":5}`,
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat","pending":{"side":2,"before":"AQ==","events":[]}}`,
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat","pending":{"side":1,"before":"","events":[]}}`,
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat","pending":{"side":1,"before":"AQ==","events":{}}}`,
+		`{"map":"1914-08:2p","side":0,"data":"AQ==","mode":"hotseat","pending":{"side":1,"before":"!!","events":[]}}`,
+	} {
+		if err := os.WriteFile(path, []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		if got, ok := s.Get(); !ok || got.Pending != nil || got.Map != "1914-08:2p" || string(got.Data) != "\x01" {
+			t.Errorf("%s: got %+v ok %v", body, got, ok)
+		}
 	}
 }

@@ -301,7 +301,8 @@ type shell struct {
 	scores      *scores.Store
 	saves       *saves.Store
 	scoreList   []scores.Entry
-	pendingSave []byte // a loaded battle to resume, consumed by config
+	pendingSave []byte         // a loaded battle to resume, consumed by config
+	pendingPlay *saves.Pending // its hot-seat resolution one human has not seen yet
 	pendingSide int
 	unitPage    int          // the page of new units shown
 	saveBattle  func() error // set by the app; nil in tests
@@ -333,7 +334,8 @@ func (s *shell) config(base matchConfig) matchConfig {
 	c.scroll = scrollSpeeds[s.scroll].speed
 	if s.pendingSave != nil {
 		c.saved, c.player = s.pendingSave, dosbind.Factions[s.pendingSide]
-		s.pendingSave = nil // consumed: a later START starts fresh
+		c.pending = s.pendingPlay
+		s.pendingSave, s.pendingPlay = nil, nil // consumed: a later START starts fresh
 	}
 	return c
 }
@@ -534,6 +536,7 @@ func (s *shell) loadSaved() {
 		if m.name == strings.TrimPrefix(env.Map, "") { // saved before the level folders
 			s.code, s.pendingSave, s.pendingSide = i, env.Data, env.Side
 			s.side, s.localOn = dosbind.Factions[env.Side], false
+			s.pendingPlay = nil
 			s.open(pageLoading)
 			return
 		}
@@ -548,6 +551,7 @@ func (s *shell) loadSaved() {
 			if c.file == m.file {
 				s.code, s.pendingSave, s.pendingSide = i, env.Data, env.Side
 				s.side, s.localOn = dosbind.Factions[env.Side], true
+				s.pendingPlay = env.Pending
 				mode, err := parseLocalMode(env.Mode)
 				if err != nil || mode == localNone {
 					mode = localSimultaneous // a two-player map is two humans' battle

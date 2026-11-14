@@ -556,6 +556,7 @@ type matchConfig struct {
 	scores     *scores.Store   // the best scores, opened once; nil keeps none
 	saves      *saves.Store    // the single saved battle; nil keeps none
 	saved      []byte          // a saved battle to resume (dos only); nil starts fresh
+	pending    *saves.Pending  // with saved: the resolution a hot-seat human has not seen yet; nil none
 	terrain    string          // terrain catalog directory, composed per level; "" draws coloured hexes
 	backdrop   *backdropImage  // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
 	noBackdrop bool            // draw the terrain even where the level has a backdrop (-backdrop off)
@@ -630,6 +631,7 @@ func newDosMatch(c matchConfig) (*game, error) {
 	}
 	g := newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
 	g.setLocal(c.local) // two humans give their own orders: no planner plays
+	g.dos.restorePending(c)
 	return g, nil
 }
 
@@ -791,6 +793,7 @@ func main() {
 		if !given["play"] {
 			c.local = snap.local // a two-human save resumes as it was played
 		}
+		c.pending = snap.pending
 	}
 	gm, err := newMatch(c)
 	if err != nil {

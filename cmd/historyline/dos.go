@@ -595,8 +595,13 @@ func (d *dosControl) resolve() {
 	}
 	v, o := view(d.side), view(1-d.side)
 	var later dosplay.View // the other side's own copy, played on its turn
+	var saved []byte       // and the game before, which a saved battle keeps
 	if d.local == localHotseat {
 		later = view(1 - d.side)
+		var err error
+		if saved, err = d.s.Save(); err != nil {
+			saved = nil // the playback stays; a save made before it plays loses it
+		}
 	}
 	evs, err := d.s.Resolve()
 	if err != nil {
@@ -604,7 +609,7 @@ func (d *dosControl) resolve() {
 	}
 	d.checkReplay()
 	d.frozen, d.otherFrozen, d.queue = &v, &o, evs
-	d.keepFor(1-d.side, later, evs)
+	d.keepFor(1-d.side, later, saved, evs)
 	d.startStage(stageBlack, d.frames(blackFrames, blackFramesReduced))
 }
 
