@@ -55,16 +55,16 @@ history.
 - [ ] 2.1 Hand check in the window of the desktop game's ownership strips (building strips and owner-edged unit
       plates, drawn like the web edition's) on the composed map, including fractional zoom and 4K/HiDPI.
 - [ ] 2.2 Two humans in the desktop game (`-play simultaneous|hotseat`, the menu's two-player entries), what is
-      left:
-      - hand test in the window: key set B on the right panel beside the mouse and key set A, the hot-seat
-        curtain and takeover, the resolution's battles replayed for the second human;
-      - in simultaneous play the right human has no F2/Esc of its own;
-      - a pending hot-seat resolution is not in the save;
-      - typing a `2p` code word does not select two-player mode;
-      - the PLAY setting lasts only for the session.
+      left: the hand test in the window, in both editions where it applies:
+      - key set B on the right panel beside the mouse and key set A; the right human's Tab (cancel) and F3
+        (give up) in simultaneous play;
+      - the hot-seat curtain and takeover, the resolution's battles replayed for the second human, and a save
+        taken before that replay resumed with it;
+      - a `2p` code word (WYTSC) switching PLAY to two humans, and the game values kept after a restart.
 - [ ] 2.3 Screens still missing in the desktop game: credits/help (built: main menu, country selection, news,
-      new units, loading, victory/defeat, leave-battle, save/load, score list, hot-seat handover);
-      hover/focus/pressed/disabled states and keyboard navigation throughout.
+      new units, loading, victory/defeat, leave-battle, save/load, score list, hot-seat handover). The menus
+      have focus, pressed and disabled states and arrow/Enter/Esc keys; hover, Tab navigation and the
+      in-battle overlays' states remain.
 - [ ] 2.4 Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
       approved exports through `assets/assets.go`. The screen paintings still need native 4× masters and
       runtime bindings. Interface packs build, but the game does not use them yet. Split screen art
