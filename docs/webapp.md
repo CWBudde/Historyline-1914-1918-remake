@@ -13,7 +13,10 @@ are in [runtime-assets.md](runtime-assets.md); the split screen and the order me
   imports outside tests, so it runs in Node, the browser and a worker. Saves share the Go JSON format.
 - `webapp/app`: PixiJS v8 draws the map and the battle scene; menus, panels and the HUD are Preact with
   signals, which never drive the frame loop. The computer side plans in a Web Worker (`computer.worker.ts`)
-  on session snapshots and returns replayable commands.
+  on a session snapshot as soon as its phase opens, while the player gives orders; it then carries out the
+  commands on the live session one by one, each move resting a moment and walking on its own panel, whose camera
+  follows, and confirms after the last (three times as fast once the player has confirmed). A command the live
+  session refuses makes it plan once more on the session as it is; if that fails too, it confirms what it has.
 - Go stays the source of the data: exports and goldens are `hl webapp` commands (`internal/hlwebapp`), and the
   CPU-heavy map work (`mapcompose`, `waterdepth`, `seasonblend`) is baked into the export. Only the original
   game's maps, which have no baked layers, are composed in the browser.
