@@ -3,6 +3,7 @@ package hlwebapp
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -41,12 +42,12 @@ type pwaManifest struct {
 
 // writePWA writes the web app manifest and its icons into out. All URLs are
 // relative: the site is served from a sub-path.
-func writePWA(out string) error {
+func writePWA(out string) (err error) {
 	file, err := os.Open(pwaIconSource)
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() { err = errors.Join(err, file.Close()) }()
 	src, err := png.Decode(file)
 	if err != nil {
 		return fmt.Errorf("%s: %w", pwaIconSource, err)

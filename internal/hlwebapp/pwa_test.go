@@ -1,6 +1,7 @@
 package hlwebapp
 
 import (
+	"bytes"
 	"encoding/json"
 	"image/png"
 	"os"
@@ -42,12 +43,11 @@ func TestPWA(t *testing.T) {
 
 func checkPNG(t *testing.T, path, sizes string) {
 	t.Helper()
-	f, err := os.Open(path)
+	raw, err := os.ReadFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer f.Close()
-	cfg, err := png.DecodeConfig(f)
+	cfg, err := png.DecodeConfig(bytes.NewReader(raw))
 	if err != nil {
 		t.Fatalf("%s: %v", path, err)
 	}
