@@ -5,7 +5,7 @@ import type { AssetLoader } from "../assets.ts";
 import type { Computer } from "../computer.ts";
 import { BattleRuntime, type BattleHooks } from "../battle/runtime.ts";
 import { missionSession, type BattleData } from "../battle/session.ts";
-import { MapBattle } from "../mapBattle.ts";
+import { MapBattle, computerStage } from "../mapBattle.ts";
 import {
   decodeEnvelope,
   splitByDefault,
@@ -136,6 +136,9 @@ export class SplitRuntime {
           events,
         );
       };
+      // The computer's moves rest and walk on its own panel while that shows.
+      const shown = peer.side === 0 ? 0 : 1;
+      primary.stage = computerStage(peer, () => this.visible(shown));
     }
     this.keyboard = this.installKeyboard();
     this.resize(app.screen.width, app.screen.height, app.renderer.resolution);
@@ -720,26 +723,23 @@ export class SplitRuntime {
       if (u !== undefined && u.side === side && b.playback.moving() === null)
         unit = { size: u.size, exp: u.exp, name: u.name, owner: u.owner };
     }
-    const planning =
-      this.local === null &&
-      side !== this.request.side &&
-      own.planningOrders() &&
-      own.progress !== null
-        ? own.progress.total > 0
-          ? own.progress.done / own.progress.total
-          : 0
-        : null;
+    const computer =
+        this.local === null && side !== this.request.side
+          ? own.computerState()
+          : null,
+      planning =
+        computer === "planning" && own.progress !== null
+          ? own.progress.total > 0
+            ? own.progress.done / own.progress.total
+            : 0
+          : null;
     return wellOf({
       stage: prompt,
       ended: end === null || !end.over ? null : endText(end, side),
       planning,
       attack: play.phase(s, side) !== phaseMovement,
-      busy: b.playback.busy(),
-      // The desktop's computer plans as soon as a phase opens and then waits on the player; here it plans once the
-      // player confirms, so its well says from the start that it waits.
-      ready:
-        play.ready(s, side) ||
-        (this.local === null && side !== this.request.side),
+      busy: b.playback.busy() || computer === "acting",
+      ready: play.ready(s, side),
       enemyAttacks: play.phase(s, 1 - side) !== phaseMovement,
       human,
       message: m?.fresh === true ? b.status : "",

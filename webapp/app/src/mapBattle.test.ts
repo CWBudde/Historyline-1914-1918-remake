@@ -91,7 +91,7 @@ it("shows the viewing side's map while enemy moves remain unrevealed", () => {
   expect(battle.selected).toBeNull();
 });
 
-it("confirms the human, replays worker commands and resolves a complete phase", async () => {
+it("plans while the player gives orders, replays the worker's commands and resolves a complete phase", async () => {
   const s = start(),
     expected = play.clone(s, Builds);
   play.confirm(expected, 0);
@@ -113,34 +113,43 @@ it("confirms the human, replays worker commands and resolves a complete phase", 
   battle.onResolution = (before) => {
     observed = before;
   };
-  const pending = battle.phase();
-  expect(battle.busy()).toBe(true);
+  battle.tick(16);
+  expect(battle.computerState()).toBe("planning");
+  expect(battle.busy()).toBe(false);
+  await battle.phase();
   expect(play.ready(s, 0)).toBe(true);
   const mark = play.mark(s);
   battle.click({ line: 0, col: 0 });
   await battle.phase();
   expect(play.mark(s)).toBe(mark);
   release();
-  await pending;
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  for (let n = 0; n < 200 && battle.computerState() !== null; n++)
+    battle.tick(16);
   expect(play.save(s)).toEqual(play.save(expected));
   expect(observed).toEqual(expectedBefore);
   battle.tick(100_000);
   expect(battle.view()).toEqual(play.view(s, 0));
 });
 
-it("allows retry after a worker failure and blocks confirmed or ended inputs", async () => {
+it("goes on after a worker failure and blocks confirmed or ended inputs", async () => {
   const s = start(),
     battle = new MapBattle(s, 0, {
       commands: () => Promise.reject(new Error("worker unavailable")),
     });
-  await battle.phase();
+  for (let n = 0; n < 200 && !play.ready(s, 1); n++) {
+    battle.tick(16);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  }
   expect(battle.status).toContain("worker unavailable");
+  expect(play.ready(s, 1)).toBe(true);
   expect(play.ready(s, 0)).toBe(false);
   expect(battle.busy()).toBe(false);
   const own = mobile(s, 0).u.at;
   play.confirm(s, 0);
   battle.click(own);
   expect(battle.selected).toBeNull();
+  play.unconfirm(s, 0);
   play.surrender(s, 1);
   const mark = play.mark(s);
   await battle.phase();

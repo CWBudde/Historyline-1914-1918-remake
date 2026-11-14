@@ -1,9 +1,9 @@
 import { expect, it, vi } from "vitest";
-import { hexgrid, level, play } from "@historyline/engine";
-import { Full } from "../../../engine/src/testing/tables.ts";
+import { ai, hexgrid, level, play } from "@historyline/engine";
+import { Builds, Full } from "../../../engine/src/testing/tables.ts";
 import { playData, shippedLevel } from "../../../engine/src/testing/play.ts";
 import { Camera } from "../camera.ts";
-import { MapBattle } from "../mapBattle.ts";
+import { MapBattle, computerStage } from "../mapBattle.ts";
 import { BattleRuntime } from "../battle/runtime.ts";
 import { SplitRuntime } from "./runtime.ts";
 import type { Layout } from "../storage/store.ts";
@@ -143,4 +143,48 @@ it("keeps both panels' views on other events", () => {
   ]);
   runtime.tick(16);
   expect(both.map((p) => centre(p.map.camera))).toEqual(still);
+});
+
+it("words the computer's well: planning with its bar, orders under way while it acts, waiting once it confirmed", async () => {
+  const { runtime, both } = panels();
+  Object.assign(runtime, { request: { side: 1 } });
+  const session = both[0].battle.session;
+  let release = () => {};
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  const player = new MapBattle(session, 1, {
+    commands: (s, side, progress) => {
+      progress?.(1, 4);
+      const snapshot = play.clone(s, Builds);
+      return gate.then(() => ai.commands({}, snapshot, side));
+    },
+  });
+  player.stage = computerStage(both[0].battle, () => true);
+  Object.assign(both[1], { battle: player });
+  expect(runtime.well(0)).toEqual({
+    text: "MOVEMENT PHASE",
+    unit: null,
+    progress: -1,
+  });
+  runtime.tick(16);
+  expect(player.computerState()).toBe("planning");
+  expect(runtime.well(0)).toEqual({
+    text: "PLANNING THE MOVES",
+    unit: null,
+    progress: 0.25,
+  });
+  // The player's own well is not the computer's.
+  expect(runtime.well(1).progress).toBe(-1);
+  release();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  while (player.computerState() === "planning") runtime.tick(16);
+  expect(runtime.well(0).text).toBe("ORDERS UNDER WAY");
+  while (player.computerState() !== null) runtime.tick(16);
+  expect(play.ready(session, 0)).toBe(true);
+  expect(runtime.well(0)).toEqual({
+    text: "WAITING: ENEMY ATTACKS",
+    unit: null,
+    progress: -1,
+  });
 });

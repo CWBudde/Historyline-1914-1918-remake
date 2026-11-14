@@ -11,7 +11,7 @@ function start() {
   });
 }
 
-it("opens a cancellable ready prompt, withdraws ready while the worker thinks and resolves once", async () => {
+it("opens a cancellable ready prompt and withdraws ready while the computer plans, which it does once", async () => {
   const s = start();
   let release: () => void = () => {},
     calls = 0,
@@ -34,21 +34,26 @@ it("opens a cancellable ready prompt, withdraws ready while the worker thinks an
     notices++;
   };
   const mark = play.mark(s);
+  // The computer plans as soon as the phase opens.
+  b.tick(16);
+  expect(calls).toBe(1);
+  expect(b.progress).toEqual({ done: 1, total: 3 });
   await b.requestPhase();
   expect(b.phasePrompt).toBe(true);
   expect(play.mark(s)).toBe(mark);
   b.cancel();
   expect(b.phasePrompt).toBe(false);
   await b.requestPhase();
-  const pending = b.requestPhase();
+  await b.requestPhase();
   expect(play.ready(s, 0)).toBe(true);
-  expect(b.progress).toEqual({ done: 1, total: 3 });
   await b.requestPhase();
   expect(play.ready(s, 0)).toBe(false);
   release();
-  await pending;
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  for (let n = 0; n < 200 && b.computerState() !== null; n++) b.tick(16);
+  expect(play.ready(s, 1)).toBe(true);
   expect(b.busy()).toBe(false);
-  expect(calls).toBe(1);
+  expect(play.phase(s, 0)).toBe(phaseMovement);
   await b.requestPhase();
   await b.requestPhase();
   expect(play.phase(s, 0)).not.toBe(phaseMovement);

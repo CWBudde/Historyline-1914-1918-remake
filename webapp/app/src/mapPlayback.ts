@@ -54,6 +54,8 @@ interface Fight {
 /** Immutable visual snapshots follow events after the rules have already run. */
 export class MapPlayback {
   readonly directions = new Map<number, Facing>();
+  /** pace is how many times as fast a walk and its rest run: the computer's moves once the player waits. */
+  pace = 1;
   private walk: Walk | null = null;
   private frozen: play.View | null = null;
   private result: play.View | null = null;
@@ -82,19 +84,23 @@ export class MapPlayback {
     return at;
   }
 
-  move(event: play.Event, unit: play.UnitView): void {
+  /**
+   * move plays the side's move event: the unit walks its path, first resting restMs on its first hex (the
+   * computer's moves, plan.go actPauseFrames); with rest null, or reduced motion, it only turns.
+   */
+  move(event: play.Event, unit: play.UnitView, rest: number | null = 0): void {
     if (event.kind === play.Revealed) {
       this.face(event);
       return;
     }
     if (event.kind !== play.Moved || event.side !== this.side) return;
     this.face(event);
-    if (this.reduced || event.path.length < 2) return;
+    if (rest === null || this.reduced || event.path.length < 2) return;
     this.walk = {
       unit: structuredClone(unit),
       path: structuredClone(event.path),
       rear: structuredClone(event.rear),
-      elapsed: 0,
+      elapsed: -Math.max(rest, 0),
     };
   }
   skipWalk(): boolean {
@@ -102,13 +108,22 @@ export class MapPlayback {
     this.walk = null;
     return true;
   }
+  /** walking reports whether a move rests or walks. */
+  walking(): boolean {
+    return this.walk !== null;
+  }
+  /** resolving reports whether a resolution plays back. */
+  resolving(): boolean {
+    return this.frozen !== null || this.queue.length > 0 || this.wait > 0;
+  }
   moving(): WalkingUnit | null {
     const w = this.walk;
     if (w === null) return null;
-    const last = w.path.length - 1;
-    if (w.elapsed >= last * stepMS) return null;
-    const i = Math.min(Math.floor(w.elapsed / stepMS), last - 1),
-      f = (w.elapsed % stepMS) / stepMS;
+    const last = w.path.length - 1,
+      elapsed = Math.max(w.elapsed, 0);
+    if (elapsed >= last * stepMS) return null;
+    const i = Math.min(Math.floor(elapsed / stepMS), last - 1),
+      f = (elapsed % stepMS) / stepMS;
     const along = (path: hexgrid.Coord[]): Point => {
       const a = path[i],
         b = path[i + 1];
@@ -194,7 +209,7 @@ export class MapPlayback {
     if (!Number.isFinite(ms) || ms < 0)
       throw new Error("invalid presentation interval");
     if (this.walk !== null) {
-      this.walk.elapsed += ms;
+      this.walk.elapsed += ms * this.pace;
       if (this.walk.elapsed + epsilonMS >= (this.walk.path.length - 1) * stepMS)
         this.walk = null;
     }

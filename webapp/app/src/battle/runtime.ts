@@ -500,8 +500,12 @@ export class BattleRuntime {
     )
       this.map.resize(width, height, dpr);
   }
+  /**
+   * canSave reports whether the battle can be saved: always while it runs, since the computer plans on a snapshot
+   * and replays each command whole; a loaded battle plans again where the computer had not confirmed.
+   */
   canSave(): boolean {
-    return !this.stopped && !this.battle.planningOrders();
+    return !this.stopped;
   }
   ended(): boolean {
     return play.ended(this.battle.session) !== null && !this.battle.busy();

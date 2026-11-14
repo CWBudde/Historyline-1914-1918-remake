@@ -19,12 +19,65 @@ import {
 } from "./ui/ring.ts";
 import { menuItems, slotTable, type MenuItem } from "./ui/orderMenu.ts";
 
+/**
+ * MapComputer plans side's orders off the frame (computer.ts): it snapshots the session when called, as postMessage
+ * does, and resolves with the commands to replay on the live session.
+ */
 export interface MapComputer {
   commands(
     session: play.Session,
     side: number,
     progress?: (done: number, total: number) => void,
   ): Promise<play.Command[]>;
+}
+
+// The computer side plans as soon as its phase opens, in the worker on a snapshot of the session, while the player
+// keeps giving orders on the live one; it then carries out its commands on the live session one by one, each move
+// resting a moment and walking on the computer's own panel, and confirms after the last (cmd/historyline/plan.go).
+// A command the live session refuses (the player changed something in between) makes it plan once more on the
+// session as it is now; when that fails too it confirms the orders it has given, so the battle always goes on.
+
+/** planMinMs is how long the planning shows at least, so its bar is seen to run (plan.go planMinFrames). */
+export const planMinMs = (45 * 1000) / 60;
+/** actRestMs is how long the computer's panel rests before each move (plan.go actPauseFrames). */
+export const actRestMs = (12 * 1000) / 60;
+/** actFastSpeed is how many times as fast the computer carries out its orders once the player waits for it. */
+export const actFastSpeed = 3;
+
+/** ComputerStage is where the computer's moves are seen: its own panel on the split screen. */
+export interface ComputerStage {
+  /** act shows one command's events; it reports whether a move now rests restMs and walks there. */
+  act(events: readonly play.Event[], restMs: number): boolean;
+  /** busy reports whether the panel still plays a move or a resolution. */
+  busy(): boolean;
+  /** pace sets how many times as fast its moves run. */
+  pace(speed: number): void;
+}
+
+/** computerStage is battle's panel as the stage of its side's computer moves; moves only turn while not shown. */
+export function computerStage(
+  battle: MapBattle,
+  shown: () => boolean,
+): ComputerStage {
+  return {
+    act: (events, restMs) => battle.act(events, shown() ? restMs : null),
+    busy: () => battle.playback.busy(),
+    pace: (speed) => {
+      battle.playback.pace = speed;
+    },
+  };
+}
+
+/** Turn is one planning of the computer side and the carrying-out of its commands. */
+interface Turn {
+  /** retry reports whether this planning follows a failed one. */
+  retry: boolean;
+  /** elapsed is how long the planning has shown, in ms. */
+  elapsed: number;
+  /** answer is the worker's, once it came. */
+  answer: { commands: play.Command[] } | { error: unknown } | null;
+  /** commands are those still to carry out, null while planning. */
+  commands: play.Command[] | null;
 }
 
 /** Local humans share rules, while each keeps its own fair view and controls. */
@@ -52,11 +105,11 @@ export class MapBattle {
   onResolution:
     | ((before: [play.View, play.View], events: readonly play.Event[]) => void)
     | null = null;
-  private planning = false;
+  /** stage is the computer's own panel, where its moves walk; null shows them nowhere. */
+  stage: ComputerStage | null = null;
+  private turn: Turn | null = null;
   private paused = false;
   private disposed = false;
-  private resumeGate: Promise<void> | null = null;
-  private resume: (() => void) | null = null;
 
   constructor(
     readonly session: play.Session,
@@ -79,31 +132,29 @@ export class MapBattle {
     this.cursor = startHex(this.view(), side, session.level);
   }
   busy(): boolean {
-    return this.planning || this.playback.busy();
+    return this.playback.busy();
   }
-  planningOrders(): boolean {
-    return this.planning;
+  /** computerState is what the computer side does now: planning, carrying out its commands, or nothing. */
+  computerState(): "planning" | "acting" | null {
+    return this.turn === null
+      ? null
+      : this.turn.commands === null
+        ? "planning"
+        : "acting";
   }
   setPaused(paused: boolean): void {
     if (this.disposed || paused === this.paused) return;
     this.paused = paused;
-    if (paused)
-      this.resumeGate = new Promise((resolve) => {
-        this.resume = resolve;
-      });
-    else {
-      this.resume?.();
-      this.resume = null;
-      this.resumeGate = null;
-    }
     this.touch();
   }
   dispose(): void {
     this.disposed = true;
+    // A late answer of the worker finds no turn and lands nothing.
+    this.turn = null;
+    this.progress = null;
+    this.stage?.pace(1);
+    this.stage = null;
     this.paused = false;
-    this.resume?.();
-    this.resume = null;
-    this.resumeGate = null;
     this.onChange = null;
     this.onResolution = null;
   }
@@ -571,10 +622,14 @@ export class MapBattle {
     }
     this.touch();
   }
-  async phase(): Promise<void> {
-    if (this.paused || this.disposed) return;
+  /**
+   * phase confirms the player's orders. The orders resolve once both sides are ready: at once where the computer
+   * has confirmed already, else when it does (tick). A side without a computer gives no orders.
+   */
+  phase(): Promise<void> {
+    if (this.paused || this.disposed) return Promise.resolve();
     if (this.cycle !== undefined) {
-      if (!this.canAct()) return;
+      if (!this.canAct()) return Promise.resolve();
       this.clearSelection();
       try {
         this.cycle.confirm(this.side);
@@ -582,71 +637,26 @@ export class MapBattle {
         this.refused(e);
       }
       this.touch();
-      return;
+      return Promise.resolve();
     }
-    if (this.planning) {
-      if (
-        !play.ready(this.session, this.side) &&
-        play.ended(this.session) === null
-      ) {
-        play.confirm(this.session, this.side);
-        this.touch();
-      }
-      return;
-    }
-    if (!this.canAct()) return;
+    if (!this.canAct()) return Promise.resolve();
     this.clearSelection();
-    this.planning = true;
-    this.progress = { done: 0, total: 1 };
-    this.touch();
     try {
       play.confirm(this.session, this.side);
       const opponent = 1 - this.side;
-      if (!play.ready(this.session, opponent)) {
-        if (this.computer === undefined) play.confirm(this.session, opponent);
-        else {
-          const commands = await this.computer.commands(
-            this.session,
-            opponent,
-            (done, total) => {
-              this.progress = { done, total };
-              this.touch();
-            },
-          );
-          while (this.isPaused()) await this.resumeGate;
-          if (this.isDisposed()) return;
-          if (play.ended(this.session) !== null) return;
-          play.replay(this.session, commands);
-        }
-      }
-      if (play.ready(this.session, 0) && play.ready(this.session, 1)) {
-        const before: [play.View, play.View] = [
-            play.view(this.session, 0),
-            play.view(this.session, 1),
-          ],
-          events = play.resolve(this.session);
-        this.playback.resolution(
-          before[this.side === 0 ? 0 : 1],
-          play.view(this.session, this.side),
-          events,
-        );
-        this.onResolution?.(before, events);
-        this.status = effectStatus(events, this.side) ?? "Orders resolved.";
-      }
+      if (this.computer === undefined && !play.ready(this.session, opponent))
+        play.confirm(this.session, opponent);
+      this.resolveReady();
     } catch (e) {
-      while (this.isPaused()) await this.resumeGate;
-      if (this.isDisposed()) return;
       if (
         play.ended(this.session) === null &&
         play.ready(this.session, this.side)
       )
         play.unconfirm(this.session, this.side);
       this.refused(e);
-    } finally {
-      this.planning = false;
-      this.progress = null;
-      this.touch();
     }
+    this.touch();
+    return Promise.resolve();
   }
   tick(ms: number): void {
     if (this.paused || this.disposed) return;
@@ -655,8 +665,26 @@ export class MapBattle {
       wasBusy = this.busy();
     this.playback.advance(ms);
     if (active) this.version++;
+    this.computerTick(ms);
     if (scene !== this.playback.scene()?.battle || wasBusy !== this.busy())
       this.onChange?.();
+  }
+  /**
+   * act shows the computer's events of one command on its side's panel: a move rests rest ms on its first hex and
+   * then walks (with rest null it only turns), an order turns the unit to its target. It reports whether a move
+   * rests or walks now.
+   */
+  act(events: readonly play.Event[], rest: number | null): boolean {
+    if (this.disposed) return false;
+    const units = [...this.view().units.values()];
+    for (const e of events) {
+      if (e.kind === play.Moved) {
+        const unit = units.find((u) => u.index === e.unit && u.head === null);
+        if (unit !== undefined) this.playback.move(e, unit, rest);
+      } else this.turnTo(e);
+    }
+    this.refresh();
+    return this.playback.walking();
   }
   /** A peer's order can change the fair map without changing this panel's UI. */
   refresh(): void {
@@ -729,16 +757,16 @@ export class MapBattle {
   ): void {
     for (const e of events) {
       if (unit !== undefined) this.playback.move(e, unit);
-      if (e.kind === play.Ordered || e.kind === play.Tasked) {
-        const [x, y] = hexgrid.center(e.from),
-          [xx, yy] = hexgrid.center(e.to);
-        this.playback.directions.set(
-          e.unit,
-          toward({ x, y }, { x: xx, y: yy }),
-        );
-      }
+      this.turnTo(e);
       this.status = e.text || fallback;
     }
+  }
+  /** turnTo turns the unit of an order towards its target. */
+  private turnTo(e: play.Event): void {
+    if (e.kind !== play.Ordered && e.kind !== play.Tasked) return;
+    const [x, y] = hexgrid.center(e.from),
+      [xx, yy] = hexgrid.center(e.to);
+    this.playback.directions.set(e.unit, toward({ x, y }, { x: xx, y: yy }));
   }
   private movement(): boolean {
     return play.phase(this.session, this.side) === phaseMovement;
@@ -754,12 +782,6 @@ export class MapBattle {
       !play.ready(this.session, this.side)
     );
   }
-  private isPaused(): boolean {
-    return this.paused;
-  }
-  private isDisposed(): boolean {
-    return this.disposed;
-  }
   private touch(): void {
     this.refresh();
     if (!this.disposed) this.cycle?.changed(this.side);
@@ -767,6 +789,139 @@ export class MapBattle {
   private refused(error: unknown): void {
     this.status = error instanceof Error ? error.message : String(error);
     this.touch();
+  }
+  /**
+   * computerTick runs one frame of the computer side: it starts planning once its phase opens and the resolution
+   * has played, takes the worker's answer in after the planning has shown planMinMs, and carries out the commands.
+   */
+  private computerTick(ms: number): void {
+    if (this.computer === undefined || this.cycle !== undefined) return;
+    const s = this.session,
+      opponent = 1 - this.side;
+    if (play.ended(s) !== null) {
+      if (this.turn !== null) this.endTurn();
+      return;
+    }
+    const t = this.turn;
+    if (t === null) {
+      if (play.ready(s, opponent)) this.resolveReady();
+      else if (!this.playback.resolving()) this.plan(false);
+      return;
+    }
+    if (t.commands === null) {
+      t.elapsed += ms;
+      if (
+        t.answer === null ||
+        t.elapsed < (this.playback.reducedMotion ? 0 : planMinMs)
+      )
+        return;
+      if ("error" in t.answer) {
+        this.failed(t, t.answer.error);
+        return;
+      }
+      t.commands = [...t.answer.commands];
+      this.progress = null;
+      this.touch();
+    }
+    this.carryOut(t, t.commands);
+  }
+  /** plan asks the worker for the computer side's commands on a snapshot of the session as it is now. */
+  private plan(retry: boolean): void {
+    const computer = this.computer;
+    if (computer === undefined) return;
+    const t: Turn = { retry, elapsed: 0, answer: null, commands: null };
+    this.turn = t;
+    this.progress = { done: 0, total: 1 };
+    let pending: Promise<play.Command[]>;
+    try {
+      pending = computer.commands(
+        this.session,
+        1 - this.side,
+        (done, total) => {
+          if (this.turn !== t) return;
+          this.progress = { done, total };
+          this.touch();
+        },
+      );
+    } catch (e) {
+      pending = Promise.reject(e instanceof Error ? e : new Error(String(e)));
+    }
+    pending.then(
+      (commands) => {
+        if (this.turn === t) t.answer = { commands };
+      },
+      (error: unknown) => {
+        if (this.turn === t) t.answer = { error };
+      },
+    );
+    this.touch();
+  }
+  /**
+   * carryOut replays the computer's next commands on the live session, one by one up to the next move its panel
+   * walks, once the panel has played the last; after the last command the side confirms.
+   */
+  private carryOut(t: Turn, commands: play.Command[]): void {
+    const stage = this.stage;
+    stage?.pace(play.ready(this.session, this.side) ? actFastSpeed : 1);
+    if (stage?.busy() === true) return;
+    while (commands.length > 0) {
+      const command = commands.slice(0, 1);
+      commands.shift();
+      let events: play.Event[];
+      try {
+        events = play.replay(this.session, command);
+      } catch (e) {
+        this.failed(t, e);
+        return;
+      }
+      if (stage?.act(events, actRestMs) === true) {
+        this.touch();
+        return;
+      }
+    }
+    this.endTurn();
+  }
+  /**
+   * failed plans once more on the session as it is now after a failed planning or command; after a failed retry
+   * the side confirms the orders it has given.
+   */
+  private failed(t: Turn, error: unknown): void {
+    if (!t.retry) {
+      this.stage?.pace(1);
+      this.plan(true);
+      return;
+    }
+    this.status = `Computer side: ${error instanceof Error ? error.message : String(error)}`;
+    this.endTurn();
+  }
+  /** endTurn ends the computer's turn: the side confirms, and the orders resolve if the player is ready too. */
+  private endTurn(): void {
+    const opponent = 1 - this.side;
+    this.turn = null;
+    this.progress = null;
+    this.stage?.pace(1);
+    if (
+      play.ended(this.session) === null &&
+      !play.ready(this.session, opponent)
+    )
+      play.confirm(this.session, opponent);
+    this.resolveReady();
+    this.touch();
+  }
+  /** resolveReady resolves the orders once both sides are ready and plays the resolution back. */
+  private resolveReady(): void {
+    const s = this.session;
+    if (play.ended(s) !== null || !play.ready(s, 0) || !play.ready(s, 1))
+      return;
+    const before: [play.View, play.View] = [play.view(s, 0), play.view(s, 1)],
+      events = play.resolve(s);
+    this.playback.resolution(
+      before[this.side === 0 ? 0 : 1],
+      play.view(s, this.side),
+      events,
+    );
+    this.onResolution?.(before, events);
+    this.status = effectStatus(events, this.side) ?? "Orders resolved.";
   }
 }
 
