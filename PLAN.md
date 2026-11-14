@@ -52,16 +52,18 @@ history.
 
 ### 2. Desktop game: parity and release
 
-- [ ] 2.1 Ownership strips on units and buildings in the desktop game (the web edition draws them; both
-      editions must match); check the composed map by hand in the window, including fractional zoom and 4K/HiDPI.
-- [ ] 2.2 Two humans on one screen and hot-seat in the desktop game (done in the web edition; both editions must
-      match; `gesture.KeySetB` is defined but unused): the left panel takes the mouse and key set A, a second human
-      plays the right panel with key set B (D/C/X/V + Ctrl), both at the same time. This is the original's
-      two-player mode; each side acts in its own mode, and the phase changes once both confirm. Keep the panel
-      state (wells, stages, overlays) per side where cheap. A hot-seat entry in the desktop menu wires up the `2p`
-      setups (every month has one).
-- [ ] 2.3 Screens still missing in the desktop game: handover, credits/help (built: main menu, country
-      selection, news, new units, loading, victory/defeat, leave-battle, save/load, score list);
+- [ ] 2.1 Hand check in the window of the desktop game's ownership strips (building strips and owner-edged unit
+      plates, drawn like the web edition's) on the composed map, including fractional zoom and 4K/HiDPI.
+- [ ] 2.2 Two humans in the desktop game (`-play simultaneous|hotseat`, the menu's two-player entries), what is
+      left:
+      - hand test in the window: key set B on the right panel beside the mouse and key set A, the hot-seat
+        curtain and takeover, the resolution's battles replayed for the second human;
+      - in simultaneous play the right human has no F2/Esc of its own;
+      - a pending hot-seat resolution is not in the save;
+      - typing a `2p` code word does not select two-player mode;
+      - the PLAY setting lasts only for the session.
+- [ ] 2.3 Screens still missing in the desktop game: credits/help (built: main menu, country selection, news,
+      new units, loading, victory/defeat, leave-battle, save/load, score list, hot-seat handover);
       hover/focus/pressed/disabled states and keyboard navigation throughout.
 - [ ] 2.4 Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
       approved exports through `assets/assets.go`. The screen paintings still need native 4× masters and
@@ -86,7 +88,8 @@ history.
         targets and which panel shows the battle against further battle frames;
       - hand test in a window that the OS pointer hides over the human side's map.
 - [ ] 2.6 Sound and music, in both editions (`ebiten/audio` on the desktop).
-- [ ] 2.7 Release binaries via GoReleaser.
+- [ ] 2.7 Release binaries via GoReleaser; waits for 2.4's embedding (the binary reads its art from
+      `build/packs` through `-terrain`/`-screens` and embeds none, so a release today draws plain hexes).
 
 ### 3. Content and levels
 
@@ -94,9 +97,6 @@ history.
 - [ ] 3.2 The level format lacks transporter cargo, ship rears and terrain records that share a look (the
       original rules keep the exact binding through `dosbind.FromOriginal`); scenario setups carry credits
       and builds. CIVIL's mountains, for one, bind the default mountain record, not the original's 71-77.
-- [ ] 3.3 `addRear` places the rears of two EC destroyers of PARTS' `ec` and `2p` setups (1916-02, [39,16] and
-      [42,15]) on one cell (670); it skips the level's units but not rears already placed. Then drop
-      `knownStacked` in `internal/dosbind/dosbind_test.go`.
 - [ ] 3.4 Monthly campaign: remaining work.
       - a balance pass on the merged `ec` and `2p` setups and on Marne's and Ypres' `cp`;
       - Marne's and Ypres' overlays that the original rules drop (a double road, paths on mud and forest);

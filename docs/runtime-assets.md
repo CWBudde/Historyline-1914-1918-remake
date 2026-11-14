@@ -382,5 +382,5 @@ over it, live text in the Go fonts and the button states; without the catalog th
 ## Open
 
 Packs for portraits, animation metadata (all listed in `assets/index.json`) and fonts;
-desktop ownership strips; live pack switching;
+live pack switching;
 art approval and embedding.
