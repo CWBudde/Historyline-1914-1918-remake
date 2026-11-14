@@ -10,6 +10,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/faction"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/settings"
 	"golang.org/x/image/font"
 )
 
@@ -623,5 +624,57 @@ func TestWrapTextFitsWidth(t *testing.T) {
 				t.Errorf("line %q is %d px wide", l, w)
 			}
 		}
+	}
+}
+
+// TestSettingsKept: every game value changed in the menus is kept and a new
+// menu over the same store starts with it; a flag decides its value for the
+// run without being kept.
+func TestSettingsKept(t *testing.T) {
+	maps, err := loadCampaign("../../levels", testSet(t))
+	if err != nil {
+		t.Fatal(err)
+	}
+	store := settings.OpenFile(filepath.Join(t.TempDir(), "settings.json"))
+	s := newShell(maps, matchConfig{opponent: "ai", settings: store})
+	if !s.fights || !s.computer || s.play != localNone || s.limit != 0 || s.scroll != 0 {
+		t.Fatalf("the first run: fights %v, computer %v, play %v, limit %d, scroll %d", s.fights, s.computer, s.play, s.limit, s.scroll)
+	}
+	s.open(pageValues)
+	s.activate(0) // BATTLES SHORT
+	s.activate(2) // PLAYER B PASSIVE
+	s.activate(4) // MOVES 5
+	s.activate(4) // MOVES 10
+	s.activate(5) // TWO HUMANS
+	s.activate(5) // HOT-SEAT
+	s.open(pageControl)
+	s.activate(1) // SCROLLING FAST
+	want := settings.Values{PlayMode: "hotseat", Reduced: true, Opponent: "passive", Limit: 10, Scroll: "fast"}
+	if got := store.Load(); got != want {
+		t.Fatalf("kept %+v, want %+v", got, want)
+	}
+	s = newShell(maps, matchConfig{opponent: "ai", settings: store})
+	if s.fights || s.computer || s.play != localHotseat || moveLimits[s.limit] != 10 || scrollSpeeds[s.scroll].name != "FAST" {
+		t.Fatalf("the next run: fights %v, computer %v, play %v, limit %d, scroll %d", s.fights, s.computer, s.play, s.limit, s.scroll)
+	}
+	if c := s.config(matchConfig{}); !c.reduced || c.opponent != "pass" || c.limit != 10 || c.scroll != 2*scrollSpeed {
+		t.Errorf("the next run's battle: %+v", c)
+	}
+
+	// -reduced-motion=false and -opponent ai override the kept values for
+	// the run; changing another value keeps only that one.
+	s = newShell(maps, matchConfig{opponent: "ai", settings: store, flags: map[string]bool{"reduced-motion": true, "opponent": true}})
+	if !s.fights || !s.computer {
+		t.Fatalf("the flags: fights %v, computer %v", s.fights, s.computer)
+	}
+	s.open(pageValues)
+	s.activate(4) // MOVES 15
+	want.Limit = 15
+	if got := store.Load(); got != want {
+		t.Fatalf("with flags kept %+v, want %+v", got, want)
+	}
+	s.activate(0) // BATTLES SHORT: changed in the menu, so kept
+	if got := store.Load(); got.Reduced != true || got.Opponent != "passive" {
+		t.Errorf("after the menu change: kept %+v", got)
 	}
 }

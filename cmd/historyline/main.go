@@ -30,6 +30,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/settings"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -555,6 +556,8 @@ type matchConfig struct {
 	screens    *screenArt      // the screen catalog for the portraits; nil shows blank photos
 	scores     *scores.Store   // the best scores, opened once; nil keeps none
 	saves      *saves.Store    // the single saved battle; nil keeps none
+	settings   *settings.Store // the menus' game values kept between runs; nil keeps none
+	flags      map[string]bool // the command-line flags given: their values override the kept game values for the run
 	saved      []byte          // a saved battle to resume (dos only); nil starts fresh
 	pending    *saves.Pending  // with saved: the resolution a hot-seat human has not seen yet; nil none
 	terrain    string          // terrain catalog directory, composed per level; "" draws coloured hexes
@@ -706,6 +709,7 @@ func main() {
 	c := matchConfig{
 		set: set, opponent: *opponent, local: local, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, scores: scores.Open(), saves: saves.Open(), levels: *dir,
+		settings: settings.Open(), flags: given,
 	}
 	// The unit art is always there: a battle draws no unit without it.
 	if c.units, err = loadUnitArt(filepath.Join(packsDir, "units")); err != nil {

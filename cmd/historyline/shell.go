@@ -16,6 +16,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/settings"
 )
 
 // The menus around a battle, laid out like the original's: the main menu
@@ -292,6 +293,9 @@ type shell struct {
 	limit    int       // index into moveLimits
 	scroll   int       // index into scrollSpeeds
 
+	settings *settings.Store // the game values kept between runs (settings.go); nil keeps none
+	kept     settings.Values // the values as kept: a flag's value for the run is not among them
+
 	setFullscreen func(bool)  // nil in tests
 	isFullscreen  func() bool // nil in tests
 
@@ -311,8 +315,22 @@ type shell struct {
 	localOn bool                // the battle prepared is the selected month's two-player setup, for two humans
 }
 
+// newShell is the menu over maps with the kept game values; a flag given on
+// the command line (c.flags) decides its value for this run instead.
 func newShell(maps []mapLevel, c matchConfig) *shell {
-	return &shell{maps: maps, fights: !c.reduced, computer: c.opponent != "pass", scores: c.scores, saves: c.saves}
+	s := &shell{maps: maps, scores: c.scores, saves: c.saves, settings: c.settings}
+	s.kept = c.settings.Load()
+	s.setValues(s.kept)
+	if c.flags["reduced-motion"] {
+		s.fights = !c.reduced
+	}
+	if c.flags["opponent"] {
+		s.computer = c.opponent != "pass"
+	}
+	if c.flags["play"] {
+		s.play = c.local
+	}
+	return s
 }
 
 // config is the battle the menus describe: base with the selected map, side
@@ -415,21 +433,21 @@ func (s *shell) buttons() []button {
 		return []button{
 			{
 				r: valueRow(0), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
-				do: func(s *shell) { s.fights = !s.fights },
+				do: func(s *shell) { s.change(func() { s.fights = !s.fights }) },
 			},
 			{r: valueRow(1), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose;", "with two humans, the left panel."}},
 			{
 				r: valueRow(2), label: b, left: true, off: s.play != localNone, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders."},
-				do: func(s *shell) { s.computer = !s.computer },
+				do: func(s *shell) { s.change(func() { s.computer = !s.computer }) },
 			},
 			{r: valueRow(3), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
 			{
 				r: valueRow(4), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
-				do: func(s *shell) { s.limit = (s.limit + 1) % len(moveLimits) },
+				do: func(s *shell) { s.change(func() { s.limit = (s.limit + 1) % len(moveLimits) }) },
 			},
 			{
 				r: valueRow(5), label: mode, left: true, help: [2]string{"Two humans: the right panel on D/C/X/V", "and left Ctrl. Hot-seat: they take turns."},
-				do: func(s *shell) { s.play = (s.play + 1) % 3 },
+				do: func(s *shell) { s.setPlay((s.play + 1) % 3) },
 			},
 			back(pageMain),
 		}
@@ -449,7 +467,7 @@ func (s *shell) buttons() []button {
 			},
 			{
 				r: row(1), label: "SCROLLING  " + scrollSpeeds[s.scroll].name, left: true, help: [2]string{"How fast the arrow keys move the map."},
-				do: func(s *shell) { s.scroll = (s.scroll + 1) % len(scrollSpeeds) },
+				do: func(s *shell) { s.change(func() { s.scroll = (s.scroll + 1) % len(scrollSpeeds) }) },
 			},
 			back(pageMain),
 		}
