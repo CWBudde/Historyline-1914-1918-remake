@@ -41,7 +41,12 @@ fails CI.
 - The layout setting is auto, single or original (`storage/store.ts`). Auto shows the original split screen on a
   wide window (`splitByDefault`) and the single map otherwise: the map fills the viewport, with the panel at the
   side or, upright, an orders board.
-- Two humans on one screen and hot-seat with protected handovers play the `2p` setups.
+- Two humans on one screen and hot-seat with protected handovers play the `2p` setups (`split/match.ts`). On one
+  screen the right human has key set B, Tab as its Escape and F3 as its F2 (`split/keys.ts`). In hot-seat the
+  resolution waits behind the curtain for the next human; the other one sees its battles on its next turn. A code
+  word picks the month and the play mode the setup; a code only a two-player setup has switches one human to two.
+- A save keeps two humans' mode and a hot-seat resolution one of them has not seen yet (`pending`: the game before
+  it and its events in Go's JSON, `split/pending.ts`), as the desktop game does; each edition resumes the other's.
 - The desktop game's keys, the right-click order menu as a long press on touch, tap to select, move and attack;
   a UI scale setting.
 - Saves live in IndexedDB (slots, export and import as a file); settings and best scores beside them.

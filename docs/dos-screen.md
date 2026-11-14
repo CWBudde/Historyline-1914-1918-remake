@@ -102,14 +102,20 @@ The package docs hold the details; this is the map of where each part lives.
   on any of them opens its contents or moves the aimed unit in.
 - **Two humans** (`cmd/historyline/local.go`): the game values' PLAY row (or `-play` with a `2p` setup such
   as `-level 1918-11:2p`) starts the month's two-player setup with no computer side; the phase changes once
-  both humans have confirmed, and neither confirm gives the other's orders. TWO HUMANS plays both panels at
-  once: the left (Central Powers) takes the mouse, key set A and the global keys (F1, Esc, F2), the right
-  (Entente) key set B, D/C/X/V as arrows and the left Ctrl as fire, and confirms with the mode change twice
-  (Ctrl and X). Each human keeps its own cursor, selection, prompt, open view and message. HOT-SEAT plays one
-  side at a time on the mouse and key set A with the other panel black; after each confirm a curtain covers
-  both maps until a key or click takes over, the resolution plays for the human who takes over, and the
-  other one sees it behind its own curtain on its next turn. A save made behind the curtain resumes there
-  (`saves.Envelope.Mode`).
+  both humans have confirmed, and neither confirm gives the other's orders. A code word picks the month and
+  PLAY the setup; a code only a two-player setup has (WYTSC) switches PLAY to TWO HUMANS unless it is
+  HOT-SEAT. TWO HUMANS plays both panels at once: the left (Central Powers) takes the mouse, key set A and
+  the global keys (F1, Esc, F2 and the others), the right (Entente) key set B, D/C/X/V as arrows and the left
+  Ctrl as fire, Tab as its Esc and F3 as its F2, and confirms with the mode change twice (Ctrl and X). Each
+  human keeps its own cursor, selection, prompt, open view and message. HOT-SEAT plays one side at a time on
+  the mouse and key set A with the other panel black; after each confirm a curtain covers both maps until a
+  key or click takes over, the resolution plays for the human who takes over, and the other one sees it
+  behind its own curtain on its next turn. A save keeps the mode and that unseen resolution
+  (`saves.Envelope.Mode`, `Pending`: the game before it and its events, in the JSON the web edition reads too);
+  one made behind the curtain resumes there.
+- **Game values** (`cmd/historyline/settings.go`, `internal/settings`): PLAY, BATTLES, PLAYER B, MOVES and
+  SCROLLING are kept in `settings.json` beside `save.json`; a flag (`-play`, `-opponent`, `-reduced-motion`)
+  decides its value for its run only.
 - **Status wells** (`cmd/historyline/well.go`, font `internal/pixfont`): the unit line (group size,
   experience badge, name, flag) or the side's state message in the panel's colour; the computer plans on a
   `Session.Clone` off the frame (`plan.go`) and its progress bar runs in its well; then its orders are
