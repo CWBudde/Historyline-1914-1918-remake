@@ -98,6 +98,8 @@ export class MapBattle {
   infoUnit: play.UnitView | null = null;
   phasePrompt = false;
   surrenderPrompt = false;
+  /** surrenderKey gives up the battle: F2, the right human's F3 in simultaneous play (split/match.ts). */
+  surrenderKey: "F2" | "F3" = "F2";
   progress: { done: number; total: number } | null = null;
   status = "";
   version = 0;
@@ -609,7 +611,7 @@ export class MapBattle {
     this.phasePrompt = false;
     if (!this.surrenderPrompt) {
       this.surrenderPrompt = true;
-      this.status = "Give up this battle? Press F2 again to confirm.";
+      this.status = `Give up this battle? Press ${this.surrenderKey} again to confirm.`;
       this.touch();
       return;
     }

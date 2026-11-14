@@ -163,6 +163,9 @@ export class SplitInput {
       if (generation === this.generation)
         this.held.set(id, { ...route, camera });
       event.preventDefault();
+    } else if (event.key === "Tab") {
+      // The right human's Escape never moves the focus off the battle.
+      event.preventDefault();
     }
   }
 }

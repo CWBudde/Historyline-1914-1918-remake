@@ -53,3 +53,25 @@ it("routes single-player shortcuts to its human side and excludes browser shortc
   for (const key of ["Tab", "F5", "r", "Meta", "Control"])
     expect(routeKey("single", 1, key, "")).toBeNull();
 });
+it("gives the simultaneous right human Tab as its Escape and F3 as its F2", () => {
+  expect(routeKey("simultaneous", 0, "Tab", "Tab")).toEqual({
+    side: 1,
+    key: "Escape",
+  });
+  expect(routeKey("simultaneous", 0, "F3", "F3")).toEqual({
+    side: 1,
+    key: "F2",
+  });
+  expect(routeKey("simultaneous", 0, "Escape", "Escape")).toEqual({
+    side: 0,
+    key: "Escape",
+  });
+  expect(routeKey("simultaneous", 0, "F2", "F2")).toEqual({
+    side: 0,
+    key: "F2",
+  });
+  for (const side of [0, 1] as const)
+    for (const mode of ["hotseat", "single"] as const)
+      for (const key of ["Tab", "F3"])
+        expect(routeKey(mode, side, key, key)).toBeNull();
+});

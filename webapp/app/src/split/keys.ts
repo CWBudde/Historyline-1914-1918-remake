@@ -39,8 +39,8 @@ const first = new Set([
   "pagedown",
 ]);
 
-/** The second native player uses a cross around C and left Control for fire.
- * Global shortcuts stay with key set A; hot-seat gives A to its recipient. */
+/** The second native player uses a cross around C and left Control for fire, Tab as its Escape and F3 as its
+ * F2. The other global shortcuts stay with key set A; hot-seat gives A to its recipient. */
 export function routeKey(
   mode: Settings["playMode"],
   active: 0 | 1,
@@ -52,6 +52,8 @@ export function routeKey(
     const mapped = keySetB[lower];
     if (mapped !== undefined) return { side: 1, key: mapped };
     if (code === "ControlLeft") return { side: 1, key: " " };
+    if (lower === "tab") return { side: 1, key: "Escape" };
+    if (lower === "f3") return { side: 1, key: "F2" };
   }
   return first.has(lower)
     ? { side: mode === "simultaneous" ? 0 : active, key }

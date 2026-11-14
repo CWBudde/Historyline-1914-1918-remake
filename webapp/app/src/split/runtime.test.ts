@@ -6,6 +6,7 @@ import { Camera } from "../camera.ts";
 import { MapBattle, actRestMs, computerStage } from "../mapBattle.ts";
 import { BattleRuntime } from "../battle/runtime.ts";
 import { SplitRuntime } from "./runtime.ts";
+import { LocalMatch } from "./match.ts";
 import type { Layout } from "../storage/store.ts";
 
 function fixture(layout: Layout = "original") {
@@ -60,14 +61,16 @@ it("shows the split screen in the automatic layout on wide landscape windows onl
 });
 
 /** panels are the two sides' single-map runtimes on one session, each with its own playback and camera, without Pixi. */
-function panels() {
-  const session = play.newSession(shippedLevel("1914-08"), playData, {
-      profile: Full,
-    }),
+function panels(local: LocalMatch | null = null) {
+  const session =
+      local?.session ??
+      play.newSession(shippedLevel("1914-08"), playData, {
+        profile: Full,
+      }),
     grid = level.grid(session.level),
     [width, height] = hexgrid.bounds(grid);
   const panel = (side: 0 | 1) => {
-    const battle = new MapBattle(session, side),
+    const battle = local?.sides[side] ?? new MapBattle(session, side),
       camera = new Camera({ width, height }, { width: 400, height: 300 }),
       runtime = Object.create(BattleRuntime.prototype) as BattleRuntime;
     Object.assign(runtime, {
@@ -86,7 +89,7 @@ function panels() {
     settings: { layout: "original" },
     request: { side: 0 },
     panels: both,
-    local: null,
+    local,
     paused: false,
     stopped: false,
     messages: [],
@@ -258,4 +261,24 @@ it("words the computer's well: planning with its bar, orders under way while it 
     unit: null,
     progress: -1,
   });
+});
+
+it("names F3 in the right human's give-up prompt in simultaneous play, F2 elsewhere", () => {
+  const twoHumans = () =>
+    play.newSession(shippedLevel("1914-08", "2p"), playData, {
+      profile: Full,
+      computer: [false, false],
+    });
+  const match = new LocalMatch(twoHumans(), "simultaneous"),
+    { runtime } = panels(match),
+    [left, right] = match.sides;
+  right.requestSurrender();
+  expect(runtime.well(1).text).toBe("F3: GIVE UP THE BATTLE");
+  expect(right.status).toContain("F3 again");
+  right.cancel();
+  left.requestSurrender();
+  expect(runtime.well(0).text).toBe("F2: GIVE UP THE BATTLE");
+  expect(left.status).toContain("F2 again");
+  const hotseat = new LocalMatch(twoHumans(), "hotseat");
+  expect(hotseat.sides.map((b) => b.surrenderKey)).toEqual(["F2", "F2"]);
 });

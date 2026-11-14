@@ -718,7 +718,7 @@ export class SplitRuntime {
           ? null
           : prompter === side
             ? b.surrenderPrompt
-              ? "F2: GIVE UP THE BATTLE"
+              ? `${b.surrenderKey}: GIVE UP THE BATTLE`
               : this.local?.mode === "simultaneous" && side === 1
                 ? "CTRL+LEFT: END THE PHASE"
                 : "F1: END THE PHASE"

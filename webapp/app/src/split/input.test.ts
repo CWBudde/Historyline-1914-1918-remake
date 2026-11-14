@@ -471,3 +471,20 @@ it("releases an owned key despite a later modifier and removes listeners on disp
   expect(next.shortcuts).toEqual(["0/F1"]);
   expect(s.shortcuts).toEqual([]);
 });
+
+it("gives the right human Tab and F3 in simultaneous play without moving the focus", () => {
+  const s = setup();
+  expect(key("keydown", "Tab", "Tab").defaultPrevented).toBe(true);
+  key("keyup", "Tab", "Tab");
+  expect(key("keydown", "F3", "F3").defaultPrevented).toBe(true);
+  key("keyup", "F3", "F3");
+  expect(s.shortcuts).toEqual(["1/Escape", "1/F2"]);
+  const field = new ElementTarget("INPUT");
+  expect(key("keydown", "Tab", "Tab", { target: field }).defaultPrevented).toBe(
+    false,
+  );
+  s.state.mode = "hotseat";
+  for (const value of ["Tab", "F3"])
+    expect(key("keydown", value, value).defaultPrevented).toBe(false);
+  expect(s.shortcuts).toEqual(["1/Escape", "1/F2"]);
+});

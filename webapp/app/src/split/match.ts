@@ -36,6 +36,7 @@ export class LocalMatch {
       new MapBattle(session, 0, undefined, cycle),
       new MapBattle(session, 1, undefined, cycle),
     ];
+    if (mode === "simultaneous") this.sides[1].surrenderKey = "F3";
     this.syncPause();
   }
   /** A save made at the handover resumes behind the next recipient's curtain. */
