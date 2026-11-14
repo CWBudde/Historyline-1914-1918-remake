@@ -25,10 +25,26 @@ export interface Settings {
   limit: 0 | 5 | 10 | 15 | 20;
 }
 
+/**
+ * SaveEnvelope is internal/saves.Envelope: the map, the side, the game, and for two humans their mode and the
+ * resolution a hot-seat human has not seen yet. A save without the last two writes neither field.
+ */
 export interface SaveEnvelope {
   map: string;
   side: 0 | 1;
   data: string;
+  mode?: "simultaneous" | "hotseat";
+  pending?: SavePending;
+}
+
+/**
+ * SavePending is internal/saves.Pending: the side that has not seen the resolution, the game just before it
+ * (base64) and its events in Go's JSON (split/pending.ts reads and writes them).
+ */
+export interface SavePending {
+  side: 0 | 1;
+  before: string;
+  events: Record<string, unknown>[];
 }
 
 export interface SaveSlot {
@@ -43,10 +59,12 @@ export interface ScoreEntry {
   score: number;
 }
 
-// Large enough for a complete game, bounded before JSON/base64 allocations.
+// Large enough for a complete game, bounded before JSON/base64 allocations. A two-human save may hold a
+// second game and a resolution's events.
 const maxSaveBytes = 8 * 1024 * 1024;
 const maxBase64Length = 4 * Math.ceil(maxSaveBytes / 3);
-const maxEnvelopeLength = maxBase64Length + 2048;
+const maxEventsLength = 4 * 1024 * 1024;
+const maxEnvelopeLength = 2 * maxBase64Length + maxEventsLength + 2048;
 
 function object(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -157,12 +175,7 @@ function base64(bytes: Uint8Array): string {
   return btoa(chunks.join(""));
 }
 
-function envelope(value: unknown): SaveEnvelope {
-  if (!object(value)) throw new Error("Invalid save envelope");
-  const map = label(value.map, "save map");
-  if (value.side !== 0 && value.side !== 1)
-    throw new Error("Invalid save side");
-  const data = value.data;
+function base64Field(data: unknown): string {
   if (
     typeof data !== "string" ||
     data.length === 0 ||
@@ -171,32 +184,96 @@ function envelope(value: unknown): SaveEnvelope {
     /[^A-Za-z0-9+/=]/.test(data)
   )
     throw new Error("Invalid save base64 data");
-  return { map, side: value.side, data };
+  return data;
 }
 
-export function encodeEnvelope(
-  map: string,
-  side: 0 | 1,
-  bytes: Uint8Array,
-): SaveEnvelope {
-  validatePayload(bytes);
-  return envelope({ map, side, data: base64(bytes) });
-}
-
-/** Structural checks only: the caller must load the game against the chosen mission. */
-export function decodeEnvelope(value: SaveEnvelope): Uint8Array {
-  const checked = envelope(value);
+/** payload decodes a base64 game and checks it is a JSON object. */
+function payload(data: string): Uint8Array {
   let binary: string;
   try {
-    binary = atob(checked.data);
+    binary = atob(base64Field(data));
   } catch {
     throw new Error("Invalid save base64 data");
   }
-  if (binary.length > maxSaveBytes || btoa(binary) !== checked.data)
+  if (binary.length > maxSaveBytes || btoa(binary) !== data)
     throw new Error("Invalid save base64 data");
   const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
   validatePayload(bytes);
   return bytes;
+}
+
+/** pending is a valid pending playback, else undefined: a malformed one is dropped and the save still loads. */
+function pending(value: unknown): SavePending | undefined {
+  if (!object(value) || (value.side !== 0 && value.side !== 1))
+    return undefined;
+  const events = value.events;
+  if (!Array.isArray(events) || !events.every((e) => object(e)))
+    return undefined;
+  let before: string;
+  try {
+    before = base64Field(value.before);
+    payload(before);
+    if (JSON.stringify(events).length > maxEventsLength) return undefined;
+  } catch {
+    return undefined;
+  }
+  return { side: value.side, before, events };
+}
+
+function envelope(value: unknown): SaveEnvelope {
+  if (!object(value)) throw new Error("Invalid save envelope");
+  const map = label(value.map, "save map");
+  if (value.side !== 0 && value.side !== 1)
+    throw new Error("Invalid save side");
+  const result: SaveEnvelope = {
+    map,
+    side: value.side,
+    data: base64Field(value.data),
+  };
+  // Two humans' fields are optional: an unknown mode or a malformed pending playback is left out.
+  if (value.mode === "simultaneous" || value.mode === "hotseat")
+    result.mode = value.mode;
+  const kept = pending(value.pending);
+  if (kept !== undefined) result.pending = kept;
+  return result;
+}
+
+/** encodeEnvelope is a save of the game bytes; two humans add their mode and a pending playback. */
+export function encodeEnvelope(
+  map: string,
+  side: 0 | 1,
+  bytes: Uint8Array,
+  local: {
+    mode?: "simultaneous" | "hotseat" | null;
+    pending?: {
+      side: 0 | 1;
+      before: Uint8Array;
+      events: Record<string, unknown>[];
+    } | null;
+  } = {},
+): SaveEnvelope {
+  validatePayload(bytes);
+  const value: Record<string, unknown> = { map, side, data: base64(bytes) };
+  if (local.mode) value.mode = local.mode;
+  if (local.pending) {
+    validatePayload(local.pending.before);
+    value.pending = {
+      side: local.pending.side,
+      before: base64(local.pending.before),
+      events: local.pending.events,
+    };
+  }
+  return envelope(value);
+}
+
+/** Structural checks only: the caller must load the game against the chosen mission. */
+export function decodeEnvelope(value: SaveEnvelope): Uint8Array {
+  return payload(envelope(value).data);
+}
+
+/** decodePendingBefore is the game just before a pending playback's resolution. */
+export function decodePendingBefore(value: SavePending): Uint8Array {
+  return payload(value.before);
 }
 
 export function serializeSave(value: SaveEnvelope): string {

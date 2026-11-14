@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   BrowserStore,
   decodeEnvelope,
+  decodePendingBefore,
   defaultSettings,
   encodeEnvelope,
   parseSave,
@@ -230,4 +231,84 @@ it("round-trips a two-human native envelope without adding presentation settings
 
 it("reports unavailable browser storage instead of pretending saves succeeded", async () => {
   await expect(BrowserStore.open()).rejects.toThrow(/IndexedDB/);
+});
+
+describe("two-human save fields", () => {
+  const data = utf8('{"schema":3}'),
+    before = utf8('{"schema":3,"turn":1}');
+  it("keeps the mode and a pending playback in the native field names", () => {
+    const saved = encodeEnvelope("1914-08:2p", 1, data, {
+      mode: "hotseat",
+      pending: { side: 0, before, events: [{ Kind: 5, Side: 1 }] },
+    });
+    expect(JSON.parse(serializeSave(saved))).toStrictEqual({
+      map: "1914-08:2p",
+      side: 1,
+      data: Buffer.from(data).toString("base64"),
+      mode: "hotseat",
+      pending: {
+        side: 0,
+        before: Buffer.from(before).toString("base64"),
+        events: [{ Kind: 5, Side: 1 }],
+      },
+    });
+    const loaded = parseSave(serializeSave(saved));
+    expect(loaded).toStrictEqual(saved);
+    expect(loaded.pending && decodePendingBefore(loaded.pending)).toEqual(
+      before,
+    );
+    expect(
+      encodeEnvelope("1914-08:2p", 0, data, { mode: null, pending: null }),
+    ).toStrictEqual(encodeEnvelope("1914-08:2p", 0, data));
+  });
+
+  it.each([
+    ["an unknown mode", { mode: "triple" }],
+    ["a mode of another type", { mode: 2 }],
+    ["a null pending", { pending: null }],
+    ["a number for pending", { pending: 5 }],
+    [
+      "a pending of no side",
+      { pending: { side: 2, before: "e30=", events: [] } },
+    ],
+    [
+      "a pending without a game",
+      { pending: { side: 1, before: "", events: [] } },
+    ],
+    [
+      "a pending of bad base64",
+      { pending: { side: 1, before: "e3$=", events: [] } },
+    ],
+    [
+      "a pending game that is no object",
+      { pending: { side: 1, before: "WzFd", events: [] } },
+    ],
+    ["a pending without events", { pending: { side: 1, before: "e30=" } }],
+    [
+      "pending events of no array",
+      { pending: { side: 1, before: "e30=", events: {} } },
+    ],
+    [
+      "pending events of no objects",
+      { pending: { side: 1, before: "e30=", events: [1] } },
+    ],
+  ])("drops %s and still loads the save", (_, extra) => {
+    const text = JSON.stringify({
+      map: "1914-08:2p",
+      side: 0,
+      data: "e30=",
+      ...extra,
+    });
+    expect(parseSave(text)).toStrictEqual({
+      map: "1914-08:2p",
+      side: 0,
+      data: "e30=",
+    });
+  });
+
+  it("reads an old envelope without either field", () => {
+    const old = parseSave('{"map":"1914-08:2p","side":1,"data":"e30="}');
+    expect(old.mode).toBeUndefined();
+    expect(old.pending).toBeUndefined();
+  });
 });

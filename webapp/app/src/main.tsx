@@ -551,6 +551,11 @@ async function bootstrap(): Promise<void> {
           runtime.request.mission.key,
           runtime.saveSide(),
           play.save(runtime.battle.session),
+          // Two humans keep their mode and a hot-seat resolution one of them has not seen yet.
+          {
+            mode: runtime.local?.mode ?? null,
+            pending: runtime.local?.savedPending() ?? null,
+          },
         );
       },
       canSave: () => runtime?.canSave() ?? false,

@@ -17,6 +17,7 @@ import type { UiAssets } from "../ui/assets.ts";
 import type { BattleUIProps } from "../ui/types.ts";
 import type { Point, Rect } from "../camera.ts";
 import { LocalMatch } from "./match.ts";
+import { restorePending } from "./pending.ts";
 import { SplitFrame } from "./frame.ts";
 import {
   layout,
@@ -181,7 +182,10 @@ export class SplitRuntime {
       !session.game.players.some((p) => p.computer)
         ? new LocalMatch(
             session,
-            settings.playMode === "hotseat" ? "hotseat" : "simultaneous",
+            // A saved battle of two humans resumes in its own mode (a desktop save names it too).
+            (request.saved?.mode ?? settings.playMode) === "hotseat"
+              ? "hotseat"
+              : "simultaneous",
             request.side,
           )
         : null;
@@ -255,6 +259,20 @@ export class SplitRuntime {
           },
         );
         made.push(panel);
+      }
+      // A hot-seat resolution one human has not seen yet waits on its panel, which has its scene setting now.
+      const pending = request.saved?.pending;
+      if (local !== null && pending !== undefined) {
+        const kept = restorePending(pending, (before) =>
+          missionSession(
+            request.mission,
+            request.side,
+            { limit: settings.limit, computer: false },
+            data,
+            before,
+          ),
+        );
+        if (kept !== null) local.restore(kept);
       }
       const [a, b] = made;
       if (a === undefined || b === undefined)

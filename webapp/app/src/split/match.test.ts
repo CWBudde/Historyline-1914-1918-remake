@@ -113,8 +113,21 @@ it("blocks both humans during a hot-seat handover, then enables only its recipie
   move(match, 0);
   await match.sides[0].phase();
   expect(match.handover).toBe(1);
+  // The resolution waits behind the curtain for the next human.
+  expect(play.ready(s, 0)).toBe(true);
+  expect(play.ready(s, 1)).toBe(true);
+  expect(match.sides[1].busy()).toBe(false);
+  const confirmed = play.save(s);
+  match.takeOver();
+  expect(play.save(s)).not.toEqual(confirmed);
   expect(play.ready(s, 0)).toBe(false);
   expect(play.ready(s, 1)).toBe(false);
+  // The recipient sees it now; the other human keeps it for its next turn.
+  expect(match.savedPending()?.side).toBe(0);
+  match.sides[1].tick(100_000);
+  await match.sides[1].phase();
+  match.takeOver();
+  expect(match.savedPending()).toBeNull();
 });
 
 it("keeps a handover locked across pause/resume and ignores disposed input", async () => {
