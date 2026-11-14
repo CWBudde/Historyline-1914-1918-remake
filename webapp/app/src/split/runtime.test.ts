@@ -3,7 +3,7 @@ import { ai, hexgrid, level, play } from "@historyline/engine";
 import { Builds, Full } from "../../../engine/src/testing/tables.ts";
 import { playData, shippedLevel } from "../../../engine/src/testing/play.ts";
 import { Camera } from "../camera.ts";
-import { MapBattle, computerStage } from "../mapBattle.ts";
+import { MapBattle, actRestMs, computerStage } from "../mapBattle.ts";
 import { BattleRuntime } from "../battle/runtime.ts";
 import { SplitRuntime } from "./runtime.ts";
 import type { Layout } from "../storage/store.ts";
@@ -92,6 +92,13 @@ function panels() {
     messages: [],
     wrappers: [{ visible: true }, { visible: true }],
     surfaces: [{ hidden: false }, { hidden: false }],
+    slides: [null, null],
+    // A panel shows the hexes in its camera's rectangle.
+    panelShows: (side: 0 | 1, at: hexgrid.Coord) => {
+      const r = both[side].map.camera.visible(),
+        [x, y] = hexgrid.center(at);
+      return x >= r.x && y >= r.y && x < r.x + r.width && y < r.y + r.height;
+    },
     // The whole-cell alignment of the split views takes a camera's move as its intent on the next frame.
     alignViews: () => {},
   });
@@ -143,6 +150,70 @@ it("keeps both panels' views on other events", () => {
   ]);
   runtime.tick(16);
   expect(both.map((p) => centre(p.map.camera))).toEqual(still);
+});
+
+/** longest is side's movable unit and its farthest destination by route. */
+function longest(session: play.Session, side: number) {
+  let best: { u: play.UnitView; to: hexgrid.Coord; n: number } | null = null;
+  for (const u of play.view(session, side).units.values()) {
+    if (u.side !== side || u.head !== null) continue;
+    try {
+      for (const to of play.coords(play.destinations(session, side, u.index))) {
+        const n = play.route(session, side, u.index, to).length;
+        if (best === null || n > best.n) best = { u, to, n };
+      }
+    } catch {
+      /* Units without a legal movement order are skipped. */
+    }
+  }
+  if (best === null) throw Error("no movable unit");
+  return best;
+}
+function shows(camera: Camera, at: hexgrid.Coord): boolean {
+  const r = camera.visible(),
+    [x, y] = hexgrid.center(at);
+  return x >= r.x && y >= r.y && x < r.x + r.width && y < r.y + r.height;
+}
+
+it("slides the computer's panel to its walker and follows the walk, the player's panel stays", () => {
+  const { runtime, both } = panels();
+  Object.assign(runtime, { request: { side: 1 } });
+  const session = both[0].battle.session,
+    { u, to } = longest(session, 0),
+    camera = both[0].map.camera;
+  // The computer's panel looks at the far corner of the map from the unit.
+  const [ux, uy] = hexgrid.center(u.at);
+  camera.centerOn(
+    ux < camera.world.width / 2 ? camera.world.width : 0,
+    uy < camera.world.height / 2 ? camera.world.height : 0,
+  );
+  expect(shows(camera, u.at)).toBe(false);
+  const player = centre(both[1].map.camera);
+  expect(
+    both[0].battle.act(play.move(session, 0, u.index, to), actRestMs),
+  ).toBe(true);
+  // It slides there while the move rests, not in one jump.
+  runtime.tick(16);
+  expect(shows(camera, u.at)).toBe(false);
+  for (let ms = 16; ms < actRestMs; ms += 16) runtime.tick(16);
+  expect(shows(camera, u.at)).toBe(true);
+  // The walk stays in sight to its end.
+  while (both[0].battle.playback.walking()) {
+    runtime.tick(16);
+    const w = both[0].battle.playback.moving();
+    if (w !== null) {
+      const [at] = hexgrid.pixelToHex(
+        level.grid(session.level),
+        w.at.x,
+        w.at.y,
+      );
+      // A slide may take its few frames to catch up with the walker.
+      if (!shows(camera, at)) for (let i = 0; i < 9; i++) runtime.tick(16);
+    }
+  }
+  for (let i = 0; i < 9; i++) runtime.tick(16);
+  expect(shows(camera, to)).toBe(true);
+  expect(centre(both[1].map.camera)).toEqual(player);
 });
 
 it("words the computer's well: planning with its bar, orders under way while it acts, waiting once it confirmed", async () => {

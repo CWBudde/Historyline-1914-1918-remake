@@ -57,6 +57,14 @@ export type PanelView =
   | { kind: "unit"; info: UnitInfo; family: string | null; owner: number };
 
 const sides = [0, 1] as const;
+/** slideMs is how long a panel's camera slides to the computer's walker (split.go slideFrames). */
+const slideMs = (8 * 1000) / 60;
+/** Slide is a panel camera's slide between two world points. */
+interface Slide {
+  from: Point;
+  to: Point;
+  elapsed: number;
+}
 function position(element: HTMLElement, rect: Rect, dpr: number): void {
   Object.assign(element.style, {
     left: `${rect.x / dpr}px`,
@@ -82,6 +90,8 @@ export class SplitRuntime {
   private zoomIntent = 1;
   private intents: [Point | null, Point | null] = [null, null];
   private aligned: [Point | null, Point | null] = [null, null];
+  /** Each panel camera's slide to the computer's walker, or null. */
+  private slides: [Slide | null, Slide | null] = [null, null];
   private alignedZoom: [number, number] = [1, 1];
   private paused = true;
   private stopped = false;
@@ -650,6 +660,7 @@ export class SplitRuntime {
         m.fresh = false;
         this.hooks.changed();
       }
+    this.followComputer(ms);
     if (this.original) this.alignViews();
     for (const side of sides) {
       this.wrappers[side].visible = this.visible(side);
@@ -1137,20 +1148,74 @@ export class SplitRuntime {
       [coord, onMap] = hexgrid.pixelToHex(grid, w.x, w.y);
     if (!onMap) return false;
     if (this.steel) {
-      const o = this.screen.slimOpening(side),
-        c = view.worldToScreen(...hexgrid.center(coord));
-      return (
-        p.x >= o.x &&
-        p.y >= o.y &&
-        p.x < o.x + o.width &&
-        p.y < o.y + o.height &&
-        c.x >= o.x &&
-        c.y >= o.y &&
-        c.x < o.x + o.width &&
-        c.y < o.y + o.height
-      );
+      const o = this.screen.slimOpening(side);
+      if (
+        p.x < o.x ||
+        p.y < o.y ||
+        p.x >= o.x + o.width ||
+        p.y >= o.y + o.height
+      )
+        return false;
     }
-    return view.shows(grid, coord);
+    return this.panelShows(side, coord);
+  }
+  /**
+   * panelShows reports whether side's panel shows the hex at (split.go panelShows): an opening of the plate frame,
+   * or in the slim frame a hex whose centre lies in the panel's opening.
+   */
+  private panelShows(side: 0 | 1, at: hexgrid.Coord): boolean {
+    const view = this.views[side],
+      grid = bind.playable(this.battle.session.board);
+    if (!this.steel) return view.shows(grid, at);
+    const o = this.screen.slimOpening(side),
+      c = view.worldToScreen(...hexgrid.center(at));
+    return (
+      hexgrid.contains(grid, at) &&
+      c.x >= o.x &&
+      c.y >= o.y &&
+      c.x < o.x + o.width &&
+      c.y < o.y + o.height
+    );
+  }
+  /**
+   * followComputer keeps the computer's walker in sight on its panel (split.go followSplit): when the unit resting or
+   * walking there is out of the panel's view, the panel's camera slides to it.
+   */
+  private followComputer(ms: number): void {
+    if (this.local !== null) return;
+    const side = this.request.side === 0 ? 1 : 0,
+      panel = this.panels[side],
+      camera = panel.map.camera;
+    let slide = this.slides[side];
+    if (slide === null && this.original) {
+      const walker = panel.battle.playback.moving();
+      if (walker !== null) {
+        const [at, on] = hexgrid.pixelToHex(
+          bind.playable(panel.battle.session.board),
+          walker.at.x,
+          walker.at.y,
+        );
+        if (on && !this.panelShows(side, at)) {
+          const r = camera.visible(),
+            [x, y] = hexgrid.center(at);
+          slide = {
+            from: { x: r.x + r.width / 2, y: r.y + r.height / 2 },
+            to: { x, y },
+            elapsed: 0,
+          };
+          this.slides[side] = slide;
+        }
+      }
+    }
+    if (slide === null) return;
+    slide.elapsed += ms;
+    const f = this.settings.reduced ? 1 : Math.min(slide.elapsed / slideMs, 1);
+    camera.centerOn(
+      slide.from.x + (slide.to.x - slide.from.x) * f,
+      slide.from.y + (slide.to.y - slide.from.y) * f,
+    );
+    panel.map.dirty = true;
+    if (f >= 1) this.slides[side] = null;
   }
 }
 
