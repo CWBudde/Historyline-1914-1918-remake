@@ -330,6 +330,25 @@ func (g *game) feedSecond(k gesture.Keys) {
 	g.withSeat(1, func() { g.feedGesture(gesture.Input{Keys: k}) })
 }
 
+// forRight runs fn for the right panel's human in simultaneous play: its
+// Tab and F3 do there what Esc and F2 do for the left one. With one human
+// or in hot-seat the keys stay with the side that plays, and fn does not run.
+func (g *game) forRight(fn func()) {
+	if g.dos == nil || g.dos.local != localSimultaneous || g.split == nil {
+		return
+	}
+	g.withSeat(1, fn)
+}
+
+// giveUpKey is the key that gives up the served human's battle: F3 for the
+// right panel in simultaneous play, else F2.
+func (d *dosControl) giveUpKey() string {
+	if d.local == localSimultaneous && d.side == 1 {
+		return "F3"
+	}
+	return "F2"
+}
+
 // curtainInput runs one frame of input behind the curtain: a key or a click
 // arms it, and once nothing is held any more the next human takes over, so
 // the key that took over does not reach the map. It reports whether the

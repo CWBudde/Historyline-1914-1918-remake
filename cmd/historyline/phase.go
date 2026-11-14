@@ -367,7 +367,7 @@ func (g *game) stageWell(side int) (w well, ok bool) {
 	case d.giveUp && own:
 		w.text = "FIRE: BACK TO THE ORDERS"
 		if side == d.side {
-			w.text = "F2: GIVE UP THE BATTLE"
+			w.text = d.giveUpKey() + ": GIVE UP THE BATTLE"
 		}
 	case d.stage == stageBattle && side == d.side:
 		w.text = g.casualties(side, d.fight.ev.Battle)

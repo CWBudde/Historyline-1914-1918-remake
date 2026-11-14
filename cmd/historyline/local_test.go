@@ -2,6 +2,7 @@ package main
 
 import (
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
@@ -317,5 +318,70 @@ func TestSingleHumanUnchanged(t *testing.T) {
 	d.Tick()
 	if d.frozen == nil {
 		t.Error("the passing side did not confirm")
+	}
+}
+
+// TestLocalRightKeys: in simultaneous play Tab and F3 are the right human's
+// Esc and F2: Tab drops its selection, closes its view and leaves its give-up
+// prompt, F3 asks twice to give up the right side; the left human's state
+// stays. One human and hot-seat keep the keys with the side that plays, where
+// Tab and F3 do nothing.
+func TestLocalRightKeys(t *testing.T) {
+	if got := actionsFor(func(k ebiten.Key) bool { return k == ebiten.KeyTab || k == ebiten.KeyF3 }); !slices.Equal(got, []action{actCancelRight, actSurrenderRight}) {
+		t.Fatalf("Tab and F3: actions %v", got)
+	}
+	g, d := newLocalTest(t, localSimultaneous)
+	d.Click(ownUnits(d)[0])
+	left := d.unit
+	g.withSeat(1, func() { d.Click(ownUnits(d)[0]) })
+	if !d.seatOf(1).selected {
+		t.Fatal("the right human could not select a unit")
+	}
+	g.applyAction(actCancelRight)
+	if d.seatOf(1).selected || !d.selected || d.unit != left || d.side != 0 {
+		t.Fatalf("Tab: right selected %v, left selected %v unit %d (want %d), served %d", d.seatOf(1).selected, d.selected, d.unit, left, d.side)
+	}
+	g.split.seats[1].track.Reset()
+	g.split.mode[1] = panelStrategic
+	g.applyAction(actCancelRight)
+	if g.split.mode[1] != panelMap || !d.selected {
+		t.Fatalf("Tab with the right human's view open: mode %v, left selected %v", g.split.mode[1], d.selected)
+	}
+	g.applyAction(actSurrenderRight)
+	if !d.seatOf(1).giveUp || d.giveUp || d.seatOf(0).giveUp {
+		t.Fatalf("F3: right give-up %v, left give-up %v", d.seatOf(1).giveUp, d.giveUp)
+	}
+	var text, msg string
+	g.withSeat(1, func() { text, msg = g.wellOf(1).text, d.Message })
+	if text != "F3: GIVE UP THE BATTLE" || !strings.HasPrefix(msg, "F3 again") {
+		t.Errorf("the right well in its give-up prompt: %q, message %q", text, msg)
+	}
+	g.applyAction(actCancelRight)
+	if d.seatOf(1).giveUp {
+		t.Fatal("Tab did not leave the right human's give-up prompt")
+	}
+	g.applyAction(actSurrenderRight)
+	g.applyAction(actSurrenderRight)
+	if e := d.s.Ended(); e == nil || e.Winner != 0 {
+		t.Fatalf("F3 twice: ended %+v, want the left side the winner", e)
+	}
+
+	for _, m := range []localMode{localNone, localHotseat} {
+		var g *game
+		var d *dosControl
+		if m == localNone {
+			g, d = newSplitTest(t, passPlanner{}, 1280, 720)
+		} else {
+			g, d = newLocalTest(t, m)
+			g.curtainInput(true, false)
+		}
+		d.Click(ownUnits(d)[0])
+		side := d.side
+		g.applyAction(actCancelRight)
+		g.applyAction(actSurrenderRight)
+		g.applyAction(actSurrenderRight)
+		if !d.selected || d.giveUp || d.seats[1-side].giveUp || d.s.Ended() != nil || d.side != side {
+			t.Errorf("%v: Tab and F3 changed the game: selected %v, give-up %v, ended %v", m, d.selected, d.giveUp, d.s.Ended() != nil)
+		}
 	}
 }

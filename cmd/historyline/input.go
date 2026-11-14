@@ -9,18 +9,20 @@ import "github.com/hajimehoshi/ebiten/v2"
 type action int
 
 const (
-	actNone         action = iota
-	actEndTurn             // Python: F1 (handleChangeMode)
-	actCancel              // Python: Escape closes the mode/menu; here it also clears the selection
-	actSelectHex           // Python: Space = handleSelection on the cursor hex
-	actViewTop             // Python: PageUp, mapView = [0, 0]
-	actViewBottom          // Python: PageDown, mapView = [0, 24]
-	actQuit                // Python: Q
-	actToggleMotion        // new: reduced-motion toggle
-	actFullscreen          // new: F11 toggles fullscreen
-	actScenes              // new: F9 turns the battle scenes off or on
-	actSurrender           // new: F2 (twice) gives up the battle
-	actOrigTiles           // new: F8 cycles the map designs: backdrop, terrain tiles, original tiles (design.go)
+	actNone           action = iota
+	actEndTurn               // Python: F1 (handleChangeMode)
+	actCancel                // Python: Escape closes the mode/menu; here it also clears the selection
+	actSelectHex             // Python: Space = handleSelection on the cursor hex
+	actViewTop               // Python: PageUp, mapView = [0, 0]
+	actViewBottom            // Python: PageDown, mapView = [0, 24]
+	actQuit                  // Python: Q
+	actToggleMotion          // new: reduced-motion toggle
+	actFullscreen            // new: F11 toggles fullscreen
+	actScenes                // new: F9 turns the battle scenes off or on
+	actSurrender             // new: F2 (twice) gives up the battle
+	actOrigTiles             // new: F8 cycles the map designs: backdrop, terrain tiles, original tiles (design.go)
+	actCancelRight           // new: Tab is the right human's Esc in simultaneous play (local.go)
+	actSurrenderRight        // new: F3 is the right human's F2 in simultaneous play
 )
 
 type keyBinding struct {
@@ -44,6 +46,8 @@ var keyBindings = []keyBinding{
 	{ebiten.KeyF9, actScenes},
 	{ebiten.KeyF2, actSurrender},
 	{ebiten.KeyF8, actOrigTiles},
+	{ebiten.KeyTab, actCancelRight},
+	{ebiten.KeyF3, actSurrenderRight},
 }
 
 // actionsFor returns the actions of all keys for which pressed reports true.
@@ -100,6 +104,14 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 		}
 	case actOrigTiles:
 		ui.Message = g.cycleDesign()
+	case actCancelRight:
+		g.forRight(func() {
+			if !g.closeGestures() {
+				g.dos.Cancel()
+			}
+		})
+	case actSurrenderRight:
+		g.forRight(func() { g.dos.Surrender() })
 	case actNone:
 	case actQuit:
 		return false

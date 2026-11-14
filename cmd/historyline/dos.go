@@ -461,9 +461,9 @@ func (d *dosControl) attack(to hexgrid.Coord) {
 	}
 }
 
-// Surrender (F2) asks to give up the battle and, asked again, gives it
-// up: the other side wins by surrender and its scene plays. Fire or Esc
-// in between goes back to the orders.
+// Surrender (F2, the right human's F3 in simultaneous play) asks to give up
+// the battle and, asked again, gives it up: the other side wins by surrender
+// and its scene plays. Fire or Esc in between goes back to the orders.
 func (d *dosControl) Surrender() {
 	d.clear()
 	switch {
@@ -474,7 +474,7 @@ func (d *dosControl) Surrender() {
 	case !d.giveUp:
 		d.prompt = false
 		d.giveUp = true
-		d.Message = "F2 again gives up the battle, fire goes back"
+		d.Message = d.giveUpKey() + " again gives up the battle, fire goes back"
 	default:
 		d.giveUp = false
 		for _, ev := range d.s.Surrender(d.side) {
